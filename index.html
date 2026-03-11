@@ -336,7 +336,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .order-consumable-row:last-child { border-bottom: none; }
 .order-consumable-row__info { flex: 1; min-width: 0; }
 .order-consumable-row__name { font: var(--mobile-sublabel); color: var(--color-base-text-onlight); }
+.order-consumable-row__rest { font: var(--mobile-sublabel-subdued); color: var(--color-base-text-onlight); }
 .order-consumable-row__quota { font: var(--mobile-sublabel-subdued); color: var(--color-disabled-text); margin-top: 2px; }
+.order-consumable-row__unavailable { font: var(--mobile-sublabel-subdued); display: inline-flex; align-items: center; gap: 6px; margin-top: 4px; color: var(--banana-700); }
+.order-consumable-row__unavailable svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* Step 2: Delivery */
 .radio-group { display: flex; flex-direction: column; gap: var(--space-2xs); }
@@ -1339,36 +1342,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 // ── Equipment data ─────────────────────────────────────────
 const EQUIPMENT = [
   { id:'cpap', name:'CPAP', model:'Airsense 11 Autoset', consumables:[
-    { name:'Slange CPAP m/varmetråd ClimateLine 11 CPAP Airsense 11', quota:'' },
+    { name:'Slange CPAP m/varmetråd ClimateLine 11 CPAP Airsense 11', quota:'', nextOrderDate:'2026-04-15' },
     { name:'Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]', quota:'' },
     { name:'Maske NIV helmaske AirFit F30i str. S', quota:'' },
     { name:'Vannkammer fuktekammer CPAP HumidAir 11', quota:'' },
   ]},
   { id:'oksygen-baerbar', name:'Bærbar oksygenkonsentrator', model:'Inogen Rove 6', consumables:[
-    { name:'Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen', quota:'' },
+    { name:'Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen', quota:'', nextOrderDate:'2026-05-05' },
     { name:'Kateter oksygen nesekateter dobbelt 6 lpm 1,2 m Low flow voksen', quota:'' },
   ]},
   { id:'oksygen-stasjonaer', name:'Stasjonær oksygenkonsentrator', model:'EverFlo Q', consumables:[
     { name:'Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen', quota:'' },
     { name:'Kateter oksygen nesekateter dobbelt 6 lpm 1,2 m Low flow voksen', quota:'' },
-    { name:'Slange oksygen tilførselsslange "Crush resistant" 15,2 meter', quota:'' },
+    { name:'Slange oksygen tilførselsslange "Crush resistant" 15,2 meter', quota:'', nextOrderDate:'2026-05-03' },
     { name:'Swivel/adapter oksygenslange u/klips', quota:'' },
     { name:'Filter luftinntak oksygenkonsentrator Everflo grov 5 stk/pk', quota:'' },
   ]},
   { id:'forstover', name:'Forstøverapparat', model:'NebulAIR+', consumables:[
-    { name:'Maske forstøverapparat NebulAir Plus voksen', quota:'' },
+    { name:'Maske forstøverapparat NebulAir Plus voksen', quota:'', nextOrderDate:'2026-04-28' },
     { name:'Slange forstøverapparat NebulAir Plus 2 m', quota:'' },
     { name:'Filter luftinntak Forstøverapparat NebulAir Plus', quota:'' },
     { name:'Strikk elastisk til maske NebulAir forstøver', quota:'' },
     { name:'Filter ekspirasjon antibiotika forstøverapparat Nebulair 10 stk/pk', quota:'' },
   ]},
   { id:'cgm', name:'CGM', model:'FreeStyle Libre 3 avleser', consumables:[
-    { name:'Sensor/sender CGM Freestyle Libre 3 Plus', quota:'' },
+    { name:'Sensor/sender CGM Freestyle Libre 3 Plus', quota:'', nextOrderDate:'2026-04-08' },
     { name:'Desinfeksjon Klorhexidinsprit 5 mg/ml 250 ml', quota:'' },
   ]},
   { id:'insulin-pumpe', name:'Diabetes patch-pumpe', model:'OmniPod DASH PDM', consumables:[
     { name:'Plaster film PodPals OmniPod [Frp 10 stk/pk]', quota:'' },
-    { name:'Insulinpumpe patchpumpe POD engangs Omnipod Dash [Frp 10 stk/pk]', quota:'' },
+    { name:'Insulinpumpe patchpumpe POD engangs Omnipod Dash [Frp 10 stk/pk]', quota:'', nextOrderDate:'2026-05-10' },
   ]},
 ];
 
@@ -1406,6 +1409,12 @@ function showFront() {
   document.getElementById('viewFront').hidden = false;
   document.getElementById('viewOrder').hidden = true;
   document.getElementById('viewHistory').hidden = true;
+  // Collapse all equipment cards
+  document.querySelectorAll('.equipment-card--open').forEach(card => {
+    card.classList.remove('equipment-card--open');
+    card.querySelector('.equipment-card__toggle').setAttribute('aria-expanded', 'false');
+    card.querySelector('.equipment-card__body').hidden = true;
+  });
   requestAnimationFrame(scrollTop);
 }
 
@@ -1480,6 +1489,19 @@ function goBack() {
 }
 
 // ── Step 1: render machine + qty controls ──────────────────
+const WAIT_BADGE_SVG = `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none"><circle cx="8" cy="8" r="8" fill="#AB7C00"/><line x1="8" y1="4.5" x2="8" y2="8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="1" fill="#fff"/></svg>`;
+
+function getUnavailableDate(eqId, i, c) {
+  const key = `${eqId}-${i}`;
+  const now = new Date();
+  if (orderedDates[key] && orderedDates[key] > now) return orderedDates[key];
+  if (c.nextOrderDate) {
+    const d = new Date(c.nextOrderDate);
+    if (d > now) return d;
+  }
+  return null;
+}
+
 function renderStep1(focusId) {
   const ICON = 'https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04';
   let html = '';
@@ -1494,10 +1516,26 @@ function renderStep1(focusId) {
         </div>
       </div>
       <div class="order-machine__body">
-        ${eq.consumables.map((c, i) => `
+        ${eq.consumables.map((c, i) => {
+          const spaceIdx = c.name.indexOf(' ');
+          const typePart = spaceIdx === -1 ? c.name : c.name.slice(0, spaceIdx);
+          const restPart = spaceIdx === -1 ? '' : c.name.slice(spaceIdx + 1);
+          const unavailDate = getUnavailableDate(eq.id, i, c);
+          if (unavailDate) {
+            return `
         <div class="order-consumable-row">
           <div class="order-consumable-row__info">
-            <div class="order-consumable-row__name">${c.name}</div>
+            <div class="order-consumable-row__name">${typePart}</div>
+            ${restPart ? `<div class="order-consumable-row__rest">${restPart}</div>` : ''}
+            <div class="order-consumable-row__unavailable">${WAIT_BADGE_SVG}kan ikke bestilles før ${formatNorwegianDate(unavailDate)}</div>
+          </div>
+        </div>`;
+          }
+          return `
+        <div class="order-consumable-row">
+          <div class="order-consumable-row__info">
+            <div class="order-consumable-row__name">${typePart}</div>
+            ${restPart ? `<div class="order-consumable-row__rest">${restPart}</div>` : ''}
             ${c.quota ? `<div class="order-consumable-row__quota">${c.quota}</div>` : ''}
           </div>
           <div class="qty-control">
@@ -1505,7 +1543,8 @@ function renderStep1(focusId) {
             <span class="qty-display" id="qty-${eq.id}-${i}">0</span>
             <button class="qty-btn" onclick="changeQty(this,'${eq.id}',${i},1)" aria-label="Øk antall">+</button>
           </div>
-        </div>`).join('')}
+        </div>`;
+        }).join('')}
       </div>
     </div>`;
   });
