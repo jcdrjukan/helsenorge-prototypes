@@ -1737,11 +1737,11 @@ function showConfirmation(orderId, delivery) {
   if (delivery === 'hentes') {
     const pickup = new Date();
     pickup.setDate(pickup.getDate() + 2);
-    msg = `Bestillingen er mottatt og kan hentes på sentralen etter ${formatNorwegianDate(pickup)}. Åpningstid 08:00–17:00.`;
+    msg = `Bestillingen er mottatt og kan hentes på sentralen etter ${formatNorwegianDate(pickup)}. Åpningstid 08:00–17:00.<br>Behandlingshjelpemidler, Kirkeveien 123, Trondheim.<br>Telefon: 987 65 432`;
   } else {
     msg = 'Bestillingen er mottatt og behandles. Forventet levering 3–5 virkedager. Denne meldingen forsvinner når ordren er levert.';
   }
-  document.getElementById('confirmationText').textContent = msg;
+  document.getElementById('confirmationText').innerHTML = msg;
   panel.style.display = 'flex';
 }
 
