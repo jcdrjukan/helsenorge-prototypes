@@ -219,7 +219,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .btn-primary {
   display: flex; align-items: center; justify-content: center; gap: var(--space-2xs);
   background: var(--color-action-background-onlight); color: #fff;
-  border: none; border-radius: var(--radius-m); padding: var(--space-xs) var(--space-m);
+  border: none; border-radius: var(--radius-m); padding: var(--space-xs) var(--space-m); min-height: 44px;
   font: var(--mobile-label); cursor: pointer; width: auto; transition: background 0.15s;
 }
 .btn-primary:hover { background: var(--color-action-background-onlight-hover); }
@@ -237,6 +237,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .btn-outline:hover { border-color: var(--color-action-border-onlight-hover); background: var(--color-action-background-transparent-onlight-hover); }
 .btn-outline svg { width: 18px; height: 18px; }
+
+.order-cancel-link {
+  font: var(--mobile-label-subdued); color: var(--color-action-text-onlight);
+  text-decoration: underline; text-underline-offset: 3px; background: none;
+  border: none; cursor: pointer; padding: 0; align-self: center; margin-top: var(--space-2xs);
+}
 
 .btn-borderless {
   display: inline-flex; align-items: center; gap: var(--space-3xs);
@@ -1101,6 +1107,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         Neste
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
+      <button class="order-cancel-link" onclick="showFront()">Avbryt</button>
     </div>
 
     <!-- ── STEP 2: Levering ── -->
@@ -1142,6 +1149,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         Neste
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
+      <button class="btn-outline" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Forrige
+      </button>
     </div>
 
     <!-- ── STEP 3: Kommentar ── -->
@@ -1155,6 +1166,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         Neste
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
       </button>
+      <button class="btn-outline" onclick="goBack()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Forrige
+      </button>
     </div>
 
     <!-- ── STEP 4: Bekreft bestilling ── -->
@@ -1163,6 +1178,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div id="step4Content"></div>
       <button class="btn-primary" onclick="submitOrder()">
         Bekreft og send bestilling
+      </button>
+      <button class="btn-outline" onclick="goToStep(1)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 18 9 12 15 6"/></svg>
+        Endre bestilling
       </button>
     </div>
 
@@ -1572,9 +1591,8 @@ function renderStep4() {
 
   const deliveryHtml = `<div class="summary-section"><div class="summary-section__header">Levering</div><div class="summary-section__body">${addr}</div></div>`;
   const commentHtml = comment ? `<div class="summary-section"><div class="summary-section__header">Kommentar</div><div class="summary-section__body">${comment}</div></div>` : '';
-  const editHtml = `<button class="btn-borderless" onclick="goToStep(1)"><span class="btn-borderless__text">Endre bestilling</span><div class="btn-borderless__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg></div></button>`;
 
-  document.getElementById('step4Content').innerHTML = itemsHtml + deliveryHtml + commentHtml + editHtml;
+  document.getElementById('step4Content').innerHTML = itemsHtml + deliveryHtml + commentHtml;
 }
 
 // ── Submit order ───────────────────────────────────────────
