@@ -1,0 +1,1744 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gravid – Helsenorge</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+<style>
+/* ─────────────────────────────────────────────────────────────
+   FRANKENSTEIN / HELSENORGE DESIGN SYSTEM TOKENS
+   Source: github.com/helsenorge/designsystem
+───────────────────────────────────────────────────────────── */
+:root {
+  /* Palette – Blueberry (primary brand) */
+  --blueberry-50:  #E4F7F9;
+  --blueberry-100: #CAE7ED;
+  --blueberry-200: #AFDAE3;
+  --blueberry-300: #7ABECC;
+  --blueberry-500: #188097;
+  --blueberry-600: #126F87;
+  --blueberry-700: #08667C;
+  --blueberry-800: #06596C;
+  --blueberry-900: #084350;
+
+  /* Palette – Cherry */
+  --cherry-50:  #FFF2EA;
+  --cherry-100: #F7E1D2;
+  --cherry-200: #EEC0A5;
+  --cherry-500: #C83521;
+  --cherry-600: #B62E1C;
+  --cherry-700: #A31F0E;
+
+  /* Palette – Banana */
+  --banana-50:  #FDF8DF;
+  --banana-100: #FCF2BF;
+  --banana-200: #F9EA9F;
+  --banana-300: #F5E080;
+  --banana-400: #EBC840;
+  --banana-700: #AB7C00;
+  --banana-800: #916500;
+
+  /* Palette – Kiwi */
+  --kiwi-50:  #E6F8EE;
+  --kiwi-700: #0CA161;
+  --kiwi-800: #099150;
+  --kiwi-900: #078141;
+
+  /* Palette – Plum */
+  --plum-600: #6A2ABF;
+  --plum-700: #5B22A6;
+  --plum-800: #4C1B8C;
+  --plum-900: #3C1471;
+
+  /* Palette – Neutral */
+  --neutral-50:  #F5F3F3;
+  --neutral-100: #EAE7E7;
+  --neutral-200: #D6D4D3;
+  --neutral-300: #BDBAB9;
+  --neutral-400: #AAA8A6;
+  --neutral-500: #989693;
+  --neutral-600: #7D7C79;
+  --neutral-700: #62625F;
+  --neutral-800: #474745;
+  --neutral-900: #2B2C2B;
+
+  /* Semantic – Action */
+  --color-action-graphics-onlight:                    #188097;
+  --color-action-graphics-onlight-hover:              #126F87;
+  --color-action-text-onlight:                        #126F87;
+  --color-action-text-onlight-hover:                  #08667C;
+  --color-action-border-onlight:                      #188097;
+  --color-action-border-onlight-hover:                #08667C;
+  --color-action-border-onlight-focus:                #000000;
+  --color-action-background-onlight:                  #188097;
+  --color-action-background-onlight-hover:            #08667C;
+  --color-action-background-onlight-active:           #06596C;
+  --color-action-background-stroke-onlight:           #126F87;
+  --color-action-background-transparent-onlight-hover: rgba(18,111,135,0.13);
+
+  /* Semantic – Base */
+  --color-base-text-onlight:             #000000;
+  --color-base-text-ondark:              #ffffff;
+  --color-base-text-onlight-subdued:     #474745;
+  --color-base-border-onlight:           #7D7C79;
+  --color-base-border-onlight-subtle:    #D6D4D3;
+  --color-base-background-blueberry:     #E4F7F9;
+  --color-base-background-cherry:        #FFF2EA;
+  --color-base-background-neutral:       #F5F3F3;
+  --color-base-background-dark-neutral:  #2B2C2B;
+  --color-base-background-dark-blueberry:#188097;
+  --color-base-background-dark-cherry:   #C83521;
+
+  /* Semantic – Notification */
+  --color-notification-background-info:    #E4F7F9;
+  --color-notification-border-info:        #08667C;
+  --color-notification-graphics-info:      #08667C;
+  --color-notification-text-info:          #08667C;
+  --color-notification-background-error:   #FFF2EA;
+  --color-notification-border-error:       #A31F0E;
+  --color-notification-background-warning: #FDF8DF;
+  --color-notification-border-warning:     #AB7C00;
+  --color-notification-background-success: #E6F8EE;
+  --color-notification-border-success:     #078141;
+  --color-notification-status-error:       #C83521;
+
+  /* Semantic – Disabled */
+  --color-disabled-text:     #62625F;
+  --color-disabled-border:   #7D7C79;
+  --color-disabled-graphics: #62625F;
+
+  /* Semantic – Destructive */
+  --color-destructive-graphics-normal: #C83521;
+  --color-destructive-text-normal:     #B62E1C;
+
+  /* Semantic – Help */
+  --color-help-graphics-normal: #5C27A1;
+  --color-help-border-normal:   #5C27A1;
+
+  /* Component – ListElements */
+  --component-listelements-background-neutral-light:  #F5F3F3;
+  --component-listelements-background-neutral-medium: #EAE7E7;
+  --component-listelements-border-neutral-normal:     #7D7C79;
+  --component-listelements-border-neutral-light:      #EAE7E7;
+
+  /* Component – StickyNote */
+  --component-stickynote-background-normal-light:  #FDF8DF;
+  --component-stickynote-background-normal-medium: #FCF2BF;
+  --component-stickynote-background-fold-normal-light:  #FCF2BF;
+  --component-stickynote-background-fold-normal-medium: #F9EA9F;
+  --component-stickynote-border-normal:            #916500;
+
+  /* Component – StatusDot */
+  --component-statusdot-graphics-cherry-onlight: #A31F0E;
+
+  /* Placeholder */
+  --color-placeholder-text-onlight: #62625F;
+
+  /* Spacers (8-point base) */
+  --space-4xs: 0.125rem;  /*  2px */
+  --space-3xs: 0.25rem;   /*  4px */
+  --space-2xs: 0.5rem;    /*  8px */
+  --space-xs:  0.75rem;   /* 12px */
+  --space-s:   1rem;      /* 16px */
+  --space-m:   1.5rem;    /* 24px */
+  --space-l:   2rem;      /* 32px */
+  --space-xl:  3rem;      /* 48px */
+  --space-2xl: 4rem;      /* 64px */
+
+  /* Typography – Mobile scale */
+  --mobile-h1: 600 2rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-h2: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-h3: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
+  --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
+  --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-label-subdued: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-sublabel: 600 1rem/120% 'Source Sans 3', sans-serif;
+  --mobile-sublabel-subdued: 400 1rem/120% 'Source Sans 3', sans-serif;
+  --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-body-strong: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-help-text: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-help-trigger-text: 600 1rem/120% 'Source Sans 3', sans-serif;
+
+  /* Border radius */
+  --radius-s:  4px;
+  --radius-m:  8px;
+  --radius-l:  16px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Focus ring */
+  --focus-outline: 3px solid #000000;
+  --focus-offset:  2px;
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  background: var(--neutral-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-s);
+}
+
+/* ─── App shell ──────────────────────────────────────────── */
+.app {
+  background: var(--color-base-background-white, #fff);
+  width: 360px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER  (Helsenorge global nav pattern)
+══════════════════════════════════════════════════════════════ */
+.header {
+  background: var(--color-base-background-cherry);
+  width: 100%;
+}
+
+.header__top {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-xs);
+  height: 56px;
+}
+
+.header__left {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+}
+
+/* Logo */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.logo__mark {
+  width: 34px;
+  height: 34px;
+  background: var(--color-action-background-onlight);
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.logo__mark svg { width: 20px; height: 20px; color: #fff; }
+
+.logo__text {
+  font: var(--mobile-sublabel);
+  color: var(--blueberry-900);
+  letter-spacing: -0.01em;
+}
+
+/* Icon button (Meny, Søk, Logg ut) */
+.icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-3xs);
+  border-radius: var(--radius-m);
+  color: var(--color-base-text-onlight);
+  text-decoration: none;
+}
+
+.icon-btn:hover { background: var(--color-action-background-transparent-onlight-hover); }
+
+.icon-btn__icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-btn__icon svg { width: 22px; height: 22px; }
+
+.icon-btn__label {
+  font: var(--mobile-sublabel);
+  color: var(--color-base-text-onlight);
+  white-space: nowrap;
+}
+
+/* Profile expander (notification-info style) */
+.profile-bar {
+  background: var(--color-notification-background-info);
+  border-top: 1px solid var(--color-notification-border-info);
+  border-bottom: 1px solid var(--color-notification-border-info);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-xs);
+  cursor: pointer;
+}
+
+.profile-bar__inner {
+  display: flex;
+  flex: 1;
+  gap: var(--space-2xs);
+  align-items: center;
+  min-width: 0;
+}
+
+/* Avatar */
+.avatar {
+  width: 38px;
+  height: 38px;
+  background: var(--blueberry-200);
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--blueberry-800);
+}
+
+.avatar svg { width: 22px; height: 22px; }
+
+.profile-bar__name {
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* StatusDot */
+.status-dot {
+  width: 14px;
+  height: 14px;
+  background: var(--component-statusdot-graphics-cherry-onlight);
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.chevron {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-base-text-onlight);
+  transition: transform 0.2s ease;
+}
+
+.chevron svg { width: 18px; height: 18px; }
+.chevron--up { transform: rotate(180deg); }
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE TITLE
+══════════════════════════════════════════════════════════════ */
+.page-title {
+  width: 344px;
+  padding-top: var(--space-xl);
+}
+
+.page-title h1 {
+  font: var(--mobile-h1);
+  color: var(--color-base-text-onlight);
+}
+
+
+/* ═══════════════════════════════════════════════════════════
+   COUNTDOWN CARD  (Panel pattern)
+══════════════════════════════════════════════════════════════ */
+.countdown-card {
+  width: 336px;
+  background: #fff;
+  border-radius: var(--radius-xl);
+  padding: var(--space-m) var(--space-s) var(--space-l);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.countdown-ring {
+  position: relative;
+  width: 270px;
+  height: 270px;
+}
+
+.countdown-ring__svg {
+  width: 270px;
+  height: 270px;
+  transform: rotate(-90deg);
+}
+
+.countdown-ring__center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3xs);
+}
+
+.countdown-ring__days {
+  font-size: 4rem;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1;
+  color: var(--color-base-text-onlight);
+}
+
+.countdown-ring__label {
+  font: var(--mobile-label-subdued);
+  color: var(--color-base-text-onlight);
+}
+
+.week-bubble {
+  position: absolute;
+  left: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 68px;
+  height: 68px;
+  background: var(--color-action-background-onlight);
+  border-radius: var(--radius-full);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+
+.week-bubble__num {
+  font: var(--mobile-sublabel);
+  line-height: 1.2;
+}
+
+.week-bubble__day {
+  font: var(--mobile-sublabel-subdued);
+  font-size: 0.875rem;
+}
+
+.due-date {
+  margin-top: var(--space-xs);
+  text-align: center;
+}
+
+.due-date__title {
+  font: var(--mobile-image-caption);
+  color: var(--color-base-text-onlight);
+}
+
+.due-date__value {
+  font: var(--mobile-label);
+  font-size: 1.25rem;
+  color: var(--color-base-text-onlight);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SECTION HEADINGS
+══════════════════════════════════════════════════════════════ */
+.section-h2 {
+  width: 344px;
+  font: var(--mobile-h2);
+  color: var(--color-base-text-onlight);
+}
+
+.section-h3 {
+  font: var(--mobile-h3);
+  color: var(--color-base-text-onlight);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WEEKLY ARTICLE  (Figma node 8:469 layout)
+══════════════════════════════════════════════════════════════ */
+.weekly-article {
+  width: 344px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+/* Fetus illustration (layered vectors from Figma node 5:469) */
+.weekly-article__illustration {
+  width: 344px;
+  height: 348px;
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.weekly-article__illustration img {
+  display: block;
+}
+
+/* Caption – indented to align with icon right edge */
+.weekly-article__caption-row {
+  display: flex;
+  padding-left: 69px;
+}
+
+.body-text {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+}
+
+.caption-text {
+  font: var(--mobile-image-caption);
+  color: var(--color-disabled-text);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BORDERLESS BUTTON  (action link with arrow)
+══════════════════════════════════════════════════════════════ */
+.btn-borderless {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2xs) 0;
+  text-decoration: none;
+  color: var(--color-action-text-onlight);
+  border-radius: var(--radius-s);
+}
+
+.btn-borderless:hover { color: var(--color-action-text-onlight-hover); }
+
+.btn-borderless__text {
+  font: var(--mobile-label-subdued);
+  font-weight: 400;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.btn-borderless__icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-borderless__icon svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════════════════
+   SF-MÅL / GROWTH CHART
+══════════════════════════════════════════════════════════════ */
+.sf-section {
+  width: 344px;
+}
+
+.sf-header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-2xs);
+}
+
+.help-trigger {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  background: none;
+  border: none;
+  border-radius: var(--radius-full);
+  color: var(--color-help-graphics-normal);
+  padding: 0;
+}
+
+.help-trigger:hover { background: rgba(92,39,161,0.08); }
+.help-trigger svg { width: 22px; height: 22px; }
+
+.sf-subtitle {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-3xs);
+}
+
+.sf-value-display {
+  font-size: 2.125rem;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  line-height: 1.2;
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-s);
+}
+
+/* Growth chart */
+.growth-chart {
+  width: 100%;
+  height: 196px;
+  position: relative;
+  margin-bottom: var(--space-2xs);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  background: var(--neutral-50);
+  border: 1px solid var(--neutral-100);
+}
+
+.growth-chart svg { width: 100%; height: 100%; }
+
+.measurement-callout {
+  position: absolute;
+  right: var(--space-xs);
+  top: var(--space-xs);
+  background: #fff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  padding: var(--space-2xs) var(--space-xs);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.measurement-callout__meta {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-disabled-text);
+}
+
+.measurement-callout__value {
+  font: var(--mobile-h3);
+  color: var(--color-base-text-onlight);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   QUICK LINKS  (borderless arrow links)
+══════════════════════════════════════════════════════════════ */
+.quick-links {
+  width: 344px;
+  display: flex;
+  flex-direction: column;
+}
+
+.quick-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  padding: var(--space-2xs) 0;
+  color: var(--color-action-text-onlight);
+}
+
+.quick-link:hover { color: var(--color-action-text-onlight-hover); }
+
+.quick-link span {
+  font: var(--mobile-label-subdued);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.quick-link .icon-arrow {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.quick-link .icon-arrow svg { width: 20px; height: 20px; }
+
+/* ═══════════════════════════════════════════════════════════
+   DOCUMENT SECTION
+══════════════════════════════════════════════════════════════ */
+.doc-section { width: 344px; }
+
+.doc-section__description {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-s);
+}
+
+/* Outline button (secondary) */
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: 2px solid var(--color-action-border-onlight);
+  border-radius: var(--radius-m);
+  cursor: pointer;
+  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-2xs);
+  text-decoration: none;
+  color: var(--color-action-text-onlight);
+  margin-bottom: var(--space-xs);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.btn-outline:hover {
+  border-color: var(--color-action-border-onlight-hover);
+  background: var(--color-action-background-transparent-onlight-hover);
+}
+
+.btn-outline__icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-action-graphics-onlight);
+}
+
+.btn-outline__icon svg { width: 22px; height: 22px; }
+
+.btn-outline__text {
+  font: var(--mobile-label);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--color-action-text-onlight);
+  white-space: nowrap;
+}
+
+.doc-section__last-uploaded {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-xs);
+}
+
+/* DOK MINI – Panel variant */
+.dok-mini {
+  width: 338px;
+  background: #fff;
+  border: 2px solid var(--neutral-100);
+  border-radius: var(--radius-s);
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-xs);
+  cursor: pointer;
+  transition: background 0.15s;
+  text-align: left;
+}
+
+.dok-mini:hover { background: var(--neutral-50); }
+
+.dok-mini__pdf-icon {
+  width: 40px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dok-mini__pdf-icon svg { width: 32px; height: 38px; }
+
+.dok-mini__info { flex: 1; min-width: 0; }
+
+.dok-mini__name {
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+}
+
+.dok-mini__date {
+  font: var(--mobile-image-caption);
+  color: var(--color-disabled-text);
+}
+
+.dok-mini__chevron {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-base-text-onlight);
+  flex-shrink: 0;
+}
+
+.dok-mini__chevron svg { width: 16px; height: 16px; }
+
+/* ═══════════════════════════════════════════════════════════
+   LINK LIST  (LinkList component pattern)
+══════════════════════════════════════════════════════════════ */
+.link-list {
+  width: 336px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.link-list__item {
+  background: var(--component-listelements-background-neutral-light);
+  border-top: 1px solid var(--component-listelements-border-neutral-normal);
+  border-bottom: 1px solid var(--component-listelements-border-neutral-normal);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-2xs);
+  text-decoration: none;
+  margin-top: -1px;
+  transition: background 0.12s;
+}
+
+.link-list__item:first-child { margin-top: 0; }
+
+.link-list__item:hover {
+  background: var(--component-listelements-background-neutral-medium);
+}
+
+.link-list__item span {
+  font: var(--mobile-label-subdued);
+  color: var(--color-base-text-onlight);
+  flex: 1;
+}
+
+.link-list__chevron {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--color-base-text-onlight);
+}
+
+.link-list__chevron svg { width: 14px; height: 14px; }
+
+/* ═══════════════════════════════════════════════════════════
+   STICKY NOTE  (StickyNote component pattern = Huskelapper)
+══════════════════════════════════════════════════════════════ */
+.sticky-notes { width: 344px; }
+
+.sticky-notes__header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-bottom: var(--space-2xs);
+}
+
+.sticky-notes__description {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-s);
+}
+
+/* Add note button (outline / small) */
+.btn-add {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: 2px solid var(--color-action-border-onlight);
+  border-radius: var(--radius-m);
+  cursor: pointer;
+  padding: var(--space-3xs) var(--space-s) var(--space-3xs) var(--space-xs);
+  color: var(--color-action-text-onlight);
+  margin-bottom: var(--space-s);
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.btn-add:hover {
+  border-color: var(--color-action-border-onlight-hover);
+  background: var(--color-action-background-transparent-onlight-hover);
+}
+
+.btn-add__icon {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-action-graphics-onlight);
+}
+
+.btn-add__icon svg { width: 22px; height: 22px; }
+
+.btn-add__text {
+  font: var(--mobile-label);
+  font-size: 1.125rem;
+  color: var(--color-action-text-onlight);
+}
+
+/* Note input */
+.note-input-area {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-xs);
+  margin-bottom: var(--space-xs);
+}
+
+.note-input-area.is-open { display: flex; }
+
+.note-input-area textarea {
+  width: 100%;
+  border: 2px solid var(--color-action-border-onlight);
+  border-radius: var(--radius-m);
+  padding: var(--space-xs);
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  resize: vertical;
+  min-height: 80px;
+}
+
+.note-input-area textarea::placeholder { color: var(--color-placeholder-text-onlight); }
+.note-input-area textarea:focus-visible { outline: var(--focus-outline); outline-offset: var(--focus-offset); }
+
+.btn-primary {
+  align-self: flex-start;
+  background: var(--color-action-background-onlight);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-m);
+  padding: var(--space-xs) var(--space-m);
+  font: var(--mobile-label);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btn-primary:hover { background: var(--color-action-background-onlight-hover); }
+
+/* StickyNote card */
+.sticky-note {
+  position: relative;
+  background: var(--component-stickynote-background-normal-light);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+  margin-bottom: var(--space-xs);
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+
+/* Folded corner effect */
+.sticky-note::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 20px;
+  height: 20px;
+  background: linear-gradient(225deg,
+    var(--component-stickynote-background-fold-normal-medium) 50%,
+    var(--component-stickynote-background-normal-medium) 50%);
+  border-top-left-radius: var(--radius-s);
+}
+
+.sticky-note__meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-2xs);
+}
+
+.sticky-note__date {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-disabled-text);
+}
+
+.sticky-note__close {
+  width: 24px;
+  height: 24px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border-radius: var(--radius-full);
+  color: var(--color-base-text-onlight);
+}
+
+.sticky-note__close:hover { background: rgba(0,0,0,0.1); }
+.sticky-note__close svg { width: 14px; height: 14px; }
+
+.sticky-note__text {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  padding-right: var(--space-s);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESTRUCTIVE BUTTON  (exit service)
+══════════════════════════════════════════════════════════════ */
+.exit-btn {
+  width: 344px;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-3xs) 0;
+  text-decoration: none;
+  color: var(--color-action-text-onlight);
+}
+
+.exit-btn__text {
+  font: var(--mobile-label);
+  font-weight: 600;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+══════════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--color-base-background-dark-neutral);
+  width: 100%;
+  padding: var(--space-m) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.footer__row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+}
+
+.footer__icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.footer__icon svg { width: 24px; height: 24px; }
+
+.footer__text-group { flex: 1; }
+
+.footer__text-large {
+  font: var(--mobile-label);
+  font-size: 1.125rem;
+  color: #fff;
+  display: block;
+}
+
+.footer__text-small {
+  font: var(--mobile-image-caption);
+  color: var(--neutral-300);
+  display: block;
+}
+
+.footer__divider {
+  height: 1px;
+  background: var(--neutral-700);
+}
+
+.footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.footer__link {
+  font: var(--mobile-label-subdued);
+  font-size: 1.125rem;
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer__link:hover { text-decoration: underline; }
+
+.footer__lang {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+}
+
+.footer__lang-sep {
+  width: 1px;
+  height: 24px;
+  background: var(--neutral-700);
+}
+
+.footer__brand {
+  font: var(--mobile-h4);
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SPACING UTILITIES
+══════════════════════════════════════════════════════════════ */
+.sp-3xs { height: var(--space-3xs); flex-shrink: 0; width: 100%; }
+.sp-2xs { height: var(--space-2xs); flex-shrink: 0; width: 100%; }
+.sp-xs  { height: var(--space-xs);  flex-shrink: 0; width: 100%; }
+.sp-s   { height: var(--space-s);   flex-shrink: 0; width: 100%; }
+.sp-m   { height: var(--space-m);   flex-shrink: 0; width: 100%; }
+.sp-l   { height: var(--space-l);   flex-shrink: 0; width: 100%; }
+.sp-xl  { height: var(--space-xl);  flex-shrink: 0; width: 100%; }
+
+/* ─── Tag component ──────────────────────────────────────── */
+.tag {
+  display: inline-flex;
+  align-items: center;
+  height: 20px;
+  border: 1px solid var(--color-base-border-onlight);
+  padding: 0 var(--space-xs);
+  font-size: 0.875rem;
+  font-weight: 600;
+  font-family: 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--color-base-text-onlight-subdued);
+  border-radius: 2px;
+}
+
+.tag--blueberry {
+  border-color: var(--color-action-border-onlight);
+  color: var(--blueberry-800);
+}
+
+/* Transition helpers */
+*, *::before, *::after { transition-property: none; }
+.icon-btn, .btn-outline, .btn-add, .btn-primary,
+.link-list__item, .dok-mini, .btn-borderless, .quick-link,
+.sticky-note__close, .help-trigger, .profile-bar {
+  transition-property: background, border-color, color;
+  transition-duration: 0.15s;
+  transition-timing-function: ease;
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ══════════════════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header__top">
+      <div class="header__left">
+        <a class="logo" href="#" aria-label="Helsenorge – til forsiden">
+          <div class="logo__mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+            </svg>
+          </div>
+          <span class="logo__text">helsenorge</span>
+        </a>
+        <button class="icon-btn" aria-label="Åpne meny" aria-expanded="false">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </div>
+          <span class="icon-btn__label">Meny</span>
+        </button>
+        <button class="icon-btn" aria-label="Søk">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <span class="icon-btn__label">Søk</span>
+        </button>
+      </div>
+      <button class="icon-btn" aria-label="Logg ut">
+        <div class="icon-btn__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+        </div>
+        <span class="icon-btn__label">Logg ut</span>
+      </button>
+    </div>
+
+    <!-- Profile expander -->
+    <div class="profile-bar" role="button" tabindex="0" aria-expanded="false" aria-label="Brukermeny for Tora Hansen">
+      <div class="profile-bar__inner">
+        <div class="avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+        </div>
+        <span class="profile-bar__name">Tora Hansen</span>
+        <div class="status-dot" role="img" aria-label="Ny varsling"></div>
+      </div>
+      <div class="chevron" aria-hidden="true" id="profileChevron">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE TITLE
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="page-title">
+    <h1>Gravid</h1>
+  </div>
+
+  <div class="sp-s"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       COUNTDOWN CARD
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="countdown-card" role="region" aria-label="Graviditetsfremdrift">
+    <div class="countdown-ring">
+      <svg class="countdown-ring__svg" viewBox="0 0 270 270" aria-hidden="true" id="countdownSvg">
+        <!-- Background segments -->
+        <circle cx="135" cy="135" r="115" fill="none" stroke="#f0f0f0" stroke-width="16"/>
+        <!-- Q1 blueberry-50 -->
+        <circle cx="135" cy="135" r="115" fill="none" stroke="#E4F7F9" stroke-width="16"
+          stroke-dasharray="180.64 541.92" stroke-dashoffset="0"/>
+        <!-- Q2 cherry-50 -->
+        <circle cx="135" cy="135" r="115" fill="none" stroke="#FFF2EA" stroke-width="16"
+          stroke-dasharray="180.64 541.92" stroke-dashoffset="-180.64"/>
+        <!-- Q3 neutral-50 -->
+        <circle cx="135" cy="135" r="115" fill="none" stroke="#F5F3F3" stroke-width="16"
+          stroke-dasharray="180.64 541.92" stroke-dashoffset="-361.28"/>
+        <!-- Progress -->
+        <circle cx="135" cy="135" r="115" fill="none"
+          stroke="#188097" stroke-width="16"
+          stroke-dasharray="0 722.56" stroke-dashoffset="0"
+          stroke-linecap="round" id="progressArc"/>
+      </svg>
+      <!-- Week bubble -->
+      <div class="week-bubble" aria-hidden="true" id="weekBubble">
+        <span class="week-bubble__num" id="weekBubbleNum">uke 30</span>
+        <span class="week-bubble__day">dag 2</span>
+      </div>
+      <!-- Center -->
+      <div class="countdown-ring__center" aria-hidden="true">
+        <span class="countdown-ring__days" id="countdownDays">67</span>
+        <span class="countdown-ring__label">dager igjen</span>
+      </div>
+    </div>
+    <div class="due-date">
+      <div class="due-date__title">Bekreftet termindato</div>
+      <div class="due-date__value" id="dueDateValue">28.11.2026</div>
+    </div>
+  </div>
+
+  <div class="sp-l"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       WEEKLY ARTICLE
+  ═══════════════════════════════════════════════════════════ -->
+  <h2 class="section-h2" id="weeklyTitle">Hva skjer i uke 30?</h2>
+  <div class="sp-xs"></div>
+
+  <div class="weekly-article">
+    <!-- Fetus illustration (Figma node 5:469 – Uke 31) -->
+    <div class="weekly-article__illustration" role="img" aria-label="Illustrasjon av foster i uke 31">
+      <div style="position:absolute;left:23px;top:25px;width:298px;height:298px;">
+        <img src="https://www.figma.com/api/mcp/asset/f7e3035c-cd8b-44ce-9074-99c3f9eb3bf0" alt="" style="width:100%;height:100%;">
+      </div>
+      <div style="position:absolute;inset:7.89%;">
+        <img src="https://www.figma.com/api/mcp/asset/4e900bec-bf11-4644-b64d-583eaa9ec27d" alt="" style="width:100%;height:100%;">
+      </div>
+      <div style="position:absolute;inset:13.6% 13.92% 13.81% 26.67%;">
+        <img src="https://www.figma.com/api/mcp/asset/c10f7416-1a0f-45a7-820a-f5dad96c5c19" alt="" style="width:100%;height:100%;">
+      </div>
+      <div style="position:absolute;inset:34.53% 13.59% 49.93% 60.26%;">
+        <img src="https://www.figma.com/api/mcp/asset/0e271b6a-fe38-405d-9442-0de0c7a33287" alt="" style="width:100%;height:100%;">
+      </div>
+      <div style="position:absolute;inset:51.5% 7.87% 39.98% 58.79%;">
+        <img src="https://www.figma.com/api/mcp/asset/939fab54-103a-42fc-b609-2d68109ee6b4" alt="" style="width:100%;height:100%;">
+      </div>
+      <div style="position:absolute;inset:12.91% 21.85% 13.79% 26.04%;">
+        <img src="https://www.figma.com/api/mcp/asset/be5a4ca1-9c2c-4a9f-95ec-182e899b146f" alt="" style="width:100%;height:100%;">
+      </div>
+      <div style="position:absolute;inset:44.78% 39.05% 24.31% 33.6%;">
+        <img src="https://www.figma.com/api/mcp/asset/f684904c-9512-463f-86e8-26fb106f57ca" alt="" style="width:100%;height:100%;">
+      </div>
+    </div>
+    <!-- Caption indented to align with icon -->
+    <div class="weekly-article__caption-row">
+      <p class="caption-text" id="weeklyCaption">fosteret er ca 40 cm langt og veier mellom 1600 og 2000 g</p>
+    </div>
+    <!-- Body text full width -->
+    <p class="body-text" id="weeklyText">Fosteret ligner nå et nyfødt barn og kan ha lagt seg til rette med hodet først i bekkenet. Mange kjenner trykk nedover mot bekkenbunnen...</p>
+    <a class="btn-borderless" href="#">
+      <span class="btn-borderless__text" id="readMoreText">Les mer om graviditet uke 30</span>
+      <div class="btn-borderless__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       SF-MÅL / GROWTH CHART
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="sf-section">
+    <div class="sf-header">
+      <h2 class="section-h2" style="width:auto;">Mål av magen</h2>
+      <button class="help-trigger" aria-label="Hva er mål av magen?" title="Symfyse-fundus-mål (SF-mål): avstand fra skambenet til toppen av livmoren, utføres fra ca uke 24">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </button>
+    </div>
+    <p class="sf-subtitle">Utført av helsepersonell fra ca uke 24</p>
+    <div class="sf-value-display" id="sfValue">28cm</div>
+
+    <div class="growth-chart" role="img" aria-label="Vekstkurve – symfyse-fundus-mål">
+      <svg viewBox="0 0 344 196" preserveAspectRatio="none" id="growthSvg">
+        <!-- Grid -->
+        <line x1="32" y1="12" x2="336" y2="12" stroke="#EAE7E7" stroke-width="1"/>
+        <line x1="32" y1="50" x2="336" y2="50" stroke="#EAE7E7" stroke-width="1"/>
+        <line x1="32" y1="88" x2="336" y2="88" stroke="#EAE7E7" stroke-width="1"/>
+        <line x1="32" y1="126" x2="336" y2="126" stroke="#EAE7E7" stroke-width="1"/>
+        <line x1="32" y1="164" x2="336" y2="164" stroke="#EAE7E7" stroke-width="1"/>
+        <!-- Y labels -->
+        <text x="28" y="16" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">45</text>
+        <text x="28" y="54" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">40</text>
+        <text x="28" y="92" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">35</text>
+        <text x="28" y="130" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">30</text>
+        <text x="28" y="168" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">25</text>
+        <!-- X labels -->
+        <text x="64"  y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">24</text>
+        <text x="124" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">28</text>
+        <text x="184" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">32</text>
+        <text x="244" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">36</text>
+        <text x="304" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">40</text>
+        <!-- Normal range band -->
+        <path d="M32,152 C90,148 130,136 184,116 C238,96 286,68 336,46"
+          fill="none" stroke="#AFDAE3" stroke-width="18" opacity="0.5"/>
+        <!-- Upper / lower bounds -->
+        <path d="M32,142 C90,138 130,126 184,106 C238,86 286,58 336,36"
+          fill="none" stroke="#188097" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+        <path d="M32,162 C90,158 130,146 184,126 C238,106 286,78 336,56"
+          fill="none" stroke="#188097" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
+        <!-- Measurement line -->
+        <polyline id="sfLine" points="64,164 124,144 154,128"
+          fill="none" stroke="#188097" stroke-width="2.5"
+          stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- Data points -->
+        <circle cx="64"  cy="164" r="4" fill="#188097"/>
+        <circle cx="124" cy="144" r="4" fill="#188097"/>
+        <circle id="sfDot" cx="154" cy="128" r="5" fill="#188097"/>
+        <!-- Current week line -->
+        <line id="weekLine" x1="154" y1="12" x2="154" y2="164"
+          stroke="#188097" stroke-width="1" stroke-dasharray="4 3" opacity="0.5"/>
+      </svg>
+      <!-- Callout -->
+      <div class="measurement-callout" id="measurementCallout">
+        <div class="measurement-callout__meta">Uke 28 · 25.11.2026</div>
+        <div class="measurement-callout__value" id="sfCalloutValue">28 cm</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Quick links -->
+  <div class="quick-links">
+    <a class="quick-link" href="#">
+      <span>Se hele svangerskapsjournal</span>
+      <div class="icon-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+    <a class="quick-link" href="#">
+      <span>Siste prøver og målinger</span>
+      <div class="icon-arrow" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PAPER HEALTH CARD
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="doc-section">
+    <h2 class="section-h2">Papirhelsekortet og dokumentasjon</h2>
+    <div class="sp-s"></div>
+    <p class="doc-section__description">Her kan du laste opp bilder av ditt helsekort og annen svangerskaps­dokumentasjon slik at du alltid har backup­kopier.</p>
+
+    <a class="btn-outline" href="#">
+      <div class="btn-outline__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <span class="btn-outline__text">Last opp nytt papirhelsekort</span>
+    </a>
+
+    <a class="btn-outline" href="#">
+      <div class="btn-outline__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+      </div>
+      <span class="btn-outline__text">Last opp annet dokument</span>
+    </a>
+
+    <p class="doc-section__last-uploaded">Sist opplastet papirhelsekort:</p>
+  </div>
+
+  <!-- DOK MINI -->
+  <button class="dok-mini">
+    <div class="dok-mini__pdf-icon" aria-hidden="true">
+      <svg viewBox="0 0 32 40" fill="none">
+        <path d="M4 0h16l8 8v32H4z" fill="#fff" stroke="#000" stroke-width="1.5"/>
+        <path d="M20 0l8 8h-8V0z" fill="#474745"/>
+        <text x="5" y="30" font-size="9" font-weight="700" fill="#000" font-family="'Source Sans Pro',sans-serif">PDF</text>
+      </svg>
+    </div>
+    <div class="dok-mini__info">
+      <div class="dok-mini__name">Papirhelsekort</div>
+      <div class="dok-mini__date">18.08.2024</div>
+    </div>
+    <div class="dok-mini__chevron" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </button>
+
+  <div class="sp-3xs"></div>
+  <a class="btn-borderless" href="#" style="width:344px;">
+    <span class="btn-borderless__text">Se alle dine Gravid-dokumenter</span>
+    <div class="btn-borderless__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </a>
+
+  <div class="sp-l"></div>
+
+  <!-- LinkList – resources -->
+  <nav aria-label="Lesestoff og ressurser">
+    <ul class="link-list" role="list">
+      <li role="listitem">
+        <a class="link-list__item" href="#">
+          <span>Om papirhelsekort for gravide</span>
+          <div class="link-list__chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </a>
+      </li>
+      <li role="listitem">
+        <a class="link-list__item" href="#">
+          <span>Lesestoff og verktøy</span>
+          <div class="link-list__chevron" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       HUSKELAPPER  (StickyNote pattern)
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="sticky-notes">
+    <div class="sticky-notes__header">
+      <h2 class="section-h2" style="width:auto;">Huskelapper</h2>
+      <button class="help-trigger" aria-label="Hva er huskelapper?">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </button>
+    </div>
+    <p class="sticky-notes__description">Her kan du notere ting du ønsker å ta opp på neste kontroll.</p>
+
+    <button class="btn-add" onclick="toggleNoteInput()" aria-expanded="false" id="addNoteBtn">
+      <div class="btn-add__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <span class="btn-add__text">Legg til ny</span>
+    </button>
+
+    <!-- Input area -->
+    <div class="note-input-area" id="noteInputArea" role="region" aria-label="Ny huskelapp">
+      <textarea id="noteInput" placeholder="Skriv din huskelapp her..." aria-label="Huskelapp-tekst" rows="3"></textarea>
+      <button class="btn-primary" onclick="saveNote()">Lagre</button>
+    </div>
+
+    <!-- Existing note -->
+    <div class="sticky-note" id="note-default" role="article" aria-label="Huskelapp">
+      <div class="sticky-note__meta">
+        <time class="sticky-note__date" datetime="2024-04-12">12.04.2024 11:14</time>
+        <button class="sticky-note__close" onclick="deleteNote('note-default')" aria-label="Slett huskelapp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p class="sticky-note__text">Burde jeg slutte med mine allergimedisiner?</p>
+    </div>
+
+    <div id="notesContainer"></div>
+  </div>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       PRIVACY
+  ═══════════════════════════════════════════════════════════ -->
+  <h2 class="section-h2">Personvern for Gravid</h2>
+  <div class="sp-m"></div>
+
+  <nav aria-label="Personvern og innstillinger">
+    <ul class="link-list" role="list">
+      <li role="listitem">
+        <a class="link-list__item" href="#"><span>Logg over bruk</span>
+          <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </a>
+      </li>
+      <li role="listitem">
+        <a class="link-list__item" href="#"><span>Personverninnstillinger</span>
+          <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </a>
+      </li>
+      <li role="listitem">
+        <a class="link-list__item" href="#"><span>Melde om feil</span>
+          <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </a>
+      </li>
+      <li role="listitem">
+        <a class="link-list__item" href="#"><span>Personvern og nettsikkerhet</span>
+          <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sp-xl"></div>
+
+  <!-- Exit service -->
+  <a class="exit-btn" href="#">
+    <span class="exit-btn__text">Avslutt tjenesten Gravid</span>
+    <div class="btn-borderless__icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+    </div>
+  </a>
+
+  <div class="sp-m"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="footer__text-group">
+        <span class="footer__text-large">23 32 70 00</span>
+        <span class="footer__text-small">Veiledning helsenorge.no</span>
+      </div>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <span class="footer__text-large">Hjelp og kontakt</span>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="footer__lang">
+        <a href="#" class="footer__link">English</a>
+        <div class="footer__lang-sep"></div>
+        <a href="#" class="footer__link">Sámi</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__links">
+      <a href="#" class="footer__link">Om Helsenorge</a>
+      <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+      <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+    </div>
+    <div class="footer__divider"></div>
+    <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+    <div class="footer__divider"></div>
+    <p class="footer__brand">Drives av Norsk helsenett SF</p>
+  </footer>
+
+</div><!-- /app -->
+
+<script>
+// ─── Week content data ─────────────────────────────────────
+const weekData = {
+  4:  { text: 'Embryoet er knapt synlig – omtrent som et valmuefrø. Hjertet begynner å slå.', caption: 'ca 0,1 cm · 0 g', sfNorm: null },
+  5:  { text: 'De grunnleggende organene begynner å dannes. Nevralrøret lukkes.', caption: 'ca 0,2 cm', sfNorm: null },
+  6:  { text: 'Hjertet slår regelmessig og kan sees på ultralyd. Armer og bein tar form.', caption: 'ca 0,6 cm', sfNorm: null },
+  7:  { text: 'Hender og fingre er under utvikling. Øyne og munn begynner å ta form.', caption: 'ca 1,3 cm', sfNorm: null },
+  8:  { text: 'Alle større organer er på plass. Babyen beveger seg, men du kjenner det ikke ennå.', caption: 'ca 1,6 cm · 1 g', sfNorm: null },
+  9:  { text: 'Tydelige fingre og tær. Hodet er fortsatt stort i forhold til kroppen.', caption: 'ca 2,3 cm · 2 g', sfNorm: null },
+  10: { text: 'Nå offisielt et foster. Alle indre organer er dannet og begynner å fungere.', caption: 'ca 3,1 cm · 4 g', sfNorm: null },
+  11: { text: 'Fosteret kan gjøre griping- og svelgebevegelser. Beinene vokser raskt.', caption: 'ca 4,1 cm · 7 g', sfNorm: null },
+  12: { text: 'De viktigste organene er dannet. Risikoen for spontanabort synker markant.', caption: 'ca 5,4 cm · 14 g', sfNorm: null },
+  13: { text: 'Fosteret kan suge på tommelen. Fingeravtrykk dannes.', caption: 'ca 7,4 cm · 23 g', sfNorm: null },
+  14: { text: 'Ansiktsuttrykkene blir tydeligere. Fosteret kan rynke pannen og strekke seg.', caption: 'ca 8,7 cm · 43 g', sfNorm: null },
+  15: { text: 'Bevegelsene er mer koordinerte. De første sparkene kommer snart.', caption: 'ca 10 cm · 70 g', sfNorm: null },
+  16: { text: 'Fosteret reagerer på lys. Øynene kan bevege seg under de lukkede øyelokkene.', caption: 'ca 11,6 cm · 100 g', sfNorm: null },
+  17: { text: 'Fett legger seg under huden. Skjelettet er i full utvikling.', caption: 'ca 13 cm · 140 g', sfNorm: null },
+  18: { text: 'Du vil snart kjenne de første bevegelsene – som sommerfugler i magen.', caption: 'ca 14,2 cm · 190 g', sfNorm: null },
+  19: { text: 'Sanseorganene utvikles raskt. Fosteret kan høre hjerteslag og stemmer.', caption: 'ca 15,3 cm · 240 g', sfNorm: null },
+  20: { text: 'Halvveis! Fosteret svelger fostervann – viktig øvelse for tarmen.', caption: 'ca 16,4 cm · 300 g', sfNorm: null },
+  21: { text: 'Fosteret svelger mer effektivt. Vektøkningen øker fremover.', caption: 'ca 26,7 cm · 360 g', sfNorm: null },
+  22: { text: 'Øyelokkene er lukkede, men øynene er fullt dannet bak dem.', caption: 'ca 27,8 cm · 430 g', sfNorm: null },
+  23: { text: 'Lungene begynner å produsere surfaktant – avgjørende for pusting.', caption: 'ca 28,9 cm · 501 g', sfNorm: null },
+  24: { text: 'Fosteret er nå levedyktig med intensiv medisinsk hjelp. SF-mål starter i dag.', caption: 'ca 30 cm · 600 g', sfNorm: 24 },
+  25: { text: 'Huden begynner å fylles ut av fett. Hørselen er godt utviklet.', caption: 'ca 34,6 cm · 660 g', sfNorm: 25 },
+  26: { text: 'Babyen åpner øynene for første gang! Øyefargen er foreløpig grå-blå.', caption: 'ca 35,6 cm · 760 g', sfNorm: 26 },
+  27: { text: 'Fosteret sover og våkner i sykluser. Du kan kjenne det sparke i søvne!', caption: 'ca 36,6 cm · 875 g', sfNorm: 27 },
+  28: { text: 'Hjernen vokser raskt. Fosteret kan reagere på lyd med bevegelse.', caption: 'ca 37,6 cm · 1005 g', sfNorm: 28 },
+  29: { text: 'Beinene og musklene er sterke nok til kraftige spark. Hodet er i vekst.', caption: 'ca 38,6 cm · 1153 g', sfNorm: 29 },
+  30: { text: 'Fosteret ligner nå et nyfødt barn og kan ha lagt seg til rette med hodet først i bekkenet. Mange kjenner trykk nedover mot bekkenbunnen...', caption: 'ca 40 cm · mellom 1600 og 2000 g', sfNorm: 30 },
+  31: { text: 'Alle sanser fungerer. Fosteret kan skille mellom søtt og bittert.', caption: 'ca 41 cm · 1500 g', sfNorm: 31 },
+  32: { text: 'Fingre- og tånegler er fullt utviklet. Fosteret dreier seg til hodestilling.', caption: 'ca 42 cm · 1700 g', sfNorm: 32 },
+  33: { text: 'Lungene er nesten ferdig utviklet. En baby født nå klarer seg som regel bra.', caption: 'ca 43,7 cm · 1918 g', sfNorm: 33 },
+  34: { text: 'Sentralnervesystemet er nesten ferdig. Immunsystemet forberedes.', caption: 'ca 45 cm · 2146 g', sfNorm: 34 },
+  35: { text: 'Nyrene er fullt utviklet. Fosteret produserer ca 0,5 l urin per dag.', caption: 'ca 46,2 cm · 2383 g', sfNorm: 35 },
+  36: { text: 'Fosteret er nå "sen prematur" og overlever godt uten intensivhjelp.', caption: 'ca 47,4 cm · 2622 g', sfNorm: 36 },
+  37: { text: 'Regnes nå som fullbårent. Lunger og hjerne er fullt modne.', caption: 'ca 48,6 cm · 2859 g', sfNorm: 37 },
+  38: { text: 'Lanugo-hårene faller av. Vernix-lag beskytter huden.', caption: 'ca 49,8 cm · 3083 g', sfNorm: 38 },
+  39: { text: 'Kroppen er klar! Babyen venter på de rette hormonsignalene.', caption: 'ca 50,7 cm · 3288 g', sfNorm: 39 },
+  40: { text: 'Termindato! De fleste babyer fødes mellom uke 38 og 42.', caption: 'ca 51,2 cm · 3462 g', sfNorm: 40 },
+  41: { text: 'Litt overtid – babyen vokser fortsatt. Legen vurderer igangsetting.', caption: 'ca 51,7 cm · 3597 g', sfNorm: null },
+  42: { text: 'Overtidig graviditet. Din jordmor/lege følger deg tett.', caption: 'ca 51,7 cm · 3685 g', sfNorm: null },
+};
+
+// ─── Helpers ───────────────────────────────────────────────
+function formatDate(d) {
+  return String(d.getDate()).padStart(2,'0') + '.' +
+         String(d.getMonth()+1).padStart(2,'0') + '.' + d.getFullYear();
+}
+
+function getDueDate(week) {
+  const daysLeft = Math.max(0, (40 - week) * 7);
+  return new Date(Date.now() + daysLeft * 86400000);
+}
+
+// ─── updateWeek ────────────────────────────────────────────
+function updateWeek(week) {
+  week = parseInt(week);
+  document.getElementById('weekDisplay').textContent = 'Uke ' + week;
+
+  // Countdown
+  const daysLeft = Math.max(0, (40 - week) * 7);
+  const pct = Math.min(1, week / 40);
+  const C = 2 * Math.PI * 115;
+  document.getElementById('progressArc').setAttribute('stroke-dasharray', (C * pct) + ' ' + C);
+  document.getElementById('countdownDays').textContent = daysLeft;
+  document.getElementById('weekBubbleNum').textContent = 'uke ' + week;
+  document.getElementById('dueDateValue').textContent = formatDate(getDueDate(week));
+
+  // Article
+  const d = weekData[week] || weekData[30];
+  document.getElementById('weeklyTitle').textContent = 'Hva skjer i uke ' + week + '?';
+  document.getElementById('weeklyText').textContent = d.text;
+  document.getElementById('weeklyCaption').textContent = d.caption;
+  document.getElementById('readMoreText').textContent = 'Les mer om graviditet uke ' + week;
+
+  // Growth chart
+  updateGrowthChart(week);
+}
+
+// ─── Growth chart ──────────────────────────────────────────
+const SF_FIXED = [
+  {week:24, cm:24.2}, {week:26, cm:25.8}, {week:28, cm:28.0}, {week:30, cm:30.1}
+];
+
+function wkToX(w)  { return 32 + ((w - 24) / (42 - 24)) * (336 - 32); }
+function cmToY(cm) { return 164 - ((cm - 25) / (45 - 25)) * (164 - 12); }
+
+function updateGrowthChart(week) {
+  const sfLine = document.getElementById('sfLine');
+  const sfDot  = document.getElementById('sfDot');
+  const wkLine = document.getElementById('weekLine');
+  const callout = document.getElementById('measurementCallout');
+  const data    = weekData[week];
+
+  if (!data || data.sfNorm === null) {
+    sfLine.setAttribute('points','');
+    sfDot.setAttribute('cx', -100);
+    wkLine.setAttribute('x1', -100); wkLine.setAttribute('x2', -100);
+    callout.style.display = 'none';
+    document.getElementById('sfValue').textContent = '–';
+    return;
+  }
+
+  const pts = SF_FIXED.filter(p => p.week <= week);
+  if (pts.length === 0) return;
+
+  sfLine.setAttribute('points', pts.map(p => wkToX(p.week)+','+cmToY(p.cm)).join(' '));
+  const last = pts[pts.length-1];
+  const lx = wkToX(last.week);
+  const ly = cmToY(last.cm);
+  sfDot.setAttribute('cx', lx);
+  sfDot.setAttribute('cy', ly);
+  wkLine.setAttribute('x1', lx); wkLine.setAttribute('x2', lx);
+  const cm = Math.round(last.cm);
+  document.getElementById('sfCalloutValue').textContent = cm + ' cm';
+  document.getElementById('sfValue').textContent = cm + 'cm';
+  callout.style.display = 'block';
+}
+
+// ─── Notes ─────────────────────────────────────────────────
+function toggleNoteInput() {
+  const area = document.getElementById('noteInputArea');
+  const btn  = document.getElementById('addNoteBtn');
+  const open = area.classList.toggle('is-open');
+  btn.setAttribute('aria-expanded', open);
+  if (open) document.getElementById('noteInput').focus();
+}
+
+function saveNote() {
+  const val = document.getElementById('noteInput').value.trim();
+  if (!val) return;
+  const now = new Date();
+  const ds  = String(now.getDate()).padStart(2,'0') + '.' +
+              String(now.getMonth()+1).padStart(2,'0') + '.' +
+              now.getFullYear() + ' ' +
+              String(now.getHours()).padStart(2,'0') + ':' +
+              String(now.getMinutes()).padStart(2,'0');
+  const id   = 'note-' + Date.now();
+  const node = document.createElement('div');
+  node.className = 'sticky-note';
+  node.id = id;
+  node.setAttribute('role','article');
+  node.setAttribute('aria-label','Huskelapp');
+  node.innerHTML = `
+    <div class="sticky-note__meta">
+      <time class="sticky-note__date">${ds}</time>
+      <button class="sticky-note__close" onclick="deleteNote('${id}')" aria-label="Slett huskelapp">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <p class="sticky-note__text">${val.replace(/</g,'&lt;')}</p>`;
+  document.getElementById('notesContainer').prepend(node);
+  document.getElementById('noteInput').value = '';
+  document.getElementById('noteInputArea').classList.remove('is-open');
+  document.getElementById('addNoteBtn').setAttribute('aria-expanded','false');
+}
+
+function deleteNote(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.style.transition = 'opacity .2s, transform .2s';
+  el.style.opacity = '0';
+  el.style.transform = 'translateX(16px)';
+  setTimeout(() => el.remove(), 220);
+}
+
+// ─── Init ──────────────────────────────────────────────────
+updateWeek(30);
+</script>
+</body>
+</html>

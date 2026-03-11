@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Helsekort for gravide</title>
+  <script src="https://mcp.figma.com/mcp/html-to-design/capture.js" async></script>
+  <style>
+    :root {
+      --blue: #003057;
+      --blue-light: #e8f0f7;
+      --teal: #007a7a;
+      --teal-light: #e0f2f2;
+      --red: #c0392b;
+      --border: #b0bec5;
+      --text: #1a1a1a;
+      --muted: #546e7a;
+      --bg: #f5f7fa;
+      --white: #ffffff;
+      --section-bg: #f9fafb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Helvetica Neue', Arial, sans-serif;
+      font-size: 13px;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.4;
+    }
+
+    /* --- HEADER --- */
+    .site-header {
+      background: var(--blue);
+      color: #fff;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.3);
+    }
+    .site-header h1 {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: .3px;
+    }
+    .site-header .subtitle {
+      font-size: 11px;
+      opacity: .7;
+      margin-top: 2px;
+    }
+    .header-logo {
+      font-size: 11px;
+      opacity: .65;
+      text-align: right;
+    }
+    .print-btn {
+      background: rgba(255,255,255,.15);
+      border: 1px solid rgba(255,255,255,.3);
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      transition: background .2s;
+    }
+    .print-btn:hover { background: rgba(255,255,255,.25); }
+
+    /* --- TABS --- */
+    .tab-bar {
+      background: var(--blue);
+      display: flex;
+      gap: 2px;
+      padding: 0 24px;
+      overflow-x: auto;
+    }
+    .tab-bar::-webkit-scrollbar { height: 3px; }
+    .tab-bar::-webkit-scrollbar-thumb { background: rgba(255,255,255,.3); }
+
+    .tab {
+      color: rgba(255,255,255,.7);
+      padding: 10px 16px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      border-bottom: 3px solid transparent;
+      white-space: nowrap;
+      transition: all .2s;
+      user-select: none;
+    }
+    .tab:hover { color: #fff; }
+    .tab.active {
+      color: #fff;
+      border-bottom-color: #7ecfe0;
+    }
+
+    /* --- MAIN LAYOUT --- */
+    .main {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 60px;
+    }
+
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+
+    /* --- CARD --- */
+    .card {
+      background: var(--white);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      margin-bottom: 18px;
+      overflow: hidden;
+    }
+    .card-header {
+      background: var(--blue);
+      color: #fff;
+      padding: 10px 18px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-header.teal { background: var(--teal); }
+    .card-header.red { background: var(--red); }
+    .card-body { padding: 18px; }
+
+    /* --- FORM GRID --- */
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+    .form-grid.col2 { grid-template-columns: repeat(2, 1fr); }
+    .form-grid.col4 { grid-template-columns: repeat(4, 1fr); }
+    .form-grid.col1 { grid-template-columns: 1fr; }
+    .span2 { grid-column: span 2; }
+    .span3 { grid-column: span 3; }
+    .span4 { grid-column: span 4; }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .field label {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .field input,
+    .field select,
+    .field textarea {
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 7px 10px;
+      font-size: 13px;
+      color: var(--text);
+      background: #fff;
+      width: 100%;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .field input:focus,
+    .field select:focus,
+    .field textarea:focus {
+      outline: none;
+      border-color: var(--teal);
+      box-shadow: 0 0 0 3px rgba(0,122,122,.12);
+    }
+    .field textarea { resize: vertical; min-height: 70px; }
+    .field input[type="date"] { font-size: 12px; }
+
+    /* --- RADIO / CHECK GROUPS --- */
+    .radio-group, .check-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      padding-top: 2px;
+    }
+    .radio-group label, .check-group label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      font-weight: normal;
+      color: var(--text);
+      text-transform: none;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+    .radio-group input[type=radio],
+    .check-group input[type=checkbox] {
+      width: 14px;
+      height: 14px;
+      accent-color: var(--teal);
+      cursor: pointer;
+    }
+
+    /* --- SECTION DIVIDER --- */
+    .subsection-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin: 18px 0 10px;
+      padding-bottom: 5px;
+      border-bottom: 2px solid var(--blue-light);
+    }
+    .subsection-title:first-child { margin-top: 0; }
+
+    /* --- TABLE --- */
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .data-table th {
+      background: var(--blue);
+      color: #fff;
+      padding: 8px 10px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .data-table td {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 4px 4px;
+      vertical-align: middle;
+    }
+    .data-table tr:nth-child(even) td { background: #f7f9fb; }
+    .data-table tr:hover td { background: var(--teal-light); }
+    .data-table td input {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      padding: 4px 6px;
+      border-radius: 3px;
+      color: var(--text);
+    }
+    .data-table td input:focus {
+      outline: none;
+      background: #fff;
+      box-shadow: 0 0 0 2px rgba(0,122,122,.2);
+    }
+    .data-table td select {
+      width: 100%;
+      border: none;
+      background: transparent;
+      font-size: 12px;
+      padding: 4px 4px;
+      border-radius: 3px;
+      color: var(--text);
+    }
+    .data-table td select:focus {
+      outline: none;
+      background: #fff;
+    }
+    .data-table th.teal { background: var(--teal); }
+
+    .add-row-btn {
+      margin-top: 10px;
+      background: var(--teal-light);
+      border: 1px dashed var(--teal);
+      color: var(--teal);
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background .15s;
+    }
+    .add-row-btn:hover { background: #c0e8e8; }
+
+    /* --- STATUS BADGE --- */
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .badge-green { background: #e0f7e0; color: #2e7d32; }
+    .badge-yellow { background: #fff8e1; color: #f57c00; }
+    .badge-red { background: #fce4ec; color: #c62828; }
+
+    /* --- ALERT BOX --- */
+    .alert {
+      border-radius: 6px;
+      padding: 12px 16px;
+      font-size: 12px;
+      margin-bottom: 14px;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+    .alert-info { background: var(--blue-light); border-left: 4px solid var(--blue); color: var(--blue); }
+    .alert-warn { background: #fff8e1; border-left: 4px solid #f9a825; color: #5d4037; }
+    .alert-danger { background: #fce4ec; border-left: 4px solid var(--red); color: #b71c1c; }
+
+    /* --- PROGRESS BAR --- */
+    .progress-wrap {
+      background: var(--blue-light);
+      border-radius: 4px;
+      height: 8px;
+      overflow: hidden;
+      margin-top: 4px;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--teal);
+      border-radius: 4px;
+      transition: width .4s;
+    }
+
+    /* --- SUMMARY CARD (dashboard) --- */
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .summary-item {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 14px 16px;
+      text-align: center;
+    }
+    .summary-item .val {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--blue);
+    }
+    .summary-item .lbl {
+      font-size: 10px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-top: 2px;
+    }
+
+    /* --- PREVIOUS PREGNANCIES TABLE --- */
+    .prev-preg-table { font-size: 12px; }
+
+    /* --- ULTRASOUND CARD --- */
+    .us-card {
+      background: var(--section-bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .us-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--teal);
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    /* --- PRINT --- */
+    @media print {
+      .site-header, .tab-bar, .print-btn, .add-row-btn { display: none !important; }
+      .section { display: block !important; page-break-after: always; }
+      body { background: #fff; font-size: 11px; }
+      .card { border: 1px solid #ccc; box-shadow: none; }
+      .main { padding: 0; max-width: 100%; }
+    }
+
+    @media (max-width: 640px) {
+      .form-grid { grid-template-columns: 1fr 1fr; }
+      .form-grid.col4 { grid-template-columns: 1fr 1fr; }
+      .summary-grid { grid-template-columns: 1fr 1fr; }
+      .span3, .span4 { grid-column: span 2; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="site-header">
+  <div>
+    <h1>Helsekort for gravide</h1>
+    <div class="subtitle">Helsedirektoratet — Digital versjon</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;">
+    <div class="header-logo">IS-2 1235<br>Rev. 2024</div>
+    <button class="print-btn" onclick="window.print()">&#128438; Skriv ut</button>
+  </div>
+</header>
+
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <div class="tab active" onclick="showTab('personalia',this)">1. Personalia</div>
+  <div class="tab" onclick="showTab('bakgrunn',this)">2. Medisinsk bakgrunn</div>
+  <div class="tab" onclick="showTab('tidligeresvangerskap',this)">3. Tidligere svangerskap</div>
+  <div class="tab" onclick="showTab('naavaerende',this)">4. Nåværende svangerskap</div>
+  <div class="tab" onclick="showTab('kontroller',this)">5. Svangerskapskontroller</div>
+  <div class="tab" onclick="showTab('blodprover',this)">6. Blodprøver &amp; lab</div>
+  <div class="tab" onclick="showTab('ultralyd',this)">7. Ultralyd</div>
+  <div class="tab" onclick="showTab('fodsel',this)">8. Fødsel</div>
+  <div class="tab" onclick="showTab('barseltid',this)">9. Barselperiode</div>
+</div>
+
+<!-- MAIN -->
+<main class="main">
+
+  <!-- ===== 1. PERSONALIA ===== -->
+  <div id="personalia" class="section active">
+    <div class="card">
+      <div class="card-header">&#128101; Personopplysninger — Mor</div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="field span2">
+            <label>Fullt navn</label>
+            <input type="text" placeholder="Fornavn Mellomnavn Etternavn" />
+          </div>
+          <div class="field">
+            <label>Fødselsnummer (11 siffer)</label>
+            <input type="text" maxlength="11" placeholder="ddmmååxxxxx" />
+          </div>
+          <div class="field span2">
+            <label>Adresse</label>
+            <input type="text" placeholder="Gateadresse" />
+          </div>
+          <div class="field">
+            <label>Postnummer / Poststed</label>
+            <input type="text" placeholder="0000 Sted" />
+          </div>
+          <div class="field">
+            <label>Telefon (mobil)</label>
+            <input type="tel" placeholder="+47 000 00 000" />
+          </div>
+          <div class="field">
+            <label>E-post</label>
+            <input type="email" placeholder="navn@eksempel.no" />
+          </div>
+          <div class="field">
+            <label>Kommune</label>
+            <input type="text" placeholder="Bostedskommune" />
+          </div>
+        </div>
+
+        <div class="subsection-title">Nasjonalitet og språk</div>
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Nasjonalitet</label>
+            <input type="text" placeholder="Norsk" />
+          </div>
+          <div class="field">
+            <label>Morsmål</label>
+            <input type="text" placeholder="Norsk" />
+          </div>
+          <div class="field span2">
+            <label>Trenger tolk?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="tolk" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="tolk" value="ja" /> Ja</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#128101; Opplysninger om far / medmor / partner</div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="field span2">
+            <label>Fullt navn</label>
+            <input type="text" placeholder="Fornavn Mellomnavn Etternavn" />
+          </div>
+          <div class="field">
+            <label>Fødselsnummer (11 siffer)</label>
+            <input type="text" maxlength="11" placeholder="ddmmååxxxxx" />
+          </div>
+          <div class="field">
+            <label>Telefon</label>
+            <input type="tel" placeholder="+47 000 00 000" />
+          </div>
+          <div class="field">
+            <label>Blodtype</label>
+            <select>
+              <option value="">— velg —</option>
+              <option>A+</option><option>A-</option>
+              <option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option>
+              <option>O+</option><option>O-</option>
+              <option>Ukjent</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Relasjon til mor</label>
+            <select>
+              <option>Far</option><option>Medmor</option><option>Partner</option><option>Annen</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#128205; Helsepersonell og institusjon</div>
+      <div class="card-body">
+        <div class="form-grid">
+          <div class="field">
+            <label>Fastlege</label>
+            <input type="text" placeholder="Navn på lege" />
+          </div>
+          <div class="field">
+            <label>Legekontor / klinikk</label>
+            <input type="text" placeholder="Navn på klinikk" />
+          </div>
+          <div class="field">
+            <label>Telefon legekontor</label>
+            <input type="tel" placeholder="+47 000 00 000" />
+          </div>
+          <div class="field">
+            <label>Jordmor / jordmortjeneste</label>
+            <input type="text" placeholder="Navn" />
+          </div>
+          <div class="field">
+            <label>Telefon jordmor</label>
+            <input type="tel" placeholder="+47 000 00 000" />
+          </div>
+          <div class="field">
+            <label>Planlagt fødested</label>
+            <input type="text" placeholder="Sykehusnavn" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 2. MEDISINSK BAKGRUNN ===== -->
+  <div id="bakgrunn" class="section">
+
+    <div class="alert alert-info">&#8505; Alle opplysninger er taushetsbelagte og behandles i henhold til personvernlovgivningen.</div>
+
+    <div class="card">
+      <div class="card-header">&#128203; Sykehistorie — Kroniske tilstander og sykdommer</div>
+      <div class="card-body">
+        <div class="subsection-title">Hjerte og kretsløp</div>
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Hypertensjon (høyt blodtrykk)</label>
+            <div class="radio-group">
+              <label><input type="radio" name="hypertensjon" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="hypertensjon" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Hjertefeil / hjertesykdom</label>
+            <div class="radio-group">
+              <label><input type="radio" name="hjerte" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="hjerte" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Blodpropp / trombose</label>
+            <div class="radio-group">
+              <label><input type="radio" name="blodpropp" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="blodpropp" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Anemi</label>
+            <div class="radio-group">
+              <label><input type="radio" name="anemi" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="anemi" value="ja" /> Ja</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection-title">Endokrinologi</div>
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Diabetes type 1</label>
+            <div class="radio-group">
+              <label><input type="radio" name="diab1" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="diab1" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Diabetes type 2</label>
+            <div class="radio-group">
+              <label><input type="radio" name="diab2" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="diab2" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Skjoldbruskkjertellidelse</label>
+            <div class="radio-group">
+              <label><input type="radio" name="thyroid" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="thyroid" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>PCOS</label>
+            <div class="radio-group">
+              <label><input type="radio" name="pcos" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="pcos" value="ja" /> Ja</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection-title">Psykisk helse</div>
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Depresjon</label>
+            <div class="radio-group">
+              <label><input type="radio" name="depresjon" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="depresjon" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Angstlidelse</label>
+            <div class="radio-group">
+              <label><input type="radio" name="angst" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="angst" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field span2">
+            <label>Andre psykiske lidelser / kommentarer</label>
+            <textarea placeholder="Beskriv ved behov"></textarea>
+          </div>
+        </div>
+
+        <div class="subsection-title">Andre tilstander</div>
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Epilepsi</label>
+            <div class="radio-group">
+              <label><input type="radio" name="epilepsi" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="epilepsi" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Astma / lungesykdom</label>
+            <div class="radio-group">
+              <label><input type="radio" name="astma" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="astma" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Nyresykdom</label>
+            <div class="radio-group">
+              <label><input type="radio" name="nyre" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="nyre" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Autoimmun sykdom</label>
+            <div class="radio-group">
+              <label><input type="radio" name="autoimmun" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="autoimmun" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field span2">
+            <label>Andre kroniske tilstander</label>
+            <textarea placeholder="Diagnoser, ICD-10 koder ved behov"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#128138; Legemidler og allergi</div>
+      <div class="card-body">
+        <div class="form-grid col2">
+          <div class="field span2">
+            <label>Faste legemidler</label>
+            <textarea placeholder="Legemiddelnavn, dose, frekvens — ett per linje"></textarea>
+          </div>
+          <div class="field span2">
+            <label>Allergier (legemidler, mat, annet)</label>
+            <textarea placeholder="Allergen og reaksjonstype"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#128106; Familiehistorie</div>
+      <div class="card-body">
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Genetiske tilstander i familien</label>
+            <div class="radio-group">
+              <label><input type="radio" name="genetisk" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="genetisk" value="ja" /> Ja</label>
+              <label><input type="radio" name="genetisk" value="ukjent" /> Ukjent</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Tvillinger i familien</label>
+            <div class="radio-group">
+              <label><input type="radio" name="tvilling" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="tvilling" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field span2">
+            <label>Detaljer (hvis relevant)</label>
+            <textarea placeholder="Beskriv familiehistorie av betydning"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header">&#128683; Livsstil</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Røyker</label>
+            <div class="radio-group">
+              <label><input type="radio" name="royk" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="royk" value="ja" /> Ja</label>
+              <label><input type="radio" name="royk" value="sluttet" /> Sluttet</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Snus</label>
+            <div class="radio-group">
+              <label><input type="radio" name="snus" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="snus" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Alkohol under svangerskap</label>
+            <div class="radio-group">
+              <label><input type="radio" name="alkohol" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="alkohol" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Rusmidler</label>
+            <div class="radio-group">
+              <label><input type="radio" name="rus" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="rus" value="ja" /> Ja</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-grid col2" style="margin-top:12px">
+          <div class="field">
+            <label>Folsyre tatt før/tidlig svangerskap</label>
+            <div class="radio-group">
+              <label><input type="radio" name="folsyre" value="ja" checked /> Ja</label>
+              <label><input type="radio" name="folsyre" value="nei" /> Nei</label>
+              <label><input type="radio" name="folsyre" value="ukjent" /> Ukjent</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>D-vitamin tilskudd</label>
+            <div class="radio-group">
+              <label><input type="radio" name="dvitamin" value="ja" checked /> Ja</label>
+              <label><input type="radio" name="dvitamin" value="nei" /> Nei</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 3. TIDLIGERE SVANGERSKAP ===== -->
+  <div id="tidligeresvangerskap" class="section">
+    <div class="card">
+      <div class="card-header">&#128203; Obstetrisk historikk</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Gravida (G)</label>
+            <input type="number" min="0" max="20" placeholder="0" id="gravida" oninput="updateGravida()" />
+          </div>
+          <div class="field">
+            <label>Para (P)</label>
+            <input type="number" min="0" max="20" placeholder="0" />
+          </div>
+          <div class="field">
+            <label>Aborter spontane</label>
+            <input type="number" min="0" max="20" placeholder="0" />
+          </div>
+          <div class="field">
+            <label>Aborter provoserte</label>
+            <input type="number" min="0" max="20" placeholder="0" />
+          </div>
+        </div>
+
+        <div class="subsection-title" style="margin-top:18px">Tidligere svangerskap og fødsler</div>
+
+        <div style="overflow-x:auto">
+          <table class="data-table prev-preg-table" id="prevPregTable">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>År</th>
+                <th>Uke ved fødsel</th>
+                <th>Fødested</th>
+                <th>Fødselsmåte</th>
+                <th>Kjønn</th>
+                <th>Vekt (g)</th>
+                <th>Utfall</th>
+                <th>Komplikasjoner</th>
+              </tr>
+            </thead>
+            <tbody id="prevPregBody">
+              <tr>
+                <td style="text-align:center;font-weight:700;color:var(--muted)">1</td>
+                <td><input type="number" placeholder="2020" min="1980" max="2030" /></td>
+                <td><input type="number" placeholder="40" min="20" max="45" /></td>
+                <td><input type="text" placeholder="Sykehus" /></td>
+                <td>
+                  <select>
+                    <option value="">— velg —</option>
+                    <option>Spontan vaginal</option>
+                    <option>Vakuum</option>
+                    <option>Tangforløsning</option>
+                    <option>Planlagt keisersnitt</option>
+                    <option>Akutt keisersnitt</option>
+                    <option>Seteforløsning</option>
+                  </select>
+                </td>
+                <td>
+                  <select>
+                    <option value="">—</option>
+                    <option>Gutt</option><option>Jente</option><option>Ukjent</option>
+                  </select>
+                </td>
+                <td><input type="number" placeholder="3500" /></td>
+                <td>
+                  <select>
+                    <option value="">—</option>
+                    <option>Levende</option>
+                    <option>Dødfødt</option>
+                    <option>Spontanabort</option>
+                    <option>Provosert abort</option>
+                  </select>
+                </td>
+                <td><input type="text" placeholder="Ingen / beskriv" /></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <button class="add-row-btn" onclick="addPrevPregRow()">+ Legg til svangerskap</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header card-header">&#9888; Komplikasjoner i tidligere svangerskap</div>
+      <div class="card-body">
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Svangerskapsforgiftning (preeklampsi)</label>
+            <div class="radio-group">
+              <label><input type="radio" name="preeklampsi" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="preeklampsi" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Svangerskapsdiabetes</label>
+            <div class="radio-group">
+              <label><input type="radio" name="svdiabetes" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="svdiabetes" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Placentaavløsning</label>
+            <div class="radio-group">
+              <label><input type="radio" name="placenta" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="placenta" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Postpartum blødning (&gt;500ml)</label>
+            <div class="radio-group">
+              <label><input type="radio" name="ppblod" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="ppblod" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>For tidlig fødsel (&lt;37 uker)</label>
+            <div class="radio-group">
+              <label><input type="radio" name="prematur" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="prematur" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Føtal veksthemming (SGA/IUGR)</label>
+            <div class="radio-group">
+              <label><input type="radio" name="sga" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="sga" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field span2">
+            <label>Andre komplikasjoner</label>
+            <textarea placeholder="Beskriv"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 4. NÅVÆRENDE SVANGERSKAP ===== -->
+  <div id="naavaerende" class="section">
+    <div class="card">
+      <div class="card-header teal">&#128197; Nåværende svangerskap — grunndata</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Siste menstruasjon (LMP)</label>
+            <input type="date" id="lmpDate" oninput="calcDueDate()" />
+          </div>
+          <div class="field">
+            <label>Termindato (beregnet)</label>
+            <input type="date" id="dueDateCalc" readonly style="background:#f0f4f8" />
+          </div>
+          <div class="field">
+            <label>Termindato (justert ultralyd)</label>
+            <input type="date" id="dueDateUS" />
+          </div>
+          <div class="field">
+            <label>Svangerskapsuke nå</label>
+            <input type="text" id="currentWeek" readonly style="background:#f0f4f8" placeholder="Beregnes automatisk" />
+          </div>
+        </div>
+
+        <div class="subsection-title">Progresjon</div>
+        <div style="margin-bottom:8px;font-size:12px;color:var(--muted)" id="progressLabel">Angi termindato for å se progresjon</div>
+        <div class="progress-wrap"><div class="progress-bar" id="progressBar" style="width:0%"></div></div>
+
+        <div class="form-grid col4" style="margin-top:16px">
+          <div class="field">
+            <label>Svangerskapstype</label>
+            <select>
+              <option>Enkelt</option>
+              <option>Tvillinger (DCDA)</option>
+              <option>Tvillinger (MCDA)</option>
+              <option>Tvillinger (MCMA)</option>
+              <option>Trillinger</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Graviditetstype</label>
+            <select>
+              <option>Naturlig unnfangelse</option>
+              <option>IVF</option>
+              <option>IUI</option>
+              <option>Eggdonasjon</option>
+              <option>Annet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Høyrisikovurdering</label>
+            <select>
+              <option>Lavrisko</option>
+              <option>Middels risiko</option>
+              <option>Høyrisko</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Oppfølgingsmodell</label>
+            <select>
+              <option>Standard (12 kontroller)</option>
+              <option>Utvidet (spesialist)</option>
+              <option>Redusert (8 kontroller)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header teal">&#9878; Mors mål ved første konsultasjon</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Høyde (cm)</label>
+            <input type="number" placeholder="170" min="100" max="220" />
+          </div>
+          <div class="field">
+            <label>Vekt før svangerskap (kg)</label>
+            <input type="number" placeholder="65.0" step="0.1" id="preWeight" oninput="calcBMI()" />
+          </div>
+          <div class="field">
+            <label>Høyde (cm) — for BMI</label>
+            <input type="number" placeholder="170" id="height" oninput="calcBMI()" />
+          </div>
+          <div class="field">
+            <label>BMI (beregnet)</label>
+            <input type="text" id="bmiCalc" readonly placeholder="—" style="background:#f0f4f8" />
+          </div>
+          <div class="field">
+            <label>Blodtype mor</label>
+            <select>
+              <option value="">— velg —</option>
+              <option>A+</option><option>A-</option>
+              <option>B+</option><option>B-</option>
+              <option>AB+</option><option>AB-</option>
+              <option>O+</option><option>O-</option>
+              <option>Ukjent</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Rhesus</label>
+            <select>
+              <option value="">— velg —</option>
+              <option>Positiv</option>
+              <option>Negativ</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Antistoffscreening</label>
+            <select>
+              <option>Negativ</option>
+              <option>Positiv</option>
+              <option>Ikke tatt</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header teal">&#128139; Svangerskapsrelaterte plager</div>
+      <div class="card-body">
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Kvalme / oppkast (hyperemesis)</label>
+            <select>
+              <option>Ingen</option>
+              <option>Mild</option>
+              <option>Moderat</option>
+              <option>Alvorlig (hyperemesis)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Bekkenløsning / ryggsmerter</label>
+            <select>
+              <option>Ingen</option>
+              <option>Mild</option>
+              <option>Moderat</option>
+              <option>Alvorlig</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Innsovningsvansker / søvnproblemer</label>
+            <div class="radio-group">
+              <label><input type="radio" name="sovn" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="sovn" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Hevelser (ødem)</label>
+            <div class="radio-group">
+              <label><input type="radio" name="odem" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="odem" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field span2">
+            <label>Kommentarer / andre plager</label>
+            <textarea placeholder="Beskriv"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 5. SVANGERSKAPSKONTROLLER ===== -->
+  <div id="kontroller" class="section">
+
+    <div class="summary-grid" id="controlSummary">
+      <div class="summary-item">
+        <div class="val" id="numControls">0</div>
+        <div class="lbl">Gjennomførte kontroller</div>
+      </div>
+      <div class="summary-item">
+        <div class="val" id="lastBP">—</div>
+        <div class="lbl">Siste blodtrykk</div>
+      </div>
+      <div class="summary-item">
+        <div class="val" id="lastWeight">—</div>
+        <div class="lbl">Siste vekt (kg)</div>
+      </div>
+      <div class="summary-item">
+        <div class="val" id="lastSF">—</div>
+        <div class="lbl">Siste symfyse-fundus (cm)</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header teal">&#128203; Kontrollskjema</div>
+      <div class="card-body" style="padding:0">
+        <div style="overflow-x:auto">
+          <table class="data-table" id="controlTable">
+            <thead>
+              <tr>
+                <th class="teal">#</th>
+                <th class="teal">Dato</th>
+                <th class="teal">Uke+dager</th>
+                <th class="teal">Vekt (kg)</th>
+                <th class="teal">BT (mmHg)</th>
+                <th class="teal">Puls</th>
+                <th class="teal">Symfyse-fundus (cm)</th>
+                <th class="teal">Foster­lyd (CTG/DU)</th>
+                <th class="teal">Leie</th>
+                <th class="teal">Urin protein</th>
+                <th class="teal">Urin sukker</th>
+                <th class="teal">Ødemer</th>
+                <th class="teal">Utfører</th>
+                <th class="teal">Merknader</th>
+              </tr>
+            </thead>
+            <tbody id="controlBody">
+            </tbody>
+          </table>
+        </div>
+        <div style="padding:12px">
+          <button class="add-row-btn" onclick="addControlRow()">+ Legg til kontroll</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top:18px">
+      <div class="card-header">&#128203; Planlagte kontroller (tidspunkter)</div>
+      <div class="card-body">
+        <div class="alert alert-info" style="margin-bottom:12px">
+          Anbefalt program: 8 uker, 11–14 uker, 17–19 uker, 24 uker, 28 uker, 32 uker, 36 uker, 38 uker, 40 uker, 41 uker
+        </div>
+        <div id="plannedChecks" style="display:flex;flex-wrap:wrap;gap:8px;">
+          <!-- generated by JS -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 6. BLODPRØVER OG LAB ===== -->
+  <div id="blodprover" class="section">
+    <div class="card">
+      <div class="card-header red">&#127981; Blodprøver — 1. trimester (uke 8–12)</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Dato tatt</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Hemoglobin (g/dL)</label>
+            <input type="number" step="0.1" placeholder="12.0" />
+          </div>
+          <div class="field">
+            <label>Ferritin (µg/L)</label>
+            <input type="number" placeholder="30" />
+          </div>
+          <div class="field">
+            <label>Blodtype bekreftet</label>
+            <select>
+              <option>Ikke bekreftet</option>
+              <option>Bekreftet</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Røde blodlegemer</label>
+            <input type="number" step="0.01" placeholder="4.50" />
+          </div>
+          <div class="field">
+            <label>Hvite blodlegemer</label>
+            <input type="number" step="0.1" placeholder="7.0" />
+          </div>
+          <div class="field">
+            <label>Trombocytter (×10⁹/L)</label>
+            <input type="number" placeholder="250" />
+          </div>
+          <div class="field">
+            <label>CRP</label>
+            <input type="number" step="0.1" placeholder="2.0" />
+          </div>
+          <div class="field">
+            <label>Rubella IgG</label>
+            <select>
+              <option value="">—</option>
+              <option>Immun</option>
+              <option>Ikke immun</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Syfilis (TPPA/VDRL)</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>HIV</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Hepatitt B (HBsAg)</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Hepatitt C</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Chlamydia</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Urinkultur</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv (beskriv)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>TSH (skjoldbrusk)</label>
+            <input type="number" step="0.01" placeholder="2.00" />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">&#127981; NIPT / Fosterdiagnostikk (valgfritt)</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>NIPT tilbudt</label>
+            <div class="radio-group">
+              <label><input type="radio" name="nipt_tilb" value="ja" /> Ja</label>
+              <label><input type="radio" name="nipt_tilb" value="nei" checked /> Nei</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>NIPT tatt</label>
+            <div class="radio-group">
+              <label><input type="radio" name="nipt_tatt" value="ja" /> Ja</label>
+              <label><input type="radio" name="nipt_tatt" value="nei" checked /> Nei</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Resultat trisomi 21</label>
+            <select>
+              <option value="">—</option>
+              <option>Lav risiko</option>
+              <option>Høy risiko</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Resultat trisomi 18/13</label>
+            <select>
+              <option value="">—</option>
+              <option>Lav risiko</option>
+              <option>Høy risiko</option>
+            </select>
+          </div>
+          <div class="field span4">
+            <label>Kommentarer fosterdiagnostikk</label>
+            <textarea placeholder="Inkluder KUB-risiko, nakkefoldsmåling, m.m."></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">&#127981; Blodprøver — 2. trimester (uke 24–28)</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Dato tatt</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Hemoglobin (g/dL)</label>
+            <input type="number" step="0.1" placeholder="11.5" />
+          </div>
+          <div class="field">
+            <label>Ferritin (µg/L)</label>
+            <input type="number" placeholder="20" />
+          </div>
+          <div class="field">
+            <label>Glukosetoleransetest (OGTT 75g)</label>
+            <select>
+              <option value="">—</option>
+              <option>Normal</option>
+              <option>Svangerskapsdiabetes</option>
+              <option>Ikke utført</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Fastende glukose (mmol/L)</label>
+            <input type="number" step="0.1" placeholder="4.5" />
+          </div>
+          <div class="field">
+            <label>2t glukose (mmol/L)</label>
+            <input type="number" step="0.1" placeholder="6.0" />
+          </div>
+          <div class="field">
+            <label>Anti-D immunoglobulin (Rh-neg.)</label>
+            <select>
+              <option value="">—</option>
+              <option>Ikke indisert</option>
+              <option>Gitt uke 28</option>
+              <option>Gitt uke 32</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Antistofftest uke 28</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">&#127981; Blodprøver — 3. trimester (uke 34–36)</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Dato tatt</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Hemoglobin (g/dL)</label>
+            <input type="number" step="0.1" placeholder="11.0" />
+          </div>
+          <div class="field">
+            <label>Ferritin (µg/L)</label>
+            <input type="number" placeholder="15" />
+          </div>
+          <div class="field">
+            <label>GBS screening (gruppe B streptokokk)</label>
+            <select>
+              <option value="">—</option>
+              <option>Negativ</option>
+              <option>Positiv</option>
+              <option>Ikke tatt</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 7. ULTRALYD ===== -->
+  <div id="ultralyd" class="section">
+    <div class="card">
+      <div class="card-header">&#128269; Ultralydundersøkelser</div>
+      <div class="card-body">
+
+        <!-- 1. trimester -->
+        <div class="us-card">
+          <div class="us-card-title">1. trimester — Nakkefoldscanning (uke 11–14)</div>
+          <div class="form-grid col4">
+            <div class="field">
+              <label>Dato</label>
+              <input type="date" />
+            </div>
+            <div class="field">
+              <label>Svangerskapsuke</label>
+              <input type="text" placeholder="12+3" />
+            </div>
+            <div class="field">
+              <label>Undersøker</label>
+              <input type="text" placeholder="Navn" />
+            </div>
+            <div class="field">
+              <label>Institusjon</label>
+              <input type="text" placeholder="Sykehus / klinikk" />
+            </div>
+            <div class="field">
+              <label>CRL (mm)</label>
+              <input type="number" placeholder="65" />
+            </div>
+            <div class="field">
+              <label>Nakkefold (NT, mm)</label>
+              <input type="number" step="0.1" placeholder="1.5" />
+            </div>
+            <div class="field">
+              <label>Nasebein</label>
+              <select>
+                <option>Tilstede</option>
+                <option>Ikke visualisert</option>
+                <option>Absent</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Hjertefrekvens (slag/min)</label>
+              <input type="number" placeholder="155" />
+            </div>
+            <div class="field">
+              <label>Beregnet termin fra CRL</label>
+              <input type="date" />
+            </div>
+            <div class="field">
+              <label>Antall fostre</label>
+              <input type="number" placeholder="1" min="1" max="5" />
+            </div>
+            <div class="field">
+              <label>Chorionisitet (ved tvillinger)</label>
+              <select>
+                <option>Ikke relevant</option>
+                <option>DCDA</option>
+                <option>MCDA</option>
+                <option>MCMA</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>KUB-risiko (trisomi 21)</label>
+              <input type="text" placeholder="1:500" />
+            </div>
+            <div class="field span4">
+              <label>Kommentarer</label>
+              <textarea placeholder="Morfologi, biometri, placenta lokalisasjon, m.m."></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rutineultralyd 2. trimester -->
+        <div class="us-card">
+          <div class="us-card-title">2. trimester — Rutineultralyd (uke 17–19)</div>
+          <div class="form-grid col4">
+            <div class="field">
+              <label>Dato</label>
+              <input type="date" />
+            </div>
+            <div class="field">
+              <label>Svangerskapsuke</label>
+              <input type="text" placeholder="18+0" />
+            </div>
+            <div class="field">
+              <label>Undersøker</label>
+              <input type="text" placeholder="Navn" />
+            </div>
+            <div class="field">
+              <label>Institusjon</label>
+              <input type="text" placeholder="Sykehus / klinikk" />
+            </div>
+            <div class="field">
+              <label>BPD (mm)</label>
+              <input type="number" placeholder="44" />
+            </div>
+            <div class="field">
+              <label>HC (mm)</label>
+              <input type="number" placeholder="160" />
+            </div>
+            <div class="field">
+              <label>AC (mm)</label>
+              <input type="number" placeholder="145" />
+            </div>
+            <div class="field">
+              <label>FL (mm)</label>
+              <input type="number" placeholder="30" />
+            </div>
+            <div class="field">
+              <label>Estimert vekt (g)</label>
+              <input type="number" placeholder="250" />
+            </div>
+            <div class="field">
+              <label>Placenta lokalisasjon</label>
+              <select>
+                <option>Fundal anterior</option>
+                <option>Fundal posterior</option>
+                <option>Anterior</option>
+                <option>Posterior</option>
+                <option>Lateral</option>
+                <option>Lav (previa?)</option>
+                <option>Placenta previa</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Fostervannsmengde (AFI/MVP)</label>
+              <select>
+                <option>Normal</option>
+                <option>Polyhydramnios</option>
+                <option>Oligohydramnios</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Morfologi normal?</label>
+              <select>
+                <option>Ja, intet patologisk funnet</option>
+                <option>Funn — se kommentar</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Kjønn (ved ønske)</label>
+              <select>
+                <option>Ikke ønsket opplyst</option>
+                <option>Gutt</option>
+                <option>Jente</option>
+                <option>Ikke identifisert</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Cervixlengde (mm)</label>
+              <input type="number" placeholder="40" />
+            </div>
+            <div class="field">
+              <label>Justert termin</label>
+              <input type="date" />
+            </div>
+            <div class="field span4">
+              <label>Kommentarer / funn</label>
+              <textarea placeholder="Anatomiske funn, avvik, anbefalinger"></textarea>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. trimester -->
+        <div class="us-card">
+          <div class="us-card-title">3. trimester — Vekstkontroll (uke 32–36)</div>
+          <div class="form-grid col4">
+            <div class="field">
+              <label>Dato</label>
+              <input type="date" />
+            </div>
+            <div class="field">
+              <label>Svangerskapsuke</label>
+              <input type="text" placeholder="34+0" />
+            </div>
+            <div class="field">
+              <label>BPD (mm)</label>
+              <input type="number" placeholder="86" />
+            </div>
+            <div class="field">
+              <label>HC (mm)</label>
+              <input type="number" placeholder="315" />
+            </div>
+            <div class="field">
+              <label>AC (mm)</label>
+              <input type="number" placeholder="298" />
+            </div>
+            <div class="field">
+              <label>FL (mm)</label>
+              <input type="number" placeholder="65" />
+            </div>
+            <div class="field">
+              <label>Estimert vekt (g)</label>
+              <input type="number" placeholder="2100" />
+            </div>
+            <div class="field">
+              <label>Vekstpercentil</label>
+              <input type="text" placeholder="50p" />
+            </div>
+            <div class="field">
+              <label>Leie</label>
+              <select>
+                <option>Hodeleie (cephalic)</option>
+                <option>Seteleie</option>
+                <option>Tverrleie</option>
+                <option>Skråleie</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Navelstreng Doppler (PI/RI)</label>
+              <select>
+                <option>Normal</option>
+                <option>Forhøyet</option>
+                <option>Absent EDF</option>
+                <option>Reversed EDF</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Fostervann</label>
+              <select>
+                <option>Normal</option>
+                <option>Økt (polyhydramnios)</option>
+                <option>Redusert (oligohydramnios)</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>Placenta</label>
+              <select>
+                <option>Normal</option>
+                <option>Previa</option>
+                <option>Accreta (mistanke)</option>
+              </select>
+            </div>
+            <div class="field span4">
+              <label>Kommentarer</label>
+              <textarea placeholder="Vekst, Doppler, biofysikalsk profil, m.m."></textarea>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 8. FØDSEL ===== -->
+  <div id="fodsel" class="section">
+    <div class="card">
+      <div class="card-header red">&#127881; Fødselsopplysninger</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Fødselsdato</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Klokkeslett (fødsel)</label>
+            <input type="time" />
+          </div>
+          <div class="field">
+            <label>Fødested</label>
+            <input type="text" placeholder="Sykehus / fødeavdeling" />
+          </div>
+          <div class="field">
+            <label>Svangerskapsuke ved fødsel</label>
+            <input type="text" placeholder="40+1" />
+          </div>
+          <div class="field">
+            <label>Igangsatt fødsel</label>
+            <div class="radio-group">
+              <label><input type="radio" name="igangsatt" value="nei" checked /> Nei (spontan)</label>
+              <label><input type="radio" name="igangsatt" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Induksjonsmetode (hvis igangsatt)</label>
+            <select>
+              <option value="">—</option>
+              <option>PGE2 gel/pessar</option>
+              <option>Ballong</option>
+              <option>Amniotomi</option>
+              <option>Oksytocin IV</option>
+              <option>Kombinasjon</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Fødselsmåte</label>
+            <select>
+              <option value="">— velg —</option>
+              <option>Spontan vaginal</option>
+              <option>Vakuumforløsning</option>
+              <option>Tangforløsning</option>
+              <option>Planlagt keisersnitt</option>
+              <option>Akutt keisersnitt</option>
+              <option>Seteforløsning vaginal</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Anestesi / smertelindring</label>
+            <div class="check-group">
+              <label><input type="checkbox" /> Epidural</label>
+              <label><input type="checkbox" /> Spinal</label>
+              <label><input type="checkbox" /> Lystgass</label>
+              <label><input type="checkbox" /> Morfin/opioid</label>
+              <label><input type="checkbox" /> Ingen</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection-title">Rier og åpningsfase</div>
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Riene startet (dato/tid)</label>
+            <input type="datetime-local" />
+          </div>
+          <div class="field">
+            <label>Vannavgang (dato/tid)</label>
+            <input type="datetime-local" />
+          </div>
+          <div class="field">
+            <label>Fostervannsfarve</label>
+            <select>
+              <option>Klart</option>
+              <option>Mekoniumblakket (grad 1)</option>
+              <option>Mekoniumblakket (grad 2)</option>
+              <option>Mekoniumblakket (grad 3)</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Placentafremkomst (dato/tid)</label>
+            <input type="datetime-local" />
+          </div>
+          <div class="field">
+            <label>Varighet åpningsfase</label>
+            <input type="text" placeholder="timer og minutter" />
+          </div>
+          <div class="field">
+            <label>Varighet prestefase</label>
+            <input type="text" placeholder="minutter" />
+          </div>
+          <div class="field">
+            <label>Oksytocin stimulering</label>
+            <div class="radio-group">
+              <label><input type="radio" name="oksy" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="oksy" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Blødning post partum (ml)</label>
+            <input type="number" placeholder="300" />
+          </div>
+        </div>
+
+        <div class="subsection-title">Perineum</div>
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Episiotomi</label>
+            <div class="radio-group">
+              <label><input type="radio" name="epis" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="epis" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Rift (ruptur)</label>
+            <select>
+              <option>Ingen</option>
+              <option>Grad 1</option>
+              <option>Grad 2</option>
+              <option>Grad 3a</option>
+              <option>Grad 3b</option>
+              <option>Grad 3c</option>
+              <option>Grad 4</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Suturert</label>
+            <div class="radio-group">
+              <label><input type="radio" name="sutur" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="sutur" value="ja" /> Ja</label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header red">&#128118; Barneopplysninger</div>
+      <div class="card-body">
+        <div id="babyContainer">
+          <div class="us-card" id="baby1">
+            <div class="us-card-title">Barn 1</div>
+            <div class="form-grid col4">
+              <div class="field">
+                <label>Fødselsvekt (g)</label>
+                <input type="number" placeholder="3500" />
+              </div>
+              <div class="field">
+                <label>Lengde (cm)</label>
+                <input type="number" step="0.5" placeholder="51.0" />
+              </div>
+              <div class="field">
+                <label>Hodeomkrets (cm)</label>
+                <input type="number" step="0.5" placeholder="34.5" />
+              </div>
+              <div class="field">
+                <label>Kjønn</label>
+                <select>
+                  <option value="">— velg —</option>
+                  <option>Gutt</option>
+                  <option>Jente</option>
+                  <option>Usikkert / interkjønn</option>
+                </select>
+              </div>
+              <div class="field">
+                <label>Apgar 1 min (0–10)</label>
+                <input type="number" min="0" max="10" placeholder="9" />
+              </div>
+              <div class="field">
+                <label>Apgar 5 min (0–10)</label>
+                <input type="number" min="0" max="10" placeholder="10" />
+              </div>
+              <div class="field">
+                <label>Apgar 10 min (0–10)</label>
+                <input type="number" min="0" max="10" placeholder="10" />
+              </div>
+              <div class="field">
+                <label>Leie ved fødsel</label>
+                <select>
+                  <option>Hodeleie</option>
+                  <option>Seteleie (komplett)</option>
+                  <option>Seteleie (ufullstendig)</option>
+                  <option>Tverrleie</option>
+                  <option>Ansiktsleie</label>
+                </select>
+              </div>
+              <div class="field">
+                <label>Gjenoppliving nødvendig</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="gjenoppliving" value="nei" checked /> Nei</label>
+                  <label><input type="radio" name="gjenoppliving" value="ja" /> Ja</label>
+                </div>
+              </div>
+              <div class="field">
+                <label>Overflyttet nyfødtavdeling</label>
+                <div class="radio-group">
+                  <label><input type="radio" name="nyfodtavd" value="nei" checked /> Nei</label>
+                  <label><input type="radio" name="nyfodtavd" value="ja" /> Ja</label>
+                </div>
+              </div>
+              <div class="field span2">
+                <label>Merknader barn</label>
+                <textarea placeholder="Tilstander, behandling, funn"></textarea>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="add-row-btn" onclick="addBaby()">+ Legg til barn (tvillinger etc.)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== 9. BARSELPERIODE ===== -->
+  <div id="barseltid" class="section">
+    <div class="card">
+      <div class="card-header teal">&#127968; Barselperiode — mor</div>
+      <div class="card-body">
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Utskrivelsesdato</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Liggetid (dager)</label>
+            <input type="number" placeholder="2" min="0" />
+          </div>
+          <div class="field">
+            <label>Amming startet</label>
+            <div class="radio-group">
+              <label><input type="radio" name="amming" value="ja" checked /> Ja</label>
+              <label><input type="radio" name="amming" value="nei" /> Nei</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Ammestøtte gitt</label>
+            <div class="radio-group">
+              <label><input type="radio" name="ammestotte" value="ja" /> Ja</label>
+              <label><input type="radio" name="ammestotte" value="nei" checked /> Nei</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="subsection-title">Helse etter fødsel</div>
+        <div class="form-grid col2">
+          <div class="field">
+            <label>Infeksjon / feber post partum</label>
+            <div class="radio-group">
+              <label><input type="radio" name="ppinfeksjon" value="nei" checked /> Nei</label>
+              <label><input type="radio" name="ppinfeksjon" value="ja" /> Ja</label>
+            </div>
+          </div>
+          <div class="field">
+            <label>Barseldepresjon (EPDS screenet)</label>
+            <select>
+              <option value="">—</option>
+              <option>EPDS &lt;10 (normal)</option>
+              <option>EPDS 10–12 (grenseverdier)</option>
+              <option>EPDS ≥13 (klinisk depresjon)</option>
+              <option>Ikke screenet</option>
+            </select>
+          </div>
+          <div class="field span2">
+            <label>Andre komplikasjoner / tiltak etter fødsel</label>
+            <textarea placeholder="Beskriv"></textarea>
+          </div>
+        </div>
+
+        <div class="subsection-title">6-ukers etterundersøkelse</div>
+        <div class="form-grid col4">
+          <div class="field">
+            <label>Dato for etterundersøkelse</label>
+            <input type="date" />
+          </div>
+          <div class="field">
+            <label>Blodtrykk</label>
+            <input type="text" placeholder="120/80" />
+          </div>
+          <div class="field">
+            <label>Hemoglobin (g/dL)</label>
+            <input type="number" step="0.1" placeholder="11.5" />
+          </div>
+          <div class="field">
+            <label>Prevensjon</label>
+            <select>
+              <option value="">— velg —</option>
+              <option>Mini-p-pille (progesteron)</option>
+              <option>Hormonspiral (Mirena)</option>
+              <option>Kobbersspiral</option>
+              <option>P-stav (implant)</option>
+              <option>P-pille (kombinasjon)</option>
+              <option>Kondom</option>
+              <option>Ingen</option>
+              <option>Ønsker nytt svangerskap</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Amming ved 6 uker</label>
+            <div class="radio-group">
+              <label><input type="radio" name="amming6u" value="fullamming" /> Fullamming</label>
+              <label><input type="radio" name="amming6u" value="delamming" /> Delamming</label>
+              <label><input type="radio" name="amming6u" value="ingen" /> Ingen</label>
+            </div>
+          </div>
+          <div class="field span3">
+            <label>Kommentarer 6-ukerskontroll</label>
+            <textarea placeholder="Helse, tilstand, råd og anbefalinger"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  // --- Tab navigation ---
+  function showTab(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+  }
+
+  // --- Due date calculation from LMP ---
+  function calcDueDate() {
+    const lmp = document.getElementById('lmpDate').value;
+    if (!lmp) return;
+    const d = new Date(lmp);
+    d.setDate(d.getDate() + 280); // Naegele's rule
+    document.getElementById('dueDateCalc').value = d.toISOString().split('T')[0];
+    updateProgress();
+  }
+
+  function updateProgress() {
+    const lmp = document.getElementById('lmpDate').value;
+    const due = document.getElementById('dueDateUS').value || document.getElementById('dueDateCalc').value;
+    if (!lmp) return;
+    const now = new Date();
+    const lmpDate = new Date(lmp);
+    const daysSinceLMP = Math.floor((now - lmpDate) / 86400000);
+    const weeks = Math.floor(daysSinceLMP / 7);
+    const days = daysSinceLMP % 7;
+    document.getElementById('currentWeek').value = `${weeks}+${days} uker`;
+    const pct = Math.min(100, Math.max(0, (daysSinceLMP / 280) * 100));
+    document.getElementById('progressBar').style.width = pct.toFixed(1) + '%';
+    document.getElementById('progressLabel').textContent =
+      `Uke ${weeks}+${days} — ${pct.toFixed(0)}% av svangerskapet fullført`;
+    // planned checks
+    renderPlannedChecks(lmpDate);
+  }
+
+  function renderPlannedChecks(lmpDate) {
+    const checks = [
+      { label: 'Uke 8', weeks: 8 },
+      { label: 'Uke 11–14 (nakkefold)', weeks: 12 },
+      { label: 'Uke 17–19 (rutine-UL)', weeks: 18 },
+      { label: 'Uke 24', weeks: 24 },
+      { label: 'Uke 28 (Anti-D?)', weeks: 28 },
+      { label: 'Uke 32', weeks: 32 },
+      { label: 'Uke 36', weeks: 36 },
+      { label: 'Uke 38', weeks: 38 },
+      { label: 'Uke 40', weeks: 40 },
+      { label: 'Uke 41 (overtid)', weeks: 41 },
+    ];
+    const now = new Date();
+    const container = document.getElementById('plannedChecks');
+    container.innerHTML = '';
+    checks.forEach(c => {
+      const d = new Date(lmpDate);
+      d.setDate(d.getDate() + c.weeks * 7);
+      const isPast = d < now;
+      const isSoon = !isPast && (d - now) < 14 * 86400000;
+      const cls = isPast ? 'badge-green' : isSoon ? 'badge-yellow' : '';
+      const div = document.createElement('div');
+      div.style.cssText = 'background:#fff;border:1px solid #ccc;border-radius:8px;padding:8px 12px;font-size:11px;min-width:130px;';
+      div.innerHTML = `<div style="font-weight:700;color:var(--blue)">${c.label}</div>
+        <div style="color:var(--muted);margin-top:2px">${d.toLocaleDateString('no-NO')}</div>
+        ${isPast ? '<span class="badge badge-green">Passert</span>' : isSoon ? '<span class="badge badge-yellow">Snart</span>' : '<span class="badge" style="background:#f0f4f8;color:#546e7a">Kommende</span>'}`;
+      container.appendChild(div);
+    });
+  }
+
+  // --- BMI calculation ---
+  function calcBMI() {
+    const w = parseFloat(document.getElementById('preWeight').value);
+    const h = parseFloat(document.getElementById('height').value) / 100;
+    if (w > 0 && h > 0) {
+      document.getElementById('bmiCalc').value = (w / (h * h)).toFixed(1);
+    }
+  }
+
+  // --- Antenatal controls table ---
+  let controlCount = 0;
+
+  function addControlRow() {
+    controlCount++;
+    const tbody = document.getElementById('controlBody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align:center;font-weight:700;color:var(--muted)">${controlCount}</td>
+      <td><input type="date" onchange="updateSummary()" /></td>
+      <td><input type="text" placeholder="24+0" style="width:60px" /></td>
+      <td><input type="number" step="0.1" placeholder="72.0" style="width:70px" onchange="updateSummary()" /></td>
+      <td><input type="text" placeholder="120/80" style="width:75px" onchange="updateSummary()" /></td>
+      <td><input type="number" placeholder="72" style="width:55px" /></td>
+      <td><input type="number" placeholder="28" style="width:60px" onchange="updateSummary()" /></td>
+      <td>
+        <select style="width:90px">
+          <option>Normal DU</option>
+          <option>CTG normal</option>
+          <option>CTG patologisk</option>
+          <option>Ikke hørt</option>
+        </select>
+      </td>
+      <td>
+        <select style="width:90px">
+          <option>Hodeleie</option>
+          <option>Seteleie</option>
+          <option>Tverrleie</option>
+          <option>Ikke vurd.</option>
+        </select>
+      </td>
+      <td>
+        <select style="width:70px">
+          <option>—</option>
+          <option>Neg</option>
+          <option>+</option>
+          <option>++</option>
+          <option>+++</option>
+        </select>
+      </td>
+      <td>
+        <select style="width:70px">
+          <option>—</option>
+          <option>Neg</option>
+          <option>+</option>
+          <option>++</option>
+        </select>
+      </td>
+      <td>
+        <select style="width:70px">
+          <option>Nei</option>
+          <option>Lett</option>
+          <option>Moderat</option>
+        </select>
+      </td>
+      <td><input type="text" placeholder="Lege/jordmor" style="width:100px" /></td>
+      <td><input type="text" placeholder="Merknader" style="width:140px" /></td>
+    `;
+    tbody.appendChild(tr);
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const rows = document.querySelectorAll('#controlBody tr');
+    document.getElementById('numControls').textContent = rows.length;
+    if (rows.length > 0) {
+      const last = rows[rows.length - 1];
+      const inputs = last.querySelectorAll('input');
+      // weight is 4th input (index 3), BP 5th, SF 7th
+      const cells = last.querySelectorAll('td');
+      document.getElementById('lastBP').textContent = cells[4]?.querySelector('input')?.value || '—';
+      document.getElementById('lastWeight').textContent = cells[3]?.querySelector('input')?.value || '—';
+      document.getElementById('lastSF').textContent = cells[6]?.querySelector('input')?.value || '—';
+    }
+  }
+
+  // --- Previous pregnancy rows ---
+  let prevPregCount = 1;
+  function addPrevPregRow() {
+    prevPregCount++;
+    const tbody = document.getElementById('prevPregBody');
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td style="text-align:center;font-weight:700;color:var(--muted)">${prevPregCount}</td>
+      <td><input type="number" placeholder="2020" min="1980" max="2030" /></td>
+      <td><input type="number" placeholder="40" min="20" max="45" /></td>
+      <td><input type="text" placeholder="Sykehus" /></td>
+      <td>
+        <select>
+          <option value="">— velg —</option>
+          <option>Spontan vaginal</option>
+          <option>Vakuum</option>
+          <option>Tangforløsning</option>
+          <option>Planlagt keisersnitt</option>
+          <option>Akutt keisersnitt</option>
+          <option>Seteforløsning</option>
+        </select>
+      </td>
+      <td>
+        <select>
+          <option value="">—</option>
+          <option>Gutt</option><option>Jente</option><option>Ukjent</option>
+        </select>
+      </td>
+      <td><input type="number" placeholder="3500" /></td>
+      <td>
+        <select>
+          <option value="">—</option>
+          <option>Levende</option>
+          <option>Dødfødt</option>
+          <option>Spontanabort</option>
+          <option>Provosert abort</option>
+        </select>
+      </td>
+      <td><input type="text" placeholder="Ingen / beskriv" /></td>
+    `;
+    tbody.appendChild(tr);
+  }
+
+  // --- Add baby ---
+  let babyCount = 1;
+  function addBaby() {
+    babyCount++;
+    const container = document.getElementById('babyContainer');
+    const div = document.createElement('div');
+    div.className = 'us-card';
+    div.style.marginTop = '12px';
+    div.innerHTML = `
+      <div class="us-card-title">Barn ${babyCount}</div>
+      <div class="form-grid col4">
+        <div class="field"><label>Fødselsvekt (g)</label><input type="number" placeholder="3500" /></div>
+        <div class="field"><label>Lengde (cm)</label><input type="number" step="0.5" placeholder="51.0" /></div>
+        <div class="field"><label>Hodeomkrets (cm)</label><input type="number" step="0.5" placeholder="34.5" /></div>
+        <div class="field"><label>Kjønn</label>
+          <select><option value="">— velg —</option><option>Gutt</option><option>Jente</option></select>
+        </div>
+        <div class="field"><label>Apgar 1 min</label><input type="number" min="0" max="10" placeholder="9" /></div>
+        <div class="field"><label>Apgar 5 min</label><input type="number" min="0" max="10" placeholder="10" /></div>
+        <div class="field"><label>Apgar 10 min</label><input type="number" min="0" max="10" placeholder="10" /></div>
+        <div class="field"><label>Gjenoppliving</label>
+          <div class="radio-group">
+            <label><input type="radio" name="gjenoppliving${babyCount}" value="nei" checked /> Nei</label>
+            <label><input type="radio" name="gjenoppliving${babyCount}" value="ja" /> Ja</label>
+          </div>
+        </div>
+      </div>
+    `;
+    container.appendChild(div);
+  }
+
+  // --- Init ---
+  document.addEventListener('DOMContentLoaded', () => {
+    // Pre-populate a few control rows to show the table
+    addControlRow();
+    addControlRow();
+    addControlRow();
+  });
+</script>
+</body>
+</html>
