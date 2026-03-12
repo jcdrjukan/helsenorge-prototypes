@@ -1072,7 +1072,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div id="step1" class="order-step">
       <h2 class="order-step__title">Bestill forbruksmateriell</h2>
       <div id="step1Content"></div>
-      <p id="step1Error" hidden style="font:600 16px/1.4 'Source Sans Pro',sans-serif;color:#A31F0E;margin:0 0 1rem 0;">Du må velge minst et produkt</p>
+      <div id="step1Error" hidden style="margin:0 0 1rem 0;">
+        <p style="font:600 16px/1.4 'Source Sans Pro',sans-serif;color:#A31F0E;margin:0 0 4px 0;">Sjekk at alt er riktig utfylt</p>
+        <ul style="margin:0;padding:0 0 0 1.2em;list-style:disc;">
+          <li style="color:#A31F0E;">
+            <a href="#" onclick="event.preventDefault();document.querySelector('.qty-control').scrollIntoView({behavior:'smooth',block:'center'});" style="font:400 16px/1.4 'Source Sans 3',sans-serif;color:#58AABB;">Du må velge minst et produkt</a>
+          </li>
+        </ul>
+      </div>
       <button class="btn-primary" onclick="goToStep(2)">
         Neste
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
