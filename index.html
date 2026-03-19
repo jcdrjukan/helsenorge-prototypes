@@ -223,7 +223,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex; flex-direction: column; gap: var(--space-s); align-items: flex-start;
 }
 .equipment-card__body .btn-outline { margin-top: 1rem; }
-.equipment-card__divider { border: none; height: 1px; background: var(--neutral-200); margin: var(--space-xs) 0; width: 100%; }
+.equipment-card__divider { border: none; height: 1px; background: #949494; margin: var(--space-xs) 0; width: 100%; }
 
 /* Duolist */
 .duolist { display: flex; flex-direction: column; gap: var(--space-xs); }
@@ -409,8 +409,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .summary-machine__model { font: var(--mobile-sublabel-subdued); color: var(--color-disabled-text); }
 .summary-machine__body { padding: var(--space-xs) var(--space-s); display: flex; flex-direction: column; gap: var(--space-3xs); }
 .summary-item { display: flex; justify-content: space-between; gap: var(--space-xs); }
-.summary-item__name { font: var(--mobile-image-caption); color: var(--color-base-text-onlight); }
-.summary-item__qty { font: var(--mobile-sublabel); color: var(--color-base-text-onlight); white-space: nowrap; }
+.summary-item__name { font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.summary-item__qty { font: var(--mobile-body); color: var(--color-base-text-onlight); white-space: nowrap; }
 
 .summary-section {
   border: 1px solid var(--neutral-200); border-radius: var(--radius-m); overflow: hidden;
@@ -853,7 +853,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="cpap" onclick="showMachinePage('cpap')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__label">
               <div class="equip-list__name">CPAP</div>
@@ -867,7 +867,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="oksygen-baerbar" onclick="showMachinePage('oksygen-baerbar')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__label">
               <div class="equip-list__name">Bærbar oksygenkonsentrator</div>
@@ -881,7 +881,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="oksygen-stasjonaer" onclick="showMachinePage('oksygen-stasjonaer')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__label">
               <div class="equip-list__name">Stasjonær oksygenkonsentrator</div>
@@ -895,7 +895,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="forstover" onclick="showMachinePage('forstover')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__label">
               <div class="equip-list__name">Forstøverapparat</div>
@@ -909,7 +909,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="cgm" onclick="showMachinePage('cgm')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__label">
               <div class="equip-list__name">CGM</div>
@@ -923,7 +923,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="insulin-pumpe-5" onclick="showMachinePage('insulin-pumpe-5')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__label">
               <div class="equip-list__name">Diabetes patch-pumpe</div>
@@ -937,7 +937,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <button class="equip-list__item" data-eq-id="insulin-pumpe" onclick="showMachinePage('insulin-pumpe')">
         <div class="equip-list__status-strip"></div>
         <div class="equip-list__inner">
-          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04" alt=""></div>
+          <div class="equip-list__icon-frame"><img class="equip-list__icon" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=" alt=""></div>
           <div class="equip-list__element">
             <div class="equip-list__status-dot-row">
               <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none"><circle cx="8" cy="8" r="8" fill="#A31F0E"/><line x1="5" y1="5" x2="11" y2="11" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><line x1="11" y1="5" x2="5" y2="11" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/></svg>
@@ -973,7 +973,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="order-card__subtitle">Bestilt: 12.10.2024</div>
         </div>
         <div class="order-card__chevron-wrap">
-          <img src="https://www.figma.com/api/mcp/asset/9e2f7700-8562-46bf-9756-00cee2419704" alt="">
+          <img src="ChevronDown.svg" alt="">
         </div>
       </button>
       <div class="order-card__body" hidden>
@@ -1188,7 +1188,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="history-card__title">Forbruksmateriell</div>
           <div class="history-card__date">Bestilt: 12.10.2024</div>
         </div>
-        <div class="history-card__chevron-wrap"><img src="https://www.figma.com/api/mcp/asset/1951f7b4-9a76-457a-8061-7dbd6f7ac7ad" alt=""></div>
+        <div class="history-card__chevron-wrap"><img src="ChevronDown.svg" alt=""></div>
       </button>
       <div class="history-card__body" hidden>
         <div class="duolist">
@@ -1213,7 +1213,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="history-card__title">Forbruksmateriell</div>
           <div class="history-card__date">Bestilt: 04.08.2024</div>
         </div>
-        <div class="history-card__chevron-wrap"><img src="https://www.figma.com/api/mcp/asset/1951f7b4-9a76-457a-8061-7dbd6f7ac7ad" alt=""></div>
+        <div class="history-card__chevron-wrap"><img src="ChevronDown.svg" alt=""></div>
       </button>
       <div class="history-card__body" hidden>
         <div class="duolist">
@@ -1238,7 +1238,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="history-card__title">Forbruksmateriell</div>
           <div class="history-card__date">Bestilt: 15.05.2024</div>
         </div>
-        <div class="history-card__chevron-wrap"><img src="https://www.figma.com/api/mcp/asset/1951f7b4-9a76-457a-8061-7dbd6f7ac7ad" alt=""></div>
+        <div class="history-card__chevron-wrap"><img src="ChevronDown.svg" alt=""></div>
       </button>
       <div class="history-card__body" hidden>
         <div class="duolist">
@@ -1435,7 +1435,7 @@ function renderMachinePage(eq) {
     <div class="notification-panel notification-panel--error" style="margin-bottom: var(--space-m); width: 100%; box-sizing: border-box;">
       <div style="position: relative; flex-shrink: 0; width: 38px; height: 38px; overflow: hidden;">
         <div style="position: absolute; top: 17.86%; right: 13.78%; bottom: 17.87%; left: 13.78%;">
-          <img src="https://www.figma.com/api/mcp/asset/36d0c8e0-7c03-49b7-941e-8734fbed58d1" style="position: absolute; display: block; width: 100%; height: 100%; max-width: none;" alt="" aria-hidden="true">
+          <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiIHN0cm9rZT0iI0EzMUYwRSIgc3Ryb2tlLXdpZHRoPSIyIi8+PGxpbmUgeDE9IjEyIiB5MT0iNyIgeDI9IjEyIiB5Mj0iMTMiIHN0cm9rZT0iI0EzMUYwRSIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48Y2lyY2xlIGN4PSIxMiIgY3k9IjE2LjUiIHI9IjEuMjUiIGZpbGw9IiNBMzFGMEUiLz48L3N2Zz4=" style="position: absolute; display: block; width: 100%; height: 100%; max-width: none;" alt="" aria-hidden="true">
         </div>
       </div>
       <div style="flex: 1; min-width: 0; padding: 4px 8px 0 0;">
@@ -1565,7 +1565,7 @@ function getUnavailableDate(eqId, i, c) {
 }
 
 function renderStep1(focusId) {
-  const ICON = 'https://www.figma.com/api/mcp/asset/3cf82f58-7046-41fa-a291-8be4e14cbc04';
+  const ICON = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSI+PHJlY3QgeD0iNiIgeT0iOSIgd2lkdGg9IjI2IiBoZWlnaHQ9IjIwIiByeD0iMyIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiLz48bGluZSB4MT0iMTMiIHkxPSIxOSIgeDI9IjI1IiB5Mj0iMTkiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48bGluZSB4MT0iMTkiIHkxPSIxNCIgeDI9IjE5IiB5Mj0iMjQiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48L3N2Zz4=';
   let html = '';
   EQUIPMENT.forEach(eq => {
     html += `
@@ -1702,7 +1702,8 @@ function renderStep4() {
     const gate   = document.getElementById('delivGate').value.trim();
     const postnr = document.getElementById('delivPostnr').value.trim();
     const sted   = document.getElementById('delivSted').value.trim();
-    addr = [gate, postnr, sted].filter(Boolean).join(', ') || 'Adresse ikke utfylt';
+    const line2 = [postnr, sted].filter(Boolean).join(' ');
+    addr = [gate, line2].filter(Boolean).join('<br>') || 'Adresse ikke utfylt';
   }
   const comment = document.getElementById('orderComment').value.trim();
 
