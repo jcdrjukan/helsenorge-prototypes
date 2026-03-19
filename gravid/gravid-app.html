@@ -148,7 +148,7 @@
   --space-2xl: 4rem;      /* 64px */
 
   /* Typography – Mobile scale */
-  --mobile-h1: 600 2rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-h1: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
   --mobile-h2: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
   --mobile-h3: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
   --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
@@ -231,28 +231,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--space-2xs);
   text-decoration: none;
   flex-shrink: 0;
-}
-
-.logo__mark {
-  width: 34px;
-  height: 34px;
-  background: var(--color-action-background-onlight);
-  border-radius: var(--radius-s);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.logo__mark svg { width: 20px; height: 20px; color: #fff; }
-
-.logo__text {
-  font: var(--mobile-sublabel);
-  color: var(--blueberry-900);
-  letter-spacing: -0.01em;
+  height: 36px;
 }
 
 /* Icon button (Meny, Søk, Logg ut) */
@@ -681,30 +662,25 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-bottom: var(--space-s);
 }
 
-/* Outline button (secondary) */
-.btn-outline {
-  display: inline-flex;
+/* Upload button (Borderless with left icon) */
+.btn-upload {
+  display: flex;
   align-items: center;
-  gap: var(--space-3xs);
+  gap: 8px;
+  height: 50px;
+  padding: 6px 0;
   background: none;
-  border: 2px solid var(--color-action-border-onlight);
-  border-radius: var(--radius-m);
+  border: none;
   cursor: pointer;
-  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-2xs);
   text-decoration: none;
   color: var(--color-action-text-onlight);
-  margin-bottom: var(--space-xs);
-  transition: border-color 0.15s, background 0.15s;
 }
 
-.btn-outline:hover {
-  border-color: var(--color-action-border-onlight-hover);
-  background: var(--color-action-background-transparent-onlight-hover);
-}
+.btn-upload:hover .btn-upload__text { color: var(--color-action-text-onlight-hover); }
 
-.btn-outline__icon {
-  width: 44px;
-  height: 44px;
+.btn-upload__icon {
+  width: 48px;
+  height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -712,12 +688,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--color-action-graphics-onlight);
 }
 
-.btn-outline__icon svg { width: 22px; height: 22px; }
+.btn-upload__icon svg { width: 24px; height: 24px; }
 
-.btn-outline__text {
-  font: var(--mobile-label);
+.btn-upload__text {
+  font-family: 'Source Sans Pro', sans-serif;
   font-size: 1.25rem;
   font-weight: 600;
+  line-height: 24px;
   color: var(--color-action-text-onlight);
   white-space: nowrap;
 }
@@ -732,7 +709,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .dok-mini {
   width: 338px;
   background: #fff;
-  border: 2px solid var(--neutral-100);
+  border: 6px solid var(--neutral-100);
   border-radius: var(--radius-s);
   display: flex;
   align-items: center;
@@ -1125,7 +1102,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Transition helpers */
 *, *::before, *::after { transition-property: none; }
-.icon-btn, .btn-outline, .btn-add, .btn-primary,
+.icon-btn, .btn-upload, .btn-add, .btn-primary,
 .link-list__item, .dok-mini, .btn-borderless, .quick-link,
 .sticky-note__close, .help-trigger, .profile-bar {
   transition-property: background, border-color, color;
@@ -1145,12 +1122,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="header__top">
       <div class="header__left">
         <a class="logo" href="#" aria-label="Helsenorge – til forsiden">
-          <div class="logo__mark" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-            </svg>
-          </div>
-          <span class="logo__text">helsenorge</span>
+          <svg width="80" height="36" viewBox="0 0 80 39" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M56.6469 29.4761C55.1361 29.4761 53.9063 28.197 53.9063 26.6249C53.9063 25.0529 55.1361 23.7737 56.6469 23.7737C58.1578 23.7737 59.3875 25.0529 59.3875 26.6249C59.3875 28.197 58.1578 29.4761 56.6469 29.4761ZM56.7257 32.7427C58.6988 32.7427 60.3043 33.8282 60.3043 35.163C60.3043 36.4977 58.6988 37.5832 56.7257 37.5832C54.752 37.5832 53.1471 36.4977 53.1471 35.163C53.1471 33.8282 54.752 32.7427 56.7257 32.7427ZM56.6469 22.5902C54.4939 22.5902 52.7425 24.4001 52.7425 26.6249C52.7425 28.3882 53.8305 29.928 55.4536 30.4666C54.7744 31.145 53.0065 32.9161 52.8083 33.1319C52.2685 33.7314 51.9832 34.4337 51.9832 35.163C51.9832 37.1498 54.111 38.7661 56.7257 38.7661C59.3404 38.7661 61.4676 37.1498 61.4676 35.163C61.4676 33.1761 59.3404 31.5592 56.7257 31.5592C56.4352 31.5592 56.1447 31.5801 55.8571 31.6214C56.1076 31.3512 56.4446 30.9932 56.764 30.6566C58.8611 30.5921 60.5513 28.8037 60.5513 26.6249C60.5513 26.243 60.4978 25.8622 60.3914 25.491L62.2316 24.1443V22.4605L59.7874 24.2328C59.0505 23.2005 57.8919 22.5902 56.6469 22.5902ZM40.3829 0.180516H37.674V11.9726H44.8301V9.6863H40.3829V0.180516ZM58.7453 4.86556C57.8508 4.50333 56.8957 4.07356 56.8957 3.55832C56.8957 2.81055 57.2591 2.47761 58.0731 2.47761C59.4622 2.47761 59.641 3.76573 59.648 3.82072L59.6715 4.00722L62.5456 3.9588L62.5262 3.73465C62.2998 1.15542 60.2073 0 58.233 0C56.5305 0 53.9963 0.944421 53.9963 3.54457C53.9963 5.18595 55.2025 6.03354 56.3823 6.64622C56.5828 6.75022 56.8745 6.8614 57.2127 6.98991C58.2401 7.37964 59.7933 7.9696 59.7933 8.82974C59.7933 9.03297 59.6998 9.35814 59.4392 9.605C59.1587 9.87219 58.76 9.98935 58.2471 9.95289C57.0539 9.86801 56.6052 8.45496 56.6005 8.44062L56.554 8.28819L53.7352 8.37845L53.7558 8.60021C53.9169 10.3211 55.2449 12.3492 58.4571 12.4036C58.4847 12.4042 58.5118 12.4042 58.5394 12.4042C60.1203 12.4042 61.6564 11.6265 62.2957 10.4938C62.7885 9.62054 62.8226 8.09811 61.934 6.87754C61.3165 6.02935 60.2126 5.45971 58.7453 4.86556ZM74.5453 28.7194H78.1004V26.2525H74.5353V24.0146H79.5295V21.8096H71.7495V33.5616H79.6724V31.3088H74.5453V28.7194ZM39.112 23.0062H37.8375V33.8007H39.112V27.0212L43.0446 24.1443V22.4605L39.112 25.2388V23.0062ZM72.1829 6.10885C72.4252 4.00004 73.9402 2.37958 75.7109 2.37958C77.5247 2.37958 78.6438 3.73525 78.8038 6.10885H72.1829ZM80 6.70659C80 3.3001 78.3568 1.18411 75.7109 1.18411C73.0986 1.18411 70.9726 3.66113 70.9726 6.70659C70.9726 9.75145 73.0986 12.2291 75.7109 12.2291C77.3041 12.2291 78.7809 11.3056 79.6607 9.75922L79.7642 9.57751L78.7456 8.97977L78.6427 9.16089C77.9752 10.3336 76.8789 11.0336 75.7109 11.0336C73.9402 11.0336 72.4252 9.41313 72.1829 7.30432H80V6.70659ZM6.35683 4.58164H2.60119V0.180516H0V11.9439H2.68059V7.25411H6.42388V11.987H9.02918V0.180516H6.35683V4.58164ZM26.8323 9.67972H21.7052V7.09033H25.2597V4.62408H21.6946V2.38556H26.6894V0.180516H18.9082V11.9326H26.8323V9.67972ZM5.03183 22.6518C3.82621 22.6518 2.73057 23.2716 1.76726 24.4964V23.0062H0.492832V33.8007H1.76726V27.7481C1.76726 25.9507 3.24752 24.0122 4.70073 23.9082C5.51349 23.8502 6.12512 24.0188 6.57972 24.4246C7.13548 24.9226 7.45189 25.8054 7.52069 27.0487C7.62067 28.8545 7.58656 33.5431 7.58656 33.5903L7.5848 33.8007H8.75101V26.7397C8.75101 24.708 7.47365 22.6518 5.03183 22.6518ZM22.7979 32.6967C20.8448 32.6967 19.2563 30.7373 19.2563 28.3285C19.2563 25.9196 20.8448 23.9602 22.7979 23.9602C24.7504 23.9602 26.3395 25.9196 26.3395 28.3285C26.3395 30.7373 24.7504 32.6967 22.7979 32.6967ZM22.7979 22.7641C20.1967 22.7641 18.0801 25.2603 18.0801 28.3285C18.0801 31.396 20.1967 33.8922 22.7979 33.8922C25.3985 33.8922 27.5151 31.396 27.5151 28.3285C27.5151 25.2603 25.3985 22.7641 22.7979 22.7641Z" fill="black"/></svg>
         </a>
         <button class="icon-btn" aria-label="Åpne meny" aria-expanded="false">
           <div class="icon-btn__icon" aria-hidden="true">
@@ -1246,33 +1218,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="sp-xs"></div>
 
   <div class="weekly-article">
-    <!-- Fetus illustration (Figma node 5:469 – Uke 31) -->
-    <div class="weekly-article__illustration" role="img" aria-label="Illustrasjon av foster i uke 31">
-      <div style="position:absolute;left:23px;top:25px;width:298px;height:298px;">
-        <img src="https://www.figma.com/api/mcp/asset/f7e3035c-cd8b-44ce-9074-99c3f9eb3bf0" alt="" style="width:100%;height:100%;">
-      </div>
-      <div style="position:absolute;inset:7.89%;">
-        <img src="https://www.figma.com/api/mcp/asset/4e900bec-bf11-4644-b64d-583eaa9ec27d" alt="" style="width:100%;height:100%;">
-      </div>
-      <div style="position:absolute;inset:13.6% 13.92% 13.81% 26.67%;">
-        <img src="https://www.figma.com/api/mcp/asset/c10f7416-1a0f-45a7-820a-f5dad96c5c19" alt="" style="width:100%;height:100%;">
-      </div>
-      <div style="position:absolute;inset:34.53% 13.59% 49.93% 60.26%;">
-        <img src="https://www.figma.com/api/mcp/asset/0e271b6a-fe38-405d-9442-0de0c7a33287" alt="" style="width:100%;height:100%;">
-      </div>
-      <div style="position:absolute;inset:51.5% 7.87% 39.98% 58.79%;">
-        <img src="https://www.figma.com/api/mcp/asset/939fab54-103a-42fc-b609-2d68109ee6b4" alt="" style="width:100%;height:100%;">
-      </div>
-      <div style="position:absolute;inset:12.91% 21.85% 13.79% 26.04%;">
-        <img src="https://www.figma.com/api/mcp/asset/be5a4ca1-9c2c-4a9f-95ec-182e899b146f" alt="" style="width:100%;height:100%;">
-      </div>
-      <div style="position:absolute;inset:44.78% 39.05% 24.31% 33.6%;">
-        <img src="https://www.figma.com/api/mcp/asset/f684904c-9512-463f-86e8-26fb106f57ca" alt="" style="width:100%;height:100%;">
-      </div>
-    </div>
-    <!-- Caption indented to align with icon -->
-    <div class="weekly-article__caption-row">
-      <p class="caption-text" id="weeklyCaption">fosteret er ca 40 cm langt og veier mellom 1600 og 2000 g</p>
+    <!-- Illustration row: image left, caption right -->
+    <div style="display:flex;align-items:flex-start;width:344px;">
+      <img id="weeklyIllustration" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxOTEgMTkxIiB3aWR0aD0iMTkxIiBoZWlnaHQ9IjE5MSI+PGNpcmNsZSBjeD0iOTUuNSIgY3k9Ijk1LjUiIHI9Ijk1LjUiIGZpbGw9IiNFNEY3RjkiLz48ZWxsaXBzZSBjeD0iOTUiIGN5PSI5MCIgcng9IjI4IiByeT0iMzgiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyLjUiLz48Y2lyY2xlIGN4PSI5NSIgY3k9IjU4IiByPSIxMiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIuNSIvPjxwYXRoIGQ9Ik04MCAxMDAgUTcwIDEyMCA3OCAxMzUiIGZpbGw9Im5vbmUiIHN0cm9rZT0iIzE4ODA5NyIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiLz48cGF0aCBkPSJNMTEwIDEwMCBRMTE4IDEyMCAxMTIgMTMyIiBmaWxsPSJub25lIiBzdHJva2U9IiMxODgwOTciIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIi8+PHBhdGggZD0iTTg3IDEyOCBROTEgMTQ1IDg4IDE1OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjxwYXRoIGQ9Ik0xMDMgMTI4IFE5OSAxNDUgMTAyIDE1OCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMTg4MDk3IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIvPjwvc3ZnPg==" alt="Illustrasjon av foster i uke 30" style="width:191px;height:191px;flex-shrink:0;display:block;">
+      <p class="caption-text" id="weeklyCaption" style="padding-left:8px;flex:1;">fosteret er ca 40 cm langt og veier mellom 1600 og 2000 g</p>
     </div>
     <!-- Body text full width -->
     <p class="body-text" id="weeklyText">Fosteret ligner nå et nyfødt barn og kan ha lagt seg til rette med hodet først i bekkenet. Mange kjenner trykk nedover mot bekkenbunnen...</p>
@@ -1374,18 +1323,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="sp-s"></div>
     <p class="doc-section__description">Her kan du laste opp bilder av ditt helsekort og annen svangerskaps­dokumentasjon slik at du alltid har backup­kopier.</p>
 
-    <a class="btn-outline" href="#">
-      <div class="btn-outline__icon" aria-hidden="true">
+    <a class="btn-upload" href="#">
+      <div class="btn-upload__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
       </div>
-      <span class="btn-outline__text">Last opp nytt papirhelsekort</span>
+      <span class="btn-upload__text">Last opp nytt papirhelsekort</span>
     </a>
 
-    <a class="btn-outline" href="#">
-      <div class="btn-outline__icon" aria-hidden="true">
+    <a class="btn-upload" href="#">
+      <div class="btn-upload__icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
       </div>
-      <span class="btn-outline__text">Last opp annet dokument</span>
+      <span class="btn-upload__text">Last opp annet dokument</span>
     </a>
 
     <p class="doc-section__last-uploaded">Sist opplastet papirhelsekort:</p>
