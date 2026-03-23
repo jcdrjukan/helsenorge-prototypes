@@ -452,7 +452,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .confirm-table { width: 100%; border-collapse: collapse; }
 .confirm-table th { background: #f5f3f3; padding: 8px 12px; font: 400 16px/20px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); text-align: left; border-bottom: 1px solid #989693; }
 .confirm-table th:last-child { width: 1%; white-space: nowrap; }
-.confirm-table td { padding: 8px 12px; font: 400 16px/20px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); border-bottom: 1px solid #989693; }
+.confirm-table td { padding: 8px 12px; font: 400 16px/20px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); border-bottom: 1px solid #989693; background: #fff; }
 .confirm-table tr:last-child td { border-bottom: none; }
 .confirm-table td:last-child { white-space: nowrap; }
 
@@ -1008,12 +1008,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">12.10.2024</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">16.10.2024</span></div>
         </div>
-        <hr class="equipment-card__divider">
-        <div class="order-card__machine-section">
-          <div class="order-card__line"><span class="order-card__item">Maske – helmaske M</span><span class="order-card__qty">antall: 1</span></div>
-          <div class="order-card__line"><span class="order-card__item">Maskepute sett</span><span class="order-card__qty">antall: 2</span></div>
-          <div class="order-card__line"><span class="order-card__item">Filter, fin (6 stk)</span><span class="order-card__qty">antall: 1</span></div>
-        </div>
+        <table class="confirm-table">
+          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
+          <tbody>
+            <tr><td>Maske – helmaske M</td><td>1</td></tr>
+            <tr><td>Maskepute sett</td><td>2</td></tr>
+            <tr><td>Filter, fin (6 stk)</td><td>1</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -1229,12 +1231,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">12.10.2024</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">16.10.2024</span></div>
         </div>
-        <hr class="equipment-card__divider">
-        <div class="order-card__machine-section">
-          <div class="order-card__line"><span class="order-card__item">Maske – helmaske M</span><span class="order-card__qty">antall: 1</span></div>
-          <div class="order-card__line"><span class="order-card__item">Maskepute sett</span><span class="order-card__qty">antall: 2</span></div>
-          <div class="order-card__line"><span class="order-card__item">Filter, fin (6 stk)</span><span class="order-card__qty">antall: 1</span></div>
-        </div>
+        <table class="confirm-table">
+          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
+          <tbody>
+            <tr><td>Maske – helmaske M</td><td>1</td></tr>
+            <tr><td>Maskepute sett</td><td>2</td></tr>
+            <tr><td>Filter, fin (6 stk)</td><td>1</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -1254,12 +1258,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">04.08.2024</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">08.08.2024</span></div>
         </div>
-        <hr class="equipment-card__divider">
-        <div class="order-card__machine-section">
-          <div class="order-card__line"><span class="order-card__item">Reservoar, 3 ml (10 stk)</span><span class="order-card__qty">antall: 3</span></div>
-          <div class="order-card__line"><span class="order-card__item">Infusjonssett (10 stk)</span><span class="order-card__qty">antall: 3</span></div>
-          <div class="order-card__line"><span class="order-card__item">CGM sensor</span><span class="order-card__qty">antall: 4</span></div>
-        </div>
+        <table class="confirm-table">
+          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
+          <tbody>
+            <tr><td>Reservoar, 3 ml (10 stk)</td><td>3</td></tr>
+            <tr><td>Infusjonssett (10 stk)</td><td>3</td></tr>
+            <tr><td>CGM sensor</td><td>4</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
@@ -1279,11 +1285,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">15.05.2024</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">20.05.2024</span></div>
         </div>
-        <hr class="equipment-card__divider">
-        <div class="order-card__machine-section">
-          <div class="order-card__line"><span class="order-card__item">Batteri, li-ion (sett)</span><span class="order-card__qty">antall: 1</span></div>
-          <div class="order-card__line"><span class="order-card__item">Setepute, trykkavlastende</span><span class="order-card__qty">antall: 1</span></div>
-        </div>
+        <table class="confirm-table">
+          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
+          <tbody>
+            <tr><td>Batteri, li-ion (sett)</td><td>1</td></tr>
+            <tr><td>Setepute, trykkavlastende</td><td>1</td></tr>
+          </tbody>
+        </table>
       </div>
     </div>
 
