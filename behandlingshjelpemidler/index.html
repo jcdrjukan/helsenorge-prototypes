@@ -289,10 +289,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ── Qty control ── */
 .qty-control { display: flex; align-items: center; gap: var(--space-3xs); flex-shrink: 0; }
 .qty-btn {
-  width: 32px; height: 32px; border: 1.5px solid var(--color-action-border-onlight);
-  border-radius: var(--radius-full); background: none; cursor: pointer;
+  min-width: 44px; height: 36px; border: 2px solid #188097;
+  border-radius: 8px; background: none; cursor: pointer;
   display: flex; align-items: center; justify-content: center;
-  color: var(--color-action-text-onlight); font-size: 1.25rem; font-weight: 600; transition: background 0.15s;
+  padding: 0 12px;
+  color: #126f87; font: 600 18px/22px 'Source Sans Pro', sans-serif; transition: background 0.15s;
 }
 .qty-btn:hover { background: var(--color-action-background-transparent-onlight-hover); }
 .qty-btn:disabled { border-color: var(--color-disabled-border); color: var(--color-disabled-text); cursor: not-allowed; }
