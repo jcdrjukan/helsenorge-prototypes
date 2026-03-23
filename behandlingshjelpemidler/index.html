@@ -586,8 +586,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ── Consumable status list (expanded equipment card) ── */
 .consumable-status-list { display: flex; flex-direction: column; gap: var(--space-s); }
 .consumable-status-row { display: flex; flex-direction: column; gap: 2px; }
-.consumable-status-row__name { font: var(--mobile-body-strong); color: var(--color-base-text-onlight); }
-.consumable-status-row__desc { font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.consumable-status-row__name { font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .consumable-status-row__last-order { font: var(--mobile-image-caption); color: var(--color-base-text-onlight-subdued); }
 .consumable-status-badge {
   font: var(--mobile-body); display: inline-flex; align-items: center; gap: 6px; margin-top: 2px;
@@ -1464,9 +1463,6 @@ function renderMachinePage(eq) {
   const WAIT_SVG = `<svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none"><circle cx="8" cy="8" r="8" fill="#AB7C00"/><line x1="8" y1="4.5" x2="8" y2="8.5" stroke="#fff" stroke-width="1.5" stroke-linecap="round"/><circle cx="8" cy="11" r="1" fill="#fff"/></svg>`;
 
   const consumableRows = eq.consumables.map((c, i) => {
-    const spaceIdx = c.name.indexOf(' ');
-    const typePart = spaceIdx === -1 ? c.name : c.name.slice(0, spaceIdx);
-    const restPart = spaceIdx === -1 ? '' : c.name.slice(spaceIdx + 1);
     const unavailDate = getUnavailableDate(eq.id, i, c);
     const lastOrderHtml = c.lastOrder
       ? `<span class="consumable-status-row__last-order">Sist bestilt: ${c.lastOrder}</span>` : '';
@@ -1479,8 +1475,7 @@ function renderMachinePage(eq) {
           : `<span class="consumable-status-badge consumable-status-badge--ok">${OK_SVG}Kan bestilles</span>`;
     return `
       <div class="consumable-status-row">
-        <span class="consumable-status-row__name">${typePart}</span>
-        ${restPart ? `<span class="consumable-status-row__desc">${restPart}</span>` : ''}
+        <span class="consumable-status-row__name">${c.name}</span>
         ${lastOrderHtml}
         ${badgeHtml}
       </div>`;
