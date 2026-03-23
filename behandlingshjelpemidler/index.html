@@ -1656,7 +1656,7 @@ function renderStep1(focusId) {
           const typePart = spaceIdx === -1 ? c.name : c.name.slice(0, spaceIdx);
           const restPart = spaceIdx === -1 ? '' : c.name.slice(spaceIdx + 1);
           const unavailDate = getUnavailableDate(eq.id, i, c);
-          if (eq.deaktivert) {
+          if (eq.deaktivert || unavailDate) {
             return `
         <div class="order-consumable-row">
           <div class="order-consumable-row__info">
@@ -1665,16 +1665,10 @@ function renderStep1(focusId) {
             ${c.lastOrder ? `<div class="order-consumable-row__last-order">Sist bestilt: ${c.lastOrder}</div>` : ''}
             <div class="order-consumable-row__unavailable">${WAIT_BADGE_SVG}Kan ikke bestilles</div>
           </div>
-        </div>`;
-          }
-          if (unavailDate) {
-            return `
-        <div class="order-consumable-row">
-          <div class="order-consumable-row__info">
-            <div class="order-consumable-row__name">${typePart}</div>
-            ${restPart ? `<div class="order-consumable-row__rest">${restPart}</div>` : ''}
-            ${c.lastOrder ? `<div class="order-consumable-row__last-order">Sist bestilt: ${c.lastOrder}</div>` : ''}
-            <div class="order-consumable-row__unavailable">${WAIT_BADGE_SVG}Kan ikke bestilles</div>
+          <div class="qty-control">
+            <button class="qty-btn" disabled aria-label="Reduser antall">−</button>
+            <span class="qty-display">0</span>
+            <button class="qty-btn" disabled aria-label="Øk antall">+</button>
           </div>
         </div>`;
           }
