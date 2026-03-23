@@ -1483,7 +1483,7 @@ function renderMachinePage(eq) {
 
   document.getElementById('machinePageContent').innerHTML = `
     <div style="font: var(--mobile-body); color: var(--color-base-text-onlight); margin-bottom: var(--space-4xs);">Ditt utstyr</div>
-    <h1 style="font: 600 2.25rem/1.22 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); margin-bottom: var(--space-m);">${eq.name}</h1>
+    <h1 style="font: 600 2.25rem/1.22 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); margin-bottom: var(--space-m);">${eq.model}</h1>
     ${eq.deaktivert ? `
     <div class="notification-panel notification-panel--error" style="margin-bottom: var(--space-m); width: 100%; box-sizing: border-box;">
       <div style="position: relative; flex-shrink: 0; width: 38px; height: 38px; overflow: hidden;">
@@ -1497,7 +1497,6 @@ function renderMachinePage(eq) {
       </div>
     </div>` : ''}
     <div class="duolist">
-      <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">${eq.model}</span></div>
       <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">${eq.details.type}</span></div>
       ${!(eq.units && eq.units.length > 1) ? `<div class="duolist__row"><span class="duolist__key">Serienummer</span><span class="duolist__value">${eq.units ? eq.units[0].serial : eq.details.serial}</span></div>` : ''}
     </div>
