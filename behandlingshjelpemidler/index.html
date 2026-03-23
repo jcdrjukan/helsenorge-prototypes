@@ -1792,7 +1792,7 @@ function renderStep4() {
         ${items.map(c => {
           const i = eq.consumables.indexOf(c);
           const qty = orderState.quantities[eq.id][i];
-          return `<div class="summary-item"><span class="summary-item__name">${c.name}</span><span class="summary-item__qty">${qty} stk</span></div>`;
+          return `<div class="summary-item"><span class="summary-item__name">${c.name}</span><span class="summary-item__qty">antall: ${qty}</span></div>`;
         }).join('')}
       </div>
     </div>`;
