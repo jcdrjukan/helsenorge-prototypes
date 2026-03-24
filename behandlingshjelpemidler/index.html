@@ -457,6 +457,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .confirm-table td { padding: 8px 12px; font: 400 16px/20px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); border-bottom: 1px solid #989693; background: #fff; }
 .confirm-table tr:last-child td { border-bottom: none; }
 .confirm-table td:last-child { white-space: nowrap; }
+.confirm-table-flat { width: 100%; border-collapse: collapse; margin-bottom: var(--space-s); }
+.confirm-table-flat th { background: #F5F3F3; border: 1px solid #989693; padding: 8px 12px; font: 700 20px/24px 'Source Sans Pro', sans-serif; color: #000; text-align: left; vertical-align: bottom; }
+.confirm-table-flat th:last-child { width: 127px; }
+.confirm-table-flat td { background: #fff; border: 1px solid #989693; padding: 8px 12px; font: 400 16px/normal 'Source Sans Pro', sans-serif; color: #000; vertical-align: top; }
 
 .summary-section {
   border: 1px solid var(--neutral-200); border-radius: var(--radius-m); overflow: hidden;
@@ -1786,29 +1790,22 @@ function renderStep4() {
   }
   const comment = document.getElementById('orderComment').value.trim();
 
-  let itemsHtml = '';
+  let rows = '';
   let hasItems = false;
   EQUIPMENT.forEach(eq => {
-    const items = eq.consumables.filter((_, i) => (orderState.quantities[eq.id][i] || 0) > 0);
-    if (!items.length) return;
-    hasItems = true;
-    itemsHtml += `
-    <div class="summary-machine">
-      <h3 class="summary-machine__header">
-        ${eq.model}
-      </h3>
-      <table class="confirm-table">
-        <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-        <tbody>
-          ${items.map(c => {
-            const i = eq.consumables.indexOf(c);
-            const qty = orderState.quantities[eq.id][i];
-            return `<tr><td>${c.name}</td><td>${qty}</td></tr>`;
-          }).join('')}
-        </tbody>
-      </table>
-    </div>`;
+    eq.consumables.forEach((c, i) => {
+      const qty = orderState.quantities[eq.id][i] || 0;
+      if (qty > 0) {
+        hasItems = true;
+        rows += `<tr><td>${c.name} til ${eq.model}</td><td>${qty}</td></tr>`;
+      }
+    });
   });
+  let itemsHtml = `
+    <table class="confirm-table-flat">
+      <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
+      <tbody>${rows}</tbody>
+    </table>`;
 
   if (!hasItems) {
     itemsHtml = `<div class="notification-panel notification-panel--warning" style="width:100%">
