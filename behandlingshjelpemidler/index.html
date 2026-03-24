@@ -231,8 +231,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .duolist__value { font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .duolist__value--strong { font: var(--mobile-sublabel); color: var(--color-base-text-onlight); }
 .duolist__value--urgent { font: var(--mobile-sublabel); color: var(--cherry-500); }
-.unit-card { border: 1px solid var(--neutral-200); border-radius: var(--radius-m); padding: var(--space-s); margin-bottom: var(--space-s); }
-.unit-card__label { font: var(--mobile-sublabel); color: var(--color-base-text-onlight-subdued); margin-bottom: var(--space-xs); padding-bottom: var(--space-xs); border-bottom: 1px solid var(--neutral-200); }
+.unit-card { border: 1px solid #BDBAB9; background: #F5F3F3; display: flex; overflow: hidden; margin-bottom: var(--space-s); }
+.unit-card__status-strip { width: 6px; flex-shrink: 0; opacity: 0; }
+.unit-card__content { flex: 1; padding: 16px 16px 16px 10px; display: flex; flex-direction: column; gap: 16px; }
+.unit-card__label { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
+.unit-card__body { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
 .equip-list__units { font: var(--mobile-sublabel-subdued); color: var(--color-base-text-onlight-subdued); }
 
 /* Read-only consumable list (expanded view) */
@@ -1503,9 +1506,10 @@ function renderMachinePage(eq) {
     </div>
     ${(eq.units && eq.units.length > 1) ? eq.units.map((u, i) => `
       <div class="unit-card" style="${i === 0 ? 'margin-top: 1rem;' : ''}">
-        <div class="unit-card__label">Enhet ${i + 1}</div>
-        <div class="duolist">
-          <div class="duolist__row"><span class="duolist__key">Serienummer</span><span class="duolist__value">${u.serial}</span></div>
+        <div class="unit-card__status-strip"></div>
+        <div class="unit-card__content">
+          <div class="unit-card__label">Enhet ${i + 1}</div>
+          <div class="unit-card__body">Serienummer:<br>${u.serial}</div>
         </div>
       </div>`).join('') : ''}
     <div class="help-expander">
