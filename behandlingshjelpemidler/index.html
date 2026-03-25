@@ -1892,7 +1892,7 @@ function showConfirmation(orderId, delivery) {
   if (delivery === 'hentes') {
     const pickup = new Date();
     pickup.setDate(pickup.getDate() + 2);
-    msg = `Kan hentes fra ${formatNorwegianDate(pickup)}<br>Behandlingshjelpemiddelsentralen<br>Kirkeveien 123, Trondheim<br>Åpningstid 08:00–17:00<br>Telefon: 987 65 432`;
+    msg = `Kan hentes fra ${formatNorwegianDate(pickup)}<br>Behandlingshjelpemiddelsentralen<br>Kirkeveien 123, Trondheim<br>Åpningstid 08:00–17:00<br>Telefon: 987 65 432<br><br>Dersom du har sp\u00f8rsm\u00e5l om din bestilling kan du kontakte:<br>Regional enhet for behandlings\u00adhjelpe\u00admidler<br>Tel: 72 57 63 00`;
   } else {
     msg = 'Ordren sendes vanligvis innen 1-2 arbeidsdager.<br><br>Dersom du har spørsmål om din bestilling kan du kontakte:<br>Regional enhet for behandlings\u00adhjelpe\u00admidler<br>Tel: 72 57 63 00';
   }
