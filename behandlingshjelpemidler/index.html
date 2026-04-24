@@ -457,12 +457,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin: 0;
 }
 .summary-machine__model { font: var(--mobile-sublabel-subdued); color: var(--color-disabled-text); }
-.confirm-table { width: 100%; border-collapse: collapse; }
-.confirm-table th { padding: 8px 12px; font: 600 16px/20px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); text-align: left; border-bottom: 1px solid #989693; }
-.confirm-table th:last-child { width: 1%; white-space: nowrap; }
-.confirm-table td { padding: 8px 12px; font: 400 16px/20px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); border-bottom: 1px solid #989693; background: #fff; }
-.confirm-table tr:last-child td { border-bottom: none; }
-.confirm-table td:last-child { white-space: nowrap; }
+.order-summary-list { margin: 2px 0 0; padding: 0 0 0 1.2em; list-style: disc; display: flex; flex-direction: column; gap: 2px; }
+.order-summary-list li { font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .confirm-table-flat { width: 100%; border-collapse: collapse; margin-bottom: var(--space-s); }
 .confirm-table-flat th { background: #F5F3F3; border: 1px solid #989693; padding: 8px 12px; font: 400 16px/normal 'Source Sans Pro', sans-serif; color: #000; text-align: left; vertical-align: bottom; }
 .confirm-table-flat .col-qty { width: 1%; white-space: nowrap; }
@@ -1027,14 +1023,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Til pakking</span></div>
           <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Maske – helmaske M</td><td>1</td></tr>
-            <tr><td>Maskepute sett</td><td>2</td></tr>
-            <tr><td>Filter, fin (6 stk)</td><td>1</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Maske – helmaske M × 1</li>
+          <li>Maskepute sett × 2</li>
+          <li>Filter, fin (6 stk) × 1</li>
+        </ul></div>
       </div>
     </div>
 
@@ -1251,14 +1245,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">14.02.2026</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">18.02.2026</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Maske – helmaske M</td><td>1</td></tr>
-            <tr><td>Maskepute sett</td><td>2</td></tr>
-            <tr><td>Filter, fin (6 stk)</td><td>1</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Maske – helmaske M × 1</li>
+          <li>Maskepute sett × 2</li>
+          <li>Filter, fin (6 stk) × 1</li>
+        </ul></div>
       </div>
     </div>
 
@@ -1278,14 +1270,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.01.2026</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.01.2026</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Reservoar, 3 ml (10 stk)</td><td>3</td></tr>
-            <tr><td>Infusjonssett (10 stk)</td><td>3</td></tr>
-            <tr><td>CGM sensor</td><td>4</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Reservoar, 3 ml (10 stk) × 3</li>
+          <li>Infusjonssett (10 stk) × 3</li>
+          <li>CGM sensor × 4</li>
+        </ul></div>
         <div style="border-top: 1px solid #D6D4D3;"></div>
         <div class="duolist">
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Airsense 11 Autoset</span></div>
@@ -1293,13 +1283,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.01.2026</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.01.2026</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]</td><td>2</td></tr>
-            <tr><td>Vannkammer fuktekammer CPAP HumidAir 11</td><td>1</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk] × 2</li>
+          <li>Vannkammer fuktekammer CPAP HumidAir 11 × 1</li>
+        </ul></div>
       </div>
     </div>
 
@@ -1318,13 +1306,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">14.11.2025</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">19.11.2025</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Batteri, li-ion (sett)</td><td>1</td></tr>
-            <tr><td>Setepute, trykkavlastende</td><td>1</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Batteri, li-ion (sett) × 1</li>
+          <li>Setepute, trykkavlastende × 1</li>
+        </ul></div>
       </div>
     </div>
 
@@ -1343,14 +1329,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">13.09.2025</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">18.09.2025</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen</td><td>4</td></tr>
-            <tr><td>Slange oksygen tilførselsslange "Crush resistant" 15,2 meter</td><td>1</td></tr>
-            <tr><td>Filter luftinntak oksygenkonsentrator Everflo grov 5 stk/pk</td><td>2</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen × 4</li>
+          <li>Slange oksygen tilførselsslange "Crush resistant" 15,2 meter × 1</li>
+          <li>Filter luftinntak oksygenkonsentrator Everflo grov 5 stk/pk × 2</li>
+        </ul></div>
       </div>
     </div>
 
@@ -1370,14 +1354,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.07.2025</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.07.2025</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Slange CPAP m/varmetråd ClimateLine 11 CPAP Airsense 11</td><td>1</td></tr>
-            <tr><td>Vannkammer fuktekammer CPAP HumidAir 11</td><td>1</td></tr>
-            <tr><td>Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]</td><td>2</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Slange CPAP m/varmetråd ClimateLine 11 CPAP Airsense 11 × 1</li>
+          <li>Vannkammer fuktekammer CPAP HumidAir 11 × 1</li>
+          <li>Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk] × 2</li>
+        </ul></div>
         <div style="border-top: 1px solid #D6D4D3;"></div>
         <div class="duolist">
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Inogen Rove 6</span></div>
@@ -1385,13 +1367,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.07.2025</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.07.2025</span></div>
         </div>
-        <table class="confirm-table">
-          <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-          <tbody>
-            <tr><td>Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen</td><td>3</td></tr>
-            <tr><td>Kateter oksygen nesekateter dobbelt 6 lpm 1,2 m Low flow voksen</td><td>2</td></tr>
-          </tbody>
-        </table>
+        <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+        <ul class="order-summary-list">
+          <li>Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen × 3</li>
+          <li>Kateter oksygen nesekateter dobbelt 6 lpm 1,2 m Low flow voksen × 2</li>
+        </ul></div>
       </div>
     </div>
 
@@ -2034,10 +2014,10 @@ function addActiveOrderCard(delivery) {
         <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Under behandling</span></div>
         <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00</span></div>
       </div>
-      <table class="confirm-table">
-        <thead><tr><th>Forbruksvare</th><th>Antall</th></tr></thead>
-        <tbody>${eq.consumables.map((c, i) => qtys[i] > 0 ? `<tr><td>${c.name}</td><td>${qtys[i]}</td></tr>` : '').join('')}</tbody>
-      </table>`;
+      <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
+      <ul class="order-summary-list">
+        ${eq.consumables.map((c, i) => qtys[i] > 0 ? `<li>${c.name} × ${qtys[i]}</li>` : '').join('')}
+      </ul></div>`;
   });
 
   const card = document.createElement('div');
