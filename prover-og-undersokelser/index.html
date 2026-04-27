@@ -180,9 +180,8 @@
 }
 
 /* ── Varsler header badge ────────────────────────────────── */
-.icon-btn-wrap { position: relative; display: inline-flex; }
 .header-badge {
-  position: absolute; top: -2px; right: -4px;
+  position: absolute; top: -4px; right: -6px;
   background: #C83521; border: 1px solid #B62E1C;
   border-radius: 100px; min-width: 22px; height: 22px;
   display: flex; align-items: center; justify-content: center;
@@ -287,15 +286,13 @@
           </div>
           <span class="icon-btn__label">Meny</span>
         </button>
-        <div class="icon-btn-wrap">
-          <button class="icon-btn" onclick="showView('viewVarsler')" aria-label="Varsler">
-            <div class="icon-btn__icon" aria-hidden="true">
+        <button class="icon-btn" onclick="showView('viewVarsler')" aria-label="Varsler">
+            <div class="icon-btn__icon" aria-hidden="true" style="position:relative;overflow:visible;">
               <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.17 27.2979V27.1325H15.672V27.2979H9.42261L11.8427 23.4053H25.9993L28.4187 27.2979H22.17ZM21.1409 28.9121C21.1409 30.136 20.1449 31.132 18.921 31.132V31.132C17.6963 31.132 16.7004 30.136 16.7004 28.9121V28.3271H21.1409V28.9121ZM12.0707 15.2028C12.0707 12.1668 14.1299 9.52896 17.0764 8.78875L17.4659 8.69058V8.16491C17.4659 7.36296 18.1183 6.71062 18.921 6.71062C19.723 6.71062 20.3753 7.36296 20.3753 8.16491V8.69058L20.7648 8.78875C23.7122 9.52896 25.7705 12.1668 25.7705 15.2028V22.3769H12.0707V15.2028ZM29.7819 27.541L26.7997 22.7442V15.2028C26.7997 11.8248 24.5941 8.87266 21.3902 7.89416C21.2549 6.65125 20.1988 5.68066 18.921 5.68066C17.6425 5.68066 16.5864 6.65125 16.4518 7.89416C13.2472 8.87266 11.0416 11.8248 11.0416 15.2028V22.7442L8.06015 27.541C7.9612 27.6993 7.95645 27.8988 8.04749 28.0627C8.13774 28.2257 8.31032 28.3271 8.49715 28.3271H15.672V28.9121C15.672 30.7037 17.1295 32.1611 18.921 32.1611C20.7126 32.1611 22.17 30.7037 22.17 28.9121V28.3271H29.3449C29.5309 28.3271 29.7035 28.2257 29.7946 28.0627C29.8848 27.8988 29.8801 27.6993 29.7819 27.541V27.541Z" fill="black"/></svg>
+              <div class="header-badge" id="headerBadge">1</div>
             </div>
             <span class="icon-btn__label">Varsler</span>
           </button>
-          <div class="header-badge" id="headerBadge">1</div>
-        </div>
       </div>
       <button class="icon-btn" aria-label="Logg ut">
         <div class="icon-btn__icon" aria-hidden="true">
