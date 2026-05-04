@@ -228,6 +228,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* Duolist */
 .duolist { display: flex; flex-direction: column; gap: var(--space-xs); }
 .duolist__row { display: flex; flex-direction: column; gap: 2px; }
+.duolist--horizontal { gap: 4px; }
+.duolist--horizontal .duolist__row { flex-direction: row; gap: 6px; align-items: baseline; }
+.duolist--horizontal .duolist__key { white-space: nowrap; }
 .duolist__key { font: var(--mobile-body-strong); color: var(--color-base-text-onlight); }
 .duolist__value { font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .duolist__value--strong { font: var(--mobile-sublabel); color: var(--color-base-text-onlight); }
@@ -235,7 +238,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .unit-card { border: 1px solid #BDBAB9; background: #fff; display: flex; overflow: hidden; margin-bottom: var(--space-s); }
 .unit-card__inner { border: 8px solid #EAE7E7; padding: 8px; display: flex; flex: 1; align-items: flex-start; }
 .unit-card__status-strip { width: 6px; flex-shrink: 0; align-self: stretch; opacity: 0; }
-.unit-card__content { flex: 1; padding: 16px 16px 16px 10px; display: flex; flex-direction: column; gap: 16px; }
+.unit-card__content { flex: 1; padding: 12px 16px 12px 10px; display: flex; flex-direction: column; gap: 16px; }
 .unit-card__label { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
 .unit-card__body { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
 .unit-card__field { display: flex; flex-direction: column; gap: 0; }
@@ -1600,7 +1603,7 @@ function renderMachinePage(eq) {
         <div class="unit-card__inner">
           <div class="unit-card__status-strip"></div>
           <div class="unit-card__content">
-            <div class="duolist">
+            <div class="duolist duolist--horizontal">
               <div class="duolist__row"><span class="duolist__key">Enhet utlevert</span><span class="duolist__value">${u.deliveryDate}</span></div>
               <div class="duolist__row"><span class="duolist__key">Serienummer</span><span class="duolist__value">${u.serial}</span></div>
               <div class="duolist__row"><span class="duolist__key">Eier</span><span class="duolist__value">${u.owner}</span></div>
