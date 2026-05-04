@@ -1600,9 +1600,11 @@ function renderMachinePage(eq) {
         <div class="unit-card__inner">
           <div class="unit-card__status-strip"></div>
           <div class="unit-card__content">
-            <div class="unit-card__field"><div class="unit-card__field-name">Enhet utlevert:</div><div class="unit-card__field-value">${u.deliveryDate}</div></div>
-            <div class="unit-card__field"><div class="unit-card__field-name">Serienummer:</div><div class="unit-card__field-value">${u.serial}</div></div>
-            <div class="unit-card__field"><div class="unit-card__field-name">Eier:</div><div class="unit-card__field-value">${u.owner}</div></div>
+            <div class="duolist">
+              <div class="duolist__row"><span class="duolist__key">Enhet utlevert</span><span class="duolist__value">${u.deliveryDate}</span></div>
+              <div class="duolist__row"><span class="duolist__key">Serienummer</span><span class="duolist__value">${u.serial}</span></div>
+              <div class="duolist__row"><span class="duolist__key">Eier</span><span class="duolist__value">${u.owner}</span></div>
+            </div>
           </div>
         </div>
       </div>`).join('') : ''}
