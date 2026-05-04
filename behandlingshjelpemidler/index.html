@@ -238,6 +238,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .unit-card__content { flex: 1; padding: 16px 16px 16px 10px; display: flex; flex-direction: column; gap: 16px; }
 .unit-card__label { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
 .unit-card__body { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.unit-card__field { display: flex; flex-direction: column; gap: 0; }
+.unit-card__field-name { font: 600 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.unit-card__field-value { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
 .equip-list__units { font: var(--mobile-sublabel-subdued); color: var(--color-base-text-onlight-subdued); }
 
 /* Read-only consumable list (expanded view) */
@@ -1446,8 +1449,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 const EQUIPMENT = [
   { id:'cpap', name:'CPAP', model:'Airsense 11 Autoset',
     units: [
-      { serial: '23244159084', label: 'Hjemme', url: '#' },
-      { serial: '23244159999', label: 'Hytta', url: '#' },
+      { serial: '23244159084', label: 'Hjemme', deliveryDate: '12.03.2023', owner: 'St. Olavs sykehus', url: '#' },
+      { serial: '23244159999', label: 'Hytta', deliveryDate: '15.06.2023', owner: 'St. Olavs sykehus', url: '#' },
     ],
     details:{ type:'Positivt luftveistrykkapparat, kontinuerlig, auto', url:'https://document.resmed.com/documents/products/machine/airsense-11/user-guide/airsense11_user-guide_nor_mul.pdf' },
     consumables:[
@@ -1597,8 +1600,9 @@ function renderMachinePage(eq) {
         <div class="unit-card__inner">
           <div class="unit-card__status-strip"></div>
           <div class="unit-card__content">
-            <div class="unit-card__label">Enhet ${i + 1}</div>
-            <div class="unit-card__body">Serienummer:<br>${u.serial}</div>
+            <div class="unit-card__field"><div class="unit-card__field-name">Enhet utlevert:</div><div class="unit-card__field-value">${u.deliveryDate}</div></div>
+            <div class="unit-card__field"><div class="unit-card__field-name">Serienummer:</div><div class="unit-card__field-value">${u.serial}</div></div>
+            <div class="unit-card__field"><div class="unit-card__field-name">Eier:</div><div class="unit-card__field-value">${u.owner}</div></div>
           </div>
         </div>
       </div>`).join('') : ''}
