@@ -106,6 +106,50 @@
   text-decoration: underline; text-underline-offset: 2px;
   text-decoration-style: dotted; text-decoration-color: #9747FF; display: block;
 }
+.rekv-card__analysis-item.help-term { cursor: pointer; }
+.rekv-card__analysis-item.help-term--active {
+  background: rgba(91, 34, 166, 0.1);
+  border-radius: 2px;
+}
+
+/* ── HelpBubble ─────────────────────────────────────────────── */
+.help-bubble {
+  position: fixed; z-index: 1000; width: 300px; display: none;
+}
+.help-bubble--visible { display: block; }
+.help-bubble__arrow {
+  width: 0; height: 0; margin-left: 16px;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 11px solid #7D7C79;
+  position: relative;
+}
+.help-bubble__arrow::after {
+  content: '';
+  position: absolute;
+  border-left: 9px solid transparent;
+  border-right: 9px solid transparent;
+  border-bottom: 10px solid #fff;
+  top: 2px; left: -9px;
+}
+.help-bubble__box {
+  background: #fff; border: 1px solid #7D7C79; border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  padding: 16px 44px 16px 16px; position: relative;
+}
+.help-bubble__close {
+  position: absolute; top: 0; right: 0;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.help-bubble__text {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 4px;
+}
+.help-bubble__link {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #126F87;
+  text-decoration: none; border-bottom: 1px solid #58AABB; display: inline;
+}
 
 /* ── Accordion list (Tidligere prøver) ──────────────────────── */
 .acc-list { display: flex; flex-direction: column; padding-bottom: 1px; }
@@ -886,6 +930,56 @@ const CHECK_ICON = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" 
 const CHEVRON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
 const CHEVRON_DOWN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
 
+// ── Analysis definitions ──────────────────────────────────────
+const DEFINITIONS = {
+  'Hemoglobin': {
+    text: 'Hemoglobin er et protein som finnes i store mengder i blodet og er en essensiell del av mekanismene som frakter oksygen med blodstrømmen.',
+    url: 'https://snl.no/hemoglobin'
+  },
+};
+
+// ── HelpBubble ────────────────────────────────────────────────
+let _activeTerm = null;
+
+function openHelpBubble(el, termKey) {
+  if (_activeTerm === el) { closeHelpBubble(); return; }
+  if (_activeTerm) _activeTerm.classList.remove('help-term--active');
+
+  const def = DEFINITIONS[termKey];
+  if (!def) return;
+
+  _activeTerm = el;
+  el.classList.add('help-term--active');
+
+  document.getElementById('helpBubbleText').textContent = def.text;
+  const link = document.getElementById('helpBubbleLink');
+  link.href = def.url;
+
+  const bubble = document.getElementById('helpBubble');
+  bubble.classList.add('help-bubble--visible');
+
+  const rect = el.getBoundingClientRect();
+  const bubbleW = 300;
+  let left = rect.left;
+  if (left + bubbleW > window.innerWidth - 8) left = window.innerWidth - bubbleW - 8;
+  if (left < 8) left = 8;
+
+  const arrowLeft = Math.max(10, rect.left - left + rect.width / 2 - 10);
+  document.getElementById('helpBubbleArrow').style.marginLeft = arrowLeft + 'px';
+
+  bubble.style.left = left + 'px';
+  bubble.style.top = (rect.bottom + 4) + 'px';
+}
+
+function closeHelpBubble() {
+  if (_activeTerm) { _activeTerm.classList.remove('help-term--active'); _activeTerm = null; }
+  document.getElementById('helpBubble').classList.remove('help-bubble--visible');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#helpBubble') && !e.target.closest('.help-term')) closeHelpBubble();
+});
+
 // ── Data ──────────────────────────────────────────────────────
 const FREMTIDIGE = [
   {
@@ -957,7 +1051,10 @@ function renderRekvCards() {
             </div>
             <div class="rekv-card__section">
               <div class="rekv-card__section-label">Analyser</div>
-              ${r.analyses.map(a => `<span class="rekv-card__analysis-item">${a}</span>`).join('')}
+              ${r.analyses.map(a => DEFINITIONS[a]
+                ? `<span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'${a}')">${a}</span>`
+                : `<span class="rekv-card__analysis-item">${a}</span>`
+              ).join('')}
             </div>
             <div class="rekv-card__section">
               <div class="rekv-card__section-label">Prøven er rekvirert av</div>
@@ -1104,6 +1201,19 @@ renderVarsler();
   else if (p === 'tidligere') showView('viewTidligere');
 })();
 </script>
+<div id="helpBubble" class="help-bubble" role="tooltip">
+  <div class="help-bubble__arrow" id="helpBubbleArrow"></div>
+  <div class="help-bubble__box">
+    <button class="help-bubble__close" onclick="closeHelpBubble()" aria-label="Lukk">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <line x1="2" y1="2" x2="16" y2="16" stroke="#5B22A6" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="2" x2="2" y2="16" stroke="#5B22A6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p id="helpBubbleText" class="help-bubble__text"></p>
+    <a id="helpBubbleLink" href="#" class="help-bubble__link" target="_blank" rel="noopener">Les mer på snl.no</a>
+  </div>
+</div>
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
 </body>
 </html>
