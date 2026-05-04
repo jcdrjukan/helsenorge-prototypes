@@ -228,9 +228,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* Duolist */
 .duolist { display: flex; flex-direction: column; gap: var(--space-xs); }
 .duolist__row { display: flex; flex-direction: column; gap: 2px; }
-.duolist--horizontal { gap: 4px; }
-.duolist--horizontal .duolist__row { flex-direction: row; gap: 6px; align-items: baseline; }
-.duolist--horizontal .duolist__key { white-space: nowrap; }
+.duolist--horizontal { gap: 8px; }
+.duolist--horizontal .duolist__row { flex-direction: row; gap: 24px; align-items: flex-start; }
+.duolist--horizontal .duolist__key { width: 112px; flex-shrink: 0; font: 600 18px/1.2 'Source Sans Pro', sans-serif; }
+.duolist--horizontal .duolist__value { flex: 1; font: 400 18px/1.2 'Source Sans Pro', sans-serif; }
 .duolist__key { font: var(--mobile-body-strong); color: var(--color-base-text-onlight); }
 .duolist__value { font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .duolist__value--strong { font: var(--mobile-sublabel); color: var(--color-base-text-onlight); }
