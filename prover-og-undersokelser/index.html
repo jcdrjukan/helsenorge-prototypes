@@ -104,7 +104,7 @@
 .rekv-card__analysis-item {
   font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;
   text-decoration: underline; text-underline-offset: 2px;
-  text-decoration-style: dotted; text-decoration-color: #9747FF; display: block;
+  text-decoration-style: dotted; text-decoration-color: #9747FF; display: block; width: fit-content;
 }
 .rekv-card__analysis-item.help-term { cursor: pointer; }
 .rekv-card__analysis-item.help-term--active {
@@ -117,25 +117,17 @@
   position: fixed; z-index: 1000; width: 300px; display: none;
 }
 .help-bubble--visible { display: block; }
-.help-bubble__arrow {
-  width: 0; height: 0; margin-left: 16px;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 11px solid #7D7C79;
-  position: relative;
-}
-.help-bubble__arrow::after {
-  content: '';
-  position: absolute;
-  border-left: 9px solid transparent;
-  border-right: 9px solid transparent;
-  border-bottom: 10px solid #fff;
-  top: 2px; left: -9px;
-}
 .help-bubble__box {
   background: #fff; border: 1px solid #7D7C79; border-radius: 4px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   padding: 16px 44px 16px 16px; position: relative;
+  margin-top: 9px;
+}
+.help-bubble__caret {
+  position: absolute; top: -7px; left: 16px;
+  width: 12px; height: 12px; background: #fff;
+  border-top: 1px solid #7D7C79; border-left: 1px solid #7D7C79;
+  transform: rotate(45deg);
 }
 .help-bubble__close {
   position: absolute; top: 0; right: 0;
@@ -960,12 +952,12 @@ function openHelpBubble(el, termKey) {
 
   const rect = el.getBoundingClientRect();
   const bubbleW = 300;
-  let left = rect.left;
+  let left = rect.left - 30;
   if (left + bubbleW > window.innerWidth - 8) left = window.innerWidth - bubbleW - 8;
   if (left < 8) left = 8;
 
-  const arrowLeft = Math.max(10, rect.left - left + rect.width / 2 - 10);
-  document.getElementById('helpBubbleArrow').style.marginLeft = arrowLeft + 'px';
+  const caretLeft = Math.max(10, rect.left - left + rect.width / 2 - 6);
+  document.getElementById('helpBubbleArrow').style.left = caretLeft + 'px';
 
   bubble.style.left = left + 'px';
   bubble.style.top = (rect.bottom + 4) + 'px';
@@ -1202,8 +1194,8 @@ renderVarsler();
 })();
 </script>
 <div id="helpBubble" class="help-bubble" role="tooltip">
-  <div class="help-bubble__arrow" id="helpBubbleArrow"></div>
   <div class="help-bubble__box">
+    <div class="help-bubble__caret" id="helpBubbleArrow"></div>
     <button class="help-bubble__close" onclick="closeHelpBubble()" aria-label="Lukk">
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
         <line x1="2" y1="2" x2="16" y2="16" stroke="#5B22A6" stroke-width="2" stroke-linecap="round"/>
@@ -1214,6 +1206,7 @@ renderVarsler();
     <a id="helpBubbleLink" href="#" class="help-bubble__link" target="_blank" rel="noopener">Les mer på snl.no</a>
   </div>
 </div>
+
 <script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
 </body>
 </html>
