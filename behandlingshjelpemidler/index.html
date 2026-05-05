@@ -1151,7 +1151,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <div class="delivery-select-wrap">
           <select id="deliverySelect" class="delivery-select" onchange="selectDelivery(this.value)">
             <option value="post" selected>Sendes i posten</option>
-            <option value="hentes">Hentes</option>
+            <option value="hentes">Hentes på lokasjon 1</option>
+            <option value="hentes2">Hentes på lokasjon 2</option>
           </select>
         </div>
       </div>
@@ -1832,8 +1833,9 @@ function changeQty(btn, eqId, idx, delta) {
 // ── Step 2: delivery selection + validation ─────────────────
 function selectDelivery(value) {
   orderState.delivery = value;
-  document.getElementById('deliveryAddressFields').hidden = (value === 'hentes');
-  if (value === 'hentes') clearAllFieldErrors();
+  const isPickup = value === 'hentes' || value === 'hentes2';
+  document.getElementById('deliveryAddressFields').hidden = isPickup;
+  if (isPickup) clearAllFieldErrors();
 }
 
 function clearFieldError(input) {
@@ -1845,7 +1847,7 @@ function clearAllFieldErrors() {
 }
 
 function validateStep2() {
-  if (document.getElementById('deliverySelect').value === 'hentes') return true;
+  if (['hentes','hentes2'].includes(document.getElementById('deliverySelect').value)) return true;
   const fields = [
     { id: 'delivGate' },
     { id: 'delivPostnr' },
@@ -1891,8 +1893,8 @@ function renderStep4() {
   // Collect delivery address
   let addr;
   let addrOneline = '';
-  if (orderState.delivery === 'hentes') {
-    addr = 'Hentes';
+  if (orderState.delivery === 'hentes' || orderState.delivery === 'hentes2') {
+    addr = orderState.delivery === 'hentes' ? 'Hentes på lokasjon 1' : 'Hentes på lokasjon 2';
   } else {
     const gate   = document.getElementById('delivGate').value.trim();
     const postnr = document.getElementById('delivPostnr').value.trim();
@@ -1994,7 +1996,7 @@ function submitOrder() {
   const orderId = '#' + new Date().getFullYear() + '-' + (Math.floor(Math.random() * 9000) + 1000);
 
   let addrOneline = '';
-  if (orderState.delivery !== 'hentes') {
+  if (orderState.delivery !== 'hentes' && orderState.delivery !== 'hentes2') {
     const gate   = document.getElementById('delivGate').value.trim();
     const postnr = document.getElementById('delivPostnr').value.trim();
     const sted   = document.getElementById('delivSted').value.trim();
@@ -2011,7 +2013,7 @@ function showConfirmation(orderId, delivery, addr) {
   const panel = document.getElementById('orderConfirmation');
   document.getElementById('confirmationHeading').innerHTML = 'Bestilling er mottatt';
   const contact = 'Dersom du har sp\u00f8rsm\u00e5l om din bestilling kan du kontakte Regional enhet for behandlings\u00adhjelpe\u00admidler. Tel: 72 57 63 00';
-  const msg = delivery === 'hentes'
+  const msg = (delivery === 'hentes' || delivery === 'hentes2')
     ? 'Du vil f\u00e5 beskjed n\u00e5r ordren er klar til henting. ' + contact
     : 'Ordren sendes vanligvis innen 1-2 arbeidsdager. ' + contact;
   document.getElementById('confirmationText').innerHTML = msg;
@@ -2024,7 +2026,7 @@ function addActiveOrderCard(delivery, addr) {
   const dd = String(today.getDate()).padStart(2, '0');
   const mm = String(today.getMonth() + 1).padStart(2, '0');
   const dateStr = dd + '.' + mm + '.' + today.getFullYear();
-  const deliveryLabel = delivery === 'hentes' ? 'Hentes' : 'Sendes i posten';
+  const deliveryLabel = delivery === 'hentes' ? 'Hentes på lokasjon 1' : delivery === 'hentes2' ? 'Hentes på lokasjon 2' : 'Sendes i posten';
   const chevron = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzgiIGhlaWdodD0iMzgiIHZpZXdCb3g9IjAgMCAzOCAzOCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBmaWxsLXJ1bGU9ImV2ZW5vZGQiIGNsaXAtcnVsZT0iZXZlbm9kZCIgZD0iTTI1Ljc5MDEgMTQuMTU4N0wyNy4yMDk3IDE1LjU2NzVMMTguOTk5MyAyMy44NDEzTDEwLjc5IDE1LjU2NzRMMTIuMjA5OCAxNC4xNTg4TDE4Ljk5OTQgMjEuMDAxOEwyNS43OTAxIDE0LjE1ODdaIiBmaWxsPSIjMTg4MDk3Ii8+PC9zdmc+';
 
   const orderedEquipment = EQUIPMENT.filter(eq =>
@@ -2046,7 +2048,7 @@ function addActiveOrderCard(delivery, addr) {
         <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">${eq.details.type}</span></div>
         <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">${dateStr}</span></div>
         <div class="duolist__row"><span class="duolist__key">Leveransemåte</span><span class="duolist__value">${deliveryLabel}</span></div>
-        ${delivery !== 'hentes' && addr ? `<div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">${addr}</span></div>` : ''}
+        ${delivery !== 'hentes' && delivery !== 'hentes2' && addr ? `<div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">${addr}</span></div>` : ''}
         <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Under behandling</span></div>
         <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00</span></div>
       </div>
