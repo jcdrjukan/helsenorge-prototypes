@@ -1026,7 +1026,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Airsense 11 Autoset</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Positivt luftveistrykkapparat, kontinuerlig, auto</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">04.04.2026</span></div>
-          <div class="duolist__row"><span class="duolist__key">Leveransemåte</span><span class="duolist__value">Hentes</span></div>
+          <div class="duolist__row"><span class="duolist__key">Leveransemåte</span><span class="duolist__value">Sendes i posten</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Kirkeveien 84B, 7010 Trondheim</span></div>
           <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Til pakking</span></div>
           <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00</span></div>
         </div>
@@ -1889,6 +1890,7 @@ function toggleHistoryCard(btn) {
 function renderStep4() {
   // Collect delivery address
   let addr;
+  let addrOneline = '';
   if (orderState.delivery === 'hentes') {
     addr = 'Hentes';
   } else {
@@ -1897,6 +1899,7 @@ function renderStep4() {
     const sted   = document.getElementById('delivSted').value.trim();
     const line2 = [postnr, sted].filter(Boolean).join(' ');
     addr = [gate, line2].filter(Boolean).join('<br>') || 'Adresse ikke utfylt';
+    addrOneline = [gate, line2].filter(Boolean).join(', ') || 'Adresse ikke utfylt';
   }
   const comment = document.getElementById('orderComment').value.trim();
   const telefon = document.getElementById('delivTelefon').value.trim();
@@ -1990,12 +1993,12 @@ function submitOrder() {
 
   const orderId = '#' + new Date().getFullYear() + '-' + (Math.floor(Math.random() * 9000) + 1000);
 
-  showConfirmation(orderId, orderState.delivery);
+  showConfirmation(orderId, orderState.delivery, addrOneline);
   refreshEquipmentCardStatuses();
   showFront();
 }
 
-function showConfirmation(orderId, delivery) {
+function showConfirmation(orderId, delivery, addr) {
   const panel = document.getElementById('orderConfirmation');
   document.getElementById('confirmationHeading').innerHTML = 'Bestilling er mottatt';
   const contact = 'Dersom du har sp\u00f8rsm\u00e5l om din bestilling kan du kontakte Regional enhet for behandlings\u00adhjelpe\u00admidler. Tel: 72 57 63 00';
@@ -2004,10 +2007,10 @@ function showConfirmation(orderId, delivery) {
     : 'Ordren sendes vanligvis innen 1-2 arbeidsdager. ' + contact;
   document.getElementById('confirmationText').innerHTML = msg;
   panel.style.display = 'flex';
-  addActiveOrderCard(delivery);
+  addActiveOrderCard(delivery, addr);
 }
 
-function addActiveOrderCard(delivery) {
+function addActiveOrderCard(delivery, addr) {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
   const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -2034,6 +2037,7 @@ function addActiveOrderCard(delivery) {
         <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">${eq.details.type}</span></div>
         <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">${dateStr}</span></div>
         <div class="duolist__row"><span class="duolist__key">Leveransemåte</span><span class="duolist__value">${deliveryLabel}</span></div>
+        ${delivery !== 'hentes' && addr ? `<div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">${addr}</span></div>` : ''}
         <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Under behandling</span></div>
         <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00</span></div>
       </div>
