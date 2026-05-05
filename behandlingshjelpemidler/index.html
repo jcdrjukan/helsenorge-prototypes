@@ -1006,7 +1006,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <div class="sp-xl"></div>
 
     <!-- ── ACTIVE ORDERS ── -->
-    <h2 class="section-h2">Aktive bestillinger</h2>
+    <h2 class="section-h2">Under behandling</h2>
     <div class="sp-s"></div>
 
     <div class="order-card" id="sistebestilling">
@@ -1158,24 +1158,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </div>
       <div id="deliveryAddressFields" class="delivery-address-form">
         <div class="form-field">
+          <label for="delivNavn">Navn</label>
+          <input type="text" id="delivNavn" value="Tora Hansen" oninput="clearFieldError(this)">
+        </div>
+        <div class="form-field">
           <p class="form-field__error-msg">Du må legge inn gate</p>
           <label for="delivGate">Gate</label>
-          <input type="text" id="delivGate" placeholder="Gatenavn og nummer" oninput="clearFieldError(this)">
+          <input type="text" id="delivGate" value="Kirkeveien 84B" placeholder="Gatenavn og nummer" oninput="clearFieldError(this)">
         </div>
         <div class="form-field">
           <p class="form-field__error-msg">Du må legge inn postnummer</p>
           <label for="delivPostnr">Postnummer</label>
-          <input type="text" id="delivPostnr" placeholder="0000" oninput="clearFieldError(this)">
+          <input type="text" id="delivPostnr" value="7010" placeholder="0000" oninput="clearFieldError(this)">
         </div>
         <div class="form-field">
           <p class="form-field__error-msg">Du må legge inn sted</p>
           <label for="delivSted">Sted</label>
-          <input type="text" id="delivSted" placeholder="By" oninput="clearFieldError(this)">
+          <input type="text" id="delivSted" value="Trondheim" placeholder="By" oninput="clearFieldError(this)">
         </div>
         <div class="form-field">
           <p class="form-field__error-msg">Du må legge inn telefonnummer</p>
           <label for="delivTelefon">Telefon</label>
-          <input type="tel" id="delivTelefon" placeholder="00 00 00 00" oninput="clearFieldError(this)">
+          <input type="tel" id="delivTelefon" value="99 88 77 66" placeholder="00 00 00 00" oninput="clearFieldError(this)">
         </div>
       </div>
       <button class="btn-primary" onclick="goToStep(3)">
@@ -1568,11 +1572,11 @@ function renderMachinePage(eq) {
     const lastOrderHtml = c.lastOrder
       ? `<span class="consumable-status-row__last-order">Sist bestilt: ${c.lastOrder}</span>` : '';
     const badgeHtml = eq.deaktivert
-      ? `<span class="consumable-status-badge consumable-status-badge--wait">${WAIT_SVG}bestilling pågår</span>`
+      ? `<span class="consumable-status-badge consumable-status-badge--wait">${WAIT_SVG}under bestilling</span>`
       : c.activeOrder
         ? `<span class="consumable-status-badge consumable-status-badge--wait">${WAIT_SVG}aktiv bestilling</span>`
         : unavailDate
-          ? `<span class="consumable-status-badge consumable-status-badge--wait">${WAIT_SVG}bestilling pågår</span>`
+          ? `<span class="consumable-status-badge consumable-status-badge--wait">${WAIT_SVG}under bestilling</span>`
           : `<span class="consumable-status-badge consumable-status-badge--ok">${OK_SVG}kan bestilles</span>`;
     return `
       <div class="consumable-status-row">
@@ -1781,7 +1785,7 @@ function renderStep1(focusId) {
           <div class="order-consumable-row__info">
             <div class="order-consumable-row__name">${c.name}</div>
             ${c.lastOrder ? `<div class="order-consumable-row__last-order">Sist bestilt: ${c.lastOrder}</div>` : ''}
-            <div class="order-consumable-row__unavailable">${WAIT_BADGE_SVG}bestilling pågår</div>
+            <div class="order-consumable-row__unavailable">${WAIT_BADGE_SVG}under bestilling</div>
           </div>
           <div class="qty-control">
             <button class="qty-btn" disabled aria-label="Reduser antall">−</button>
@@ -1896,11 +1900,12 @@ function renderStep4() {
   if (orderState.delivery === 'hentes' || orderState.delivery === 'hentes2') {
     addr = orderState.delivery === 'hentes' ? 'Hentes på lokasjon 1' : 'Hentes på lokasjon 2';
   } else {
+    const navn   = document.getElementById('delivNavn').value.trim();
     const gate   = document.getElementById('delivGate').value.trim();
     const postnr = document.getElementById('delivPostnr').value.trim();
     const sted   = document.getElementById('delivSted').value.trim();
     const line2 = [postnr, sted].filter(Boolean).join(' ');
-    addr = [gate, line2].filter(Boolean).join('<br>') || 'Adresse ikke utfylt';
+    addr = [navn, gate, line2].filter(Boolean).join('<br>') || 'Adresse ikke utfylt';
     addrOneline = [gate, line2].filter(Boolean).join(', ') || 'Adresse ikke utfylt';
   }
   const comment = document.getElementById('orderComment').value.trim();
@@ -1966,7 +1971,7 @@ function refreshEquipmentCardStatuses() {
       if (!badge) return;
       const dateStr = formatNorwegianDate(orderedDates[key]);
       badge.className = 'consumable-status-badge consumable-status-badge--wait';
-      badge.innerHTML = WAIT_SVG + 'bestilling pågår';
+      badge.innerHTML = WAIT_SVG + 'under bestilling';
       let lastOrderSpan = rows[i].querySelector('.consumable-status-row__last-order');
       if (!lastOrderSpan) {
         lastOrderSpan = document.createElement('span');
@@ -1995,21 +2000,25 @@ function submitOrder() {
 
   const orderId = '#' + new Date().getFullYear() + '-' + (Math.floor(Math.random() * 9000) + 1000);
 
-  let addrOneline = '';
+  let addrCard = '';
+  let navnCard = '';
+  let telefonCard = '';
   if (orderState.delivery !== 'hentes' && orderState.delivery !== 'hentes2') {
     const gate   = document.getElementById('delivGate').value.trim();
     const postnr = document.getElementById('delivPostnr').value.trim();
     const sted   = document.getElementById('delivSted').value.trim();
     const line2  = [postnr, sted].filter(Boolean).join(' ');
-    addrOneline  = [gate, line2].filter(Boolean).join(', ') || 'Adresse ikke utfylt';
+    navnCard     = document.getElementById('delivNavn').value.trim();
+    addrCard     = [navnCard, gate, line2].filter(Boolean).join('<br>') || 'Adresse ikke utfylt';
+    telefonCard  = document.getElementById('delivTelefon').value.trim();
   }
 
-  showConfirmation(orderId, orderState.delivery, addrOneline);
+  showConfirmation(orderId, orderState.delivery, addrCard, navnCard, telefonCard);
   refreshEquipmentCardStatuses();
   showFront();
 }
 
-function showConfirmation(orderId, delivery, addr) {
+function showConfirmation(orderId, delivery, addr, navn, telefon) {
   const panel = document.getElementById('orderConfirmation');
   document.getElementById('confirmationHeading').innerHTML = 'Bestilling er mottatt';
   const contact = 'Dersom du har sp\u00f8rsm\u00e5l om din bestilling kan du kontakte Regional enhet for behandlings\u00adhjelpe\u00admidler. Tel: 72 57 63 00';
@@ -2018,10 +2027,10 @@ function showConfirmation(orderId, delivery, addr) {
     : 'Ordren sendes vanligvis innen 1-2 arbeidsdager. ' + contact;
   document.getElementById('confirmationText').innerHTML = msg;
   panel.style.display = 'flex';
-  addActiveOrderCard(delivery, addr);
+  addActiveOrderCard(delivery, addr, navn, telefon);
 }
 
-function addActiveOrderCard(delivery, addr) {
+function addActiveOrderCard(delivery, addr, navn, telefon) {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
   const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -2048,7 +2057,9 @@ function addActiveOrderCard(delivery, addr) {
         <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">${eq.details.type}</span></div>
         <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">${dateStr}</span></div>
         <div class="duolist__row"><span class="duolist__key">Leveransemåte</span><span class="duolist__value">${deliveryLabel}</span></div>
-        ${delivery !== 'hentes' && delivery !== 'hentes2' && addr ? `<div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">${addr}</span></div>` : ''}
+        ${delivery !== 'hentes' && delivery !== 'hentes2' && addr ? `
+        <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">${addr}</span></div>
+        ${telefon ? `<div class="duolist__row"><span class="duolist__key">Telefon</span><span class="duolist__value">${telefon}</span></div>` : ''}` : ''}
         <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Under behandling</span></div>
         <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00</span></div>
       </div>
