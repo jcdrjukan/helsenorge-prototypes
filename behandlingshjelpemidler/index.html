@@ -1993,6 +1993,15 @@ function submitOrder() {
 
   const orderId = '#' + new Date().getFullYear() + '-' + (Math.floor(Math.random() * 9000) + 1000);
 
+  let addrOneline = '';
+  if (orderState.delivery !== 'hentes') {
+    const gate   = document.getElementById('delivGate').value.trim();
+    const postnr = document.getElementById('delivPostnr').value.trim();
+    const sted   = document.getElementById('delivSted').value.trim();
+    const line2  = [postnr, sted].filter(Boolean).join(' ');
+    addrOneline  = [gate, line2].filter(Boolean).join(', ') || 'Adresse ikke utfylt';
+  }
+
   showConfirmation(orderId, orderState.delivery, addrOneline);
   refreshEquipmentCardStatuses();
   showFront();
