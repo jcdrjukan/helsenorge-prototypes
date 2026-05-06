@@ -141,6 +141,8 @@
   color: var(--wf-text-sub);
   border-top: 1px dashed var(--wf-border);
 }
+.wf-accordion__content > p { font-style: italic; }
+.wf-accordion__content > p:last-of-type { margin-bottom: 12px; }
 
 /* ── Button ──────────────────────────────────────────────────── */
 .wf-btn {
@@ -377,6 +379,7 @@
                 </button>
                 <div class="wf-accordion__body">
                   <div class="wf-accordion__content">
+                    <p>Følgende tjenester er valgfrie og kan deaktiveres når som helst. Dersom du vil fjerne tjenesten se etter Avslutt tjeneste-lenke helt nederst i tjenesten.</p>
                     <ul class="wf-link-list">
                       <li><a href="#">Røykeslutt</a></li>
                       <li><a href="#">Gravid</a></li>
@@ -451,7 +454,7 @@
           </button>
           <div class="wf-accordion__body">
             <div class="wf-accordion__content">
-              <p>Her kan du registrere opplysninger som du ønsker dine behandler skal være klar over. Det du noterer her legges inn i din <a href="#" style="color:var(--wf-accent);">kjernejournal</a>.</p>
+              <p>Her kan du registrere opplysninger som du ønsker dine behandler skal være klar over. Opplysningene deles via din <a href="#" style="color:var(--wf-accent);">kjernejournal</a>.</p>
 
               <!-- Kontaktinformasjon -->
               <div class="wf-accordion" style="margin-top:10px;">
