@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profil – Helsenorge</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hn-shell.css">
+<style>
+
+/* ── Wireframe palette ───────────────────────────────────────── */
+:root {
+  --wf-bg:        #F5F5F5;
+  --wf-surface:   #FFFFFF;
+  --wf-border:    #BDBAB9;
+  --wf-border-em: #62625F;
+  --wf-text:      #2B2C2B;
+  --wf-text-sub:  #62625F;
+  --wf-accent:    #188097;
+  --wf-accent-bg: #E4F7F9;
+}
+
+/* ── App override for wireframe feel ─────────────────────────── */
+.app { background: var(--wf-bg); gap: 0; }
+
+/* ── Header ──────────────────────────────────────────────────── */
+.wf-header {
+  background: var(--wf-surface);
+  border-bottom: 1px solid var(--wf-border-em);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 16px;
+  height: 52px;
+  flex-shrink: 0;
+  width: 100%;
+}
+.wf-header__logo {
+  font: 700 18px/1 'Source Sans Pro', sans-serif;
+  color: var(--wf-text);
+  letter-spacing: -0.3px;
+}
+.wf-header__meny {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 1px solid var(--wf-border-em);
+  border-radius: 4px;
+  padding: 6px 12px;
+  font: 600 15px/1 'Source Sans Pro', sans-serif;
+  color: var(--wf-text);
+  cursor: pointer;
+  transition: background 0.12s;
+}
+.wf-header__meny:hover { background: var(--wf-bg); }
+.wf-header__meny.active {
+  background: var(--wf-accent-bg);
+  border-color: var(--wf-accent);
+  color: var(--wf-accent);
+}
+.wf-header__meny svg { transition: transform 0.2s; }
+.wf-header__meny.active svg { transform: rotate(90deg); }
+
+/* ── Menu panel ──────────────────────────────────────────────── */
+.wf-menu {
+  background: var(--wf-surface);
+  border-bottom: 2px solid var(--wf-border-em);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.25s ease;
+  width: 100%;
+  flex-shrink: 0;
+}
+.wf-menu.open { max-height: 2000px; overflow-y: auto; }
+
+/* ── Search row ──────────────────────────────────────────────── */
+.wf-search {
+  display: flex;
+  gap: 8px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid var(--wf-border);
+}
+.wf-search__input {
+  flex: 1;
+  border: 1px solid var(--wf-border-em);
+  border-radius: 0;
+  padding: 8px 10px;
+  font: 400 15px/1.4 'Source Sans Pro', sans-serif;
+  color: var(--wf-text);
+  background: var(--wf-bg);
+  outline: none;
+}
+.wf-search__input::placeholder { color: var(--wf-text-sub); }
+.wf-search__btn {
+  background: var(--wf-accent);
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  padding: 8px 14px;
+  font: 600 15px/1.4 'Source Sans Pro', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.wf-search__btn:hover { background: #126F87; }
+
+/* ── Accordion ───────────────────────────────────────────────── */
+.wf-accordion { border-bottom: 1px solid var(--wf-border); }
+.wf-accordion:last-child { border-bottom: none; }
+
+.wf-accordion__trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 13px 16px;
+  background: none;
+  border: none;
+  font: 600 16px/1.3 'Source Sans Pro', sans-serif;
+  color: var(--wf-text);
+  cursor: pointer;
+  text-align: left;
+}
+.wf-accordion__content .wf-accordion__trigger {
+  font-weight: 400;
+}
+.wf-accordion__trigger:hover { background: var(--wf-bg); }
+.wf-accordion__trigger svg { flex-shrink: 0; transition: transform 0.2s; color: var(--wf-text-sub); }
+.wf-accordion__trigger[aria-expanded="true"] svg { transform: rotate(180deg); }
+
+.wf-accordion__body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.2s ease;
+}
+.wf-accordion__body.open { max-height: 2000px; }
+.wf-accordion__content {
+  padding: 8px 16px 14px;
+  font: 400 15px/1.5 'Source Sans Pro', sans-serif;
+  color: var(--wf-text-sub);
+  border-top: 1px dashed var(--wf-border);
+}
+
+/* ── Button ──────────────────────────────────────────────────── */
+.wf-btn {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 9px 14px;
+  background: var(--wf-accent);
+  color: #fff;
+  border: none;
+  border-radius: 0;
+  font: 600 15px/1.4 'Source Sans Pro', sans-serif;
+  cursor: pointer;
+}
+.wf-btn:hover { background: #126F87; }
+
+/* ── Checkbox list ───────────────────────────────────────────── */
+.wf-check-list {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wf-check-list li label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 400 15px/1.4 'Source Sans Pro', sans-serif;
+  color: var(--wf-text);
+  cursor: pointer;
+}
+.wf-check-list input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  accent-color: var(--wf-accent);
+  cursor: pointer;
+}
+
+/* ── Button row ──────────────────────────────────────────────── */
+.wf-btn-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+}
+.wf-btn--secondary {
+  background: none;
+  color: var(--wf-text);
+  border: 1px solid var(--wf-border-em);
+}
+.wf-btn--secondary:hover { background: var(--wf-bg); }
+
+/* ── Placeholder rows ────────────────────────────────────────── */
+.wf-placeholder-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 6px; }
+.wf-placeholder-list li {
+  height: 36px;
+  background: var(--wf-bg);
+  border: 1px solid var(--wf-border);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  font: 400 14px/1 'Source Sans Pro', sans-serif;
+  color: var(--wf-text-sub);
+}
+
+/* ── Page content ────────────────────────────────────────────── */
+.wf-page {
+  flex: 1;
+  padding: 20px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.wf-page__placeholder {
+  height: 28px;
+  background: var(--wf-surface);
+  border: 1px dashed var(--wf-border);
+  border-radius: 2px;
+}
+.wf-page__placeholder--tall { height: 80px; }
+.wf-page__placeholder--wide { width: 70%; }
+
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+  <div class="phone-btn-silent"></div>
+  <div class="phone-btn-vol-up"></div>
+  <div class="phone-btn-vol-down"></div>
+  <div class="phone-btn-power"></div>
+
+  <div class="phone-shell">
+    <div class="phone-chrome-top">
+      <span class="phone-chrome-top__time">9:41</span>
+      <div class="phone-chrome-top__pill"></div>
+      <div class="phone-chrome-top__icons">
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><rect x="0" y="3" width="3" height="9" rx="1" fill="#000"/><rect x="4.5" y="2" width="3" height="10" rx="1" fill="#000"/><rect x="9" y="0" width="3" height="12" rx="1" fill="#000"/><rect x="13.5" y="0" width="2.5" height="12" rx="1" fill="#000" opacity=".3"/></svg>
+        <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 2.5C10.2 2.5 12.2 3.4 13.6 4.9L15 3.4C13.2 1.5 10.7 0.5 8 0.5C5.3 0.5 2.8 1.5 1 3.4L2.4 4.9C3.8 3.4 5.8 2.5 8 2.5Z" fill="#000"/><path d="M8 5.5C9.5 5.5 10.8 6.1 11.8 7.1L13.2 5.6C11.8 4.2 9.99 3.5 8 3.5C6.01 3.5 4.2 4.2 2.8 5.6L4.2 7.1C5.2 6.1 6.5 5.5 8 5.5Z" fill="#000"/><circle cx="8" cy="10" r="1.5" fill="#000"/></svg>
+        <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#000" stroke-opacity=".35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#000"/><path d="M23 4v4a2 2 0 000-4z" fill="#000" opacity=".4"/></svg>
+      </div>
+    </div>
+
+    <div class="app" id="app">
+
+      <!-- Header -->
+      <header class="wf-header">
+        <span class="wf-header__logo">helsenorge</span>
+        <button class="wf-header__meny" id="menyBtn" onclick="toggleMeny()" aria-expanded="false" aria-controls="menyPanel">
+          Meny
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+      </header>
+
+      <!-- Menu panel -->
+      <div class="wf-menu" id="menyPanel" role="navigation" aria-label="Hovedmeny">
+
+        <!-- Search -->
+        <div class="wf-search">
+          <input class="wf-search__input" type="text" placeholder="Søk på helsenorge.no…" aria-label="Søk">
+          <button class="wf-search__btn">Søk</button>
+        </div>
+
+        <!-- Tjenester -->
+        <div class="wf-accordion">
+          <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            Tjenester
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="wf-accordion__body">
+            <div class="wf-accordion__content">
+
+              <div class="wf-accordion" style="margin-top:10px;">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Oppfølging i helsetjenesten
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Oversikter
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Søknad og refusjon
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Kvalitet og styring
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Valgfrie tjenester
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Kvalitetssikret helseinformasjon -->
+        <div class="wf-accordion">
+          <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            Kvalitetssikret helseinformasjon
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="wf-accordion__body">
+            <div class="wf-accordion__content">
+
+              <div class="wf-accordion" style="margin-top:10px;">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Rettigheter, helsehjelp og klage
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Helse i ulike livsfaser
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Sykdom og behandling
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Lettlest
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Profil -->
+        <div class="wf-accordion">
+          <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            Profil
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="wf-accordion__body">
+            <div class="wf-accordion__content">
+              <p>Her kan du registrere opplysninger som du ønsker dine behandler skal være klar over. Det du noterer her legges inn i din <a href="#" style="color:var(--wf-accent);">kjernejournal</a>.</p>
+
+              <!-- Kontaktinformasjon -->
+              <div class="wf-accordion" style="margin-top:10px;">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Kontaktinformasjon
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Følgende informasjon hentes fra nasjonale registre. Dersom noe er feil ta kontakt med registeret direkte.</p>
+                    <ul class="wf-placeholder-list">
+                      <li>Adresse fra PREG</li>
+                      <li>E-post, mobil og språkvalg fra KRR</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Pårørende -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Pårørende
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her kan du registrere informasjon om dine pårørende i tilfelle helsepersonell trenger å kontakte dem. Dette legges inn i din kjernejournal.</p>
+                    <button class="wf-btn">Registrer pårørende</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Sykdomshistorikk -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Sykdomshistorikk
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her kan du registrere sykdommer eller helsetilstander som du ønsker at helsepersonell skal kjenne til. Opplysningene deles med behandlere via din kjernejournal.</p>
+                    <button class="wf-btn">Registrer sykdom eller helsetilstand</button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Tilgjengelighet og kommunikasjon -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Tilgjengelighet og kommunikasjon
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her kan du opplyse om du har utfordringer med språk, hørsel, tale eller syn.</p>
+                    <ul class="wf-check-list">
+                      <li><label><input type="checkbox"> Sterkt nedsatt hørsel</label></li>
+                      <li><label><input type="checkbox"> Døv</label></li>
+                      <li><label><input type="checkbox"> Sterkt nedsatt syn</label></li>
+                      <li><label><input type="checkbox"> Blind</label></li>
+                      <li><label><input type="checkbox"> Bruker kontaktlinser</label></li>
+                      <li><label><input type="checkbox"> Talevansker (Afasi mm)</label></li>
+                      <li><label><input type="checkbox"> Stum</label></li>
+                      <li><label><input type="checkbox"> Kognitive vansker som påvirker kommunikasjon</label></li>
+                      <li><label><input type="checkbox"> Trenger tolk</label></li>
+                    </ul>
+                    <div class="wf-btn-row">
+                      <button class="wf-btn">Lagre</button>
+                      <button class="wf-btn wf-btn--secondary">Avbryt</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Donorkort -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Donorkort
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her kan du opprette et digitalt donorkort. Husk å fortelle dine nærmeste om ditt ønske om å være organdonor.</p>
+                    <button class="wf-btn">Opprett donorkort</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Innstillinger -->
+        <div class="wf-accordion">
+          <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+            Innstillinger
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+          </button>
+          <div class="wf-accordion__body">
+            <div class="wf-accordion__content">
+              <p>Her kan du gjøre tilpasninger til hvordan du bruker Helsenorge, samt hvordan andre kan bruke Helsenorge på din vegne.</p>
+
+              <!-- Personverninnstillinger -->
+              <div class="wf-accordion" style="margin-top:10px;">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Personverninnstillinger
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Hvordan vil du bruke Helsenorge?</li><li>Helsepersonell sin tilgang til opplysninger om deg</li><li>Forskning, screening og helseregistre</li></ul></div>
+                </div>
+              </div>
+
+              <!-- Fullmakter -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Fullmakter
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her kan du gi andre fullmakt til å bruke helsetjenester på vegne av deg. Du kan også se fullmakter du har fått fra andre.</p>
+                    <ul class="wf-placeholder-list"><li>Gi fullmakt til å bruke Helsenorge for deg</li><li>Gi fullmakt til å hente ut resepter for deg</li></ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Bruk og tilganger -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Bruk og tilganger
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her ser du oversikt over din bruk av Helsenorge. Hvis andre har tilgang til tjenester på dine vegne gjennom foreldreansvar eller fullmakt, vises deres bruk også. Du kan styre din egen og andres tilgang til dine tjenester og helseopplysninger under.</p>
+
+                    <div class="wf-accordion" style="margin-top:10px;">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Logg over bruk
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+
+                    <div class="wf-accordion">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Aktive innlogginger
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+
+                    <div class="wf-accordion">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Tillatelser
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Varselinnstillinger -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Varselinnstillinger
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her velger du hvordan du vil bli varslet når du mottar informasjon på Helsenorge. Du vil bare få varsler på de tjenestene du har tilgang til. Varsler på sms sendes mellom klokken 07:00-23:00. Varsler i app og på e-post sendes hele døgnet.</p>
+
+                    <div class="wf-accordion" style="margin-top:10px;">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Hvordan vil du motta varsler?
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+
+                    <div class="wf-accordion">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Hvor ofte vil du bli varslet?
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+
+                    <div class="wf-accordion">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Tilleggsvarsler
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+
+                    <div class="wf-accordion">
+                      <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                        Varsler fra personer du representerer
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                      </button>
+                      <div class="wf-accordion__body">
+                        <div class="wf-accordion__content"><ul class="wf-placeholder-list"><li>Innhold A</li><li>Innhold B</li></ul></div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+
+              <!-- Refusjonskonto -->
+              <div class="wf-accordion">
+                <button class="wf-accordion__trigger" aria-expanded="false" onclick="toggleAccordion(this)">
+                  Refusjonskonto
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+                </button>
+                <div class="wf-accordion__body">
+                  <div class="wf-accordion__content">
+                    <p>Her kan du registrere et kontonummer som brukes for alle refusjoner og utbetalinger fra Helfo, inkludert frikort-utbetalinger.</p>
+                    <button class="wf-btn">Legg til kontonummer</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Page content placeholder -->
+      <div class="wf-page">
+        <div class="wf-page__placeholder wf-page__placeholder--wide"></div>
+        <div class="wf-page__placeholder wf-page__placeholder--tall"></div>
+        <div class="wf-page__placeholder"></div>
+        <div class="wf-page__placeholder wf-page__placeholder--wide"></div>
+        <div class="wf-page__placeholder wf-page__placeholder--tall"></div>
+        <div class="wf-page__placeholder"></div>
+      </div>
+
+    </div>
+
+    <div class="phone-chrome-bottom"><div class="phone-chrome-bottom__bar"></div></div>
+  </div>
+</div>
+
+<script>
+function toggleMeny() {
+  const btn = document.getElementById('menyBtn');
+  const panel = document.getElementById('menyPanel');
+  const isOpen = panel.classList.toggle('open');
+  btn.classList.toggle('active', isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+}
+
+function toggleAccordion(trigger) {
+  const body = trigger.nextElementSibling;
+  const isOpen = body.classList.toggle('open');
+  trigger.setAttribute('aria-expanded', isOpen);
+}
+</script>
+</body>
+</html>
