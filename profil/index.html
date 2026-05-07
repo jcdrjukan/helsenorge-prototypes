@@ -229,8 +229,29 @@
   color: var(--wf-text-sub);
 }
 
+/* ── Comment field ───────────────────────────────────────────── */
+.comment-field { margin: 6px 0 4px 28px; }
+.comment-label {
+  display: block;
+  font: 400 13px/1.4 'Source Sans Pro', sans-serif;
+  color: var(--wf-text-sub);
+  margin-bottom: 3px;
+}
+.comment-input {
+  width: 100%;
+  border: 1px solid var(--wf-border-em);
+  border-radius: 0;
+  padding: 5px 8px;
+  font: 400 14px/1.4 'Source Sans Pro', sans-serif;
+  color: var(--wf-text);
+  background: #fff;
+  outline: none;
+  box-sizing: border-box;
+}
+.comment-input:focus { border-color: var(--wf-accent); }
+
 /* ── Tolk language selector ──────────────────────────────────── */
-.tolk-widget { margin-top: 12px; }
+.tolk-widget { margin: 6px 0 4px 28px; }
 .tolk-label {
   font: 600 14px/1.4 'Source Sans Pro', sans-serif;
   color: var(--wf-text);
@@ -600,14 +621,14 @@
                   <div class="wf-accordion__content">
                     <p>Her kan du opplyse om du har utfordringer med språk, hørsel, tale eller syn.</p>
                     <ul class="wf-check-list">
-                      <li><label><input type="checkbox"> Sterkt nedsatt hørsel</label></li>
-                      <li><label><input type="checkbox"> Døv</label></li>
-                      <li><label><input type="checkbox"> Sterkt nedsatt syn</label></li>
-                      <li><label><input type="checkbox"> Blind</label></li>
-                      <li><label><input type="checkbox"> Bruker kontaktlinser</label></li>
-                      <li><label><input type="checkbox"> Talevansker (Afasi mm)</label></li>
-                      <li><label><input type="checkbox"> Stum</label></li>
-                      <li><label><input type="checkbox"> Kognitive vansker som påvirker kommunikasjon</label></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Sterkt nedsatt hørsel</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Døv</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Sterkt nedsatt syn</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Blind</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Bruker kontaktlinser</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Talevansker (Afasi mm)</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Stum</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
+                      <li><label><input type="checkbox" onchange="toggleComment(this)"> Kognitive vansker som påvirker kommunikasjon</label><div class="comment-field" style="display:none;"><label class="comment-label">Kommentar</label><input type="text" class="comment-input"></div></li>
                       <li><label><input type="checkbox" id="tolkCheckbox" onchange="toggleTolkWidget(this)"> Trenger tolk</label></li>
                     </ul>
 
@@ -977,6 +998,14 @@ function tolkOpenDropdown() {
 
 function tolkCloseDropdown() {
   document.getElementById('tolkDropdown').classList.remove('open');
+}
+
+function toggleComment(checkbox) {
+  const commentField = checkbox.closest('li').querySelector('.comment-field');
+  if (commentField) {
+    commentField.style.display = checkbox.checked ? 'block' : 'none';
+    if (!checkbox.checked) commentField.querySelector('.comment-input').value = '';
+  }
 }
 
 function toggleTolkWidget(checkbox) {
