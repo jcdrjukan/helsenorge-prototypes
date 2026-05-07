@@ -1,0 +1,1382 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Prøver og undersøkelser – Helsenorge</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="hn-shell.css">
+<style>
+/* ── Tile link list ─────────────────────────────────────────── */
+.tile-list { width: 366px; display: flex; flex-direction: column; gap: 8px; }
+
+.tile-item {
+  background: #F5F3F3; border: 1px solid #7D7C79;
+  width: 100%; display: flex; align-items: stretch;
+  cursor: pointer; text-align: left; overflow: hidden;
+  min-height: 64px;
+}
+.tile-item:hover { background: #EAE7E7; }
+.tile-item__inner {
+  flex: 1; min-width: 0; display: flex; align-items: center;
+  justify-content: space-between; padding: 8px 0 8px 10px;
+}
+.tile-item__text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 10px 0 10px 0; }
+.tile-item__title { font: 600 18px/1.2 'Source Sans Pro', sans-serif; color: #000; }
+.tile-item__sub   { font: 400 16px/1.2 'Source Sans 3', sans-serif; color: #474745; }
+.tile-item__right { display: flex; align-items: center; gap: 4px; padding: 0 4px; flex-shrink: 0; }
+.tile-item__badge {
+  background: #188097; border: 1px solid #126F87;
+  border-radius: 100px; width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font: 600 14px/1 'Source Sans Pro', sans-serif; color: #fff;
+  flex-shrink: 0;
+}
+.tile-item__chevron { width: 44px; height: 48px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+/* ── Rekvisjon card ─────────────────────────────────────────── */
+.rekv-card {
+  width: 100%; border: 1px solid #BDBAB9; background: #fff;
+}
+.rekv-card + .rekv-card { margin-top: 8px; }
+
+.rekv-card__inner {
+  display: flex;
+  gap: 0;
+  align-items: stretch;
+}
+
+.rekv-card__left-bar {
+  width: 10px; flex-shrink: 0;
+  border-left: 2px solid #62625F;
+  background: #EAE7E7;
+}
+
+.rekv-card__content {
+  flex: 1; min-width: 0;
+  border: 8px solid #EAE7E7;
+  border-left: none;
+  padding: 8px;
+}
+
+.rekv-card__top { padding: 8px 8px 0 10px; }
+
+.rekv-card__title-row {
+  display: flex; align-items: flex-start; gap: 8px; margin-bottom: 8px;
+}
+.rekv-card__icon { width: 48px; height: 48px; flex-shrink: 0; color: #000; }
+.rekv-card__icon svg { width: 48px; height: 48px; display: block; }
+.rekv-card__type {
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000;
+  padding-top: 8px;
+}
+
+.rekv-card__date-group {
+  padding-left: 56px;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;
+  margin-bottom: 8px;
+}
+.rekv-card__date-label { font-weight: 600; }
+
+.rekv-card__toggle-btn {
+  margin-left: 56px;
+  display: inline-flex; align-items: center; gap: 4px;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif; color: #126F87;
+  background: none; border: none; cursor: pointer; padding: 3px 0 8px;
+}
+.rekv-card__toggle-btn svg { width: 18px; height: 18px; }
+.rekv-card--open .rekv-card__toggle-btn svg { transform: rotate(180deg); }
+
+/* expanded body */
+.rekv-card__body { display: none; padding: 0 8px 12px 66px; }
+.rekv-card--open .rekv-card__body { display: block; margin-top: 1rem; }
+
+.rekv-card__body-divider {
+  width: 40px; height: 1px; background: #62625F; margin-bottom: 16px;
+}
+.rekv-card__section { margin-bottom: 16px; }
+.rekv-card__section:last-child { margin-bottom: 0; }
+.rekv-card__section-label {
+  font: 600 20px/1.3 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 2px;
+}
+.rekv-card__section-value { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.rekv-card__analysis-item {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;
+  text-decoration: underline; text-underline-offset: 2px;
+  text-decoration-style: dotted; text-decoration-color: #9747FF; display: block; width: fit-content;
+}
+.rekv-card__analysis-item.help-term { cursor: pointer; }
+.rekv-card__analysis-item.help-term--active {
+  background: rgba(91, 34, 166, 0.1);
+  border-radius: 2px;
+}
+
+/* ── HelpBubble ─────────────────────────────────────────────── */
+.help-bubble {
+  position: absolute; z-index: 1000; width: 300px; display: none;
+}
+.help-bubble--visible { display: block; }
+.help-bubble__box {
+  background: #fff; border: 1px solid #7D7C79; border-radius: 4px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  padding: 16px 44px 16px 16px; position: relative;
+  margin-top: 9px;
+}
+.help-bubble__caret {
+  position: absolute; top: -7px; left: 16px;
+  width: 12px; height: 12px; background: #fff;
+  border-top: 1px solid #7D7C79; border-left: 1px solid #7D7C79;
+  transform: rotate(45deg);
+}
+.help-bubble__close {
+  position: absolute; top: 0; right: 0;
+  width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.help-bubble__text {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 4px;
+}
+.help-bubble__link {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #126F87;
+  text-decoration: none; border-bottom: 1px solid #58AABB; display: inline;
+}
+
+/* ── Accordion list (Tidligere prøver) ──────────────────────── */
+.acc-list { display: flex; flex-direction: column; padding-bottom: 1px; }
+.acc-item {
+  border-top: 1px solid #7D7C79; border-bottom: 1px solid #7D7C79;
+  margin-bottom: -1px; background: #fff;
+}
+.acc-item__header {
+  display: flex; align-items: stretch; justify-content: space-between;
+  width: 100%; background: none; border: none; cursor: pointer;
+  padding: 8px 0 8px 8px; min-height: 64px; text-align: left;
+}
+.acc-item--open .acc-item__header { background: #F5F3F3; border-bottom: 1px solid #fff; }
+.acc-item__label {
+  flex: 1; min-width: 0; padding: 12px 0 12px 8px;
+  font: 400 18px/1.2 'Source Sans Pro', sans-serif; color: #000;
+}
+.acc-item--open .acc-item__label { font-weight: 600; }
+.acc-item__chevron-frame {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; flex-shrink: 0; padding: 4px 0;
+}
+.acc-item__chevron { transition: transform 0.15s; }
+.acc-item--open .acc-item__chevron { transform: rotate(180deg); }
+.acc-item__body { display: none; }
+.acc-item--open .acc-item__body { display: block; }
+.acc-item__content {
+  padding: 12px 16px 32px 14px;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;
+}
+.acc-item__content p { margin: 0; }
+.acc-item__section-label { font-weight: 600; }
+
+/* ── "Tidligere prøver" link ────────────────────────────────── */
+.earlier-link {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #126F87; text-decoration: underline; text-underline-offset: 2px;
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+
+/* ── Content column ─────────────────────────────────────────── */
+.content-col { width: 366px; margin: 0 auto; }
+
+/* ── Help expander ──────────────────────────────────────────── */
+.help-expander { width: 100%; }
+.help-expander__trigger {
+  width: 100%; background: none; border: none; cursor: pointer;
+  display: flex; align-items: center;
+  padding: 10px 2px 4px 8px; min-height: 44px; gap: 0.5rem;
+}
+.help-expander__trigger-inner {
+  display: flex; align-items: flex-start; gap: 8px;
+}
+.help-expander__question-icon { flex-shrink: 0; margin-top: 2px; }
+.help-expander__trigger-text {
+  font: 600 16px/1.2 'Source Sans 3', sans-serif;
+  color: #5B22A6; text-align: left; padding-top: 3px;
+}
+.help-expander__chevron { flex-shrink: 0; transition: transform 0.15s; }
+.help-expander__trigger[aria-expanded="true"] .help-expander__chevron { transform: rotate(180deg); }
+.help-expander__content {
+  background: #F4ECFE; border: 1px solid #9153E2; border-radius: 4px;
+  padding: 16px 16px 16px 36px;
+  display: flex; flex-direction: column; gap: 10px;
+}
+.help-expander__text {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; margin: 0;
+}
+.help-expander__link {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #08667C; text-decoration: underline; text-underline-offset: 2px;
+}
+
+/* ── Varsler header badge ────────────────────────────────── */
+.header-badge {
+  position: absolute; top: -4px; right: -6px;
+  background: #C83521; border: 1px solid #B62E1C;
+  border-radius: 100px; min-width: 22px; height: 22px;
+  display: flex; align-items: center; justify-content: center;
+  font: 600 13px/1 'Source Sans Pro', sans-serif; color: #fff;
+  padding: 0 5px; pointer-events: none; z-index: 3;
+}
+
+/* ── Forside ─────────────────────────────────────────────── */
+.forside-hero {
+  background: #E4F7F9; padding: 32px 16px 16px; width: 100%;
+}
+.forside-hero__name {
+  font: 600 38px/1.21 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 20px;
+}
+.forside-hero__look {
+  font: 600 26px/1.2 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 6px;
+}
+.forside-hero__sub {
+  font: 600 20px/1.3 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 12px;
+}
+.forside-quick-tiles {
+  display: flex; gap: 8px; margin-bottom: 12px;
+}
+.forside-quick-tile {
+  flex: 1; min-width: 0; background: #fff; border: 1px solid #188097;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; padding: 12px 4px; cursor: pointer; text-align: center;
+}
+.forside-quick-tile:hover { background: #f0fafb; }
+.forside-quick-tile__icon { width: 64px; height: 64px; display: flex; align-items: center; justify-content: center; }
+.forside-quick-tile__icon svg { width: 64px; height: 64px; display: block; }
+.forside-quick-tile__icon img { display: block; }
+.forside-quick-tile__label { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.forside-expand-btn {
+  background: #188097; border: none; border-radius: 8px;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 11px 20px; width: 100%; cursor: pointer; margin-bottom: 0;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif; color: #fff;
+}
+.forside-expand-btn:hover { background: #126F87; }
+.forside-expand-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+
+/* ── Link list categories (expanded services) ───────────── */
+.forside-category { background: #fff; padding-bottom: 8px; }
+.forside-category__heading {
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000;
+  padding: 20px 16px 10px;
+}
+.forside-link-item {
+  display: flex; align-items: center; width: 100%;
+  background: #fff; border: none; border-top: 1px solid #7D7C79; border-bottom: 1px solid #7D7C79;
+  margin-bottom: -1px; min-height: 64px; cursor: pointer; text-align: left;
+  padding: 0;
+}
+.forside-link-item:hover { background: #FAF9F9; }
+.forside-link-item__bar { width: 6px; align-self: stretch; flex-shrink: 0; }
+.forside-link-item__icon {
+  display: flex; align-items: center; justify-content: center;
+  width: 48px; height: 48px; flex-shrink: 0;
+}
+.forside-link-item__icon svg { width: 38px; height: 38px; display: block; }
+.forside-link-item__icon img { display: block; }
+.forside-link-item__label {
+  flex: 1; min-width: 0;
+  font: 400 18px/1.2 'Source Sans Pro', sans-serif; color: #000;
+  padding: 12px 8px;
+}
+.forside-link-item__chev {
+  display: flex; align-items: center; justify-content: center;
+  width: 44px; height: 44px; flex-shrink: 0;
+}
+.forside-link-item__chev svg { width: 20px; height: 20px; display: block; }
+.forside-farre-wrap { background: #fff; padding: 16px; }
+
+/* ── Promo panel ─────────────────────────────────────────── */
+.forside-promo {
+  background: #FFF2EA; border-radius: 8px; margin: 16px 16px 0;
+  display: flex; align-items: center; gap: 12px; padding: 16px;
+  cursor: pointer;
+}
+.forside-promo__img { width: 110px; height: 110px; flex-shrink: 0; object-fit: contain; }
+.forside-promo__body { flex: 1; min-width: 0; }
+.forside-promo__title { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 4px; }
+.forside-promo__desc { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; margin: 0; }
+.forside-promo__arrow { width: 38px; height: 38px; flex-shrink: 0; }
+
+/* ── Articles ────────────────────────────────────────────── */
+.forside-articles { padding: 24px 16px 0; }
+.forside-articles__heading {
+  font: 600 26px/1.2 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 12px;
+}
+.forside-article {
+  border-top: 1px solid #7D7C79; border-bottom: 1px solid #7D7C79;
+  margin-bottom: -1px; padding: 16px 0;
+}
+.forside-article__text {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; margin: 0 0 4px;
+}
+.forside-article__link {
+  font: 600 18px/1.5 'Source Sans Pro', sans-serif; color: #126F87;
+  text-decoration: underline; text-underline-offset: 2px;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+
+/* ── Search ──────────────────────────────────────────────── */
+.forside-search {
+  background: #08667C; padding: 24px 16px;
+  display: flex; flex-direction: column; gap: 12px; margin-top: 24px;
+}
+.forside-search__heading {
+  font: 600 26px/1.2 'Source Sans Pro', sans-serif; color: #fff; margin: 0;
+}
+.forside-search__row { display: flex; gap: 8px; }
+.forside-search__input {
+  flex: 1; height: 44px; background: #fff; border: 2px solid #62625F;
+  padding: 0 12px; font: 400 18px/1 'Source Sans Pro', sans-serif; color: #000;
+}
+.forside-search__btn {
+  background: none; border: 2px solid #fff; border-radius: 8px;
+  padding: 0 16px; height: 44px;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif; color: #fff; cursor: pointer;
+  white-space: nowrap;
+}
+.forside-search__az {
+  font: 600 18px/1.5 'Source Sans Pro', sans-serif; color: #fff;
+  text-decoration: underline; text-underline-offset: 2px;
+  background: none; border: none; cursor: pointer; padding: 0; text-align: left;
+}
+.forside-search__img { width: 100%; display: block; margin-top: 4px; }
+
+/* ── Varsler page ────────────────────────────────────────── */
+.varsler-meta {
+  width: 366px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 0;
+}
+.varsler-count {
+  font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000;
+}
+.varsler-rediger {
+  font: 400 18px/1.3 'Source Sans Pro', sans-serif;
+  color: #126F87; text-decoration: underline; text-underline-offset: 2px;
+  background: none; border: none; cursor: pointer; padding: 0;
+}
+.varsel-list {
+  width: 366px; margin: 0 auto;
+}
+.varsel-item {
+  background: #F5F3F3; padding: 12px 16px 12px 12px;
+  display: flex; gap: 12px; align-items: flex-start;
+  border-bottom: 1px solid #D6D4D3;
+}
+.varsel-item--unread {
+  background: #D2EDF3; border-left: 6px solid #188097; padding-left: 10px;
+}
+.varsel-item__icon { width: 36px; height: 36px; flex-shrink: 0; }
+.varsel-item__icon svg { width: 36px; height: 36px; display: block; }
+.varsel-item__body { flex: 1; min-width: 0; }
+.varsel-item__title {
+  font: 600 16px/1.3 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 2px;
+}
+.varsel-item__text {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; margin: 0 0 6px;
+}
+.varsel-cta {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #126F87; text-decoration: underline; text-underline-offset: 2px;
+  background: none; border: none; cursor: pointer; padding: 0;
+  display: inline-flex; align-items: center; gap: 4px;
+}
+.varsler-load-more {
+  display: block; width: 366px; margin: 16px auto 0;
+  background: none; border: 1px solid #7D7C79; padding: 10px; text-align: center;
+  font: 400 18px/1.3 'Source Sans Pro', sans-serif; color: #000; cursor: pointer;
+}
+
+/* ── Prøvesvar page ──────────────────────────────────────── */
+.ps-tabs {
+  width: 336px; margin: 0 auto;
+  display: flex; align-items: flex-end; border-bottom: 1px solid #000;
+}
+.ps-tab {
+  padding: 11px 24px; font: 400 18px/1.2 'Source Sans Pro', sans-serif;
+  background: none; border: none; cursor: pointer; border-radius: 8px 8px 0 0;
+}
+.ps-tab--active {
+  background: #fff; border: 1px solid #000; border-bottom: 1px solid #fff;
+  color: #000; margin-bottom: -1px;
+}
+.ps-tab--inactive {
+  border: 1px solid #188097; border-bottom: none;
+  color: #126F87;
+}
+.ps-finn {
+  width: 336px; margin: 0 auto;
+  background: #F5F3F3; padding: 12px 8px 12px 16px;
+  display: flex; align-items: center; justify-content: space-between;
+  cursor: pointer; border: none; font: 600 18px/1.3 'Source Sans Pro', sans-serif;
+  color: #000; text-align: left;
+}
+.ps-card {
+  width: 336px; margin: 0 auto;
+  background: #fff; border: 1px solid #BDBAB9;
+}
+.ps-card__inner {
+  border: 8px solid #EAE7E7;
+  padding: 16px 16px 12px 10px;
+}
+.ps-card__title {
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000;
+  margin: 0 0 16px;
+}
+.ps-card__body {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;
+  margin: 0 0 16px;
+}
+.ps-se-detaljer {
+  display: inline-flex; align-items: center; gap: 2px;
+  background: none; border: none; cursor: pointer; padding: 3px 0;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif; color: #126F87;
+}
+.ps-personvern-title {
+  width: 336px; margin: 0 auto;
+  font: 600 26px/1.3 'Source Sans Pro', sans-serif; color: #000;
+}
+.ps-link-list {
+  width: 336px; margin: 0 auto;
+}
+.ps-link-item {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 8px; background: #fff;
+  border-top: 1px solid #989693; border-bottom: 1px solid #989693;
+  font: 400 18px/1.2 'Source Sans Pro', sans-serif; color: #000;
+  cursor: pointer; width: 100%; text-align: left;
+  margin-top: -1px;
+}
+.ps-link-item:first-child { margin-top: 0; }
+</style>
+</head>
+<body>
+
+<div class="phone-wrap">
+<div class="phone-btn-silent"></div>
+<div class="phone-btn-vol-up"></div>
+<div class="phone-btn-vol-down"></div>
+<div class="phone-btn-power"></div>
+<div class="phone-shell">
+<div class="phone-chrome-top">
+  <span class="phone-chrome-top__time">9:41</span>
+  <div class="phone-chrome-top__pill"></div>
+  <div class="phone-chrome-top__icons">
+    <svg width="18" height="12" viewBox="0 0 18 12" fill="#000"><rect x="0" y="6" width="3" height="6" rx="1"/><rect x="4.5" y="4" width="3" height="8" rx="1"/><rect x="9" y="2" width="3" height="10" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1" opacity="0.3"/></svg>
+    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"><path d="M0.5 4C3.2 1.5 5.5 0.5 8 0.5s4.8 1 7.5 3.5"/><path d="M2.5 6.5C4.5 4.8 6.2 4 8 4s3.5 0.8 5.5 2.5"/><path d="M5 9C6.2 7.9 7.1 7.5 8 7.5s1.8 0.4 3 1.5"/><circle cx="8" cy="11" r="0.8" fill="#000"/></svg>
+    <svg width="26" height="13" viewBox="0 0 26 13" fill="none"><rect x="0.5" y="0.5" width="21" height="12" rx="3.5" stroke="#000" stroke-opacity="0.35"/><rect x="2" y="2" width="17" height="9" rx="2" fill="#000"/><path d="M23 4.5v4a2 2 0 0 0 0-4z" fill="#000" opacity="0.35"/></svg>
+  </div>
+</div>
+<div class="app" id="app" style="position:relative;">
+
+  <!-- ── SHARED HEADER ──────────────────────────────────── -->
+  <header class="header">
+    <div class="header__top">
+      <div class="header__left">
+        <a class="logo" href="#" aria-label="Helsenorge – til forsiden" onclick="event.preventDefault(); showView('viewForside')">
+          <svg width="80" height="39" viewBox="0 0 80 39" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M56.6469 29.4761C55.1361 29.4761 53.9063 28.197 53.9063 26.6249C53.9063 25.0529 55.1361 23.7737 56.6469 23.7737C58.1578 23.7737 59.3875 25.0529 59.3875 26.6249C59.3875 28.197 58.1578 29.4761 56.6469 29.4761ZM56.7257 32.7427C58.6988 32.7427 60.3043 33.8282 60.3043 35.163C60.3043 36.4977 58.6988 37.5832 56.7257 37.5832C54.752 37.5832 53.1471 36.4977 53.1471 35.163C53.1471 33.8282 54.752 32.7427 56.7257 32.7427ZM56.6469 22.5902C54.4939 22.5902 52.7425 24.4001 52.7425 26.6249C52.7425 28.3882 53.8305 29.928 55.4536 30.4666C54.7744 31.145 53.0065 32.9161 52.8083 33.1319C52.2685 33.7314 51.9832 34.4337 51.9832 35.163C51.9832 37.1498 54.111 38.7661 56.7257 38.7661C59.3404 38.7661 61.4676 37.1498 61.4676 35.163C61.4676 33.1761 59.3404 31.5592 56.7257 31.5592C56.4352 31.5592 56.1447 31.5801 55.8571 31.6214C56.1076 31.3512 56.4446 30.9932 56.764 30.6566C58.8611 30.5921 60.5513 28.8037 60.5513 26.6249C60.5513 26.243 60.4978 25.8622 60.3914 25.491L62.2316 24.1443V22.4605L59.7874 24.2328C59.0505 23.2005 57.8919 22.5902 56.6469 22.5902ZM40.3829 0.180516H37.674V11.9726H44.8301V9.6863H40.3829V0.180516ZM58.7453 4.86556C57.8508 4.50333 56.8957 4.07356 56.8957 3.55832C56.8957 2.81055 57.2591 2.47761 58.0731 2.47761C59.4622 2.47761 59.641 3.76573 59.648 3.82072L59.6715 4.00722L62.5456 3.9588L62.5262 3.73465C62.2998 1.15542 60.2073 0 58.233 0C56.5305 0 53.9963 0.944421 53.9963 3.54457C53.9963 5.18595 55.2025 6.03354 56.3823 6.64622C56.5828 6.75022 56.8745 6.8614 57.2127 6.98991C58.2401 7.37964 59.7933 7.9696 59.7933 8.82974C59.7933 9.03297 59.6998 9.35814 59.4392 9.605C59.1587 9.87219 58.76 9.98935 58.2471 9.95289C57.0539 9.86801 56.6052 8.45496 56.6005 8.44062L56.554 8.28819L53.7352 8.37845L53.7558 8.60021C53.9169 10.3211 55.2449 12.3492 58.4571 12.4036C58.4847 12.4042 58.5118 12.4042 58.5394 12.4042C60.1203 12.4042 61.6564 11.6265 62.2957 10.4938C62.7885 9.62054 62.8226 8.09811 61.934 6.87754C61.3165 6.02935 60.2126 5.45971 58.7453 4.86556ZM74.5453 28.7194H78.1004V26.2525H74.5353V24.0146H79.5295V21.8096H71.7495V33.5616H79.6724V31.3088H74.5453V28.7194ZM39.112 23.0062H37.8375V33.8007H39.112V27.0212L43.0446 24.1443V22.4605L39.112 25.2388V23.0062ZM72.1829 6.10885C72.4252 4.00004 73.9402 2.37958 75.7109 2.37958C77.5247 2.37958 78.6438 3.73525 78.8038 6.10885H72.1829ZM80 6.70659C80 3.3001 78.3568 1.18411 75.7109 1.18411C73.0986 1.18411 70.9726 3.66113 70.9726 6.70659C70.9726 9.75145 73.0986 12.2291 75.7109 12.2291C77.3041 12.2291 78.7809 11.3056 79.6607 9.75922L79.7642 9.57751L78.7456 8.97977L78.6427 9.16089C77.9752 10.3336 76.8789 11.0336 75.7109 11.0336C73.9402 11.0336 72.4252 9.41313 72.1829 7.30432H80V6.70659ZM6.35683 4.58164H2.60119V0.180516H0V11.9439H2.68059V7.25411H6.42388V11.987H9.02918V0.180516H6.35683V4.58164ZM26.8323 9.67972H21.7052V7.09033H25.2597V4.62408H21.6946V2.38556H26.6894V0.180516H18.9082V11.9326H26.8323V9.67972ZM5.03183 22.6518C3.82621 22.6518 2.73057 23.2716 1.76726 24.4964V23.0062H0.492832V33.8007H1.76726V27.7481C1.76726 25.9507 3.24752 24.0122 4.70073 23.9082C5.51349 23.8502 6.12512 24.0188 6.57972 24.4246C7.13548 24.9226 7.45189 25.8054 7.52069 27.0487C7.62067 28.8545 7.58656 33.5431 7.58656 33.5903L7.5848 33.8007H8.75101V26.7397C8.75101 24.708 7.47365 22.6518 5.03183 22.6518ZM22.7979 32.6967C20.8448 32.6967 19.2563 30.7373 19.2563 28.3285C19.2563 25.9196 20.8448 23.9602 22.7979 23.9602C24.7504 23.9602 26.3395 25.9196 26.3395 28.3285C26.3395 30.7373 24.7504 32.6967 22.7979 32.6967ZM22.7979 22.7641C20.1967 22.7641 18.0801 25.2603 18.0801 28.3285C18.0801 31.396 20.1967 33.8922 22.7979 33.8922C25.3985 33.8922 27.5151 31.396 27.5151 28.3285C27.5151 25.2603 25.3985 22.7641 22.7979 22.7641Z" fill="black"/></svg>
+        </a>
+        <button class="icon-btn" aria-label="Åpne meny">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M29.9883 24.709V26.509H8V24.709H29.9883ZM29.9883 17.709V19.509H8V17.709H29.9883ZM29.9883 11V12.8H8V11H29.9883Z" fill="black"/></svg>
+          </div>
+          <span class="icon-btn__label">Meny</span>
+        </button>
+        <button class="icon-btn" onclick="toggleVarsler()" aria-label="Varsler">
+            <div class="icon-btn__icon" aria-hidden="true" style="position:relative;overflow:visible;">
+              <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.17 27.2979V27.1325H15.672V27.2979H9.42261L11.8427 23.4053H25.9993L28.4187 27.2979H22.17ZM21.1409 28.9121C21.1409 30.136 20.1449 31.132 18.921 31.132V31.132C17.6963 31.132 16.7004 30.136 16.7004 28.9121V28.3271H21.1409V28.9121ZM12.0707 15.2028C12.0707 12.1668 14.1299 9.52896 17.0764 8.78875L17.4659 8.69058V8.16491C17.4659 7.36296 18.1183 6.71062 18.921 6.71062C19.723 6.71062 20.3753 7.36296 20.3753 8.16491V8.69058L20.7648 8.78875C23.7122 9.52896 25.7705 12.1668 25.7705 15.2028V22.3769H12.0707V15.2028ZM29.7819 27.541L26.7997 22.7442V15.2028C26.7997 11.8248 24.5941 8.87266 21.3902 7.89416C21.2549 6.65125 20.1988 5.68066 18.921 5.68066C17.6425 5.68066 16.5864 6.65125 16.4518 7.89416C13.2472 8.87266 11.0416 11.8248 11.0416 15.2028V22.7442L8.06015 27.541C7.9612 27.6993 7.95645 27.8988 8.04749 28.0627C8.13774 28.2257 8.31032 28.3271 8.49715 28.3271H15.672V28.9121C15.672 30.7037 17.1295 32.1611 18.921 32.1611C20.7126 32.1611 22.17 30.7037 22.17 28.9121V28.3271H29.3449C29.5309 28.3271 29.7035 28.2257 29.7946 28.0627C29.8848 27.8988 29.8801 27.6993 29.7819 27.541V27.541Z" fill="black"/></svg>
+              <div class="header-badge" id="headerBadge">1</div>
+            </div>
+            <span class="icon-btn__label">Varsler</span>
+          </button>
+      </div>
+      <button class="icon-btn" aria-label="Logg ut">
+        <div class="icon-btn__icon" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M9.81074 30.9373V7.06335L22.2524 9.02782V16.2295H23.5524V8.77147C23.5524 8.2794 23.1944 7.86045 22.7084 7.78371L9.6667 5.7245C9.05974 5.62866 8.51074 6.09778 8.51074 6.71226V31.2884C8.51074 31.9028 9.05974 32.372 9.66671 32.2761L22.7084 30.2169C23.1944 30.1402 23.5524 29.7212 23.5524 29.2291V22.5628H22.2524V28.9728L9.81074 30.9373Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M30.6164 19.7414H15.9824V18.7114H30.5879L27.5969 15.7205L28.3245 14.9922L32.2092 18.8761C32.305 18.9727 32.3596 19.1033 32.3596 19.2403C32.3596 19.3772 32.305 19.5078 32.2092 19.6044L28.2738 23.5398L27.5463 22.8115L30.6164 19.7414Z" fill="black"/></svg>
+        </div>
+        <span class="icon-btn__label">Logg ut</span>
+      </button>
+    </div>
+    <div class="profile-bar" role="button" tabindex="0" aria-label="Brukermeny">
+      <div class="profile-bar__inner">
+        <div class="avatar" aria-hidden="true">KÅ</div>
+        <span class="profile-bar__name">Kåre Hansen</span>
+      </div>
+      <div class="chevron" aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="black"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════
+       FORSIDE — Helsenorge
+  ════════════════════════════════════════════════════ -->
+  <div id="viewForside">
+
+    <!-- Hero / quick search -->
+    <div class="forside-hero">
+<div class="forside-hero__look">Hva ser du etter?</div>
+      <div class="forside-hero__sub">Tjenester</div>
+      <div class="forside-quick-tiles">
+        <button class="forside-quick-tile">
+          <div class="forside-quick-tile__icon"><img src="icons/tile-timeavtaler.svg" alt="" style="width:43.75px;height:39.53px;"></div>
+          <span class="forside-quick-tile__label">Timeavtaler</span>
+        </button>
+        <button class="forside-quick-tile">
+          <div class="forside-quick-tile__icon"><img src="icons/tile-resepter.svg" alt="" style="width:37.8px;height:45.65px;"></div>
+          <span class="forside-quick-tile__label">Resepter</span>
+        </button>
+        <button class="forside-quick-tile">
+          <div class="forside-quick-tile__icon"><img src="icons/tile-innboks.svg" alt="" style="width:48.94px;height:34.94px;"></div>
+          <span class="forside-quick-tile__label">Innboks</span>
+        </button>
+      </div>
+      <button class="forside-expand-btn" id="forsideExpandBtn" onclick="toggleForsideTjenester()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="6 9 12 15 18 9"/></svg>
+        Vis flere tjenester
+      </button>
+    </div>
+
+    <!-- Expandable full service list -->
+    <div id="forsideTjenester" hidden>
+
+      <div class="forside-category">
+        <div class="forside-category__heading">Oppfølging i helsetjenesten</div>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-innboks.svg" alt="" style="width:29.09px;height:20.77px;"></div><span class="forside-link-item__label">Innboks</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-timeavtaler.svg" alt="" style="width:25.98px;height:23.47px;"></div><span class="forside-link-item__label">Timeavtaler</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-gravid.svg" alt="" style="width:17.57px;height:34.49px;"></div><span class="forside-link-item__label">Gravid</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-henvisninger.svg" alt="" style="width:21.04px;height:25.95px;"></div><span class="forside-link-item__label">Henvisninger</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-pasientjournal.svg" alt="" style="width:26.19px;height:28.36px;"></div><span class="forside-link-item__label">Pasientjournal</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><div style="position:relative;width:36px;height:31px;flex-shrink:0;"><img style="position:absolute;left:0;top:2px;width:19px;height:28px;" src="icons/link-helseopplysninger-1.svg" alt=""><img style="position:absolute;left:21px;top:0;width:15px;height:31px;" src="icons/link-helseopplysninger-2.svg" alt=""></div></div><span class="forside-link-item__label">Helseopplysninger som deles</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-bytte-fastlege.svg" alt="" style="width:18.9px;height:28.93px;"></div><span class="forside-link-item__label">Bytte fastlege</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-velg-behandlingssted.svg" alt="" style="width:26.26px;height:27.41px;"></div><span class="forside-link-item__label">Velg behandlingssted</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-forskning-og-screening.svg" alt="" style="width:21.68px;height:26.96px;"></div><span class="forside-link-item__label">Forskning og screening</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-helsekontakter.svg" alt="" style="width:22.6px;height:26.22px;"></div><span class="forside-link-item__label">Helsekontakter</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+      </div>
+
+      <div class="forside-category">
+        <div class="forside-category__heading">Oversikter</div>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-oversikt-resepter.svg" alt="" style="width:22.48px;height:27.13px;"></div><span class="forside-link-item__label">Resepter</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-vaksiner.svg" alt="" style="width:20.91px;height:30.01px;"></div><span class="forside-link-item__label">Vaksiner</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item" onclick="showView('viewLanding')"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-prover-og-undersokelser.svg" alt="" style="width:24.01px;height:26.58px;"></div><span class="forside-link-item__label">Prøver og undersøkelser</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-behandlingshjelpemidler.svg" alt="" style="width:41.37px;height:35.92px;"></div><span class="forside-link-item__label">Behandlingshjelpemidler</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-sykdom-og-kritisk-info.svg" alt="" style="width:26.19px;height:28.36px;"></div><span class="forside-link-item__label">Sykdom og kritisk info</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-donorkort.svg" alt="" style="width:30.18px;height:22.6px;"></div><span class="forside-link-item__label">Donorkort</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-dokumenter.svg" alt="" style="width:28.68px;height:25.0px;"></div><span class="forside-link-item__label">Dokumenter</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+      </div>
+
+      <div class="forside-category">
+        <div class="forside-category__heading">Søknad og refusjon</div>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-frikort.svg" alt="" style="width:26.96px;height:29.07px;"></div><span class="forside-link-item__label">Frikort og egenandeler</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-pasientreiser.svg" alt="" style="width:32.12px;height:28.16px;"></div><span class="forside-link-item__label">Pasientreiser</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-europeisk-helsetrydekort.svg" alt="" style="width:30.24px;height:21.02px;"></div><span class="forside-link-item__label">Søk om Europeisk helsetrydekort</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-helfo-refusjon.svg" alt="" style="width:26.21px;height:26.48px;"></div><span class="forside-link-item__label">Søk Helfo om refusjon</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+      </div>
+
+      <div class="forside-category">
+        <div class="forside-category__heading">Kvalitet og styring</div>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-helseregistre.svg" alt="" style="width:28.68px;height:25.0px;"></div><span class="forside-link-item__label">Helseregistre</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-meld-bivirkning.svg" alt="" style="width:24.78px;height:26.73px;"></div><span class="forside-link-item__label">Meld bivirkning</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+        <button class="forside-link-item"><div class="forside-link-item__bar"></div><div class="forside-link-item__icon"><img src="icons/link-varsle-om-alvorlig-hendelse.svg" alt="" style="width:30.88px;height:28.35px;"></div><span class="forside-link-item__label">Varsle om alvorlig hendelse</span><div class="forside-link-item__chev"><svg viewBox="0 0 24 24" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="9 18 15 12 9 6"/></svg></div></button>
+      </div>
+
+      <div class="forside-farre-wrap">
+        <button class="forside-expand-btn" onclick="toggleForsideTjenester()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg>
+          Vis færre tjenester
+        </button>
+      </div>
+    </div>
+
+    <!-- Din fastlege -->
+    <div class="forside-promo">
+      <img class="forside-promo__img" src="forside-fastlege.svg" alt="" onerror="this.style.display='none'">
+      <div class="forside-promo__body">
+        <div class="forside-promo__title">Din fastlege</div>
+        <p class="forside-promo__desc">Kontakt fastlegen og se alle tjenestene</p>
+      </div>
+      <svg class="forside-promo__arrow" viewBox="0 0 38 38" fill="none" aria-hidden="true"><path d="M14.21 26.79L21 20l-6.79-6.79 1.41-1.42L23.83 20l-8.21 8.21z" fill="#188097"/></svg>
+    </div>
+
+    <!-- Kvalitetssikret helseinformasjon -->
+    <div class="forside-articles">
+      <div class="forside-articles__heading">Kvalitetssikret helseinformasjon</div>
+      <div class="forside-article">
+        <p class="forside-article__text">Visste du at du kan få hjelp fra andre enn din lege?</p>
+        <button class="forside-article__link">Les mer om fullmakt →</button>
+      </div>
+      <div class="forside-article">
+        <p class="forside-article__text">Gode råd er bygd på kunnskap</p>
+        <button class="forside-article__link">Finn kunnskapsbaserte råd og verktøy →</button>
+      </div>
+      <div class="forside-article">
+        <p class="forside-article__text">Lyst til å være litt mer aktiv?</p>
+        <button class="forside-article__link">Aktiviteter, verktøy og treningsprogram →</button>
+      </div>
+    </div>
+
+    <!-- Søk i helseinformasjon -->
+    <div class="forside-search">
+      <p class="forside-search__heading">Søk i kvalitetssikret helseinformasjon</p>
+      <div class="forside-search__row">
+        <input class="forside-search__input" type="text" placeholder="" aria-label="Søk i helseinformasjon">
+        <button class="forside-search__btn">Søk</button>
+      </div>
+      <button class="forside-search__az">Innhold A til Å →</button>
+      <img class="forside-search__img" src="forside-search.png" alt="" onerror="this.style.display='none'">
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewForside -->
+
+  <!-- ════════════════════════════════════════════════════
+       VARSLER
+  ════════════════════════════════════════════════════ -->
+  <div id="viewVarsler" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewForside')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Forside
+      </button>
+    </div>
+
+    <div style="width:366px; margin: 0 auto; padding: 1rem 0 0;">
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color: #000;">Varsler</h1>
+    </div>
+
+    <div class="varsler-meta">
+      <span class="varsler-count">1 ulest</span>
+      <button class="varsler-rediger">Rediger</button>
+    </div>
+
+    <div class="varsel-list" id="varselList"></div>
+
+    <button class="varsler-load-more">Last inn flere</button>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewVarsler -->
+
+  <!-- ════════════════════════════════════════════════════
+       LANDING VIEW — "Prøver og undersøkelser"
+  ════════════════════════════════════════════════════ -->
+  <div id="viewLanding" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewForside')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Forside
+      </button>
+    </div>
+
+    <div style="width:366px; margin: 0 auto; padding-top: 8px;">
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color: #000;">Prøver og undersøkelser</h1>
+      <div class="sp-2xs"></div>
+      <p style="font: 400 20px/1.3 'Source Sans Pro', sans-serif; color: #000;">Hva vil du se?</p>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Tile list -->
+    <div class="tile-list" style="margin: 0 auto;">
+      <button class="tile-item" onclick="showView('viewProvesvar')">
+        <div class="tile-item__inner">
+          <div class="tile-item__text">
+            <div class="tile-item__title">Prøvesvar</div>
+            <div class="tile-item__sub">Kun tilgjengelig hvis du tar en prøve hos noen som er med i utprøvingen av Prøvesvar</div>
+          </div>
+          <div class="tile-item__right">
+            <div class="tile-item__chevron">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </button>
+      <button class="tile-item">
+        <div class="tile-item__inner">
+          <div class="tile-item__text">
+            <div class="tile-item__title">Analyser og undersøkelser fra sykehus</div>
+            <div class="tile-item__sub">Det er kun sykehus i Helse Vest som viser sine prøvesvar</div>
+          </div>
+          <div class="tile-item__right">
+            <div class="tile-item__chevron">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#474745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </button>
+      <button class="tile-item" onclick="showView('viewFremtidige')">
+        <div class="tile-item__inner">
+          <div class="tile-item__text">
+            <div class="tile-item__title">Fremtidige prøver</div>
+            <div class="tile-item__sub">Tjenester er under utprøving.</div>
+          </div>
+          <div class="tile-item__right">
+            <div class="tile-item__chevron">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+          </div>
+        </div>
+      </button>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="footer__lang">
+          <a href="#" class="footer__link">English</a>
+          <div class="footer__lang-sep"></div>
+          <a href="#" class="footer__link">Sámi</a>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewLanding -->
+
+  <!-- ════════════════════════════════════════════════════
+       FREMTIDIGE PRØVER
+  ════════════════════════════════════════════════════ -->
+  <div id="viewFremtidige" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewLanding')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Prøver og undersøkelser
+      </button>
+    </div>
+
+    <div style="width:366px; margin: 0 auto; padding: 2rem 0 0;">
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color: #000;">Fremtidige prøver</h1>
+      <div class="sp-xs"></div>
+      <p style="font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;">Her kan du se enkelte prøver som er bestilt til deg. Tjenesten er under utprøving.</p>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Empty state -->
+    <div style="width:366px; margin: 0 auto;">
+      <div style="border: 1px dashed #62625F; border-radius: 4px; padding: 8px 12px 8px 8px; display: flex; align-items: center; gap: 4px;">
+        <div style="position: relative; width: 48px; height: 48px; flex-shrink: 0;">
+          <div style="position: absolute; width: 36.3px; height: 27.3px; left: calc(50% - 0.5px); top: calc(50% + 4px); transform: translate(-50%, -50%);">
+            <img src="empty-box-body.svg" alt="" style="width: 100%; height: 100%; display: block;">
+          </div>
+          <div style="position: absolute; left: 24.79px; top: 5.66px; width: 15.419px; height: 10.335px; display: flex; align-items: center; justify-content: center;">
+            <div style="transform: rotate(11.48deg); width: 14.176px; height: 7.667px;">
+              <img src="empty-box-lid.svg" alt="" style="width: 100%; height: 100%; display: block;">
+            </div>
+          </div>
+        </div>
+        <p style="font: 400 16px/1.25 'Source Sans Pro', sans-serif; color: #000; margin: 0;">Det er ingen fremtidige prøver bestilt for deg</p>
+      </div>
+    </div>
+
+    <div class="sp-m"></div>
+
+    <!-- "Tidligere prøver" link -->
+    <div style="width:366px; margin: 0 auto;">
+      <button class="earlier-link" onclick="showView('viewTidligere')">
+        Tidligere prøver
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <!-- Satisfaction survey -->
+    <div style="width:100%; background:#F5F3F3; padding: 20px 0;">
+      <div style="width:366px; margin:0 auto;">
+        <p style="font: 600 18px/1.3 'Source Sans Pro', sans-serif; color:#000; margin-bottom:12px;">Hvor fornøyd er du med denne tjenesten?</p>
+        <div style="display:flex; gap:12px;">
+          <button style="background:none;border:none;cursor:pointer;font-size:28px;padding:0;" aria-label="Veldig misfornøyd">😣</button>
+          <button style="background:none;border:none;cursor:pointer;font-size:28px;padding:0;" aria-label="Misfornøyd">😕</button>
+          <button style="background:none;border:none;cursor:pointer;font-size:28px;padding:0;" aria-label="Nøytral">😐</button>
+          <button style="background:none;border:none;cursor:pointer;font-size:28px;padding:0;" aria-label="Fornøyd">🙂</button>
+          <button style="background:none;border:none;cursor:pointer;font-size:28px;padding:0;" aria-label="Veldig fornøyd">😄</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
+        <div class="footer__lang">
+          <a href="#" class="footer__link">English</a>
+          <div class="footer__lang-sep"></div>
+          <a href="#" class="footer__link">Sámi</a>
+        </div>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewFremtidige -->
+
+  <!-- ════════════════════════════════════════════════════
+       TIDLIGERE PRØVER
+  ════════════════════════════════════════════════════ -->
+  <div id="viewTidligere" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewFremtidige')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Fremtidige prøver
+      </button>
+    </div>
+
+    <div style="width:366px; margin: 0 auto; padding: 2rem 0 0;">
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color: #000;">Tidligere prøver</h1>
+      <div class="sp-xs"></div>
+      <p style="font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;">Her ser du prøver som er utført siste 30 dager.</p>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Help expander -->
+    <div style="width:366px; margin: 0 auto;">
+      <div class="help-expander">
+        <button class="help-expander__trigger" aria-expanded="false" onclick="toggleHelp(this)">
+          <div class="help-expander__trigger-inner">
+            <svg class="help-expander__question-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9.25" stroke="#5B22A6" stroke-width="1.5"/><path d="M10 6.5a2 2 0 0 1 1 3.464c-.6.346-1 .98-1 1.668V13" stroke="#5B22A6" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14.75" r="0.75" fill="#5B22A6"/></svg>
+            <span class="help-expander__trigger-text">Hvor ser jeg selve prøvesvarene?</span>
+          </div>
+          <svg class="help-expander__chevron" width="9" height="6" viewBox="0 0 9 6" fill="none" aria-hidden="true"><path d="M1 1L4.5 5L8 1" stroke="#5B22A6" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="help-expander__body" hidden>
+          <div class="help-expander__content">
+            <p class="help-expander__text">Oversikten viser kun informasjon om prøver som er bestilt til deg, og som du har tatt. Selve prøvesvaret finner du i tjenesten Prøvesvar.<br><br>Tjenesten er under utprøving og viser derfor bare prøvesvar fra noen legekontor, sykehus og laboratorier.</p>
+            <a class="help-expander__link" href="#">Gå til prøvesvar →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-xs"></div>
+
+    <div style="width:366px; margin: 0 auto;" class="acc-list" id="prevList"></div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewTidligere -->
+
+  <!-- ════════════════════════════════════════════════════
+       PRØVESVAR
+  ════════════════════════════════════════════════════ -->
+  <div id="viewProvesvar" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewLanding')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Prøver og undersøkelser
+      </button>
+    </div>
+
+    <div style="width:336px; margin: 0 auto; padding: 1rem 0 0;">
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color: #000; margin: 0 0 8px;">Prøvesvar</h1>
+      <p style="font: 400 20px/1.3 'Source Sans Pro', sans-serif; color: #000; margin: 0 0 12px;">Her finner du svar på prøver og undersøkelser, for eksempel blodprøver, røntgen, MR eller CT.</p>
+    </div>
+
+    <!-- Help expander -->
+    <div style="width:336px; margin: 0 auto;">
+      <div class="help-expander">
+        <button class="help-expander__trigger" aria-expanded="false" onclick="toggleHelp(this)">
+          <div class="help-expander__trigger-inner">
+            <svg class="help-expander__question-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9.25" stroke="#5B22A6" stroke-width="1.5"/><path d="M10 6.5a2 2 0 0 1 1 3.464c-.6.346-1 .98-1 1.668V13" stroke="#5B22A6" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14.75" r="0.75" fill="#5B22A6"/></svg>
+            <span class="help-expander__trigger-text">Velg om du vil få varsel om prøvesvar</span>
+          </div>
+          <svg class="help-expander__chevron" width="9" height="6" viewBox="0 0 9 6" fill="none" aria-hidden="true"><path d="M1 1L4.5 5L8 1" stroke="#5B22A6" stroke-width="1.5" stroke-linecap="round"/></svg>
+        </button>
+        <div class="help-expander__body" hidden>
+          <div class="help-expander__content">
+            <p class="help-expander__text">Her kan du styre om du ønsker å motta varsler når prøvesvar er tilgjengelige for deg.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Tabs -->
+    <div class="ps-tabs">
+      <button class="ps-tab ps-tab--active">Prøvesvar</button>
+      <button class="ps-tab ps-tab--inactive">Analyseoversikt</button>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Finn prøvesvar -->
+    <button class="ps-finn">
+      Finn prøvesvar
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+
+    <div class="sp-s"></div>
+
+    <!-- Count -->
+    <div style="width:336px; margin: 0 auto 8px; font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000;">1 prøvesvar</div>
+
+    <!-- Medisinsk biokjemi card -->
+    <div class="ps-card">
+      <div class="ps-card__inner">
+        <div class="ps-card__title">Medisinsk biokjemi</div>
+        <p class="ps-card__body">Bent Asgeir Larsen. Bjørnemyr legesenter<br>Prøvedato: 05.05.2026</p>
+        <button class="ps-se-detaljer" onclick="showView('viewProvesvarDetalj')">
+          Se detaljer
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#126F87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="sp-l"></div>
+
+    <!-- Personvern section -->
+    <p class="ps-personvern-title">Personvern for Prøvesvar</p>
+
+    <div class="sp-xs"></div>
+
+    <div class="ps-link-list">
+      <button class="ps-link-item">
+        Logg over bruk
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+      <button class="ps-link-item">
+        Personverninnstillinger
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="#188097" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewProvesvar -->
+
+<div id="helpBubble" class="help-bubble" role="tooltip">
+  <div class="help-bubble__box">
+    <div class="help-bubble__caret" id="helpBubbleArrow"></div>
+    <button class="help-bubble__close" onclick="closeHelpBubble()" aria-label="Lukk">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <line x1="2" y1="2" x2="16" y2="16" stroke="#5B22A6" stroke-width="2" stroke-linecap="round"/>
+        <line x1="16" y1="2" x2="2" y2="16" stroke="#5B22A6" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+    </button>
+    <p id="helpBubbleText" class="help-bubble__text"></p>
+    <a id="helpBubbleLink" href="#" class="help-bubble__link" target="_blank" rel="noopener">Les mer på snl.no</a>
+  </div>
+</div>
+</div><!-- /app -->
+<div class="phone-chrome-bottom"><div class="phone-chrome-bottom__bar"></div></div>
+</div><!-- /phone-shell -->
+</div><!-- /phone-wrap -->
+
+<script>
+// ── Lab icon SVG (from Figma node 791:7642) ───────────────────
+const LAB_ICON = `<svg viewBox="0 0 30.331 33.577" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:100%;height:100%;display:block;">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M8.571 3.455C8.947 3.455 9.253 3.15 9.253 2.773C9.253 2.396 8.947 2.091 8.571 2.091C8.195 2.091 7.889 2.396 7.889 2.773C7.889 3.15 8.195 3.455 8.571 3.455V3.455ZM10.692 1.364C11.069 1.364 11.374 1.059 11.374 0.683C11.374 0.306 11.069 0 10.692 0C10.316 0 10.01 0.306 10.01 0.683C10.01 1.059 10.316 1.364 10.692 1.364V1.364ZM16.965 1.364C17.341 1.364 17.646 1.059 17.646 0.683C17.646 0.306 17.341 0 16.965 0C16.588 0 16.282 0.306 16.282 0.683C16.282 1.059 16.588 1.364 16.965 1.364V1.364ZM20.424 3.455C20.8 3.455 21.106 3.15 21.106 2.773C21.106 2.396 20.8 2.091 20.424 2.091C20.048 2.091 19.742 2.396 19.742 2.773C19.742 3.15 20.048 3.455 20.424 3.455V3.455ZM14.843 3.455C15.22 3.455 15.526 3.15 15.526 2.773C15.526 2.396 15.22 2.091 14.843 2.091C14.467 2.091 14.162 2.396 14.162 2.773C14.162 3.15 14.467 3.455 14.843 3.455V3.455ZM29.031 32.277H1.3V30.615C1.3 29.793 1.969 29.124 2.791 29.124H27.541C28.363 29.124 29.031 29.793 29.031 30.615V32.277ZM3.571 27.825H26.759V26.327H3.571V27.825ZM3.571 13.842H8.456V21.254C8.456 22.651 9.592 23.787 10.988 23.787C12.384 23.787 13.521 22.651 13.521 21.254V13.842H16.82V21.254C16.82 22.651 17.955 23.787 19.352 23.787C20.748 23.787 21.884 22.651 21.884 21.254V13.842H26.759V25.327H3.571V13.842ZM9.756 13.842H12.22V21.254C12.22 21.934 11.668 22.487 10.988 22.487C10.309 22.487 9.756 21.934 9.756 21.254V13.842ZM9.756 12.543H12.22V8.904H9.756V12.543ZM9.756 7.854H12.22V6.233H9.756V7.854ZM18.119 13.842H20.584V21.254C20.584 21.934 20.031 22.487 19.352 22.487C18.672 22.487 18.119 21.934 18.119 21.254V13.842ZM18.119 12.543H20.583V8.904H18.119V12.543ZM18.119 7.854H20.583V6.233H18.119V7.854ZM28.06 27.877V11.176H26.759V12.542H21.884V4.933H16.82V12.542H13.521V4.933H8.456V12.542H3.571V11.176H2.272V27.877C0.981 28.122 0 29.254 0 30.615V33.577H30.331V30.615C30.331 29.254 29.35 28.122 28.06 27.877V27.877Z" fill="black"/>
+</svg>`;
+
+// ── Check icon (Aktiv status) ─────────────────────────────────
+const CHECK_ICON = `<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M16 8C16 12.4183 12.4183 16 8 16C3.58172 16 0 12.4183 0 8C0 3.58172 3.58172 0 8 0C12.4183 0 16 3.58172 16 8Z" fill="#078141"/><path d="M4.5 8L7 10.5L11.5 6" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
+// ── Chevron SVG ───────────────────────────────────────────────
+const CHEVRON = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+const CHEVRON_DOWN = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+
+// ── Analysis definitions ──────────────────────────────────────
+const DEFINITIONS = {
+  'Hemoglobin': {
+    text: 'Hemoglobin er et protein som finnes i store mengder i blodet og er en essensiell del av mekanismene som frakter oksygen med blodstrømmen.',
+    url: 'https://snl.no/hemoglobin'
+  },
+  'Ferritin': {
+    text: 'Ferritin er et jernholdig protein som blant annet finnes i cellene i tarmslimhinnen, leveren, milten og i blodet. Ferritin fungerer som lager for jern i kroppen. I flere sammenhenger er det relevant å måle ferritin i en blodprøve, blant annet ved utredning for anemi.',
+    url: 'https://snl.no/ferritin'
+  },
+  'D-vitamin': {
+    text: 'D-vitamin er et fettløselig vitamin og prohormon som i menneskekroppen blant annet spiller viktige roller i kalsiumbalansen og i opprettholdelse av skjelettet. I motsetning til andre vitaminer kan D-vitamin lages i menneskekroppen når huden utsettes for sollys (UV-stråling).',
+    url: 'https://snl.no/D-vitamin'
+  },
+  'B12-vitamin': {
+    text: 'Vitamin B12 er et vannløselig vitamin som vi hovedsakelig får tilført fra animalsk føde. B12-mangel kan gi tretthet, plager fra nervesystemet og/eller lav blodprosent.',
+    url: 'https://snl.no/vitamin_B12'
+  },
+};
+
+// ── HelpBubble ────────────────────────────────────────────────
+let _activeTerm = null;
+
+function openHelpBubble(el, termKey) {
+  if (_activeTerm === el) { closeHelpBubble(); return; }
+  if (_activeTerm) _activeTerm.classList.remove('help-term--active');
+
+  const def = DEFINITIONS[termKey];
+  if (!def) return;
+
+  _activeTerm = el;
+  el.classList.add('help-term--active');
+
+  document.getElementById('helpBubbleText').textContent = def.text;
+  const link = document.getElementById('helpBubbleLink');
+  link.href = def.url;
+
+  const bubble = document.getElementById('helpBubble');
+  bubble.classList.add('help-bubble--visible');
+
+  const app = document.getElementById('app');
+  const appRect = app.getBoundingClientRect();
+  const rect = el.getBoundingClientRect();
+  const bubbleW = 300;
+
+  const top = (rect.bottom - appRect.top) + app.scrollTop + 4;
+  let left = (rect.left - appRect.left) - 30;
+  const appW = appRect.width;
+  if (left + bubbleW > appW - 8) left = appW - bubbleW - 8;
+  if (left < 8) left = 8;
+
+  const caretLeft = Math.max(10, (rect.left - appRect.left) - left + rect.width / 2 - 6);
+  document.getElementById('helpBubbleArrow').style.left = caretLeft + 'px';
+
+  bubble.style.left = left + 'px';
+  bubble.style.top = top + 'px';
+}
+
+function closeHelpBubble() {
+  if (_activeTerm) { _activeTerm.classList.remove('help-term--active'); _activeTerm = null; }
+  document.getElementById('helpBubble').classList.remove('help-bubble--visible');
+}
+
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('#helpBubble') && !e.target.closest('.help-term')) closeHelpBubble();
+});
+
+// ── Data ──────────────────────────────────────────────────────
+const FREMTIDIGE = [
+  {
+    id: 'r1',
+    type: 'Laboratoriemedisin',
+    dateRange: 'mellom 04.05.2026 - 15.05.2026',
+    prøvemateriale: 'Blod',
+    analyses: ['Hemoglobin', 'Ferritin', 'D-vitamin', 'B12-vitamin'],
+    rekvirent: 'Asgeir Larsen, Medisinsk poliklinikk, Marie Joys\' hus',
+  }
+];
+
+const TIDLIGERE = [
+  {
+    id: 't1', type: 'Laboratoriemedisin', date: '23.04.2026',
+    prøvemateriale: 'Blod',
+    analyser: ['Hemoglobin'],
+    rekvirent: 'Bent Olsen, Oslo universitetssykehus',
+    utført: '23.04.2026',
+  },
+  {
+    id: 't2', type: 'Laboratoriemedisin', date: '09.12.2025',
+    prøvemateriale: 'Blod',
+    analyser: ['Ferritin', 'Hemoglobin'],
+    rekvirent: 'Doktor Doktorsson, Oslo universitetssykehus',
+    utført: '09.12.2025',
+  },
+  {
+    id: 't3', type: 'Laboratoriemedisin', date: '08.12.2025',
+    prøvemateriale: 'Blod',
+    analyser: ['Hemoglobin', 'Vitamin B12'],
+    rekvirent: 'Asgeir Larsen, Oslo universitetssykehus',
+    utført: '08.12.2025',
+  },
+  {
+    id: 't4', type: 'Laboratoriemedisin', date: '01.12.2025',
+    prøvemateriale: 'Blod',
+    analyser: ['Hemoglobin'],
+    rekvirent: 'Bent Olsen, Oslo universitetssykehus',
+    utført: '01.12.2025',
+  },
+];
+
+// ── Render rekvisjon cards ────────────────────────────────────
+function renderRekvCards() {
+  const container = document.getElementById('rekvCardList');
+  if (!container) return;
+  container.innerHTML = FREMTIDIGE.map(r => `
+    <div class="rekv-card" id="card-${r.id}">
+      <div class="rekv-card__inner">
+        <div class="rekv-card__left-bar"></div>
+        <div class="rekv-card__content">
+          <div class="rekv-card__top">
+            <div class="rekv-card__title-row">
+              <div class="rekv-card__icon">${LAB_ICON}</div>
+              <div class="rekv-card__type">${r.type}</div>
+            </div>
+            <div class="rekv-card__date-group">
+              Ta prøven ${r.dateRange}
+            </div>
+            <button class="rekv-card__toggle-btn" onclick="toggleCard('${r.id}')" aria-expanded="false">
+              ${CHEVRON_DOWN} Se detaljer
+            </button>
+          </div>
+          <div class="rekv-card__body">
+            <div class="rekv-card__body-divider"></div>
+            <div class="rekv-card__section">
+              <div class="rekv-card__section-label">Prøvemateriale</div>
+              <div class="rekv-card__section-value">${r.prøvemateriale}</div>
+            </div>
+            <div class="rekv-card__section">
+              <div class="rekv-card__section-label">Analyser</div>
+              ${r.analyses.map(a => DEFINITIONS[a]
+                ? `<span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'${a}')">${a}</span>`
+                : `<span class="rekv-card__analysis-item">${a}</span>`
+              ).join('')}
+            </div>
+            <div class="rekv-card__section">
+              <div class="rekv-card__section-label">Prøven er rekvirert av</div>
+              <div class="rekv-card__section-value">${r.rekvirent}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Render accordion list (Tidligere prøver) ─────────────────
+const ACC_CHEVRON = `<svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg>`;
+
+function renderPrevList() {
+  const container = document.getElementById('prevList');
+  container.innerHTML = TIDLIGERE.map(t => {
+    const body = t.prøvemateriale ? `
+      <div class="acc-item__body">
+        <div class="acc-item__content">
+          <p><span class="acc-item__section-label">Prøvemateriale:</span><br>${t.prøvemateriale}</p>
+          <p>&nbsp;</p>
+          <p><span class="acc-item__section-label">Analyse(r):</span><br>${t.analyser.join('<br>')}</p>
+          <p>&nbsp;</p>
+          <p><span class="acc-item__section-label">Rekvirert av:</span><br>${t.rekvirent}</p>
+          <p>&nbsp;</p>
+          <p><span class="acc-item__section-label">Utført:</span><br>${t.utført}</p>
+        </div>
+      </div>` : '';
+    return `
+      <div class="acc-item" id="acc-${t.id}">
+        <button class="acc-item__header" onclick="toggleAccordion('${t.id}')" aria-expanded="false">
+          <div class="acc-item__label">${t.type}<br>${t.date}</div>
+          <div class="acc-item__chevron-frame">${ACC_CHEVRON}</div>
+        </button>
+        ${body}
+      </div>`;
+  }).join('');
+}
+
+function toggleAccordion(id) {
+  const item = document.getElementById('acc-' + id);
+  const isOpen = item.classList.contains('acc-item--open');
+  item.classList.toggle('acc-item--open', !isOpen);
+  item.querySelector('.acc-item__header').setAttribute('aria-expanded', String(!isOpen));
+}
+
+// ── Toggle card expand/collapse ───────────────────────────────
+function toggleCard(id) {
+  const card = document.getElementById('card-' + id);
+  const isOpen = card.classList.contains('rekv-card--open');
+  card.classList.toggle('rekv-card--open', !isOpen);
+  const btn = card.querySelector('.rekv-card__toggle-btn');
+  btn.setAttribute('aria-expanded', String(!isOpen));
+  btn.innerHTML = `${CHEVRON_DOWN} ${!isOpen ? 'Skjul detaljer' : 'Se detaljer'}`;
+}
+
+// ── Help expander ─────────────────────────────────────────────
+function toggleHelp(btn) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!expanded));
+  const body = btn.closest('.help-expander').querySelector('.help-expander__body');
+  body.hidden = expanded;
+}
+
+// ── Render varsler list ───────────────────────────────────────
+function renderVarsler() {
+  const list = document.getElementById('varselList');
+  const envelopeIcon = `<svg viewBox="0 0 40 40" fill="none" width="36" height="36"><rect x="4" y="10" width="32" height="22" rx="2" stroke="#62625F" stroke-width="1.5"/><path d="M4 14l16 10 16-10" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+  const formIcon = `<svg viewBox="0 0 40 40" fill="none" width="36" height="36"><rect x="8" y="4" width="24" height="32" rx="2" stroke="#62625F" stroke-width="1.5"/><line x1="13" y1="13" x2="27" y2="13" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/><line x1="13" y1="19" x2="27" y2="19" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/><line x1="13" y1="25" x2="22" y2="25" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+
+  list.innerHTML = `
+    <div class="varsel-item varsel-item--unread">
+      <div class="varsel-item__icon">${LAB_ICON}</div>
+      <div class="varsel-item__body">
+        <div class="varsel-item__title">Du har fått svar på en prøve eller undersøkelse</div>
+        <p class="varsel-item__text">Legen din kontakter deg hvis det er behov for å gå igjennom prøvesvaret.</p>
+        <button class="varsel-cta" onclick="showView('viewProvesvar')">
+          Gå til prøvesvaret
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  `;
+}
+
+function toggleVarsler() {
+  if (!document.getElementById('viewVarsler').hidden) {
+    showView('viewForside');
+  } else {
+    showView('viewVarsler');
+  }
+}
+
+function goToFremtidige() {
+  const badge = document.getElementById('headerBadge');
+  if (badge) badge.style.display = 'none';
+  showView('viewFremtidige');
+}
+
+// ── Forside tjenester toggle ─────────────────────────────────
+function toggleForsideTjenester() {
+  const list = document.getElementById('forsideTjenester');
+  const btn = document.getElementById('forsideExpandBtn');
+  const willExpand = list.hidden;
+  list.hidden = !willExpand;
+  if (willExpand) {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="18 15 12 9 6 15"/></svg> Vis færre tjenester';
+  } else {
+    btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20"><polyline points="6 9 12 15 18 9"/></svg> Vis flere tjenester';
+  }
+}
+
+// ── View navigation ───────────────────────────────────────────
+function showView(id) {
+  ['viewForside', 'viewVarsler', 'viewLanding', 'viewFremtidige', 'viewTidligere', 'viewProvesvar'].forEach(v => {
+    document.getElementById(v).hidden = (v !== id);
+  });
+  document.getElementById('app').scrollTop = 0;
+  history.replaceState(null, '', '#' + id);
+}
+
+// ── Init ──────────────────────────────────────────────────────
+renderRekvCards();
+renderPrevList();
+renderVarsler();
+
+// URL hash or ?view= param for deep-linking
+(function() {
+  const views = ['viewForside', 'viewVarsler', 'viewLanding', 'viewFremtidige', 'viewTidligere', 'viewProvesvar'];
+  const hash = location.hash.slice(1);
+  if (views.includes(hash)) { showView(hash); return; }
+  const p = new URLSearchParams(window.location.search).get('view');
+  if (p === 'varsler') showView('viewVarsler');
+  else if (p === 'landing') showView('viewLanding');
+  else if (p === 'fremtidige') showView('viewFremtidige');
+  else if (p === 'tidligere') showView('viewTidligere');
+})();
+</script>
+<script src="https://mcp.figma.com/mcp/html-to-design/capture.js"></script>
+</body>
+</html>
