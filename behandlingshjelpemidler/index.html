@@ -1027,9 +1027,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Positivt luftveistrykkapparat, kontinuerlig, auto</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">04.04.2026</span></div>
           <div class="duolist__row"><span class="duolist__key">Leveransemåte</span><span class="duolist__value">Sendes i posten</span></div>
-          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Kirkeveien 84B, 7010 Trondheim</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Tore Hansen<br>Kirkeveien 84B<br>7010 Trondheim</span></div>
+          <div class="duolist__row"><span class="duolist__key">Telefon</span><span class="duolist__value">924 62 478</span></div>
           <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Til pakking</span></div>
-          <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler.<br>Tel: 72 57 63 00</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler.<br>Tel: 72 57 63 00<br>Åpningstider: ukedager 08-16.</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1258,6 +1259,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Positivt luftveistrykkapparat, kontinuerlig, auto</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">14.02.2026</span></div>
           <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">18.02.2026</span></div>
+          <div class="duolist__row"><span class="duolist__key">Saksbehandler kommentar</span><span class="duolist__value">Vi har dessverre ingen flere vannkammer på lager. Forventet medio juni.</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1633,7 +1635,7 @@ function renderMachinePage(eq) {
       </button>
       <div class="help-expander__body" hidden>
         <div class="help-expander__content">
-          <p class="help-expander__text">Har du ytterligere spørsmål om bestillinger eller bruk av dette produktet kan du kontakte Behandlingshjelpemiddel-sentralen på St. Olavs sykehus på telefon 987 65 432.</p>
+          <p class="help-expander__text">Har du ytterligere spørsmål om bestillinger eller bruk av dette produktet kan du kontakte Behandlingshjelpemiddel-sentralen på St. Olavs sykehus på telefon 987 65 432. Åpningstider: ukedager 08-16.</p>
         </div>
       </div>
     </div>
@@ -2013,12 +2015,13 @@ function submitOrder() {
     telefonCard  = document.getElementById('delivTelefon').value.trim();
   }
 
-  showConfirmation(orderId, orderState.delivery, addrCard, navnCard, telefonCard);
+  const commentCard = document.getElementById('orderComment').value.trim();
+  showConfirmation(orderId, orderState.delivery, addrCard, navnCard, telefonCard, commentCard);
   refreshEquipmentCardStatuses();
   showFront();
 }
 
-function showConfirmation(orderId, delivery, addr, navn, telefon) {
+function showConfirmation(orderId, delivery, addr, navn, telefon, comment) {
   const panel = document.getElementById('orderConfirmation');
   document.getElementById('confirmationHeading').innerHTML = 'Bestilling er mottatt';
   const contact = 'Dersom du har sp\u00f8rsm\u00e5l om din bestilling kan du kontakte Regional enhet for behandlings\u00adhjelpe\u00admidler. Tel: 72 57 63 00';
@@ -2027,10 +2030,10 @@ function showConfirmation(orderId, delivery, addr, navn, telefon) {
     : 'Ordren sendes vanligvis innen 1-2 arbeidsdager. ' + contact;
   document.getElementById('confirmationText').innerHTML = msg;
   panel.style.display = 'flex';
-  addActiveOrderCard(delivery, addr, navn, telefon);
+  addActiveOrderCard(delivery, addr, navn, telefon, comment);
 }
 
-function addActiveOrderCard(delivery, addr, navn, telefon) {
+function addActiveOrderCard(delivery, addr, navn, telefon, comment) {
   const today = new Date();
   const dd = String(today.getDate()).padStart(2, '0');
   const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -2060,8 +2063,9 @@ function addActiveOrderCard(delivery, addr, navn, telefon) {
         ${delivery !== 'hentes' && delivery !== 'hentes2' && addr ? `
         <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">${addr}</span></div>
         ${telefon ? `<div class="duolist__row"><span class="duolist__key">Telefon</span><span class="duolist__value">${telefon}</span></div>` : ''}` : ''}
+        ${comment ? `<div class="duolist__row"><span class="duolist__key">Kommentar</span><span class="duolist__value">${comment}</span></div>` : ''}
         <div class="duolist__row"><span class="duolist__key">Status</span><span class="duolist__value">Under behandling</span></div>
-        <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler.<br>Tel: 72 57 63 00</span></div>
+        <div class="duolist__row"><span class="duolist__key">Ved spørsmål kontakt</span><span class="duolist__value">Regional enhet for behandlingshjelpemidler.<br>Tel: 72 57 63 00<br>Åpningstider: ukedager 08-16.</span></div>
       </div>
       <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
       <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>

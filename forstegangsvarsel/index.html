@@ -480,7 +480,16 @@
 .pd-expander--open .pd-expander__body { display: block; }
 .pd-result-label { font-weight: 700; display: block; }
 .pd-result-sep { border: none; border-top: 1px solid #D6D4D3; margin: 12px 0; }
-.pd-result-link { font: 600 18px/1.5 'Source Sans Pro', sans-serif; color: #188097; text-decoration: underline; text-underline-offset: 2px; background: none; border: none; cursor: pointer; padding: 0; display: block; }
+.pd-result-link { font: 600 18px/1.5 'Source Sans Pro', sans-serif; color: #188097; text-decoration: underline; text-underline-offset: 2px; background: none; border: none; cursor: pointer; padding: 0; display: flex; align-items: center; gap: 4px; }
+.pd-range { padding-top: 48px; margin: 12px 0 calc(8px + 1rem); }
+.pd-range__track-area { position: relative; height: 23px; }
+.pd-range__line { position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: #1A1A1A; transform: translateY(-50%); z-index: 1; }
+.pd-range__fill { position: absolute; left: 4.5%; right: 5.5%; top: 0; bottom: 0; background: #C4E3EA; }
+.pd-range__dot { position: absolute; top: 50%; width: 9px; height: 9px; background: #292929; border-radius: 50%; transform: translate(-50%, -50%); z-index: 2; }
+.pd-range__callout { position: absolute; bottom: calc(100% + 10px); left: 50%; transform: translateX(-50%); background: #fff; border: 1.5px solid #1A1A1A; border-radius: 6px; padding: 4px 10px; font: 700 15px/1.4 'Source Sans Pro', sans-serif; white-space: nowrap; z-index: 3; }
+.pd-range__callout::before { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 7px solid transparent; border-top-color: #1A1A1A; border-bottom: 0; }
+.pd-range__callout::after { content: ''; position: absolute; top: calc(100% - 1px); left: 50%; transform: translateX(-50%); border: 5.5px solid transparent; border-top-color: #fff; border-bottom: 0; }
+.pd-range__labels { display: flex; justify-content: space-between; padding: 0 5.5% 0 4.5%; font: 400 14px/1.5 'Source Sans Pro', sans-serif; color: #000; margin-top: 6px; }
 </style>
 </head>
 <body>
@@ -1002,13 +1011,13 @@
         <button class="help-expander__trigger" aria-expanded="false" onclick="toggleHelp(this)">
           <div class="help-expander__trigger-inner">
             <svg class="help-expander__question-icon" width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><circle cx="10" cy="10" r="9.25" stroke="#5B22A6" stroke-width="1.5"/><path d="M10 6.5a2 2 0 0 1 1 3.464c-.6.346-1 .98-1 1.668V13" stroke="#5B22A6" stroke-width="1.5" stroke-linecap="round"/><circle cx="10" cy="14.75" r="0.75" fill="#5B22A6"/></svg>
-            <span class="help-expander__trigger-text">Velg om du vil få varsel om prøvesvar</span>
+            <span class="help-expander__trigger-text">Velg om du vil få varsler om prøvesvar</span>
           </div>
           <svg class="help-expander__chevron" width="9" height="6" viewBox="0 0 9 6" fill="none" aria-hidden="true"><path d="M1 1L4.5 5L8 1" stroke="#5B22A6" stroke-width="1.5" stroke-linecap="round"/></svg>
         </button>
         <div class="help-expander__body" hidden>
           <div class="help-expander__content">
-            <p class="help-expander__text">Her kan du styre om du ønsker å motta varsler når prøvesvar er tilgjengelige for deg.</p>
+            <p class="help-expander__text">Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du endre varselinnstillingene.<br><br>Gå til <a class="help-expander__link" href="#">Varselinnstillinger</a>.</p>
           </div>
         </div>
       </div>
@@ -1187,19 +1196,42 @@
         <span class="pd-result-label">Resultat</span>11,0<br><br>
         <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>10–22<br><br>
         <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'pmol/L')">pmol/L</span><br>
-        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <div class="pd-range">
+          <div class="pd-range__track-area">
+            <div class="pd-range__line"></div>
+            <div class="pd-range__fill"></div>
+            <div class="pd-range__dot" style="left:12%">
+              <div class="pd-range__callout">11,0</div>
+            </div>
+          </div>
+          <div class="pd-range__labels"><span>10,0</span><span>22,0</span></div>
+        </div>
+        <button class="pd-result-link"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.4001 7.625H7.1001V40.275H39.7501V38.975H8.4001V7.625Z" fill="#188097"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1232 33.1065C17.1232 34.4975 15.9956 35.6252 14.6046 35.6252C13.2136 35.6252 12.0859 34.4975 12.0859 33.1065C12.0859 31.7155 13.2136 30.5879 14.6046 30.5879C14.8451 30.5879 15.0777 30.6216 15.2979 30.6845L18.5975 25.1603C18.1651 24.7084 17.8995 24.0956 17.8995 23.4208C17.8995 22.031 19.0262 20.9043 20.416 20.9043C21.8058 20.9043 22.9325 22.031 22.9325 23.4208C22.9325 23.4508 22.9319 23.4807 22.9309 23.5104L28.0007 24.996C28.4349 24.2453 29.2466 23.7402 30.1762 23.7402C30.4605 23.7402 30.7338 23.7875 30.9886 23.8746L35.8405 16.2577C35.3867 15.8019 35.1063 15.1734 35.1063 14.4794C35.1063 13.0874 36.2347 11.959 37.6267 11.959C39.0187 11.959 40.1471 13.0874 40.1471 14.4794C40.1471 15.8714 39.0187 16.9998 37.6267 16.9998C37.3977 16.9998 37.1759 16.9693 36.965 16.9121L32.068 24.5998C32.4538 25.0414 32.6876 25.6192 32.6876 26.2517C32.6876 27.6387 31.5632 28.7631 30.1762 28.7631C28.7894 28.7631 27.6651 27.639 27.6648 26.2522L22.5508 24.7537C22.1061 25.4645 21.3163 25.9373 20.416 25.9373C20.1702 25.9373 19.9326 25.902 19.708 25.8363L16.4128 31.3533C16.8525 31.8067 17.1232 32.425 17.1232 33.1065ZM15.8232 33.1065C15.8232 33.7796 15.2776 34.3252 14.6046 34.3252C13.9315 34.3252 13.3859 33.7796 13.3859 33.1065C13.3859 32.4335 13.9315 31.8879 14.6046 31.8879C15.2776 31.8879 15.8232 32.4335 15.8232 33.1065ZM20.416 24.6373C21.0878 24.6373 21.6325 24.0926 21.6325 23.4208C21.6325 22.7489 21.0878 22.2043 20.416 22.2043C19.7441 22.2043 19.1995 22.7489 19.1995 23.4208C19.1995 24.0926 19.7441 24.6373 20.416 24.6373ZM31.3876 26.2517C31.3876 26.9207 30.8452 27.4631 30.1762 27.4631C29.5071 27.4631 28.9648 26.9207 28.9648 26.2517C28.9648 25.5826 29.5071 25.0402 30.1762 25.0402C30.8452 25.0402 31.3876 25.5826 31.3876 26.2517ZM37.6267 15.6998C38.3007 15.6998 38.8471 15.1534 38.8471 14.4794C38.8471 13.8054 38.3007 13.259 37.6267 13.259C36.9527 13.259 36.4063 13.8054 36.4063 14.4794C36.4063 15.1534 36.9527 15.6998 37.6267 15.6998Z" fill="#188097"/></svg>Vis undersøkelseshistorikk</button>
         <hr class="pd-result-sep">
         <span class="pd-result-label">Undersøkelse</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'P-D-dimer')">P-D-dimer</span><br>
         <span class="pd-result-label">Resultat</span>0,4<br><br>
         <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>&lt;0,5<br><br>
         <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'mg/L')">mg/L</span><br>
-        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <button class="pd-result-link"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.4001 7.625H7.1001V40.275H39.7501V38.975H8.4001V7.625Z" fill="#188097"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1232 33.1065C17.1232 34.4975 15.9956 35.6252 14.6046 35.6252C13.2136 35.6252 12.0859 34.4975 12.0859 33.1065C12.0859 31.7155 13.2136 30.5879 14.6046 30.5879C14.8451 30.5879 15.0777 30.6216 15.2979 30.6845L18.5975 25.1603C18.1651 24.7084 17.8995 24.0956 17.8995 23.4208C17.8995 22.031 19.0262 20.9043 20.416 20.9043C21.8058 20.9043 22.9325 22.031 22.9325 23.4208C22.9325 23.4508 22.9319 23.4807 22.9309 23.5104L28.0007 24.996C28.4349 24.2453 29.2466 23.7402 30.1762 23.7402C30.4605 23.7402 30.7338 23.7875 30.9886 23.8746L35.8405 16.2577C35.3867 15.8019 35.1063 15.1734 35.1063 14.4794C35.1063 13.0874 36.2347 11.959 37.6267 11.959C39.0187 11.959 40.1471 13.0874 40.1471 14.4794C40.1471 15.8714 39.0187 16.9998 37.6267 16.9998C37.3977 16.9998 37.1759 16.9693 36.965 16.9121L32.068 24.5998C32.4538 25.0414 32.6876 25.6192 32.6876 26.2517C32.6876 27.6387 31.5632 28.7631 30.1762 28.7631C28.7894 28.7631 27.6651 27.639 27.6648 26.2522L22.5508 24.7537C22.1061 25.4645 21.3163 25.9373 20.416 25.9373C20.1702 25.9373 19.9326 25.902 19.708 25.8363L16.4128 31.3533C16.8525 31.8067 17.1232 32.425 17.1232 33.1065ZM15.8232 33.1065C15.8232 33.7796 15.2776 34.3252 14.6046 34.3252C13.9315 34.3252 13.3859 33.7796 13.3859 33.1065C13.3859 32.4335 13.9315 31.8879 14.6046 31.8879C15.2776 31.8879 15.8232 32.4335 15.8232 33.1065ZM20.416 24.6373C21.0878 24.6373 21.6325 24.0926 21.6325 23.4208C21.6325 22.7489 21.0878 22.2043 20.416 22.2043C19.7441 22.2043 19.1995 22.7489 19.1995 23.4208C19.1995 24.0926 19.7441 24.6373 20.416 24.6373ZM31.3876 26.2517C31.3876 26.9207 30.8452 27.4631 30.1762 27.4631C29.5071 27.4631 28.9648 26.9207 28.9648 26.2517C28.9648 25.5826 29.5071 25.0402 30.1762 25.0402C30.8452 25.0402 31.3876 25.5826 31.3876 26.2517ZM37.6267 15.6998C38.3007 15.6998 38.8471 15.1534 38.8471 14.4794C38.8471 13.8054 38.3007 13.259 37.6267 13.259C36.9527 13.259 36.4063 13.8054 36.4063 14.4794C36.4063 15.1534 36.9527 15.6998 37.6267 15.6998Z" fill="#188097"/></svg>Vis undersøkelseshistorikk</button>
         <hr class="pd-result-sep">
-        <span class="pd-result-label">Undersøkelse</span>Us-LH<br><br>
-        <span class="pd-result-label">Resultat</span>14,0 (over øvre referanseområde)<br><br>
-        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>&lt;12<br><br>
-        <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'IU/L')">IU/L</span><br>
-        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <span class="pd-result-label">Undersøkelse</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'B-Leukocytter')">B-Leukocytter</span><br>
+        <span class="pd-result-label">Resultat</span>12,0 (over øvre referanseområde)<br><br>
+        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>3,5–11,0<br><br>
+        <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'10E9/L')">10E9/L</span><br>
+        <div class="pd-range">
+          <div class="pd-range__track-area">
+            <div class="pd-range__line"></div>
+            <div class="pd-range__fill" style="left:16%;right:25%"></div>
+            <div class="pd-range__dot" style="left:83%">
+              <div class="pd-range__callout">12,0</div>
+            </div>
+          </div>
+          <div style="position:relative;height:1.5em;margin-top:6px;font:400 14px/1.5 'Source Sans Pro',sans-serif;">
+            <span style="position:absolute;left:16%;transform:translateX(-50%)">3,5</span>
+            <span style="position:absolute;left:75%;transform:translateX(-50%)">11,0</span>
+          </div>
+        </div>
+        <button class="pd-result-link"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.4001 7.625H7.1001V40.275H39.7501V38.975H8.4001V7.625Z" fill="#188097"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1232 33.1065C17.1232 34.4975 15.9956 35.6252 14.6046 35.6252C13.2136 35.6252 12.0859 34.4975 12.0859 33.1065C12.0859 31.7155 13.2136 30.5879 14.6046 30.5879C14.8451 30.5879 15.0777 30.6216 15.2979 30.6845L18.5975 25.1603C18.1651 24.7084 17.8995 24.0956 17.8995 23.4208C17.8995 22.031 19.0262 20.9043 20.416 20.9043C21.8058 20.9043 22.9325 22.031 22.9325 23.4208C22.9325 23.4508 22.9319 23.4807 22.9309 23.5104L28.0007 24.996C28.4349 24.2453 29.2466 23.7402 30.1762 23.7402C30.4605 23.7402 30.7338 23.7875 30.9886 23.8746L35.8405 16.2577C35.3867 15.8019 35.1063 15.1734 35.1063 14.4794C35.1063 13.0874 36.2347 11.959 37.6267 11.959C39.0187 11.959 40.1471 13.0874 40.1471 14.4794C40.1471 15.8714 39.0187 16.9998 37.6267 16.9998C37.3977 16.9998 37.1759 16.9693 36.965 16.9121L32.068 24.5998C32.4538 25.0414 32.6876 25.6192 32.6876 26.2517C32.6876 27.6387 31.5632 28.7631 30.1762 28.7631C28.7894 28.7631 27.6651 27.639 27.6648 26.2522L22.5508 24.7537C22.1061 25.4645 21.3163 25.9373 20.416 25.9373C20.1702 25.9373 19.9326 25.902 19.708 25.8363L16.4128 31.3533C16.8525 31.8067 17.1232 32.425 17.1232 33.1065ZM15.8232 33.1065C15.8232 33.7796 15.2776 34.3252 14.6046 34.3252C13.9315 34.3252 13.3859 33.7796 13.3859 33.1065C13.3859 32.4335 13.9315 31.8879 14.6046 31.8879C15.2776 31.8879 15.8232 32.4335 15.8232 33.1065ZM20.416 24.6373C21.0878 24.6373 21.6325 24.0926 21.6325 23.4208C21.6325 22.7489 21.0878 22.2043 20.416 22.2043C19.7441 22.2043 19.1995 22.7489 19.1995 23.4208C19.1995 24.0926 19.7441 24.6373 20.416 24.6373ZM31.3876 26.2517C31.3876 26.9207 30.8452 27.4631 30.1762 27.4631C29.5071 27.4631 28.9648 26.9207 28.9648 26.2517C28.9648 25.5826 29.5071 25.0402 30.1762 25.0402C30.8452 25.0402 31.3876 25.5826 31.3876 26.2517ZM37.6267 15.6998C38.3007 15.6998 38.8471 15.1534 38.8471 14.4794C38.8471 13.8054 38.3007 13.259 37.6267 13.259C36.9527 13.259 36.4063 13.8054 36.4063 14.4794C36.4063 15.1534 36.9527 15.6998 37.6267 15.6998Z" fill="#188097"/></svg>Vis undersøkelseshistorikk</button>
       </div>
     </div>
 
@@ -1304,7 +1336,7 @@
         <span class="pd-result-label">Undersøkelse</span>Dyrkning<br><br>
         <span class="pd-result-label">Resultat</span>Negativ<br><br>
         <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>Negativ<br><br>
-        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <button class="pd-result-link"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.4001 7.625H7.1001V40.275H39.7501V38.975H8.4001V7.625Z" fill="#188097"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1232 33.1065C17.1232 34.4975 15.9956 35.6252 14.6046 35.6252C13.2136 35.6252 12.0859 34.4975 12.0859 33.1065C12.0859 31.7155 13.2136 30.5879 14.6046 30.5879C14.8451 30.5879 15.0777 30.6216 15.2979 30.6845L18.5975 25.1603C18.1651 24.7084 17.8995 24.0956 17.8995 23.4208C17.8995 22.031 19.0262 20.9043 20.416 20.9043C21.8058 20.9043 22.9325 22.031 22.9325 23.4208C22.9325 23.4508 22.9319 23.4807 22.9309 23.5104L28.0007 24.996C28.4349 24.2453 29.2466 23.7402 30.1762 23.7402C30.4605 23.7402 30.7338 23.7875 30.9886 23.8746L35.8405 16.2577C35.3867 15.8019 35.1063 15.1734 35.1063 14.4794C35.1063 13.0874 36.2347 11.959 37.6267 11.959C39.0187 11.959 40.1471 13.0874 40.1471 14.4794C40.1471 15.8714 39.0187 16.9998 37.6267 16.9998C37.3977 16.9998 37.1759 16.9693 36.965 16.9121L32.068 24.5998C32.4538 25.0414 32.6876 25.6192 32.6876 26.2517C32.6876 27.6387 31.5632 28.7631 30.1762 28.7631C28.7894 28.7631 27.6651 27.639 27.6648 26.2522L22.5508 24.7537C22.1061 25.4645 21.3163 25.9373 20.416 25.9373C20.1702 25.9373 19.9326 25.902 19.708 25.8363L16.4128 31.3533C16.8525 31.8067 17.1232 32.425 17.1232 33.1065ZM15.8232 33.1065C15.8232 33.7796 15.2776 34.3252 14.6046 34.3252C13.9315 34.3252 13.3859 33.7796 13.3859 33.1065C13.3859 32.4335 13.9315 31.8879 14.6046 31.8879C15.2776 31.8879 15.8232 32.4335 15.8232 33.1065ZM20.416 24.6373C21.0878 24.6373 21.6325 24.0926 21.6325 23.4208C21.6325 22.7489 21.0878 22.2043 20.416 22.2043C19.7441 22.2043 19.1995 22.7489 19.1995 23.4208C19.1995 24.0926 19.7441 24.6373 20.416 24.6373ZM31.3876 26.2517C31.3876 26.9207 30.8452 27.4631 30.1762 27.4631C29.5071 27.4631 28.9648 26.9207 28.9648 26.2517C28.9648 25.5826 29.5071 25.0402 30.1762 25.0402C30.8452 25.0402 31.3876 25.5826 31.3876 26.2517ZM37.6267 15.6998C38.3007 15.6998 38.8471 15.1534 38.8471 14.4794C38.8471 13.8054 38.3007 13.259 37.6267 13.259C36.9527 13.259 36.4063 13.8054 36.4063 14.4794C36.4063 15.1534 36.9527 15.6998 37.6267 15.6998Z" fill="#188097"/></svg>Vis undersøkelseshistorikk</button>
       </div>
     </div>
 
@@ -1408,7 +1440,7 @@
         <span class="pd-result-label">Undersøkelse</span>Cervixcytologi<br><br>
         <span class="pd-result-label">Resultat</span>Normal<br><br>
         <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>Normal<br><br>
-        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <button class="pd-result-link"><svg width="40" height="40" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M8.4001 7.625H7.1001V40.275H39.7501V38.975H8.4001V7.625Z" fill="#188097"/><path fill-rule="evenodd" clip-rule="evenodd" d="M17.1232 33.1065C17.1232 34.4975 15.9956 35.6252 14.6046 35.6252C13.2136 35.6252 12.0859 34.4975 12.0859 33.1065C12.0859 31.7155 13.2136 30.5879 14.6046 30.5879C14.8451 30.5879 15.0777 30.6216 15.2979 30.6845L18.5975 25.1603C18.1651 24.7084 17.8995 24.0956 17.8995 23.4208C17.8995 22.031 19.0262 20.9043 20.416 20.9043C21.8058 20.9043 22.9325 22.031 22.9325 23.4208C22.9325 23.4508 22.9319 23.4807 22.9309 23.5104L28.0007 24.996C28.4349 24.2453 29.2466 23.7402 30.1762 23.7402C30.4605 23.7402 30.7338 23.7875 30.9886 23.8746L35.8405 16.2577C35.3867 15.8019 35.1063 15.1734 35.1063 14.4794C35.1063 13.0874 36.2347 11.959 37.6267 11.959C39.0187 11.959 40.1471 13.0874 40.1471 14.4794C40.1471 15.8714 39.0187 16.9998 37.6267 16.9998C37.3977 16.9998 37.1759 16.9693 36.965 16.9121L32.068 24.5998C32.4538 25.0414 32.6876 25.6192 32.6876 26.2517C32.6876 27.6387 31.5632 28.7631 30.1762 28.7631C28.7894 28.7631 27.6651 27.639 27.6648 26.2522L22.5508 24.7537C22.1061 25.4645 21.3163 25.9373 20.416 25.9373C20.1702 25.9373 19.9326 25.902 19.708 25.8363L16.4128 31.3533C16.8525 31.8067 17.1232 32.425 17.1232 33.1065ZM15.8232 33.1065C15.8232 33.7796 15.2776 34.3252 14.6046 34.3252C13.9315 34.3252 13.3859 33.7796 13.3859 33.1065C13.3859 32.4335 13.9315 31.8879 14.6046 31.8879C15.2776 31.8879 15.8232 32.4335 15.8232 33.1065ZM20.416 24.6373C21.0878 24.6373 21.6325 24.0926 21.6325 23.4208C21.6325 22.7489 21.0878 22.2043 20.416 22.2043C19.7441 22.2043 19.1995 22.7489 19.1995 23.4208C19.1995 24.0926 19.7441 24.6373 20.416 24.6373ZM31.3876 26.2517C31.3876 26.9207 30.8452 27.4631 30.1762 27.4631C29.5071 27.4631 28.9648 26.9207 28.9648 26.2517C28.9648 25.5826 29.5071 25.0402 30.1762 25.0402C30.8452 25.0402 31.3876 25.5826 31.3876 26.2517ZM37.6267 15.6998C38.3007 15.6998 38.8471 15.1534 38.8471 14.4794C38.8471 13.8054 38.3007 13.259 37.6267 13.259C36.9527 13.259 36.4063 13.8054 36.4063 14.4794C36.4063 15.1534 36.9527 15.6998 37.6267 15.6998Z" fill="#188097"/></svg>Vis undersøkelseshistorikk</button>
       </div>
     </div>
 
@@ -1531,6 +1563,11 @@ const DEFINITIONS = {
   },
   'mg/L': { text: 'Milligram per liter.', url: null },
   'IU/L': { text: 'Internasjonal enhet per liter.', url: null },
+  'B-Leukocytter': {
+    text: 'B-Leukocytter er et blodprøvesvar på hvor mange hvite blodceller det er i blodet. Hvite blodceller er cellene i immunsystemet. Lav verdi kan for eksempel skyldes beinmargssvikt eller bruk av cellegift. Høy verdi kan ha mange ulike årsaker, blant annet infeksjon eller sykdom i beinmargen. B står for blod, i denne sammenhengen menes fullblod.',
+    url: 'https://sml.snl.no', linkText: 'Store medisinske leksikon (sml.snl.no)'
+  },
+  '10E9/L': { text: 'Dette betyr milliarder per liter blod. Det brukes ofte i blodprøver for å vise hvor mange celler det er i blodet, for eksempel røde blodceller, hvite blodceller eller blodplater.', url: null },
 };
 
 // ── HelpBubble ────────────────────────────────────────────────
