@@ -456,6 +456,26 @@
   margin-top: -1px;
 }
 .ps-link-item:first-child { margin-top: 0; }
+
+/* ── Prøvesvar detail ────────────────────────────────── */
+.pd-duolist { width: 336px; margin: 0 auto; }
+.pd-duorow { display: flex; flex-wrap: wrap; gap: 24px; padding-bottom: 8px; }
+.pd-term { width: 112px; flex-shrink: 0; font: 600 18px/1.2 'Source Sans Pro', sans-serif; color: #000; }
+.pd-def { flex: 1; min-width: 0; font: 400 18px/1.2 'Source Sans Pro', sans-serif; color: #000; }
+.pd-alert { width: 336px; margin: 0 auto; background: #E4F7F9; border: 2px solid #08667C; border-radius: 4px; box-shadow: 4px 4px 6px rgba(0,0,0,0.15); display: flex; gap: 4px; align-items: flex-start; padding: 8px; }
+.pd-alert__text { flex: 1; min-width: 0; padding: 4px 8px 4px 4px; font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.pd-alert__close { flex-shrink: 0; background: none; border: none; cursor: pointer; width: 44px; height: 44px; display: flex; align-items: flex-start; justify-content: center; padding-top: 3px; }
+.pd-infobox { width: 336px; margin: 0 auto; background: #E4F7F9; display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; }
+.pd-infobox__text { font: 400 15px/1.4 'Source Sans Pro', sans-serif; color: #000; margin: 0; }
+.pd-expander { width: 336px; margin: 0 auto; }
+.pd-expander__trigger { width: 100%; background: #EAE7E7; display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 12px 16px; cursor: pointer; border: none; font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000; text-align: left; }
+.pd-expander__chevron { transition: transform 0.15s; flex-shrink: 0; }
+.pd-expander--open .pd-expander__chevron { transform: rotate(180deg); }
+.pd-expander__body { background: #fff; padding: 16px 24px 32px 16px; display: none; font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.pd-expander--open .pd-expander__body { display: block; }
+.pd-result-label { font-weight: 700; display: block; }
+.pd-result-sep { border: none; border-top: 1px solid #D6D4D3; margin: 12px 0; }
+.pd-result-link { font: 600 18px/1.5 'Source Sans Pro', sans-serif; color: #188097; text-decoration: underline; text-underline-offset: 2px; background: none; border: none; cursor: pointer; padding: 0; display: block; }
 </style>
 </head>
 <body>
@@ -1008,7 +1028,7 @@
     <div class="sp-s"></div>
 
     <!-- Count -->
-    <div style="width:336px; margin: 0 auto 8px; font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000;">1 prøvesvar</div>
+    <div style="width:336px; margin: 0 auto 8px; font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000;">3 prøvesvar</div>
 
     <!-- Medisinsk biokjemi card -->
     <div class="ps-card">
@@ -1016,6 +1036,34 @@
         <div class="ps-card__title">Medisinsk biokjemi</div>
         <p class="ps-card__body">Bent Asgeir Larsen. Bjørnemyr legesenter<br>Prøvedato: 05.05.2026</p>
         <button class="ps-se-detaljer" onclick="showView('viewProvesvarDetalj')">
+          Se detaljer
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#126F87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="sp-xs"></div>
+
+    <!-- Medisinsk mikrobiologi card -->
+    <div class="ps-card">
+      <div class="ps-card__inner">
+        <div class="ps-card__title">Medisinsk mikrobiologi</div>
+        <p class="ps-card__body">Sulten Lege, LIS1, Kattskinnet legesenter<br>Prøvedato: 11.09.2025</p>
+        <button class="ps-se-detaljer" onclick="showView('viewProvesvarDetalj2')">
+          Se detaljer
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#126F87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="sp-xs"></div>
+
+    <!-- Cytologi card -->
+    <div class="ps-card">
+      <div class="ps-card__inner">
+        <div class="ps-card__title">Cytologi</div>
+        <p class="ps-card__body">NORSK HELSENETT SF, Pasientens prøvesvar<br>Prøvedato: 11.09.2025</p>
+        <button class="ps-se-detaljer" onclick="showView('viewProvesvarDetalj3')">
           Se detaljer
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#126F87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
@@ -1062,6 +1110,354 @@
       <p class="footer__brand">Drives av Norsk helsenett SF</p>
     </footer>
   </div><!-- /viewProvesvar -->
+
+  <!-- ════════════════════════════════════════════════════
+       PRØVESVAR DETALJ — Medisinsk biokjemi
+  ════════════════════════════════════════════════════ -->
+  <div id="viewProvesvarDetalj" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewProvesvar')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Prøver og undersøkelser
+      </button>
+    </div>
+
+    <div style="width:336px; margin: 0 auto; padding-top: 24px;">
+      <p style="font: 400 20px/1.3 'Source Sans Pro', sans-serif; color:#000; margin:0;">Laboratoriemedisin</p>
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color:#000; margin:0 0 24px;">Medisinsk biokjemi</h1>
+    </div>
+
+    <div class="pd-duolist">
+      <div class="pd-duorow"><span class="pd-term">Prøvedato:</span><span class="pd-def">05.05.2026</span></div>
+      <div class="pd-duorow"><span class="pd-term">Rekvirert av:</span><span class="pd-def">Bent Asgeir Larsen, St Olavs sykehus</span></div>
+      <div class="pd-duorow"><span class="pd-term">Utført av:</span><span class="pd-def">Bjørnemyr legesenter</span></div>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Notification panel -->
+    <div class="pd-alert" id="pdAlert1">
+      <svg width="38" height="38" viewBox="0 0 38 38" fill="none" style="flex-shrink:0;">
+        <circle cx="19" cy="19" r="13" fill="#188097"/>
+        <rect x="17.5" y="15" width="3" height="11" rx="1" fill="white"/>
+        <circle cx="19" cy="12.5" r="1.75" fill="white"/>
+      </svg>
+      <div class="pd-alert__text">
+        <p style="font: 600 16px/1.5 'Source Sans Pro', sans-serif; margin:0 0 4px;">Prøvesvarene dine deles med de som behandler deg</p>
+        <p style="margin:0 0 8px;">Du kan begrense hvem som får tilgang til prøvesvarene i <a href="#" style="color:#188097; text-decoration:underline;">personverninnstillingene</a> dine.</p>
+        <p style="font: 600 16px/1.5 'Source Sans Pro', sans-serif; margin:12px 0 4px;">Vil du fortsette å få varsel om prøvesvar?</p>
+        <p style="margin:0;">Du får ikke lenger automatisk varsel når et prøvesvar er klart. Du kan endre dette i <a href="#" style="color:#188097; text-decoration:underline;">varselinnstillingene</a> dine.</p>
+      </div>
+      <button class="pd-alert__close" onclick="document.getElementById('pdAlert1').style.display='none'" aria-label="Lukk">
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="2" y1="2" x2="16" y2="16" stroke="#000" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="2" y2="16" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Infomelding -->
+    <div class="pd-infobox">
+      <svg width="30" height="30.34" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="flex-shrink:0; margin-top:2px;">
+        <rect width="30" height="30.3371" fill="url(#pattern0_8493_2455)"/>
+        <defs>
+          <pattern id="pattern0_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_8493_2455" transform="scale(0.011236 0.0111111)"/>
+          </pattern>
+          <image id="image0_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+        </defs>
+      </svg>
+      <p class="pd-infobox__text">Din behandler kontakter deg hvis det er behov for en gjennomgang av prøvesvaret</p>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <!-- Results expander -->
+    <div class="pd-expander pd-expander--open" id="pdExp1">
+      <button class="pd-expander__trigger" onclick="togglePdExpander('pdExp1')" aria-expanded="true">
+        Prøvesvar (3)
+        <svg class="pd-expander__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="38" height="38"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="pd-expander__body">
+        <span class="pd-result-label">Undersøkelse</span>Us-FT4<br><br>
+        <span class="pd-result-label">Resultat</span>11,0<br><br>
+        <span class="pd-result-label">Referanseområde</span>10–22<br><br>
+        <span class="pd-result-label">Måleenhet</span>pmol/L<br><br>
+        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <hr class="pd-result-sep">
+        <span class="pd-result-label">Undersøkelse</span>P-D-dimer<br><br>
+        <span class="pd-result-label">Resultat</span>0,4<br><br>
+        <span class="pd-result-label">Referanseområde</span>&lt;0,5<br><br>
+        <span class="pd-result-label">Måleenhet</span>mg/L<br><br>
+        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+        <hr class="pd-result-sep">
+        <span class="pd-result-label">Undersøkelse</span>Us-LH<br><br>
+        <span class="pd-result-label">Resultat</span>14,0 (over øvre referanseområde)<br><br>
+        <span class="pd-result-label">Referanseområde</span>&lt;12<br><br>
+        <span class="pd-result-label">Måleenhet</span>IU/L<br><br>
+        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+      </div>
+    </div>
+
+    <div class="sp-xs"></div>
+
+    <!-- Expander list -->
+    <div class="acc-list" style="width:336px; margin:0 auto;">
+      <div class="acc-item">
+        <button class="acc-item__header" onclick="toggleAcc(this)" aria-expanded="false">
+          <div class="acc-item__label">Prøvemateriale</div>
+          <div class="acc-item__chevron-frame"><svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg></div>
+        </button>
+        <div class="acc-item__body">
+          <div class="acc-item__content">
+            <p><strong>Prøvedato</strong><br>05.05.2026 09:30<br><strong>Type</strong><br>Blod</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-item__header" onclick="toggleAcc(this)" aria-expanded="false">
+          <div class="acc-item__label">Tilleggsinformasjon</div>
+          <div class="acc-item__chevron-frame"><svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg></div>
+        </button>
+        <div class="acc-item__body">
+          <div class="acc-item__content">
+            <p><strong>Fra rekvirent til laboratorium (05.05.2026 00:00)</strong><br>Det er ingen kommentarer til rekvisisjonen</p>
+            <p><strong>Aktuell problemstilling</strong><br>Her kan rekvirenten legge inn kliniske opplysninger som er viktige for denne rekvisisjonen</p>
+            <p><strong>Fra laboratorium til rekvirent (05.05.2026 21:51)</strong><br>Kontroll</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewProvesvarDetalj -->
+
+  <!-- ════════════════════════════════════════════════════
+       PRØVESVAR DETALJ 2 — Medisinsk mikrobiologi
+  ════════════════════════════════════════════════════ -->
+  <div id="viewProvesvarDetalj2" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewProvesvar')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Prøver og undersøkelser
+      </button>
+    </div>
+
+    <div style="width:336px; margin: 0 auto; padding-top: 24px;">
+      <p style="font: 400 20px/1.3 'Source Sans Pro', sans-serif; color:#000; margin:0;">Laboratoriemedisin</p>
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color:#000; margin:0 0 24px;">Medisinsk mikrobiologi</h1>
+    </div>
+
+    <div class="pd-duolist">
+      <div class="pd-duorow"><span class="pd-term">Prøvedato:</span><span class="pd-def">11.09.2025</span></div>
+      <div class="pd-duorow"><span class="pd-term">Rekvirert av:</span><span class="pd-def">Sulten Lege, LIS1, Kattskinnet legesenter</span></div>
+      <div class="pd-duorow"><span class="pd-term">Utført av:</span><span class="pd-def">Kattskinnet legesenter</span></div>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <div class="pd-infobox">
+      <svg width="30" height="30.34" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="flex-shrink:0; margin-top:2px;">
+        <rect width="30" height="30.3371" fill="url(#pattern0_8493_2455)"/>
+        <defs>
+          <pattern id="pattern0_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_8493_2455" transform="scale(0.011236 0.0111111)"/>
+          </pattern>
+          <image id="image0_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+        </defs>
+      </svg>
+      <p class="pd-infobox__text">Din behandler kontakter deg hvis det er behov for en gjennomgang av prøvesvaret</p>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <div class="pd-expander pd-expander--open" id="pdExp2">
+      <button class="pd-expander__trigger" onclick="togglePdExpander('pdExp2')" aria-expanded="true">
+        Prøvesvar (1)
+        <svg class="pd-expander__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="38" height="38"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="pd-expander__body">
+        <span class="pd-result-label">Undersøkelse</span>Dyrkning<br><br>
+        <span class="pd-result-label">Resultat</span>Negativ<br><br>
+        <span class="pd-result-label">Referanseområde</span>Negativ<br><br>
+        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+      </div>
+    </div>
+
+    <div class="sp-xs"></div>
+
+    <div class="acc-list" style="width:336px; margin:0 auto;">
+      <div class="acc-item">
+        <button class="acc-item__header" onclick="toggleAcc(this)" aria-expanded="false">
+          <div class="acc-item__label">Prøvemateriale</div>
+          <div class="acc-item__chevron-frame"><svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg></div>
+        </button>
+        <div class="acc-item__body">
+          <div class="acc-item__content">
+            <p><strong>Prøvedato</strong><br>11.09.2025 20:43<br><strong>Type</strong><br>Urin</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-item__header" onclick="toggleAcc(this)" aria-expanded="false">
+          <div class="acc-item__label">Tilleggsinformasjon</div>
+          <div class="acc-item__chevron-frame"><svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg></div>
+        </button>
+        <div class="acc-item__body">
+          <div class="acc-item__content">
+            <p><strong>Fra rekvirent til laboratorium (11.09.2025 00:00)</strong><br>Det er ingen kommentarer til rekvisisjonen</p>
+            <p><strong>Aktuell problemstilling</strong><br>Her kan rekvirenten legge inn kliniske opplysninger som er viktige for denne rekvisisjonen</p>
+            <p><strong>Fra laboratorium til rekvirent (11.09.2025 21:51)</strong><br>Kontroll</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewProvesvarDetalj2 -->
+
+  <!-- ════════════════════════════════════════════════════
+       PRØVESVAR DETALJ 3 — Cytologi
+  ════════════════════════════════════════════════════ -->
+  <div id="viewProvesvarDetalj3" hidden>
+    <div class="order-nav" style="padding-left: 0;">
+      <button class="order-nav__back" onclick="showView('viewProvesvar')">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Prøver og undersøkelser
+      </button>
+    </div>
+
+    <div style="width:336px; margin: 0 auto; padding-top: 24px;">
+      <p style="font: 400 20px/1.3 'Source Sans Pro', sans-serif; color:#000; margin:0;">Patologi</p>
+      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color:#000; margin:0 0 24px;">Cytologi</h1>
+    </div>
+
+    <div class="pd-duolist">
+      <div class="pd-duorow"><span class="pd-term">Prøvedato:</span><span class="pd-def">11.09.2025</span></div>
+      <div class="pd-duorow"><span class="pd-term">Rekvirert av:</span><span class="pd-def">NORSK HELSENETT SF, Pasientens prøvesvar</span></div>
+      <div class="pd-duorow"><span class="pd-term">Utført av:</span><span class="pd-def">NORSK HELSENETT SF</span></div>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <div class="pd-infobox">
+      <svg width="30" height="30.34" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="flex-shrink:0; margin-top:2px;">
+        <rect width="30" height="30.3371" fill="url(#pattern0_8493_2455)"/>
+        <defs>
+          <pattern id="pattern0_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image0_8493_2455" transform="scale(0.011236 0.0111111)"/>
+          </pattern>
+          <image id="image0_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+        </defs>
+      </svg>
+      <p class="pd-infobox__text">Din behandler kontakter deg hvis det er behov for en gjennomgang av prøvesvaret</p>
+    </div>
+
+    <div class="sp-s"></div>
+
+    <div class="pd-expander pd-expander--open" id="pdExp3">
+      <button class="pd-expander__trigger" onclick="togglePdExpander('pdExp3')" aria-expanded="true">
+        Prøvesvar (1)
+        <svg class="pd-expander__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="38" height="38"><polyline points="6 9 12 15 18 9"/></svg>
+      </button>
+      <div class="pd-expander__body">
+        <span class="pd-result-label">Undersøkelse</span>Cervixcytologi<br><br>
+        <span class="pd-result-label">Resultat</span>Normal<br><br>
+        <span class="pd-result-label">Referanseområde</span>Normal<br><br>
+        <button class="pd-result-link">Vis undersøkelseshistorikk</button>
+      </div>
+    </div>
+
+    <div class="sp-xs"></div>
+
+    <div class="acc-list" style="width:336px; margin:0 auto;">
+      <div class="acc-item">
+        <button class="acc-item__header" onclick="toggleAcc(this)" aria-expanded="false">
+          <div class="acc-item__label">Prøvemateriale</div>
+          <div class="acc-item__chevron-frame"><svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg></div>
+        </button>
+        <div class="acc-item__body">
+          <div class="acc-item__content">
+            <p><strong>Prøvedato</strong><br>11.09.2025 20:43<br><strong>Type</strong><br>Celler</p>
+          </div>
+        </div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-item__header" onclick="toggleAcc(this)" aria-expanded="false">
+          <div class="acc-item__label">Tilleggsinformasjon</div>
+          <div class="acc-item__chevron-frame"><svg class="acc-item__chevron" viewBox="0 0 38 38" width="38" height="38" fill="none" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="#188097"/></svg></div>
+        </button>
+        <div class="acc-item__body">
+          <div class="acc-item__content">
+            <p><strong>Fra rekvirent til laboratorium (11.09.2025 00:00)</strong><br>Det er ingen kommentarer til rekvisisjonen</p>
+            <p><strong>Aktuell problemstilling</strong><br>Her kan rekvirenten legge inn kliniske opplysninger som er viktige for denne rekvisisjonen</p>
+            <p><strong>Fra laboratorium til rekvirent (11.09.2025 21:51)</strong><br>Kontroll</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-xl"></div>
+
+    <footer class="footer">
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div><span class="footer__text-large">23 32 70 00</span><span class="footer__text-small">Veiledning helsenorge.no</span></div>
+      </div>
+      <div class="footer__row">
+        <div class="footer__icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
+        <span class="footer__text-large">Hjelp og kontakt</span>
+      </div>
+      <div class="footer__divider"></div>
+      <div class="footer__links">
+        <a href="#" class="footer__link">Om Helsenorge</a>
+        <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+        <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+        <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+      </div>
+      <div class="footer__divider"></div>
+      <p class="footer__brand">Drives av Norsk helsenett SF</p>
+    </footer>
+  </div><!-- /viewProvesvarDetalj3 -->
 
 <div id="helpBubble" class="help-bubble" role="tooltip">
   <div class="help-bubble__box">
@@ -1315,7 +1711,7 @@ function renderVarsler() {
       <div class="varsel-item__body">
         <div class="varsel-item__title">Du har fått svar på en prøve eller undersøkelse</div>
         <p class="varsel-item__text">Legen din kontakter deg hvis det er behov for å gå igjennom prøvesvaret.</p>
-        <button class="varsel-cta" onclick="showView('viewProvesvar')">
+        <button class="varsel-cta" onclick="showView('viewProvesvarDetalj')">
           Gå til prøvesvaret
           <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
         </button>
@@ -1352,8 +1748,23 @@ function toggleForsideTjenester() {
 }
 
 // ── View navigation ───────────────────────────────────────────
+function togglePdExpander(id) {
+  const el = document.getElementById(id);
+  el.classList.toggle('pd-expander--open');
+  el.querySelector('.pd-expander__trigger').setAttribute('aria-expanded',
+    String(el.classList.contains('pd-expander--open')));
+}
+
+function toggleAcc(btn) {
+  const item = btn.closest('.acc-item');
+  const isOpen = item.classList.contains('acc-item--open');
+  item.classList.toggle('acc-item--open', !isOpen);
+  btn.setAttribute('aria-expanded', String(!isOpen));
+}
+
 function showView(id) {
-  ['viewForside', 'viewVarsler', 'viewLanding', 'viewFremtidige', 'viewTidligere', 'viewProvesvar'].forEach(v => {
+  ['viewForside', 'viewVarsler', 'viewLanding', 'viewFremtidige', 'viewTidligere',
+   'viewProvesvar', 'viewProvesvarDetalj', 'viewProvesvarDetalj2', 'viewProvesvarDetalj3'].forEach(v => {
     document.getElementById(v).hidden = (v !== id);
   });
   document.getElementById('app').scrollTop = 0;
@@ -1367,7 +1778,8 @@ renderVarsler();
 
 // URL hash or ?view= param for deep-linking
 (function() {
-  const views = ['viewForside', 'viewVarsler', 'viewLanding', 'viewFremtidige', 'viewTidligere', 'viewProvesvar'];
+  const views = ['viewForside', 'viewVarsler', 'viewLanding', 'viewFremtidige', 'viewTidligere',
+    'viewProvesvar', 'viewProvesvarDetalj', 'viewProvesvarDetalj2', 'viewProvesvarDetalj3'];
   const hash = location.hash.slice(1);
   if (views.includes(hash)) { showView(hash); return; }
   const p = new URLSearchParams(window.location.search).get('view');
