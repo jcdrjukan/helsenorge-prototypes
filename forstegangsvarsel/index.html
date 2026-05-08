@@ -137,6 +137,11 @@
 }
 .help-bubble__text {
   font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+.pd-result-label.help-term {
+  cursor: pointer; text-decoration: underline; text-decoration-style: dotted;
+  text-decoration-color: #9747FF; text-underline-offset: 2px; width: fit-content;
 }
 .help-bubble__link {
   font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #126F87;
@@ -1034,7 +1039,7 @@
     <div class="ps-card">
       <div class="ps-card__inner">
         <div class="ps-card__title">Medisinsk biokjemi</div>
-        <p class="ps-card__body">Bent Asgeir Larsen. Bjørnemyr legesenter<br>Prøvedato: 05.05.2026</p>
+        <p class="ps-card__body">Bent Asgeir Larsen. St Olavs sykehus<br>Prøvedato: 05.05.2026</p>
         <button class="ps-se-detaljer" onclick="showView('viewProvesvarDetalj')">
           Se detaljer
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#126F87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1062,7 +1067,7 @@
     <div class="ps-card">
       <div class="ps-card__inner">
         <div class="ps-card__title">Cytologi</div>
-        <p class="ps-card__body">NORSK HELSENETT SF, Pasientens prøvesvar<br>Prøvedato: 11.09.2025</p>
+        <p class="ps-card__body">Lege Legesen, St Olavs sykehus<br>Prøvedato: 11.09.2025</p>
         <button class="ps-se-detaljer" onclick="showView('viewProvesvarDetalj3')">
           Se detaljer
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="#126F87" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1178,22 +1183,22 @@
         <svg class="pd-expander__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="38" height="38"><polyline points="6 9 12 15 18 9"/></svg>
       </button>
       <div class="pd-expander__body">
-        <span class="pd-result-label">Undersøkelse</span>Us-FT4<br><br>
+        <span class="pd-result-label">Undersøkelse</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'Us-FT4')">Us-FT4</span><br>
         <span class="pd-result-label">Resultat</span>11,0<br><br>
-        <span class="pd-result-label">Referanseområde</span>10–22<br><br>
-        <span class="pd-result-label">Måleenhet</span>pmol/L<br><br>
+        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>10–22<br><br>
+        <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'pmol/L')">pmol/L</span><br>
         <button class="pd-result-link">Vis undersøkelseshistorikk</button>
         <hr class="pd-result-sep">
-        <span class="pd-result-label">Undersøkelse</span>P-D-dimer<br><br>
+        <span class="pd-result-label">Undersøkelse</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'P-D-dimer')">P-D-dimer</span><br>
         <span class="pd-result-label">Resultat</span>0,4<br><br>
-        <span class="pd-result-label">Referanseområde</span>&lt;0,5<br><br>
-        <span class="pd-result-label">Måleenhet</span>mg/L<br><br>
+        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>&lt;0,5<br><br>
+        <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'mg/L')">mg/L</span><br>
         <button class="pd-result-link">Vis undersøkelseshistorikk</button>
         <hr class="pd-result-sep">
         <span class="pd-result-label">Undersøkelse</span>Us-LH<br><br>
         <span class="pd-result-label">Resultat</span>14,0 (over øvre referanseområde)<br><br>
-        <span class="pd-result-label">Referanseområde</span>&lt;12<br><br>
-        <span class="pd-result-label">Måleenhet</span>IU/L<br><br>
+        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>&lt;12<br><br>
+        <span class="pd-result-label">Måleenhet</span><span class="rekv-card__analysis-item help-term" onclick="openHelpBubble(this,'IU/L')">IU/L</span><br>
         <button class="pd-result-link">Vis undersøkelseshistorikk</button>
       </div>
     </div>
@@ -1298,7 +1303,7 @@
       <div class="pd-expander__body">
         <span class="pd-result-label">Undersøkelse</span>Dyrkning<br><br>
         <span class="pd-result-label">Resultat</span>Negativ<br><br>
-        <span class="pd-result-label">Referanseområde</span>Negativ<br><br>
+        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>Negativ<br><br>
         <button class="pd-result-link">Vis undersøkelseshistorikk</button>
       </div>
     </div>
@@ -1373,7 +1378,7 @@
 
     <div class="pd-duolist">
       <div class="pd-duorow"><span class="pd-term">Prøvedato:</span><span class="pd-def">11.09.2025</span></div>
-      <div class="pd-duorow"><span class="pd-term">Rekvirert av:</span><span class="pd-def">NORSK HELSENETT SF, Pasientens prøvesvar</span></div>
+      <div class="pd-duorow"><span class="pd-term">Rekvirert av:</span><span class="pd-def">Lege Legesen, St Olavs sykehus</span></div>
       <div class="pd-duorow"><span class="pd-term">Utført av:</span><span class="pd-def">NORSK HELSENETT SF</span></div>
     </div>
 
@@ -1402,7 +1407,7 @@
       <div class="pd-expander__body">
         <span class="pd-result-label">Undersøkelse</span>Cervixcytologi<br><br>
         <span class="pd-result-label">Resultat</span>Normal<br><br>
-        <span class="pd-result-label">Referanseområde</span>Normal<br><br>
+        <span class="pd-result-label help-term" onclick="openHelpBubble(this,'Referanseområde')">Referanseområde</span>Normal<br><br>
         <button class="pd-result-link">Vis undersøkelseshistorikk</button>
       </div>
     </div>
@@ -1508,6 +1513,24 @@ const DEFINITIONS = {
     text: 'Vitamin B12 er et vannløselig vitamin som vi hovedsakelig får tilført fra animalsk føde. B12-mangel kan gi tretthet, plager fra nervesystemet og/eller lav blodprosent.',
     url: 'https://snl.no/vitamin_B12'
   },
+  'Us-FT4': {
+    text: 'Fritt tyroksin (T4) er den andelen av stoffskiftehormonet tyroksin som ikke er bundet til et transportprotein. Det er den aktive andelen av tyroksin, og den måles vanligvis sammen med tyroideastimulerende hormon (TSH) hos pasienter med symptomer på stoffskiftesykdom.',
+    url: 'https://sml.snl.no', linkText: 'Store medisinsk leksikon (sml.snl.no)'
+  },
+  'Referanseområde': {
+    text: 'Referanseområde er et spenn av tall som forteller hva som er vanlige verdier for en laboratorieundersøkelse hos friske personer. I svar fra laboratorier angis referanseområdet som en nedre og en øvre verdi av en gitt analyse.\n\nMange analyser varierer med alder og kjønn. For slike analyser må man derfor ha egne referanseområder for ulike aldersgrupper og kjønn.\n\nNoen analyser påvirkes av hvilken metode som er brukt for å analysere blodprøven. Referanseområdet for enkelte analyser kan derfor også variere mellom laboratorier dersom det er brukt ulike metoder.',
+    url: 'https://sml.snl.no', linkText: 'Store medisinsk leksikon (sml.snl.no)'
+  },
+  'pmol/L': {
+    text: 'Pikomol per liter. Måleenhet som brukes i laboratorietester for å spesifisere konsentrasjon av noe i blodet ditt eller en annen kroppsvæske.',
+    url: 'https://sml.snl.no', linkText: 'Store medisinsk leksikon (sml.snl.no)'
+  },
+  'P-D-dimer': {
+    text: 'P-D-dimer er et blodprøvesvar på mengden fibrin-D-dimer i blodet. Fibrin-D-dimer er et nedbrytningsprodukt av blodpropper. Hvis verdien er under referanseverdien, er det svært usannsynlig at man har hatt blodpropp. Høye verdier kan skyldes blodpropp, men også veldig mange andre tilstander i kroppen. Prøven brukes særlig for å utelukke blodpropp i beina.',
+    url: 'https://sml.snl.no', linkText: 'Store medisinsk leksikon (sml.snl.no)'
+  },
+  'mg/L': { text: 'Milligram per liter.', url: null },
+  'IU/L': { text: 'Internasjonal enhet per liter.', url: null },
 };
 
 // ── HelpBubble ────────────────────────────────────────────────
@@ -1525,7 +1548,13 @@ function openHelpBubble(el, termKey) {
 
   document.getElementById('helpBubbleText').textContent = def.text;
   const link = document.getElementById('helpBubbleLink');
-  link.href = def.url;
+  if (def.url) {
+    link.href = def.url;
+    link.textContent = def.linkText || 'Les mer på snl.no';
+    link.style.display = '';
+  } else {
+    link.style.display = 'none';
+  }
 
   const bubble = document.getElementById('helpBubble');
   bubble.classList.add('help-bubble--visible');
