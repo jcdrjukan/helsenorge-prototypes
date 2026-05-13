@@ -1859,24 +1859,6 @@ function renderVarsler() {
   const calendarIcon = `<svg viewBox="0 0 38 38" fill="none" width="38" height="38" stroke="#62625F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="28" height="23" rx="2"/><line x1="5" y1="15" x2="33" y2="15"/><line x1="13" y1="5" x2="13" y2="12"/><line x1="25" y1="5" x2="25" y2="12"/></svg>`;
 
   list.innerHTML = `
-    <div class="varsel-item varsel-item--unread">
-      <div class="varsel-item__allcontent">
-        <div class="varsel-item__content">
-          <div class="varsel-item__pre">
-            <div class="varsel-item__type">
-              <div class="varsel-item__type-icon">${LAB_ICON}</div>
-              Prøveresultat
-            </div>
-            <span class="varsel-item__time">i dag kl. 10:47</span>
-          </div>
-          <p class="varsel-item__title">Du har fått svar på en prøve eller undersøkelse</p>
-          <div class="varsel-item__actions">
-            <button class="varsel-cta" onclick="showView('viewProvesvarDetalj')">Se mer${chevronRight}</button>
-            <button class="varsel-delete" aria-label="Slett varsel">${trashIcon}</button>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="varsel-exp">
       <div class="varsel-exp__frame">
         <div class="varsel-exp__status"></div>
@@ -1898,6 +1880,24 @@ function renderVarsler() {
           <div class="varsel-exp__expanded-area" hidden>
             <div class="varsel-exp__separator"></div>
             <p class="varsel-exp__body">I utgangspunkt deles dine prøvesvar med dine behandlere over hele Norge. Det er kun behandlere med tjenstlig behov som har tilgang, men du kan begrense helsepersonells tilgang dersom du ønsker det under <a class="varsel-exp__link" href="#">personverninnstillinger</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="varsel-item varsel-item--unread">
+      <div class="varsel-item__allcontent">
+        <div class="varsel-item__content">
+          <div class="varsel-item__pre">
+            <div class="varsel-item__type">
+              <div class="varsel-item__type-icon">${LAB_ICON}</div>
+              Prøveresultat
+            </div>
+            <span class="varsel-item__time">i dag kl. 10:47</span>
+          </div>
+          <p class="varsel-item__title">Du har fått svar på en prøve eller undersøkelse</p>
+          <div class="varsel-item__actions">
+            <button class="varsel-cta" onclick="showView('viewProvesvarDetalj')">Se mer${chevronRight}</button>
+            <button class="varsel-delete" aria-label="Slett varsel">${trashIcon}</button>
           </div>
         </div>
       </div>
