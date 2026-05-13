@@ -223,7 +223,7 @@
 
 /* ── Varsler header badge ────────────────────────────────── */
 .header-badge {
-  position: absolute; top: -4px; right: -6px;
+  position: absolute; top: 2px; right: -6px;
   background: #C83521; border: 1px solid #B62E1C;
   border-radius: 100px; min-width: 22px; height: 22px;
   display: flex; align-items: center; justify-content: center;
@@ -355,49 +355,127 @@
 .forside-search__img { width: 100%; display: block; margin-top: 4px; }
 
 /* ── Varsler page ────────────────────────────────────────── */
+.varsler-heading {
+  padding: 24px 8px 0;
+}
+.varsler-heading h1 {
+  font: 600 32px/1.2 'Source Sans Pro', sans-serif; color: #000; margin: 0;
+}
 .varsler-meta {
-  width: 366px; margin: 0 auto;
   display: flex; align-items: center; justify-content: space-between;
-  padding: 12px 0;
+  padding: 16px 8px 0;
 }
 .varsler-count {
-  font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000;
+  font: 700 20px/1.5 'Source Sans Pro', sans-serif; color: #000;
 }
-.varsler-rediger {
-  font: 400 18px/1.3 'Source Sans Pro', sans-serif;
-  color: #126F87; text-decoration: underline; text-underline-offset: 2px;
-  background: none; border: none; cursor: pointer; padding: 0;
+.varsler-admin-btn {
+  display: inline-flex; align-items: center; gap: 0;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif;
+  color: #126F87; background: none; border: none; cursor: pointer; padding: 3px 0;
 }
+.varsler-admin-btn svg { flex-shrink: 0; }
 .varsel-list {
-  width: 366px; margin: 0 auto;
+  padding: 16px 8px 0;
 }
 .varsel-item {
-  background: #F5F3F3; padding: 12px 16px 12px 12px;
-  display: flex; gap: 12px; align-items: flex-start;
-  border-bottom: 1px solid #D6D4D3;
+  border-top: 1px solid #7D7C79;
+  border-bottom: 1px solid #7D7C79;
+  margin-top: -1px;
+  padding: 12px 0;
 }
-.varsel-item--unread {
-  background: #D2EDF3; border-left: 6px solid #188097; padding-left: 10px;
+.varsel-item:first-child { margin-top: 0; }
+.varsel-item__allcontent {
+  display: flex;
+  align-items: stretch;
 }
-.varsel-item__icon { width: 36px; height: 36px; flex-shrink: 0; }
-.varsel-item__icon svg { width: 36px; height: 36px; display: block; }
-.varsel-item__body { flex: 1; min-width: 0; }
+.varsel-item--unread .varsel-item__allcontent {
+  background: #E4F7F9;
+  border-left: 8px solid #188097;
+}
+.varsel-item__content {
+  padding: 16px 16px 16px 10px;
+  flex: 1; min-width: 0;
+}
+.varsel-item--read .varsel-item__content {
+  padding-left: 18px;
+}
+.varsel-item__pre {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 0;
+}
+.varsel-item__type {
+  display: flex; align-items: center; gap: 8px;
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000;
+}
+.varsel-item__type-icon { width: 38px; height: 38px; flex-shrink: 0; }
+.varsel-item__type-icon svg { width: 38px; height: 38px; display: block; }
+.varsel-item__time {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000;
+  white-space: nowrap;
+}
 .varsel-item__title {
-  font: 600 16px/1.3 'Source Sans Pro', sans-serif; color: #000; margin-bottom: 2px;
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000;
+  margin: 8px 0 16px;
 }
-.varsel-item__text {
-  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000; margin: 0 0 6px;
+.varsel-item__actions {
+  display: flex; align-items: center; justify-content: space-between;
 }
 .varsel-cta {
-  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
-  color: #126F87; text-decoration: underline; text-underline-offset: 2px;
-  background: none; border: none; cursor: pointer; padding: 0;
-  display: inline-flex; align-items: center; gap: 4px;
+  display: inline-flex; align-items: center; gap: 0;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif;
+  color: #126F87; background: none; border: none; cursor: pointer; padding: 3px 0;
+}
+.varsel-cta svg { flex-shrink: 0; }
+.varsel-delete {
+  display: flex; align-items: center; justify-content: center;
+  width: 38px; height: 38px; flex-shrink: 0;
+  background: none; border: none; cursor: pointer; padding: 0; color: #188097;
 }
 .varsler-load-more {
-  display: block; width: 366px; margin: 16px auto 0;
-  background: none; border: 1px solid #7D7C79; padding: 10px; text-align: center;
-  font: 400 18px/1.3 'Source Sans Pro', sans-serif; color: #000; cursor: pointer;
+  display: block; margin: 16px 8px 0;
+  background: none; border: 2px solid #188097; padding: 6px 32px; text-align: center;
+  font: 600 20px/24px 'Source Sans Pro', sans-serif; color: #126F87; cursor: pointer;
+  width: auto; border-radius: 8px;
+}
+/* ── Expandable varsel panel ─────────────────────────────── */
+.varsel-exp {
+  background: #E4F7F9;
+  border: 1px solid #7D7C79;
+  margin-top: -1px;
+}
+.varsel-exp__frame {
+  border: 8px solid #EAE7E7;
+  display: flex;
+  align-items: stretch;
+}
+.varsel-exp__status {
+  width: 2px; flex-shrink: 0;
+  background: #62625F;
+}
+.varsel-exp__content { flex: 1; min-width: 0; }
+.varsel-exp__top { padding: 24px 22px 0 18px; }
+.varsel-exp__summary {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000;
+  margin: 8px 0 0;
+}
+.varsel-exp__toggle-btn {
+  display: inline-flex; align-items: center; gap: 0;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif;
+  color: #126F87; background: none; border: none; cursor: pointer; padding: 3px 0;
+  margin-top: 16px; margin-bottom: 16px;
+}
+.varsel-exp__expanded-area { padding: 0 16px 16px 10px; }
+.varsel-exp__separator {
+  width: 40px; height: 1px; background: #D6D4D3;
+  margin-bottom: 16px;
+}
+.varsel-exp__body {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; margin: 0 0 12px;
+}
+.varsel-exp__link {
+  display: inline-flex; align-items: center; gap: 4px;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #126F87; text-decoration: none; border-bottom: 1px solid #58AABB;
 }
 
 /* ── Prøvesvar page ──────────────────────────────────────── */
@@ -472,6 +550,7 @@
 .pd-alert__close { flex-shrink: 0; background: none; border: none; cursor: pointer; width: 44px; height: 44px; display: flex; align-items: flex-start; justify-content: center; padding-top: 3px; }
 .pd-infobox { width: 336px; margin: 0 auto; background: #E4F7F9; display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; }
 .pd-infobox__text { font: 400 15px/1.4 'Source Sans Pro', sans-serif; color: #000; margin: 0; }
+.pd-infobox__link { color: #126F87; text-decoration: underline; }
 .pd-expander { width: 336px; margin: 0 auto; }
 .pd-expander__trigger { width: 100%; background: #EAE7E7; display: flex; align-items: center; justify-content: space-between; padding: 12px 8px 12px 16px; cursor: pointer; border: none; font: 600 18px/1.3 'Source Sans Pro', sans-serif; color: #000; text-align: left; }
 .pd-expander__chevron { transition: transform 0.15s; flex-shrink: 0; }
@@ -527,7 +606,7 @@
         <button class="icon-btn" onclick="toggleVarsler()" aria-label="Varsler">
             <div class="icon-btn__icon" aria-hidden="true" style="position:relative;overflow:visible;">
               <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.17 27.2979V27.1325H15.672V27.2979H9.42261L11.8427 23.4053H25.9993L28.4187 27.2979H22.17ZM21.1409 28.9121C21.1409 30.136 20.1449 31.132 18.921 31.132V31.132C17.6963 31.132 16.7004 30.136 16.7004 28.9121V28.3271H21.1409V28.9121ZM12.0707 15.2028C12.0707 12.1668 14.1299 9.52896 17.0764 8.78875L17.4659 8.69058V8.16491C17.4659 7.36296 18.1183 6.71062 18.921 6.71062C19.723 6.71062 20.3753 7.36296 20.3753 8.16491V8.69058L20.7648 8.78875C23.7122 9.52896 25.7705 12.1668 25.7705 15.2028V22.3769H12.0707V15.2028ZM29.7819 27.541L26.7997 22.7442V15.2028C26.7997 11.8248 24.5941 8.87266 21.3902 7.89416C21.2549 6.65125 20.1988 5.68066 18.921 5.68066C17.6425 5.68066 16.5864 6.65125 16.4518 7.89416C13.2472 8.87266 11.0416 11.8248 11.0416 15.2028V22.7442L8.06015 27.541C7.9612 27.6993 7.95645 27.8988 8.04749 28.0627C8.13774 28.2257 8.31032 28.3271 8.49715 28.3271H15.672V28.9121C15.672 30.7037 17.1295 32.1611 18.921 32.1611C20.7126 32.1611 22.17 30.7037 22.17 28.9121V28.3271H29.3449C29.5309 28.3271 29.7035 28.2257 29.7946 28.0627C29.8848 27.8988 29.8801 27.6993 29.7819 27.541V27.541Z" fill="black"/></svg>
-              <div class="header-badge" id="headerBadge">1</div>
+              <div class="header-badge" id="headerBadge">2</div>
             </div>
             <span class="icon-btn__label">Varsler</span>
           </button>
@@ -702,18 +781,21 @@
       </button>
     </div>
 
-    <div style="width:366px; margin: 0 auto; padding: 1rem 0 0;">
-      <h1 style="font: 600 36px/1.22 'Source Sans Pro', sans-serif; color: #000;">Varsler</h1>
+    <div class="varsler-heading">
+      <h1>Varsler</h1>
     </div>
 
     <div class="varsler-meta">
       <span class="varsler-count">1 ulest</span>
-      <button class="varsler-rediger">Rediger</button>
+      <button class="varsler-admin-btn">
+        Administrer varsler
+        <svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
     </div>
 
     <div class="varsel-list" id="varselList"></div>
 
-    <button class="varsler-load-more">Last inn flere</button>
+    <button class="varsler-load-more">Vis flere varsler</button>
 
     <div class="sp-xl"></div>
 
@@ -1017,7 +1099,7 @@
         </button>
         <div class="help-expander__body" hidden>
           <div class="help-expander__content">
-            <p class="help-expander__text">Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du endre varselinnstillingene.<br><br>Gå til <a class="help-expander__link" href="#">Varselinnstillinger</a>.</p>
+            <p class="help-expander__text">Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du velge dette under <a class="help-expander__link" href="#">varselinnstillinger</a>.</p>
           </div>
         </div>
       </div>
@@ -1157,10 +1239,8 @@
         <circle cx="19" cy="12.5" r="1.75" fill="white"/>
       </svg>
       <div class="pd-alert__text">
-        <p style="font: 600 16px/1.5 'Source Sans Pro', sans-serif; margin:0 0 4px;">Prøvesvarene dine deles med de som behandler deg</p>
-        <p style="margin:0 0 8px;">Du kan begrense hvem som får tilgang til prøvesvarene i <a href="#" style="color:#188097; text-decoration:underline;">personverninnstillingene</a> dine.</p>
-        <p style="font: 600 16px/1.5 'Source Sans Pro', sans-serif; margin:12px 0 4px;">Vil du fortsette å få varsel om prøvesvar?</p>
-        <p style="margin:0;">Du får ikke lenger automatisk varsel når et prøvesvar er klart. Du kan endre dette i <a href="#" style="color:#188097; text-decoration:underline;">varselinnstillingene</a> dine.</p>
+        <p style="font: 600 16px/1.5 'Source Sans Pro', sans-serif; margin:0 0 4px;">Varsling er slått av</p>
+        <p style="margin:0;">Dersom du vil bli varslet om nye prøvesvar i fremtiden må du endre <a href="#" style="color:#188097; text-decoration:underline;">varselinnstillingene</a> dine.</p>
       </div>
       <button class="pd-alert__close" onclick="document.getElementById('pdAlert1').style.display='none'" aria-label="Lukk">
         <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><line x1="2" y1="2" x2="16" y2="16" stroke="#000" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="2" y2="16" stroke="#000" stroke-width="2" stroke-linecap="round"/></svg>
@@ -1314,12 +1394,12 @@
 
     <div class="pd-infobox">
       <svg width="30" height="30.34" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="flex-shrink:0; margin-top:2px;">
-        <rect width="30" height="30.3371" fill="url(#pattern0_8493_2455)"/>
+        <rect width="30" height="30.3371" fill="url(#pattern1_8493_2455)"/>
         <defs>
-          <pattern id="pattern0_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
-            <use xlink:href="#image0_8493_2455" transform="scale(0.011236 0.0111111)"/>
+          <pattern id="pattern1_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image1_8493_2455" transform="scale(0.011236 0.0111111)"/>
           </pattern>
-          <image id="image0_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
+          <image id="image1_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABaCAYAAADTn/oBAAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAACQAAAAAQAAAJAAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAFmgAwAEAAAAAQAAAFoAAAAAyGtokgAAAAlwSFlzAAAWJQAAFiUBSVIk8AAADexJREFUeAHtmgvQVVUVx5GXJoIK8hCRD0UJH6BNar4AGTU1M1BM0XyGSinW6ITpaEqiqaj5SrOyBnlpUIQOoaZjPvBBPOShCEogXyAqgqmgIEL9/nDXzOJ47nf2uefc+4HeNfNnr7P3euy97j5rr334GjXYOqkh024L9gJ7gK+B/4G1oEoZI9AG/WXgc6CgRrGOvjfBfaAPaA6qVEIE/otONLjFnj9D9mHQtQQ/ualsk5ulyhmagKvdgXb0O2ANaFWAdvp+oDHwtJ6HMWAIWAiqlDECShHfA78B7wG/y1fx3A9UKccINMPWVWAFsGBvgL8ObI1vMdOuDCk4uwDl2cMK7U60dVELBkcCC7Ta0aAaaIIQRwqoD5bx2q1jwQCgHB1HV9Cp/Gw62uVVKhKBWvotUHGtcu/toH2M/in0WaDVHhsjk2tXo1ytVc6Ydupi8CyYD94FOwNdSkRNgVLJj8BSMAsYvQ6jNHFUof0O7QigH6ZKCRHQLfAgcBdYDfwOVxAVeCPJTgImo11fpZQRaI38A8CCqPZh4A+6djx/UpDRjyKdKpUQgdPRsUAq0L+O2LibZ/shbo6MVR9TROC7yPpvHT2cbgf4tUCB/hA0AVUqMQI/Rc927FR4nzZ03bYx/wOU6Oqrq6YqarYLpso4o3NhLMjXW2e1LS0CShsWzFHOxG6u/yXXX2VLiIDyrfKuAv0+UBlnpOBOBvcAn0psvNqmiIDy7xygtk0Kvarolh6BLfHV6ELQBoJvge2ArsSqCB4En4IqZYiAfvDLgL882EGldgE4ClQpJgIK3uHgYjAYnAl0pY2Sv31ZcP0lQn364K5dXiUXgf7wi4AFzVr9r/LvgP7nQnQ8sDEF9legI1B9ewB4DNi4An0JqBIRUDlkgSnWKt/qlJ/oZAfBx5G+O3g7P4kT+ir1XR0JyPM8Xw7OA0oL9r1AQZvrnhfDK70Uo1sZ8IGWzXLSvhhXinsUTAH6mw7Nv95pT2bggxi34/ZHRh/TfcDEazFJdBMCXk9ByJu6YdC/Xd7fR4yp6qlXugXvNql765jJ3owtcbLSeaUOeT90Q0TvSj+YkT8L/TUR+7Yea/tl9JFZfbqbYIcEa50Zr3Xy+j+3QxN0bHgIjC1a7S9sIEN7TsTm2zzfCHqDk93YOPh6Jf1/mxb9TuAslF6Uiy1g/4bXR5sQugYh01M7JESpiIx+8NXA7P0VvpWT1bePFYVx1fLN3VjF2YWFiahMaxzofQ/k3gK2wAXwu4MQUqowPbVKJaWQSkqzowDHkZdRWqk30qtkk70oxSxqkF3kdLWjVSuHkA4/86n25hAlJ9MI/mMgXe3SYn6VNszP3+HrjfRf7DaRD+H1P8ihpMUpuKavt6ImUFlXctNTq3IvlLojaLq6+BSjhgwoT0tWfzHaEtQbjcezTVp/6npIipkoTShdmP5b8J1ACF2KkOmpvSNECZmjnd4fEnTudLIXJsiWdXgHrD/vJqMdHVo1aGI6+N4AFjAdjDogQ0jfSDYA0w25PBzn5FWH10Vah9l+ui7Bco/pL3nOB58Dm5ACrQ9FodQewfnA9FXqqQIIIZ0FPtD38bxNHYpHMGZ+9DkgiRYhIPn1YNck4XKMn4rRlcAm7Vvdlo5M4VQLmOdsLYHXJSaEBiCkIJh/VQbFAr2fkxsBn0T+1hl3o03SzzQezYm2QN/qFO+Rwks7ZOcCs7EUvkug/nnI+UD/kWcdXlFSejL7j0YHY571ZdDkX4oZL1uXFq7yx5z/DV6VhiZ0AVgEbGwVfC8QSm0RfBWYvk74rwcqn42cT1vDeY4Guhl9Zvs5+BDyP3ynEIU8ZFQ32kSHxRjUQp5wMrpd9Y6RK9bVhoE5wHwsg9+nmHCk/wyefaBH8twoIrOOZ9meHekv9nhtQV46VxYTyrNfB53qRjnU4puCONLXK/8BXjv/6DjBIn2t6Z8FLNC6uiufhtBpCFkgpT8G+EDrzwTUXwtCSG+uzWNmiEJWmc7OYVJO2xbZSU5egT4WhFIrBLUoW6C+lejTaQj1Q8g2g/THArv6L4BXn6qgUJqOoM2ja6hSqXIdnLNnA4wo0BOdzqfwxwXomUhLmBnAFrgcvrsNJrR9GfeB1neKJmAakD2VftGcTVcsDabX5vDLWIkcOzUpe920M2sCbCulPAJskmvgTwjQM5GdYfxOkv9uNpjQnsT4WmC+J8DrwLNn2Q6hjghZPT4/RCGrzG0YsEk+D688nUTaQapCTE+BPjFJyY3vBD8VSF/VRxsQSqp85M98+3aPUCPITXY2vpFCryTR7dF6wzl8Cl59SaRA65W1RWqHaaeFkgI9EqjMS0tKUUpV5tvaNMEa5PSHpZ1AKfIHo6TLhk32n/AhgdbhM87pKWf2AZWgY3CiFGdzVpumtNSPa+XhYvhtQNlJ3wE+AjbpZ+CbgSRSoP8MTE+BPiVJKYfxHbHh87H863BMQ08ibPPW+stKu2H9alALzKlaLWIHkESqWx8CprsO/tQkpQzjh6L7FjB/at8Gh4M0NABhs3FPGsW0sqpBP3DOzKm1OiCaBxhVoEc7Owr0aQF6aUWOQGEVsPmJvwbowpSWVI1YtaILktaQO/XEopUyNmldEixXWd+L9LUI8K5JjgCmJztpX+G63BzA4IfO/kvwu9WlEDCmS5jNV3k+V1Kp9iYwB2PhOxQ86NC7BPjDUAtSHkyihggMB7K7EOwO8iDt1NeAzVepLOQNS/J9prP5QJJw2vGznPF/FFH+Jv0rndwU+NBA34RsDciLhmLIAqxgh1Q/Ib51uK8u2NZaddnKjW7Hkk26Vx1WVXuucLJT4VXjVpKUO33lk/dr7aujk/JcmM9F7RMMH8i4rr/2o0yD18IrRT/DkfkeXwanOjfM/sg87fudfFSA4e7ILAc2mRnwLQP08hDReWB+dfjlTdti0CoWVRm5XUzOwJhNvFhOji5mfzrec3oz4VtFhXJ+boE9q4D0NuUWgMg8J/Fs8egWGSv5UQeHry5uCbS0H3LvApvQLPhdAnVLEdPFw3xNKMVAoM7lzo/43KgHltYDW8StgZb3QW6Z05sD3zpQN61Yf+fnqrTKKeR1wFscxqTQCxId5IzLiXJ1CHVFSFdZm9ir8Gk+WYb4kIz+Q9V8XBqqVIJcM+fnhRL0E1UuRsLynhZ0Z6LGJoEuNEuBBWEufLtNQ7n96y8Lg3OzGm9IOV9rWRI/nL13ICZ8oO8JNLk3cpqUBVo7unGgboiYvlWY7XtDFDLITC/4UgrNcw2bTelCnnygtaiQ07wzcrVAk9POy5N0qNqcVM2Uk17EuP2gTcrpaADGbVFyeD8ICfSeyH0flINUk2sumlfHcjgo2PwXrQU5ZM2ZpnI+2r7q+D3PZXdax4yvY8wWH1oB1WGu6NArBT/6eriRduJffTWrAX5r61nF9IGgESiVzkHRB1pfqOor0DpM14DHQDlufJjdSEv5Vz/myk2PDRr8ttChzoOtk3ac69crnIX0pU6/qnwIfwINQX3QXmV22hz7tk5d4zcuVJcBo12NoV3s+E6OL4UdhZLtaOkrjdRXoBdoAmUk1f1G88RoN4UEWd8aspJuPz8ASh2ic8GDIEsqkp0tjQ5xE3rd+BNhbHvfYJ203V3/y64/K6vKYZ2zPRr+yxTox93aDoLfSJ3514L8QqHPmtluLI/dbHb7wfhAP8TzlyHQO7AOHayKpw6/zQ545Q4N6FVW0W40GMZ+gOfgN1MyoRLbk9H7DJj9sfBlux2VOMe0aue69dwfVVbNaItVJWCkz5gLgY1dZgM5tX2w4wP9F5631kBrA+orosWqJ/xmpA4bnLzZyKY/abWxDYz9MDKe9fEkDNjfLMjPeNAkq9F60Pdn25Q4/8qH84EFs29E6DY3ppQyBOS54zRBy2WawwSwNQVasbBbnuZ/CoglDViQVXpED6L73LjkpoIvvBL0lUonoOgD/SjPTUs1VmG9n+PPYqeUUedFS9WFCStPe1LOGQr8zU2yejX0HVnfhLPScRj4FNgcJsJvm9VomfX3xr7NWW/5oUn+DkPAB/GSGIUj6VsILBC+XUH/ayBL3j4W/U+c/UnwW2qgd2RuWq/F4C74IPoxUqakgJ8Wo6XXeADwedx01F4fo5Om62iEfaAf53m7NAYqIKsz4ylg618DXnVyMN2MpCmrvRPE5UflHu3+68Bz4D9AJdmNICv1xsBqYPN4Er5FVqM56evNehjY3N6HV9pIRcq/w4EZUTsNHAySSLpxP0iSXtx4LzpXAZvHXPjUi4kznKGvLbovApuTDmul0JJpEJr+xJfhp4EOqEpRDxzpu6wt6gP4b1fKecSPvq3XApuL3jRdqDKT/o7gTWCGrV1K3yhwAegK9B21XLQXhv0Bo7NCZZPq00qQ3s7zgH+rlBoVm9xIOegiEBdsC7ratUDBvwrkTfoRHwHen+bTHygI5SK9tTOB9/syz+3K5bARhk8HTwB/KPkJiL8blIMUzKEg6m8Gfcfn7FDnj68ezKfe3u1y9lXUXBNGlPCvBfqCplw9GywDd4ByUk+My5ct3NpF9OnvPJSzm4I0pErpCDAMzAdm09rF9PUFqamcr1nqyaRU0Fs1EFwBamJ0P6ZPO1HXXNWwbwP1qf7WTlQ52AZ0AfuCY0BrEKXldKiEFaT7lSQdfmeDyWADsJ2XtX0FW5eC7UGVXAQ6wWtnPw60a9MEWqXqM0Dpb3+QG23N6SIpCNrhXYHSgS4w+h8fVSjamQroR0A19wKgHDwPqD93+j9HZsbM8pRDxwAAAABJRU5ErkJggg=="/>
         </defs>
       </svg>
       <p class="pd-infobox__text">Din behandler kontakter deg hvis det er behov for en gjennomgang av prøvesvaret</p>
@@ -1418,12 +1498,12 @@
 
     <div class="pd-infobox">
       <svg width="30" height="30.34" viewBox="0 0 30 31" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="flex-shrink:0; margin-top:2px;">
-        <rect width="30" height="30.3371" fill="url(#pattern0_8493_2455)"/>
+        <rect width="30" height="30.3371" fill="url(#pattern2_8493_2455)"/>
         <defs>
-          <pattern id="pattern0_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
-            <use xlink:href="#image0_8493_2455" transform="scale(0.011236 0.0111111)"/>
+          <pattern id="pattern2_8493_2455" patternContentUnits="objectBoundingBox" width="1" height="1">
+            <use xlink:href="#image2_8493_2455" transform="scale(0.011236 0.0111111)"/>
           </pattern>
-          <image id="image0_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFkAAABaCAYAAADTn/oBAAAAAXNSR0IArs4c6QAAAHhlWElmTU0AKgAAAAgABAEaAAUAAAABAAAAPgEbAAUAAAABAAAARgEoAAMAAAABAAIAAIdpAAQAAAABAAAATgAAAAAAAACQAAAAAQAAAJAAAAABAAOgAQADAAAAAQABAACgAgAEAAAAAQAAAFmgAwAEAAAAAQAAAFoAAAAAyGtokgAAAAlwSFlzAAAWJQAAFiUBSVIk8AAADexJREFUeAHtmgvQVVUVx5GXJoIK8hCRD0UJH6BNar4AGTU1M1BM0XyGSinW6ITpaEqiqaj5SrOyBnlpUIQOoaZjPvBBPOShCEogXyAqgqmgIEL9/nDXzOJ47nf2uefc+4HeNfNnr7P3euy97j5rr334GjXYOqkh024L9gJ7gK+B/4G1oEoZI9AG/WXgc6CgRrGOvjfBfaAPaA6qVEIE/otONLjFnj9D9mHQtQQ/ualsk5ulyhmagKvdgXb0O2ANaFWAdvp+oDHwtJ6HMWAIWAiqlDECShHfA78B7wG/y1fx3A9UKccINMPWVWAFsGBvgL8ObI1vMdOuDCk4uwDl2cMK7U60dVELBkcCC7Ta0aAaaIIQRwqoD5bx2q1jwQCgHB1HV9Cp/Gw62uVVKhKBWvotUHGtcu/toH2M/in0WaDVHhsjk2tXo1ytVc6Ydupi8CyYD94FOwNdSkRNgVLJj8BSMAsYvQ6jNHFUof0O7QigH6ZKCRHQLfAgcBdYDfwOVxAVeCPJTgImo11fpZQRaI38A8CCqPZh4A+6djx/UpDRjyKdKpUQgdPRsUAq0L+O2LibZ/shbo6MVR9TROC7yPpvHT2cbgf4tUCB/hA0AVUqMQI/Rc927FR4nzZ03bYx/wOU6Oqrq6YqarYLpso4o3NhLMjXW2e1LS0CShsWzFHOxG6u/yXXX2VLiIDyrfKuAv0+UBlnpOBOBvcAn0psvNqmiIDy7xygtk0Kvarolh6BLfHV6ELQBoJvge2ArsSqCB4En4IqZYiAfvDLgL882EGldgE4ClQpJgIK3uHgYjAYnAl0pY2Sv31ZcP0lQn364K5dXiUXgf7wi4AFzVr9r/LvgP7nQnQ8sDEF9legI1B9ewB4DNi4An0JqBIRUDlkgSnWKt/qlJ/oZAfBx5G+O3g7P4kT+ir1XR0JyPM8Xw7OA0oL9r1AQZvrnhfDK70Uo1sZ8IGWzXLSvhhXinsUTAH6mw7Nv95pT2bggxi34/ZHRh/TfcDEazFJdBMCXk9ByJu6YdC/Xd7fR4yp6qlXugXvNql765jJ3owtcbLSeaUOeT90Q0TvSj+YkT8L/TUR+7Yea/tl9JFZfbqbYIcEa50Zr3Xy+j+3QxN0bHgIjC1a7S9sIEN7TsTm2zzfCHqDk93YOPh6Jf1/mxb9TuAslF6Uiy1g/4bXR5sQugYh01M7JESpiIx+8NXA7P0VvpWT1bePFYVx1fLN3VjF2YWFiahMaxzofQ/k3gK2wAXwu4MQUqowPbVKJaWQSkqzowDHkZdRWqk30qtkk70oxSxqkF3kdLWjVSuHkA4/86n25hAlJ9MI/mMgXe3SYn6VNszP3+HrjfRf7DaRD+H1P8ihpMUpuKavt6ImUFlXctNTq3IvlLojaLq6+BSjhgwoT0tWfzHaEtQbjcezTVp/6npIipkoTShdmP5b8J1ACF2KkOmpvSNECZmjnd4fEnTudLIXJsiWdXgHrD/vJqMdHVo1aGI6+N4AFjAdjDogQ0jfSDYA0w25PBzn5FWH10Vah9l+ui7Bco/pL3nOB58Dm5ACrQ9FodQewfnA9FXqqQIIIZ0FPtD38bxNHYpHMGZ+9DkgiRYhIPn1YNck4XKMn4rRlcAm7Vvdlo5M4VQLmOdsLYHXJSaEBiCkIJh/VQbFAr2fkxsBn0T+1hl3o03SzzQezYm2QN/qFO+Rwks7ZOcCs7EUvkug/nnI+UD/kWcdXlFSejL7j0YHY571ZdDkX4oZL1uXFq7yx5z/DV6VhiZ0AVgEbGwVfC8QSm0RfBWYvk74rwcqn42cT1vDeY4Guhl9Zvs5+BDyP3ynEIU8ZFQ32kSHxRjUQp5wMrpd9Y6RK9bVhoE5wHwsg9+nmHCk/wyefaBH8twoIrOOZ9meHekv9nhtQV46VxYTyrNfB53qRjnU4puCONLXK/8BXjv/6DjBIn2t6Z8FLNC6uiufhtBpCFkgpT8G+EDrzwTUXwtCSG+uzWNmiEJWmc7OYVJO2xbZSU5egT4WhFIrBLUoW6C+lejTaQj1Q8g2g/THArv6L4BXn6qgUJqOoM2ja6hSqXIdnLNnA4wo0BOdzqfwxwXomUhLmBnAFrgcvrsNJrR9GfeB1neKJmAakD2VftGcTVcsDabX5vDLWIkcOzUpe920M2sCbCulPAJskmvgTwjQM5GdYfxOkv9uNpjQnsT4WmC+J8DrwLNn2Q6hjghZPT4/RCGrzG0YsEk+D688nUTaQapCTE+BPjFJyY3vBD8VSF/VRxsQSqp85M98+3aPUCPITXY2vpFCryTR7dF6wzl8Cl59SaRA65W1RWqHaaeFkgI9EqjMS0tKUUpV5tvaNMEa5PSHpZ1AKfIHo6TLhk32n/AhgdbhM87pKWf2AZWgY3CiFGdzVpumtNSPa+XhYvhtQNlJ3wE+AjbpZ+CbgSRSoP8MTE+BPiVJKYfxHbHh87H863BMQ08ibPPW+stKu2H9alALzKlaLWIHkESqWx8CprsO/tQkpQzjh6L7FjB/at8Gh4M0NABhs3FPGsW0sqpBP3DOzKm1OiCaBxhVoEc7Owr0aQF6aUWOQGEVsPmJvwbowpSWVI1YtaILktaQO/XEopUyNmldEixXWd+L9LUI8K5JjgCmJztpX+G63BzA4IfO/kvwu9WlEDCmS5jNV3k+V1Kp9iYwB2PhOxQ86NC7BPjDUAtSHkyihggMB7K7EOwO8iDt1NeAzVepLOQNS/J9prP5QJJw2vGznPF/FFH+Jv0rndwU+NBA34RsDciLhmLIAqxgh1Q/Ib51uK8u2NZaddnKjW7Hkk26Vx1WVXuucLJT4VXjVpKUO33lk/dr7aujk/JcmM9F7RMMH8i4rr/2o0yD18IrRT/DkfkeXwanOjfM/sg87fudfFSA4e7ILAc2mRnwLQP08hDReWB+dfjlTdti0CoWVRm5XUzOwJhNvFhOji5mfzrec3oz4VtFhXJ+boE9q4D0NuUWgMg8J/Fs8egWGSv5UQeHry5uCbS0H3LvApvQLPhdAnVLEdPFw3xNKMVAoM7lzo/43KgHltYDW8StgZb3QW6Z05sD3zpQN61Yf+fnqrTKKeR1wFscxqTQCxId5IzLiXJ1CHVFSFdZm9ir8Gk+WYb4kIz+Q9V8XBqqVIJcM+fnhRL0E1UuRsLynhZ0Z6LGJoEuNEuBBWEufLtNQ7n96y8Lg3OzGm9IOV9rWRI/nL13ICZ8oO8JNLk3cpqUBVo7unGgboiYvlWY7XtDFDLITC/4UgrNcw2bTelCnnygtaiQ07wzcrVAk9POy5N0qNqcVM2Uk17EuP2gTcrpaADGbVFyeD8ICfSeyH0flINUk2sumlfHcjgo2PwXrQU5ZM2ZpnI+2r7q+D3PZXdax4yvY8wWH1oB1WGu6NArBT/6eriRduJffTWrAX5r61nF9IGgESiVzkHRB1pfqOor0DpM14DHQDlufJjdSEv5Vz/myk2PDRr8ttChzoOtk3ac69crnIX0pU6/qnwIfwINQX3QXmV22hz7tk5d4zcuVJcBo12NoV3s+E6OL4UdhZLtaOkrjdRXoBdoAmUk1f1G88RoN4UEWd8aspJuPz8ASh2ic8GDIEsqkp0tjQ5xE3rd+BNhbHvfYJ203V3/y64/K6vKYZ2zPRr+yxTox93aDoLfSJ3514L8QqHPmtluLI/dbHb7wfhAP8TzlyHQO7AOHayKpw6/zQ545Q4N6FVW0W40GMZ+gOfgN1MyoRLbk9H7DJj9sfBlux2VOMe0aue69dwfVVbNaItVJWCkz5gLgY1dZgM5tX2w4wP9F5631kBrA+orosWqJ/xmpA4bnLzZyKY/abWxDYz9MDKe9fEkDNjfLMjPeNAkq9F60Pdn25Q4/8qH84EFs29E6DY3ppQyBOS54zRBy2WawwSwNQVasbBbnuZ/CoglDViQVXpED6L73LjkpoIvvBL0lUonoOgD/SjPTUs1VmG9n+PPYqeUUedFS9WFCStPe1LOGQr8zU2yejX0HVnfhLPScRj4FNgcJsJvm9VomfX3xr7NWW/5oUn+DkPAB/GSGIUj6VsILBC+XUH/ayBL3j4W/U+c/UnwW2qgd2RuWq/F4C74IPoxUqakgJ8Wo6XXeADwedx01F4fo5Om62iEfaAf53m7NAYqIKsz4ylg618DXnVyMN2MpCmrvRPE5UflHu3+68Bz4D9AJdmNICv1xsBqYPN4Er5FVqM56evNehjY3N6HV9pIRcq/w4EZUTsNHAySSLpxP0iSXtx4LzpXAZvHXPjUi4kznKGvLbovApuTDmul0JJpEJr+xJfhp4EOqEpRDxzpu6wt6gP4b1fKecSPvq3XApuL3jRdqDKT/o7gTWCGrV1K3yhwAegK9B21XLQXhv0Bo7NCZZPq00qQ3s7zgH+rlBoVm9xIOegiEBdsC7ratUDBvwrkTfoRHwHen+bTHygI5SK9tTOB9/syz+3K5bARhk8HTwB/KPkJiL8blIMUzKEg6m8Gfcfn7FDnj68ezKfe3u1y9lXUXBNGlPCvBfqCplw9GywDd4ByUk+My5ct3NpF9OnvPJSzm4I0pErpCDAMzAdm09rF9PUFqamcr1nqyaRU0Fs1EFwBamJ0P6ZPO1HXXNWwbwP1qf7WTlQ52AZ0AfuCY0BrEKXldKiEFaT7lSQdfmeDyWADsJ2XtX0FW5eC7UGVXAQ6wWtnPw60a9MEWqXqM0Dpb3+QG23N6SIpCNrhXYHSgS4w+h8fVSjamQroR0A19wKgHDwPqD93+j9HZsbM8pRDxwAAAABJRU5ErkJggg=="/>
+          <image id="image2_8493_2455" width="89" height="90" preserveAspectRatio="none" xlink:href="data:image/png;base64,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"/>
         </defs>
       </svg>
       <p class="pd-infobox__text">Din behandler kontakter deg hvis det er behov for en gjennomgang av prøvesvaret</p>
@@ -1768,22 +1848,131 @@ function toggleHelp(btn) {
 // ── Render varsler list ───────────────────────────────────────
 function renderVarsler() {
   const list = document.getElementById('varselList');
-  const envelopeIcon = `<svg viewBox="0 0 40 40" fill="none" width="36" height="36"><rect x="4" y="10" width="32" height="22" rx="2" stroke="#62625F" stroke-width="1.5"/><path d="M4 14l16 10 16-10" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/></svg>`;
-  const formIcon = `<svg viewBox="0 0 40 40" fill="none" width="36" height="36"><rect x="8" y="4" width="24" height="32" rx="2" stroke="#62625F" stroke-width="1.5"/><line x1="13" y1="13" x2="27" y2="13" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/><line x1="13" y1="19" x2="27" y2="19" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/><line x1="13" y1="25" x2="22" y2="25" stroke="#62625F" stroke-width="1.5" stroke-linecap="round"/></svg>`;
+  const trashIcon = `<svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/><path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2"/></svg>`;
+  const chevronRight = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>`;
+  const infoIcon = `<svg viewBox="0 0 38 38" fill="none" width="38" height="38" stroke="#62625F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="19" cy="19" r="13"/><line x1="19" y1="18" x2="19" y2="26"/><circle cx="19" cy="14" r="1.2" fill="#62625F" stroke="none"/></svg>`;
+  const chevronDown38 = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>`;
+  const chevronUp38 = `<svg viewBox="0 0 24 24" width="38" height="38" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>`;
+  const extLinkIcon = `<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>`;
+  const formIcon = `<svg viewBox="0 0 38 38" fill="none" width="38" height="38" stroke="#62625F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="5" width="22" height="28" rx="2"/><line x1="13" y1="14" x2="25" y2="14"/><line x1="13" y1="20" x2="25" y2="20"/><line x1="13" y1="26" x2="21" y2="26"/></svg>`;
+  const alertIcon = `<svg viewBox="0 0 38 38" fill="none" width="38" height="38" stroke="#62625F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 7 L32 30 H6 Z"/><line x1="19" y1="17" x2="19" y2="24"/><circle cx="19" cy="27.5" r="1" fill="#62625F" stroke="none"/></svg>`;
+  const calendarIcon = `<svg viewBox="0 0 38 38" fill="none" width="38" height="38" stroke="#62625F" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="9" width="28" height="23" rx="2"/><line x1="5" y1="15" x2="33" y2="15"/><line x1="13" y1="5" x2="13" y2="12"/><line x1="25" y1="5" x2="25" y2="12"/></svg>`;
 
   list.innerHTML = `
     <div class="varsel-item varsel-item--unread">
-      <div class="varsel-item__icon">${LAB_ICON}</div>
-      <div class="varsel-item__body">
-        <div class="varsel-item__title">Du har fått svar på en prøve eller undersøkelse</div>
-        <p class="varsel-item__text">Legen din kontakter deg hvis det er behov for å gå igjennom prøvesvaret.</p>
-        <button class="varsel-cta" onclick="showView('viewProvesvarDetalj')">
-          Gå til prøvesvaret
-          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-        </button>
+      <div class="varsel-item__allcontent">
+        <div class="varsel-item__content">
+          <div class="varsel-item__pre">
+            <div class="varsel-item__type">
+              <div class="varsel-item__type-icon">${LAB_ICON}</div>
+              Prøveresultat
+            </div>
+            <span class="varsel-item__time">i dag kl. 10:47</span>
+          </div>
+          <p class="varsel-item__title">Du har fått svar på en prøve eller undersøkelse</p>
+          <div class="varsel-item__actions">
+            <button class="varsel-cta" onclick="showView('viewProvesvarDetalj')">Se mer${chevronRight}</button>
+            <button class="varsel-delete" aria-label="Slett varsel">${trashIcon}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="varsel-exp">
+      <div class="varsel-exp__frame">
+        <div class="varsel-exp__status"></div>
+        <div class="varsel-exp__content">
+          <div class="varsel-exp__top">
+            <div class="varsel-item__pre">
+              <div class="varsel-item__type">
+                <div class="varsel-item__type-icon">${infoIcon}</div>
+                Fra Helsenorge
+              </div>
+              <span class="varsel-item__time">19.08.2025</span>
+            </div>
+            <p class="varsel-item__title">Rettighetene dine ved deling av prøvesvar</p>
+            <p class="varsel-exp__summary">Du kan begrense deling av dine prøvesvar dersom du ønsker det</p>
+            <button class="varsel-exp__toggle-btn" onclick="toggleVarselExp(this)" aria-expanded="false">
+              ${chevronDown38}<span>Vis detaljer</span>
+            </button>
+          </div>
+          <div class="varsel-exp__expanded-area" hidden>
+            <div class="varsel-exp__separator"></div>
+            <p class="varsel-exp__body">I utgangspunkt deles dine prøvesvar med dine behandlere over hele Norge. Det er kun behandlere med tjenstlig behov som har tilgang, men du kan begrense helsepersonells tilgang dersom du ønsker det under <a class="varsel-exp__link" href="#">personverninnstillinger</a>.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="varsel-item varsel-item--read">
+      <div class="varsel-item__allcontent">
+        <div class="varsel-item__content">
+          <div class="varsel-item__pre">
+            <div class="varsel-item__type">
+              <div class="varsel-item__type-icon">${formIcon}</div>
+              Oppgave
+            </div>
+            <span class="varsel-item__time">28.08.2025</span>
+          </div>
+          <p class="varsel-item__title">Du har fått en oppgave Lovisenberg Sykehus</p>
+          <div class="varsel-item__actions">
+            <button class="varsel-cta">Se mer${chevronRight}</button>
+            <button class="varsel-delete" aria-label="Slett varsel">${trashIcon}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="varsel-item varsel-item--read">
+      <div class="varsel-item__allcontent">
+        <div class="varsel-item__content">
+          <div class="varsel-item__pre">
+            <div class="varsel-item__type">
+              <div class="varsel-item__type-icon">${alertIcon}</div>
+              Advarsel
+            </div>
+            <span class="varsel-item__time">27.08.2025</span>
+          </div>
+          <p class="varsel-item__title">Sending av melding via Helsenorge kan ha feilet</p>
+          <div class="varsel-item__actions">
+            <button class="varsel-cta">Se mer${chevronRight}</button>
+            <button class="varsel-delete" aria-label="Slett varsel">${trashIcon}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="varsel-item varsel-item--read">
+      <div class="varsel-item__allcontent">
+        <div class="varsel-item__content">
+          <div class="varsel-item__pre">
+            <div class="varsel-item__type">
+              <div class="varsel-item__type-icon">${calendarIcon}</div>
+              Timeavtale
+            </div>
+            <span class="varsel-item__time">20.08.2025</span>
+          </div>
+          <p class="varsel-item__title">Din time hos Lege Legelsen, Ekeberg legekontor 23.05.2025 kl. 16:00 er avlyst</p>
+          <div class="varsel-item__actions">
+            <button class="varsel-cta">Se mer${chevronRight}</button>
+            <button class="varsel-delete" aria-label="Slett varsel">${trashIcon}</button>
+          </div>
+        </div>
       </div>
     </div>
   `;
+}
+
+function toggleVarselExp(btn) {
+  const expandedArea = btn.closest('.varsel-exp').querySelector('.varsel-exp__expanded-area');
+  const isOpen = !expandedArea.hidden;
+  expandedArea.hidden = isOpen;
+  btn.setAttribute('aria-expanded', String(!isOpen));
+  const svg = btn.querySelector('svg');
+  const label = btn.querySelector('span');
+  if (isOpen) {
+    svg.innerHTML = '<polyline points="6 9 12 15 18 9"/>';
+    label.textContent = 'Vis detaljer';
+  } else {
+    svg.innerHTML = '<polyline points="18 15 12 9 6 15"/>';
+    label.textContent = 'Skjul detaljer';
+  }
 }
 
 function toggleVarsler() {
