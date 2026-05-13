@@ -208,7 +208,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    HEADER  (Helsenorge global nav pattern)
 ══════════════════════════════════════════════════════════════ */
 .header {
-  background: var(--color-base-background-cherry);
+  background: var(--blueberry-50);
   width: 100%;
 }
 
@@ -217,13 +217,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-xs);
-  height: 56px;
+  padding: 0 12px;
 }
 
 .header__left {
   display: flex;
-  gap: var(--space-m);
+  gap: 24px;
   align-items: center;
 }
 
@@ -236,16 +235,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 36px;
 }
 
-/* Icon button (Meny, Søk, Logg ut) */
+/* Icon button (Meny, Varsler, Logg ut) */
 .icon-btn {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--space-4xs);
+  gap: 0;
   background: none;
   border: none;
   cursor: pointer;
-  padding: var(--space-3xs);
+  padding: 0 4px 4px;
   border-radius: var(--radius-m);
   color: var(--color-base-text-onlight);
   text-decoration: none;
@@ -261,19 +260,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   justify-content: center;
 }
 
-.icon-btn__icon svg { width: 22px; height: 22px; }
+.icon-btn__icon svg { display: block; width: 38px; height: 38px; }
 
 .icon-btn__label {
-  font: var(--mobile-sublabel);
+  font: 600 16px/18px 'Source Sans Pro', sans-serif;
   color: var(--color-base-text-onlight);
   white-space: nowrap;
 }
 
-/* Profile expander (notification-info style) */
+/* Profile expander */
 .profile-bar {
-  background: var(--color-notification-background-info);
-  border-top: 1px solid var(--color-notification-border-info);
-  border-bottom: 1px solid var(--color-notification-border-info);
+  background: var(--blueberry-50);
+  border-top: 1px solid var(--blueberry-700);
+  border-bottom: 1px solid var(--blueberry-700);
   display: flex;
   align-items: center;
   gap: var(--space-2xs);
@@ -293,16 +292,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .avatar {
   width: 38px;
   height: 38px;
-  background: var(--blueberry-200);
-  border-radius: var(--radius-full);
+  background: var(--color-action-background-onlight);
+  border-radius: var(--radius-s);
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--blueberry-800);
+  color: #fff;
+  font: 600 16px/1.4 'Source Sans Pro', sans-serif;
 }
-
-.avatar svg { width: 22px; height: 22px; }
 
 .profile-bar__name {
   font: var(--mobile-label);
@@ -1144,20 +1142,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </a>
         <button class="icon-btn" aria-label="Åpne meny" aria-expanded="false">
           <div class="icon-btn__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M29.9883 24.709V26.509H8V24.709H29.9883ZM29.9883 17.709V19.509H8V17.709H29.9883ZM29.9883 11V12.8H8V11H29.9883Z" fill="black"/></svg>
           </div>
           <span class="icon-btn__label">Meny</span>
         </button>
-        <button class="icon-btn" aria-label="Søk">
+        <button class="icon-btn" aria-label="Varsler">
           <div class="icon-btn__icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.17 27.2979V27.1325H15.672V27.2979H9.42261L11.8427 23.4053H25.9993L28.4187 27.2979H22.17ZM21.1409 28.9121C21.1409 30.136 20.1449 31.132 18.921 31.132V31.132C17.6963 31.132 16.7004 30.136 16.7004 28.9121V28.3271H21.1409V28.9121ZM12.0707 15.2028C12.0707 12.1668 14.1299 9.52896 17.0764 8.78875L17.4659 8.69058V8.16491C17.4659 7.36296 18.1183 6.71062 18.921 6.71062C19.723 6.71062 20.3753 7.36296 20.3753 8.16491V8.69058L20.7648 8.78875C23.7122 9.52896 25.7705 12.1668 25.7705 15.2028V22.3769H12.0707V15.2028ZM29.7819 27.541L26.7997 22.7442V15.2028C26.7997 11.8248 24.5941 8.87266 21.3902 7.89416C21.2549 6.65125 20.1988 5.68066 18.921 5.68066C17.6425 5.68066 16.5864 6.65125 16.4518 7.89416C13.2472 8.87266 11.0416 11.8248 11.0416 15.2028V22.7442L8.06015 27.541C7.9612 27.6993 7.95645 27.8988 8.04749 28.0627C8.13774 28.2257 8.31032 28.3271 8.49715 28.3271H15.672V28.9121C15.672 30.7037 17.1295 32.1611 18.921 32.1611C20.7126 32.1611 22.17 30.7037 22.17 28.9121V28.3271H29.3449C29.5309 28.3271 29.7035 28.2257 29.7946 28.0627C29.8848 27.8988 29.8801 27.6993 29.7819 27.541V27.541Z" fill="black"/></svg>
           </div>
-          <span class="icon-btn__label">Søk</span>
+          <span class="icon-btn__label">Varsler</span>
         </button>
       </div>
       <button class="icon-btn" aria-label="Logg ut">
         <div class="icon-btn__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M9.81074 30.9373V7.06335L22.2524 9.02782V16.2295H23.5524V8.77147C23.5524 8.2794 23.1944 7.86045 22.7084 7.78371L9.6667 5.7245C9.05974 5.62866 8.51074 6.09778 8.51074 6.71226V31.2884C8.51074 31.9028 9.05974 32.372 9.66671 32.2761L22.7084 30.2169C23.1944 30.1402 23.5524 29.7212 23.5524 29.2291V22.5628H22.2524V28.9728L9.81074 30.9373Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M30.6164 19.7414H15.9824V18.7114H30.5879L27.5969 15.7205L28.3245 14.9922L32.2092 18.8761C32.305 18.9727 32.3596 19.1033 32.3596 19.2403C32.3596 19.3772 32.305 19.5078 32.2092 19.6044L28.2738 23.5398L27.5463 22.8115L30.6164 19.7414Z" fill="black"/></svg>
         </div>
         <span class="icon-btn__label">Logg ut</span>
       </button>
@@ -1166,14 +1164,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <!-- Profile expander -->
     <div class="profile-bar" role="button" tabindex="0" aria-expanded="false" aria-label="Brukermeny for Tora Hansen">
       <div class="profile-bar__inner">
-        <div class="avatar" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-        </div>
+        <div class="avatar" aria-hidden="true">To</div>
         <span class="profile-bar__name">Tora Hansen</span>
-        <div class="status-dot" role="img" aria-label="Ny varsling"></div>
       </div>
       <div class="chevron" aria-hidden="true" id="profileChevron">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="black"/></svg>
       </div>
     </div>
   </header>
