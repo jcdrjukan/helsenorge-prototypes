@@ -1,0 +1,105 @@
+import { useState } from 'react';
+import Logo from '@helsenorge/designsystem-react/components/Logo';
+import Title from '@helsenorge/designsystem-react/components/Title';
+import Icon from '@helsenorge/designsystem-react/components/Icon';
+import Avatar from '@helsenorge/designsystem-react/components/Avatar';
+import LinkList from '@helsenorge/designsystem-react/components/LinkList';
+import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
+import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
+import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
+import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
+import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
+import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
+import Behandlingshjelpemidler from './behandlingshjelpemidler';
+import './App.css';
+
+type Prototype = 'prover' | 'behandlingshjelpemidler';
+
+function App() {
+  const [prototype, setPrototype] = useState<Prototype>('prover');
+
+  return (
+    <>
+      {/* Prototype switcher */}
+      <div className="prototype-switcher">
+        <span className="prototype-switcher__label">Prototype:</span>
+        <button
+          className={`prototype-switcher__btn${prototype === 'prover' ? ' prototype-switcher__btn--active' : ''}`}
+          onClick={() => setPrototype('prover')}
+        >
+          Prøver og undersøkelser
+        </button>
+        <button
+          className={`prototype-switcher__btn${prototype === 'behandlingshjelpemidler' ? ' prototype-switcher__btn--active' : ''}`}
+          onClick={() => setPrototype('behandlingshjelpemidler')}
+        >
+          Behandlingshjelpemidler
+        </button>
+      </div>
+
+      {prototype === 'prover' && (
+        <div className="mobile-shell">
+          <header className="header">
+            <div className="top-bar">
+              <Logo size={80} />
+              <nav className="top-nav">
+                <button className="nav-icon-btn" aria-label="Åpne meny">
+                  <Icon svgIcon={Menu} size={38} />
+                  <span className="nav-icon-btn__label">Meny</span>
+                </button>
+                <button className="nav-icon-btn" aria-label="Varsler">
+                  <Icon svgIcon={Bell} size={38} />
+                  <span className="nav-icon-btn__label">Varsler</span>
+                </button>
+                <button className="nav-icon-btn" aria-label="Logg ut">
+                  <Icon svgIcon={Logout} size={38} />
+                  <span className="nav-icon-btn__label">Logg ut</span>
+                </button>
+              </nav>
+            </div>
+            <button className="profile-bar" aria-label="Brukermeny">
+              <Avatar color="blueberry" size="xsmall">Tore Hansen</Avatar>
+              <span className="profile-bar__name">Tore Hansen</span>
+              <Icon svgIcon={ChevronDown} size={38} />
+            </button>
+          </header>
+          <nav className="breadcrumb" aria-label="Brødsmulesti">
+            <button className="breadcrumb__back">
+              <Icon svgIcon={ChevronLeft} size={38} />
+              <span>Forside</span>
+            </button>
+          </nav>
+          <hr className="page-divider" />
+          <main className="page-content">
+            <Title htmlMarkup="h1" appearance="title1">Prøver og undersøkelser</Title>
+            <p className="ingress">Hva vil du se?</p>
+            <LinkList variant="fill" color="neutral" chevron>
+              <LinkList.Link href="#">
+                <ElementHeader>
+                  <ElementHeader.Text firstText="Prøvesvar" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Kun tilgjengelig hvis du tar en prøve hos noen som er med i utprøvingen av Prøvesvar." subText />
+                </ElementHeader>
+              </LinkList.Link>
+              <LinkList.Link href="#">
+                <ElementHeader>
+                  <ElementHeader.Text firstText="Analyser og undersøkelser fra sykehus" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Det er kun sykehus i Helse Vest som viser sine prøvesvar." subText />
+                </ElementHeader>
+              </LinkList.Link>
+              <LinkList.Link href="#">
+                <ElementHeader>
+                  <ElementHeader.Text firstText="Fremtidige prøver" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Tjenesten er under utprøving" subText />
+                </ElementHeader>
+              </LinkList.Link>
+            </LinkList>
+          </main>
+        </div>
+      )}
+
+      {prototype === 'behandlingshjelpemidler' && <Behandlingshjelpemidler />}
+    </>
+  );
+}
+
+export default App;

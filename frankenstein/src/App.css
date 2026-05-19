@@ -1,0 +1,151 @@
+.mobile-shell {
+  width: 390px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  width: 100%;
+  background: #E4F7F9;
+}
+
+.top-bar {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 4px;
+  height: 56px;
+}
+
+.profile-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 12px;
+  background: none;
+  border: none;
+  border-top: 1px solid #08667C;
+  border-bottom: 1px solid #08667C;
+  cursor: pointer;
+  text-align: left;
+}
+
+.page-content {
+  padding: 1.5rem 1rem;
+}
+
+.page-content h1 {
+  font: 600 2rem/120% 'Source Sans Pro', sans-serif;
+  margin: 0;
+}
+
+.page-divider {
+  border: none;
+  border-top: 1px solid #D6D4D3;
+  margin: 0 1rem;
+}
+
+.breadcrumb {
+  width: 100%;
+  padding: 0 4px;
+}
+
+.breadcrumb__back {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: #000;
+  font: 600 18px/1.2 'Source Sans Pro', sans-serif;
+}
+
+.breadcrumb__back:hover {
+  text-decoration: underline;
+}
+
+.profile-bar__name {
+  flex: 1;
+  font: 600 18px/1.2 'Source Sans Pro', sans-serif;
+  color: #000;
+}
+
+.top-nav {
+  display: contents;
+}
+
+.nav-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 8px;
+  color: #000;
+}
+
+.nav-icon-btn:hover {
+  background: rgba(18, 111, 135, 0.13);
+}
+
+.nav-icon-btn__label {
+  font: 600 12px/1 'Source Sans Pro', sans-serif;
+  color: #000;
+  white-space: nowrap;
+}
+
+.ingress {
+  font: 400 1.25rem/130% 'Source Sans Pro', sans-serif;
+  margin: 1rem 0;
+  color: #000;
+}
+
+/* ── Prototype switcher ─────────────────────────────────────────────── */
+.prototype-switcher {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background: #f0f0f0;
+  border-bottom: 1px solid #ddd;
+  flex-wrap: wrap;
+}
+
+.prototype-switcher__label {
+  font: 600 13px/1 'Source Sans Pro', sans-serif;
+  color: #444;
+  white-space: nowrap;
+}
+
+.prototype-switcher__btn {
+  padding: 4px 12px;
+  border: 1.5px solid #bbb;
+  border-radius: 99px;
+  background: #fff;
+  font: 400 13px/1.4 'Source Sans Pro', sans-serif;
+  color: #333;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.prototype-switcher__btn:hover {
+  border-color: #188097;
+  color: #126F87;
+}
+
+.prototype-switcher__btn--active {
+  background: #188097;
+  border-color: #188097;
+  color: #fff;
+  font-weight: 600;
+}

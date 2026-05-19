@@ -1,0 +1,1218 @@
+/* =====================================================================
+   CSS Variables (not provided by the design system)
+   ===================================================================== */
+:root {
+  --blueberry-50: #E4F7F9;
+  --blueberry-100: #CAE7ED;
+  --blueberry-200: #AFDAE3;
+  --blueberry-500: #188097;
+  --blueberry-600: #126F87;
+  --blueberry-700: #08667C;
+  --cherry-500: #C83521;
+  --cherry-700: #A31F0E;
+  --kiwi-700: #0CA161;
+  --kiwi-800: #099150;
+  --banana-50: #FDF8DF;
+  --banana-700: #AB7C00;
+  --banana-800: #916500;
+  --neutral-50: #F5F3F3;
+  --neutral-100: #EAE7E7;
+  --neutral-200: #D6D4D3;
+  --neutral-300: #BDBAB9;
+  --neutral-500: #989693;
+  --neutral-600: #7D7C79;
+  --neutral-700: #62625F;
+  --neutral-800: #474745;
+  --neutral-900: #2B2C2B;
+  --color-action-text-onlight: #126F87;
+  --color-action-text-onlight-hover: #08667C;
+  --color-action-border-onlight: #188097;
+  --color-action-border-onlight-hover: #08667C;
+  --color-action-background-onlight: #188097;
+  --color-action-background-onlight-hover: #08667C;
+  --color-action-background-onlight-active: #06596C;
+  --color-action-background-transparent-onlight-hover: rgba(18, 111, 135, 0.13);
+  --color-base-text-onlight: #000000;
+  --color-base-text-onlight-subdued: #474745;
+  --color-base-border-onlight: #7D7C79;
+  --color-notification-background-success: #E6F8EE;
+  --color-notification-border-success: #078141;
+  --color-notification-background-warning: #FDF8DF;
+  --color-notification-border-warning: #AB7C00;
+  --color-notification-background-error: #FFF2EA;
+  --color-notification-border-error: #A31F0E;
+  --color-disabled-text: #62625F;
+  --space-4xs: 0.125rem;
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs: 0.75rem;
+  --space-s: 1rem;
+  --space-m: 1.5rem;
+  --space-l: 2rem;
+  --space-xl: 3rem;
+  --mobile-h1: 600 2rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-h2: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-body-strong: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-label-subdued: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-sublabel: 600 1rem/120% 'Source Sans 3', sans-serif;
+  --mobile-sublabel-subdued: 400 1rem/120% 'Source Sans 3', sans-serif;
+  --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  --radius-s: 4px;
+  --radius-m: 8px;
+}
+
+/* =====================================================================
+   BHM wrapper — replaces .app, constrains to mobile width
+   ===================================================================== */
+.bhm-page {
+  max-width: 390px;
+  margin: 0 auto;
+  background: #fff;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================================================================
+   Header
+   ===================================================================== */
+.bhm-header {
+  width: 100%;
+  background: var(--blueberry-50);
+}
+
+.bhm-header__top {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 4px;
+  height: 56px;
+}
+
+.bhm-top-nav {
+  display: contents;
+}
+
+.bhm-icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: var(--radius-m);
+  color: #000;
+}
+
+.bhm-icon-btn:hover {
+  background: var(--color-action-background-transparent-onlight-hover);
+}
+
+.bhm-icon-btn__label {
+  font: var(--mobile-sublabel);
+  color: #000;
+  white-space: nowrap;
+  font-size: 12px;
+}
+
+.bhm-profile-bar {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 2px 12px;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--blueberry-700);
+  border-bottom: 1px solid var(--blueberry-700);
+  cursor: pointer;
+  text-align: left;
+}
+
+.bhm-profile-bar__name {
+  flex: 1;
+  font: var(--mobile-label);
+  font-size: 18px;
+  color: #000;
+}
+
+/* =====================================================================
+   Order nav (back button used in wizard and detail pages)
+   ===================================================================== */
+.order-nav {
+  width: 100%;
+  padding: 0 4px;
+  display: flex;
+  align-items: center;
+}
+
+.order-nav__back {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: #000;
+  font: var(--mobile-label);
+  font-size: 18px;
+}
+
+.order-nav__back:hover {
+  text-decoration: underline;
+}
+
+/* =====================================================================
+   Page typography
+   ===================================================================== */
+.page-title {
+  font: var(--mobile-h1);
+  margin: 0 0 var(--space-xs) 0;
+  color: var(--color-base-text-onlight);
+}
+
+.page-intro {
+  font: var(--mobile-body);
+  margin: 0 0 var(--space-m) 0;
+  color: var(--color-base-text-onlight-subdued);
+}
+
+.section-h2 {
+  font: var(--mobile-h2);
+  margin: var(--space-m) 0 var(--space-xs) 0;
+  color: var(--color-base-text-onlight);
+}
+
+/* =====================================================================
+   Notification panel
+   ===================================================================== */
+.notification-panel {
+  border-radius: var(--radius-m);
+  border-left: 4px solid;
+  padding: var(--space-xs) var(--space-s);
+  margin-bottom: var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.notification-panel--success {
+  background: var(--color-notification-background-success);
+  border-color: var(--color-notification-border-success);
+}
+
+.notification-panel--warning {
+  background: var(--color-notification-background-warning);
+  border-color: var(--color-notification-border-warning);
+}
+
+.notification-panel--error {
+  background: var(--color-notification-background-error);
+  border-color: var(--color-notification-border-error);
+}
+
+.notification-panel__title {
+  font: var(--mobile-body-strong);
+  margin: 0;
+  color: var(--color-base-text-onlight);
+}
+
+.notification-panel__body {
+  font: var(--mobile-body);
+  margin: 0;
+  color: var(--color-base-text-onlight-subdued);
+}
+
+/* =====================================================================
+   Equipment list (forside)
+   ===================================================================== */
+.equip-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.equip-list__item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  background: #fff;
+  cursor: pointer;
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+.equip-list__item:hover {
+  border-color: var(--blueberry-500);
+  background: var(--blueberry-50);
+}
+
+.equip-list__item--deaktivert {
+  opacity: 0.6;
+}
+
+.equip-list__status-strip {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 5px;
+}
+
+.equip-list__status-strip--warning {
+  background: var(--banana-700);
+}
+
+.equip-list__status-strip--active-order {
+  background: var(--blueberry-500);
+}
+
+.equip-list__icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.equip-list__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.equip-list__info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.equip-list__name {
+  font: var(--mobile-sublabel);
+  color: var(--color-base-text-onlight-subdued);
+  margin: 0;
+}
+
+.equip-list__model {
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.equip-list__badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 2px 8px;
+  white-space: nowrap;
+}
+
+.equip-list__badge--warning {
+  background: var(--banana-50);
+  color: var(--banana-800);
+  border: 1px solid var(--banana-700);
+}
+
+.equip-list__badge--active {
+  background: var(--blueberry-50);
+  color: var(--blueberry-700);
+  border: 1px solid var(--blueberry-500);
+}
+
+.equip-list__badge--deaktivert {
+  background: var(--neutral-100);
+  color: var(--neutral-700);
+  border: 1px solid var(--neutral-300);
+}
+
+/* =====================================================================
+   Order machine accordion (Step 1)
+   ===================================================================== */
+.order-machine {
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  margin-bottom: var(--space-2xs);
+}
+
+.order-machine--open {
+  border-color: var(--blueberry-500);
+}
+
+.order-machine__header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.order-machine__header:hover {
+  background: var(--blueberry-50);
+}
+
+.order-machine--open .order-machine__header {
+  background: var(--blueberry-50);
+  border-bottom: 1px solid var(--blueberry-200);
+}
+
+.order-machine__icon {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+}
+
+.order-machine__icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.order-machine__name {
+  font: var(--mobile-sublabel);
+  color: var(--color-base-text-onlight-subdued);
+  margin: 0;
+}
+
+.order-machine__model {
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+  margin: 0;
+}
+
+.order-machine__chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.order-machine--open .order-machine__chevron {
+  transform: rotate(180deg);
+}
+
+.order-machine__body {
+  padding: var(--space-xs) var(--space-s);
+}
+
+/* =====================================================================
+   Order consumable rows (Step 1)
+   ===================================================================== */
+.order-consumable-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+.order-consumable-row:last-child {
+  border-bottom: none;
+}
+
+.order-consumable-row__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.order-consumable-row__name {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-base-text-onlight);
+  margin: 0;
+}
+
+.order-consumable-row__wait {
+  font-size: 0.75rem;
+  color: var(--banana-800);
+  background: var(--banana-50);
+  border: 1px solid var(--banana-700);
+  border-radius: 99px;
+  padding: 2px 8px;
+  display: inline-block;
+  margin-top: 2px;
+}
+
+/* =====================================================================
+   Quantity control
+   ===================================================================== */
+.qty-control {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.qty-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--color-action-border-onlight);
+  background: #fff;
+  color: var(--color-action-text-onlight);
+  font-size: 1.25rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-s);
+  line-height: 1;
+}
+
+.qty-btn:hover:not(:disabled) {
+  background: var(--color-action-background-transparent-onlight-hover);
+  border-color: var(--color-action-border-onlight-hover);
+}
+
+.qty-btn:disabled {
+  border-color: var(--neutral-300);
+  color: var(--color-disabled-text);
+  cursor: not-allowed;
+}
+
+.qty-display {
+  min-width: 2rem;
+  text-align: center;
+  font: var(--mobile-label);
+  font-size: 1.125rem;
+  color: var(--color-base-text-onlight);
+  padding: 0 4px;
+}
+
+/* =====================================================================
+   Wizard progress bar
+   ===================================================================== */
+.wizard-bar {
+  width: 100%;
+  padding: var(--space-xs) var(--space-s);
+  background: #fff;
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.wizard-bar__track {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.wizard-cap {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--neutral-200);
+  flex-shrink: 0;
+}
+
+.wizard-cap--active {
+  background: var(--blueberry-500);
+}
+
+.wizard-seg {
+  flex: 1;
+  height: 4px;
+  background: var(--neutral-200);
+}
+
+.wizard-seg--active {
+  background: var(--blueberry-500);
+}
+
+.wizard-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--neutral-200);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.wizard-dot--active {
+  background: var(--blueberry-500);
+}
+
+.wizard-dot--current {
+  background: var(--blueberry-500);
+  width: 18px;
+  height: 18px;
+}
+
+.wizard-pip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.wizard-pip__label {
+  font: var(--mobile-sublabel-subdued);
+  font-size: 0.75rem;
+  color: var(--neutral-600);
+  white-space: nowrap;
+}
+
+.wizard-pip__label--active {
+  color: var(--blueberry-600);
+  font-weight: 600;
+}
+
+/* =====================================================================
+   Order step layout
+   ===================================================================== */
+.order-step {
+  padding: var(--space-s);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.order-step__title {
+  font: var(--mobile-h2);
+  margin: 0 0 var(--space-s) 0;
+  color: var(--color-base-text-onlight);
+}
+
+.order-step__actions {
+  margin-top: var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+/* =====================================================================
+   Form field (plain HTML, fallback for textarea etc.)
+   ===================================================================== */
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+  margin-bottom: var(--space-s);
+}
+
+.form-field__label {
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+}
+
+.form-field__input,
+.form-field__textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1.5px solid var(--color-base-border-onlight);
+  border-radius: var(--radius-s);
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  background: #fff;
+  outline: none;
+}
+
+.form-field__input:focus,
+.form-field__textarea:focus {
+  border-color: var(--blueberry-500);
+  box-shadow: 0 0 0 2px var(--blueberry-100);
+}
+
+.form-field__input--error,
+.form-field__textarea--error {
+  border-color: var(--cherry-500);
+}
+
+.form-field__error {
+  font: var(--mobile-sublabel);
+  color: var(--cherry-500);
+}
+
+.form-field__textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* =====================================================================
+   Delivery address form
+   ===================================================================== */
+.delivery-address-form {
+  margin-top: var(--space-s);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.delivery-address-form .field-tag {
+  display: block;
+  margin-bottom: var(--space-xs);
+}
+
+/* =====================================================================
+   Summary sections (Step 4)
+   ===================================================================== */
+.summary-section {
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  margin-bottom: var(--space-xs);
+}
+
+.summary-section__header {
+  background: var(--neutral-50);
+  padding: var(--space-xs) var(--space-s);
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+  border-bottom: 1px solid var(--neutral-200);
+}
+
+.summary-section__body {
+  padding: var(--space-xs) var(--space-s);
+}
+
+.order-summary-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.order-summary-list li {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-base-text-onlight);
+  display: flex;
+  gap: var(--space-2xs);
+}
+
+.order-summary-list li::before {
+  content: '•';
+  color: var(--blueberry-500);
+  flex-shrink: 0;
+}
+
+/* =====================================================================
+   Duolist (key-value pairs)
+   ===================================================================== */
+.duolist {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xs);
+}
+
+.duolist__row {
+  display: flex;
+  gap: var(--space-s);
+  align-items: baseline;
+}
+
+.duolist__key {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-base-text-onlight-subdued);
+  min-width: 110px;
+  flex-shrink: 0;
+}
+
+.duolist__value {
+  font: var(--mobile-sublabel);
+  color: var(--color-base-text-onlight);
+  flex: 1;
+}
+
+/* =====================================================================
+   History card
+   ===================================================================== */
+.history-card {
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  margin-bottom: var(--space-xs);
+}
+
+.history-card__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.history-card__toggle:hover {
+  background: var(--blueberry-50);
+}
+
+.history-card--open .history-card__toggle {
+  background: var(--blueberry-50);
+  border-bottom: 1px solid var(--blueberry-200);
+}
+
+.history-card__date {
+  font: var(--mobile-sublabel);
+  color: var(--color-base-text-onlight-subdued);
+  flex-shrink: 0;
+  min-width: 80px;
+}
+
+.history-card__summary {
+  flex: 1;
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.history-card__chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.history-card--open .history-card__chevron {
+  transform: rotate(180deg);
+}
+
+.history-card__body {
+  padding: var(--space-xs) var(--space-s);
+}
+
+/* =====================================================================
+   Order card (submitted, shown on forside)
+   ===================================================================== */
+.order-card {
+  border: 1px solid var(--blueberry-500);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+  margin-bottom: var(--space-xs);
+}
+
+.order-card__toggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  background: var(--blueberry-50);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  border-bottom: 1px solid var(--blueberry-200);
+}
+
+.order-card__toggle:hover {
+  background: var(--blueberry-100);
+}
+
+.order-card__title {
+  flex: 1;
+  font: var(--mobile-label);
+  color: var(--color-base-text-onlight);
+}
+
+.order-card__date {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-base-text-onlight-subdued);
+}
+
+.order-card__chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+}
+
+.order-card--open .order-card__chevron {
+  transform: rotate(180deg);
+}
+
+.order-card__body {
+  padding: var(--space-xs) var(--space-s);
+}
+
+/* =====================================================================
+   Unit card (for multiple units/serial numbers)
+   ===================================================================== */
+.unit-card {
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  padding: var(--space-xs) var(--space-s);
+  margin-bottom: var(--space-2xs);
+  background: var(--neutral-50);
+}
+
+.unit-card__label {
+  font: var(--mobile-sublabel);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-3xs);
+}
+
+/* =====================================================================
+   Consumable section (machine detail page)
+   ===================================================================== */
+.consumable-section {
+  margin-top: var(--space-m);
+}
+
+.consumable-section__title {
+  font: var(--mobile-h2);
+  font-size: 1.25rem;
+  margin: 0 0 var(--space-xs) 0;
+  color: var(--color-base-text-onlight);
+}
+
+.consumable-status-row {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-s);
+  padding: var(--space-xs) 0;
+  border-bottom: 1px solid var(--neutral-100);
+}
+
+.consumable-status-row:last-child {
+  border-bottom: none;
+}
+
+.consumable-status-row__info {
+  flex: 1;
+  min-width: 0;
+}
+
+.consumable-status-row__name {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-base-text-onlight);
+  margin: 0 0 2px 0;
+}
+
+.consumable-status-row__meta {
+  font-size: 0.8125rem;
+  color: var(--color-base-text-onlight-subdued);
+  margin: 0;
+}
+
+.consumable-status-badge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 99px;
+  padding: 2px 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.consumable-status-badge--warning {
+  background: var(--banana-50);
+  color: var(--banana-800);
+  border: 1px solid var(--banana-700);
+}
+
+.consumable-status-badge--active {
+  background: var(--blueberry-50);
+  color: var(--blueberry-700);
+  border: 1px solid var(--blueberry-500);
+}
+
+.consumable-status-badge--ok {
+  background: var(--color-notification-background-success);
+  color: var(--kiwi-800);
+  border: 1px solid var(--color-notification-border-success);
+}
+
+/* =====================================================================
+   Help expander
+   ===================================================================== */
+.help-expander {
+  margin: var(--space-m) 0;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  overflow: hidden;
+}
+
+.help-expander__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-s);
+  padding: var(--space-xs) var(--space-s);
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font: var(--mobile-label);
+  color: var(--color-action-text-onlight);
+}
+
+.help-expander__btn:hover {
+  background: var(--blueberry-50);
+}
+
+.help-expander__chevron {
+  margin-left: auto;
+  transition: transform 0.2s ease;
+}
+
+.help-expander--open .help-expander__chevron {
+  transform: rotate(180deg);
+}
+
+.help-expander__body {
+  padding: var(--space-xs) var(--space-s);
+  border-top: 1px solid var(--neutral-200);
+  font: var(--mobile-body);
+  font-size: 1rem;
+  color: var(--color-base-text-onlight-subdued);
+}
+
+/* =====================================================================
+   Buttons
+   ===================================================================== */
+.btn-primary {
+  width: 100%;
+  padding: var(--space-xs) var(--space-m);
+  background: var(--color-action-background-onlight);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-m);
+  font: var(--mobile-label);
+  font-size: 1.125rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-primary:hover {
+  background: var(--color-action-background-onlight-hover);
+}
+
+.btn-primary:active {
+  background: var(--color-action-background-onlight-active);
+}
+
+.btn-outline {
+  width: 100%;
+  padding: var(--space-xs) var(--space-m);
+  background: #fff;
+  color: var(--color-action-text-onlight);
+  border: 2px solid var(--color-action-border-onlight);
+  border-radius: var(--radius-m);
+  font: var(--mobile-label);
+  font-size: 1.125rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn-outline:hover {
+  background: var(--color-action-background-transparent-onlight-hover);
+  border-color: var(--color-action-border-onlight-hover);
+}
+
+.btn-borderless {
+  width: 100%;
+  padding: var(--space-xs) var(--space-m);
+  background: none;
+  color: var(--color-action-text-onlight);
+  border: none;
+  font: var(--mobile-label);
+  font-size: 1.125rem;
+  cursor: pointer;
+  text-align: center;
+  text-decoration: underline;
+}
+
+.btn-borderless:hover {
+  color: var(--color-action-text-onlight-hover);
+}
+
+.order-cancel-link {
+  display: block;
+  text-align: center;
+  color: var(--cherry-500);
+  font: var(--mobile-sublabel);
+  cursor: pointer;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  margin-top: var(--space-xs);
+}
+
+.order-cancel-link:hover {
+  color: var(--cherry-700);
+}
+
+/* =====================================================================
+   Field tag / inline helper text
+   ===================================================================== */
+.field-tag {
+  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
+  color: #474745;
+  display: inline;
+}
+
+.field-tag--required {
+  background: linear-gradient(180deg, rgba(252,242,191,0) 8%, rgb(252,242,191) 8%, rgb(252,242,191) 92%, rgba(252,242,191,0) 92%);
+}
+
+.field-tag--info {
+  color: var(--blueberry-700);
+  background: var(--blueberry-50);
+  border-color: var(--blueberry-500);
+}
+
+/* =====================================================================
+   Spacing helpers
+   ===================================================================== */
+.sp-3xs { height: var(--space-3xs); }
+.sp-2xs { height: var(--space-2xs); }
+.sp-xs  { height: var(--space-xs); }
+.sp-s   { height: var(--space-s); }
+.sp-m   { height: var(--space-m); }
+.sp-l   { height: var(--space-l); }
+
+/* =====================================================================
+   Footer
+   ===================================================================== */
+.bhm-footer {
+  margin-top: auto;
+  padding: var(--space-m) var(--space-s);
+  border-top: 1px solid var(--neutral-200);
+  text-align: center;
+}
+
+.bhm-footer__link {
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-action-text-onlight);
+  text-decoration: none;
+}
+
+.bhm-footer__link:hover {
+  text-decoration: underline;
+}
+
+.bhm-footer__divider {
+  margin: 0 var(--space-xs);
+  color: var(--neutral-300);
+}
+
+/* =====================================================================
+   iOS-style confirm alert overlay
+   ===================================================================== */
+.ios-alert-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.ios-alert {
+  background: #fff;
+  border-radius: 14px;
+  width: 270px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+}
+
+.ios-alert__title {
+  text-align: center;
+  font: var(--mobile-body-strong);
+  padding: var(--space-s) var(--space-s) var(--space-3xs);
+  margin: 0;
+}
+
+.ios-alert__msg {
+  text-align: center;
+  font: var(--mobile-sublabel-subdued);
+  color: var(--color-base-text-onlight-subdued);
+  padding: 0 var(--space-s) var(--space-s);
+  margin: 0;
+}
+
+.ios-alert__actions {
+  display: flex;
+  border-top: 1px solid var(--neutral-200);
+}
+
+.ios-alert__btn {
+  flex: 1;
+  padding: var(--space-xs) 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: var(--mobile-label);
+  font-size: 1.0625rem;
+  color: var(--color-action-text-onlight);
+}
+
+.ios-alert__btn:first-child {
+  border-right: 1px solid var(--neutral-200);
+}
+
+.ios-alert__btn--destructive {
+  color: var(--cherry-500);
+}
+
+/* =====================================================================
+   Page content wrapper
+   ===================================================================== */
+.bhm-page-content {
+  padding: var(--space-s);
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =====================================================================
+   Divider
+   ===================================================================== */
+.bhm-divider {
+  border: none;
+  border-top: 1px solid var(--neutral-200);
+  margin: 0 var(--space-s);
+}
+
+/* =====================================================================
+   Step 1 error
+   ===================================================================== */
+.step1-error {
+  background: var(--color-notification-background-error);
+  border: 1px solid var(--color-notification-border-error);
+  border-radius: var(--radius-s);
+  padding: var(--space-xs) var(--space-s);
+  font: var(--mobile-sublabel);
+  color: var(--cherry-700);
+  margin-bottom: var(--space-s);
+}
+
+/* =====================================================================
+   Deaktivert banner
+   ===================================================================== */
+.deaktivert-banner {
+  background: var(--neutral-100);
+  border: 1px solid var(--neutral-300);
+  border-radius: var(--radius-m);
+  padding: var(--space-xs) var(--space-s);
+  font: var(--mobile-sublabel-subdued);
+  color: var(--neutral-700);
+  margin-bottom: var(--space-m);
+}
