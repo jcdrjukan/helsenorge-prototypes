@@ -1914,22 +1914,24 @@ function renderStep4() {
   const comment = document.getElementById('orderComment').value.trim();
   const telefon = document.getElementById('delivTelefon').value.trim();
 
-  let rows = '';
+  let listItems = '';
   let hasItems = false;
   EQUIPMENT.forEach(eq => {
     eq.consumables.forEach((c, i) => {
       const qty = orderState.quantities[eq.id][i] || 0;
       if (qty > 0) {
         hasItems = true;
-        rows += `<tr><td>${c.name} til ${eq.model}</td><td class="col-qty">${qty}</td></tr>`;
+        listItems += `<li>${c.name} til ${eq.model} × ${qty}</li>`;
       }
     });
   });
   let itemsHtml = `
-    <table class="confirm-table-flat">
-      <thead><tr><th>Forbruksvare</th><th class="col-qty">Antall</th></tr></thead>
-      <tbody>${rows}</tbody>
-    </table>`;
+    <div class="summary-section">
+      <div class="summary-section__header">Forbruksvarer</div>
+      <div class="summary-section__body">
+        <ul class="order-summary-list">${listItems}</ul>
+      </div>
+    </div>`;
 
   if (!hasItems) {
     itemsHtml = `<div class="notification-panel notification-panel--warning" style="width:100%">
@@ -1938,9 +1940,9 @@ function renderStep4() {
     </div>`;
   }
 
-  const deliveryHtml = `<table class="confirm-table-flat"><thead><tr><th>Levering</th></tr></thead><tbody><tr><td>${addr}</td></tr></tbody></table>`;
-  const telefonHtml = telefon ? `<table class="confirm-table-flat"><thead><tr><th>Telefon</th></tr></thead><tbody><tr><td>${telefon}</td></tr></tbody></table>` : '';
-  const commentHtml = comment ? `<table class="confirm-table-flat"><thead><tr><th>Kommentar</th></tr></thead><tbody><tr><td>${comment}</td></tr></tbody></table>` : '';
+  const deliveryHtml = `<div class="summary-section"><div class="summary-section__header">Levering</div><div class="summary-section__body">${addr}</div></div>`;
+  const telefonHtml = telefon ? `<div class="summary-section"><div class="summary-section__header">Telefon</div><div class="summary-section__body">${telefon}</div></div>` : '';
+  const commentHtml = comment ? `<div class="summary-section"><div class="summary-section__header">Kommentar</div><div class="summary-section__body">${comment}</div></div>` : '';
 
   document.getElementById('step4Content').innerHTML = itemsHtml + deliveryHtml + telefonHtml + commentHtml;
 }
