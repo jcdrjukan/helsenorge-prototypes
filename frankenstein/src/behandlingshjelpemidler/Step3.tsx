@@ -15,14 +15,13 @@ export default function Step3({ comment, onChange, onNext, onBack }: Step3Props)
 
       <div className="form-field">
         <label className="form-field__label" htmlFor="orderComment">
-          Kommentar (valgfritt)
+          Kommentar
         </label>
         <textarea
           id="orderComment"
           className="form-field__textarea"
           value={comment}
           onChange={e => onChange(e.target.value)}
-          placeholder="Skriv inn eventuelle kommentarer her..."
           rows={4}
         />
       </div>

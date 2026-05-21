@@ -18,11 +18,11 @@ function initQuantities(): Record<string, number[]> {
 
 const DEFAULT_DELIVERY: DeliveryForm = {
   mode: 'post',
-  navn: '',
-  gate: '',
-  postnr: '',
-  sted: '',
-  telefon: '',
+  navn: 'Tora Hansen',
+  gate: 'Kirkeveien 84B',
+  postnr: '7010',
+  sted: 'Trondheim',
+  telefon: '99 88 77 66',
 };
 
 export default function Behandlingshjelpemidler() {

@@ -1,5 +1,6 @@
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
+import Stepper from '@helsenorge/designsystem-react/components/Stepper';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -29,47 +30,6 @@ interface OrderWizardProps {
   onGoToStep: (step: 1 | 2 | 3 | 4) => void;
 }
 
-const STEP_LABELS = ['Produkter', 'Levering', 'Kommentar', 'Bekreft'];
-
-function WizardBar({ currentStep }: { currentStep: number }) {
-  return (
-    <div className="wizard-bar">
-      <div className="wizard-bar__track">
-        {STEP_LABELS.map((label, i) => {
-          const stepNum = i + 1;
-          const isActive = stepNum <= currentStep;
-          const isCurrent = stepNum === currentStep;
-          return (
-            <div key={stepNum} style={{ display: 'flex', alignItems: 'center', flex: i < STEP_LABELS.length - 1 ? '1' : undefined }}>
-              <div className="wizard-pip">
-                <div
-                  className={
-                    isCurrent
-                      ? 'wizard-dot wizard-dot--current'
-                      : isActive
-                      ? 'wizard-dot wizard-dot--active'
-                      : 'wizard-dot'
-                  }
-                />
-                <span
-                  className={`wizard-pip__label${isActive ? ' wizard-pip__label--active' : ''}`}
-                >
-                  {label}
-                </span>
-              </div>
-              {i < STEP_LABELS.length - 1 && (
-                <div
-                  className={`wizard-seg${stepNum < currentStep ? ' wizard-seg--active' : ''}`}
-                  style={{ flex: 1 }}
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
 
 export default function OrderWizard({
   currentStep,
@@ -104,7 +64,9 @@ export default function OrderWizard({
       </div>
       <hr className="bhm-divider" />
 
-      <WizardBar currentStep={currentStep} />
+      <div style={{ padding: '0 var(--space-s)' }}>
+        <Stepper value={currentStep} min={1} max={4} ariaLabel="Bestillingssteg" />
+      </div>
 
       {currentStep === 1 && (
         <Step1

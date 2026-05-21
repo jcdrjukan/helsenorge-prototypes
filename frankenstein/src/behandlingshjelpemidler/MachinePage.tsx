@@ -1,9 +1,13 @@
-import { useState } from 'react';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
-import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
+import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
+import EyebrowHeader from '@helsenorge/designsystem-react/components/EyebrowHeader';
+import HelpExpanderStandalone from '@helsenorge/designsystem-react/components/HelpExpanderStandalone';
+import Button from '@helsenorge/designsystem-react/components/Button';
+import Panel from '@helsenorge/designsystem-react/components/Panel';
+import { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import type { Equipment, AppView } from './data';
-import { EQUIPMENT_ICON } from './data';
 
 function formatDate(iso: string): string {
   // If already formatted as dd.mm.yyyy return as-is
@@ -42,28 +46,22 @@ interface MachinePageProps {
 }
 
 export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: MachinePageProps) {
-  const [helpOpen, setHelpOpen] = useState(false);
 
   return (
-    <div className="bhm-page-content">
-      <nav className="order-nav" aria-label="Brødsmulesti">
-        <button className="order-nav__back" onClick={onBack}>
+    <>
+      <nav className="breadcrumb" aria-label="Brødsmulesti">
+        <button className="breadcrumb__back" onClick={onBack}>
           <Icon svgIcon={ChevronLeft} size={38} />
           <span>Behandlingshjelpemidler</span>
         </button>
       </nav>
-      <hr className="bhm-divider" />
-      <div style={{ height: 'var(--space-s)' }} />
+      <hr className="page-divider" />
+      <div className="bhm-page-content">
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--space-s)', marginBottom: 'var(--space-xs)' }}>
-        <div style={{ width: 48, height: 48, flexShrink: 0 }}>
-          <img src={EQUIPMENT_ICON} alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
-        </div>
-        <div>
-          <div style={{ font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)' }}>{eq.name}</div>
-          <h1 className="page-title" style={{ margin: 0 }}>{eq.model}</h1>
-        </div>
-      </div>
+      <EyebrowHeader>
+        <EyebrowHeader.Subtitle>Ditt utstyr</EyebrowHeader.Subtitle>
+        <h1 style={{ font: 'var(--mobile-h1)', margin: 0 }}>{eq.model}</h1>
+      </EyebrowHeader>
 
       {eq.deaktivert && (
         <div className="deaktivert-banner">
@@ -73,118 +71,58 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
 
       {/* Details duolist */}
       <section style={{ marginBottom: 'var(--space-m)' }}>
-        <div className="duolist">
-          <div className="duolist__row">
-            <span className="duolist__key">Type</span>
-            <span className="duolist__value">{eq.details.type}</span>
-          </div>
-          <div className="duolist__row">
-            <span className="duolist__key">Produsent</span>
-            <span className="duolist__value">{eq.details.produsent}</span>
-          </div>
-          {eq.modelNo && (
-            <div className="duolist__row">
-              <span className="duolist__key">Modellnr.</span>
-              <span className="duolist__value">{eq.modelNo}</span>
-            </div>
-          )}
-          {/* If single unit (no units array, serial is in details) */}
-          {!eq.units && eq.details.serial && (
-            <div className="duolist__row">
-              <span className="duolist__key">Serienr.</span>
-              <span className="duolist__value">{eq.details.serial}</span>
-            </div>
-          )}
-          {!eq.units && eq.details.deliveryDate && (
-            <div className="duolist__row">
-              <span className="duolist__key">Utlevert</span>
-              <span className="duolist__value">{formatDate(eq.details.deliveryDate)}</span>
-            </div>
-          )}
-          {!eq.units && eq.details.owner && (
-            <div className="duolist__row">
-              <span className="duolist__key">Eier</span>
-              <span className="duolist__value">{eq.details.owner}</span>
-            </div>
-          )}
-        </div>
+        <Duolist boldColumn="first">
+          <DuolistGroup term="Type" description={eq.details.type} />
+          <DuolistGroup term="Produsent" description={eq.details.produsent} />
+          {eq.modelNo && <DuolistGroup term="Modellnr." description={eq.modelNo} />}
+          {!eq.units && eq.details.serial && <DuolistGroup term="Serienr." description={eq.details.serial} />}
+          {!eq.units && eq.details.deliveryDate && <DuolistGroup term="Utlevert" description={formatDate(eq.details.deliveryDate)} />}
+          {!eq.units && eq.details.owner && <DuolistGroup term="Eier" description={eq.details.owner} />}
+        </Duolist>
       </section>
 
       {/* Multiple units */}
       {eq.units && eq.units.length > 0 && (
-        <section style={{ marginBottom: 'var(--space-m)' }}>
-          <h2 style={{ font: 'var(--mobile-sublabel)', fontSize: '1rem', marginBottom: 'var(--space-xs)', color: 'var(--color-base-text-onlight-subdued)' }}>
-            Enheter ({eq.units.length})
-          </h2>
+        <section style={{ marginBottom: 'var(--space-m)', display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
           {eq.units.map(unit => (
-            <div className="unit-card" key={unit.serial}>
-              {unit.label && <div className="unit-card__label">{unit.label}</div>}
-              <div className="duolist">
-                <div className="duolist__row">
-                  <span className="duolist__key">Serienr.</span>
-                  <span className="duolist__value">{unit.serial}</span>
-                </div>
-                <div className="duolist__row">
-                  <span className="duolist__key">Utlevert</span>
-                  <span className="duolist__value">{formatDate(unit.deliveryDate)}</span>
-                </div>
-                <div className="duolist__row">
-                  <span className="duolist__key">Eier</span>
-                  <span className="duolist__value">{unit.owner}</span>
-                </div>
-              </div>
-            </div>
+            <Panel key={unit.serial} variant={PanelVariant.outline}>
+              <Panel.A>
+                <Duolist boldColumn="first">
+                  <DuolistGroup term="Serienr." description={unit.serial} />
+                  <DuolistGroup term="Utlevert" description={formatDate(unit.deliveryDate)} />
+                  <DuolistGroup term="Eier" description={unit.owner} />
+                </Duolist>
+              </Panel.A>
+            </Panel>
           ))}
         </section>
       )}
 
       {/* Help expander */}
-      <div className={`help-expander${helpOpen ? ' help-expander--open' : ''}`}>
-        <button className="help-expander__btn" onClick={() => setHelpOpen(!helpOpen)}>
-          <span>Om dette utstyret</span>
-          <span className="help-expander__chevron">
-            <Icon svgIcon={ChevronDown} size={24} />
-          </span>
-        </button>
-        {helpOpen && (
-          <div className="help-expander__body">
-            <p style={{ margin: 0 }}>
-              For spørsmål om utstyret, kontakt din behandler eller helseforetaket som eier utstyret.
-              Serienummer og eierinformasjon finner du i oversikten over.
-            </p>
-          </div>
-        )}
-      </div>
+      <HelpExpanderStandalone triggerText="Har du spørsmål om dette produktet?">
+        <p style={{ margin: 0 }}>
+          For spørsmål om utstyret, kontakt din behandler eller helseforetaket som eier utstyret.
+          Serienummer og eierinformasjon finner du i oversikten over.
+        </p>
+      </HelpExpanderStandalone>
 
       {/* Consumable section */}
       <div className="consumable-section">
-        <h2 className="consumable-section__title">Forbruksmateriell</h2>
+        <h2 style={{ font: 'var(--mobile-h2)', margin: '0 0 var(--space-s) 0' }}>Forbruksmateriell</h2>
         {eq.consumables.map((c, i) => {
           const status = getConsumableStatus(c.nextOrderDate, c.lastOrder, c.activeOrder, orderedDates);
           return (
-            <div className="consumable-status-row" key={i}>
-              <div className="consumable-status-row__info">
-                <p className="consumable-status-row__name">{c.name}</p>
-                {c.nextOrderDate && (
-                  <p className="consumable-status-row__meta">
-                    Neste bestilling: {formatDate(c.nextOrderDate)}
-                  </p>
-                )}
-                {c.lastOrder && !c.nextOrderDate && (
-                  <p className="consumable-status-row__meta">
-                    Sist bestilt: {formatDate(c.lastOrder)}
-                  </p>
-                )}
-              </div>
-              {status === 'active' && (
-                <span className="consumable-status-badge consumable-status-badge--active">Under levering</span>
+            <div key={i} style={{ marginBottom: 'var(--space-s)' }}>
+              <p style={{ margin: 0, font: 'var(--mobile-body)' }}>{c.name}</p>
+              {c.lastOrder && (
+                <p style={{ margin: 0, font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>
+                  Sist bestilt: {formatDate(c.lastOrder)}
+                </p>
               )}
-              {status === 'soon' && (
-                <span className="consumable-status-badge consumable-status-badge--warning">Bestill snart</span>
-              )}
-              {status === 'ok' && (
-                <span className="consumable-status-badge consumable-status-badge--ok">OK</span>
-              )}
+              {status === 'active'
+                ? <StatusDot variant="inprocess" text="Under levering" />
+                : <StatusDot variant="success" text="Kan bestilles" />
+              }
             </div>
           );
         })}
@@ -193,13 +131,16 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       {!eq.deaktivert && (
         <>
           <div style={{ height: 'var(--space-m)' }} />
-          <button className="btn-primary" onClick={() => onStartOrder(eq.id, 'machine')}>
-            Bestill forbruksmateriell
-          </button>
+          <div style={{ alignSelf: 'flex-start' }}>
+            <Button variant={PanelVariant.outline} onClick={() => onStartOrder(eq.id, 'machine')}>
+              Bestill
+            </Button>
+          </div>
         </>
       )}
 
       <div style={{ height: 'var(--space-l)' }} />
     </div>
+    </>
   );
 }

@@ -1,3 +1,6 @@
+import { useState } from 'react';
+import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
+import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import type { Equipment, DeliveryForm } from './data';
 
 interface Step4Props {
@@ -9,113 +12,99 @@ interface Step4Props {
   onBack: () => void;
 }
 
-function deliveryLabel(mode: string, delivery: DeliveryForm): string {
-  if (mode === 'post') {
-    const parts = [delivery.gate, `${delivery.postnr} ${delivery.sted}`.trim()].filter(Boolean);
-    return parts.join(', ');
-  }
-  if (mode === 'hentes') return 'Hentes på lager – St. Olavs sykehus';
-  if (mode === 'hentes2') return 'Hentes på sykehus – poliklinisk skranke';
+function deliveryModeLabel(mode: string): string {
+  if (mode === 'post') return 'Send i posten';
+  if (mode === 'hentes') return 'Hentes på lokasjon1';
+  if (mode === 'hentes2') return 'Hentes på lokasjon2';
   return '';
 }
 
 export default function Step4({ equipment, quantities, delivery, comment, onSubmit, onBack }: Step4Props) {
-  const selectedItems: { eqName: string; consumableName: string; qty: number }[] = [];
+  const [openIds, setOpenIds] = useState(new Set(['forbruksvarer', 'levering', 'kommentar']));
 
+  const toggle = (id: string, isExpanded: boolean) => {
+    setOpenIds(prev => {
+      const next = new Set(prev);
+      if (isExpanded) next.add(id);
+      else next.delete(id);
+      return next;
+    });
+  };
+
+  const selectedItems: { eqName: string; consumableName: string; qty: number }[] = [];
   for (const eq of equipment) {
     if (eq.deaktivert) continue;
     const qtys = quantities[eq.id] ?? [];
     eq.consumables.forEach((c, i) => {
       const qty = qtys[i] ?? 0;
-      if (qty > 0) {
-        selectedItems.push({ eqName: eq.model, consumableName: c.name, qty });
-      }
+      if (qty > 0) selectedItems.push({ eqName: eq.model, consumableName: c.name, qty });
     });
   }
 
   return (
     <div className="order-step">
       <h2 className="order-step__title">Oppsummering</h2>
-      <p style={{ font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)', margin: '0 0 var(--space-s) 0', fontSize: '1rem' }}>
+      <p style={{ font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)', margin: '0 0 var(--space-s) 0' }}>
         Sjekk at alt stemmer før du sender bestillingen.
       </p>
 
-      {/* Forbruksvarer */}
-      <div className="summary-section">
-        <div className="summary-section__header">Forbruksvarer</div>
-        <div className="summary-section__body">
+      <ExpanderList variant="line" color="white">
+        <ExpanderList.Expander
+          title="Forbruksvarer"
+          expanded={openIds.has('forbruksvarer')}
+          onExpand={isExpanded => toggle('forbruksvarer', isExpanded)}
+        >
           {selectedItems.length === 0 ? (
-            <p style={{ font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
+            <p style={{ font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
               Ingen produkter valgt.
             </p>
           ) : (
             <ul className="order-summary-list">
               {selectedItems.map((item, i) => (
-                <li key={i}>
-                  <span>
-                    <span style={{ fontWeight: 600 }}>{item.consumableName}</span>
-                    {' '}× {item.qty}
-                    <span style={{ color: 'var(--color-base-text-onlight-subdued)', fontWeight: 400 }}>
-                      {' '}({item.eqName})
-                    </span>
-                  </span>
+                <li key={i} style={{ font: 'var(--mobile-body)' }}>
+                  {item.qty}x {item.consumableName} til {item.eqName}
                 </li>
               ))}
             </ul>
           )}
-        </div>
-      </div>
+        </ExpanderList.Expander>
 
-      {/* Levering */}
-      <div className="summary-section">
-        <div className="summary-section__header">Levering</div>
-        <div className="summary-section__body">
-          <div className="duolist">
-            <div className="duolist__row">
-              <span className="duolist__key">Leveringsmåte</span>
-              <span className="duolist__value">
-                {delivery.mode === 'post' && 'Post'}
-                {delivery.mode === 'hentes' && 'Hentes på lager'}
-                {delivery.mode === 'hentes2' && 'Hentes på sykehus'}
-              </span>
-            </div>
+        <ExpanderList.Expander
+          title="Levering"
+          expanded={openIds.has('levering')}
+          onExpand={isExpanded => toggle('levering', isExpanded)}
+        >
+          <Duolist boldColumn="first">
+            <DuolistGroup term="Leveringsmåte" description={deliveryModeLabel(delivery.mode)} />
             {delivery.mode === 'post' && delivery.navn && (
-              <div className="duolist__row">
-                <span className="duolist__key">Navn</span>
-                <span className="duolist__value">{delivery.navn}</span>
-              </div>
+              <DuolistGroup term="Navn" description={delivery.navn} />
             )}
-            <div className="duolist__row">
-              <span className="duolist__key">Adresse</span>
-              <span className="duolist__value">{deliveryLabel(delivery.mode, delivery)}</span>
-            </div>
-          </div>
-        </div>
-      </div>
+            {delivery.mode === 'post' && (
+              <DuolistGroup
+                term="Adresse"
+                description={`${delivery.gate}, ${delivery.postnr} ${delivery.sted}`.trim()}
+              />
+            )}
+            {delivery.telefon && (
+              <DuolistGroup term="Telefon" description={delivery.telefon} />
+            )}
+          </Duolist>
+        </ExpanderList.Expander>
 
-      {/* Telefon */}
-      {delivery.telefon && (
-        <div className="summary-section">
-          <div className="summary-section__header">Telefon</div>
-          <div className="summary-section__body">
-            <span style={{ font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight)' }}>
-              {delivery.telefon}
-            </span>
-          </div>
-        </div>
-      )}
-
-      {/* Kommentar */}
-      {comment && (
-        <div className="summary-section">
-          <div className="summary-section__header">Kommentar</div>
-          <div className="summary-section__body">
-            <p style={{ font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight)', margin: 0 }}>
-              {comment}
+        <ExpanderList.Expander
+          title="Kommentar"
+          expanded={openIds.has('kommentar')}
+          onExpand={isExpanded => toggle('kommentar', isExpanded)}
+        >
+          {comment ? (
+            <p style={{ font: 'var(--mobile-body)', margin: 0 }}>{comment}</p>
+          ) : (
+            <p style={{ font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
+              Ingen kommentar.
             </p>
-          </div>
-        </div>
-      )}
+          )}
+        </ExpanderList.Expander>
+      </ExpanderList>
 
       <div className="order-step__actions">
         <button className="btn-primary" onClick={onSubmit}>

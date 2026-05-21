@@ -55,6 +55,8 @@ export interface SubmittedOrder {
   navn: string;
   telefon: string;
   comment: string;
+  levert?: string;
+  saksbehandlerKommentar?: string;
 }
 
 export const EQUIPMENT_ICON =
@@ -168,6 +170,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
     navn: 'Tore Hansen',
     telefon: '98765432',
     comment: '',
+    levert: '22.03.2026',
+    saksbehandlerKommentar: '',
   },
   {
     id: 'hist-2',
@@ -183,6 +187,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
     navn: 'Tore Hansen',
     telefon: '98765432',
     comment: 'Trenger litt ekstra denne gangen.',
+    levert: '13.02.2026',
+    saksbehandlerKommentar: 'Ekstra antall godkjent av behandler.',
   },
   {
     id: 'hist-3',
@@ -202,6 +208,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
     navn: 'Tore Hansen',
     telefon: '',
     comment: '',
+    levert: '03.02.2026',
+    saksbehandlerKommentar: '',
   },
   {
     id: 'hist-4',
@@ -217,5 +225,7 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
     navn: 'Tore Hansen',
     telefon: '98765432',
     comment: '',
+    levert: '18.01.2026',
+    saksbehandlerKommentar: '',
   },
 ];

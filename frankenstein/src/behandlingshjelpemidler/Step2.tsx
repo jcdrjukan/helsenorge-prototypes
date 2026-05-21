@@ -1,5 +1,8 @@
 import Select from '@helsenorge/designsystem-react/components/Select';
 import Input from '@helsenorge/designsystem-react/components/Input';
+import FormFieldTag from '@helsenorge/designsystem-react/components/FormFieldTag';
+import Panel from '@helsenorge/designsystem-react/components/Panel';
+import { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import type { DeliveryForm } from './data';
 
 interface Step2Props {
@@ -15,21 +18,27 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
     <div className="order-step">
       <h2 className="order-step__title">Leveringsdetaljer</h2>
 
-      <Select
-        label="Leveringsmåte"
-        selectId="deliverySelect"
-        value={delivery.mode}
-        onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange('mode', e.target.value)}
-      >
-        <option value="post">Send i posten</option>
-        <option value="hentes">Hentes på lager</option>
-        <option value="hentes2">Hentes på sykehus</option>
-      </Select>
+      {delivery.mode === 'post' && (
+        <div style={{ marginBottom: 'var(--space-s)' }}>
+          <FormFieldTag level="all-required" />
+        </div>
+      )}
+
+      <div style={{ marginBottom: 'var(--space-s)' }}>
+        <Select
+          label="Leveringsmåte"
+          selectId="deliverySelect"
+          value={delivery.mode}
+          onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange('mode', e.target.value)}
+        >
+          <option value="post">Send i posten</option>
+          <option value="hentes">Hentes på lokasjon1</option>
+          <option value="hentes2">Hentes på lokasjon2</option>
+        </Select>
+      </div>
 
       {delivery.mode === 'post' && (
         <div className="delivery-address-form">
-          <span className="field-tag field-tag--required">Alle felt må fylles ut</span>
-
           <Input
             label="Fullt navn"
             inputId="deliveryNavn"
@@ -89,27 +98,27 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
       )}
 
       {delivery.mode === 'hentes' && (
-        <div style={{ marginTop: 'var(--space-s)', padding: 'var(--space-xs) var(--space-s)', background: 'var(--neutral-50)', borderRadius: 'var(--radius-m)', border: '1px solid var(--neutral-200)' }}>
-          <p style={{ font: 'var(--mobile-sublabel)', color: 'var(--color-base-text-onlight)', margin: 0 }}>
-            Medisinsk utstyrssentralen
-          </p>
-          <p style={{ font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: '4px 0 0 0' }}>
-            St. Olavs sykehus, Øst for Eir-bygget<br />
-            Åpningstider: Man–fre 08:00–15:30
-          </p>
-        </div>
+        <Panel variant={PanelVariant.outline}>
+          <Panel.A>
+            <p style={{ font: 'var(--mobile-label)', margin: '0 0 4px 0' }}>Medisinsk utstyrssentralen</p>
+            <p style={{ font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
+              St. Olavs sykehus, Øst for Eir-bygget<br />
+              Åpningstider: Man–fre 08:00–15:30
+            </p>
+          </Panel.A>
+        </Panel>
       )}
 
       {delivery.mode === 'hentes2' && (
-        <div style={{ marginTop: 'var(--space-s)', padding: 'var(--space-xs) var(--space-s)', background: 'var(--neutral-50)', borderRadius: 'var(--radius-m)', border: '1px solid var(--neutral-200)' }}>
-          <p style={{ font: 'var(--mobile-sublabel)', color: 'var(--color-base-text-onlight)', margin: 0 }}>
-            Poliklinisk skranke
-          </p>
-          <p style={{ font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: '4px 0 0 0' }}>
-            St. Olavs sykehus, Hjerte-lunge-senteret<br />
-            Åpningstider: Man–fre 08:00–15:00
-          </p>
-        </div>
+        <Panel variant={PanelVariant.outline}>
+          <Panel.A>
+            <p style={{ font: 'var(--mobile-label)', margin: '0 0 4px 0' }}>Poliklinisk skranke</p>
+            <p style={{ font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
+              St. Olavs sykehus, Hjerte-lunge-senteret<br />
+              Åpningstider: Man–fre 08:00–15:00
+            </p>
+          </Panel.A>
+        </Panel>
       )}
 
       <div className="order-step__actions">
