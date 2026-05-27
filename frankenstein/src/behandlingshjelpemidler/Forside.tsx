@@ -10,7 +10,6 @@ import ElementHeader from '@helsenorge/designsystem-react/components/ElementHead
 import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
-import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import type { Equipment, SubmittedOrder, AppView } from './data';
 import { EQUIPMENT_ICON } from './data';
 
@@ -21,52 +20,52 @@ interface OrderCardProps {
 function OrderCard({ order }: OrderCardProps) {
   const [open, setOpen] = useState(false);
 
+  const activeItems = order.equipmentItems.filter(({ quantities }) => quantities.some(q => q > 0));
+  const machineNames = activeItems.map(({ eq }) => eq.model).join(', ');
+  const produktnavn = activeItems.map(({ eq }) => eq.model).join(', ');
+  const type = activeItems.map(({ eq }) => eq.details.type).join(', ');
+  const allItems = order.equipmentItems.flatMap(({ eq, quantities }) =>
+    eq.consumables
+      .map((c, i) => ({ name: c.name, qty: quantities[i] ?? 0 }))
+      .filter(x => x.qty > 0)
+  );
+
   const titleEl = (
     <span>
-      <StatusDot variant="inprocess" text="Under levering" />
-      <span style={{ display: 'block', font: 'var(--mobile-body-strong)', marginTop: '2px' }}>
-        Bestilling sendt {order.date}
-      </span>
+      <span style={{ display: 'block', font: 'var(--mobile-body-strong)' }}>{machineNames}</span>
+      <span style={{ display: 'block', font: 'var(--mobile-body)' }}>{order.date}</span>
     </span>
   );
 
+  const Field = ({ label, value }: { label: string; value?: string }) => {
+    if (!value) return null;
+    return (
+      <div>
+        <p style={{ font: 'var(--mobile-body-strong)', margin: 0 }}>{label}</p>
+        <p style={{ font: 'var(--mobile-body)', margin: 0 }}>{value}</p>
+      </div>
+    );
+  };
+
   return (
     <ExpanderList variant="line" color="white">
-      <ExpanderList.Expander
-        title={titleEl}
-        expanded={open}
-        onExpand={setOpen}
-      >
-        {order.equipmentItems.map(({ eq, quantities }) => {
-          const selected = eq.consumables.filter((_, i) => (quantities[i] ?? 0) > 0);
-          if (selected.length === 0) return null;
-          return (
-            <div key={eq.id} style={{ marginBottom: 'var(--space-xs)' }}>
-              <p style={{ font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: '0 0 4px 0' }}>
-                {eq.model}
-              </p>
-              <ul className="order-summary-list">
-                {eq.consumables.map((c, i) => {
-                  const qty = quantities[i] ?? 0;
-                  if (qty === 0) return null;
-                  return <li key={i} style={{ font: 'var(--mobile-body)' }}>{qty}x {c.name}</li>;
-                })}
-              </ul>
-            </div>
-          );
-        })}
-        <div style={{ marginTop: 'var(--space-xs)' }}><Duolist boldColumn="first">
-          <DuolistGroup
-            term="Levering"
-            description={
-              order.delivery === 'post' ? order.addr
-              : order.delivery === 'hentes' ? 'Hentes på lokasjon1'
-              : 'Hentes på lokasjon2'
-            }
-          />
-          {order.telefon && <DuolistGroup term="Telefon" description={order.telefon} />}
-          {order.comment && <DuolistGroup term="Kommentar" description={order.comment} />}
-        </Duolist></div>
+      <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+          <Field label="Produktnavn" value={produktnavn} />
+          <Field label="Type" value={type} />
+          <Field label="Bestilt" value={order.date} />
+          <Field label="Levert" value={order.levert} />
+          <Field label="Saksbehandler kommentar" value={order.saksbehandlerKommentar} />
+        </div>
+        <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />
+        <div>
+          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
+          <ul className="order-summary-list">
+            {allItems.map((item, i) => (
+              <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.qty}x {item.name}</li>
+            ))}
+          </ul>
+        </div>
       </ExpanderList.Expander>
     </ExpanderList>
   );
@@ -113,7 +112,7 @@ export default function Forside({
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-      <h1 style={{ font: 'var(--mobile-h1)', margin: 0 }}>Behandlings&shy;hjelpemidler</h1>
+      <h1 style={{ font: 'var(--mobile-h1)', margin: '48px 0 0 0' }}>Behandlings&shy;hjelpemidler</h1>
       <p style={{ font: 'var(--mobile-preamble)', margin: 0 }}>
         Her finner du utstyret ditt, kan bestille forbruksmateriell og se bestillingshistorikk.
       </p>
@@ -140,8 +139,11 @@ export default function Forside({
               >
                 <ElementHeader>
                   {status === 'active-order' && <StatusDot variant="inprocess" text="Under levering" />}
-                  <ElementHeader.Text firstText={eq.name} firstTextEmphasised />
-                  <ElementHeader.Text firstText={eq.model} subText />
+                  <ElementHeader.Text firstText={eq.model} firstTextEmphasised />
+                  <ElementHeader.Text firstText={eq.details.type} subText />
+                  {eq.units && eq.units.length > 1 && (
+                    <ElementHeader.Text firstText={`(${eq.units.length} enheter)`} subText />
+                  )}
                 </ElementHeader>
               </LinkList.Link>
             );
@@ -155,8 +157,11 @@ export default function Forside({
             >
               <ElementHeader>
                 <StatusDot variant="cancelled" text="Deaktivert" />
-                <ElementHeader.Text firstText={eq.name} firstTextEmphasised />
-                <ElementHeader.Text firstText={eq.model} subText />
+                <ElementHeader.Text firstText={eq.model} firstTextEmphasised />
+                <ElementHeader.Text firstText={eq.details.type} subText />
+                {eq.units && eq.units.length > 1 && (
+                  <ElementHeader.Text firstText={`(${eq.units.length} enheter)`} subText />
+                )}
               </ElementHeader>
             </LinkList.Link>
           ))}
@@ -176,9 +181,11 @@ export default function Forside({
       {submittedOrders.length > 0 && (
         <section>
           <h2 className="section-h2">Aktive bestillinger</h2>
-          {[...submittedOrders].reverse().map(order => (
-            <OrderCard key={order.id} order={order} />
-          ))}
+          <div className="history-list">
+            {[...submittedOrders].reverse().map(order => (
+              <OrderCard key={order.id} order={order} />
+            ))}
+          </div>
         </section>
       )}
 

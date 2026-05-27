@@ -2,22 +2,20 @@ import { useState } from 'react';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
-import type { SubmittedOrder } from './data';
+import type { SubmittedOrder, DeliveryMode } from './data';
 
 interface HistoryCardProps {
   order: SubmittedOrder;
   initialOpen?: boolean;
 }
 
+function deliveryLabel(mode: DeliveryMode): string {
+  if (mode === 'post') return 'Send i posten';
+  return 'Hentes';
+}
+
 function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
   const [open, setOpen] = useState(initialOpen);
-
-  const activeItems = order.equipmentItems.filter(({ quantities }) => quantities.some(q => q > 0));
-
-  const machineNames = activeItems.map(({ eq }) => eq.model).join(', ');
-
-  const produktnavn = activeItems.map(({ eq }) => eq.model).join(', ');
-  const type = activeItems.map(({ eq }) => eq.details.type).join(', ');
 
   const allItems = order.equipmentItems.flatMap(({ eq, quantities }) =>
     eq.consumables
@@ -25,10 +23,14 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
       .filter(x => x.qty > 0)
   );
 
+  const itemCount = allItems.length;
+
   const titleEl = (
     <span>
-      <span style={{ display: 'block', font: 'var(--mobile-body)' }}>{order.date}</span>
-      <span style={{ display: 'block', font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>{machineNames}</span>
+      <span style={{ display: 'block', font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>{order.date}</span>
+      <span style={{ display: 'block', font: 'var(--mobile-body)' }}>
+        {itemCount} forbruksvare{itemCount !== 1 ? 'r' : ''}
+      </span>
     </span>
   );
 
@@ -46,23 +48,24 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
     <ExpanderList variant="line" color="white">
       <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <Field label="Produktnavn" value={produktnavn} />
-          <Field label="Type" value={type} />
-          <Field label="Bestilt" value={order.date} />
-          <Field label="Levert" value={order.levert} />
-          <Field label="Saksbehandler kommentar" value={order.saksbehandlerKommentar} />
+          <Field label="Ordredato" value={order.date} />
+          <Field label="Leveringsmåte" value={deliveryLabel(order.delivery)} />
+          <Field label="Adresse" value={order.addr} />
+          {order.comment && (
+            <>
+              <Field label="Kommentar til bestilling" value={order.comment} />
+              <Field label="Tilbakemelding fra saksbehandler" value={order.saksbehandlerKommentar} />
+            </>
+          )}
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />
 
-        <div>
-          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
-          <ul className="order-summary-list">
-            {allItems.map((item, i) => (
-              <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.qty}x {item.name}</li>
-            ))}
-          </ul>
-        </div>
+        <ul className="order-summary-list">
+          {allItems.map((item, i) => (
+            <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.qty}x {item.name}</li>
+          ))}
+        </ul>
       </ExpanderList.Expander>
     </ExpanderList>
   );
@@ -88,7 +91,7 @@ export default function HistoryView({ submittedOrders, historyEntries, onBack }:
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-        <h1 style={{ font: 'var(--mobile-h1)', margin: 0 }}>Bestillingshistorikk</h1>
+        <h1 style={{ font: 'var(--mobile-h1)', margin: '48px 0 0 0' }}>Bestillingshistorikk</h1>
         <p style={{ font: 'var(--mobile-preamble)', margin: 0 }}>
           Her finner du tidligere bestillinger av forbruksmateriell.
         </p>
@@ -98,7 +101,7 @@ export default function HistoryView({ submittedOrders, historyEntries, onBack }:
             Ingen tidligere bestillinger.
           </p>
         ) : (
-          <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column' }}>
+          <div className="history-list" style={{ marginTop: '1rem' }}>
             {allOrders.map((order, i) => (
               <HistoryCard
                 key={order.id}
