@@ -28,7 +28,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
   const titleEl = (
     <span>
       <span style={{ display: 'block', font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>{order.date}</span>
-      <span style={{ display: 'block', font: 'var(--mobile-body)' }}>
+      <span style={{ display: 'block', font: 'var(--mobile-body-strong)' }}>
         {itemCount} forbruksvare{itemCount !== 1 ? 'r' : ''}
       </span>
     </span>
