@@ -76,13 +76,16 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
         >
           <Duolist boldColumn="first">
             <DuolistGroup term="Leveringsmåte" description={deliveryModeLabel(delivery.mode)} />
-            {delivery.mode === 'post' && delivery.navn && (
-              <DuolistGroup term="Navn" description={delivery.navn} />
-            )}
             {delivery.mode === 'post' && (
               <DuolistGroup
                 term="Adresse"
-                description={`${delivery.gate}, ${delivery.postnr} ${delivery.sted}`.trim()}
+                description={
+                  <span>
+                    {delivery.navn && <>{delivery.navn}<br /></>}
+                    {delivery.gate}<br />
+                    {`${delivery.postnr} ${delivery.sted}`.trim()}
+                  </span>
+                }
               />
             )}
             {delivery.telefon && (

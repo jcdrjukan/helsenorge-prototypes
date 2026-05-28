@@ -52,6 +52,7 @@ export interface SubmittedOrder {
   equipmentItems: { eq: Equipment; quantities: number[] }[];
   delivery: DeliveryMode;
   addr: string;
+  poststed?: string;
   navn: string;
   telefon: string;
   comment: string;
@@ -166,7 +167,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
       },
     ],
     delivery: 'post',
-    addr: 'Bjørnveien 14, 7030 Trondheim',
+    addr: 'Bjørnveien 14',
+    poststed: '7030 Trondheim',
     navn: 'Tore Hansen',
     telefon: '98765432',
     comment: '',
@@ -183,7 +185,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
       },
     ],
     delivery: 'post',
-    addr: 'Bjørnveien 14, 7030 Trondheim',
+    addr: 'Bjørnveien 14',
+    poststed: '7030 Trondheim',
     navn: 'Tore Hansen',
     telefon: '98765432',
     comment: 'Trenger litt ekstra denne gangen.',
@@ -204,7 +207,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
       },
     ],
     delivery: 'post',
-    addr: 'Bjørnveien 14, 7030 Trondheim',
+    addr: 'Bjørnveien 14',
+    poststed: '7030 Trondheim',
     navn: 'Tore Hansen',
     telefon: '98765432',
     comment: 'Barnebarnet mitt ødela den lange slangen jeg har og den korte er nesten tett, så håper ordren kan ferdigbehandles fort.',

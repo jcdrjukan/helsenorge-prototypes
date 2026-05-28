@@ -115,10 +115,15 @@ export default function Behandlingshjelpemidler() {
 
     const addrStr =
       delivery.mode === 'post'
-        ? `${delivery.gate}, ${delivery.postnr} ${delivery.sted}`.trim()
+        ? delivery.gate.trim()
         : delivery.mode === 'hentes'
         ? 'St. Olavs sykehus, Medisinsk utstyrssentralen'
         : 'St. Olavs sykehus, Poliklinisk skranke';
+
+    const poststedStr =
+      delivery.mode === 'post'
+        ? `${delivery.postnr} ${delivery.sted}`.trim()
+        : undefined;
 
     const newOrder: SubmittedOrder = {
       id: `order-${Date.now()}`,
@@ -126,6 +131,7 @@ export default function Behandlingshjelpemidler() {
       equipmentItems,
       delivery: delivery.mode as DeliveryMode,
       addr: addrStr,
+      poststed: poststedStr,
       navn: delivery.navn,
       telefon: delivery.telefon,
       comment,

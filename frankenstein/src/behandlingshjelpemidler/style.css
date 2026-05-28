@@ -8,6 +8,7 @@
   --blueberry-500: #188097;
   --blueberry-600: #126F87;
   --blueberry-700: #08667C;
+  --cherry-400: #D56147;
   --cherry-500: #C83521;
   --cherry-700: #A31F0E;
   --kiwi-700: #0CA161;
@@ -1194,12 +1195,15 @@
    ===================================================================== */
 .step1-error {
   background: var(--color-notification-background-error);
-  border: 1px solid var(--color-notification-border-error);
-  border-radius: var(--radius-s);
-  padding: var(--space-xs) var(--space-s);
-  font: var(--mobile-sublabel);
+  border-top: 1px solid var(--cherry-400);
+  border-right: 1px solid var(--cherry-400);
+  border-bottom: 1px solid var(--cherry-400);
+  border-left: 4px solid var(--cherry-700);
+  border-radius: 0;
+  padding: 16px 24px 32px;
+  font: var(--mobile-label);
   color: var(--cherry-700);
-  margin-bottom: var(--space-s);
+  margin-bottom: var(--space-m);
 }
 
 /* =====================================================================

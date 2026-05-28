@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
@@ -34,7 +34,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
     </span>
   );
 
-  const Field = ({ label, value }: { label: string; value?: string }) => {
+  const Field = ({ label, value }: { label: string; value?: React.ReactNode }) => {
     if (!value) return null;
     return (
       <div>
@@ -50,7 +50,11 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Field label="Ordredato" value={order.date} />
           <Field label="Leveringsmåte" value={deliveryLabel(order.delivery)} />
-          <Field label="Adresse" value={order.addr} />
+          <Field label="Adresse" value={
+            order.delivery === 'post'
+              ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
+              : order.addr
+          } />
           {order.comment && (
             <>
               <Field label="Kommentar til bestilling" value={order.comment} />
