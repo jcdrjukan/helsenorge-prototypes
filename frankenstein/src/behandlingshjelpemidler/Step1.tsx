@@ -80,12 +80,6 @@ export default function Step1({
         Velg antall for hvert produkt du vil bestille.
       </p>
 
-      {showError && (
-        <div className="step1-error" role="alert">
-          Du må velge minst ett produkt før du kan gå videre.
-        </div>
-      )}
-
       <ExpanderList variant="line" color="white">
         {activeEquipment.map(eq => {
           const eqQtys = quantities[eq.id] ?? eq.consumables.map(() => 0);
@@ -153,6 +147,11 @@ export default function Step1({
       </ExpanderList>
 
       <div className="order-step__actions">
+        {showError && (
+          <p role="alert" style={{ margin: '0 0 var(--space-xs) 0', font: 'var(--mobile-label)', color: 'var(--cherry-700)' }}>
+            Du må velge minst et produkt
+          </p>
+        )}
         <button className="btn-primary" onClick={handleNext}>
           Neste: Levering
         </button>
