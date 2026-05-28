@@ -1209,6 +1209,10 @@
 /* =====================================================================
    Deaktivert banner
    ===================================================================== */
+.bhm-deaktivert-panel {
+  margin-top: 1rem;
+}
+
 .deaktivert-banner {
   background: var(--neutral-100);
   border: 1px solid var(--neutral-300);

@@ -32,6 +32,7 @@ export interface Equipment {
   details: EquipmentDetails;
   consumables: Consumable[];
   deaktivert?: boolean;
+  deaktivertMessage?: string;
 }
 
 export type DeliveryMode = 'post' | 'hentes' | 'hentes2';
@@ -148,6 +149,7 @@ export const EQUIPMENT: Equipment[] = [
     model: 'OmniPod DASH PDM',
     modelNo: 'PDM-USA1-D001-MG-NO1',
     deaktivert: true,
+    deaktivertMessage: 'Dette utstyret er nå deaktivert og skal returneres til Behandlingshjelpemiddel-sentralen på St. Olavs sykehus. Kirkeveien 123, Trondheim. Åpningstider 08:30–16:00. Telefon: 987 65 432.',
     details: { type: 'Infusjon, pumpe, insulin, bærbar', produsent: 'Insulet', serial: '040500-18348', deliveryDate: '11.01.2022', owner: 'St. Olavs sykehus', url: '...' },
     consumables: [
       { name: 'Plaster film PodPals OmniPod [Frp 10 stk/pk]', quota: '' },

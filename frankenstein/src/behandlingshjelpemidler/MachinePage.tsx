@@ -7,6 +7,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel from '@helsenorge/designsystem-react/components/Panel';
 import { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
+import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import type { Equipment, AppView } from './data';
 
 function formatDate(iso: string): string {
@@ -66,9 +67,11 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       </div>
 
       {eq.deaktivert && (
-        <div className="deaktivert-banner">
-          Dette utstyret er deaktivert. Du kan ikke bestille forbruksmateriell til det.
-        </div>
+        <NotificationPanel variant="warn" className="bhm-deaktivert-panel">
+          <p style={{ margin: 0, fontWeight: 400 }}>
+            {eq.deaktivertMessage ?? 'Dette utstyret er deaktivert. Du kan ikke bestille forbruksmateriell til det.'}
+          </p>
+        </NotificationPanel>
       )}
 
       {/* Details duolist */}
@@ -109,26 +112,28 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       </HelpExpanderStandalone>
 
       {/* Consumable section */}
-      <div className="consumable-section">
-        <h2 style={{ font: 'var(--mobile-h2)', margin: '0 0 var(--space-s) 0' }}>Forbruksmateriell</h2>
-        {eq.consumables.map((c, i) => {
-          const status = getConsumableStatus(c.nextOrderDate, c.lastOrder, c.activeOrder, orderedDates);
-          return (
-            <div key={i} style={{ marginBottom: 'var(--space-s)' }}>
-              <p style={{ margin: 0, font: 'var(--mobile-body)' }}>{c.name}</p>
-              {c.lastOrder && (
-                <p style={{ margin: 0, font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>
-                  Sist bestilt: {formatDate(c.lastOrder)}
-                </p>
-              )}
-              {status === 'active'
-                ? <StatusDot variant="inprocess" text="Under levering" />
-                : <StatusDot variant="success" text="Kan bestilles" />
-              }
-            </div>
-          );
-        })}
-      </div>
+      {!eq.deaktivert && (
+        <div className="consumable-section">
+          <h2 style={{ font: 'var(--mobile-h2)', margin: '0 0 var(--space-s) 0' }}>Forbruksmateriell</h2>
+          {eq.consumables.map((c, i) => {
+            const status = getConsumableStatus(c.nextOrderDate, c.lastOrder, c.activeOrder, orderedDates);
+            return (
+              <div key={i} style={{ marginBottom: 'var(--space-s)' }}>
+                <p style={{ margin: 0, font: 'var(--mobile-body)' }}>{c.name}</p>
+                {c.lastOrder && (
+                  <p style={{ margin: 0, font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>
+                    Sist bestilt: {formatDate(c.lastOrder)}
+                  </p>
+                )}
+                {status === 'active'
+                  ? <StatusDot variant="inprocess" text="Under levering" />
+                  : <StatusDot variant="success" text="Kan bestilles" />
+                }
+              </div>
+            );
+          })}
+        </div>
+      )}
 
       {!eq.deaktivert && (
         <>
