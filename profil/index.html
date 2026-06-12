@@ -937,6 +937,38 @@
               </div>
             </div>
 
+            <!-- ── Egne helsekontakter ───────────────────────────── -->
+            <div class="ereg-section">
+              <div class="ereg-section__header">
+                <h2 class="ereg-section__title">Egne helsekontakter</h2>
+              </div>
+              <p class="ereg-section__intro">Her kan du registrere andre helsekontakter og terapeuter som du bruker privat.</p>
+              <button class="btn-outline" style="align-self:flex-start;"><svg width="20" height="20" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M25.254 22.746V7.993h-2.506v14.753H7.993v2.506h14.755v14.755h2.506V25.252h14.753v-2.506z"/></svg>Registrer</button>
+              <div class="ereg-section__body" style="flex-direction:column;gap:0;">
+                <ul class="sykdom-list">
+
+                  <li class="sykdom-expander" id="helsekontakt-1">
+                    <button class="sykdom-expander__trigger" onclick="toggleSykdom('helsekontakt-1')" aria-expanded="false">
+                      <span class="sykdom-expander__title">
+                        <span class="sykdom-expander__name">Shasta Dawn</span>
+                        <span class="sykdom-expander__comment">Aromaterapeut</span>
+                        <span class="sykdom-expander__comment">Nesoddtangen</span>
+                        <span class="sykdom-expander__comment">998 87 665</span>
+                      </span>
+                      <span class="sykdom-expander__chevron" aria-hidden="true">
+                        <svg width="22" height="22" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.79 14.159l1.42 1.409L19 23.841l-8.21-8.274 1.42-1.408L19 21.002l6.79-6.843z" fill="currentColor"/></svg>
+                      </span>
+                    </button>
+                    <div class="sykdom-expander__body">
+                      <button class="btn-outline">Endre</button>
+                      <button class="btn-outline" style="color:var(--cherry-500);border-color:var(--cherry-500);">Slett</button>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+            </div>
+
             <!-- ── Egenregistrert sykdomshistorikk ───────────── -->
             <div class="ereg-section">
               <div class="ereg-section__header">
@@ -1072,7 +1104,7 @@
                             <circle cx="12" cy="12" r="10" fill="var(--kiwi-800)"/>
                             <polyline points="7 12.5 10.5 16 17 8.5" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
                           </svg>
-                          Du er registrert som organdonor
+                          Du har opprettet donorkort
                         </span>
                       </span>
                       <span class="sykdom-expander__chevron" aria-hidden="true">
