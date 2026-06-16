@@ -11,16 +11,19 @@ import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Behandlingshjelpemidler from './behandlingshjelpemidler';
+import PsykiskHelse from './psykisk-helse';
 import './App.css';
 
-type Prototype = 'prover' | 'behandlingshjelpemidler';
+type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse';
 
 function getInitialPrototype(): Prototype {
   const hash = window.location.hash.slice(1);
-  return hash === 'behandlingshjelpemidler' ? 'behandlingshjelpemidler' : 'prover';
+  if (hash === 'behandlingshjelpemidler') return 'behandlingshjelpemidler';
+  if (hash === 'psykisk-helse') return 'psykisk-helse';
+  return 'prover';
 }
 
-const directLink = window.location.hash.slice(1) === 'behandlingshjelpemidler';
+const directLink = ['behandlingshjelpemidler', 'psykisk-helse'].includes(window.location.hash.slice(1));
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
@@ -46,6 +49,12 @@ function App() {
             onClick={() => switchPrototype('behandlingshjelpemidler')}
           >
             Behandlingshjelpemidler
+          </button>
+          <button
+            className={`prototype-switcher__btn${prototype === 'psykisk-helse' ? ' prototype-switcher__btn--active' : ''}`}
+            onClick={() => switchPrototype('psykisk-helse')}
+          >
+            Psykisk helse
           </button>
         </div>
       )}
@@ -113,6 +122,7 @@ function App() {
           )}
 
           {prototype === 'behandlingshjelpemidler' && <Behandlingshjelpemidler />}
+          {prototype === 'psykisk-helse' && <PsykiskHelse />}
         </div>
         <div className="phone-frame__home" />
       </div>
