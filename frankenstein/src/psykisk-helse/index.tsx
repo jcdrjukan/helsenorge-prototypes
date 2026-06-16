@@ -124,7 +124,7 @@ const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
               <li>mer kontroll over dine følelser</li>
             </ul>
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
             <p className="ph-cta-text">Ta en kort quiz så kan vi sette sammen noen nyttige tips til deg:</p>
             <Button variant="fill" arrow="icon" onClick={() => setView('quiz1')}>
               Start quiz
