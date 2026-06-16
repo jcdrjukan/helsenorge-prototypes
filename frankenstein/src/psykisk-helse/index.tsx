@@ -6,6 +6,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
+import Login from '@helsenorge/designsystem-react/components/Icons/Login';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
@@ -57,7 +58,7 @@ export default function PsykiskHelse() {
     setVisited(prev => new Set([...prev, id]));
   };
 
-const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
+  const breadcrumbLabel = (view === 'front' || view === 'results') ? 'Forside' : 'Mental helse';
   const breadcrumbAction = () => {
     if (view === 'quiz2') setView('quiz1');
     else if (view === 'results') setView('front');
@@ -83,31 +84,36 @@ const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
               <Icon svgIcon={Search} size={38} />
               <span className="nav-icon-btn__label">Søk</span>
             </button>
-            <button className="nav-icon-btn" aria-label="Logg ut">
-              <Icon svgIcon={Logout} size={38} />
-              <span className="nav-icon-btn__label">Logg ut</span>
-            </button>
+            {view === 'front' ? (
+              <button className="nav-icon-btn" aria-label="Logg inn" onClick={() => setView('quiz1')}>
+                <Icon svgIcon={Login} size={38} />
+                <span className="nav-icon-btn__label">Logg inn</span>
+              </button>
+            ) : (
+              <button className="nav-icon-btn" aria-label="Logg ut">
+                <Icon svgIcon={Logout} size={38} />
+                <span className="nav-icon-btn__label">Logg ut</span>
+              </button>
+            )}
           </nav>
         </div>
-        <button className="profile-bar" aria-label="Brukermeny">
-          <Avatar color="blueberry" size="xsmall">Tora Hansen</Avatar>
-          <span className="profile-bar__name">Tora Hansen</span>
-          <Icon svgIcon={ChevronDown} size={38} />
-        </button>
+        {view !== 'front' && (
+          <button className="profile-bar" aria-label="Brukermeny">
+            <Avatar color="blueberry" size="xsmall">Tora Hansen</Avatar>
+            <span className="profile-bar__name">Tora Hansen</span>
+            <Icon svgIcon={ChevronDown} size={38} />
+          </button>
+        )}
       </header>
 
-      {/* ── Breadcrumb (not on front) ───────────────────────────── */}
-      {view !== 'front' && (
-        <>
-          <nav className="breadcrumb" aria-label="Brødsmulesti">
-            <button className="breadcrumb__back" onClick={breadcrumbAction}>
-              <Icon svgIcon={ChevronLeft} size={38} />
-              <span>{breadcrumbLabel}</span>
-            </button>
-          </nav>
-          <hr className="page-divider" />
-        </>
-      )}
+      {/* ── Breadcrumb ─────────────────────────────────────────── */}
+      <nav className="breadcrumb" aria-label="Brødsmulesti">
+        <button className="breadcrumb__back" onClick={breadcrumbAction}>
+          <Icon svgIcon={ChevronLeft} size={38} />
+          <span>{breadcrumbLabel}</span>
+        </button>
+      </nav>
+      <hr className="page-divider" />
 
       {/* ── Front page ─────────────────────────────────────────── */}
       {view === 'front' && (
