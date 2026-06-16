@@ -2,13 +2,13 @@ import { useState } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
+import Button from '@helsenorge/designsystem-react/components/Button';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
-import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
 import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
@@ -131,10 +131,9 @@ export default function PsykiskHelse() {
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             <p className="ph-cta-text">Ta en kort quiz så kan vi sette sammen noen nyttige tips til deg:</p>
-            <button className="ph-btn-primary" onClick={() => setView('quiz1')}>
+            <Button variant="fill" arrow="icon" onClick={() => setView('quiz1')}>
               Start quiz
-              <Icon svgIcon={ArrowRight} size={38} />
-            </button>
+            </Button>
           </div>
 
           {/* Emergency panel */}
@@ -174,14 +173,8 @@ export default function PsykiskHelse() {
             ))}
           </ul>
           <div className="ph-quiz-nav">
-            <button
-              className="ph-btn-primary"
-              onClick={() => setView('quiz2')}
-            >
-              Neste
-              <Icon svgIcon={ArrowRight} size={38} />
-            </button>
-            <button className="ph-btn-link" onClick={() => setView('front')}>Avbryt</button>
+            <Button variant="fill" arrow="icon" onClick={() => setView('quiz2')}>Neste</Button>
+            <Button variant="borderless" onClick={() => setView('front')}>Avbryt</Button>
           </div>
         </main>
       )}
@@ -205,18 +198,12 @@ export default function PsykiskHelse() {
             ))}
           </ul>
           <div className="ph-quiz-nav">
-            <button className="ph-btn-secondary" onClick={() => setView('quiz1')}>
+            <Button variant="outline" onClick={() => setView('quiz1')}>
               <Icon svgIcon={ChevronLeft} size={38} />
               forrige
-            </button>
-            <button
-              className="ph-btn-primary"
-              onClick={() => setView('results')}
-            >
-              Neste
-              <Icon svgIcon={ArrowRight} size={38} />
-            </button>
-            <button className="ph-btn-link" onClick={() => setView('front')}>Avbryt</button>
+            </Button>
+            <Button variant="fill" arrow="icon" onClick={() => setView('results')}>Neste</Button>
+            <Button variant="borderless" onClick={() => setView('front')}>Avbryt</Button>
           </div>
         </main>
       )}
@@ -250,23 +237,22 @@ export default function PsykiskHelse() {
                     <p className="ph-resource-card__time">{r.timeLabel}</p>
                     <p className="ph-resource-card__desc">{r.description}</p>
                     <div className="ph-resource-card__footer">
-                      <LinkList chevron>
-                        <LinkList.Link
-                          href={r.ctaUrl}
-                          onClick={() => visitResource(r.id)}
-                        >
-                          <ElementHeader>
-                            <ElementHeader.Text firstText={r.ctaLabel} />
-                          </ElementHeader>
-                        </LinkList.Link>
-                      </LinkList>
-                      <button
-                        className="ph-remove-btn"
+                      <Button
+                        variant="outline"
+                        arrow="icon"
+                        htmlMarkup="a"
+                        href={r.ctaUrl}
+                        onClick={() => visitResource(r.id)}
+                      >
+                        {r.ctaLabel}
+                      </Button>
+                      <Button
+                        variant="borderless"
                         onClick={() => removeResource(r.id)}
-                        aria-label={`Fjern ${r.title}`}
+                        ariaLabel={`Fjern ${r.title}`}
                       >
                         × Fjern
-                      </button>
+                      </Button>
                     </div>
                   </li>
                 ))}
@@ -290,23 +276,22 @@ export default function PsykiskHelse() {
                     <p className="ph-resource-card__time">{r.timeLabel}</p>
                     <p className="ph-resource-card__desc">{r.description}</p>
                     <div className="ph-resource-card__footer">
-                      <LinkList chevron>
-                        <LinkList.Link
-                          href={r.ctaUrl}
-                          onClick={() => visitResource(r.id)}
-                        >
-                          <ElementHeader>
-                            <ElementHeader.Text firstText={r.ctaLabel} />
-                          </ElementHeader>
-                        </LinkList.Link>
-                      </LinkList>
-                      <button
-                        className="ph-remove-btn"
+                      <Button
+                        variant="outline"
+                        arrow="icon"
+                        htmlMarkup="a"
+                        href={r.ctaUrl}
+                        onClick={() => visitResource(r.id)}
+                      >
+                        {r.ctaLabel}
+                      </Button>
+                      <Button
+                        variant="borderless"
                         onClick={() => removeResource(r.id)}
-                        aria-label={`Fjern ${r.title}`}
+                        ariaLabel={`Fjern ${r.title}`}
                       >
                         × Fjern
-                      </button>
+                      </Button>
                     </div>
                   </li>
                 ))}
@@ -316,9 +301,7 @@ export default function PsykiskHelse() {
 
           {/* Retake */}
           <div className="ph-retake-wrap">
-            <button className="ph-btn-secondary" onClick={() => setView('quiz1')}>
-              Start quiz på nytt
-            </button>
+            <Button variant="outline" onClick={() => setView('quiz1')}>Start quiz på nytt</Button>
           </div>
 
           {/* Ta kontakt */}
