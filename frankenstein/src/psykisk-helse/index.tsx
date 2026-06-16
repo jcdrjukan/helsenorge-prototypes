@@ -9,7 +9,7 @@ import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
-import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
+import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
@@ -227,33 +227,35 @@ export default function PsykiskHelse() {
               <h2 className="ph-section-heading">Verktøy</h2>
               <ul className="ph-resource-list">
                 {verktøy.map(r => (
-                  <li key={r.id} className="ph-resource-card">
-                    <div className="ph-resource-card__header">
-                      <h3 className="ph-resource-card__title">{r.title}</h3>
-                      {!visited.has(r.id) && (
-                        <StatusDot variant="inprocess" text="Ikke lest" />
-                      )}
-                    </div>
-                    <p className="ph-resource-card__time">{r.timeLabel}</p>
-                    <p className="ph-resource-card__desc">{r.description}</p>
-                    <div className="ph-resource-card__footer">
-                      <Button
-                        variant="outline"
-                        arrow="icon"
-                        htmlMarkup="a"
-                        href={r.ctaUrl}
-                        onClick={() => visitResource(r.id)}
-                      >
-                        {r.ctaLabel}
-                      </Button>
-                      <Button
-                        variant="borderless"
-                        onClick={() => removeResource(r.id)}
-                        ariaLabel={`Fjern ${r.title}`}
-                      >
-                        × Fjern
-                      </Button>
-                    </div>
+                  <li key={r.id} style={{ marginBottom: '8px' }}>
+                    <Panel
+                      variant={PanelVariant.outline}
+                      status={visited.has(r.id) ? PanelStatus.none : PanelStatus.new}
+                    >
+                      <Panel.Title title={r.title} titleMarkup="h3" />
+                      <Panel.A>
+                        <p className="ph-resource-card__time">{r.timeLabel}</p>
+                        <p className="ph-resource-card__desc">{r.description}</p>
+                        <div className="ph-resource-card__footer">
+                          <Button
+                            variant="outline"
+                            arrow="icon"
+                            htmlMarkup="a"
+                            href={r.ctaUrl}
+                            onClick={() => visitResource(r.id)}
+                          >
+                            {r.ctaLabel}
+                          </Button>
+                          <Button
+                            variant="borderless"
+                            onClick={() => removeResource(r.id)}
+                            ariaLabel={`Fjern ${r.title}`}
+                          >
+                            × Fjern
+                          </Button>
+                        </div>
+                      </Panel.A>
+                    </Panel>
                   </li>
                 ))}
               </ul>
@@ -266,33 +268,35 @@ export default function PsykiskHelse() {
               <h2 className="ph-section-heading">Artikler</h2>
               <ul className="ph-resource-list">
                 {artikler.map(r => (
-                  <li key={r.id} className="ph-resource-card">
-                    <div className="ph-resource-card__header">
-                      <h3 className="ph-resource-card__title">{r.title}</h3>
-                      {!visited.has(r.id) && (
-                        <StatusDot variant="inprocess" text="Ikke lest" />
-                      )}
-                    </div>
-                    <p className="ph-resource-card__time">{r.timeLabel}</p>
-                    <p className="ph-resource-card__desc">{r.description}</p>
-                    <div className="ph-resource-card__footer">
-                      <Button
-                        variant="outline"
-                        arrow="icon"
-                        htmlMarkup="a"
-                        href={r.ctaUrl}
-                        onClick={() => visitResource(r.id)}
-                      >
-                        {r.ctaLabel}
-                      </Button>
-                      <Button
-                        variant="borderless"
-                        onClick={() => removeResource(r.id)}
-                        ariaLabel={`Fjern ${r.title}`}
-                      >
-                        × Fjern
-                      </Button>
-                    </div>
+                  <li key={r.id} style={{ marginBottom: '8px' }}>
+                    <Panel
+                      variant={PanelVariant.outline}
+                      status={visited.has(r.id) ? PanelStatus.none : PanelStatus.new}
+                    >
+                      <Panel.Title title={r.title} titleMarkup="h3" />
+                      <Panel.A>
+                        <p className="ph-resource-card__time">{r.timeLabel}</p>
+                        <p className="ph-resource-card__desc">{r.description}</p>
+                        <div className="ph-resource-card__footer">
+                          <Button
+                            variant="outline"
+                            arrow="icon"
+                            htmlMarkup="a"
+                            href={r.ctaUrl}
+                            onClick={() => visitResource(r.id)}
+                          >
+                            {r.ctaLabel}
+                          </Button>
+                          <Button
+                            variant="borderless"
+                            onClick={() => removeResource(r.id)}
+                            ariaLabel={`Fjern ${r.title}`}
+                          >
+                            × Fjern
+                          </Button>
+                        </div>
+                      </Panel.A>
+                    </Panel>
                   </li>
                 ))}
               </ul>
