@@ -36,7 +36,6 @@ export default function PsykiskHelse() {
   const [q1, setQ1] = useState<Set<string>>(new Set());
   const [q2, setQ2] = useState<Set<string>>(new Set());
   const [visited, setVisited] = useState<Set<string>>(new Set());
-  const [removed, setRemoved] = useState<Set<string>>(new Set());
 
   const toggleQ1 = (opt: string) => {
     setQ1(prev => {
@@ -58,18 +57,14 @@ export default function PsykiskHelse() {
     setVisited(prev => new Set([...prev, id]));
   };
 
-  const removeResource = (id: string) => {
-    setRemoved(prev => new Set([...prev, id]));
-  };
-
-  const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
+const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
   const breadcrumbAction = () => {
     if (view === 'quiz2') setView('quiz1');
     else if (view === 'results') setView('front');
     else setView('front');
   };
 
-  const visibleResources = RESOURCES.filter(r => !removed.has(r.id));
+  const visibleResources = RESOURCES;
   const verktøy = visibleResources.filter(r => r.category === 'verktøy');
   const artikler = visibleResources.filter(r => r.category === 'artikkel');
 
@@ -246,13 +241,6 @@ export default function PsykiskHelse() {
                           >
                             {r.ctaLabel}
                           </Button>
-                          <Button
-                            variant="borderless"
-                            onClick={() => removeResource(r.id)}
-                            ariaLabel={`Fjern ${r.title}`}
-                          >
-                            × Fjern
-                          </Button>
                         </div>
                       </Panel.A>
                     </Panel>
@@ -286,13 +274,6 @@ export default function PsykiskHelse() {
                             onClick={() => visitResource(r.id)}
                           >
                             {r.ctaLabel}
-                          </Button>
-                          <Button
-                            variant="borderless"
-                            onClick={() => removeResource(r.id)}
-                            ariaLabel={`Fjern ${r.title}`}
-                          >
-                            × Fjern
                           </Button>
                         </div>
                       </Panel.A>
