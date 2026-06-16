@@ -231,7 +231,7 @@ const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
                       <Panel.A>
                         <p className="ph-resource-card__time">{r.timeLabel}</p>
                         <p className="ph-resource-card__desc">{r.description}</p>
-                        <div className="ph-resource-card__footer">
+                        <div className="ph-resource-card__footer" style={{ marginTop: '1rem' }}>
                           <Button
                             variant="outline"
                             arrow="icon"
@@ -239,7 +239,7 @@ const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
                             href={r.ctaUrl}
                             onClick={() => visitResource(r.id)}
                           >
-                            {r.ctaLabel}
+                            Gå til verktøy
                           </Button>
                         </div>
                       </Panel.A>
@@ -265,7 +265,7 @@ const breadcrumbLabel = view === 'results' ? 'Forside' : 'Mental helse';
                       <Panel.A>
                         <p className="ph-resource-card__time">{r.timeLabel}</p>
                         <p className="ph-resource-card__desc">{r.description}</p>
-                        <div className="ph-resource-card__footer">
+                        <div className="ph-resource-card__footer" style={{ marginTop: '1rem' }}>
                           <Button
                             variant="outline"
                             arrow="icon"
