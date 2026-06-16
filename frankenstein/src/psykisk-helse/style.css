@@ -281,6 +281,9 @@
   margin: 0 0 8px;
 }
 
+/* ── Unauthenticated header border ───────────────────────────────── */
+.ph-header--unauth { border-bottom: 1px solid #D6D4D3; }
+
 /* ── Login select (ID-porten) ────────────────────────────────────── */
 .ph-login { display: flex; flex-direction: column; background: #f5f5f5; min-height: 100%; }
 

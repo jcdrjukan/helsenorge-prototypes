@@ -77,7 +77,7 @@ export default function PsykiskHelse() {
   return (
     <div className="ph-shell">
       {/* ── Header ─────────────────────────────────────────────── */}
-      <header className="header">
+      <header className={`header${(view === 'front' || view === 'loginSelect' || view === 'bankid') ? ' ph-header--unauth' : ''}`}>
         <div className="top-bar">
           <Logo size={80} />
           <nav className="top-nav">
