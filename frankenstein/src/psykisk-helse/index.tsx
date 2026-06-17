@@ -153,7 +153,7 @@ export default function PsykiskHelse() {
 
   const isAuthenticated = true;
 
-  const breadcrumbLabel = view === 'front' || view === 'results' ? 'Forside' : 'Mental helse';
+  const breadcrumbLabel = view === 'front' ? 'Forside' : 'Psykisk helse';
   const breadcrumbAction = () => {
     if (view === 'quiz2') setView('quiz1');
     else setView('front');
