@@ -13,6 +13,7 @@ import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
+import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import './style.css';
 
@@ -200,14 +201,31 @@ export default function PsykiskHelse() {
 
       {/* ── Frontpage ──────────────────────────────────────────── */}
       {view === 'front' && (
-        <main className="ph-page">
-          <h1 className="ph-hero-title">Forbedre din psykiske helse</h1>
+        <main className="ph-front">
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+          <div className="ph-front__content">
+            <h1 className="ph-hero-title">Psykisk helse</h1>
+          </div>
+
+          <div className="ph-front__hero ph-front__hero--dark" aria-hidden="true" />
+
+          <div className="ph-front__content">
             <p className="ph-preamble">
-              Mange opplever perioder med stress, søvnproblemer eller lav stemning. Du er ikke alene – og det finnes hjelp.
+              Det er normal å ha det vanskelig i perioder. Det er en del av å være et menneske. For deg som har det tøft for tida tilbyr Helsenorge en rekke kvalitetssikrede forslag som kan hjelpe.
             </p>
-            <p className="ph-preamble">Helsenorge tilbyr kvalitetssikrede selvhjelpsressurser som kan bidra til:</p>
+            <Button variant="fill" arrow="icon" fluid onClick={() => setView('quiz1')}>
+              Prøv veiviseren
+            </Button>
+          </div>
+
+          <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />
+
+          <div className="ph-front__content">
+            <h2 className="ph-front__section-title">Om veiviseren</h2>
+            <p className="ph-preamble">
+              Veiviseren består av noen enkle spørsmål (tar kun 1 minutt) og kan tilby hjelp akkurat nå – i ditt tempo, helt uforpliktende og anonym.
+            </p>
+            <p className="ph-cta-text">Du kan blant annet få hjelp til:</p>
             <ul className="ph-benefit-list">
               <li>bedre søvn</li>
               <li>bedre stresshåndtering</li>
@@ -215,24 +233,57 @@ export default function PsykiskHelse() {
             </ul>
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', alignItems: 'flex-start' }}>
-            <p className="ph-cta-text">Ta en kort quiz så kan vi sette sammen noen nyttige tips til deg:</p>
-            <Button variant="fill" arrow="icon" onClick={() => setView('quiz1')}>
-              Start quiz
-            </Button>
+          <div className="ph-front__content">
+            <a href="tel:116123" className="ph-emergency">
+              <div className="ph-emergency__icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 12 19.79 19.79 0 0 1 1.08 3.44 2 2 0 0 1 3.05 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+              </div>
+              <div className="ph-emergency__body">
+                <p className="ph-emergency__title">Ring 116 123</p>
+                <p className="ph-emergency__text">Ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+              </div>
+              <div style={{ color: '#126F87', alignSelf: 'center', flexShrink: 0 }}>
+                <Icon svgIcon={ChevronRight} size={38} />
+              </div>
+            </a>
           </div>
 
-          <a href="tel:116123" className="ph-emergency">
-            <div className="ph-emergency__icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 12 19.79 19.79 0 0 1 1.08 3.44 2 2 0 0 1 3.05 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-              </svg>
+          <footer className="ph-footer">
+            <div className="ph-footer__top">
+              <div className="ph-footer__row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                <div>
+                  <p className="ph-footer__link-title">23 32 70 00</p>
+                  <p className="ph-footer__link-sub">Veiledning helsenorge.no</p>
+                </div>
+              </div>
+              <div className="ph-footer__row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+                <p className="ph-footer__link-title">Hjelp og kontakt</p>
+              </div>
+              <div className="ph-footer__row">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <div className="ph-footer__lang">
+                  <span className="ph-footer__link-title">English</span>
+                  <span className="ph-footer__lang-sep" />
+                  <span className="ph-footer__link-title">Sámi</span>
+                </div>
+              </div>
             </div>
-            <div className="ph-emergency__body">
-              <p className="ph-emergency__title">Ring 116 123</p>
-              <p className="ph-emergency__text">Ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+            <div className="ph-footer__divider" />
+            <div className="ph-footer__links">
+              <a href="#" className="ph-footer__link">Om Helsenorge</a>
+              <a href="#" className="ph-footer__link">Personvern og nettsikkerhet</a>
+              <a href="#" className="ph-footer__link">Tilgjengelighetserklæring</a>
             </div>
-          </a>
+            <div className="ph-footer__divider" />
+            <a href="#" className="ph-footer__link">Last ned Helsenorge-appen</a>
+            <div className="ph-footer__divider" />
+            <p className="ph-footer__brand">Drives av Norsk helsenett SF</p>
+          </footer>
+
         </main>
       )}
 
