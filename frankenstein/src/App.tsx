@@ -16,14 +16,23 @@ import './App.css';
 
 type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse';
 
+// Detect dedicated per-prototype Netlify sites by hostname
+const hostname = window.location.hostname;
+const dedicatedPrototype: Prototype | null =
+  hostname.includes('psykisk') || hostname.includes('veiviser') ? 'psykisk-helse' :
+  hostname.includes('behandling') ? 'behandlingshjelpemidler' :
+  null;
+
 function getInitialPrototype(): Prototype {
+  if (dedicatedPrototype) return dedicatedPrototype;
   const hash = window.location.hash.slice(1);
   if (hash === 'behandlingshjelpemidler') return 'behandlingshjelpemidler';
   if (hash === 'psykisk-helse') return 'psykisk-helse';
   return 'prover';
 }
 
-const directLink = ['behandlingshjelpemidler', 'psykisk-helse'].includes(window.location.hash.slice(1));
+const directLink = !!dedicatedPrototype ||
+  ['behandlingshjelpemidler', 'psykisk-helse'].includes(window.location.hash.slice(1));
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
