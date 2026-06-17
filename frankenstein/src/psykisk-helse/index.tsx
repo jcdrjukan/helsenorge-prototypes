@@ -12,7 +12,7 @@ import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
-import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
+import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import './style.css';
 
 import {
@@ -320,7 +320,7 @@ export default function PsykiskHelse() {
 
           <div>
             <Button variant="outline" onClick={retake}>
-              <Icon svgIcon={ArrowRight} size={38} />
+              <Icon svgIcon={ArrowLeft} size={38} />
               Ta quizen på nytt
             </Button>
           </div>
