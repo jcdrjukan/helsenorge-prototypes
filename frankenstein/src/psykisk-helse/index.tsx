@@ -75,7 +75,7 @@ function ResourceCard({
     >
       <Panel.Title title={resource.title} titleMarkup="h3" />
       <Panel.A>
-        <div style={{ marginTop: '-0.5rem', marginBottom: '0.5rem' }}>
+        <div style={{ marginTop: '0rem', marginBottom: '0.5rem' }}>
           <CategoryTags tags={resource.tags} />
         </div>
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
