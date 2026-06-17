@@ -83,10 +83,14 @@ function ResourceCard({
           <Button
             variant="outline"
             arrow="icon"
-            htmlMarkup="a"
-            href={resource.url}
-            target="_blank"
-            onClick={() => onSeen(resource.id)}
+            onClick={() => {
+              onSeen(resource.id);
+              window.open(
+                resource.url,
+                '_blank',
+                'width=390,height=844,menubar=no,toolbar=no,location=yes,status=no,scrollbars=yes,resizable=yes'
+              );
+            }}
           >
             {resource.type === 'verktøy' ? 'Gå til verktøy' : 'Gå til artikkel'}
           </Button>
