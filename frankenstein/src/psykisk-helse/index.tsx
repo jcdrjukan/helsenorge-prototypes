@@ -36,11 +36,26 @@ function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
   );
 }
 
-function TypeBadge({ type }: { type: 'verktøy' | 'artikkel' }) {
+const TAG_LABELS: Record<string, string> = {
+  'sove-bedre':          'SØVN',
+  'angst':               'ANGST',
+  'stress':              'STRESS',
+  'nedstemthet':         'NEDSTEMTHET',
+  'rus-og-avhengighet':  'AVHENGIGHET',
+  'spilleavhengighet':   'SPILL',
+  'ensomhet-relasjoner': 'RELASJONER',
+  'generell-mestring':   'MESTRING',
+};
+
+function CategoryTags({ tags }: { tags: string[] }) {
   return (
-    <Tag variant="normal" color={type === 'verktøy' ? 'blueberry' : 'neutral'}>
-      {type === 'verktøy' ? 'Verktøy' : 'Artikkel'}
-    </Tag>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
+      {tags.map(tag => (
+        <Tag key={tag} variant="normal" color="blueberry">
+          {TAG_LABELS[tag] ?? tag.toUpperCase()}
+        </Tag>
+      ))}
+    </div>
   );
 }
 
@@ -61,7 +76,7 @@ function ResourceCard({
       <Panel.Title title={resource.title} titleMarkup="h3" />
       <Panel.A>
         <div style={{ marginTop: '-0.5rem', marginBottom: '0.5rem' }}>
-          <TypeBadge type={resource.type} />
+          <CategoryTags tags={resource.tags} />
         </div>
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
         <div style={{ marginTop: '1rem' }}>
