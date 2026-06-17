@@ -215,7 +215,7 @@ export default function PsykiskHelse() {
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er normal å ha det vanskelig i perioder. Det er en del av å være et menneske. For deg som har det tøft for tida tilbyr Helsenorge en rekke kvalitetssikrede forslag som kan hjelpe.
+              Det er normalt å ha det vanskelig i perioder. Det er en del av å være et menneske. For deg som har det tøft for tida, tilbyr Helsenorge en rekke kvalitetssikrede forslag. Prøv veiviseren vår og se hva vi kan tilby.
             </p>
             <Button variant="fill" arrow="icon" fluid onClick={() => setView('quiz1')}>
               Prøv veiviseren
