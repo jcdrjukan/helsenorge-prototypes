@@ -225,7 +225,7 @@ export default function PsykiskHelse() {
           <div className="ph-front__content">
             <h2 className="ph-front__section-title">Om veiviseren</h2>
             <p className="ph-preamble">
-              Veiviseren består av noen enkle spørsmål (tar kun 1 minutt) og kan tilby hjelp akkurat nå – i ditt tempo, helt uforpliktende og anonym.
+              Veiviseren består av noen enkle spørsmål (tar ca 1 minutt) og kan tilby hjelp nå – i ditt tempo, helt uforpliktende og helt anonym.
             </p>
             <p className="ph-cta-text">Du kan blant annet få hjelp til:</p>
             <ul className="ph-benefit-list">
