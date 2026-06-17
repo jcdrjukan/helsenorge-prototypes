@@ -60,7 +60,9 @@ function ResourceCard({
     >
       <Panel.Title title={resource.title} titleMarkup="h3" />
       <Panel.A>
-        <TypeBadge type={resource.type} />
+        <div style={{ marginTop: '-0.5rem', marginBottom: '0.5rem' }}>
+          <TypeBadge type={resource.type} />
+        </div>
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
         <div style={{ marginTop: '1rem' }}>
           <Button
