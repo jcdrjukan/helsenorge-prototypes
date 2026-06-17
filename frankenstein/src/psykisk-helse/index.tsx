@@ -296,8 +296,7 @@ export default function PsykiskHelse() {
       {view === 'quiz2' && (
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={2} />
-          <h1 className="ph-quiz-title">Er noen av disse relevant for deg?</h1>
-          <p className="ph-quiz-subtitle">Hva vil du ha hjelp med?</p>
+          <h1 className="ph-quiz-title">Hva ønsker du hjelp med nå?</h1>
           <ul className="ph-checkbox-list" role="list">
             {Q2_OPTIONS.map(opt => (
               <li key={opt}>

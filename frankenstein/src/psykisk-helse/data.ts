@@ -78,13 +78,13 @@ export const Q1_OPTIONS = [
 ];
 
 export const Q2_OPTIONS = [
-  'Å være mer aktiv',
-  'Bekymret for at jeg har en spiseforstyrrelse',
-  'Føle meg mindre ensom',
-  'Hjelp med en skadelig vane (alkohol, rusmidler, tobakk eller spill)',
-  'Føle meg bedre om meg selv',
-  'Håndtere hverdagen bedre',
-  'Hjelp med relasjonene mine',
-  'Forbedre mitt sosiale nettverk',
-  'Ingen av disse',
+  'Bli mindre plaget av bekymringer og angst',
+  'Få det bedre når jeg er nedstemt',
+  'Sove bedre',
+  'Håndtere stress og press i hverdagen',
+  'Endre forholdet mitt til alkohol eller rusmidler',
+  'Få bedre kontroll på spilling (penger/gambling)',
+  'Føle meg mindre ensom eller styrke relasjonene mine',
+  'Forstå meg selv og situasjonen min bedre',
+  'Noe annet / Ingen av disse',
 ];
