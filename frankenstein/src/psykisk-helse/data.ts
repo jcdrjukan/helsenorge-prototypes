@@ -101,6 +101,12 @@ export function computeResults(
 
 const LS_KEY = 'veiviser-seen';
 
+// Clear seen-status on every hard page refresh (new browser session)
+if (!sessionStorage.getItem('veiviser-session')) {
+  sessionStorage.setItem('veiviser-session', '1');
+  localStorage.removeItem(LS_KEY);
+}
+
 export function getSeenIds(): Set<string> {
   try {
     const raw = localStorage.getItem(LS_KEY);
