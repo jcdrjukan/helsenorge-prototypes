@@ -146,8 +146,6 @@ export default function PsykiskHelse() {
   };
 
   const retake = () => {
-    setQ1(new Set());
-    setQ2(new Set());
     setView('quiz1');
   };
 
