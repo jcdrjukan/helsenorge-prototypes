@@ -290,7 +290,7 @@ export default function PsykiskHelse() {
         <main className="ph-page">
           <div>
             <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 8px' }}>
-              Psykisk helse
+              Psykisk helse veiviser
             </h1>
             <p className="ph-results-intro">
               {results.isEmpty
