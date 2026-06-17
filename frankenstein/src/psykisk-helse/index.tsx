@@ -4,6 +4,7 @@ import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
@@ -37,9 +38,9 @@ function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
 
 function TypeBadge({ type }: { type: 'verktøy' | 'artikkel' }) {
   return (
-    <span className={`ph-type-badge ph-type-badge--${type === 'verktøy' ? 'verktoey' : 'artikkel'}`}>
+    <Tag variant="normal" color={type === 'verktøy' ? 'blueberry' : 'neutral'}>
       {type === 'verktøy' ? 'Verktøy' : 'Artikkel'}
-    </span>
+    </Tag>
   );
 }
 
