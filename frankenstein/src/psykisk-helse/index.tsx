@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
@@ -53,6 +53,11 @@ export default function PsykiskHelse() {
       return next;
     });
   };
+
+  useEffect(() => {
+    const el = document.querySelector('.phone-frame__screen');
+    if (el) el.scrollTop = 0;
+  }, [view]);
 
   const visitResource = (id: string) => {
     setVisited(prev => new Set([...prev, id]));
