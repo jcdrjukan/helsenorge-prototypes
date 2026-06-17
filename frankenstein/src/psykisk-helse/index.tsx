@@ -213,7 +213,7 @@ export default function PsykiskHelse() {
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er normalt å ha det vanskelig i perioder. Det er en del av å være et menneske. For deg som har det litt tøft for tida, tilbyr Helsenorge en rekke kvalitetssikrede forslag. Prøv veiviseren og se hva vi kan tilby.
+              Det er normalt å ha det vanskelig i perioder. Det er en del av å være et menneske. For deg som har det ekstratøft for tida, tilbyr Helsenorge en rekke kvalitetssikrede forslag som kan hjelpe. Prøv veiviseren og se hva vi kan tilby.
             </p>
             <Button variant="fill" arrow="icon" fluid onClick={() => setView('quiz1')}>
               Prøv veiviseren
@@ -393,7 +393,7 @@ export default function PsykiskHelse() {
           <div>
             <Button variant="outline" onClick={retake}>
               <Icon svgIcon={ArrowLeft} size={38} />
-              Start veiviser på nytt
+              Start veiviseren på nytt
             </Button>
           </div>
 
