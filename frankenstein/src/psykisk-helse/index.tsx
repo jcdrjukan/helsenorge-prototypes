@@ -391,7 +391,7 @@ export default function PsykiskHelse() {
           <div>
             <Button variant="outline" onClick={retake}>
               <Icon svgIcon={ArrowLeft} size={38} />
-              Ta quizen på nytt
+              Start veiviser på nytt
             </Button>
           </div>
 
