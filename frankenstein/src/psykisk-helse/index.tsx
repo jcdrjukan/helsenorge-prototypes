@@ -146,7 +146,7 @@ export default function PsykiskHelse() {
     setView('quiz1');
   };
 
-  const isAuthenticated = view !== 'front';
+  const isAuthenticated = true;
 
   const breadcrumbLabel = view === 'front' || view === 'results' ? 'Forside' : 'Mental helse';
   const breadcrumbAction = () => {
