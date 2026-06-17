@@ -1,90 +1,119 @@
-export type ResourceCategory = 'verktøy' | 'artikkel' | 'ekstern';
+import resourcesJson from './resources.json';
+
+export type Tag =
+  | 'sove-bedre'
+  | 'angst'
+  | 'stress'
+  | 'nedstemthet'
+  | 'rus-og-avhengighet'
+  | 'spilleavhengighet'
+  | 'ensomhet-relasjoner'
+  | 'generell-mestring';
+
+export type ResourceType = 'verktøy' | 'artikkel';
 
 export interface Resource {
   id: string;
-  category: ResourceCategory;
+  type: ResourceType;
   title: string;
-  timeLabel: string;
-  description: string;
-  ctaLabel: string;
-  ctaUrl: string;
+  shortDescription: string;
+  url: string;
+  tags: Tag[];
 }
 
-export const RESOURCES: Resource[] = [
-  // Verktøy
-  {
-    id: 'tankevirus',
-    category: 'verktøy',
-    title: 'Tankevirus',
-    timeLabel: '5 min/dag',
-    description: 'Tankevirus er en populær barne-/ungdomsapp som lærer deg å identifisere og håndtere negative tankemønstre.',
-    ctaLabel: 'Gå til appen',
-    ctaUrl: '#',
-  },
-  {
-    id: 'grubl',
-    category: 'verktøy',
-    title: 'Grubl',
-    timeLabel: '8 min/dag',
-    description: 'Bruk mindre tid på grubling og bekymring – et nettbasert selvhjelpsverktøy som hjelper deg å gruble mindre.',
-    ctaLabel: 'Gå til appen',
-    ctaUrl: '#',
-  },
-  {
-    id: 'sovnhjelp',
-    category: 'verktøy',
-    title: 'Søvnhjelpesiden mot kortvarige søvnvansker',
-    timeLabel: 'Video (13:36)',
-    description: 'Denne videoen gir deg innsikt i og konkrete teknikker for å beherske søvnvansker.',
-    ctaLabel: 'Gå til videoen',
-    ctaUrl: '#',
-  },
+export const RESOURCES: Resource[] = resourcesJson as Resource[];
 
-  // Artikler
-  {
-    id: 'pusteoevelser',
-    category: 'artikkel',
-    title: 'Pusteøvelser som roer',
-    timeLabel: '≈ 15 min',
-    description: 'Enkle teknikker som aktiverer kroppens avslapningsrespons og demper stress.',
-    ctaLabel: 'Gå til artikkelen',
-    ctaUrl: '#',
-  },
-  {
-    id: 'sovnhygiene',
-    category: 'artikkel',
-    title: 'God søvnhygiene',
-    timeLabel: '≈ 10 min',
-    description: 'Rutiner som gir bedre nattesøvn og mer energi gjennom dagen.',
-    ctaLabel: 'Gå til artikkelen',
-    ctaUrl: '#',
-  },
-  {
-    id: 'angst',
-    category: 'artikkel',
-    title: 'Slik kjenner du igjen angst',
-    timeLabel: '≈ 29 min',
-    description: 'Lær om uro, panikk og kroppslige reaksjoner – og hva du kan gjøre med dem.',
-    ctaLabel: 'Gå til artikkelen',
-    ctaUrl: '#',
-  },
+export interface QuizOption {
+  label: string;
+  tag: Tag | null;
+  exclusive?: boolean;
+}
+
+export const Q1_OPTIONS: QuizOption[] = [
+  { label: 'Søver dårlig', tag: 'sove-bedre' },
+  { label: 'Angst (uro, panikk, fobier)', tag: 'angst' },
+  { label: 'Stress (overbelastet, mye press)', tag: 'stress' },
+  { label: 'Dårlig humør (nedstemt, trist)', tag: 'nedstemthet' },
 ];
 
-export const Q1_OPTIONS = [
-  'Søver dårlig',
-  'Angst (uro, panikk, fobier)',
-  'Stress (overbelastet, mye press)',
-  'Dårlig humør (nedstemt, trist)',
+export const Q2_OPTIONS: QuizOption[] = [
+  { label: 'Bli mindre plaget av bekymringer og angst', tag: 'angst' },
+  { label: 'Få det bedre når jeg er nedstemt', tag: 'nedstemthet' },
+  { label: 'Sove bedre', tag: 'sove-bedre' },
+  { label: 'Håndtere stress og press i hverdagen', tag: 'stress' },
+  { label: 'Endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
+  { label: 'Få bedre kontroll på spilling (penger/gambling)', tag: 'spilleavhengighet' },
+  { label: 'Føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
+  { label: 'Forstå meg selv og situasjonen min bedre', tag: 'generell-mestring' },
+  { label: 'Noe annet / Ingen av disse', tag: null, exclusive: true },
 ];
 
-export const Q2_OPTIONS = [
-  'Bli mindre plaget av bekymringer og angst',
-  'Få det bedre når jeg er nedstemt',
-  'Sove bedre',
-  'Håndtere stress og press i hverdagen',
-  'Endre forholdet mitt til alkohol eller rusmidler',
-  'Få bedre kontroll på spilling (penger/gambling)',
-  'Føle meg mindre ensom eller styrke relasjonene mine',
-  'Forstå meg selv og situasjonen min bedre',
-  'Noe annet / Ingen av disse',
+const FALLBACK_IDS = [
+  'artikkel-rad-for-god-psykisk-helse',
+  'artikkel-abc-for-god-psykisk-helse',
+  'opp',
 ];
+
+export interface ScoredResults {
+  verktøy: Resource[];
+  artikler: Resource[];
+  isEmpty: boolean;
+}
+
+export function computeResults(
+  q1Selected: Set<string>,
+  q2Selected: Set<string>
+): ScoredResults {
+  const q1Tags = new Set<Tag>(
+    Q1_OPTIONS.filter(o => o.tag && q1Selected.has(o.label)).map(o => o.tag!)
+  );
+  const q2Tags = new Set<Tag>(
+    Q2_OPTIONS.filter(o => o.tag && q2Selected.has(o.label)).map(o => o.tag!)
+  );
+
+  const scored = RESOURCES.map(r => {
+    let score = 0;
+    r.tags.forEach(tag => {
+      if (q2Tags.has(tag)) score += 2;
+      if (q1Tags.has(tag)) score += 1;
+    });
+    return { resource: r, score };
+  }).filter(({ score }) => score > 0);
+
+  scored.sort((a, b) => b.score - a.score);
+  const ranked = scored.map(({ resource }) => resource);
+
+  if (ranked.length === 0) {
+    const fallback = RESOURCES.filter(r => FALLBACK_IDS.includes(r.id));
+    return {
+      verktøy: fallback.filter(r => r.type === 'verktøy'),
+      artikler: fallback.filter(r => r.type === 'artikkel'),
+      isEmpty: true,
+    };
+  }
+
+  return {
+    verktøy: ranked.filter(r => r.type === 'verktøy'),
+    artikler: ranked.filter(r => r.type === 'artikkel'),
+    isEmpty: false,
+  };
+}
+
+const LS_KEY = 'veiviser-seen';
+
+export function getSeenIds(): Set<string> {
+  try {
+    const raw = localStorage.getItem(LS_KEY);
+    return raw ? new Set(JSON.parse(raw)) : new Set<string>();
+  } catch {
+    return new Set<string>();
+  }
+}
+
+export function persistSeen(ids: Set<string>): void {
+  try {
+    localStorage.setItem(LS_KEY, JSON.stringify([...ids]));
+  } catch {
+    // ignore
+  }
+}

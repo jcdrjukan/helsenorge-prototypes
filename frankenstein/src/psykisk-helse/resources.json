@@ -1,0 +1,178 @@
+[
+  {
+    "id": "grubl",
+    "type": "verktøy",
+    "title": "Grubl",
+    "shortDescription": "Vil du bruke mindre tid på grubling og bekymring, men vet ikke hvordan? Da kan Grubl være appen for deg.",
+    "url": "https://tjenester.helsenorge.no/verktoy/4f7facd9-1dfe-4ee1-aa6c-9aea3c5ed1be",
+    "tags": ["angst", "stress"]
+  },
+  {
+    "id": "nettopp",
+    "type": "verktøy",
+    "title": "NettOpp",
+    "shortDescription": "NettOpp er en app som kan hjelpe barn og unge å håndtere negative hendelser på nett.",
+    "url": "https://tjenester.helsenorge.no/verktoy/91aead41-4154-4a45-827c-8b4ce2ec344a",
+    "tags": ["ensomhet-relasjoner"]
+  },
+  {
+    "id": "opp",
+    "type": "verktøy",
+    "title": "Opp",
+    "shortDescription": "En app for bedre psykisk helse og trivsel.",
+    "url": "https://tjenester.helsenorge.no/verktoy/c4bddc1b-0561-4b69-92b2-2017100b303e",
+    "tags": ["generell-mestring"]
+  },
+  {
+    "id": "selvhjelpsvideo-kortvarige-sovnvansker",
+    "type": "verktøy",
+    "title": "Selvhjelpsvideo mot kortvarige søvnvansker",
+    "shortDescription": "Denne videoen gir deg noen råd for å håndtere søvnvansker som har vart i en kort periode.",
+    "url": "https://tjenester.helsenorge.no/verktoy/8b9bc3fb-67ff-4d34-8274-2a75125bc7e2",
+    "tags": ["sove-bedre"]
+  },
+  {
+    "id": "selvhjelpsvideoer-depresjon",
+    "type": "verktøy",
+    "title": "Selvhjelpsvideoer mot depresjon",
+    "shortDescription": "I programmet lærer du om depresjon og hva du kan gjøre for å få det bedre.",
+    "url": "https://tjenester.helsenorge.no/verktoy/66494994-e94a-40e8-a1f6-376bd08cfad3",
+    "tags": ["nedstemthet"]
+  },
+  {
+    "id": "selvhjelpsvideoer-langvarige-sovnvansker",
+    "type": "verktøy",
+    "title": "Selvhjelpsvideoer mot langvarige søvnvansker",
+    "shortDescription": "I programmet lærer du å mestre søvnplager som har vart lengre enn tre måneder.",
+    "url": "https://tjenester.helsenorge.no/verktoy/8bec4e20-ee2a-4419-a16b-917eba51ff2f",
+    "tags": ["sove-bedre"]
+  },
+  {
+    "id": "selvhjelpsvideoer-panikkangst",
+    "type": "verktøy",
+    "title": "Selvhjelpsvideoer mot panikkangst",
+    "shortDescription": "I programmet lærer du om prosessen som opprettholder angst, og hvordan du kan arbeide for å bli kvitt angst.",
+    "url": "https://tjenester.helsenorge.no/verktoy/d586a599-2ae8-4fa3-bb6a-0f726b23f06d",
+    "tags": ["angst"]
+  },
+  {
+    "id": "selvhjelpsvideoer-sosial-angst",
+    "type": "verktøy",
+    "title": "Selvhjelpsvideoer mot sosial angst",
+    "shortDescription": "I programmet lærer du mer om sosial angst, blant annet hvordan du kan ha et mer realistisk bilde av din egen påvirkning på andre.",
+    "url": "https://tjenester.helsenorge.no/verktoy/37207f12-c6d3-4648-9edd-92bcee56416f",
+    "tags": ["angst", "ensomhet-relasjoner"]
+  },
+  {
+    "id": "slutta-app",
+    "type": "verktøy",
+    "title": "Slutta-app",
+    "shortDescription": "Slutta er en gratis app som kan gjøre det lettere for deg å slutte med røyk, vape og snus.",
+    "url": "https://tjenester.helsenorge.no/verktoy/d222374b-6385-4fa3-b1fe-7798b9cc0840",
+    "tags": ["rus-og-avhengighet"]
+  },
+  {
+    "id": "spillfri",
+    "type": "verktøy",
+    "title": "Spillfri",
+    "shortDescription": "Verktøyet er laget for de som spiller for mye eller har moderat pengespillavhengighet.",
+    "url": "https://tjenester.helsenorge.no/verktoy/f34033da-0314-4807-b265-7ce5a091bcd0",
+    "tags": ["spilleavhengighet"]
+  },
+  {
+    "id": "tankevirus",
+    "type": "verktøy",
+    "title": "Tankevirus",
+    "shortDescription": "Er selvtilliten frynsete og bekymringene hyppige? En tankevirus-infeksjon kan ramme alle.",
+    "url": "https://tjenester.helsenorge.no/verktoy/40b7e336-0a9b-48f6-bd5b-68c471e7971b",
+    "tags": ["angst", "stress"]
+  },
+  {
+    "id": "ungspotlight",
+    "type": "verktøy",
+    "title": "UngSpotlight",
+    "shortDescription": "UngSpotlight er et selvhjelpsprogram på nett for ungdom med frykt for å snakke foran klassen.",
+    "url": "https://tjenester.helsenorge.no/verktoy/86ab3446-5e68-4c12-9673-1e2f6da08d96",
+    "tags": ["angst", "ensomhet-relasjoner"]
+  },
+  {
+    "id": "artikkel-deprimert-eller-trist",
+    "type": "artikkel",
+    "title": "Er du trist eller har du en depresjon?",
+    "shortDescription": "Hjelp til å forstå forskjellen mellom å være nedstemt og å ha en depresjon.",
+    "url": "https://www.helsenorge.no/psykisk-helse/deprimert-eller-trist/",
+    "tags": ["nedstemthet"]
+  },
+  {
+    "id": "artikkel-langvarig-stress",
+    "type": "artikkel",
+    "title": "Langvarig stress",
+    "shortDescription": "Hva skjer i kroppen ved langvarig stress, og når bør du ta tak i det.",
+    "url": "https://www.helsenorge.no/psykisk-helse/langvarig-stress/",
+    "tags": ["stress"]
+  },
+  {
+    "id": "artikkel-stress-pa-jobb",
+    "type": "artikkel",
+    "title": "Stress på jobb",
+    "shortDescription": "Råd om hvordan du kan håndtere stress og press i jobbsammenheng.",
+    "url": "https://www.helsenorge.no/psykisk-helse/stress-pa-jobb/",
+    "tags": ["stress"]
+  },
+  {
+    "id": "artikkel-utbrenthet",
+    "type": "artikkel",
+    "title": "Utbrenthet",
+    "shortDescription": "Om hvordan langvarig stress og krysspress kan føre til at du blir utbrent.",
+    "url": "https://www.helsenorge.no/psykisk-helse/utbrenthet/",
+    "tags": ["stress"]
+  },
+  {
+    "id": "artikkel-ensomhet",
+    "type": "artikkel",
+    "title": "Ensomhet",
+    "shortDescription": "Råd som kan hjelpe deg å komme ut av ensomheten.",
+    "url": "https://www.helsenorge.no/psykisk-helse/ensomhet/",
+    "tags": ["ensomhet-relasjoner"]
+  },
+  {
+    "id": "artikkel-rad-for-bedre-sovn",
+    "type": "artikkel",
+    "title": "Råd for bedre søvn",
+    "shortDescription": "Konkrete råd for å sove bedre.",
+    "url": "https://www.helsenorge.no/sovnproblemer/rad-for-bedre-sovn/",
+    "tags": ["sove-bedre"]
+  },
+  {
+    "id": "artikkel-angst",
+    "type": "artikkel",
+    "title": "Angst",
+    "shortDescription": "Informasjon om angst, symptomer og hvor du kan få hjelp.",
+    "url": "https://www.helsenorge.no/sykdom/psykiske-lidelser/angst/",
+    "tags": ["angst"]
+  },
+  {
+    "id": "artikkel-drikker-du-for-mye",
+    "type": "artikkel",
+    "title": "Drikker du for mye?",
+    "shortDescription": "Hjelp til å vurdere eget forhold til alkohol, og hvor du kan få støtte.",
+    "url": "https://www.helsenorge.no/alkohol/for-mye-alkohol/",
+    "tags": ["rus-og-avhengighet"]
+  },
+  {
+    "id": "artikkel-rad-for-god-psykisk-helse",
+    "type": "artikkel",
+    "title": "Slik tar du vare på den psykiske helsa",
+    "shortDescription": "Råd og tips om hvordan du kan styrke den psykiske helsa og få bedre livskvalitet.",
+    "url": "https://www.helsenorge.no/psykisk-helse/rad-for-god-psykisk-helse/",
+    "tags": ["generell-mestring"]
+  },
+  {
+    "id": "artikkel-abc-for-god-psykisk-helse",
+    "type": "artikkel",
+    "title": "ABC for god psykisk helse",
+    "shortDescription": "Små grep i hverdagen som kan styrke den psykiske helsa.",
+    "url": "https://www.helsenorge.no/psykisk-helse/abc-for-god-psykisk-helse/",
+    "tags": ["generell-mestring"]
+  }
+]
