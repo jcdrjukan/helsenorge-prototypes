@@ -272,15 +272,12 @@ export default function PsykiskHelse() {
         <main className="ph-page">
           <div>
             <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 8px' }}>
-              Mental helse
+              Psykisk helse
             </h1>
             <p className="ph-results-intro">
               {results.isEmpty
-                ? 'Her er noen ressurser som kan være nyttige for psykisk helse generelt.'
-                : 'Basert på dine svar har vi valgt ut noen ressurser som kan hjelpe deg.'}
-            </p>
-            <p className="ph-results-sub" style={{ marginTop: '8px' }}>
-              Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.
+                ? 'Her er noen ressurser som kan være nyttige for psykisk helse generelt. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'
+                : 'Basert på dine svar har vi valgt ut noen ressurser som kan hjelpe deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'}
             </p>
           </div>
 
