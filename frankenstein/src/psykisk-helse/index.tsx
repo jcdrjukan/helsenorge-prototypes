@@ -190,14 +190,18 @@ export default function PsykiskHelse() {
         )}
       </header>
 
-      {/* ── Breadcrumb ─────────────────────────────────────────── */}
-      <nav className="breadcrumb" aria-label="Brødsmulesti">
-        <button className="breadcrumb__back" onClick={breadcrumbAction}>
-          <Icon svgIcon={ChevronLeft} size={38} />
-          <span>{breadcrumbLabel}</span>
-        </button>
-      </nav>
-      <hr className="page-divider" />
+      {/* ── Breadcrumb (not on quiz pages) ─────────────────────── */}
+      {view !== 'quiz1' && view !== 'quiz2' && (
+        <>
+          <nav className="breadcrumb" aria-label="Brødsmulesti">
+            <button className="breadcrumb__back" onClick={breadcrumbAction}>
+              <Icon svgIcon={ChevronLeft} size={38} />
+              <span>{breadcrumbLabel}</span>
+            </button>
+          </nav>
+          <hr className="page-divider" />
+        </>
+      )}
 
       {/* ── Frontpage ──────────────────────────────────────────── */}
       {view === 'front' && (
@@ -345,7 +349,7 @@ export default function PsykiskHelse() {
         <main className="ph-page">
           <div>
             <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 8px' }}>
-              Psykisk helse veiviser
+              Psykisk helse
             </h1>
             <p className="ph-results-intro">
               {results.isEmpty
