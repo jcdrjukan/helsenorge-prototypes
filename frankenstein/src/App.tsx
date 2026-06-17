@@ -19,7 +19,8 @@ type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse';
 // Detect dedicated per-prototype Netlify sites by hostname
 const hostname = window.location.hostname;
 const dedicatedPrototype: Prototype | null =
-  hostname.includes('psykisk') || hostname.includes('veiviser') ? 'psykisk-helse' :
+  hostname.includes('psykisk') || hostname.includes('veiviser') ||
+  hostname.startsWith('joyful-blancmange') ? 'psykisk-helse' :
   hostname.includes('behandling') ? 'behandlingshjelpemidler' :
   null;
 
