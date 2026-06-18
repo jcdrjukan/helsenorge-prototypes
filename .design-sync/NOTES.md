@@ -1,9 +1,11 @@
 # @helsenorge/designsystem-react — design-sync notes
 
-Package: `@helsenorge/designsystem-react@14.7.3`  
-Last synced: 2026-06-17  
+Package: `@helsenorge/designsystem-react@15.1.0`  
+Last synced: 2026-06-18  
 Project: https://claude.ai/design/p/70fb97fc-ae4d-4263-87b0-20447756b637  
-Result: 79/79 components rendered clean, validate exit 0, 402 files uploaded.
+Result: 83/83 components rendered clean, validate exit 0, 422 files uploaded.
+
+Previous sync: 14.7.3 → 79 components.
 
 ---
 
@@ -65,6 +67,11 @@ The fork has no adjacent `node_modules`, so a symlink is needed:
 This is already in place; don't delete it.
 
 ---
+
+## New in 15.1.0
+- Added: VisualCheckboxCloud, VisualCheckboxGroup, VisualRadioCloud, VisualRadioGroup
+- New dirs present but excluded (null): Icons (1056 individual icon files), Illustrations (87 individual files), Mittens (CSS-only, no JS)
+- HelpDetails/MaxCharacters flat-lib workaround unchanged — `t` export alias still correct in 15.x
 
 ## Re-sync command
 

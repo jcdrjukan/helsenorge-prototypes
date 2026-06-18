@@ -51,7 +51,9 @@
     "Highlighter": null,
     "HorizontalScroll": "lib/components/HorizontalScroll/index.d.ts",
     "Icon": "lib/components/Icon/index.d.ts",
+    "Icons": null,
     "Illustration": null,
+    "Illustrations": null,
     "InfoTeaser": "lib/components/InfoTeaser/index.d.ts",
     "Input": "lib/components/Input/index.d.ts",
     "Label": "lib/components/Label/index.d.ts",
@@ -63,6 +65,7 @@
     "Loader": "lib/components/Loader/index.d.ts",
     "Logo": "lib/components/Logo/index.d.ts",
     "MaxCharacters": "lib/components/MaxCharacters/MaxCharacters.d.ts",
+    "Mittens": null,
     "Modal": "lib/components/Modal/index.d.ts",
     "NotificationPanel": "lib/components/NotificationPanel/index.d.ts",
     "Panel": "lib/components/Panel/index.d.ts",
@@ -93,6 +96,10 @@
     "Toast": "lib/components/Toast/index.d.ts",
     "ToastList": "lib/components/ToastList/index.d.ts",
     "Toggle": "lib/components/Toggle/index.d.ts",
-    "Validation": "lib/components/Validation/index.d.ts"
+    "Validation": "lib/components/Validation/index.d.ts",
+    "VisualCheckboxCloud": "lib/components/VisualCheckboxCloud/index.d.ts",
+    "VisualCheckboxGroup": "lib/components/VisualCheckboxGroup/index.d.ts",
+    "VisualRadioCloud": "lib/components/VisualRadioCloud/index.d.ts",
+    "VisualRadioGroup": "lib/components/VisualRadioGroup/index.d.ts"
   }
 }
