@@ -73,7 +73,37 @@ This is already in place; don't delete it.
 - New dirs present but excluded (null): Icons (1056 individual icon files), Illustrations (87 individual files), Mittens (CSS-only, no JS)
 - HelpDetails/MaxCharacters flat-lib workaround unchanged — `t` export alias still correct in 15.x
 
-## Re-sync command
+## How to update the design system (plain language)
+
+Do this whenever the Helsenorge team releases a new version.
+Open Terminal in the `Claude-Work` folder, then follow these steps:
+
+**Step 1 — Download the latest version**
+```bash
+cd frankenstein && npm install @helsenorge/designsystem-react@latest && cd ..
+```
+
+**Step 2 — Check if new components were added**
+```bash
+ls frankenstein/node_modules/@helsenorge/designsystem-react/lib/components/
+```
+Compare the list to `design-sync.config.json`. New folder names = new components.
+If there are new ones, flag for a developer to update the config before continuing.
+
+**Step 3 — Rebuild the barrel file** *(only if new components were added)*
+Ask a developer to update `ds-barrel.mjs` inside the package folder. Skip if nothing is new.
+
+**Step 4 — Run the sync**
+```bash
+node .ds-sync/package-build.mjs --config design-sync.config.json --node-modules frankenstein/node_modules --entry frankenstein/node_modules/@helsenorge/designsystem-react/ds-barrel.mjs --out ./ds-bundle
+```
+
+**Step 5 — Upload to Claude Design**
+Tell Claude: *"Upload the ds-bundle to the Helsenorge Design System project"* — Claude handles the rest.
+
+---
+
+## Re-sync command (technical reference)
 
 ```bash
 node .ds-sync/package-build.mjs \
