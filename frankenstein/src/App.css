@@ -47,6 +47,28 @@
   flex-shrink: 0;
 }
 
+@media (max-width: 480px) {
+  .phone-wrapper {
+    background: #fff;
+    padding: 0;
+    justify-content: flex-start;
+  }
+  .phone-frame {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+  }
+  .phone-frame__screen {
+    border-radius: 0;
+    overflow: visible;
+    overflow-y: visible;
+  }
+  .phone-frame__home { display: none; }
+}
+
 .mobile-shell {
   width: 390px;
   min-height: 100%;

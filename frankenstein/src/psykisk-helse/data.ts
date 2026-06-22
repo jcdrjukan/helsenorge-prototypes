@@ -30,22 +30,22 @@ export interface QuizOption {
 }
 
 export const Q1_OPTIONS: QuizOption[] = [
-  { label: 'Søver dårlig', tag: 'sove-bedre' },
-  { label: 'Angst (uro, panikk, fobier)', tag: 'angst' },
-  { label: 'Stress (overbelastet, mye press)', tag: 'stress' },
-  { label: 'Dårlig humør (nedstemt, trist)', tag: 'nedstemthet' },
+  { label: 'Sover dårlig', tag: 'sove-bedre' },
+  { label: 'Sliter med angst eller fobier', tag: 'angst' },
+  { label: 'Er nedstemt eller trist', tag: 'nedstemthet' },
+  { label: 'Er stressa', tag: 'stress' },
 ];
 
 export const Q2_OPTIONS: QuizOption[] = [
-  { label: 'Bli mindre plaget av bekymringer og angst', tag: 'angst' },
-  { label: 'Få det bedre når jeg er nedstemt', tag: 'nedstemthet' },
-  { label: 'Sove bedre', tag: 'sove-bedre' },
-  { label: 'Håndtere stress og press i hverdagen', tag: 'stress' },
-  { label: 'Endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
-  { label: 'Få bedre kontroll på spilling (penger/gambling)', tag: 'spilleavhengighet' },
-  { label: 'Føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
-  { label: 'Forstå meg selv og situasjonen min bedre', tag: 'generell-mestring' },
-  { label: 'Noe annet / Ingen av disse', tag: null, exclusive: true },
+  { label: 'bli mindre plaget av bekymringer og angst', tag: 'angst' },
+  { label: 'være mindre trist eller nedstemt', tag: 'nedstemthet' },
+  { label: 'sove bedre', tag: 'sove-bedre' },
+  { label: 'håndtere stress på en bedre måte', tag: 'stress' },
+  { label: 'endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
+  { label: 'få bedre kontroll på spillingen', tag: 'spilleavhengighet' },
+  { label: 'føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
+  { label: 'forstå meg selv og situasjonen min bedre', tag: 'generell-mestring' },
+  { label: 'noe annet / Ingen av disse', tag: null, exclusive: true },
 ];
 
 const FALLBACK_IDS = [

@@ -52,7 +52,7 @@ function CategoryTags({ tags }: { tags: string[] }) {
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px' }}>
       {tags.map(tag => (
-        <Tag key={tag} variant="normal" color="blueberry">
+        <Tag key={tag} variant="normal">
           {TAG_LABELS[tag] ?? tag.toUpperCase()}
         </Tag>
       ))}
@@ -101,16 +101,50 @@ function ResourceCard({
   );
 }
 
+const HASH_TO_VIEW: Record<string, View> = {
+  '':           'front',
+  '#':          'front',
+  '#forside':   'front',
+  '#quiz1':     'quiz1',
+  '#quiz2':     'quiz2',
+  '#resultater':'results',
+};
+
+const VIEW_TO_HASH: Record<View, string> = {
+  front:   '#forside',
+  quiz1:   '#quiz1',
+  quiz2:   '#quiz2',
+  results: '#resultater',
+};
+
+function viewFromHash(): View {
+  return HASH_TO_VIEW[window.location.hash] ?? 'front';
+}
+
 export default function PsykiskHelse() {
-  const [view, setView]           = useState<View>('front');
+  const [view, setView]           = useState<View>(() => viewFromHash());
   const [q1, setQ1]               = useState<Set<string>>(new Set());
   const [q2, setQ2]               = useState<Set<string>>(new Set());
   const [seenIds, setSeenIds]     = useState<Set<string>>(() => getSeenIds());
+
+  // Sync view → hash
+  useEffect(() => {
+    const hash = VIEW_TO_HASH[view];
+    if (window.location.hash !== hash) window.location.hash = hash;
+  }, [view]);
+
+  // Sync hash → view (browser back/forward)
+  useEffect(() => {
+    const onHashChange = () => setView(viewFromHash());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   // Scroll to top on every navigation
   useEffect(() => {
     const el = document.querySelector('.phone-frame__screen');
     if (el) el.scrollTop = 0;
+    else window.scrollTo(0, 0);
   }, [view]);
 
   const results = useMemo(() => computeResults(q1, q2), [q1, q2]);
@@ -151,9 +185,10 @@ export default function PsykiskHelse() {
 
   const isAuthenticated = true;
 
-  const breadcrumbLabel = view === 'front' ? 'Forside' : 'Psykisk helse';
+  const breadcrumbLabel = view === 'results' ? 'Forside' : view === 'front' ? 'Forside' : 'Psykisk helse';
   const breadcrumbAction = () => {
-    if (view === 'quiz2') setView('quiz1');
+    if (view === 'results') return;
+    else if (view === 'quiz2') setView('quiz1');
     else setView('front');
   };
 
@@ -213,7 +248,7 @@ export default function PsykiskHelse() {
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er normalt å ha det vanskelig i perioder. Det er en del av å være et menneske. For deg som har det ekstratøft for tida, tilbyr Helsenorge en rekke kvalitetssikrede forslag som kan hjelpe. Prøv veiviseren og se hva vi kan tilby.
+              Det er vanlig å ha det vanskelig i perioder. Det er en del av å være et menneske. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Prøv veiviseren for å finne det som passer for deg og din situasjon.
             </p>
             <Button variant="fill" arrow="icon" fluid onClick={() => setView('quiz1')}>
               Prøv veiviseren
@@ -225,13 +260,12 @@ export default function PsykiskHelse() {
           <div className="ph-front__content">
             <h2 className="ph-front__section-title">Om veiviseren</h2>
             <p className="ph-preamble">
-              Veiviseren består av noen enkle spørsmål (tar ca 1 minutt) og foreslår ting som kan hjelpe nå – i ditt tempo, helt uforpliktende og helt anonym.
+              Veiviseren består av noen enkle spørsmål og finner informasjon og verktøy som er tilpasset din situasjon, for eksempel hvordan du kan
             </p>
-            <p className="ph-cta-text">Du kan blant annet få hjelp til:</p>
             <ul className="ph-benefit-list">
-              <li>bedre søvn</li>
-              <li>bedre stresshåndtering</li>
-              <li>mer kontroll over dine følelser</li>
+              <li>sove bedre</li>
+              <li>håndtere stress</li>
+              <li>få mer kontroll på følelsene</li>
             </ul>
           </div>
 
@@ -318,7 +352,7 @@ export default function PsykiskHelse() {
       {view === 'quiz2' && (
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={2} />
-          <h1 className="ph-quiz-title">Hva ønsker du hjelp med nå?</h1>
+          <h1 className="ph-quiz-title">Hva ønsker du å fokusere på nå?</h1>
           <ul className="ph-checkbox-list" role="list">
             {Q2_OPTIONS.map(opt => (
               <li key={opt.label}>
@@ -334,7 +368,7 @@ export default function PsykiskHelse() {
           <div className="ph-quiz-nav">
             <Button variant="outline" onClick={() => setView('quiz1')}>
               <Icon svgIcon={ChevronLeft} size={38} />
-              forrige
+              Forrige
             </Button>
             <Button variant="fill" arrow="icon" onClick={() => setView('results')}>Neste</Button>
             <Button variant="borderless" onClick={() => setView('front')}>Avbryt</Button>
@@ -351,8 +385,8 @@ export default function PsykiskHelse() {
             </h1>
             <p className="ph-results-intro">
               {results.isEmpty
-                ? 'Her er noen ressurser som kan være nyttige for psykisk helse generelt. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'
-                : 'Basert på dine svar har vi valgt ut noen ressurser som kan hjelpe deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'}
+                ? 'Basert på svarene dine kan disse ressursene kan være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'
+                : 'Basert på svarene dine kan disse ressursene kan være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'}
             </p>
           </div>
 
@@ -414,6 +448,13 @@ export default function PsykiskHelse() {
               </LinkList.Link>
             </LinkList>
           </section>
+
+          <div>
+            <Button variant="borderless">
+              Avslutt tjenesten
+              <Icon svgIcon={ChevronRight} size={38} />
+            </Button>
+          </div>
         </main>
       )}
     </div>
