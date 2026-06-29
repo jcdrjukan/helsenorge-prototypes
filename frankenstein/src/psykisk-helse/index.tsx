@@ -385,8 +385,8 @@ export default function PsykiskHelse() {
             </h1>
             <p className="ph-results-intro">
               {results.isEmpty
-                ? 'Basert på svarene dine kan disse ressursene kan være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'
-                : 'Basert på svarene dine kan disse ressursene kan være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'}
+                ? 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'
+                : 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'}
             </p>
           </div>
 
