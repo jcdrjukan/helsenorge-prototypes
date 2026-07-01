@@ -42,7 +42,7 @@ export const Q2_OPTIONS: QuizOption[] = [
   { label: 'sove bedre', tag: 'sove-bedre' },
   { label: 'håndtere stress på en bedre måte', tag: 'stress' },
   { label: 'endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
-  { label: 'få bedre kontroll på spillingen', tag: 'spilleavhengighet' },
+  { label: 'få bedre kontroll på pengespillingen', tag: 'spilleavhengighet' },
   { label: 'føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
   { label: 'forstå meg selv og situasjonen min bedre', tag: 'generell-mestring' },
   { label: 'noe annet / Ingen av disse', tag: null, exclusive: true },
