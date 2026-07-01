@@ -15,6 +15,8 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
+import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
+import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
 import './style.css';
 
 import {
@@ -74,7 +76,11 @@ function ResourceCard({
       variant={PanelVariant.outline}
       status={seen ? PanelStatus.none : PanelStatus.new}
     >
-      <Panel.Title title={resource.title} titleMarkup="h3" />
+      <Panel.Title
+        title={resource.title}
+        titleMarkup="h3"
+        icon={<Icon svgIcon={resource.type === 'verktøy' ? Toolbox : Publication} size={48} />}
+      />
       <Panel.A>
         <div style={{ marginTop: '0rem', marginBottom: '0.5rem' }}>
           <CategoryTags tags={resource.tags} />
