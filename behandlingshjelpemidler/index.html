@@ -632,6 +632,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 .delivery-select:focus { border-color: var(--color-action-border-onlight); outline: none; }
 .delivery-address-form { display: flex; flex-direction: column; gap: var(--space-xs); }
+.pickup-address-display { padding: 12px 14px; background: #F5F5F3; border-radius: 4px; font: var(--mobile-label-subdued); line-height: 1.5; margin-top: var(--space-2xs); }
 
 /* ── History view ── */
 #viewHistory { width: 100%; display: flex; flex-direction: column; align-items: center; }
@@ -801,6 +802,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 </head>
 <body>
 
+<div style="position:fixed;top:0;left:0;width:100%;z-index:9999;text-align:center;color:red;font-weight:bold;font-size:24px;padding:8px 0;background:rgba(255,255,255,0.9);">DEPRECATED</div>
 
 <div class="phone-wrap">
 <div class="phone-btn-silent"></div>
@@ -1184,6 +1186,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <input type="tel" id="delivTelefon" value="99 88 77 66" placeholder="00 00 00 00" oninput="clearFieldError(this)">
         </div>
       </div>
+      <div id="pickupAddressDisplay" class="pickup-address-display" hidden></div>
       <button class="btn-primary" onclick="goToStep(3)">
         Neste
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>
@@ -1259,7 +1262,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Airsense 11 Autoset</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Positivt luftveistrykkapparat, kontinuerlig, auto</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">14.02.2026</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">18.02.2026</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">18.02.2026</span></div>
           <div class="duolist__row"><span class="duolist__key">Saksbehandler kommentar</span><span class="duolist__value">Vi har dessverre ingen flere vannkammer på lager. Forventet medio juni.</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
@@ -1269,6 +1272,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li>Maskepute sett × 2</li>
           <li>Filter, fin (6 stk) × 1</li>
         </ul></div>
+        <div style="border-top: 1px solid #D6D4D3;"></div>
+        <div class="duolist">
+          <div class="duolist__row"><span class="duolist__key">Leveringsmåte</span><span class="duolist__value">Sendes i posten</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Tora Hansen<br>Kirkeveien 84B<br>7010 Trondheim</span></div>
+        </div>
       </div>
     </div>
 
@@ -1286,7 +1294,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">OmniPod DASH PDM</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Infusjon, pumpe, insulin, bærbar</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.01.2026</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.01.2026</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">21.01.2026</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1300,7 +1308,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Airsense 11 Autoset</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Positivt luftveistrykkapparat, kontinuerlig, auto</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.01.2026</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.01.2026</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">21.01.2026</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1308,6 +1316,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li>Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk] × 2</li>
           <li>Vannkammer fuktekammer CPAP HumidAir 11 × 1</li>
         </ul></div>
+        <div style="border-top: 1px solid #D6D4D3;"></div>
+        <div class="duolist">
+          <div class="duolist__row"><span class="duolist__key">Leveringsmåte</span><span class="duolist__value">Hentes</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Seksjon for medisinsk hjemmebehandling<br>Oslo universitetssykehus HF, Ullevål sykehus<br>Bygg 15D, Kirkeveien 166<br>0450 Oslo</span></div>
+        </div>
       </div>
     </div>
 
@@ -1324,7 +1337,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Permobil M3 Corpus</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Rullestol, elektrisk, utendørs</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">14.11.2025</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">19.11.2025</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">19.11.2025</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1332,6 +1345,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li>Batteri, li-ion (sett) × 1</li>
           <li>Setepute, trykkavlastende × 1</li>
         </ul></div>
+        <div style="border-top: 1px solid #D6D4D3;"></div>
+        <div class="duolist">
+          <div class="duolist__row"><span class="duolist__key">Leveringsmåte</span><span class="duolist__value">Hentes</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Seksjon for medisinsk hjemmebehandling<br>Oslo universitetssykehus HF, Ullevål sykehus<br>Bygg 15D, Kirkeveien 166<br>0450 Oslo</span></div>
+        </div>
       </div>
     </div>
 
@@ -1348,7 +1366,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">EverFlo Q</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Oksygenterapi, oksygenkonsentrator, stasjonær</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">13.09.2025</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">18.09.2025</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">18.09.2025</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1357,6 +1375,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li>Slange oksygen tilførselsslange "Crush resistant" 15,2 meter × 1</li>
           <li>Filter luftinntak oksygenkonsentrator Everflo grov 5 stk/pk × 2</li>
         </ul></div>
+        <div style="border-top: 1px solid #D6D4D3;"></div>
+        <div class="duolist">
+          <div class="duolist__row"><span class="duolist__key">Leveringsmåte</span><span class="duolist__value">Sendes i posten</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Tora Hansen<br>Kirkeveien 84B<br>7010 Trondheim</span></div>
+        </div>
       </div>
     </div>
 
@@ -1374,7 +1397,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Airsense 11 Autoset</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Positivt luftveistrykkapparat, kontinuerlig, auto</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.07.2025</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.07.2025</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">21.07.2025</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1388,7 +1411,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="duolist__row"><span class="duolist__key">Produktnavn</span><span class="duolist__value">Inogen Rove 6</span></div>
           <div class="duolist__row"><span class="duolist__key">Type</span><span class="duolist__value">Oksygenterapi, oksygenkonsentrator, transportabel</span></div>
           <div class="duolist__row"><span class="duolist__key">Bestilt</span><span class="duolist__value">17.07.2025</span></div>
-          <div class="duolist__row"><span class="duolist__key">Levert</span><span class="duolist__value">21.07.2025</span></div>
+          <div class="duolist__row"><span class="duolist__key">Ferdigbehandlet</span><span class="duolist__value">21.07.2025</span></div>
         </div>
         <hr style="border:none;border-top:1px solid #D6D4D3;margin:0;">
         <div class="duolist__row"><span class="duolist__key">Forbruksvarer</span>
@@ -1396,6 +1419,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <li>Kateter oksygen nesekateter dobbelt 3 lpm 2,1 m Micro Flow voksen × 3</li>
           <li>Kateter oksygen nesekateter dobbelt 6 lpm 1,2 m Low flow voksen × 2</li>
         </ul></div>
+        <div style="border-top: 1px solid #D6D4D3;"></div>
+        <div class="duolist">
+          <div class="duolist__row"><span class="duolist__key">Leveringsmåte</span><span class="duolist__value">Hentes</span></div>
+          <div class="duolist__row"><span class="duolist__key">Adresse</span><span class="duolist__value">Behandlingshjelpemidler<br>Akershus universitetssykehus HF<br>Fjellhamarveien 52<br>1472 Fjellhamar</span></div>
+        </div>
       </div>
     </div>
 
@@ -1644,7 +1672,7 @@ function renderMachinePage(eq) {
       <div class="consumable-section__header">Forbruksmateriell</div>
       <div class="consumable-section__body">
         ${consumableRows}
-        ${eq.deaktivert ? '' : `<button class="btn-outline" onclick="startOrder('${eq.id}', 'machine')">Bestill</button>`}
+        ${eq.deaktivert ? '' : `<button class="btn-primary" onclick="startOrder('${eq.id}', 'machine')">Bestill</button>`}
       </div>
     </div>`;
 }
@@ -1838,11 +1866,23 @@ function changeQty(btn, eqId, idx, delta) {
 }
 
 // ── Step 2: delivery selection + validation ─────────────────
+const PICKUP_ADDRESSES = {
+  hentes:  'Seksjon for medisinsk hjemmebehandling\nOslo universitetssykehus HF, Ullevål sykehus\nBygg 15D, Kirkeveien 166\n0450 Oslo',
+  hentes2: 'Behandlingshjelpemidler\nAkershus universitetssykehus HF\nFjellhamarveien 52\n1472 Fjellhamar',
+};
+
 function selectDelivery(value) {
   orderState.delivery = value;
   const isPickup = value === 'hentes' || value === 'hentes2';
   document.getElementById('deliveryAddressFields').hidden = isPickup;
-  if (isPickup) clearAllFieldErrors();
+  const pickupDisplay = document.getElementById('pickupAddressDisplay');
+  if (isPickup) {
+    pickupDisplay.innerHTML = PICKUP_ADDRESSES[value].replace(/\n/g, '<br>');
+    pickupDisplay.hidden = false;
+    clearAllFieldErrors();
+  } else {
+    pickupDisplay.hidden = true;
+  }
 }
 
 function clearFieldError(input) {
