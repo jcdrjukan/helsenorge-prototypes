@@ -23,7 +23,8 @@ const dedicatedPrototype: Prototype | null =
   hostname.includes('psykisk') || hostname.includes('veiviser') ||
   hostname.startsWith('joyful-blancmange') ? 'psykisk-helse' :
   hostname.includes('behandling') ? 'behandlingshjelpemidler' :
-  hostname.includes('sykdom') || hostname.includes('kritisk') ? 'sykdom-kritisk-info' :
+  hostname.includes('sykdom') || hostname.includes('kritisk') ||
+  hostname.startsWith('melodic-cobbler') ? 'sykdom-kritisk-info' :
   null;
 
 function getInitialPrototype(): Prototype {
