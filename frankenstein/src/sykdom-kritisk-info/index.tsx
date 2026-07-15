@@ -128,6 +128,7 @@ export default function SykdomKritiskInfo() {
                 <EmptyState
                   title="Det er ingen kritisk informasjon registrert på deg"
                   type="dashed"
+                  size="compact"
                   onColor={EmptyStateOnColor.onwhite}
                 />
               ) : (
