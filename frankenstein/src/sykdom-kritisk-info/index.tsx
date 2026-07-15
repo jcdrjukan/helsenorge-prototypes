@@ -25,11 +25,10 @@ const SYKDOMSHISTORIKK = [
 export default function SykdomKritiskInfo() {
   const [activeTab, setActiveTab] = useState(1);
   const [openDetailId, setOpenDetailId] = useState<string | null>(null);
-  const [demoState, setDemoState] = useState<'populated' | 'empty'>('populated');
 
-  const registered = demoState === 'empty' ? [] : CATEGORIES.filter(c => c.registration);
-  const emptyGroup1 = CATEGORIES.filter(c => (demoState === 'empty' || !c.registration) && c.group === 1);
-  const emptyGroup2 = CATEGORIES.filter(c => (demoState === 'empty' || !c.registration) && c.group === 2);
+  const registered = CATEGORIES.filter(c => c.registration);
+  const emptyGroup1 = CATEGORIES.filter(c => !c.registration && c.group === 1);
+  const emptyGroup2 = CATEGORIES.filter(c => !c.registration && c.group === 2);
 
   return (
     <div className="ski-shell">
@@ -99,23 +98,6 @@ export default function SykdomKritiskInfo() {
 
           <Tabs.Tab title="Kritisk informasjon" onTabClick={() => setActiveTab(1)}>
             <div className="ski-tabpanel">
-              <div className="ski-demo-toggle" role="group" aria-label="Demovisning">
-                <button
-                  type="button"
-                  className={`ski-demo-toggle__btn${demoState === 'populated' ? ' ski-demo-toggle__btn--active' : ''}`}
-                  onClick={() => setDemoState('populated')}
-                >
-                  Har registreringer
-                </button>
-                <button
-                  type="button"
-                  className={`ski-demo-toggle__btn${demoState === 'empty' ? ' ski-demo-toggle__btn--active' : ''}`}
-                  onClick={() => setDemoState('empty')}
-                >
-                  Ingen registreringer
-                </button>
-              </div>
-
               <p className="ski-tab-intro">
                 Her vises kritiske helseopplysninger som legen i samråd med deg har registrert i din kjernejournal. Er det feil eller mangler i opplysningene, ta kontakt med din fastlege.
               </p>
