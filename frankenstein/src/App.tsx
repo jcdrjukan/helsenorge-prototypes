@@ -12,9 +12,10 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Behandlingshjelpemidler from './behandlingshjelpemidler';
 import PsykiskHelse from './psykisk-helse';
+import SykdomKritiskInfo from './sykdom-kritisk-info';
 import './App.css';
 
-type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse';
+type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info';
 
 // Detect dedicated per-prototype Netlify sites by hostname
 const hostname = window.location.hostname;
@@ -22,6 +23,7 @@ const dedicatedPrototype: Prototype | null =
   hostname.includes('psykisk') || hostname.includes('veiviser') ||
   hostname.startsWith('joyful-blancmange') ? 'psykisk-helse' :
   hostname.includes('behandling') ? 'behandlingshjelpemidler' :
+  hostname.includes('sykdom') || hostname.includes('kritisk') ? 'sykdom-kritisk-info' :
   null;
 
 function getInitialPrototype(): Prototype {
@@ -29,11 +31,12 @@ function getInitialPrototype(): Prototype {
   const hash = window.location.hash.slice(1);
   if (hash === 'behandlingshjelpemidler') return 'behandlingshjelpemidler';
   if (hash === 'psykisk-helse') return 'psykisk-helse';
+  if (hash === 'sykdom-kritisk-info') return 'sykdom-kritisk-info';
   return 'prover';
 }
 
 const directLink = !!dedicatedPrototype ||
-  ['behandlingshjelpemidler', 'psykisk-helse'].includes(window.location.hash.slice(1));
+  ['behandlingshjelpemidler', 'psykisk-helse', 'sykdom-kritisk-info'].includes(window.location.hash.slice(1));
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
@@ -65,6 +68,12 @@ function App() {
             onClick={() => switchPrototype('psykisk-helse')}
           >
             Psykisk helse
+          </button>
+          <button
+            className={`prototype-switcher__btn${prototype === 'sykdom-kritisk-info' ? ' prototype-switcher__btn--active' : ''}`}
+            onClick={() => switchPrototype('sykdom-kritisk-info')}
+          >
+            Sykdom og kritisk info
           </button>
         </div>
       )}
@@ -133,6 +142,7 @@ function App() {
 
           {prototype === 'behandlingshjelpemidler' && <Behandlingshjelpemidler />}
           {prototype === 'psykisk-helse' && <PsykiskHelse />}
+          {prototype === 'sykdom-kritisk-info' && <SykdomKritiskInfo />}
         </div>
         <div className="phone-frame__home" />
       </div>
