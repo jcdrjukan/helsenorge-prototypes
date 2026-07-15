@@ -17,7 +17,7 @@ export const CATEGORIES: CriticalCategory[] = [
     id: 'legemiddelreaksjoner',
     title: 'Legemiddelreaksjoner',
     description:
-      'Her vises legemidler og annet som kan gi deg en alvorlig reaksjon som for eksempel allergisk sjokk eller alvorlig utslett.',
+      'Alvorlige reaksjoner på legemidler, som allergiske reaksjoner eller andre bivirkninger som er viktige å kjenne til før ny behandling.',
     group: 1,
     registration: {
       gjeldende: 1,
@@ -28,20 +28,21 @@ export const CATEGORIES: CriticalCategory[] = [
   {
     id: 'annen-allergier',
     title: 'Annen allergier',
-    description: 'Her vises alvorlige allergiske reaksjoner som ikke er legemiddelreaksjoner.',
+    description:
+      'Alvorlige allergier som ikke gjelder legemidler, for eksempel mot lateks, matvarer eller stoffer brukt i behandling.',
     group: 1,
   },
   {
     id: 'intubasjonsproblemer',
     title: 'Intubasjonsproblemer',
-    description: 'Her vises tidligere problemer med intubasjon som er viktig for helsepersonell å kjenne til.',
+    description:
+      'Kjente vanskeligheter med å sikre frie luftveier, for eksempel problemer med å legge inn pustetube ved narkose.',
     group: 1,
   },
   {
     id: 'annet-problem-med-anestesi',
     title: 'Annet problem med anestesi',
-    description:
-      'Har du opplevd alvorlige komplikasjoner ved narkose eller annen bedøvelse, skal det være registrert her.',
+    description: 'Andre kjente reaksjoner eller komplikasjoner knyttet til bedøvelse og narkose.',
     group: 1,
     registration: {
       gjeldende: 1,
@@ -52,37 +53,40 @@ export const CATEGORIES: CriticalCategory[] = [
   {
     id: 'pagaende-behandling',
     title: 'Pågående behandling',
-    description: 'Her vises pågående behandlinger som kan påvirke annen medisinsk behandling.',
+    description:
+      'Behandling pasienten er under nå som er viktig å ta hensyn til, for eksempel blodfortynnende eller immundempende behandling.',
     group: 1,
   },
   {
     id: 'implantat-og-transplantat',
     title: 'Implantat og transplantat',
-    description: 'Her vises implantater og transplantater som er viktig informasjon ved undersøkelser og behandling.',
+    description:
+      'Innopererte hjelpemidler eller organer, for eksempel pacemaker, hjerteklaff, protese eller transplantert organ.',
     group: 1,
   },
   {
     id: 'smitte',
     title: 'Smitte',
-    description: 'Her vises smittsomme sykdommer som helsepersonell bør kjenne til av smittevernhensyn.',
+    description: 'Smittsomme tilstander som krever spesielle forholdsregler for å beskytte pasient og helsepersonell.',
     group: 1,
   },
   {
     id: 'kritisk-medisinsk-tilstand',
     title: 'Kritisk medisinsk tilstand',
-    description: 'Her vises kroniske eller alvorlige medisinske tilstander som er kritiske å kjenne til.',
+    description:
+      'Sykdommer eller tilstander som kan få alvorlige konsekvenser og krever rask oppmerksomhet i en akuttsituasjon.',
     group: 1,
   },
   {
     id: 'hlr-og-behandlingsavklaringer',
     title: 'HLR- og behandlingsavklaringer',
-    description: 'Her vises avklaringer om hjerte-lunge-redning og annen behandling ved akutt forverring.',
+    description: 'Beslutninger om hjerte-lungeredning og eventuell begrensning av livsforlengende behandling.',
     group: 2,
   },
   {
-    id: 'annen-prosedyreending',
-    title: 'Annen prosedyreending',
-    description: 'Her vises andre forhold som gjør at en behandlingsprosedyre bør tilpasses.',
+    id: 'annen-prosedyreendring',
+    title: 'Annen prosedyreendring',
+    description: 'Andre forhold som gjør at vanlige undersøkelser eller behandlinger må tilpasses eller endres.',
     group: 2,
   },
 ];

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
@@ -22,13 +22,35 @@ const SYKDOMSHISTORIKK = [
   { year: 2019, title: 'Diabetes type 2', comment: 'Behandles med Metformin' },
 ];
 
+// Empty state and populated state are two separate Figma frames — give each its own
+// shareable URL (hash) rather than an in-page toggle.
+type DemoState = 'populated' | 'empty';
+
+const HASH_TO_STATE: Record<string, DemoState> = {
+  '': 'populated',
+  '#': 'populated',
+  '#populert': 'populated',
+  '#tom': 'empty',
+};
+
+function stateFromHash(): DemoState {
+  return HASH_TO_STATE[window.location.hash] ?? 'populated';
+}
+
 export default function SykdomKritiskInfo() {
   const [activeTab, setActiveTab] = useState(1);
   const [openDetailId, setOpenDetailId] = useState<string | null>(null);
+  const [demoState, setDemoState] = useState<DemoState>(() => stateFromHash());
 
-  const registered = CATEGORIES.filter(c => c.registration);
-  const emptyGroup1 = CATEGORIES.filter(c => !c.registration && c.group === 1);
-  const emptyGroup2 = CATEGORIES.filter(c => !c.registration && c.group === 2);
+  useEffect(() => {
+    const onHashChange = () => setDemoState(stateFromHash());
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
+
+  const registered = demoState === 'empty' ? [] : CATEGORIES.filter(c => c.registration);
+  const emptyGroup1 = CATEGORIES.filter(c => (demoState === 'empty' || !c.registration) && c.group === 1);
+  const emptyGroup2 = CATEGORIES.filter(c => (demoState === 'empty' || !c.registration) && c.group === 2);
 
   return (
     <div className="ski-shell">
