@@ -42,6 +42,27 @@ function medById(id: string) {
   return MEDICATIONS.find(m => m.id === id)!;
 }
 
+// No Rx icon exists in @helsenorge/designsystem-react — a plain SVG rendering
+// of the traditional prescription symbol (℞), matching the other 38px icons.
+function RxIcon() {
+  return (
+    <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true">
+      <text
+        x="50%"
+        y="53%"
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontFamily="Georgia, 'Times New Roman', serif"
+        fontSize="28"
+        fontWeight="700"
+        fill="#000"
+      >
+        ℞
+      </text>
+    </svg>
+  );
+}
+
 function PllRow({ entry, extra }: { entry: PllEntry | PllAvsluttetEntry; extra?: React.ReactNode }) {
   const med = medById(entry.medicationId);
   const multidose = 'multidose' in entry && entry.multidose;
@@ -137,7 +158,7 @@ export default function Legemiddelliste() {
             <LinkList.Link
               href="#resepter"
               onClick={(e) => { e.preventDefault(); goTo('resepter', '#resepter'); }}
-              icon={<Icon svgIcon={Medicine} size={38} />}
+              icon={<RxIcon />}
             >
               <ElementHeader>
                 <ElementHeader.Text firstText="Hva kan jeg hente på apoteket?" firstTextEmphasised />
