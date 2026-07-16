@@ -26,7 +26,8 @@ const dedicatedPrototype: Prototype | null =
   hostname.includes('behandling') ? 'behandlingshjelpemidler' :
   hostname.includes('sykdom') || hostname.includes('kritisk') ||
   hostname.startsWith('melodic-cobbler') ? 'sykdom-kritisk-info' :
-  hostname.includes('legemid') || hostname.includes('resept') ? 'legemiddelliste' :
+  hostname.includes('legemid') || hostname.includes('resept') ||
+  hostname.startsWith('marvelous-torte') ? 'legemiddelliste' :
   null;
 
 function getInitialPrototype(): Prototype {
