@@ -39,7 +39,6 @@ function stateFromHash(): DemoState {
 
 export default function SykdomKritiskInfo() {
   const [activeTab, setActiveTab] = useState(1);
-  const [openDetailId, setOpenDetailId] = useState<string | null>(null);
   const [demoState, setDemoState] = useState<DemoState>(() => stateFromHash());
 
   useEffect(() => {
@@ -144,17 +143,10 @@ export default function SykdomKritiskInfo() {
                         </div>
                         <h3 className="ski-panel-title">{cat.title}</h3>
                         <p className="ski-panel-desc">{cat.description}</p>
-                        <button
-                          className="ski-detail-link"
-                          onClick={() => setOpenDetailId(openDetailId === cat.id ? null : cat.id)}
-                          aria-expanded={openDetailId === cat.id}
-                        >
-                          Se detaljer
-                        </button>
-                        {openDetailId === cat.id && (
-                          <p className="ski-panel-detail">{cat.registration!.detail}</p>
-                        )}
                       </Panel.A>
+                      <Panel.ExpandedContent>
+                        <p className="ski-panel-detail">{cat.registration!.detail}</p>
+                      </Panel.ExpandedContent>
                     </Panel>
                   ))}
                 </div>
