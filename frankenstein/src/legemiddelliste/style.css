@@ -187,16 +187,14 @@
   margin: 0;
 }
 
-.ll-message-cta {
+.ll-message-panel {
   margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #D6D4D3;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.ll-message-cta__text {
+.ll-message-panel__text {
   font: 400 16px/1.5 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;

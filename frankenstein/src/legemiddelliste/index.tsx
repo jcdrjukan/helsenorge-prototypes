@@ -9,6 +9,7 @@ import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -270,12 +271,12 @@ export default function Legemiddelliste() {
             )}
           </div>
 
-          <div className="ll-message-cta">
-            <p className="ll-message-cta__text">
-              Bruker du et legemiddel som ikke står på listen, eller har du spørsmål om noe du bruker?
+          <HighlightPanel color="blueberry" className="ll-message-panel">
+            <p className="ll-message-panel__text">
+              Er det et legemiddel på listen som du har sluttet å ta, eller tar du et legemiddel som ikke står på listen? Send en melding til din fastlege om det.
             </p>
             <Button variant="outline">Send melding til fastlegen</Button>
-          </div>
+          </HighlightPanel>
         </main>
       )}
     </div>
