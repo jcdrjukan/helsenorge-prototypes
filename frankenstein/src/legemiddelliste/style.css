@@ -1,0 +1,87 @@
+/* ── Legemiddelliste prototype ──────────────────────────────────── */
+
+.ll-shell {
+  width: 390px;
+  min-height: 100%;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.ll-page {
+  padding: 1.5rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ll-preamble {
+  font: 400 20px/1.3 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ll-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ll-panel-title {
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 8px 0 0;
+}
+
+.ll-panel-sub {
+  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 0 0 8px;
+}
+
+.ll-panel-meta {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 12px;
+}
+
+.ll-panel-note {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 0;
+}
+
+.ll-discrepancy {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid #D6D4D3;
+}
+
+.ll-discrepancy svg { flex-shrink: 0; margin-top: 2px; color: #C83521; }
+
+.ll-discrepancy p {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 0;
+}
+
+.ll-discrepancy a { color: #126F87; font-weight: 600; }
+
+.ll-message-cta {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #D6D4D3;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ll-message-cta__text {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}

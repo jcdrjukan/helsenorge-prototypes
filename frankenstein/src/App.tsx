@@ -13,9 +13,10 @@ import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/Chevron
 import Behandlingshjelpemidler from './behandlingshjelpemidler';
 import PsykiskHelse from './psykisk-helse';
 import SykdomKritiskInfo from './sykdom-kritisk-info';
+import Legemiddelliste from './legemiddelliste';
 import './App.css';
 
-type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info';
+type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info' | 'legemiddelliste';
 
 // Detect dedicated per-prototype Netlify sites by hostname
 const hostname = window.location.hostname;
@@ -25,6 +26,7 @@ const dedicatedPrototype: Prototype | null =
   hostname.includes('behandling') ? 'behandlingshjelpemidler' :
   hostname.includes('sykdom') || hostname.includes('kritisk') ||
   hostname.startsWith('melodic-cobbler') ? 'sykdom-kritisk-info' :
+  hostname.includes('legemid') || hostname.includes('resept') ? 'legemiddelliste' :
   null;
 
 function getInitialPrototype(): Prototype {
@@ -33,11 +35,12 @@ function getInitialPrototype(): Prototype {
   if (hash === 'behandlingshjelpemidler') return 'behandlingshjelpemidler';
   if (hash === 'psykisk-helse') return 'psykisk-helse';
   if (hash === 'sykdom-kritisk-info') return 'sykdom-kritisk-info';
+  if (hash === 'legemiddelliste') return 'legemiddelliste';
   return 'prover';
 }
 
 const directLink = !!dedicatedPrototype ||
-  ['behandlingshjelpemidler', 'psykisk-helse', 'sykdom-kritisk-info'].includes(window.location.hash.slice(1));
+  ['behandlingshjelpemidler', 'psykisk-helse', 'sykdom-kritisk-info', 'legemiddelliste'].includes(window.location.hash.slice(1));
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
@@ -75,6 +78,12 @@ function App() {
             onClick={() => switchPrototype('sykdom-kritisk-info')}
           >
             Sykdom og kritisk info
+          </button>
+          <button
+            className={`prototype-switcher__btn${prototype === 'legemiddelliste' ? ' prototype-switcher__btn--active' : ''}`}
+            onClick={() => switchPrototype('legemiddelliste')}
+          >
+            Legemiddelliste
           </button>
         </div>
       )}
@@ -144,6 +153,7 @@ function App() {
           {prototype === 'behandlingshjelpemidler' && <Behandlingshjelpemidler />}
           {prototype === 'psykisk-helse' && <PsykiskHelse />}
           {prototype === 'sykdom-kritisk-info' && <SykdomKritiskInfo />}
+          {prototype === 'legemiddelliste' && <Legemiddelliste />}
         </div>
         <div className="phone-frame__home" />
       </div>
