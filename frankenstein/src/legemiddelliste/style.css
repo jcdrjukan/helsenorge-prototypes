@@ -52,24 +52,140 @@
   margin: 0;
 }
 
-.ll-discrepancy {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  margin-top: 12px;
-  padding-top: 12px;
-  border-top: 1px solid #D6D4D3;
-}
-
-.ll-discrepancy svg { flex-shrink: 0; margin-top: 2px; color: #C83521; }
-
-.ll-discrepancy p {
+.ll-updated {
   font: 400 16px/1.5 'Source Sans Pro', sans-serif;
   color: #474745;
+  margin: -8px 0 0;
+}
+
+/* ── PLL card (Figma: Rectangle 146, #EAE7E7) ───────────────────── */
+.ll-pll-card {
+  background: #EAE7E7;
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ll-pll-card__title {
+  font: 700 20px/1.4 'Source Sans Pro', sans-serif;
+  color: #000;
   margin: 0;
 }
 
-.ll-discrepancy a { color: #126F87; font-weight: 600; }
+.ll-pll-card__intro {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 16px;
+}
+
+.ll-pll-section-label {
+  font: 700 14px/1.5 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #000;
+  margin: 8px 0;
+}
+
+.ll-pll-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.ll-pll-row {
+  background: #fff;
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ll-pll-row__name {
+  font: 700 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ll-pll-row__meta {
+  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ll-pll-row__dose {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  padding-top: 8px;
+  border-top: 1px solid #D6D4D3;
+}
+
+.ll-pll-row__dose p {
+  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ll-multidose-tag {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 10px;
+  border: 1px solid #AFDAE3;
+  border-radius: 100px;
+  font: 600 12px/1 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  color: #06596C;
+}
+
+/* ── Bottom expander groups (Avsluttet legemidler / Legemiddelreaksjoner) ── */
+.ll-expander-group {
+  border-top: 1px solid #D6D4D3;
+}
+
+.ll-expander-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: 600 18px/1.3 'Source Sans Pro', sans-serif;
+  color: #000;
+  text-align: left;
+}
+
+.ll-expander-header--open { background: #EAE7E7; padding: 12px 8px; }
+
+.ll-expander-header__right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.ll-expander-body {
+  background: #F5F3F3;
+  padding: 16px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ll-expander-body__intro {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
 
 .ll-message-cta {
   margin-top: 16px;

@@ -13,12 +13,15 @@ import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
+import ChevronUp from '@helsenorge/designsystem-react/components/Icons/ChevronUp';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Medicine from '@helsenorge/designsystem-react/components/Icons/Medicine';
-import MedicineWarning from '@helsenorge/designsystem-react/components/Icons/MedicineWarning';
 import './style.css';
 
-import { MEDICATIONS, PRESCRIPTIONS, PLL_ENTRIES } from './data';
+import {
+  MEDICATIONS, PRESCRIPTIONS, PLL_FAST, PLL_BEHOV, PLL_AVSLUTTET, LEGEMIDDELREAKSJONER, PLL_SIST_OPPDATERT,
+  type PllEntry, type PllAvsluttetEntry,
+} from './data';
 
 type View = 'landing' | 'resepter' | 'pll';
 
@@ -38,9 +41,31 @@ function medById(id: string) {
   return MEDICATIONS.find(m => m.id === id)!;
 }
 
+function PllRow({ entry, extra }: { entry: PllEntry | PllAvsluttetEntry; extra?: React.ReactNode }) {
+  const med = medById(entry.medicationId);
+  const multidose = 'multidose' in entry && entry.multidose;
+  return (
+    <div className="ll-pll-row">
+      <div className="ll-pll-row__info">
+        <p className="ll-pll-row__name">{med.name}</p>
+        <p className="ll-pll-row__meta">Virkestoff: {med.virkestoff}</p>
+        <p className="ll-pll-row__meta">Sist utlevert: {entry.sistUtlevert}</p>
+        <p className="ll-pll-row__meta">{entry.indikasjon}</p>
+      </div>
+      <div className="ll-pll-row__dose">
+        <p>{entry.dosering}</p>
+        {multidose && <span className="ll-multidose-tag">Multidose</span>}
+        {extra}
+      </div>
+    </div>
+  );
+}
+
 export default function Legemiddelliste() {
   const [view, setView] = useState<View>(() => viewFromHash());
   const [visAktiveKun, setVisAktiveKun] = useState(false);
+  const [avsluttetOpen, setAvsluttetOpen] = useState(false);
+  const [reaksjonerOpen, setReaksjonerOpen] = useState(false);
 
   useEffect(() => {
     const onHashChange = () => setView(viewFromHash());
@@ -156,7 +181,7 @@ export default function Legemiddelliste() {
                       {p.status === 'aktiv' ? 'Aktiv resept' : 'Utekspedert'}
                     </Badge>
                     <h3 className="ll-panel-title">{med.name}</h3>
-                    <p className="ll-panel-sub">{med.form}</p>
+                    <p className="ll-panel-sub">Virkestoff: {med.virkestoff}</p>
                     <p className="ll-panel-meta">Sist hentet: {p.sistHentet}</p>
                     {p.kanFornyes ? (
                       <Button variant="outline" arrow="icon">Forny resept</Button>
@@ -174,33 +199,75 @@ export default function Legemiddelliste() {
       {/* ── PLL ────────────────────────────────────────────────── */}
       {view === 'pll' && (
         <main className="ll-page">
-          <Title htmlMarkup="h1" appearance="title1">Legemidler du skal bruke</Title>
-          <p className="ll-preamble">
-            Dette er den samlede legemiddellisten din, godkjent av fastlegen din. Er det feil eller mangler, ta kontakt med fastlegen.
-          </p>
+          <Title htmlMarkup="h1" appearance="title1">Legemiddelliste</Title>
+          <p className="ll-updated">{PLL_SIST_OPPDATERT}</p>
 
-          <div className="ll-panel-list">
-            {PLL_ENTRIES.map(entry => {
-              const med = medById(entry.medicationId);
-              return (
-                <Panel key={entry.medicationId} variant={PanelVariant.outline} status={PanelStatus.none} color="neutral">
-                  <Panel.A>
-                    <Badge color={entry.fortsattIBruk ? 'blueberry' : 'cherry'}>
-                      {entry.fortsattIBruk ? 'I bruk' : 'Ikke lenger i bruk'}
-                    </Badge>
-                    <h3 className="ll-panel-title">{med.name}</h3>
-                    <p className="ll-panel-sub">{med.form}</p>
-                    <p className="ll-panel-meta">{entry.dosering}</p>
-                    {!entry.fortsattIBruk && (
-                      <div className="ll-discrepancy">
-                        <Icon svgIcon={MedicineWarning} size={24} />
-                        <p>{entry.seponertNote} Du har fortsatt en aktiv resept på dette legemiddelet — se <a href="#resepter" onClick={(e) => { e.preventDefault(); goTo('resepter', '#resepter'); }}>Resepter</a>.</p>
-                      </div>
-                    )}
-                  </Panel.A>
-                </Panel>
-              );
-            })}
+          <div className="ll-pll-card">
+            <h2 className="ll-pll-card__title">Din legemiddelliste</h2>
+            <p className="ll-pll-card__intro">Her finner du en oversikt over legemidlene du skal bruke.</p>
+
+            <h3 className="ll-pll-section-label">Disse tar du fast</h3>
+            <div className="ll-pll-list">
+              {PLL_FAST.map(entry => <PllRow key={entry.medicationId} entry={entry} />)}
+            </div>
+
+            <h3 className="ll-pll-section-label">Disse tar du ved behov</h3>
+            <div className="ll-pll-list">
+              {PLL_BEHOV.map(entry => <PllRow key={entry.medicationId} entry={entry} />)}
+            </div>
+          </div>
+
+          <div className="ll-expander-group">
+            <button
+              className={`ll-expander-header${avsluttetOpen ? ' ll-expander-header--open' : ''}`}
+              onClick={() => setAvsluttetOpen(o => !o)}
+              aria-expanded={avsluttetOpen}
+            >
+              <span>Avsluttet legemidler</span>
+              <span className="ll-expander-header__right">
+                <Badge color="blueberry">{PLL_AVSLUTTET.length}</Badge>
+                <Icon svgIcon={avsluttetOpen ? ChevronUp : ChevronDown} size={38} />
+              </span>
+            </button>
+            {avsluttetOpen && (
+              <div className="ll-expander-body">
+                <p className="ll-expander-body__intro">
+                  Disse medisinene skal du ikke bruke lenger. Har du mer igjen av medisinen kan du levere det tilbake til apoteket.
+                </p>
+                {PLL_AVSLUTTET.map(entry => (
+                  <PllRow key={entry.medicationId} entry={entry} extra={<p>Sluttdato: {entry.sluttdato}</p>} />
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div className="ll-expander-group">
+            <button
+              className={`ll-expander-header${reaksjonerOpen ? ' ll-expander-header--open' : ''}`}
+              onClick={() => setReaksjonerOpen(o => !o)}
+              aria-expanded={reaksjonerOpen}
+            >
+              <span>Legemiddelreaksjoner</span>
+              <span className="ll-expander-header__right">
+                <Badge color="blueberry">{LEGEMIDDELREAKSJONER.length}</Badge>
+                <Icon svgIcon={reaksjonerOpen ? ChevronUp : ChevronDown} size={38} />
+              </span>
+            </button>
+            {reaksjonerOpen && (
+              <div className="ll-expander-body">
+                <p className="ll-expander-body__intro">{LEGEMIDDELREAKSJONER.length} registrert legemiddelreaksjon</p>
+                {LEGEMIDDELREAKSJONER.map(r => (
+                  <div className="ll-pll-row" key={r.navn}>
+                    <div className="ll-pll-row__info">
+                      <p className="ll-pll-row__name">{r.navn}</p>
+                      <p className="ll-pll-row__meta">{r.reaksjon}</p>
+                      <p className="ll-pll-row__meta">Dato oppdatert: {r.datoOppdatert}</p>
+                      <p className="ll-pll-row__meta">Kilde: {r.kilde}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div className="ll-message-cta">
