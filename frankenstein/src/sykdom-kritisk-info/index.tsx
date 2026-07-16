@@ -5,7 +5,7 @@ import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
-import Expander from '@helsenorge/designsystem-react/components/Expander';
+import Expander, { ExpanderSize } from '@helsenorge/designsystem-react/components/Expander';
 import EmptyState, { EmptyStateOnColor } from '@helsenorge/designsystem-react/components/EmptyState';
 import Tabs from '@helsenorge/designsystem-react/components/Tabs';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
@@ -168,7 +168,7 @@ export default function SykdomKritiskInfo() {
               {emptyGroup1.length > 0 && (
                 <div className="ski-expander-list">
                   {emptyGroup1.map(cat => (
-                    <Expander key={cat.id} title={cat.title}>
+                    <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
                       <p>{cat.description}</p>
                     </Expander>
                   ))}
@@ -177,7 +177,7 @@ export default function SykdomKritiskInfo() {
               {emptyGroup2.length > 0 && (
                 <div className="ski-expander-list">
                   {emptyGroup2.map(cat => (
-                    <Expander key={cat.id} title={cat.title}>
+                    <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
                       <p>{cat.description}</p>
                     </Expander>
                   ))}
