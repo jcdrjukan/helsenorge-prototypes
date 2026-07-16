@@ -150,6 +150,12 @@
   flex-direction: column;
 }
 
+.ski-expander-desc {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
 /* ── Footer ──────────────────────────────────────────────────────── */
 .ski-footer {
   background: #2B2C2B;

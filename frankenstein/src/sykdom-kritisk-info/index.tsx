@@ -169,7 +169,7 @@ export default function SykdomKritiskInfo() {
                 <div className="ski-expander-list">
                   {emptyGroup1.map(cat => (
                     <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
-                      <p>{cat.description}</p>
+                      <p className="ski-expander-desc">{cat.description}</p>
                     </Expander>
                   ))}
                 </div>
@@ -178,7 +178,7 @@ export default function SykdomKritiskInfo() {
                 <div className="ski-expander-list">
                   {emptyGroup2.map(cat => (
                     <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
-                      <p>{cat.description}</p>
+                      <p className="ski-expander-desc">{cat.description}</p>
                     </Expander>
                   ))}
                 </div>
