@@ -30,8 +30,12 @@
 
 /* Panel's own styles jump to a wider (24px) padding past a desktop
    breakpoint that the visual phone-frame doesn't stop from matching in a
-   real browser — force the tighter mobile padding to match production. */
-.ll-resept-panel {
+   real browser — force the tighter mobile padding to match production.
+   The className prop lands on Panel's outermost (border) wrapper, not the
+   inner div that actually carries the padding + fill color — that inner
+   div sits 3 levels deeper (outer > outline-inner > expander-border >
+   .panel), so it has to be reached structurally. */
+.ll-resept-panel > div > div > div {
   padding: 16px 16px 16px 10px !important;
 }
 
