@@ -4,6 +4,7 @@ import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import Expander, { ExpanderSize } from '@helsenorge/designsystem-react/components/Expander';
 import EmptyState, { EmptyStateOnColor } from '@helsenorge/designsystem-react/components/EmptyState';
@@ -152,29 +153,31 @@ export default function SykdomKritiskInfo() {
                 </div>
               )}
 
-              <h2 className="ski-missing-title">Sjekk om noe mangler...</h2>
-              <p className="ski-missing-text">
-                Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. Ta kontakt med din fastlege hvis du tror noe mangler.
-              </p>
+              <HighlightPanel color="blueberry" className="ski-missing-panel">
+                <h2 className="ski-missing-title">Sjekk om noe mangler...</h2>
+                <p className="ski-missing-text">
+                  Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. Ta kontakt med din fastlege hvis du tror noe mangler.
+                </p>
 
-              {emptyGroup1.length > 0 && (
-                <div className="ski-expander-list">
-                  {emptyGroup1.map(cat => (
-                    <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
-                      <p className="ski-expander-desc">{cat.description}</p>
-                    </Expander>
-                  ))}
-                </div>
-              )}
-              {emptyGroup2.length > 0 && (
-                <div className="ski-expander-list">
-                  {emptyGroup2.map(cat => (
-                    <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
-                      <p className="ski-expander-desc">{cat.description}</p>
-                    </Expander>
-                  ))}
-                </div>
-              )}
+                {emptyGroup1.length > 0 && (
+                  <div className="ski-expander-list">
+                    {emptyGroup1.map(cat => (
+                      <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
+                        <p className="ski-expander-desc">{cat.description}</p>
+                      </Expander>
+                    ))}
+                  </div>
+                )}
+                {emptyGroup2.length > 0 && (
+                  <div className="ski-expander-list">
+                    {emptyGroup2.map(cat => (
+                      <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
+                        <p className="ski-expander-desc">{cat.description}</p>
+                      </Expander>
+                    ))}
+                  </div>
+                )}
+              </HighlightPanel>
             </div>
           </Tabs.Tab>
         </Tabs>
