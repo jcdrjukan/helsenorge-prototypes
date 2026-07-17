@@ -28,6 +28,13 @@
   gap: 12px;
 }
 
+/* Panel's own styles jump to a wider (24px) padding past a desktop
+   breakpoint that the visual phone-frame doesn't stop from matching in a
+   real browser — force the tighter mobile padding to match production. */
+.ll-resept-panel {
+  padding: 16px 16px 16px 10px !important;
+}
+
 .ll-panel-title {
   font: 600 22px/1.36 'Source Sans Pro', sans-serif;
   color: #000;
@@ -35,7 +42,7 @@
 }
 
 .ll-panel-sub {
-  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #474745;
   margin: 0 0 8px;
 }
@@ -43,7 +50,7 @@
 .ll-panel-meta {
   font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #000;
-  margin: 0 0 12px;
+  margin: 0 0 8px;
 }
 
 .ll-panel-note {
@@ -249,20 +256,20 @@
 }
 
 .ll-resept-status-sub {
-  font: 400 14px/1.4 'Source Sans Pro', sans-serif;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #474745;
-  margin: 4px 0 8px;
+  margin: 0 0 8px;
 }
 
 .ll-panel-hr {
   height: 1px;
   background: #D6D4D3;
-  margin: 12px 0;
+  margin: 8px 0;
 }
 
 .ll-resept-link {
   display: inline-block;
-  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #126F87;
   text-decoration: underline;
   margin-bottom: 8px;
