@@ -146,7 +146,14 @@ export default function SykdomKritiskInfo() {
                         <p className="ski-panel-desc">{cat.description}</p>
                       </Panel.A>
                       <Panel.ExpandedContent>
-                        <p className="ski-panel-detail">{cat.registration!.detail}</p>
+                        <div className="ski-panel-detail">
+                          <p className="ski-detail-label">Begrunnelse for registreringen:</p>
+                          <p className="ski-detail-value">{cat.registration!.begrunnelse}</p>
+                          <p className="ski-detail-label">Registrert:</p>
+                          <p className="ski-detail-value">{cat.registration!.registrertDato}</p>
+                          <p className="ski-detail-label">Registrert av:</p>
+                          <p className="ski-detail-value">{cat.registration!.registrertAv}</p>
+                        </div>
                       </Panel.ExpandedContent>
                     </Panel>
                   ))}

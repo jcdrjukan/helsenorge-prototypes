@@ -113,9 +113,20 @@
 }
 
 .ski-panel-detail {
-  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
-  color: #474745;
+  display: flex;
+  flex-direction: column;
+}
+
+.ski-detail-label {
+  font: 600 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
   margin: 0;
+}
+
+.ski-detail-value {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 12px;
 }
 
 .ski-missing-panel {

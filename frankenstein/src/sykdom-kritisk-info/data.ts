@@ -1,7 +1,9 @@
 export interface Registration {
   gjeldende: number;
   avkreftet: number;
-  detail: string;
+  begrunnelse: string;
+  registrertDato: string;
+  registrertAv: string;
 }
 
 export interface CriticalCategory {
@@ -22,7 +24,9 @@ export const CATEGORIES: CriticalCategory[] = [
     registration: {
       gjeldende: 1,
       avkreftet: 1,
-      detail: 'Penicillin — anafylaktisk reaksjon. Registrert 14.03.2024 av fastlege Kari Nordmann.',
+      begrunnelse: 'Penicillin ga anafylaktisk reaksjon.',
+      registrertDato: '14.03.2024',
+      registrertAv: 'Kari Nordmann (fastlege)',
     },
   },
   {
@@ -47,7 +51,9 @@ export const CATEGORIES: CriticalCategory[] = [
     registration: {
       gjeldende: 1,
       avkreftet: 0,
-      detail: 'Malign hypertermi ved narkose i 2019. Registrert 02.05.2024 av fastlege Kari Nordmann.',
+      begrunnelse: 'Malign hypertermi ved narkose i 2019.',
+      registrertDato: '02.05.2024',
+      registrertAv: 'Kari Nordmann (fastlege)',
     },
   },
   {
