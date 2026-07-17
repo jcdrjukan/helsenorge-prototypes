@@ -241,7 +241,7 @@ export default function Legemiddelliste() {
                     const info = pllInfoFor(p.medicationId);
                     const shortName = med.name.split(' ')[0];
                     return (
-                      <Panel key={p.medicationId} variant={PanelVariant.outline} status={PanelStatus.none} color="neutral">
+                      <Panel key={p.medicationId} variant={PanelVariant.fill} status={PanelStatus.none} color="neutral">
                         <Panel.A>
                           <StatusDot
                             text={p.status === 'aktiv' ? 'Aktiv' : 'Utekspedert'}
