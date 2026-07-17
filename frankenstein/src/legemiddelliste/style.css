@@ -46,13 +46,13 @@
 }
 
 .ll-panel-sub {
-  font: 400 18px/0.75 'Source Sans Pro', sans-serif;
+  font: 400 18px/0.9375 'Source Sans Pro', sans-serif;
   color: #474745;
   margin: 0 0 8px;
 }
 
 .ll-panel-meta {
-  font: 400 18px/0.75 'Source Sans Pro', sans-serif;
+  font: 400 18px/0.9375 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0 0 8px;
 }
@@ -260,7 +260,7 @@
 }
 
 .ll-resept-status-sub {
-  font: 400 18px/0.75 'Source Sans Pro', sans-serif;
+  font: 400 18px/0.9375 'Source Sans Pro', sans-serif;
   color: #474745;
   margin: 0 0 8px;
 }
@@ -273,7 +273,7 @@
 
 .ll-resept-link {
   display: inline-block;
-  font: 400 18px/0.75 'Source Sans Pro', sans-serif;
+  font: 400 18px/0.9375 'Source Sans Pro', sans-serif;
   color: #126F87;
   text-decoration: underline;
   margin-bottom: 8px;
