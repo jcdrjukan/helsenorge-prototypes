@@ -19,8 +19,10 @@ Built from the Obsidian vault spec `Helsenorge/Sykdom og kritisk info.md` and tw
 
 Open items from the vault spec not yet addressed in this build (still just todos in the note, no design exists for them yet): a "message your fastlege" feature.
 
-## Legemiddelliste
-Built from the Obsidian vault note `Helsenorge/Legemidler.md`. The note describes patient confusion between two overlapping-but-different services: **Resepter** (transactional — what can I pick up/refill at the pharmacy) and **Pasientens legemiddelliste/PLL** (clinical — what should I actually be taking, doctor-approved). Landing page (`#legemiddelliste`) uses the umbrella name from the note's "Design proposal" and reframes the choice as two plain-language questions instead of service jargon: "Hva kan jeg hente på apoteket?" → Resepter (`#resepter`) vs. "Hva skal jeg bruke, og hvordan?" → PLL (`#pll`).
+## Legemiddelliste (tjeneste name: "Resepter")
+Built from the Obsidian vault note `Helsenorge/Legemidler.md`. The note describes patient confusion between two overlapping-but-different services: **Resepter** (transactional — what can I pick up/refill at the pharmacy) and **Pasientens legemiddelliste/PLL** (clinical — what should I actually be taking, doctor-approved). Landing page (`#legemiddelliste`) reframes the choice as two plain-language questions instead of service jargon: "Hva kan jeg hente på apoteket?" → Resepter (`#resepter`) vs. "Hva skal jeg bruke, og hvordan?" → PLL (`#pll`).
+
+As of 2026-07-17, the landing page's H1, browser tab title, and breadcrumb label are all "Resepter" — the note's original proposal (name it "Legemiddelliste" when both components are present) was superseded by explicit user direction: the tjeneste is always called "Resepter" regardless of whether the patient has a PLL. The internal route/directory/repo folder are still named `legemiddelliste` (would require a broader rename to fully align — not done). Landing ingress: "Medisiner som er forskrevet for deg og hvordan du skal bruke dem." The PLL sub-page keeps its own "Legemiddelliste" H1 verbatim from the Figma reference — that's the page's own title, distinct from the outer tjeneste name.
 
 Resepter view implements the specific UX wrinkle the note calls out: a "Vis kun aktive resepter" checkbox, unchecked by default, so "utekspederte" (used-up) prescriptions clutter the list until filtered — reproducing the real product's known tradeoff rather than hiding it.
 

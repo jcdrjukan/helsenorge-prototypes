@@ -100,7 +100,7 @@ export default function Legemiddelliste() {
     window.location.hash = hash;
   };
 
-  const breadcrumbLabel = view === 'landing' ? 'Forside' : 'Legemiddelliste';
+  const breadcrumbLabel = view === 'landing' ? 'Forside' : 'Resepter';
   const breadcrumbAction = () => {
     if (view === 'landing') return;
     goTo('landing', '#legemiddelliste');
@@ -149,9 +149,9 @@ export default function Legemiddelliste() {
       {/* ── Landing ────────────────────────────────────────────── */}
       {view === 'landing' && (
         <main className="ll-page">
-          <Title htmlMarkup="h1" appearance="title1">Legemiddelliste</Title>
+          <Title htmlMarkup="h1" appearance="title1">Resepter</Title>
           <p className="ll-preamble">
-            Resepter og legemiddellisten viser delvis overlappende informasjon, men svarer på ulike spørsmål. Velg det som passer det du lurer på.
+            Medisiner som er forskrevet for deg og hvordan du skal bruke dem.
           </p>
 
           <LinkList variant="outline" color="neutral" chevron>
