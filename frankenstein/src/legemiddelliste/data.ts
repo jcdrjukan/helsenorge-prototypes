@@ -10,6 +10,11 @@ export interface Prescription {
   sistHentet: string;
   kanFornyes: boolean;
   fornyesNote?: string;
+  frequency: 'fast' | 'behov';
+  harRefusjon: boolean;
+  forskrivendeLege: string;
+  reseptnummer: string;
+  gyldigTil: string;
 }
 
 export interface PllEntry {
@@ -48,21 +53,76 @@ export const MEDICATIONS: Medication[] = [
 ];
 
 export const PRESCRIPTIONS: Prescription[] = [
-  { medicationId: 'lamotrigin', status: 'aktiv', sistHentet: '02.06.2026', kanFornyes: true },
-  { medicationId: 'rivaroksaban', status: 'aktiv', sistHentet: '15.05.2026', kanFornyes: true },
+  {
+    medicationId: 'lamotrigin',
+    status: 'aktiv',
+    sistHentet: '02.06.2026',
+    kanFornyes: true,
+    frequency: 'fast',
+    harRefusjon: true,
+    forskrivendeLege: 'Kari Nordmann',
+    reseptnummer: 'RES-2026-0142',
+    gyldigTil: '02.06.2027',
+  },
+  {
+    medicationId: 'rivaroksaban',
+    status: 'aktiv',
+    sistHentet: '15.05.2026',
+    kanFornyes: true,
+    frequency: 'fast',
+    harRefusjon: true,
+    forskrivendeLege: 'Kari Nordmann',
+    reseptnummer: 'RES-2026-0143',
+    gyldigTil: '15.05.2027',
+  },
   {
     medicationId: 'metoprolol',
     status: 'aktiv',
     sistHentet: '20.04.2026',
     kanFornyes: false,
     fornyesNote: 'Trenger ny time hos fastlege før fornyelse.',
+    frequency: 'fast',
+    harRefusjon: true,
+    forskrivendeLege: 'Kari Nordmann',
+    reseptnummer: 'RES-2026-0089',
+    gyldigTil: '20.04.2027',
   },
-  { medicationId: 'kandesartan', status: 'aktiv', sistHentet: '20.04.2026', kanFornyes: true },
-  { medicationId: 'paracetamol', status: 'utekspedert', sistHentet: '10.01.2026', kanFornyes: true },
+  {
+    medicationId: 'kandesartan',
+    status: 'aktiv',
+    sistHentet: '20.04.2026',
+    kanFornyes: true,
+    frequency: 'fast',
+    harRefusjon: true,
+    forskrivendeLege: 'Kari Nordmann',
+    reseptnummer: 'RES-2026-0090',
+    gyldigTil: '20.04.2027',
+  },
+  {
+    medicationId: 'paracetamol',
+    status: 'utekspedert',
+    sistHentet: '10.01.2026',
+    kanFornyes: true,
+    frequency: 'behov',
+    harRefusjon: false,
+    forskrivendeLege: 'Kari Nordmann',
+    reseptnummer: 'RES-2026-0021',
+    gyldigTil: '10.01.2027',
+  },
   // Discrepancy case: still an active, refillable resept, but the doctor-approved
   // PLL below has moved it to "Avsluttet legemidler" — the exact tension the
   // vault note (Helsenorge/Legemidler.md) flags between the two services.
-  { medicationId: 'valporinsyre', status: 'aktiv', sistHentet: '12.03.2026', kanFornyes: true },
+  {
+    medicationId: 'valporinsyre',
+    status: 'aktiv',
+    sistHentet: '12.03.2026',
+    kanFornyes: true,
+    frequency: 'fast',
+    harRefusjon: true,
+    forskrivendeLege: 'Kari Nordmann',
+    reseptnummer: 'RES-2025-0304',
+    gyldigTil: '12.03.2027',
+  },
 ];
 
 export const PLL_FAST: PllEntry[] = [
@@ -124,3 +184,12 @@ export const LEGEMIDDELREAKSJONER: Legemiddelreaksjon[] = [
 ];
 
 export const PLL_SIST_OPPDATERT = 'Sist oppdatert 13. juli 2023 av Ståle Psa Westby';
+
+// Resepter and PLL are harmonized by construction: Resepter cards read their
+// indikasjon/dosering/dispensed-brand text from the same PLL entries rather
+// than duplicating separate copy.
+export function pllInfoFor(medicationId: string): { sistUtlevert: string; indikasjon: string; dosering: string } {
+  const entry = [...PLL_FAST, ...PLL_BEHOV, ...PLL_AVSLUTTET].find(e => e.medicationId === medicationId);
+  if (!entry) throw new Error(`No PLL entry found for medication "${medicationId}"`);
+  return { sistUtlevert: entry.sistUtlevert, indikasjon: entry.indikasjon, dosering: entry.dosering };
+}

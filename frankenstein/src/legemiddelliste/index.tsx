@@ -9,7 +9,10 @@ import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import StatusDot, { StatusDotVariant } from '@helsenorge/designsystem-react/components/StatusDot';
 import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
+import Select from '@helsenorge/designsystem-react/components/Select';
+import Tabs from '@helsenorge/designsystem-react/components/Tabs';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -17,10 +20,13 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronUp from '@helsenorge/designsystem-react/components/Icons/ChevronUp';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Medicine from '@helsenorge/designsystem-react/components/Icons/Medicine';
+import Printer from '@helsenorge/designsystem-react/components/Icons/Printer';
+import HelpSign from '@helsenorge/designsystem-react/components/Icons/HelpSign';
 import './style.css';
 
 import {
   MEDICATIONS, PRESCRIPTIONS, PLL_FAST, PLL_BEHOV, PLL_AVSLUTTET, LEGEMIDDELREAKSJONER, PLL_SIST_OPPDATERT,
+  pllInfoFor,
   type PllEntry, type PllAvsluttetEntry,
 } from './data';
 
@@ -46,7 +52,7 @@ function medById(id: string) {
 // artwork from Figma file UAhljteF5I4yI9lwrpxta7, node 3396:919 ("Rx 1").
 function RxIcon() {
   return (
-    <svg width="30" height="38" viewBox="0 0 612 792" aria-hidden="true">
+    <svg width="38" height="38" viewBox="0 0 612 792" aria-hidden="true">
       <path d="M545.3 140.4V652.4H67.3V140.4H545.3ZM442.6 601.2C476.3 628.2 519.3 586 494.3 551.8L414.6 471.2V252.5L413 248L339.1 174.1L336.2 172.5H136C121.3 173.5 110 185 108.8 199.6V543.3C109 558.3 119.2 570.6 134 573H261.8C262.8 573.4 263.7 577.9 264.2 579.1C270.5 594.5 282.9 601.6 299.3 602.5C337.6 604.6 377.7 600.9 416.2 602.5C419.8 602 423.1 601.5 426.5 600.3C429.9 599.1 432.8 596.9 436.1 595.5C437.3 595.6 441.2 600.2 442.6 601.3V601.2Z" fill="#fff" />
       <path d="M442.6 601.2C441.2 600.1 437.3 595.5 436.1 595.4C432.8 596.9 429.9 599 426.5 600.2C423.1 601.4 419.8 601.9 416.2 602.4C377.7 600.8 337.6 604.5 299.3 602.4C283 601.5 270.5 594.4 264.2 579C257.9 563.6 262.7 573.3 261.8 573H134C119.2 570.5 108.9 558.2 108.8 543.2V199.6C110.1 185 121.3 173.5 136 172.4H336.2C336.2 172.5 339.1 174.2 339.1 174.2L413 248.1L414.5 252.6V471.3L494.3 551.9C519.4 586.1 476.3 628.3 442.6 601.3V601.2ZM327 186.9H135.5C135 186.9 131 188.8 130.3 189.2C126.5 191.5 124.2 195.1 123.7 199.6V545.3C123.8 552.3 129.5 557.1 135.9 558.5H262.2C265 545.6 274.2 535 286.9 531.2C288 530.9 292.5 529.6 293.2 529.6H369.6L370.1 528.6C363.1 521.2 355.1 515.7 351.4 505.9C340 475.7 369 447.2 398.7 459.6C399.1 459.8 399.8 459.1 399.8 458.9V259.8H346.1C340.9 259.8 332.9 254.1 330.3 249.7C327.7 245.3 326.9 242 326.9 241.1V186.9H327ZM348.3 245.3H388.3L388.8 244.3L341.6 197.8V239C341.6 241.8 345.8 244.8 348.3 245.2V245.3ZM434.2 513.9L434.8 512.8L399.2 476.7C378.6 459.9 351.3 486 369 506.9C375.5 514.7 384.8 522.1 392 529.4L418.6 529.6L434.2 514V513.9ZM445.7 523L434 535.2C450 545.7 455.6 566.7 446 583.6C464.7 609.1 500.6 585.4 481.6 558.9L445.6 523H445.7ZM349 544H294.3C293.3 544 287.4 546.7 286.2 547.4C272.5 555.8 272.9 576.4 286.8 584.5C300.7 592.6 292.8 587.5 294.3 587.5H349V544ZM418.2 544H363.5V587.5H418.2C422.3 587.5 429.8 581.8 432.1 578.5C441 565.9 433.5 546.3 418.2 544.1V544Z" fill="#000" />
       <path d="M327 186.9V241.1C327 241.9 329.7 248.6 330.4 249.7C333 254.1 341 259.8 346.2 259.8H399.9V458.9C399.9 459.1 399.2 459.8 398.8 459.6C369.1 447.2 340.1 475.7 351.5 505.9C362.9 536.1 363.2 521.3 370.2 528.6L369.7 529.6H293.3C292.6 529.6 288.1 530.9 287 531.2C274.3 535.1 265.1 545.7 262.3 558.6H136C129.5 557.1 123.9 552.4 123.8 545.4V199.6C124.3 195.1 126.5 191.5 130.4 189.2C134.3 186.9 135.1 186.9 135.6 186.9H327.1H327ZM185.7 270.3H202.4C208.2 270.3 216.3 264 219.3 259.3C228.5 244.9 218.9 225 201.9 223.4C190.7 222.3 177.8 224.2 166.4 223.4C161.9 224.2 160 227.3 159.6 231.6C157.8 251.8 160.9 274.9 159.8 295.4C160.2 301.7 166.5 305.1 171.7 301C176.9 296.9 174.7 296.7 174.7 295.5V281.3C178 285.1 204.5 309.4 204.7 311.5C204.9 313.6 204.6 312.6 204.2 313L188.4 328.4C187.7 329.9 186.1 330.7 185.3 332.1C181.1 338.8 188.8 346.1 195.3 342.1L215.5 322.3L236.4 342.3C242.9 345.9 250.1 338.7 246.1 332.1L227.2 313.1L226.7 311.6C231.5 305 239.3 299.6 244.5 293.3C249.7 287 248.9 286.3 245.7 282.5C242.5 278.7 236.7 280.5 232.9 283.7C229.1 286.9 216.7 300.9 215.5 300.7L185.7 270.3ZM165.6 369.3C157.2 371.4 158.5 383 167 383.7H356.8C365.5 382.7 365.9 370.7 357.3 369.2H165.6V369.3ZM361.3 425.4C366 420.8 362.8 412.9 356.2 412.6H166.9C157.5 413.7 157.4 426.5 166.9 427.1L358.9 426.7C359.7 426.3 360.7 426 361.3 425.4ZM325.4 458.7C324.6 457.8 321.7 456.5 320.3 456.5L164.4 457C157.1 460 159.1 470.6 166.9 471H320.3C326.3 470.6 329.3 463 325.4 458.7ZM161.9 502.2C156.7 507.4 161.9 515.8 169 515H318.4C329.3 515.1 330.6 500.8 319.4 500H168C166.3 500.2 163.1 501 161.9 502.2Z" fill="#fff" />
@@ -88,6 +94,9 @@ function PllRow({ entry, extra }: { entry: PllEntry | PllAvsluttetEntry; extra?:
 export default function Legemiddelliste() {
   const [view, setView] = useState<View>(() => viewFromHash());
   const [visAktiveKun, setVisAktiveKun] = useState(false);
+  const [visRefusjonKun, setVisRefusjonKun] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
+  const [resepterTab, setResepterTab] = useState(0);
   const [avsluttetOpen, setAvsluttetOpen] = useState(false);
   const [reaksjonerOpen, setReaksjonerOpen] = useState(false);
 
@@ -108,7 +117,9 @@ export default function Legemiddelliste() {
     goTo('landing', '#legemiddelliste');
   };
 
-  const resepter = visAktiveKun ? PRESCRIPTIONS.filter(p => p.status === 'aktiv') : PRESCRIPTIONS;
+  const resepter = PRESCRIPTIONS
+    .filter(p => !visAktiveKun || p.status === 'aktiv')
+    .filter(p => !visRefusjonKun || p.harRefusjon);
 
   return (
     <div className="ll-shell">
@@ -186,37 +197,116 @@ export default function Legemiddelliste() {
         <main className="ll-page">
           <Title htmlMarkup="h1" appearance="title1">Resepter</Title>
           <p className="ll-preamble">
-            Her ser du hvilke legemidler du kan hente på apoteket, og om resepten kan fornyes.
+            Her finner du en samlet oversikt over dine resepter på legemidler og andre varer.
           </p>
 
-          <Checkbox
-            label="Vis kun aktive resepter"
-            checked={visAktiveKun}
-            onChange={() => setVisAktiveKun(v => !v)}
-          />
+          <Button variant="fill" arrow="icon">
+            <Icon svgIcon={Medicine} size={24} /> Forny resept
+          </Button>
 
-          <div className="ll-panel-list">
-            {resepter.map(p => {
-              const med = medById(p.medicationId);
-              return (
-                <Panel key={p.medicationId} variant={PanelVariant.outline} status={PanelStatus.none} color="neutral">
-                  <Panel.A>
-                    <Badge color={p.status === 'aktiv' ? 'blueberry' : 'neutral'}>
-                      {p.status === 'aktiv' ? 'Aktiv resept' : 'Utekspedert'}
-                    </Badge>
-                    <h3 className="ll-panel-title">{med.name}</h3>
-                    <p className="ll-panel-sub">Virkestoff: {med.virkestoff}</p>
-                    <p className="ll-panel-meta">Sist hentet: {p.sistHentet}</p>
-                    {p.kanFornyes ? (
-                      <Button variant="outline" arrow="icon">Forny resept</Button>
-                    ) : (
-                      <p className="ll-panel-note">{p.fornyesNote}</p>
-                    )}
-                  </Panel.A>
-                </Panel>
-              );
-            })}
-          </div>
+          <button
+            className="ll-help-disclosure"
+            onClick={() => setHelpOpen(o => !o)}
+            aria-expanded={helpOpen}
+          >
+            <Icon svgIcon={HelpSign} size={24} />
+            <span>Trenger du hjelp til å hente medisiner?</span>
+            <Icon svgIcon={helpOpen ? ChevronUp : ChevronDown} size={24} />
+          </button>
+          {helpOpen && (
+            <p className="ll-help-disclosure__body">
+              Du kan hente reseptbelagte legemidler på ethvert apotek i Norge. Ta med gyldig legitimasjon. Har du fullmakt, kan du hente medisiner på vegne av noen andre.
+            </p>
+          )}
+
+          <Tabs activeTab={resepterTab}>
+            <Tabs.Tab title="Resepter" onTabClick={() => setResepterTab(0)}>
+              <div className="ll-tabpanel">
+                <p className="ll-tab-intro">
+                  Her vises aktive resepter og resepter med utlevering siste 12 måneder.
+                </p>
+
+                <div className="ll-filter-panel">
+                  <p className="ll-filter-panel__title">Vis kun</p>
+                  <Checkbox
+                    label="Aktive e-resepter"
+                    checked={visAktiveKun}
+                    onChange={() => setVisAktiveKun(v => !v)}
+                  />
+                  <Checkbox
+                    label="Resepter med refusjon"
+                    checked={visRefusjonKun}
+                    onChange={() => setVisRefusjonKun(v => !v)}
+                  />
+                </div>
+
+                <Select label="Sorter etter" defaultValue="standard">
+                  <option value="standard">Standard sortering</option>
+                </Select>
+
+                <div className="ll-panel-list">
+                  {resepter.map(p => {
+                    const med = medById(p.medicationId);
+                    const info = pllInfoFor(p.medicationId);
+                    const shortName = med.name.split(' ')[0];
+                    return (
+                      <Panel key={p.medicationId} variant={PanelVariant.outline} status={PanelStatus.none} color="neutral">
+                        <Panel.A>
+                          <StatusDot
+                            text={p.status === 'aktiv' ? 'Aktiv' : 'Utekspedert'}
+                            variant={p.status === 'aktiv' ? StatusDotVariant.active : StatusDotVariant.inactive}
+                          />
+                          <p className="ll-resept-status-sub">
+                            {p.status === 'aktiv' ? 'Denne resepten kan fremdeles brukes' : 'Resepten er ferdig utlevert for denne perioden.'}
+                          </p>
+                          <h3 className="ll-panel-title">{med.name}</h3>
+                          <p className="ll-panel-sub">Virkestoff: {med.virkestoff}</p>
+                          <p className="ll-panel-sub">{p.frequency === 'fast' ? 'FAST' : 'VED BEHOV'}: {info.indikasjon}</p>
+                          <div className="ll-panel-hr" />
+                          <p className="ll-panel-meta">Sist utlevert: {p.sistHentet}</p>
+                          <a className="ll-resept-link" href="#">{info.sistUtlevert} ↗</a>
+                          <p className="ll-panel-meta">(tilsvarer {med.name})</p>
+                          <p className="ll-panel-meta">{info.indikasjon}</p>
+                          <p className="ll-panel-meta">{info.dosering}</p>
+                          <p className="ll-panel-meta">Tilsvarer {shortName}</p>
+                        </Panel.A>
+                        <Panel.ExpandedContent>
+                          <p className="ll-panel-meta">Forskrivende lege: {p.forskrivendeLege}</p>
+                          <p className="ll-panel-meta">Reseptnummer: {p.reseptnummer}</p>
+                          <p className="ll-panel-meta">Gyldig til: {p.gyldigTil}</p>
+                          {p.kanFornyes ? (
+                            <Button variant="outline" arrow="icon">Forny resept</Button>
+                          ) : (
+                            <p className="ll-panel-note">{p.fornyesNote}</p>
+                          )}
+                        </Panel.ExpandedContent>
+                      </Panel>
+                    );
+                  })}
+                </div>
+
+                <Button variant="outline">
+                  <Icon svgIcon={Printer} size={24} /> Vis utskriftsvennlig side
+                </Button>
+
+                <div className="ll-privacy-section">
+                  <h2 className="ll-privacy-section__title">Personvern for Resepter</h2>
+                  <LinkList variant="line" color="neutral">
+                    <LinkList.Link href="#">Logg over bruk for Reseptformidleren</LinkList.Link>
+                    <LinkList.Link href="#">Personverninnstillinger for Reseptformidleren</LinkList.Link>
+                    <LinkList.Link href="#">Logg over bruk for resepter i Kjernejournal</LinkList.Link>
+                    <LinkList.Link href="#">Personverninnstilling for resepter i Kjernejournal</LinkList.Link>
+                  </LinkList>
+                </div>
+              </div>
+            </Tabs.Tab>
+
+            <Tabs.Tab title="Resepthistorikk" onTabClick={() => setResepterTab(1)}>
+              <div className="ll-tabpanel">
+                <p className="ll-tab-intro">Ingen eldre resepthistorikk å vise i denne prototypen.</p>
+              </div>
+            </Tabs.Tab>
+          </Tabs>
         </main>
       )}
 

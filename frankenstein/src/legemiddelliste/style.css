@@ -199,3 +199,83 @@
   color: #000;
   margin: 0;
 }
+
+/* ── Resepter view ───────────────────────────────────────────────── */
+.ll-help-disclosure {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font: 600 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #5B22A6;
+  text-align: left;
+}
+
+.ll-help-disclosure__body {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: -8px 0 0;
+}
+
+.ll-tabpanel {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ll-tab-intro {
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ll-filter-panel {
+  background: #F5F3F3;
+  border-radius: 4px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.ll-filter-panel__title {
+  font: 700 16px/1.3 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ll-resept-status-sub {
+  font: 400 14px/1.4 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 4px 0 8px;
+}
+
+.ll-panel-hr {
+  height: 1px;
+  background: #D6D4D3;
+  margin: 12px 0;
+}
+
+.ll-resept-link {
+  display: inline-block;
+  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #126F87;
+  text-decoration: underline;
+  margin-bottom: 8px;
+}
+
+.ll-privacy-section {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid #474745;
+}
+
+.ll-privacy-section__title {
+  font: 700 18px/1.3 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 8px;
+}
