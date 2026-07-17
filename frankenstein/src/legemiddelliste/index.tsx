@@ -191,7 +191,7 @@ export default function Legemiddelliste() {
             Her finner du en samlet oversikt over dine resepter på legemidler og andre varer.
           </p>
 
-          <Button variant="fill" arrow="icon">
+          <Button variant="fill" arrow="icon" className="ll-forny-button" wrapperClassName="ll-forny-button">
             <Icon svgIcon={Medicine} size={24} /> Forny resept
           </Button>
 
@@ -262,14 +262,41 @@ export default function Legemiddelliste() {
                           <p className="ll-panel-meta">Tilsvarer {shortName}</p>
                         </Panel.A>
                         <Panel.ExpandedContent>
-                          <p className="ll-panel-meta">Forskrivende lege: {p.forskrivendeLege}</p>
-                          <p className="ll-panel-meta">Reseptnummer: {p.reseptnummer}</p>
-                          <p className="ll-panel-meta">Gyldig til: {p.gyldigTil}</p>
-                          {p.kanFornyes ? (
-                            <Button variant="outline" arrow="icon">Forny resept</Button>
-                          ) : (
-                            <p className="ll-panel-note">{p.fornyesNote}</p>
-                          )}
+                          <h4 className="ll-detail-heading">E-resept</h4>
+                          <p className="ll-detail-label">Legemiddel:</p>
+                          <a className="ll-resept-link" href="#">{med.name} ↗</a>
+                          <p className="ll-detail-label">Bruksområde:</p>
+                          <p className="ll-detail-value">{info.indikasjon}</p>
+                          <p className="ll-detail-label">Dosering:</p>
+                          <p className="ll-detail-value">{info.dosering}</p>
+                          <p className="ll-detail-label">Virkestoff:</p>
+                          <p className="ll-detail-value">{med.virkestoff}</p>
+                          <p className="ll-detail-label">ATC-kode:</p>
+                          <p className="ll-detail-value">{p.atcKode}</p>
+                          <p className="ll-detail-label">Pakningsstørrelse:</p>
+                          <p className="ll-detail-value">{p.pakningsstorrelse}</p>
+                          <p className="ll-detail-label">Antall:</p>
+                          <p className="ll-detail-value">{p.antall}</p>
+                          <p className="ll-detail-label">Rekvirert av:</p>
+                          <p className="ll-detail-value">{p.rekvirertAv}</p>
+                          <p className="ll-detail-label">Rekvirert dato:</p>
+                          <p className="ll-detail-value">{p.rekvirertDato}</p>
+                          <p className="ll-detail-label">Gyldig til:</p>
+                          <p className="ll-detail-value">{p.gyldigTil}</p>
+                          <p className="ll-detail-label">Reiterasjoner:</p>
+                          <p className="ll-detail-value">
+                            {p.reiterasjoner} (Det betyr at du kan hente ut forskrevet mengde {p.reiterasjoner + 1} ganger)
+                          </p>
+                          <p className="ll-detail-label">Antall utleveringer:</p>
+                          <a className="ll-resept-link" href="#">Se {p.antallUtleveringer} utleveringer</a>
+                          <p className="ll-detail-label">Refusjonshjemmel:</p>
+                          <p className="ll-detail-value">{p.refusjonshjemmel}</p>
+                          <p className="ll-detail-label">Reseptstatus:</p>
+                          <p className="ll-detail-value">
+                            {p.status === 'aktiv' ? 'Aktiv' : 'Utekspedert'}. {p.status === 'aktiv' ? 'Denne resepten kan fremdeles brukes' : 'Resepten er ferdig utlevert for denne perioden.'}
+                          </p>
+                          <p className="ll-detail-label">Resepten er hentet fra:</p>
+                          <p className="ll-detail-value">Reseptformidleren</p>
                         </Panel.ExpandedContent>
                       </Panel>
                     );

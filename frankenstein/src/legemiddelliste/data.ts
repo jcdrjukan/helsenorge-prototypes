@@ -8,13 +8,17 @@ export interface Prescription {
   medicationId: string;
   status: 'aktiv' | 'utekspedert';
   sistHentet: string;
-  kanFornyes: boolean;
-  fornyesNote?: string;
   frequency: 'fast' | 'behov';
   harRefusjon: boolean;
-  forskrivendeLege: string;
-  reseptnummer: string;
+  atcKode: string;
+  pakningsstorrelse: string;
+  antall: string;
+  rekvirertAv: string;
+  rekvirertDato: string;
   gyldigTil: string;
+  reiterasjoner: number;
+  antallUtleveringer: number;
+  refusjonshjemmel: string;
 }
 
 export interface PllEntry {
@@ -57,57 +61,83 @@ export const PRESCRIPTIONS: Prescription[] = [
     medicationId: 'lamotrigin',
     status: 'aktiv',
     sistHentet: '02.06.2026',
-    kanFornyes: true,
     frequency: 'fast',
     harRefusjon: true,
-    forskrivendeLege: 'Kari Nordmann',
-    reseptnummer: 'RES-2026-0142',
+    atcKode: 'N03AX09',
+    pakningsstorrelse: '56 stk',
+    antall: '1',
+    rekvirertAv: 'KARI NORDMANN, Sentrum Legesenter',
+    rekvirertDato: '02.06.2026',
     gyldigTil: '02.06.2027',
+    reiterasjoner: 3,
+    antallUtleveringer: 2,
+    refusjonshjemmel: 'Blå resept (§5-14 §2)',
   },
   {
     medicationId: 'rivaroksaban',
     status: 'aktiv',
     sistHentet: '15.05.2026',
-    kanFornyes: true,
     frequency: 'fast',
     harRefusjon: true,
-    forskrivendeLege: 'Kari Nordmann',
-    reseptnummer: 'RES-2026-0143',
+    atcKode: 'B01AF01',
+    pakningsstorrelse: '98 stk',
+    antall: '1',
+    rekvirertAv: 'KARI NORDMANN, Sentrum Legesenter',
+    rekvirertDato: '15.05.2026',
     gyldigTil: '15.05.2027',
+    reiterasjoner: 3,
+    antallUtleveringer: 1,
+    refusjonshjemmel: 'Blå resept (§5-14 §2)',
   },
   {
     medicationId: 'metoprolol',
     status: 'aktiv',
     sistHentet: '20.04.2026',
-    kanFornyes: false,
-    fornyesNote: 'Trenger ny time hos fastlege før fornyelse.',
     frequency: 'fast',
     harRefusjon: true,
-    forskrivendeLege: 'Kari Nordmann',
-    reseptnummer: 'RES-2026-0089',
+    atcKode: 'C07AB02',
+    pakningsstorrelse: '98 stk',
+    antall: '1',
+    rekvirertAv: 'KARI NORDMANN, Sentrum Legesenter',
+    rekvirertDato: '20.04.2026',
     gyldigTil: '20.04.2027',
+    // 0 reiterasjoner left — this is what "can't be renewed without a new
+    // legetime" looks like using a real field instead of a bespoke note.
+    reiterasjoner: 0,
+    antallUtleveringer: 3,
+    refusjonshjemmel: 'Blå resept (§5-14 §2)',
   },
   {
     medicationId: 'kandesartan',
     status: 'aktiv',
     sistHentet: '20.04.2026',
-    kanFornyes: true,
     frequency: 'fast',
     harRefusjon: true,
-    forskrivendeLege: 'Kari Nordmann',
-    reseptnummer: 'RES-2026-0090',
+    atcKode: 'C09CA06',
+    pakningsstorrelse: '98 stk',
+    antall: '1',
+    rekvirertAv: 'KARI NORDMANN, Sentrum Legesenter',
+    rekvirertDato: '20.04.2026',
     gyldigTil: '20.04.2027',
+    reiterasjoner: 3,
+    antallUtleveringer: 3,
+    refusjonshjemmel: 'Blå resept (§5-14 §2)',
   },
   {
     medicationId: 'paracetamol',
     status: 'utekspedert',
     sistHentet: '10.01.2026',
-    kanFornyes: true,
     frequency: 'behov',
     harRefusjon: false,
-    forskrivendeLege: 'Kari Nordmann',
-    reseptnummer: 'RES-2026-0021',
+    atcKode: 'N02BE01',
+    pakningsstorrelse: '100 stk',
+    antall: '1',
+    rekvirertAv: 'KARI NORDMANN, Sentrum Legesenter',
+    rekvirertDato: '10.01.2026',
     gyldigTil: '10.01.2027',
+    reiterasjoner: 1,
+    antallUtleveringer: 1,
+    refusjonshjemmel: 'Ingen refusjon',
   },
   // Discrepancy case: still an active, refillable resept, but the doctor-approved
   // PLL below has moved it to "Avsluttet legemidler" — the exact tension the
@@ -116,12 +146,17 @@ export const PRESCRIPTIONS: Prescription[] = [
     medicationId: 'valporinsyre',
     status: 'aktiv',
     sistHentet: '12.03.2026',
-    kanFornyes: true,
     frequency: 'fast',
     harRefusjon: true,
-    forskrivendeLege: 'Kari Nordmann',
-    reseptnummer: 'RES-2025-0304',
+    atcKode: 'N03AG01',
+    pakningsstorrelse: '100 stk',
+    antall: '1',
+    rekvirertAv: 'KARI NORDMANN, Sentrum Legesenter',
+    rekvirertDato: '12.03.2026',
     gyldigTil: '12.03.2027',
+    reiterasjoner: 2,
+    antallUtleveringer: 4,
+    refusjonshjemmel: 'Blå resept (§5-14 §2)',
   },
 ];
 
