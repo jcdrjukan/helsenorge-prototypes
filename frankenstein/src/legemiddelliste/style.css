@@ -16,6 +16,14 @@
   gap: 16px;
 }
 
+/* Title's title1 appearance bumps from 2rem/32px to 3rem/48px past the same
+   real-viewport desktop breakpoint used elsewhere in this file — force the
+   mobile H1 size for both the landing and Resepter/Legemiddelliste pages. */
+.ll-page [class*="title--title1"] {
+  font-size: 2rem !important;
+  line-height: 2.375rem !important;
+}
+
 .ll-preamble {
   font: 400 20px/1.3 'Source Sans Pro', sans-serif;
   color: #000;
@@ -39,10 +47,24 @@
   padding: 16px 16px 16px 10px !important;
 }
 
+/* StatusDot's label text bumps from 16px to 18px past the same real-viewport
+   desktop breakpoint as above — force it to stay at 16px. */
+.ll-resept-panel [class*="statusdot__label"] {
+  font-size: 16px !important;
+  line-height: 1.2rem !important;
+}
+
+/* "Se detaljer" expand button text bumps from 18px to 20px past the same
+   real-viewport desktop breakpoint — force it to stay at 18px (mobile size). */
+.ll-resept-panel [class*="expander__button__text"] {
+  font-size: 18px !important;
+  line-height: 1.375rem !important;
+}
+
 .ll-panel-title {
   font: 600 22px/1.36 'Source Sans Pro', sans-serif;
   color: #000;
-  margin: 8px 0 0;
+  margin: 8px 0 0.5rem;
 }
 
 .ll-panel-sub {
@@ -63,13 +85,13 @@
 
 /* ── E-resept detail (Panel.ExpandedContent) ────────────────────── */
 .ll-detail-heading {
-  font: 700 22px/1.3 'Source Sans Pro', sans-serif;
+  font: 600 22px/1.3 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 8px 0 0;
 }
 
 .ll-detail-label {
-  font: 700 18px/1.5 'Source Sans Pro', sans-serif;
+  font: 600 18px/1.5 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 12px 0 0;
 }
@@ -97,7 +119,7 @@
 }
 
 .ll-pll-card__title {
-  font: 700 20px/1.4 'Source Sans Pro', sans-serif;
+  font: 600 20px/1.4 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }
@@ -133,7 +155,7 @@
 }
 
 .ll-pll-row__name {
-  font: 700 16px/1.4 'Source Sans Pro', sans-serif;
+  font: 600 20px/1.4 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }
@@ -223,29 +245,28 @@
 }
 
 .ll-message-panel__text {
-  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }
 
 /* ── Resepter view ───────────────────────────────────────────────── */
-.ll-help-disclosure {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font: 600 16px/1.4 'Source Sans Pro', sans-serif;
-  color: #5B22A6;
-  text-align: left;
-}
 
-.ll-help-disclosure__body {
-  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: -8px 0 0;
+/* Forces HelpExpanderStandalone's "S–XS Mobile" Figma sizing regardless
+   of actual browser viewport width — the component's own responsive
+   behaviour (useIsMobileBreakpoint) reacts to the real window width, but
+   this prototype is a fixed 390px phone frame that can sit inside a much
+   wider browser window, so it never triggers on its own. Targets the
+   help icon's svg structurally (first child span) rather than the
+   library's own SCSS-module class names, which are hashed at build time
+   and unsafe to depend on from outside the package. */
+.ll-help-expander-mobile > button {
+  min-height: 44px;
+  padding: 10px 2px 4px 8px;
+}
+.ll-help-expander-mobile > button > span:first-child svg {
+  width: 20px !important;
+  height: 20px !important;
 }
 
 .ll-tabpanel {
@@ -256,28 +277,32 @@
 }
 
 .ll-tab-intro {
-  font: 400 16px/1.5 'Source Sans Pro', sans-serif;
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }
 
 .ll-filter-panel {
-  background: #F5F3F3;
   border-radius: 4px;
   padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 0px;
 }
 
-.ll-filter-panel__title {
-  font: 700 16px/1.3 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: 0;
+/* Toggle's label mixins bump font-size/line-height past a desktop
+   breakpoint keyed to the real browser viewport width, same issue as the
+   help expander above — force the 18px/400 size regardless. Targets the
+   library's CSS-module class via a substring match since its exact class
+   name is hashed at build time. */
+.ll-filter-panel [class*="toggle-container__label"] {
+  font-size: 18px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
 }
 
 .ll-resept-status-sub {
-  font: 400 18px/0.9375 'Source Sans Pro', sans-serif;
+  font: 300 16px/0.9375 'Source Sans Pro', sans-serif;
   color: #474745;
   margin: 0 0 8px;
 }
@@ -285,7 +310,7 @@
 .ll-panel-hr {
   height: 1px;
   background: #D6D4D3;
-  margin: 8px 0;
+  margin: 2rem 0 1rem;
 }
 
 .ll-resept-link {

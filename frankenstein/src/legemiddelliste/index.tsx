@@ -5,12 +5,13 @@ import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Badge from '@helsenorge/designsystem-react/components/Badge';
-import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
+import Toggle from '@helsenorge/designsystem-react/components/Toggle';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import StatusDot, { StatusDotVariant } from '@helsenorge/designsystem-react/components/StatusDot';
 import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
+import HelpExpanderStandalone from '@helsenorge/designsystem-react/components/HelpExpanderStandalone';
 import Select from '@helsenorge/designsystem-react/components/Select';
 import Tabs from '@helsenorge/designsystem-react/components/Tabs';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
@@ -21,7 +22,8 @@ import ChevronUp from '@helsenorge/designsystem-react/components/Icons/ChevronUp
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Medicine from '@helsenorge/designsystem-react/components/Icons/Medicine';
 import Printer from '@helsenorge/designsystem-react/components/Icons/Printer';
-import HelpSign from '@helsenorge/designsystem-react/components/Icons/HelpSign';
+import Settings from '@helsenorge/designsystem-react/components/Icons/Settings';
+import PaperPlane from '@helsenorge/designsystem-react/components/Icons/PaperPlane';
 import './style.css';
 
 import {
@@ -46,20 +48,6 @@ function viewFromHash(): View {
 
 function medById(id: string) {
   return MEDICATIONS.find(m => m.id === id)!;
-}
-
-// No Rx icon exists in @helsenorge/designsystem-react — this is the vector
-// artwork from Figma file UAhljteF5I4yI9lwrpxta7, node 3398:995 ("Rx6 1").
-function RxIcon() {
-  return (
-    <svg width="48" height="48" viewBox="0 0 38 38" aria-hidden="true">
-      <path d="M23.9 5.6C25.4 7.1 26.8 8.7 28.3 10.3V10.5V29.3C28.3 29.5 28.1 29.7 27.9 29.8C21.2 29.8 14.6 29.8 7.9 29.8C7.7 29.8 7.5 29.6 7.5 29.3V5.6C7.5 5.4 7.7 5.2 7.9 5.1C13 5.1 18 5.1 23.1 5.1C23.5 5.1 23.6 5.3 23.8 5.6H23.9ZM27.3 28.6V11.1H23.1C23.1 11.1 23 11.1 22.9 11.1C22.8 11.1 22.6 10.9 22.6 10.7V6.3H8.7V28.7H27.2L27.3 28.6ZM23.7 7.1V10H26.5C26.5 10 26.4 9.9 26.3 9.8C25.5 8.9 24.7 8 23.8 7.2C22.9 6.4 23.8 7.2 23.7 7.1Z" fill="#000" />
-      <path d="M19.7 8.7C21 9.9 21 11.9 19.7 13.1C18.5 14.2 17.4 15.5 16.2 16.6C13.2 19.3 9.3 15.4 11.8 12.4C13 11.3 14.1 9.9 15.4 8.8C16.7 7.7 18.4 7.6 19.6 8.8L19.7 8.7ZM18.7 9.8C18.1 9.3 17.3 9.3 16.6 9.8C15.9 10.3 15.8 10.7 15.4 11.1L17.6 13.3C18.3 12.4 19.5 11.8 19.1 10.5C18.7 9.2 18.8 9.9 18.6 9.8H18.7ZM16.1 13.9L14.4 12.2C13.9 12.8 12.8 13.4 12.8 14.3C12.7 15.7 14.3 16.6 15.4 15.7C15.8 15.3 16.3 14.9 16.7 14.4L16.3 13.9H16.1Z" fill="#000" />
-      <path d="M11.9 25.1H24C24.7 25.1 24.8 26 24.1 26.2H11.7C11.1 26 11.1 25.2 11.7 25.1H11.9Z" fill="#000" />
-      <path d="M24.5 20.2C24.5 20.2 24.3 20.4 24.1 20.4H11.9C11.2 20.4 11.2 19.4 11.9 19.3H24C24.5 19.3 24.7 19.8 24.4 20.2H24.5Z" fill="#000" />
-      <path d="M11.9 22.2H24C24.7 22.2 24.8 23.1 24.1 23.3H11.8C11.1 23.2 11.2 22.2 11.8 22.2H11.9Z" fill="#000" />
-    </svg>
-  );
 }
 
 function PllRow({ entry, extra }: { entry: PllEntry | PllAvsluttetEntry; extra?: React.ReactNode }) {
@@ -158,11 +146,10 @@ export default function Legemiddelliste() {
             Medisiner som er forskrevet for deg og hvordan du skal bruke dem.
           </p>
 
-          <LinkList variant="outline" color="neutral" chevron>
+          <LinkList variant="fill" color="neutral" chevron>
             <LinkList.Link
               href="#resepter"
               onClick={(e) => { e.preventDefault(); goTo('resepter', '#resepter'); }}
-              icon={<RxIcon />}
             >
               <ElementHeader>
                 <ElementHeader.Text firstText="Hva kan jeg hente på apoteket?" firstTextEmphasised />
@@ -172,7 +159,6 @@ export default function Legemiddelliste() {
             <LinkList.Link
               href="#pll"
               onClick={(e) => { e.preventDefault(); goTo('pll', '#pll'); }}
-              icon={<Icon svgIcon={Medicine} size={38} />}
             >
               <ElementHeader>
                 <ElementHeader.Text firstText="Hva skal jeg bruke, og hvordan?" firstTextEmphasised />
@@ -195,20 +181,17 @@ export default function Legemiddelliste() {
             <Icon svgIcon={Medicine} size={24} /> Forny resept
           </Button>
 
-          <button
-            className="ll-help-disclosure"
-            onClick={() => setHelpOpen(o => !o)}
-            aria-expanded={helpOpen}
+          <HelpExpanderStandalone
+            className="ll-help-expander-mobile"
+            triggerText="Trenger du hjelp til å hente medisiner?"
+            expanded={helpOpen}
+            onExpand={setHelpOpen}
           >
-            <Icon svgIcon={HelpSign} size={24} />
-            <span>Trenger du hjelp til å hente medisiner?</span>
-            <Icon svgIcon={helpOpen ? ChevronUp : ChevronDown} size={24} />
-          </button>
-          {helpOpen && (
-            <p className="ll-help-disclosure__body">
-              Du kan hente reseptbelagte legemidler på ethvert apotek i Norge. Ta med gyldig legitimasjon. Har du fullmakt, kan du hente medisiner på vegne av noen andre.
-            </p>
-          )}
+            <p>Du kan gi andre fullmakt til å hente medisiner og andre reseptbelagte varer for deg på apotek og hos bandasjist.</p>
+            <Button variant="outline">
+              <Icon svgIcon={Settings} size={24} /> Gi fullmakt
+            </Button>
+          </HelpExpanderStandalone>
 
           <Tabs activeTab={resepterTab}>
             <Tabs.Tab title="Resepter" onTabClick={() => setResepterTab(0)}>
@@ -218,21 +201,23 @@ export default function Legemiddelliste() {
                 </p>
 
                 <div className="ll-filter-panel">
-                  <p className="ll-filter-panel__title">Vis kun</p>
-                  <Checkbox
-                    label="Aktive e-resepter"
+                  <Toggle
+                    label={[{ text: 'Vis kun aktive resepter', type: 'subdued' }]}
                     checked={visAktiveKun}
                     onChange={() => setVisAktiveKun(v => !v)}
                   />
-                  <Checkbox
-                    label="Resepter med refusjon"
+                  <Toggle
+                    label={[{ text: 'Vis kun resepter med refusjon', type: 'subdued' }]}
                     checked={visRefusjonKun}
                     onChange={() => setVisRefusjonKun(v => !v)}
                   />
                 </div>
 
-                <Select label="Sorter etter" defaultValue="standard">
-                  <option value="standard">Standard sortering</option>
+                <Select label="Sortering:" defaultValue="standard">
+                  <option value="standard">Standard</option>
+                  <option value="navn">Navn</option>
+                  <option value="rekvirert-dato">Rekvirert dato</option>
+                  <option value="gyldig-til">Gyldig til</option>
                 </Select>
 
                 <div className="ll-panel-list">
@@ -406,7 +391,9 @@ export default function Legemiddelliste() {
             <p className="ll-message-panel__text">
               Er det et legemiddel på listen som du har sluttet å ta, eller tar du et legemiddel som ikke står på listen? Send en melding til din fastlege om det.
             </p>
-            <Button variant="outline">Send melding til fastlegen</Button>
+            <Button variant="outline">
+              <Icon svgIcon={PaperPlane} size={24} /> Send melding til fastlegen
+            </Button>
           </HighlightPanel>
         </main>
       )}

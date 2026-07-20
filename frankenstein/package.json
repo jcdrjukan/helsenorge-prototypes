@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@helsenorge/designsystem-react": "^14.7.3",
+    "@helsenorge/designsystem-react": "^15.1.0",
     "classnames": "^2.5.1",
     "motion": "^12.38.0",
     "normalize.css": "^8.0.1",
