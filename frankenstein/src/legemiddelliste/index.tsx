@@ -15,6 +15,7 @@ import HelpExpanderStandalone from '@helsenorge/designsystem-react/components/He
 import Select from '@helsenorge/designsystem-react/components/Select';
 import Tabs from '@helsenorge/designsystem-react/components/Tabs';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
+import Tag from '@helsenorge/designsystem-react/components/Tag';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -63,7 +64,7 @@ function PllRow({ entry, extra }: { entry: PllEntry | PllAvsluttetEntry; extra?:
       </div>
       <div className="ll-pll-row__dose">
         <p>{entry.dosering}</p>
-        {multidose && <span className="ll-multidose-tag">Multidose</span>}
+        {multidose && <Tag variant="normal">Multidose</Tag>}
         {extra}
       </div>
     </div>

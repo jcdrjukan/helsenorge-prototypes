@@ -185,18 +185,6 @@
   margin: 0;
 }
 
-.ll-multidose-tag {
-  display: inline-flex;
-  align-items: center;
-  height: 22px;
-  padding: 0 10px;
-  border: 1px solid #AFDAE3;
-  border-radius: 100px;
-  font: 600 12px/1 'Source Sans Pro', sans-serif;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-  color: #06596C;
-}
 
 /* ── "Avsluttet legemidler" ExpanderList ─────────────────────────── */
 .ll-expander-title {
