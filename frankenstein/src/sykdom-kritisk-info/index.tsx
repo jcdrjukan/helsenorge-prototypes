@@ -121,7 +121,7 @@ export default function SykdomKritiskInfo() {
           <Tabs.Tab title="Kritisk informasjon" onTabClick={() => setActiveTab(1)}>
             <div className="ski-tabpanel">
               <p className="ski-tab-intro">
-                Her vises kritiske helseopplysninger som legen i samråd med deg har registrert i din kjernejournal. Er det feil eller mangler i opplysningene, ta kontakt med din fastlege.
+                Her vises kritiske helseopplysninger som legen i samråd med deg har registrert i din kjernejournal.
               </p>
 
               {registered.length === 0 ? (
@@ -163,7 +163,7 @@ export default function SykdomKritiskInfo() {
               <HighlightPanel color="blueberry" className="ski-missing-panel">
                 <h2 className="ski-missing-title">Sjekk om noe mangler...</h2>
                 <p className="ski-missing-text">
-                  Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. Ta kontakt med din fastlege hvis du tror noe mangler.
+                  Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. <a href="#" className="ski-missing-link">Ta kontakt med din fastlege</a> hvis du tror noe mangler.
                 </p>
 
                 {emptyGroup1.length > 0 && (

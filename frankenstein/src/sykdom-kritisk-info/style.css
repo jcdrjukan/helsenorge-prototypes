@@ -148,6 +148,12 @@
   margin: 0;
 }
 
+.ski-missing-link {
+  color: #126F87;
+  text-decoration: underline;
+  font-weight: 600;
+}
+
 .ski-expander-list {
   display: flex;
   flex-direction: column;
