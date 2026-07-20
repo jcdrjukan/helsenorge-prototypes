@@ -198,38 +198,14 @@
   color: #06596C;
 }
 
-/* ── Bottom expander groups (Avsluttet legemidler / Legemiddelreaksjoner) ── */
-.ll-expander-group {
-  border-top: 1px solid #D6D4D3;
-}
-
-.ll-expander-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 12px 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font: 600 18px/1.3 'Source Sans Pro', sans-serif;
-  color: #000;
-  text-align: left;
-}
-
-.ll-expander-header--open { background: #EAE7E7; padding: 12px 8px; }
-
-.ll-expander-header__right {
-  display: flex;
+/* ── "Avsluttet legemidler" ExpanderList ─────────────────────────── */
+.ll-expander-title {
+  display: inline-flex;
   align-items: center;
   gap: 8px;
-  flex-shrink: 0;
 }
 
 .ll-expander-body {
-  background: #F5F3F3;
-  padding: 16px 8px;
   display: flex;
   flex-direction: column;
   gap: 12px;

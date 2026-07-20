@@ -14,11 +14,11 @@ import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightP
 import HelpExpanderStandalone from '@helsenorge/designsystem-react/components/HelpExpanderStandalone';
 import Select from '@helsenorge/designsystem-react/components/Select';
 import Tabs from '@helsenorge/designsystem-react/components/Tabs';
+import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
-import ChevronUp from '@helsenorge/designsystem-react/components/Icons/ChevronUp';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Medicine from '@helsenorge/designsystem-react/components/Icons/Medicine';
 import Printer from '@helsenorge/designsystem-react/components/Icons/Printer';
@@ -27,7 +27,7 @@ import PaperPlane from '@helsenorge/designsystem-react/components/Icons/PaperPla
 import './style.css';
 
 import {
-  MEDICATIONS, PRESCRIPTIONS, PLL_FAST, PLL_BEHOV, PLL_AVSLUTTET, LEGEMIDDELREAKSJONER, PLL_SIST_OPPDATERT,
+  MEDICATIONS, PRESCRIPTIONS, PLL_FAST, PLL_BEHOV, PLL_AVSLUTTET, PLL_SIST_OPPDATERT,
   pllInfoFor,
   type PllEntry, type PllAvsluttetEntry,
 } from './data';
@@ -76,8 +76,6 @@ export default function Legemiddelliste() {
   const [visRefusjonKun, setVisRefusjonKun] = useState(false);
   const [helpOpen, setHelpOpen] = useState(false);
   const [resepterTab, setResepterTab] = useState(0);
-  const [avsluttetOpen, setAvsluttetOpen] = useState(false);
-  const [reaksjonerOpen, setReaksjonerOpen] = useState(false);
 
   useEffect(() => {
     const onHashChange = () => setView(viewFromHash());
@@ -335,19 +333,14 @@ export default function Legemiddelliste() {
             </div>
           </div>
 
-          <div className="ll-expander-group">
-            <button
-              className={`ll-expander-header${avsluttetOpen ? ' ll-expander-header--open' : ''}`}
-              onClick={() => setAvsluttetOpen(o => !o)}
-              aria-expanded={avsluttetOpen}
+          <ExpanderList variant="outline">
+            <ExpanderList.Expander
+              title={
+                <span className="ll-expander-title">
+                  Avsluttet legemidler <Badge color="blueberry">{PLL_AVSLUTTET.length}</Badge>
+                </span>
+              }
             >
-              <span>Avsluttet legemidler</span>
-              <span className="ll-expander-header__right">
-                <Badge color="blueberry">{PLL_AVSLUTTET.length}</Badge>
-                <Icon svgIcon={avsluttetOpen ? ChevronUp : ChevronDown} size={38} />
-              </span>
-            </button>
-            {avsluttetOpen && (
               <div className="ll-expander-body">
                 <p className="ll-expander-body__intro">
                   Disse medisinene skal du ikke bruke lenger. Har du mer igjen av medisinen kan du levere det tilbake til apoteket.
@@ -356,37 +349,8 @@ export default function Legemiddelliste() {
                   <PllRow key={entry.medicationId} entry={entry} extra={<p>Sluttdato: {entry.sluttdato}</p>} />
                 ))}
               </div>
-            )}
-          </div>
-
-          <div className="ll-expander-group">
-            <button
-              className={`ll-expander-header${reaksjonerOpen ? ' ll-expander-header--open' : ''}`}
-              onClick={() => setReaksjonerOpen(o => !o)}
-              aria-expanded={reaksjonerOpen}
-            >
-              <span>Legemiddelreaksjoner</span>
-              <span className="ll-expander-header__right">
-                <Badge color="blueberry">{LEGEMIDDELREAKSJONER.length}</Badge>
-                <Icon svgIcon={reaksjonerOpen ? ChevronUp : ChevronDown} size={38} />
-              </span>
-            </button>
-            {reaksjonerOpen && (
-              <div className="ll-expander-body">
-                <p className="ll-expander-body__intro">{LEGEMIDDELREAKSJONER.length} registrert legemiddelreaksjon</p>
-                {LEGEMIDDELREAKSJONER.map(r => (
-                  <div className="ll-pll-row" key={r.navn}>
-                    <div className="ll-pll-row__info">
-                      <p className="ll-pll-row__name">{r.navn}</p>
-                      <p className="ll-pll-row__meta">{r.reaksjon}</p>
-                      <p className="ll-pll-row__meta">Dato oppdatert: {r.datoOppdatert}</p>
-                      <p className="ll-pll-row__meta">Kilde: {r.kilde}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
+            </ExpanderList.Expander>
+          </ExpanderList>
 
           <HighlightPanel color="blueberry" className="ll-message-panel">
             <p className="ll-message-panel__text">
