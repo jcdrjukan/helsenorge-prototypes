@@ -83,6 +83,10 @@
   align-self: flex-start;
 }
 
+.ll-print-button {
+  align-self: flex-start;
+}
+
 /* ── E-resept detail (Panel.ExpandedContent) ────────────────────── */
 .ll-detail-heading {
   font: 600 22px/1.3 'Source Sans Pro', sans-serif;
@@ -322,13 +326,15 @@
 }
 
 .ll-privacy-section {
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 1px solid #474745;
+  margin-top: 4rem;
 }
 
-.ll-privacy-section__title {
-  font: 700 18px/1.3 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: 0 0 8px;
+/* Title's title2 appearance bumps from 1.625rem/26px to 2rem/32px past the
+   same real-viewport desktop breakpoint used elsewhere in this file — force
+   the mobile H2 size. */
+.ll-privacy-section [class*="title--title2"] {
+  font-size: 1.625rem !important;
+  line-height: 1.938rem !important;
+  margin: 0 0 1rem !important;
 }
+

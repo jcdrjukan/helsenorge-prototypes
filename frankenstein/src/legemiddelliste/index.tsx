@@ -166,6 +166,16 @@ export default function Legemiddelliste() {
               </ElementHeader>
             </LinkList.Link>
           </LinkList>
+
+          <div className="ll-privacy-section">
+            <Title htmlMarkup="h2" appearance="title2" className="ll-privacy-section__title">Personvern for Resepter</Title>
+            <LinkList variant="line" color="white" size="small">
+              <LinkList.Link href="#">Logg over bruk for Reseptformidleren</LinkList.Link>
+              <LinkList.Link href="#">Personverninnstillinger for Reseptformidleren</LinkList.Link>
+              <LinkList.Link href="#">Logg over bruk for resepter i Kjernejournal</LinkList.Link>
+              <LinkList.Link href="#">Personverninnstilling for resepter i Kjernejournal</LinkList.Link>
+            </LinkList>
+          </div>
         </main>
       )}
 
@@ -288,19 +298,10 @@ export default function Legemiddelliste() {
                   })}
                 </div>
 
-                <Button variant="outline">
+                <Button variant="outline" wrapperClassName="ll-print-button">
                   <Icon svgIcon={Printer} size={24} /> Vis utskriftsvennlig side
                 </Button>
 
-                <div className="ll-privacy-section">
-                  <h2 className="ll-privacy-section__title">Personvern for Resepter</h2>
-                  <LinkList variant="line" color="neutral">
-                    <LinkList.Link href="#">Logg over bruk for Reseptformidleren</LinkList.Link>
-                    <LinkList.Link href="#">Personverninnstillinger for Reseptformidleren</LinkList.Link>
-                    <LinkList.Link href="#">Logg over bruk for resepter i Kjernejournal</LinkList.Link>
-                    <LinkList.Link href="#">Personverninnstilling for resepter i Kjernejournal</LinkList.Link>
-                  </LinkList>
-                </div>
               </div>
             </Tabs.Tab>
 
