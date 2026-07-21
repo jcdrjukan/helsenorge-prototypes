@@ -1,0 +1,185 @@
+/* ── Pasientens planer — egenbehandlingsplan prototype ────────────── */
+
+.pp-shell {
+  width: 390px;
+  min-height: 100%;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.pp-page {
+  padding: 1.5rem 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Title's title1 appearance bumps from 2rem/32px to 3rem/48px past a
+   real-viewport desktop breakpoint the phone frame doesn't block — force
+   the mobile H1 size, same fix as the other prototypes. */
+.pp-page [class*="title--title1"] {
+  font-size: 2rem !important;
+  line-height: 2.375rem !important;
+}
+
+/* ── Mitt mål ──────────────────────────────────────────────────── */
+.pp-goal-panel {
+  margin-top: 8px;
+}
+
+.pp-goal-quote {
+  font: 400 italic 20px/1.4 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+/* ── I dag ─────────────────────────────────────────────────────── */
+/* Panel's own padding jumps to a wider (24px) value past the same
+   real-viewport desktop breakpoint. The className prop lands on Panel's
+   outermost wrapper, not the inner div that carries the padding — that div
+   sits 2 levels deeper (outer > outline-inner > .panel), since this Panel
+   has no ExpandedContent (which would add a third wrapper level). */
+.pp-today-panel > div > div {
+  padding: 16px 16px 16px 10px !important;
+}
+
+.pp-today-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.pp-today-title {
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.pp-today-date {
+  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #474745;
+  white-space: nowrap;
+}
+
+.pp-today-text {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 8px 0 16px;
+}
+
+.pp-today-button {
+  align-self: flex-start;
+}
+
+/* ── Hvordan har jeg det i dag? ───────────────────────────────────── */
+.pp-section-title {
+  font: 600 22px/1.36 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.pp-zone-outline > div > div {
+  padding: 16px 16px 16px 10px !important;
+}
+
+.pp-zone-text {
+  font: 400 18px/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 8px 0 0;
+}
+
+.pp-zone-panel--red {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
+}
+
+.pp-call-button {
+  width: 100%;
+}
+
+/* ── Footer note (pårørende / sist oppdatert) ─────────────────────── */
+.pp-footer-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 16px 0 24px;
+  border-top: 1px solid #D6D4D3;
+  margin-top: 8px;
+}
+
+.pp-footer-note svg { flex-shrink: 0; }
+
+.pp-footer-note p {
+  font: 400 16px/1.4 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 0;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.pp-footer {
+  background: #2B2C2B;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.pp-footer__top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+.pp-footer__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #fff;
+}
+.pp-footer__row svg { flex-shrink: 0; margin-top: 2px; }
+.pp-footer__link-title {
+  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #fff;
+  margin: 0;
+}
+.pp-footer__link-sub {
+  font: 400 0.875rem/1.4 'Source Sans Pro', sans-serif;
+  color: #BDBAB9;
+  margin: 0;
+}
+.pp-footer__lang {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.pp-footer__lang-sep {
+  width: 1px;
+  height: 16px;
+  background: #62625F;
+  flex-shrink: 0;
+}
+.pp-footer__divider {
+  height: 1px;
+  background: #474745;
+  margin: 16px 0;
+}
+.pp-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.pp-footer__link {
+  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+.pp-footer__link:hover { text-decoration: underline; }
+.pp-footer__brand {
+  font: 600 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #fff;
+  margin: 0;
+}
