@@ -6,7 +6,8 @@ import Title from '@helsenorge/designsystem-react/components/Title';
 import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
-import Expander, { ExpanderSize } from '@helsenorge/designsystem-react/components/Expander';
+import Button from '@helsenorge/designsystem-react/components/Button';
+import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import EmptyState, { EmptyStateOnColor } from '@helsenorge/designsystem-react/components/EmptyState';
 import Tabs from '@helsenorge/designsystem-react/components/Tabs';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
@@ -14,6 +15,8 @@ import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
+import HandWaving from '@helsenorge/designsystem-react/components/Icons/HandWaving';
+import Envelope from '@helsenorge/designsystem-react/components/Icons/Envelope';
 import './style.css';
 
 import { CATEGORIES } from './data';
@@ -160,31 +163,24 @@ export default function SykdomKritiskInfo() {
                 </div>
               )}
 
-              <HighlightPanel color="blueberry" className="ski-missing-panel">
-                <h2 className="ski-missing-title">Sjekk om noe mangler...</h2>
+              <HighlightPanel color="blueberry" svgIcon={HandWaving} title="Sjekk om noe mangler..." className="ski-missing-panel">
                 <p className="ski-missing-text">
-                  Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. <a href="#" className="ski-missing-link">Ta kontakt med din fastlege</a> hvis du tror noe mangler.
+                  Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. Ta kontakt med din fastlege hvis du tror noe mangler.
                 </p>
-
-                {emptyGroup1.length > 0 && (
-                  <div className="ski-expander-list">
-                    {emptyGroup1.map(cat => (
-                      <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
-                        <p className="ski-expander-desc">{cat.description}</p>
-                      </Expander>
-                    ))}
-                  </div>
-                )}
-                {emptyGroup2.length > 0 && (
-                  <div className="ski-expander-list">
-                    {emptyGroup2.map(cat => (
-                      <Expander key={cat.id} title={cat.title} size={ExpanderSize.small}>
-                        <p className="ski-expander-desc">{cat.description}</p>
-                      </Expander>
-                    ))}
-                  </div>
-                )}
+                <Button variant="outline" wrapperClassName="ski-missing-button">
+                  <Icon svgIcon={Envelope} size={24} /> Start e-konsultasjon med fastlegen
+                </Button>
               </HighlightPanel>
+
+              {(emptyGroup1.length > 0 || emptyGroup2.length > 0) && (
+                <ExpanderList variant="line" large={false}>
+                  {[...emptyGroup1, ...emptyGroup2].map(cat => (
+                    <ExpanderList.Expander key={cat.id} title={cat.title}>
+                      <p className="ski-expander-desc">{cat.description}</p>
+                    </ExpanderList.Expander>
+                  ))}
+                </ExpanderList>
+              )}
             </div>
           </Tabs.Tab>
         </Tabs>

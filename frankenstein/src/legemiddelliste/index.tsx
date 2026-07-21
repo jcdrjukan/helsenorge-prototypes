@@ -140,7 +140,7 @@ export default function Legemiddelliste() {
       {/* ── Landing ────────────────────────────────────────────── */}
       {view === 'landing' && (
         <main className="ll-page">
-          <Title htmlMarkup="h1" appearance="title1">Resepter</Title>
+          <Title htmlMarkup="h1" appearance="title1">Legemidler</Title>
           <p className="ll-preamble">
             Medisiner som er forskrevet for deg og hvordan du skal bruke dem.
           </p>

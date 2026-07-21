@@ -149,27 +149,14 @@
   gap: 12px;
 }
 
-.ski-missing-title {
-  font: 600 20px/1.3 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: 0;
-}
-
 .ski-missing-text {
   font: 400 18px/1.5 'Source Sans Pro', sans-serif;
   color: #000;
-  margin: 0;
+  margin: 0 0 1rem;
 }
 
-.ski-missing-link {
-  color: #126F87;
-  text-decoration: underline;
-  font-weight: 600;
-}
-
-.ski-expander-list {
-  display: flex;
-  flex-direction: column;
+.ski-missing-button {
+  align-self: flex-start;
 }
 
 .ski-expander-desc {
