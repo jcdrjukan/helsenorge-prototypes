@@ -43,6 +43,11 @@
   margin: 0;
 }
 
+.ski-tab-intro--kritisk {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+}
+
 /* ── Sykdomshistorikk tab ────────────────────────────────────────── */
 .ski-section-header {
   display: flex;

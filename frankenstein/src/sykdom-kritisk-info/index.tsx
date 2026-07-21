@@ -120,7 +120,7 @@ export default function SykdomKritiskInfo() {
 
           <Tabs.Tab title="Kritisk informasjon" onTabClick={() => setActiveTab(1)}>
             <div className="ski-tabpanel">
-              <p className="ski-tab-intro">
+              <p className="ski-tab-intro ski-tab-intro--kritisk">
                 Her vises kritiske helseopplysninger som legen i samråd med deg har registrert i din kjernejournal.
               </p>
 
