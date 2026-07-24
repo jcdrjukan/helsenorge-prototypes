@@ -15,7 +15,6 @@ import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
-import HandWaving from '@helsenorge/designsystem-react/components/Icons/HandWaving';
 import Envelope from '@helsenorge/designsystem-react/components/Icons/Envelope';
 import './style.css';
 
@@ -163,7 +162,7 @@ export default function SykdomKritiskInfo() {
                 </div>
               )}
 
-              <HighlightPanel color="blueberry" svgIcon={HandWaving} title="Sjekk om noe mangler..." className="ski-missing-panel">
+              <HighlightPanel color="blueberry" title="Sjekk om noe mangler..." className="ski-missing-panel">
                 <p className="ski-missing-text">
                   Du har ingen registreringer i de følgende kritiske kategoriene. At en kategori er tom kan bety at den ikke gjelder deg – eller at noe burde vært registrert, men ikke er det. Ta kontakt med din fastlege hvis du tror noe mangler.
                 </p>
