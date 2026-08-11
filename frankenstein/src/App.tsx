@@ -15,9 +15,13 @@ import PsykiskHelse from './psykisk-helse';
 import SykdomKritiskInfo from './sykdom-kritisk-info';
 import Legemiddelliste from './legemiddelliste';
 import PasientensPlaner from './pasientens-planer';
+import Forside from './forside';
+import Gravid from './gravid';
+import { hasCompletedVeiviser } from './psykisk-helse/data';
+import { loadActivatedTjenester, saveActivatedTjenester, type ValgbarTjenesteId } from './forside/data';
 import './App.css';
 
-type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info' | 'legemiddelliste' | 'pasientens-planer';
+type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info' | 'legemiddelliste' | 'pasientens-planer' | 'forside' | 'gravid';
 
 // Detect dedicated per-prototype Netlify sites by hostname
 const hostname = window.location.hostname;
@@ -41,19 +45,50 @@ function getInitialPrototype(): Prototype {
   if (hash === 'sykdom-kritisk-info') return 'sykdom-kritisk-info';
   if (hash === 'legemiddelliste') return 'legemiddelliste';
   if (hash === 'pasientens-planer') return 'pasientens-planer';
+  if (hash === 'forside') return 'forside';
+  if (hash === 'gravid') return 'gravid';
   return 'prover';
 }
 
 const directLink = !!dedicatedPrototype ||
-  ['behandlingshjelpemidler', 'psykisk-helse', 'sykdom-kritisk-info', 'legemiddelliste', 'pasientens-planer'].includes(window.location.hash.slice(1));
+  ['behandlingshjelpemidler', 'psykisk-helse', 'sykdom-kritisk-info', 'legemiddelliste', 'pasientens-planer', 'forside', 'gravid'].includes(window.location.hash.slice(1));
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
+  const [activatedTjenester, setActivatedTjenester] = useState<Set<ValgbarTjenesteId>>(loadActivatedTjenester);
 
   const switchPrototype = (p: Prototype) => {
     setPrototype(p);
     window.location.hash = p;
   };
+
+  // Navigates to a valgbar tjeneste's own prototype — for Psykisk helse,
+  // deep-links straight to its results view when the veiviser has already
+  // been completed, by setting the raw hash to that prototype's OWN
+  // internal view-hash before switching (PsykiskHelse reads whatever hash
+  // is already present at mount time). Note this only works for in-app
+  // navigation, not surviving a raw page refresh — a pre-existing
+  // limitation of this app's two-layer hash scheme (see App.tsx history).
+  const goToTjeneste = (id: ValgbarTjenesteId) => {
+    if (id === 'psykisk-helse') {
+      window.location.hash = hasCompletedVeiviser() ? 'resultater' : 'psykisk-helse';
+      setPrototype('psykisk-helse');
+    } else if (id === 'gravid') {
+      switchPrototype('gravid');
+    }
+  };
+
+  const deactivateTjeneste = (id: ValgbarTjenesteId) => {
+    setActivatedTjenester(prev => {
+      if (!prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.delete(id);
+      saveActivatedTjenester(next);
+      return next;
+    });
+  };
+
+  const goHome = () => switchPrototype('forside');
 
   return (
     <div className="phone-wrapper">
@@ -95,6 +130,18 @@ function App() {
             onClick={() => switchPrototype('pasientens-planer')}
           >
             Pasientens planer
+          </button>
+          <button
+            className={`prototype-switcher__btn${prototype === 'forside' ? ' prototype-switcher__btn--active' : ''}`}
+            onClick={() => switchPrototype('forside')}
+          >
+            Forside
+          </button>
+          <button
+            className={`prototype-switcher__btn${prototype === 'gravid' ? ' prototype-switcher__btn--active' : ''}`}
+            onClick={() => switchPrototype('gravid')}
+          >
+            Gravid
           </button>
         </div>
       )}
@@ -162,10 +209,19 @@ function App() {
           )}
 
           {prototype === 'behandlingshjelpemidler' && <Behandlingshjelpemidler />}
-          {prototype === 'psykisk-helse' && <PsykiskHelse />}
+          {prototype === 'psykisk-helse' && (
+            <PsykiskHelse onNavigateHome={goHome} onDeactivate={() => deactivateTjeneste('psykisk-helse')} />
+          )}
           {prototype === 'sykdom-kritisk-info' && <SykdomKritiskInfo />}
           {prototype === 'legemiddelliste' && <Legemiddelliste />}
           {prototype === 'pasientens-planer' && <PasientensPlaner />}
+          {prototype === 'forside' && (
+            <Forside
+              activatedTjenester={activatedTjenester}
+              onGoToTjeneste={goToTjeneste}
+            />
+          )}
+          {prototype === 'gravid' && <Gravid onNavigateHome={goHome} />}
         </div>
         <div className="phone-frame__home" />
       </div>

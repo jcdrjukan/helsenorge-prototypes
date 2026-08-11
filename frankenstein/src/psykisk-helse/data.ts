@@ -123,3 +123,33 @@ export function persistSeen(ids: Set<string>): void {
     // ignore
   }
 }
+
+// Tracks whether the user has reached the results view at least once since
+// starting (or last restarting/ending) the veiviser — Forside reads this to
+// decide whether a snarvei/flis for Psykisk helse should deep-link straight
+// to results instead of the front page.
+const LS_COMPLETED_KEY = 'ph-veiviser-completed';
+
+export function markVeiviserCompleted(): void {
+  try {
+    localStorage.setItem(LS_COMPLETED_KEY, '1');
+  } catch {
+    // ignore
+  }
+}
+
+export function clearVeiviserCompleted(): void {
+  try {
+    localStorage.removeItem(LS_COMPLETED_KEY);
+  } catch {
+    // ignore
+  }
+}
+
+export function hasCompletedVeiviser(): boolean {
+  try {
+    return localStorage.getItem(LS_COMPLETED_KEY) === '1';
+  } catch {
+    return false;
+  }
+}

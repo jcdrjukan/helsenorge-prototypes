@@ -23,10 +23,22 @@ import './style.css';
 import {
   Q1_OPTIONS, Q2_OPTIONS,
   computeResults, getSeenIds, persistSeen,
+  markVeiviserCompleted, clearVeiviserCompleted,
   type Resource,
 } from './data';
 
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
+
+export interface PsykiskHelseProps {
+  /** Called when the user clicks the "Forside" breadcrumb — navigates back
+   *  to the Forside hub. When omitted (e.g. running on this prototype's own
+   *  dedicated single-prototype domain, with no Forside to go back to), the
+   *  breadcrumb keeps its previous no-op behaviour on the results view. */
+  onNavigateHome?: () => void;
+  /** Called when the user confirms "Avslutt tjenesten" — lets Forside
+   *  remove Psykisk helse from its activated-tjenester set / Snarveier. */
+  onDeactivate?: () => void;
+}
 
 function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
   return (
@@ -130,7 +142,7 @@ function viewFromHash(): View {
   return HASH_TO_VIEW[window.location.hash] ?? 'front';
 }
 
-export default function PsykiskHelse() {
+export default function PsykiskHelse({ onNavigateHome, onDeactivate }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
   const [q1, setQ1]               = useState<Set<string>>(new Set());
   const [q2, setQ2]               = useState<Set<string>>(new Set());
@@ -140,6 +152,12 @@ export default function PsykiskHelse() {
   useEffect(() => {
     const hash = VIEW_TO_HASH[view];
     if (window.location.hash !== hash) window.location.hash = hash;
+  }, [view]);
+
+  // Reaching results at least once marks the veiviser "completed" — Forside
+  // reads this flag to decide whether to deep-link straight to results.
+  useEffect(() => {
+    if (view === 'results') markVeiviserCompleted();
   }, [view]);
 
   // Sync hash → view (browser back/forward)
@@ -196,10 +214,9 @@ export default function PsykiskHelse() {
 
   const breadcrumbLabel = view === 'results' ? 'Forside' : view === 'front' ? 'Forside' : 'Psykisk helse';
   const breadcrumbAction = () => {
-    if (view === 'results') return;
+    if (view === 'results' || view === 'front') { onNavigateHome?.(); return; }
     else if (view === 'quiz2') setView('quiz1');
     else if (view === 'avslutt') setView('results');
-    else setView('front');
   };
 
   return (
@@ -470,7 +487,7 @@ export default function PsykiskHelse() {
             Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
-            <Button variant="outline" concept="destructive" onClick={() => setView('front')}>
+            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); onDeactivate?.(); setView('front'); }}>
               <Icon svgIcon={TrashCan} size={24} />
               Avslutt tjenesten
             </Button>

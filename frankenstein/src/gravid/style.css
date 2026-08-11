@@ -1,0 +1,37 @@
+/* ── Gravid prototype (thin Frankenstein placeholder) ─────────────── */
+
+.gr-shell {
+  width: 390px;
+  min-height: 100%;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+.gr-page {
+  padding: 1.5rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Title's title1 appearance bumps from 2rem/32px to 3rem/48px past a
+   real-viewport desktop breakpoint the phone frame doesn't block — force
+   the mobile H1 size, same fix as the other prototypes. */
+.gr-page [class*="title--title1"] {
+  font-size: 2rem !important;
+  line-height: 2.375rem !important;
+}
+
+.gr-preamble {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 0.5rem;
+}
+
+.gr-status-text {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
