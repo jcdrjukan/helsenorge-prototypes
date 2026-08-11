@@ -395,8 +395,8 @@ export default function PsykiskHelse() {
             </h1>
             <p className="ph-results-intro">
               {results.isEmpty
-                ? 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'
-                : 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge.'}
+                ? 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge. Dine resultater lagres fram til du avslutter tjenesten eller tar veiviseren på nytt.'
+                : 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge. Dine resultater lagres fram til du avslutter tjenesten eller tar veiviseren på nytt.'}
             </p>
           </div>
 
@@ -467,7 +467,7 @@ export default function PsykiskHelse() {
             Avslutt tjenesten
           </h1>
           <p className="ph-results-intro">
-            Når du avslutter tjenesten Psykisk helse, vises den ikke lenger på Helsenorge. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
+            Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
             <Button variant="outline" concept="destructive" onClick={() => setView('front')}>
