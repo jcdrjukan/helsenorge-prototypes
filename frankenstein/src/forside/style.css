@@ -75,12 +75,40 @@
   cursor: pointer;
 }
 
-/* ── Tile grid (Tjenester + Valgbare fliser) ─────────────────────── */
+/* ── Tile grid (Tjenester) ────────────────────────────────────────── */
 .fs-tile-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 8px;
   margin-bottom: 1rem;
+}
+
+/* Tile's own responsive logic (padding, icon size, bold left-aligned title
+   + description) all key off the real browser viewport width via
+   useBreakpoint(), not the 390px phone-frame container — so on an actual
+   wide desktop window it renders its desktop variant (bigger padding, 64px
+   icon, bold 20px title) regardless of the frame, which doesn't fit in a
+   120px-wide grid cell and clips the third tile. Force the mobile variant
+   (48px icon, 18px/400 centered title, small padding) unconditionally,
+   same fix as elsewhere in this app. Targets structural/hashed classes
+   since Tile's own CSS-module class names aren't safe to depend on. */
+.fs-tile-grid > a {
+  padding: 0.5rem 0.5rem 0.75rem !important;
+  justify-content: center !important;
+}
+.fs-tile-grid [class*="title-wrapper"] {
+  align-items: center !important;
+}
+.fs-tile-grid [class*="tile__title"] {
+  font-size: 1.125rem !important;
+  font-weight: 400 !important;
+  line-height: 1.74rem !important;
+  text-align: center !important;
+  margin: 0.25rem 0 0 !important;
+}
+.fs-tile-grid svg {
+  width: 48px !important;
+  height: 48px !important;
 }
 
 /* ── "Se alle tjenester" / "Vis færre tjenester" toggle ──────────── */
