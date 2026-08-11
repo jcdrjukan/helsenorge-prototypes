@@ -122,7 +122,7 @@
   background: #08667C;
   color: #fff;
   border: none;
-  border-radius: 999px;
+  border-radius: 10px;
   min-height: 44px;
   padding: 0 1.5rem;
   font: 600 1.125rem/1.2 'Source Sans Pro', sans-serif;
@@ -140,25 +140,39 @@
 
 .fs-tjeneste-group { margin: 0; }
 
-/* ── Din fastlege ─────────────────────────────────────────────────── */
+/* ── Din fastlege (real PromoPanel) ───────────────────────────────── */
 .fs-fastlege-panel { margin: 0; }
 
-/* HighlightPanel's title4 appearance bumps past the same real-viewport
-   breakpoint as elsewhere in this app — force the mobile size. */
-.fs-fastlege-panel [class*="title--title4"] {
-  font-size: 1.25rem !important;
-  line-height: 1.625rem !important;
+/* PromoPanel's own padding/gap and its illustration/arrow-icon sizes all
+   key off the real browser viewport width (useBreakpoint()), not the
+   390px phone-frame container — same recurring issue as every other
+   design-system component in this app. Force every tier back to its
+   sub-360px ("mobile") value regardless of the real window width.
+   Targets structural/hashed classes since PromoPanel's own CSS-module
+   names aren't safe to depend on, and there's no className prop to hang
+   a scoped override off of directly (wrapped in .fs-fastlege-panel). */
+.fs-fastlege-panel [class*="promopanel__illustration"] svg {
+  width: 110px !important;
+  height: 110px !important;
+  min-width: 110px !important;
+  min-height: 110px !important;
 }
-
-.fs-fastlege-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
-  color: #000;
-  text-decoration: none;
-  margin-top: 0.5rem;
+.fs-fastlege-panel [class*="promopanel"]:not([class*="__"]) {
+  padding-right: 0.5rem !important;
+}
+.fs-fastlege-panel [class*="promopanel__content"] {
+  gap: 0.25rem !important;
+  padding-top: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
+}
+.fs-fastlege-panel [class*="promopanel__icon"] {
+  margin-left: 0.75rem !important;
+  width: 38px !important;
+  height: 38px !important;
+}
+.fs-fastlege-panel [class*="title--title3"] {
+  font-size: 1.375rem !important;
+  line-height: 1.813rem !important;
 }
 
 /* ── Kvalitetssikret helseinformasjon ─────────────────────────────── */

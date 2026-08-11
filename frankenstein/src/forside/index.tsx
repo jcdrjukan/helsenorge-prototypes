@@ -4,7 +4,7 @@ import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import Tile from '@helsenorge/designsystem-react/components/Tile/Tile';
-import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
+import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel/PromoPanel';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Search from '@helsenorge/designsystem-react/components/Icons/Search';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -12,14 +12,13 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronUp from '@helsenorge/designsystem-react/components/Icons/ChevronUp';
 import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
 import Edit from '@helsenorge/designsystem-react/components/Icons/Edit';
-import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
-import MaleDoctor from '@helsenorge/designsystem-react/components/Icons/MaleDoctor';
 import './style.css';
 
 import {
   FIXED_SNARVEIER, TJENESTER_TILES, TJENESTE_GROUPS, VALGBARE_TJENESTER,
   type ValgbarTjenesteId,
 } from './data';
+import { hasCompletedVeiviser } from '../psykisk-helse/data';
 
 export interface ForsideProps {
   activatedTjenester: Set<ValgbarTjenesteId>;
@@ -32,7 +31,11 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
   // Base fixed snarveier, with any activated valgbare tjenester spliced in —
   // Gravid at the same position the Figma reference shows it (between
   // Vaksiner and Pasientjournal); Psykisk helse/Småbarnsliv appended after,
-  // in canonical order, when active.
+  // in canonical order, when active. Psykisk helse's "activated" isn't a
+  // manually toggled flag like the other two — it's derived straight from
+  // hasCompletedVeiviser() (has a results page), per the user's framing:
+  // completing the veiviser creates the snarvei, confirming Avslutt
+  // (which clears that flag) removes it — no separate state to keep in sync.
   const [sykdom, helsekontakter, vaksiner, pasientjournal] = FIXED_SNARVEIER;
   const gravidTjeneste = VALGBARE_TJENESTER.find(t => t.id === 'gravid')!;
   const psykiskHelseTjeneste = VALGBARE_TJENESTER.find(t => t.id === 'psykisk-helse')!;
@@ -44,7 +47,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
     vaksiner,
     ...(activatedTjenester.has('gravid') ? [{ id: gravidTjeneste.id, label: gravidTjeneste.label, icon: gravidTjeneste.icon }] : []),
     pasientjournal,
-    ...(activatedTjenester.has('psykisk-helse') ? [{ id: psykiskHelseTjeneste.id, label: psykiskHelseTjeneste.label, icon: psykiskHelseTjeneste.icon }] : []),
+    ...(hasCompletedVeiviser() ? [{ id: psykiskHelseTjeneste.id, label: psykiskHelseTjeneste.label, icon: psykiskHelseTjeneste.icon }] : []),
     ...(activatedTjenester.has('smabarnsliv') ? [{ id: smabarnslivTjeneste.id, label: smabarnslivTjeneste.label, icon: smabarnslivTjeneste.icon }] : []),
   ];
 
@@ -91,7 +94,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
                 <Icon svgIcon={StarStroke} size={24} /> Snarveier
               </span>
               <span className="fs-edit-link">
-                <Icon svgIcon={Edit} size={24} /> Rediger
+                <Icon svgIcon={Edit} size={24} color="currentColor" /> Rediger
               </span>
             </div>
             <LinkList variant="fill" color="white" chevron>
@@ -121,7 +124,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
             </div>
 
             <button className="fs-toggle-tjenester" onClick={() => setShowAllTjenester(v => !v)}>
-              <Icon svgIcon={showAllTjenester ? ChevronUp : ChevronDown} size={24} />
+              <Icon svgIcon={showAllTjenester ? ChevronUp : ChevronDown} size={32} color="currentColor" />
               {showAllTjenester ? 'Vis færre tjenester' : 'Se alle tjenester'}
             </button>
 
@@ -130,7 +133,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
                 {TJENESTE_GROUPS.map(group => (
                   <div key={group.heading} className="fs-tjeneste-group">
                     <h2 className="fs-section-title">{group.heading}</h2>
-                    <LinkList variant="line" color="neutral" chevron>
+                    <LinkList variant="line" color="white" chevron>
                       {group.rows.map(row => (
                         <LinkList.Link key={row.id} href="#" icon={<Icon svgIcon={row.icon} />}>
                           {row.label}
@@ -145,7 +148,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
                     other group above. ─────────────────────────────── */}
                 <div className="fs-tjeneste-group">
                   <h2 className="fs-section-title">Valgbare tjenester</h2>
-                  <LinkList variant="line" color="neutral" chevron>
+                  <LinkList variant="line" color="white" chevron>
                     {VALGBARE_TJENESTER.map(t => (
                       <LinkList.Link
                         key={t.id}
@@ -163,7 +166,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
                 </div>
 
                 <button className="fs-toggle-tjenester" onClick={() => setShowAllTjenester(false)}>
-                  <Icon svgIcon={ChevronUp} size={24} />
+                  <Icon svgIcon={ChevronUp} size={32} color="currentColor" />
                   Vis færre tjenester
                 </button>
               </div>
@@ -172,12 +175,15 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
         </div>
 
         {/* ── Din fastlege ─────────────────────────────────────────── */}
-        <HighlightPanel color="cherry" svgIcon={MaleDoctor} title="Din fastlege" className="fs-fastlege-panel">
-          <a className="fs-fastlege-link" href="#">
+        {/* Real PromoPanel — the purpose-built component for this exact
+            pattern (illustration + link title + subtext + trailing
+            arrow), rather than the hand-rolled HighlightPanel+Illustration
+            layout used before. */}
+        <div className="fs-fastlege-panel">
+          <PromoPanel title="Din fastlege" illustration="Doctor" color="cherry" href="#">
             Kontakt fastlegen og se alle tjenestene
-            <Icon svgIcon={ArrowRight} size={24} />
-          </a>
-        </HighlightPanel>
+          </PromoPanel>
+        </div>
 
         {/* ── Kvalitetssikret helseinformasjon ─────────────────────── */}
         <section>

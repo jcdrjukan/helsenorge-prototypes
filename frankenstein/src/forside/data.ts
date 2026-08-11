@@ -4,10 +4,10 @@ import CriticalHealthInfo from '@helsenorge/designsystem-react/components/Icons/
 import Contacts from '@helsenorge/designsystem-react/components/Icons/Contacts';
 import Vaccine from '@helsenorge/designsystem-react/components/Icons/Vaccine';
 import Pregnant from '@helsenorge/designsystem-react/components/Icons/Pregnant';
-import Kjernejournal from '@helsenorge/designsystem-react/components/Icons/Kjernejournal';
+import Journal from '@helsenorge/designsystem-react/components/Icons/Journal';
 import CalendarEvent from '@helsenorge/designsystem-react/components/Icons/CalendarEvent';
 import Medicine from '@helsenorge/designsystem-react/components/Icons/Medicine';
-import Inbox from '@helsenorge/designsystem-react/components/Icons/Inbox';
+import Envelope from '@helsenorge/designsystem-react/components/Icons/Envelope';
 import Referral from '@helsenorge/designsystem-react/components/Icons/Referral';
 import SharedHealthData from '@helsenorge/designsystem-react/components/Icons/SharedHealthData';
 import MaleDoctorAndPerson from '@helsenorge/designsystem-react/components/Icons/MaleDoctorAndPerson';
@@ -26,7 +26,7 @@ import Archive from '@helsenorge/designsystem-react/components/Icons/Archive';
 import MedicineWarning from '@helsenorge/designsystem-react/components/Icons/MedicineWarning';
 import HealthWarning from '@helsenorge/designsystem-react/components/Icons/HealthWarning';
 import MentalHealthAdult from '@helsenorge/designsystem-react/components/Icons/MentalHealthAdult';
-import Toddler from '@helsenorge/designsystem-react/components/Icons/Toddler';
+import ChildIcon from './ChildIcon';
 
 export interface TjenesteRow {
   id: string;
@@ -46,13 +46,13 @@ export const FIXED_SNARVEIER: TjenesteRow[] = [
   { id: 'sykdom-kritisk-info', label: 'Sykdom og kritisk info', icon: CriticalHealthInfo },
   { id: 'helsekontakter',      label: 'Helsekontakter',         icon: Contacts },
   { id: 'vaksiner',            label: 'Vaksiner',                icon: Vaccine },
-  { id: 'pasientjournal',      label: 'Pasientjournal',          icon: Kjernejournal },
+  { id: 'pasientjournal',      label: 'Pasientjournal',          icon: Journal },
 ];
 
 export const TJENESTER_TILES: TjenesteRow[] = [
   { id: 'timeavtaler', label: 'Timeavtaler', icon: CalendarEvent },
   { id: 'resepter',    label: 'Resepter',    icon: Medicine },
-  { id: 'innboks',     label: 'Innboks',     icon: Inbox },
+  { id: 'innboks',     label: 'Innboks',     icon: Envelope },
 ];
 
 // Full "alle tjenester" expander content, matching the Figma reference
@@ -63,11 +63,11 @@ export const TJENESTE_GROUPS: TjenesteGroup[] = [
   {
     heading: 'Oppfølging i helsetjenesten',
     rows: [
-      { id: 'og-innboks',           label: 'Innboks',                     icon: Inbox },
+      { id: 'og-innboks',           label: 'Innboks',                     icon: Envelope },
       { id: 'og-timeavtaler',       label: 'Timeavtaler',                 icon: CalendarEvent },
       { id: 'og-gravid',            label: 'Gravid',                      icon: Pregnant },
       { id: 'og-henvisninger',      label: 'Henvisninger',                icon: Referral },
-      { id: 'og-pasientjournal',    label: 'Pasientjournal',              icon: Kjernejournal },
+      { id: 'og-pasientjournal',    label: 'Pasientjournal',              icon: Journal },
       { id: 'og-delte-opplysninger',label: 'Helseopplysninger som deles', icon: SharedHealthData },
       { id: 'og-bytte-fastlege',    label: 'Bytte fastlege',              icon: MaleDoctorAndPerson },
       { id: 'og-behandlingssted',   label: 'Velg behandlingssted',        icon: Hospital },
@@ -141,7 +141,7 @@ export const VALGBARE_TJENESTER: ValgbarTjeneste[] = [
     id: 'smabarnsliv',
     label: 'Småbarnsliv',
     description: 'Råd og oversikt de første leveårene.',
-    icon: Toddler,
+    icon: ChildIcon,
     hasPrototype: false,
   },
 ];

@@ -18,7 +18,7 @@ import PasientensPlaner from './pasientens-planer';
 import Forside from './forside';
 import Gravid from './gravid';
 import { hasCompletedVeiviser } from './psykisk-helse/data';
-import { loadActivatedTjenester, saveActivatedTjenester, type ValgbarTjenesteId } from './forside/data';
+import { loadActivatedTjenester, type ValgbarTjenesteId } from './forside/data';
 import './App.css';
 
 type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info' | 'legemiddelliste' | 'pasientens-planer' | 'forside' | 'gravid';
@@ -55,7 +55,10 @@ const directLink = !!dedicatedPrototype ||
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
-  const [activatedTjenester, setActivatedTjenester] = useState<Set<ValgbarTjenesteId>>(loadActivatedTjenester);
+  // Gravid/Småbarnsliv have no activate/deactivate UI yet (Psykisk helse's
+  // is derived from hasCompletedVeiviser() instead, see goToTjeneste below)
+  // — this is just the persisted seed set until that's built.
+  const [activatedTjenester] = useState<Set<ValgbarTjenesteId>>(loadActivatedTjenester);
 
   const switchPrototype = (p: Prototype) => {
     setPrototype(p);
@@ -76,16 +79,6 @@ function App() {
     } else if (id === 'gravid') {
       switchPrototype('gravid');
     }
-  };
-
-  const deactivateTjeneste = (id: ValgbarTjenesteId) => {
-    setActivatedTjenester(prev => {
-      if (!prev.has(id)) return prev;
-      const next = new Set(prev);
-      next.delete(id);
-      saveActivatedTjenester(next);
-      return next;
-    });
   };
 
   const goHome = () => switchPrototype('forside');
@@ -209,9 +202,7 @@ function App() {
           )}
 
           {prototype === 'behandlingshjelpemidler' && <Behandlingshjelpemidler />}
-          {prototype === 'psykisk-helse' && (
-            <PsykiskHelse onNavigateHome={goHome} onDeactivate={() => deactivateTjeneste('psykisk-helse')} />
-          )}
+          {prototype === 'psykisk-helse' && <PsykiskHelse onNavigateHome={goHome} />}
           {prototype === 'sykdom-kritisk-info' && <SykdomKritiskInfo />}
           {prototype === 'legemiddelliste' && <Legemiddelliste />}
           {prototype === 'pasientens-planer' && <PasientensPlaner />}

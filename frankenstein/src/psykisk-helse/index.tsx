@@ -35,9 +35,6 @@ export interface PsykiskHelseProps {
    *  dedicated single-prototype domain, with no Forside to go back to), the
    *  breadcrumb keeps its previous no-op behaviour on the results view. */
   onNavigateHome?: () => void;
-  /** Called when the user confirms "Avslutt tjenesten" — lets Forside
-   *  remove Psykisk helse from its activated-tjenester set / Snarveier. */
-  onDeactivate?: () => void;
 }
 
 function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
@@ -142,7 +139,7 @@ function viewFromHash(): View {
   return HASH_TO_VIEW[window.location.hash] ?? 'front';
 }
 
-export default function PsykiskHelse({ onNavigateHome, onDeactivate }: PsykiskHelseProps = {}) {
+export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
   const [q1, setQ1]               = useState<Set<string>>(new Set());
   const [q2, setQ2]               = useState<Set<string>>(new Set());
@@ -487,7 +484,7 @@ export default function PsykiskHelse({ onNavigateHome, onDeactivate }: PsykiskHe
             Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
-            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); onDeactivate?.(); setView('front'); }}>
+            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); onNavigateHome ? onNavigateHome() : setView('front'); }}>
               <Icon svgIcon={TrashCan} size={24} />
               Avslutt tjenesten
             </Button>
