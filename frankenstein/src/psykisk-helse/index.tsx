@@ -15,7 +15,6 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import Expander from '@helsenorge/designsystem-react/components/Expander';
 import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
 import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
 import './style.css';
@@ -401,23 +400,12 @@ export default function PsykiskHelse() {
             <section>
               <h2 className="ph-section-heading">Verktøy</h2>
               <ul className="ph-resource-list">
-                {results.verktøy.slice(0, 3).map(r => (
+                {results.verktøy.map(r => (
                   <li key={r.id} style={{ marginBottom: '8px' }}>
                     <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
                   </li>
                 ))}
               </ul>
-              {results.verktøy.length > 3 && (
-                <Expander title="Se flere verktøy">
-                  <ul className="ph-resource-list">
-                    {results.verktøy.slice(3).map(r => (
-                      <li key={r.id} style={{ marginBottom: '8px' }}>
-                        <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
-                      </li>
-                    ))}
-                  </ul>
-                </Expander>
-              )}
             </section>
           )}
 
@@ -425,23 +413,12 @@ export default function PsykiskHelse() {
             <section>
               <h2 className="ph-section-heading">Artikler</h2>
               <ul className="ph-resource-list">
-                {results.artikler.slice(0, 3).map(r => (
+                {results.artikler.map(r => (
                   <li key={r.id} style={{ marginBottom: '8px' }}>
                     <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
                   </li>
                 ))}
               </ul>
-              {results.artikler.length > 3 && (
-                <Expander title="Se flere artikler">
-                  <ul className="ph-resource-list">
-                    {results.artikler.slice(3).map(r => (
-                      <li key={r.id} style={{ marginBottom: '8px' }}>
-                        <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
-                      </li>
-                    ))}
-                  </ul>
-                </Expander>
-              )}
             </section>
           )}
 
