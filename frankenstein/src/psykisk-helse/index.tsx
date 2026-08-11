@@ -463,13 +463,13 @@ export default function PsykiskHelse() {
       {/* ── Avslutt tjenesten ──────────────────────────────────── */}
       {view === 'avslutt' && (
         <main className="ph-page">
-          <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 16px' }}>
+          <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 -1rem' }}>
             Avslutt tjenesten
           </h1>
           <p className="ph-results-intro">
             Når du avslutter tjenesten Psykisk helse, vises den ikke lenger på Helsenorge. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
-          <div style={{ marginTop: '1rem' }}>
+          <div style={{ marginTop: '-1rem' }}>
             <Button variant="outline" concept="destructive" onClick={() => setView('front')}>
               <Icon svgIcon={TrashCan} size={24} />
               Avslutt tjenesten
