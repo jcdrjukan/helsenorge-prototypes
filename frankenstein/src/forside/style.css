@@ -14,6 +14,55 @@
   flex-direction: column;
 }
 
+/* .top-bar is a shared global class (App.css) used by every prototype,
+   normally white — scoped here (not edited globally) so only Forside's
+   logo/meny/varsler/logg-ut row picks up the same light-blue background
+   as .header/.fs-hero below it, continuing the colour with no seam. */
+.fs-shell .top-bar {
+  background: #E4F7F9;
+}
+
+/* .nav-icon-btn__label/.profile-bar__name are shared global classes
+   (App.css, 12px/18px respectively) used by every prototype — scoped
+   here, not edited globally, to bring just Forside's header text to
+   16px. */
+.fs-shell .nav-icon-btn__label,
+.fs-shell .profile-bar__name {
+  font-size: 16px;
+}
+
+.fs-shell .nav-icon-btn__label {
+  margin-bottom: 0.5rem;
+}
+
+.fs-avatar {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/* LinkList.Link's default size="medium" is 18px/28px on mobile but bumps
+   to 20px/30px past the same real-viewport desktop breakpoint (md, 768px)
+   the phone frame doesn't block — force the mobile size everywhere in
+   this page (Snarveier, every "alle tjenester" group, Valgbare tjenester).
+   Targets the hashed CSS-module class structurally, same pattern used
+   elsewhere in this app. */
+.fs-shell [class*="link-list__anchor--medium"] {
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+}
+
+/* ElementHeader's leading row icon (Snarveier, every "alle tjenester"
+   group, Valgbare tjenester) sizes itself via the same real-viewport
+   breakpoint check — IconSize.XSmall (38px) on mobile, IconSize.Small
+   (48px) past md. The 38px icon sits in ElementHeader's own 48px-tall
+   grid row ("38x48 container"); only the icon itself needs forcing back
+   down, not the row. The row's trailing chevron is always a fixed 38px
+   regardless of breakpoint, so it's unaffected. */
+.fs-shell [class*="element-header__icon"] svg {
+  width: 38px !important;
+  height: 38px !important;
+}
+
 .fs-page {
   padding: 1.5rem 1rem 3rem;
   display: flex;
@@ -48,6 +97,11 @@
   font: 600 1.375rem/1.3 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0 0 0.75rem;
+}
+
+.fs-section-title--kvalitetssikret {
+  font-size: 1.625rem;
+  line-height: 1.938rem;
 }
 
 /* ── Snarveier ─────────────────────────────────────────────────── */
@@ -141,7 +195,7 @@
 .fs-tjeneste-group { margin: 0; }
 
 /* ── Din fastlege (real PromoPanel) ───────────────────────────────── */
-.fs-fastlege-panel { margin: 0; }
+.fs-fastlege-panel { margin: 0 0 3rem; }
 
 /* PromoPanel's own padding/gap and its illustration/arrow-icon sizes all
    key off the real browser viewport width (useBreakpoint()), not the
@@ -176,6 +230,12 @@
 }
 
 /* ── Kvalitetssikret helseinformasjon ─────────────────────────────── */
+.fs-section-divider {
+  border: none;
+  border-top: 1px solid #D6D4D3;
+  margin: 0.75rem 0 1rem;
+}
+
 .fs-article-list {
   display: flex;
   flex-direction: column;

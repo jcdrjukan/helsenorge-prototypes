@@ -77,7 +77,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
           </nav>
         </div>
         <button className="profile-bar" aria-label="Brukermeny">
-          <Avatar color="blueberry" size="xsmall">Tora Hansen</Avatar>
+          <Avatar color="blueberry" size="xsmall" className="fs-avatar">Tora Hansen</Avatar>
           <span className="profile-bar__name">Tora Hansen</span>
           <Icon svgIcon={ChevronDown} size={38} />
         </button>
@@ -187,7 +187,8 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
 
         {/* ── Kvalitetssikret helseinformasjon ─────────────────────── */}
         <section>
-          <h2 className="fs-section-title">Kvalitetssikret helseinformasjon</h2>
+          <h2 className="fs-section-title fs-section-title--kvalitetssikret">Kvalitetssikret helseinformasjon</h2>
+          <hr className="fs-section-divider" />
           <div className="fs-article-list">
             <article className="fs-article">
               <h3 className="fs-article__title">Husk å ta med Europeisk helsetrygdkort på ferie</h3>
