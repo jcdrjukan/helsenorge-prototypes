@@ -35,8 +35,7 @@ const dedicatedPrototype: Prototype | null =
   hostname.startsWith('marvelous-torte') ? 'legemiddelliste' :
   hostname.includes('pasient') || hostname.includes('plan') ||
   hostname.startsWith('fluffy-cobbler') ? 'pasientens-planer' :
-  hostname.includes('forside') ||
-  hostname.startsWith('exquisite-concha') ? 'forside' :
+  hostname.includes('forside') ? 'forside' :
   null;
 
 function getInitialPrototype(): Prototype {
