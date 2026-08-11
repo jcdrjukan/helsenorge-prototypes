@@ -17,6 +17,7 @@ import ChevronRight from '@helsenorge/designsystem-react/components/Icons/Chevro
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
 import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
+import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
 import './style.css';
 
 import {
@@ -25,7 +26,7 @@ import {
   type Resource,
 } from './data';
 
-type View = 'front' | 'quiz1' | 'quiz2' | 'results';
+type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
 
 function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
   return (
@@ -114,6 +115,7 @@ const HASH_TO_VIEW: Record<string, View> = {
   '#quiz1':     'quiz1',
   '#quiz2':     'quiz2',
   '#resultater':'results',
+  '#avslutt':   'avslutt',
 };
 
 const VIEW_TO_HASH: Record<View, string> = {
@@ -121,6 +123,7 @@ const VIEW_TO_HASH: Record<View, string> = {
   quiz1:   '#quiz1',
   quiz2:   '#quiz2',
   results: '#resultater',
+  avslutt: '#avslutt',
 };
 
 function viewFromHash(): View {
@@ -195,6 +198,7 @@ export default function PsykiskHelse() {
   const breadcrumbAction = () => {
     if (view === 'results') return;
     else if (view === 'quiz2') setView('quiz1');
+    else if (view === 'avslutt') setView('results');
     else setView('front');
   };
 
@@ -448,9 +452,27 @@ export default function PsykiskHelse() {
           </section>
 
           <div>
-            <Button variant="borderless">
+            <Button variant="borderless" onClick={() => setView('avslutt')}>
               Avslutt tjenesten
               <Icon svgIcon={ChevronRight} size={38} />
+            </Button>
+          </div>
+        </main>
+      )}
+
+      {/* ── Avslutt tjenesten ──────────────────────────────────── */}
+      {view === 'avslutt' && (
+        <main className="ph-page">
+          <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 16px' }}>
+            Avslutt tjenesten
+          </h1>
+          <p className="ph-results-intro">
+            Når du avslutter tjenesten Psykisk helse, vises den ikke lenger på Helsenorge. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
+          </p>
+          <div style={{ marginTop: '1rem' }}>
+            <Button variant="outline" concept="destructive" onClick={() => setView('front')}>
+              <Icon svgIcon={TrashCan} size={24} />
+              Avslutt tjenesten
             </Button>
           </div>
         </main>

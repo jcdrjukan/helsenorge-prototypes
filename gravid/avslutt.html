@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Avslutt tjenesten – Helsenorge</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   FRANKENSTEIN / HELSENORGE DESIGN SYSTEM TOKENS
+   Source: github.com/helsenorge/designsystem
+   (Subset of gravid/index.html's token set — only what this page uses.)
+───────────────────────────────────────────────────────────── */
+:root {
+  --blueberry-50:  #E4F7F9;
+  --blueberry-700: #08667C;
+
+  --cherry-50:  #FFF2EA;
+  --cherry-700: #A31F0E;
+
+  --neutral-100: #EAE7E7;
+  --neutral-300: #BDBAB9;
+  --neutral-700: #62625F;
+
+  --color-action-text-onlight:                        #126F87;
+  --color-action-background-onlight:                  #188097;
+  --color-action-background-transparent-onlight-hover: rgba(18,111,135,0.13);
+  --color-base-text-onlight:             #000000;
+  --color-base-background-dark-neutral:  #2B2C2B;
+
+  --space-3xs: 0.25rem;   /*  4px */
+  --space-2xs: 0.5rem;    /*  8px */
+  --space-xs:  0.75rem;   /* 12px */
+  --space-s:   1rem;      /* 16px */
+  --space-m:   1.5rem;    /* 24px */
+  --space-l:   2rem;      /* 32px */
+  --space-xl:  3rem;      /* 48px */
+
+  --mobile-h1: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
+  --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
+
+  --radius-s:  4px;
+  --radius-m:  8px;
+
+  --focus-outline: 3px solid #000000;
+  --focus-offset:  2px;
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  background: var(--neutral-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+a:focus-visible, button:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-s);
+}
+
+.app {
+  background: #fff;
+  width: 360px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER  (Helsenorge global nav pattern — mirrors index.html)
+══════════════════════════════════════════════════════════════ */
+.header { background: var(--blueberry-50); width: 100%; }
+
+.header__top {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+}
+
+.header__left { display: flex; gap: 24px; align-items: center; }
+
+.logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; height: 36px; }
+
+.icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px 4px;
+  border-radius: var(--radius-m);
+  color: var(--color-base-text-onlight);
+  text-decoration: none;
+}
+.icon-btn:hover { background: var(--color-action-background-transparent-onlight-hover); }
+.icon-btn__icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; }
+.icon-btn__icon svg { display: block; width: 38px; height: 38px; }
+.icon-btn__label { font: 600 16px/18px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); white-space: nowrap; }
+
+.profile-bar {
+  background: var(--blueberry-50);
+  border-top: 1px solid var(--blueberry-700);
+  border-bottom: 1px solid var(--blueberry-700);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-xs);
+  cursor: pointer;
+}
+.profile-bar__inner { display: flex; flex: 1; gap: var(--space-2xs); align-items: center; min-width: 0; }
+
+.avatar {
+  width: 38px; height: 38px;
+  background: var(--color-action-background-onlight);
+  border-radius: var(--radius-s);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #fff;
+  font: 600 16px/1.4 'Source Sans Pro', sans-serif;
+}
+.profile-bar__name { font: var(--mobile-label); color: var(--color-base-text-onlight); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.chevron { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-base-text-onlight); }
+.chevron svg { width: 18px; height: 18px; }
+
+/* ═══════════════════════════════════════════════════════════
+   BREADCRUMB  (mirrors Frankenstein's .breadcrumb pattern —
+   this static prototype has no breadcrumb of its own to reuse)
+══════════════════════════════════════════════════════════════ */
+.breadcrumb { width: 100%; padding: var(--space-2xs) var(--space-xs) 0; }
+
+.breadcrumb__back {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: #000;
+  text-decoration: none;
+  font: var(--mobile-label);
+}
+.breadcrumb__back:hover { text-decoration: underline; }
+.breadcrumb__back svg { width: 38px; height: 38px; flex-shrink: 0; }
+
+.page-divider {
+  border: none;
+  border-top: 1px solid var(--neutral-300);
+  width: 100%;
+  margin: var(--space-2xs) 0 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE CONTENT
+══════════════════════════════════════════════════════════════ */
+.page-title { width: 344px; padding-top: var(--space-xl); }
+.page-title h1 { font: var(--mobile-h1); color: var(--color-base-text-onlight); }
+
+.avslutt-body {
+  width: 344px;
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   DESTRUCTIVE BUTTON  (outline variant — matches Frankenstein's
+   Button variant="outline" concept="destructive")
+══════════════════════════════════════════════════════════════ */
+.btn-destructive-outline {
+  width: 344px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  min-height: 44px;
+  background: none;
+  border: 2px solid var(--cherry-700);
+  border-radius: var(--radius-m);
+  padding: 0 var(--space-m);
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--cherry-700);
+  transition: background 0.15s;
+}
+.btn-destructive-outline:hover { background: var(--cherry-50); }
+.btn-destructive-outline svg { width: 24px; height: 24px; flex-shrink: 0; }
+.btn-destructive-outline span { font: var(--mobile-label); color: inherit; }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER  (identical markup/styling to index.html)
+══════════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--color-base-background-dark-neutral);
+  width: 100%;
+  padding: var(--space-m) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+.footer__row { display: flex; align-items: center; gap: var(--space-s); }
+.footer__icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+.footer__icon svg { width: 24px; height: 24px; }
+.footer__text-group { flex: 1; }
+.footer__text-large { font: var(--mobile-label); font-size: 1.125rem; color: #fff; display: block; }
+.footer__text-small { font: var(--mobile-image-caption); color: var(--neutral-300); display: block; }
+.footer__divider { height: 1px; background: var(--neutral-700); }
+.footer__links { display: flex; flex-direction: column; gap: var(--space-s); }
+.footer__link { font-size: 1.125rem; font-weight: 400; color: #fff; text-decoration: none; }
+.footer__link:hover { text-decoration: underline; }
+.footer__lang { display: flex; gap: var(--space-m); align-items: center; }
+.footer__lang-sep { width: 1px; height: 24px; background: var(--neutral-700); }
+.footer__brand { font: var(--mobile-h4); font-size: 1.375rem; font-weight: 600; color: #fff; }
+
+/* ═══════════════════════════════════════════════════════════
+   SPACING UTILITIES
+══════════════════════════════════════════════════════════════ */
+.sp-s  { height: var(--space-s);  flex-shrink: 0; width: 100%; }
+.sp-m  { height: var(--space-m);  flex-shrink: 0; width: 100%; }
+.sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ══════════════════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header__top">
+      <div class="header__left">
+        <a class="logo" href="index.html" aria-label="Helsenorge – til forsiden">
+          <svg width="80" height="36" viewBox="0 0 80 39" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M56.6469 29.4761C55.1361 29.4761 53.9063 28.197 53.9063 26.6249C53.9063 25.0529 55.1361 23.7737 56.6469 23.7737C58.1578 23.7737 59.3875 25.0529 59.3875 26.6249C59.3875 28.197 58.1578 29.4761 56.6469 29.4761ZM56.7257 32.7427C58.6988 32.7427 60.3043 33.8282 60.3043 35.163C60.3043 36.4977 58.6988 37.5832 56.7257 37.5832C54.752 37.5832 53.1471 36.4977 53.1471 35.163C53.1471 33.8282 54.752 32.7427 56.7257 32.7427ZM56.6469 22.5902C54.4939 22.5902 52.7425 24.4001 52.7425 26.6249C52.7425 28.3882 53.8305 29.928 55.4536 30.4666C54.7744 31.145 53.0065 32.9161 52.8083 33.1319C52.2685 33.7314 51.9832 34.4337 51.9832 35.163C51.9832 37.1498 54.111 38.7661 56.7257 38.7661C59.3404 38.7661 61.4676 37.1498 61.4676 35.163C61.4676 33.1761 59.3404 31.5592 56.7257 31.5592C56.4352 31.5592 56.1447 31.5801 55.8571 31.6214C56.1076 31.3512 56.4446 30.9932 56.764 30.6566C58.8611 30.5921 60.5513 28.8037 60.5513 26.6249C60.5513 26.243 60.4978 25.8622 60.3914 25.491L62.2316 24.1443V22.4605L59.7874 24.2328C59.0505 23.2005 57.8919 22.5902 56.6469 22.5902ZM40.3829 0.180516H37.674V11.9726H44.8301V9.6863H40.3829V0.180516ZM58.7453 4.86556C57.8508 4.50333 56.8957 4.07356 56.8957 3.55832C56.8957 2.81055 57.2591 2.47761 58.0731 2.47761C59.4622 2.47761 59.641 3.76573 59.648 3.82072L59.6715 4.00722L62.5456 3.9588L62.5262 3.73465C62.2998 1.15542 60.2073 0 58.233 0C56.5305 0 53.9963 0.944421 53.9963 3.54457C53.9963 5.18595 55.2025 6.03354 56.3823 6.64622C56.5828 6.75022 56.8745 6.8614 57.2127 6.98991C58.2401 7.37964 59.7933 7.9696 59.7933 8.82974C59.7933 9.03297 59.6998 9.35814 59.4392 9.605C59.1587 9.87219 58.76 9.98935 58.2471 9.95289C57.0539 9.86801 56.6052 8.45496 56.6005 8.44062L56.554 8.28819L53.7352 8.37845L53.7558 8.60021C53.9169 10.3211 55.2449 12.3492 58.4571 12.4036C58.4847 12.4042 58.5118 12.4042 58.5394 12.4042C60.1203 12.4042 61.6564 11.6265 62.2957 10.4938C62.7885 9.62054 62.8226 8.09811 61.934 6.87754C61.3165 6.02935 60.2126 5.45971 58.7453 4.86556ZM74.5453 28.7194H78.1004V26.2525H74.5353V24.0146H79.5295V21.8096H71.7495V33.5616H79.6724V31.3088H74.5453V28.7194ZM39.112 23.0062H37.8375V33.8007H39.112V27.0212L43.0446 24.1443V22.4605L39.112 25.2388V23.0062ZM72.1829 6.10885C72.4252 4.00004 73.9402 2.37958 75.7109 2.37958C77.5247 2.37958 78.6438 3.73525 78.8038 6.10885H72.1829ZM80 6.70659C80 3.3001 78.3568 1.18411 75.7109 1.18411C73.0986 1.18411 70.9726 3.66113 70.9726 6.70659C70.9726 9.75145 73.0986 12.2291 75.7109 12.2291C77.3041 12.2291 78.7809 11.3056 79.6607 9.75922L79.7642 9.57751L78.7456 8.97977L78.6427 9.16089C77.9752 10.3336 76.8789 11.0336 75.7109 11.0336C73.9402 11.0336 72.4252 9.41313 72.1829 7.30432H80V6.70659ZM6.35683 4.58164H2.60119V0.180516H0V11.9439H2.68059V7.25411H6.42388V11.987H9.02918V0.180516H6.35683V4.58164ZM26.8323 9.67972H21.7052V7.09033H25.2597V4.62408H21.6946V2.38556H26.6894V0.180516H18.9082V11.9326H26.8323V9.67972ZM5.03183 22.6518C3.82621 22.6518 2.73057 23.2716 1.76726 24.4964V23.0062H0.492832V33.8007H1.76726V27.7481C1.76726 25.9507 3.24752 24.0122 4.70073 23.9082C5.51349 23.8502 6.12512 24.0188 6.57972 24.4246C7.13548 24.9226 7.45189 25.8054 7.52069 27.0487C7.62067 28.8545 7.58656 33.5431 7.58656 33.5903L7.5848 33.8007H8.75101V26.7397C8.75101 24.708 7.47365 22.6518 5.03183 22.6518ZM22.7979 32.6967C20.8448 32.6967 19.2563 30.7373 19.2563 28.3285C19.2563 25.9196 20.8448 23.9602 22.7979 23.9602C24.7504 23.9602 26.3395 25.9196 26.3395 28.3285C26.3395 30.7373 24.7504 32.6967 22.7979 32.6967ZM22.7979 22.7641C20.1967 22.7641 18.0801 25.2603 18.0801 28.3285C18.0801 31.396 20.1967 33.8922 22.7979 33.8922C25.3985 33.8922 27.5151 31.396 27.5151 28.3285C27.5151 25.2603 25.3985 22.7641 22.7979 22.7641Z" fill="black"/></svg>
+        </a>
+        <button class="icon-btn" aria-label="Åpne meny" aria-expanded="false">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M29.9883 24.709V26.509H8V24.709H29.9883ZM29.9883 17.709V19.509H8V17.709H29.9883ZM29.9883 11V12.8H8V11H29.9883Z" fill="black"/></svg>
+          </div>
+          <span class="icon-btn__label">Meny</span>
+        </button>
+        <button class="icon-btn" aria-label="Varsler">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.17 27.2979V27.1325H15.672V27.2979H9.42261L11.8427 23.4053H25.9993L28.4187 27.2979H22.17ZM21.1409 28.9121C21.1409 30.136 20.1449 31.132 18.921 31.132V31.132C17.6963 31.132 16.7004 30.136 16.7004 28.9121V28.3271H21.1409V28.9121ZM12.0707 15.2028C12.0707 12.1668 14.1299 9.52896 17.0764 8.78875L17.4659 8.69058V8.16491C17.4659 7.36296 18.1183 6.71062 18.921 6.71062C19.723 6.71062 20.3753 7.36296 20.3753 8.16491V8.69058L20.7648 8.78875C23.7122 9.52896 25.7705 12.1668 25.7705 15.2028V22.3769H12.0707V15.2028ZM29.7819 27.541L26.7997 22.7442V15.2028C26.7997 11.8248 24.5941 8.87266 21.3902 7.89416C21.2549 6.65125 20.1988 5.68066 18.921 5.68066C17.6425 5.68066 16.5864 6.65125 16.4518 7.89416C13.2472 8.87266 11.0416 11.8248 11.0416 15.2028V22.7442L8.06015 27.541C7.9612 27.6993 7.95645 27.8988 8.04749 28.0627C8.13774 28.2257 8.31032 28.3271 8.49715 28.3271H15.672V28.9121C15.672 30.7037 17.1295 32.1611 18.921 32.1611C20.7126 32.1611 22.17 30.7037 22.17 28.9121V28.3271H29.3449C29.5309 28.3271 29.7035 28.2257 29.7946 28.0627C29.8848 27.8988 29.8801 27.6993 29.7819 27.541V27.541Z" fill="black"/></svg>
+          </div>
+          <span class="icon-btn__label">Varsler</span>
+        </button>
+      </div>
+      <button class="icon-btn" aria-label="Logg ut">
+        <div class="icon-btn__icon" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M9.81074 30.9373V7.06335L22.2524 9.02782V16.2295H23.5524V8.77147C23.5524 8.2794 23.1944 7.86045 22.7084 7.78371L9.6667 5.7245C9.05974 5.62866 8.51074 6.09778 8.51074 6.71226V31.2884C8.51074 31.9028 9.05974 32.372 9.66671 32.2761L22.7084 30.2169C23.1944 30.1402 23.5524 29.7212 23.5524 29.2291V22.5628H22.2524V28.9728L9.81074 30.9373Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M30.6164 19.7414H15.9824V18.7114H30.5879L27.5969 15.7205L28.3245 14.9922L32.2092 18.8761C32.305 18.9727 32.3596 19.1033 32.3596 19.2403C32.3596 19.3772 32.305 19.5078 32.2092 19.6044L28.2738 23.5398L27.5463 22.8115L30.6164 19.7414Z" fill="black"/></svg>
+        </div>
+        <span class="icon-btn__label">Logg ut</span>
+      </button>
+    </div>
+
+    <!-- Profile expander -->
+    <div class="profile-bar" role="button" tabindex="0" aria-expanded="false" aria-label="Brukermeny for Tora Hansen">
+      <div class="profile-bar__inner">
+        <div class="avatar" aria-hidden="true">To</div>
+        <span class="profile-bar__name">Tora Hansen</span>
+      </div>
+      <div class="chevron" aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="black"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════
+       BREADCRUMB
+  ═══════════════════════════════════════════════════════════ -->
+  <nav class="breadcrumb" aria-label="Brødsmulesti">
+    <a class="breadcrumb__back" href="index.html">
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
+      <span>Gravid</span>
+    </a>
+  </nav>
+  <hr class="page-divider">
+
+  <!-- ══════════════════════════════════════════════════════
+       PAGE CONTENT
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="page-title">
+    <h1>Avslutt tjenesten</h1>
+  </div>
+
+  <div class="sp-s"></div>
+
+  <p class="avslutt-body">
+    Når du avslutter tjenesten Gravid, vises den ikke lenger på Helsenorge. Har du lagret bilder eller dokumenter i tjenesten, finner du dem i tjenesten Dokumenter. Der finner du også en kopi av ditt digitale helsekort, hvis du har det.
+  </p>
+
+  <div class="sp-m"></div>
+
+  <a class="btn-destructive-outline" href="index.html">
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path fill-rule="evenodd" d="M23.4 34.646h1V19.307h-1v15.339zm-4.772 0h1V19.307h-1v15.339zm-7.486-21.26h25.515v-2.147H11.142v2.147zm22.892 22.961a3.346 3.346 0 01-3.342 3.343H17.109a3.346 3.346 0 01-3.343-3.343V14.686h20.268v21.661zM22.451 9.333a1.45 1.45 0 012.898 0v.606h-2.898v-.606zm3.997.606v-.606A2.55 2.55 0 0023.9 6.785a2.55 2.55 0 00-2.548 2.548v.606H9.843v4.747h2.623v21.661a4.648 4.648 0 004.643 4.643h13.583a4.648 4.648 0 004.642-4.643V14.686h2.623V9.939H26.448zm1.723 24.707h1V19.307h-1v15.339z" fill="currentColor"/></svg>
+    <span>Avslutt tjenesten</span>
+  </a>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER
+  ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="footer__text-group">
+        <span class="footer__text-large">23 32 70 00</span>
+        <span class="footer__text-small">Veiledning helsenorge.no</span>
+      </div>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <span class="footer__text-large">Hjelp og kontakt</span>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="footer__lang">
+        <a href="#" class="footer__link">English</a>
+        <div class="footer__lang-sep"></div>
+        <a href="#" class="footer__link">Sámi</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__links">
+      <a href="#" class="footer__link">Om Helsenorge</a>
+      <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+      <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+    </div>
+    <div class="footer__divider"></div>
+    <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+    <div class="footer__divider"></div>
+    <p class="footer__brand">Drives av Norsk helsenett SF</p>
+  </footer>
+
+</div><!-- /app -->
+
+</body>
+</html>
