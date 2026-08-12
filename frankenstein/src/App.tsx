@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
@@ -19,6 +19,7 @@ import Forside from './forside';
 import Gravid from './gravid';
 import { hasCompletedVeiviser } from './psykisk-helse/data';
 import { loadActivatedTjenester, type ValgbarTjenesteId } from './forside/data';
+import { applyPrototypeMeta } from './prototypeMeta';
 import './App.css';
 
 type Prototype = 'prover' | 'behandlingshjelpemidler' | 'psykisk-helse' | 'sykdom-kritisk-info' | 'legemiddelliste' | 'pasientens-planer' | 'forside' | 'gravid';
@@ -60,6 +61,14 @@ function App() {
   // is derived from hasCompletedVeiviser() instead, see goToTjeneste below)
   // — this is just the persisted seed set until that's built.
   const [activatedTjenester] = useState<Set<ValgbarTjenesteId>>(loadActivatedTjenester);
+
+  // Tab title/favicon otherwise stay whatever index.html set once,
+  // statically — never reflecting which prototype is actually showing,
+  // whether switched via the in-page selector or landed on directly via a
+  // dedicated single-prototype domain.
+  useEffect(() => {
+    applyPrototypeMeta(prototype);
+  }, [prototype]);
 
   const switchPrototype = (p: Prototype) => {
     setPrototype(p);
