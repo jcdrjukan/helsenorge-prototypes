@@ -7,7 +7,7 @@ import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightP
 import StatusDot, { StatusDotVariant } from '@helsenorge/designsystem-react/components/StatusDot';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
-import Search from '@helsenorge/designsystem-react/components/Icons/Search';
+import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
@@ -30,9 +30,9 @@ export default function PasientensPlaner() {
               <Icon svgIcon={Menu} size={38} />
               <span className="nav-icon-btn__label">Meny</span>
             </button>
-            <button className="nav-icon-btn" aria-label="Søk">
-              <Icon svgIcon={Search} size={38} />
-              <span className="nav-icon-btn__label">Søk</span>
+            <button className="nav-icon-btn" aria-label="Varsler">
+              <Icon svgIcon={Bell} size={38} />
+              <span className="nav-icon-btn__label">Varsler</span>
             </button>
             <button className="nav-icon-btn" aria-label="Logg ut">
               <Icon svgIcon={Logout} size={38} />
@@ -41,8 +41,8 @@ export default function PasientensPlaner() {
           </nav>
         </div>
         <button className="profile-bar" aria-label="Brukermeny">
-          <Avatar color="blueberry" size="xsmall">Kari Nordmann</Avatar>
-          <span className="profile-bar__name">Kari Nordmann</span>
+          <Avatar className="pp-avatar" color="blueberry" size="xsmall">Tora Hansen</Avatar>
+          <span className="profile-bar__name">Tora Hansen</span>
           <Icon svgIcon={ChevronDown} size={38} />
         </button>
       </header>

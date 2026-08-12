@@ -172,8 +172,8 @@ function App() {
                   </nav>
                 </div>
                 <button className="profile-bar" aria-label="Brukermeny">
-                  <Avatar color="blueberry" size="xsmall">Tore Hansen</Avatar>
-                  <span className="profile-bar__name">Tore Hansen</span>
+                  <Avatar className="prover-avatar" color="blueberry" size="xsmall">Tora Hansen</Avatar>
+                  <span className="profile-bar__name">Tora Hansen</span>
                   <Icon svgIcon={ChevronDown} size={38} />
                 </button>
               </header>

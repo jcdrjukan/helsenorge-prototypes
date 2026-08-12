@@ -74,6 +74,7 @@ function OrderCard({ order }: OrderCardProps) {
 interface ForsideProps {
   equipment: Equipment[];
   submittedOrders: SubmittedOrder[];
+  justSubmittedId: string | null;
   onShowMachine: (eqId: string) => void;
   onStartOrder: (eqId: string | null, from: AppView) => void;
   onShowHistory: () => void;
@@ -82,6 +83,7 @@ interface ForsideProps {
 export default function Forside({
   equipment,
   submittedOrders,
+  justSubmittedId,
   onShowMachine,
   onStartOrder,
   onShowHistory,
@@ -99,7 +101,7 @@ export default function Forside({
     return 'none';
   };
 
-  const mostRecent = submittedOrders.length > 0 ? submittedOrders[submittedOrders.length - 1] : null;
+  const justSubmitted = submittedOrders.find(o => o.id === justSubmittedId) ?? null;
 
   return (
     <>
@@ -112,15 +114,18 @@ export default function Forside({
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-      <h1 style={{ font: 'var(--mobile-h1)', margin: '48px 0 0 0' }}>Behandlings&shy;hjelpemidler</h1>
-      <p style={{ font: 'var(--mobile-preamble)', margin: 0 }}>
+      <h1 style={{ font: 'var(--mobile-h1)', margin: '8px 0 0 0' }}>Behandlings&shy;hjelpemidler</h1>
+      <p style={{ font: 'var(--mobile-body)', margin: 0 }}>
         Her finner du utstyret ditt, kan bestille forbruksmateriell og se bestillingshistorikk.
       </p>
 
-      {mostRecent && (
+      {justSubmitted && (
         <div style={{ marginTop: '1rem' }}>
           <NotificationPanel variant="success" label="Bestilling er mottatt">
-            Bestillingen din fra {mostRecent.date} er registrert. Du får bekreftelse på e-post.
+            {justSubmitted.delivery === 'hentes' || justSubmitted.delivery === 'hentes2'
+              ? 'Du vil få beskjed når ordren er klar til henting. '
+              : 'Ordren sendes vanligvis innen 1-2 arbeidsdager. '}
+            Dersom du har spørsmål om din bestilling kan du kontakte Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00
           </NotificationPanel>
         </div>
       )}
@@ -138,7 +143,7 @@ export default function Forside({
                 icon={<img src={EQUIPMENT_ICON} alt="" aria-hidden="true" width={40} height={40} />}
               >
                 <ElementHeader>
-                  {status === 'active-order' && <StatusDot variant="inprocess" text="Under levering" />}
+                  {status === 'active-order' && <StatusDot variant="inprocess" text="aktiv bestilling" />}
                   <ElementHeader.Text firstText={eq.model} firstTextEmphasised />
                   <ElementHeader.Text firstText={eq.details.type} subText />
                   {eq.units && eq.units.length > 1 && (
@@ -156,7 +161,7 @@ export default function Forside({
               icon={<img src={EQUIPMENT_ICON} alt="" aria-hidden="true" width={40} height={40} />}
             >
               <ElementHeader>
-                <StatusDot variant="cancelled" text="Deaktivert" />
+                <StatusDot variant="cancelled" text="Deaktivert. Skal returneres." />
                 <ElementHeader.Text firstText={eq.model} firstTextEmphasised />
                 <ElementHeader.Text firstText={eq.details.type} subText />
                 {eq.units && eq.units.length > 1 && (

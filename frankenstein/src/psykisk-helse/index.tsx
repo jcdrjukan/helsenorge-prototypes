@@ -9,7 +9,7 @@ import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
-import Search from '@helsenorge/designsystem-react/components/Icons/Search';
+import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
@@ -237,9 +237,9 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
               <Icon svgIcon={Menu} size={38} />
               <span className="nav-icon-btn__label">Meny</span>
             </button>
-            <button className="nav-icon-btn" aria-label="Søk">
-              <Icon svgIcon={Search} size={38} />
-              <span className="nav-icon-btn__label">Søk</span>
+            <button className="nav-icon-btn" aria-label="Varsler">
+              <Icon svgIcon={Bell} size={38} />
+              <span className="nav-icon-btn__label">Varsler</span>
             </button>
             <button className="nav-icon-btn" aria-label="Logg ut">
               <Icon svgIcon={Logout} size={38} />
@@ -249,7 +249,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
         </div>
         {isAuthenticated && (
           <button className="profile-bar" aria-label="Brukermeny">
-            <Avatar color="blueberry" size="xsmall">Tora Hansen</Avatar>
+            <Avatar className="ph-avatar" color="blueberry" size="xsmall">Tora Hansen</Avatar>
             <span className="profile-bar__name">Tora Hansen</span>
             <Icon svgIcon={ChevronDown} size={38} />
           </button>

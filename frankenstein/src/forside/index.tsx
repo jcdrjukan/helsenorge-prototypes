@@ -6,7 +6,7 @@ import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import Tile from '@helsenorge/designsystem-react/components/Tile/Tile';
 import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel/PromoPanel';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
-import Search from '@helsenorge/designsystem-react/components/Icons/Search';
+import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronUp from '@helsenorge/designsystem-react/components/Icons/ChevronUp';
@@ -67,7 +67,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
               <span className="nav-icon-btn__label">Meny</span>
             </button>
             <button className="nav-icon-btn" aria-label="Varsler">
-              <Icon svgIcon={Search} size={38} />
+              <Icon svgIcon={Bell} size={38} />
               <span className="nav-icon-btn__label">Varsler</span>
             </button>
             <button className="nav-icon-btn" aria-label="Logg ut">

@@ -77,68 +77,24 @@
 }
 
 /* =====================================================================
-   Header
+   Header — uses the shared .header/.top-bar/.nav-icon-btn/.profile-bar
+   classes from App.css (same markup as every other prototype) so this
+   header can't drift from the others again. These three rules mirror
+   the identical scoped block in every other prototype's own style.css
+   (.ll-shell, .ph-shell, .ski-shell, .pp-shell, .gr-shell) — the base
+   App.css sizes (12px label, 18px name) are a real-viewport-breakpoint
+   default that every prototype overrides locally to 16px.
    ===================================================================== */
-.bhm-header {
-  width: 100%;
-  background: var(--blueberry-50);
+.bhm-page .nav-icon-btn__label,
+.bhm-page .profile-bar__name {
+  font-size: 16px;
 }
-
-.bhm-header__top {
-  background: #fff;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  padding: 0 4px;
-  height: 56px;
+.bhm-page .nav-icon-btn__label {
+  margin-bottom: 0.5rem;
 }
-
-.bhm-top-nav {
-  display: contents;
-}
-
-.bhm-icon-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px 6px;
-  border-radius: var(--radius-m);
-  color: #000;
-}
-
-.bhm-icon-btn:hover {
-  background: var(--color-action-background-transparent-onlight-hover);
-}
-
-.bhm-icon-btn__label {
-  font: 600 12px/1 'Source Sans Pro', sans-serif;
-  color: #000;
-  white-space: nowrap;
-}
-
-.bhm-profile-bar {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 2px 12px;
-  background: none;
-  border: none;
-  border-top: 1px solid var(--blueberry-700);
-  border-bottom: 1px solid var(--blueberry-700);
-  cursor: pointer;
-  text-align: left;
-}
-
-.bhm-profile-bar__name {
-  flex: 1;
-  font: var(--mobile-label);
-  font-size: 18px;
-  color: #000;
+.bhm-avatar {
+  margin-top: 2px;
+  margin-bottom: 2px;
 }
 
 /* =====================================================================
@@ -171,22 +127,18 @@
 /* =====================================================================
    Page typography
    ===================================================================== */
-.page-title {
-  font: var(--mobile-h1);
-  margin: 0 0 var(--space-xs) 0;
-  color: var(--color-base-text-onlight);
-}
-
-.page-intro {
-  font: var(--mobile-body);
-  margin: 0 0 var(--space-m) 0;
-  color: var(--color-base-text-onlight-subdued);
-}
-
 .section-h2 {
   font: var(--mobile-h2);
   margin: var(--space-m) 0 var(--space-xs) 0;
   color: var(--color-base-text-onlight);
+}
+
+/* Panel's own padding jumps from 16px to 24px past the real-viewport
+   desktop breakpoint that the visual phone-frame doesn't stop from
+   matching in a real browser — same fix as Legemiddelliste's
+   .ll-resept-panel, forcing the tighter mobile padding. */
+.bhm-unit-panel > div > div {
+  padding: 16px 16px 16px 10px !important;
 }
 
 /* =====================================================================

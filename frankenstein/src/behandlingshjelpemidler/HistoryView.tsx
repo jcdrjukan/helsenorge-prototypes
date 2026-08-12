@@ -95,8 +95,8 @@ export default function HistoryView({ submittedOrders, historyEntries, onBack }:
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-        <h1 style={{ font: 'var(--mobile-h1)', margin: '48px 0 0 0' }}>Bestillingshistorikk</h1>
-        <p style={{ font: 'var(--mobile-preamble)', margin: 0 }}>
+        <h1 style={{ font: 'var(--mobile-h1)', margin: '8px 0 0 0' }}>Bestillingshistorikk</h1>
+        <p style={{ font: 'var(--mobile-body)', margin: 0 }}>
           Her finner du tidligere bestillinger av forbruksmateriell.
         </p>
 

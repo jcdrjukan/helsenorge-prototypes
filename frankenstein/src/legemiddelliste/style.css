@@ -1,5 +1,36 @@
 /* ── Legemiddelliste prototype ──────────────────────────────────── */
 
+/* ── Header text sizing (matches Forside's header fix) ──────────────
+   nav-icon-btn__label/profile-bar__name are shared App.css classes used
+   by every prototype's header — force the 16px size and 0.5rem label
+   spacing here rather than editing App.css globally. */
+.ll-shell .nav-icon-btn__label,
+.ll-shell .profile-bar__name {
+  font-size: 16px;
+}
+.ll-shell .nav-icon-btn__label {
+  margin-bottom: 0.5rem;
+}
+.ll-avatar {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/* LinkList row text ("Hva kan jeg hente"/"Hva skal jeg bruke" cards)
+   bumps from 18/28px to 20/30px past the real-viewport desktop
+   breakpoint — same fix as Forside's snarveier/tjenester lists. */
+.ll-shell [class*="link-list__anchor--medium"] {
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+}
+
+/* ElementHeader leading icon bumps from 38px to 48px past the same
+   breakpoint — force back to the mobile size. */
+.ll-shell [class*="element-header__icon"] svg {
+  width: 38px !important;
+  height: 38px !important;
+}
+
 .ll-shell {
   width: 390px;
   min-height: 100%;

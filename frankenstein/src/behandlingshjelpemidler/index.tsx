@@ -25,6 +25,24 @@ const DEFAULT_DELIVERY: DeliveryForm = {
   telefon: '99 88 77 66',
 };
 
+// Seeds "Under behandling" with an order already in progress, matching the
+// deprecated prototype's default state (AirSense 11 AutoSet, "Til pakking").
+const DEFAULT_ACTIVE_ORDERS: SubmittedOrder[] = [
+  {
+    id: 'active-cpap-1',
+    date: '04.04.2026',
+    equipmentItems: [
+      { eq: EQUIPMENT[0], quantities: [0, 1, 1, 0] },
+    ],
+    delivery: 'post',
+    addr: 'Kirkeveien 84B',
+    poststed: '7010 Trondheim',
+    navn: 'Tora Hansen',
+    telefon: '924 62 478',
+    comment: '',
+  },
+];
+
 export default function Behandlingshjelpemidler() {
   const [view, setView] = useState<AppView>('forside');
   const [selectedEqId, setSelectedEqId] = useState<string | null>(null);
@@ -38,7 +56,8 @@ export default function Behandlingshjelpemidler() {
   const [deliveryErrors, setDeliveryErrors] = useState<Partial<Record<keyof DeliveryForm, string>>>({});
   const [comment, setComment] = useState('');
   const [orderedDates, setOrderedDates] = useState<Record<string, Date>>({});
-  const [submittedOrders, setSubmittedOrders] = useState<SubmittedOrder[]>([]);
+  const [submittedOrders, setSubmittedOrders] = useState<SubmittedOrder[]>(DEFAULT_ACTIVE_ORDERS);
+  const [justSubmittedId, setJustSubmittedId] = useState<string | null>(null);
   const [showAbandonAlert, setShowAbandonAlert] = useState(false);
 
   // ── Navigation helpers ────────────────────────────────────────────────────
@@ -138,6 +157,7 @@ export default function Behandlingshjelpemidler() {
     };
 
     setSubmittedOrders(prev => [...prev, newOrder]);
+    setJustSubmittedId(newOrder.id);
     resetOrder();
     setView('forside');
   };
@@ -175,6 +195,7 @@ export default function Behandlingshjelpemidler() {
         <Forside
           equipment={EQUIPMENT}
           submittedOrders={submittedOrders}
+          justSubmittedId={justSubmittedId}
           onShowMachine={showMachine}
           onStartOrder={startOrder}
           onShowHistory={() => setView('history')}

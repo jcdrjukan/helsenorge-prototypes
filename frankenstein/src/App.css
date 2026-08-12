@@ -78,6 +78,23 @@
   flex-direction: column;
 }
 
+/* Header text sizing — mirrors the identical scoped block in every other
+   prototype's own style.css (.ll-shell, .ph-shell, .bhm-page, etc.). The
+   base .nav-icon-btn__label/.profile-bar__name rules below are a
+   real-viewport-breakpoint default (12px/18px) that every prototype
+   overrides locally to 16px. */
+.mobile-shell .nav-icon-btn__label,
+.mobile-shell .profile-bar__name {
+  font-size: 16px;
+}
+.mobile-shell .nav-icon-btn__label {
+  margin-bottom: 0.5rem;
+}
+.prover-avatar {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 .header {
   width: 100%;
   background: #E4F7F9;
@@ -87,8 +104,7 @@
   background: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
-  padding: 0 4px;
+  padding: 0 4px 0 12px;
   height: 56px;
 }
 
@@ -149,7 +165,10 @@
 }
 
 .top-nav {
-  display: contents;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  flex: 1;
 }
 
 .nav-icon-btn {

@@ -9,6 +9,22 @@
   flex-direction: column;
 }
 
+/* ── Header text sizing (matches Forside's header fix) ──────────────
+   nav-icon-btn__label/profile-bar__name are shared App.css classes used
+   by every prototype's header — force the 16px size and 0.5rem label
+   spacing here rather than editing App.css globally. */
+.pp-shell .nav-icon-btn__label,
+.pp-shell .profile-bar__name {
+  font-size: 16px;
+}
+.pp-shell .nav-icon-btn__label {
+  margin-bottom: 0.5rem;
+}
+.pp-avatar {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
 .pp-page {
   padding: 1.5rem 1rem 0;
   display: flex;

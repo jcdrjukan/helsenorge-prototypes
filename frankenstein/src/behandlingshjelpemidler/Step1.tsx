@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
+import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import { EQUIPMENT_ICON } from './data';
 import type { Equipment } from './data';
 
@@ -106,19 +107,6 @@ export default function Step1({
 
                 return (
                   <div className="order-consumable-row" key={i}>
-                    <div className="order-consumable-row__info">
-                      <p className="order-consumable-row__name">{c.name}</p>
-                      {unavailableUntil && (
-                        <span className="order-consumable-row__wait">
-                          Tilgjengelig fra {formatDateShort(unavailableUntil)}
-                        </span>
-                      )}
-                      {c.activeOrder && !unavailableUntil && (
-                        <span className="order-consumable-row__wait" style={{ background: 'var(--blueberry-50)', color: 'var(--blueberry-700)', borderColor: 'var(--blueberry-500)' }}>
-                          Under levering
-                        </span>
-                      )}
-                    </div>
                     <div className="qty-control">
                       <button
                         className="qty-btn"
@@ -137,6 +125,17 @@ export default function Step1({
                       >
                         +
                       </button>
+                    </div>
+                    <div className="order-consumable-row__info">
+                      <p className="order-consumable-row__name">{c.name}</p>
+                      {unavailableUntil && (
+                        <span className="order-consumable-row__wait">
+                          Tilgjengelig fra {formatDateShort(unavailableUntil)}
+                        </span>
+                      )}
+                      {c.activeOrder && !unavailableUntil && (
+                        <StatusDot variant="inprocess" text="aktiv bestilling" />
+                      )}
                     </div>
                   </div>
                 );

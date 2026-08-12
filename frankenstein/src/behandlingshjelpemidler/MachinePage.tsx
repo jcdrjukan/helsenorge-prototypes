@@ -59,7 +59,7 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-      <div style={{ marginTop: '48px' }}>
+      <div style={{ marginTop: '8px' }}>
         <EyebrowHeader>
           <EyebrowHeader.Subtitle>Ditt utstyr</EyebrowHeader.Subtitle>
           <h1 style={{ font: 'var(--mobile-h1)', margin: 0 }}>{eq.model}</h1>
@@ -67,7 +67,7 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       </div>
 
       {eq.deaktivert && (
-        <NotificationPanel variant="warn" className="bhm-deaktivert-panel">
+        <NotificationPanel variant="error" className="bhm-deaktivert-panel">
           <p style={{ margin: 0, fontWeight: 400 }}>
             {eq.deaktivertMessage ?? 'Dette utstyret er deaktivert. Du kan ikke bestille forbruksmateriell til det.'}
           </p>
@@ -90,7 +90,7 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       {eq.units && eq.units.length > 0 && (
         <section style={{ marginBottom: 'var(--space-m)', display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
           {eq.units.map(unit => (
-            <Panel key={unit.serial} variant={PanelVariant.outline}>
+            <Panel key={unit.serial} variant={PanelVariant.outline} className="bhm-unit-panel">
               <Panel.A>
                 <Duolist boldColumn="first">
                   <DuolistGroup term="Serienr." description={unit.serial} />
@@ -126,8 +126,8 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
                   </p>
                 )}
                 {status === 'active'
-                  ? <StatusDot variant="inprocess" text="Under levering" />
-                  : <StatusDot variant="success" text="Kan bestilles" />
+                  ? <StatusDot variant="inprocess" text="aktiv bestilling" />
+                  : <StatusDot variant="active" text="kan bestilles" />
                 }
               </div>
             );
