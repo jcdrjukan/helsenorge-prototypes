@@ -24,6 +24,7 @@ import {
   Q1_OPTIONS, Q2_OPTIONS,
   computeResults, getSeenIds, persistSeen,
   markVeiviserCompleted, clearVeiviserCompleted,
+  getAnswers, persistAnswers, clearAnswers,
   type Resource,
 } from './data';
 
@@ -141,8 +142,8 @@ function viewFromHash(): View {
 
 export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
-  const [q1, setQ1]               = useState<Set<string>>(new Set());
-  const [q2, setQ2]               = useState<Set<string>>(new Set());
+  const [q1, setQ1]               = useState<Set<string>>(() => getAnswers().q1);
+  const [q2, setQ2]               = useState<Set<string>>(() => getAnswers().q2);
   const [seenIds, setSeenIds]     = useState<Set<string>>(() => getSeenIds());
 
   // Sync view → hash
@@ -150,6 +151,14 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
     const hash = VIEW_TO_HASH[view];
     if (window.location.hash !== hash) window.location.hash = hash;
   }, [view]);
+
+  // Persist answers so navigating away (e.g. to Forside) and back via a
+  // snarvei doesn't lose the selections — without this, hasCompletedVeiviser()
+  // would still correctly deep-link to results, but results would compute
+  // from empty answers instead of what the user actually picked.
+  useEffect(() => {
+    persistAnswers(q1, q2);
+  }, [q1, q2]);
 
   // Reaching results at least once marks the veiviser "completed" — Forside
   // reads this flag to decide whether to deep-link straight to results.
@@ -484,7 +493,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
             Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
-            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); onNavigateHome ? onNavigateHome() : setView('front'); }}>
+            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); setQ1(new Set()); setQ2(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
               <Icon svgIcon={TrashCan} size={24} />
               Avslutt tjenesten
             </Button>

@@ -100,11 +100,16 @@ export function computeResults(
 }
 
 const LS_KEY = 'veiviser-seen';
+const LS_ANSWERS_KEY = 'veiviser-answers';
 
-// Clear seen-status on every hard page refresh (new browser session)
+// Clear seen-status and answers on every hard page refresh (new browser
+// session) — but NOT on ordinary in-app navigation (e.g. bouncing to
+// Forside and back via a snarvei), which unmounts/remounts this component
+// without a real page reload and should keep the same answers/results.
 if (!sessionStorage.getItem('veiviser-session')) {
   sessionStorage.setItem('veiviser-session', '1');
   localStorage.removeItem(LS_KEY);
+  localStorage.removeItem(LS_ANSWERS_KEY);
 }
 
 export function getSeenIds(): Set<string> {
@@ -119,6 +124,40 @@ export function getSeenIds(): Set<string> {
 export function persistSeen(ids: Set<string>): void {
   try {
     localStorage.setItem(LS_KEY, JSON.stringify([...ids]));
+  } catch {
+    // ignore
+  }
+}
+
+// The actual quiz answers (q1/q2) — without this, navigating away (e.g. to
+// Forside) and back via a snarvei loses the selections entirely, even
+// though hasCompletedVeiviser() still correctly deep-links to results:
+// results would then compute from empty answers instead of what the user
+// actually picked.
+export function getAnswers(): { q1: Set<string>; q2: Set<string> } {
+  try {
+    const raw = localStorage.getItem(LS_ANSWERS_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      return { q1: new Set(parsed.q1 || []), q2: new Set(parsed.q2 || []) };
+    }
+  } catch {
+    // ignore
+  }
+  return { q1: new Set(), q2: new Set() };
+}
+
+export function persistAnswers(q1: Set<string>, q2: Set<string>): void {
+  try {
+    localStorage.setItem(LS_ANSWERS_KEY, JSON.stringify({ q1: [...q1], q2: [...q2] }));
+  } catch {
+    // ignore
+  }
+}
+
+export function clearAnswers(): void {
+  try {
+    localStorage.removeItem(LS_ANSWERS_KEY);
   } catch {
     // ignore
   }

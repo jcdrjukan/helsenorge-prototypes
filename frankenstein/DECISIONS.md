@@ -4,6 +4,36 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-08-11 — Built Forside as a new Frankenstein view, not a standalone static prototype
+**Decision:** New `src/forside/` view recreating the real Helsenorge forside (Figma `OOhkNC18f5jrwa1C3TT4wV`, node 230:3677 default / 230:3673 expanded) inside the shared React app, reusing real design-system components throughout (LinkList, Tile, PromoPanel, Toggle where it was briefly used).
+**Alternative considered:** A hand-rolled static HTML/CSS prototype at the repo root, matching the convention used by `behandlingshjelpemidler/`, `gravid/`, etc.
+**Why:** User explicitly chose the Frankenstein-view route. It also made the rest of the day's work possible: activation state and deep-linking between Forside and Psykisk helse only work as *real* shared React state because both live in one app on one origin — a standalone static prototype would have needed to fake all of that.
+
+## 2026-08-11 — New "Valgbare tjenester" section for growing set of optional tjenester (Psykisk helse, Gravid, Småbarnsliv)
+**Decision:** A new section inserted after "Kvalitet og styring" inside the "Se alle tjenester" expander lists all 3 candidate tjenester as plain navigation rows (icon + label + chevron, same layout as every other group). Not in the Figma reference at all — designed fresh.
+**Alternative considered:** Two separate sections — "Valgbare tjenester" as a toggle-driven activate/deactivate list, and an always-visible "Valgbare fliser" tile grid mirroring the same 3 items regardless of activation status. Built and shipped this first, then reworked it twice more (moved fliser inside the expander and converted it from a Tile grid to a plain LinkList row per feedback, then deleted the toggle-based Valgbare tjenester section entirely once "activated"/"deactivated" stopped needing a manual control at all).
+**Why:** Once Psykisk helse's activation became fully derived (see next entry), a manual toggle list had nothing left to toggle for it, and duplicating the same 3 rows in two visually different sections (tiles vs. list) added complexity without a clear reason once both were pure navigation. One list, no toggles, is simpler and matches how the rest of the expander already behaves.
+
+## 2026-08-11 — Psykisk helse's Snarveier presence is derived from hasCompletedVeiviser(), not a manually toggled flag
+**Decision:** Whether Psykisk helse appears as a Snarveier on Forside is computed live from the same `ph-veiviser-completed` localStorage flag that already drives the "deep-link straight to results" decision — reaching results sets it, confirming "Avslutt tjenesten" clears it (and now always navigates back to Forside). No separate activation state to keep in sync.
+**Alternative considered:** A generic `activatedTjenester` Set (localStorage-persisted) shared across all 3 valgbare tjenester, toggled explicitly via UI — this was the original design and is still how Gravid/Småbarnsliv work, since neither has a "results" concept to derive activation from.
+**Why:** User's own framing: "when the psykisk helse tjeneste is activated (when there exists a results page, in other words)." Psykisk helse already had a real, meaningful signal for "has this been used" — reusing it removes an entire category of possible bugs (the two states silently drifting out of sync) for free. Gravid/Småbarnsliv don't have an equivalent signal yet, so they're still on the generic Set with no activate/deactivate UI at all currently — a known gap, not yet addressed.
+
+## 2026-08-11 — Gravid gets a thin Frankenstein placeholder view, not a full port
+**Decision:** `src/gravid/` is a minimal view (header, breadcrumb, H1, one status panel) — just enough for Forside to have a real in-app destination. The existing static `gravid/index.html` prototype (countdown ring, weekly content, sticky notes, growth chart) is untouched and stays separate.
+**Alternative considered:** Port the full tracker into Frankenstein as part of this work.
+**Why:** User's explicit scoping call — porting the full tracker is a distinctly larger, separate task, not a side effect of building Forside.
+
+## 2026-08-11 — Småbarnsliv is a placeholder tile only, no real prototype
+**Decision:** Småbarnsliv appears in Valgbare tjenester with real copy/icon and is inert (no navigation target). Its icon (`ChildIcon.tsx`) is a temporary hand-traced stand-in from a Figma node, since no "Child" icon exists yet in `@helsenorge/designsystem-react` — swap for the real shipped icon once it lands.
+**Alternative considered:** Also stub out a minimal Småbarnsliv prototype so all 3 tjenester link somewhere real.
+**Why:** User's explicit scoping call, keeping this task bounded to Forside itself.
+
+## 2026-08-11 — Din fastlege uses the real PromoPanel component, not a hand-rolled HighlightPanel+Illustration layout
+**Decision:** Rebuilt using `PromoPanel` (`illustration="Doctor"`, `color="cherry"`), which natively supports illustration + title-as-link + subtext-via-children + trailing arrow — exactly this pattern.
+**Alternative considered:** The original build used `HighlightPanel` with an `Illustration` component manually laid out via custom CSS, since `HighlightPanel`'s own `svgIcon` slot only accepts small icons, not illustrations.
+**Why:** User caught that a purpose-built component existed for this. Real component > hand-rolled equivalent whenever one exists — same principle applied throughout this repo already (e.g. the Resepter/PLL rebuilds from real Figma references).
+
 ## 2026-08-11 — Psykisk helse results: temporarily show all matches, not just top 3
 **Decision:** Removed the "show 3, hide the rest behind a 'Se flere...' Expander" pattern from both the Verktøy and Artikler result sections — both now render every matched resource in a single flat list.
 **Alternative considered:** Keep the top-3-plus-expander pattern as is.
