@@ -6,7 +6,7 @@ import MachinePage from './MachinePage';
 import OrderWizard from './OrderWizard';
 import HistoryView from './HistoryView';
 import type { AppView, DeliveryForm, DeliveryMode, SubmittedOrder } from './data';
-import { EQUIPMENT, HISTORY_ENTRIES } from './data';
+import { EQUIPMENT, HISTORY_ENTRIES, TODAY } from './data';
 
 function initQuantities(): Record<string, number[]> {
   const result: Record<string, number[]> = {};
@@ -30,7 +30,7 @@ const DEFAULT_DELIVERY: DeliveryForm = {
 const DEFAULT_ACTIVE_ORDERS: SubmittedOrder[] = [
   {
     id: 'active-cpap-1',
-    date: '04.04.2026',
+    date: TODAY,
     equipmentItems: [
       { eq: EQUIPMENT[0], quantities: [0, 1, 1, 0] },
     ],

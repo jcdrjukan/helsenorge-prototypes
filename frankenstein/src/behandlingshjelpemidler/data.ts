@@ -61,6 +61,11 @@ export interface SubmittedOrder {
   saksbehandlerKommentar?: string;
 }
 
+// The date the demo's one seeded "aktiv bestilling" (AirSense 11 AutoSet)
+// was placed — always today, so the order card and the consumable rows on
+// the machine detail page never show a stale date.
+export const TODAY = new Date().toLocaleDateString('nb-NO', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
 export const EQUIPMENT_ICON =
   'data:image/svg+xml;base64,PHN2ZyBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJub25lIiB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBvdmVyZmxvdz0idmlzaWJsZSIgc3R5bGU9ImRpc3BsYXk6IGJsb2NrOyIgdmlld0JveD0iMCAwIDQxLjM3MTMgMzUuOTIxOSIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgaWQ9IlVuaW9uIj4KPHBhdGggZD0iTTE0Ljg3NTEgMTQuNzAxMkgxMy4xMDU2VjEzLjgwMThIMTQuODc1MVYxNC43MDEyWiIgZmlsbD0idmFyKC0tZmlsbC0wLCBibGFjaykiLz4KPHBhdGggZD0iTTE0Ljg3NTEgMTAuNDgzNEgxMy4xMDU2VjkuNTgzMDFIMTQuODc1MVYxMC40ODM0WiIgZmlsbD0idmFyKC0tZmlsbC0wLCBibGFjaykiLz4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik0xOS45MDczIDEuMjk4ODNIMTcuOTUwM1Y0LjAyODMySDIxLjE4NTdWNS4zMjcxNUgxOS45Mzc2VjcuNzg4MDlDMjEuMzYxMiA2LjYwMjY2IDIzLjE5MTMgNS44ODg3NCAyNS4xODg2IDUuODg4NjdDMjkuNzI0MSA1Ljg4ODk0IDMzLjQwMTIgOS41NjYwNSAzMy40MDE1IDE0LjEwMTZDMzMuNDAxNSAxNC45NTI3IDMzLjI2OTMgMTUuNzczIDMzLjAyODQgMTYuNTQ0OUgzNi4zNTE3TDM2LjQyOTggMTYuNTQ5OEMzNi42MTAzIDE2LjU3MjYgMzYuNzc0MSAxNi42NzM3IDM2Ljg3NTEgMTYuODI4MUw0MS4yNjk2IDIzLjU0NjlDNDEuMzk1MiAyMy43Mzg5IDQxLjQwNTEgMjMuOTg0NyA0MS4yOTYgMjQuMTg2NUM0MS4xODY4IDI0LjM4ODIgNDAuOTc1NSAyNC41MTM2IDQwLjc0NjIgMjQuNTEzN0gzNi45NzI4VjMyLjgyNDJDMzYuOTcyOCAzNC41Mzg2IDM1LjU3MTQgMzUuOTIxNiAzMy44NTU2IDM1LjkyMTlINy43MTQ5NUM1Ljk5ODg3IDM1LjkyMTkgNC41OTc3NyAzNC41Mzg4IDQuNTk3NzcgMzIuODI0MlYyNC41MTM3SDAuNjI1MTFDMC4zOTU3MDkgMjQuNTEzNiAwLjE4NDQ4OSAyNC4zODgzIDAuMDc1MzA1MyAyNC4xODY1Qy0wLjAzMzc5MzQgMjMuOTg0NyAtMC4wMjM3ODk4IDIzLjczODkgMC4xMDE2NzIgMjMuNTQ2OUw0LjQ5NzE4IDE2LjgyODFMNC41NDQwNiAxNi43NjQ2QzQuNjYxODIgMTYuNjI2MyA0LjgzNTQgMTYuNTQ1MSA1LjAxOTY0IDE2LjU0NDlIMTAuMzc3MVY1LjMyNzE1SDkuMTI5MDJWNC4wMjgzMkgxMi4zNjQ0VjEuMjk4ODNIMTAuNDA3M1YwSDE5LjkwNzNWMS4yOTg4M1pNMjEuNDQ4NCAyNC4yMzE0QzIxLjMzMjkgMjQuNDA3OCAyMS4xMzU3IDI0LjUxMzcgMjAuOTI0OSAyNC41MTM3SDUuODQ3NzdWMzIuODI0MkM1Ljg0Nzc3IDMzLjgzOTEgNi42Nzk4MyAzNC42NzE5IDcuNzE0OTUgMzQuNjcxOUgyNC41NjM2VjE5LjQ2NzhMMjEuNDQ4NCAyNC4yMzE0Wk0yNS44MTM2IDM0LjY3MTlIMzMuODU1NkMzNC44OTA1IDM0LjY3MTYgMzUuNzIyOCAzMy44Mzg5IDM1LjcyMjggMzIuODI0MlYyNC41MTM3SDI5LjcxNUMyOS41MDQ0IDI0LjUxMzUgMjkuMzA3OSAyNC40MDc2IDI5LjE5MjUgMjQuMjMxNEwyNS44MTM2IDE5LjA2NTRWMzQuNjcxOVpNMS43ODEzNiAyMy4yNjM3SDIwLjU4OEwyNC4xNjQyIDE3Ljc5NDlINS4zNTc1M0wxLjc4MTM2IDIzLjI2MzdaTTMwLjA1MjggMjMuMjYzN0gzOS41OTA5TDM2LjAxMzggMTcuNzk0OUgyNi40NzY3TDMwLjA1MjggMjMuMjYzN1pNMTEuNjc2OSAxNi41NDQ5SDE3LjM0ODdDMTcuMTA4MSAxNS43NzI5IDE2Ljk3NTcgMTQuOTUyOCAxNi45NzU3IDE0LjEwMTZDMTYuOTc1OCAxMi4yNDEyIDE3LjU5NSAxMC41MjU1IDE4LjYzNzggOS4xNDg0NFY1LjMyODEySDExLjY3NjlWMTYuNTQ0OVpNMjUuMTg4NiA3LjEzODY3QzIxLjM0MzMgNy4xMzg4MiAxOC4yMjYgMTAuMjU2MyAxOC4yMjU3IDE0LjEwMTZDMTguMjI1NyAxNC45NjE2IDE4LjM4MzggMTUuNzg0NSAxOC42NjkxIDE2LjU0NDlIMjMuNDg4NFYxNS44MDQ3SDIxLjIzODRWMTIuNDA0M0gyMy40ODg0VjEwLjE1NDNIMjYuODg4OFYxMi40MDQzSDI5LjEzODhWMTUuODA0N0gyNi44ODg4VjE2LjU0NDlIMzEuNzA3MUMzMS45OTI3IDE1Ljc4NDUgMzIuMTUxNSAxNC45NjE2IDMyLjE1MTUgMTQuMTAxNkMzMi4xNTEyIDEwLjI1NjQgMjkuMDMzOCA3LjEzODk0IDI1LjE4ODYgNy4xMzg2N1pNMjQuMzg4OCAxMy4zMDQ3SDIyLjEzODhWMTQuOTA0M0gyNC4zODg4VjE2LjU0NDlIMjUuOTg4NFYxNC45MDQzSDI4LjIzODRWMTMuMzA0N0gyNS45ODg0VjExLjA1NDdIMjQuMzg4OFYxMy4zMDQ3Wk0xMy42NjMyIDQuMDI3MzRIMTYuNjQ5NVYxLjI5ODgzSDEzLjY2MzJWNC4wMjczNFoiIGZpbGw9InZhcigtLWZpbGwtMCwgYmxhY2spIi8+CjwvZz4KPC9zdmc+Cg==';
 
@@ -77,8 +82,8 @@ export const EQUIPMENT: Equipment[] = [
     details: { type: 'Positivt luftveistrykkapparat, kontinuerlig, auto', produsent: 'ResMed', url: '...' },
     consumables: [
       { name: 'Slange CPAP m/varmetråd ClimateLine 11 CPAP Airsense 11', quota: '', nextOrderDate: '2026-04-15', lastOrder: '15.01.2026' },
-      { name: 'Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]', quota: '', lastOrder: '10.09.2025', activeOrder: true },
-      { name: 'Maske NIV helmaske AirFit F30i str. S', quota: '', activeOrder: true },
+      { name: 'Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]', quota: '', lastOrder: TODAY, activeOrder: true },
+      { name: 'Maske NIV helmaske AirFit F30i str. S', quota: '', lastOrder: TODAY, activeOrder: true },
       { name: 'Vannkammer fuktekammer CPAP HumidAir 11', quota: '', lastOrder: '20.11.2025' },
     ],
   },
@@ -128,7 +133,7 @@ export const EQUIPMENT: Equipment[] = [
     modelNo: '72081-01',
     details: { type: 'Overvåking, glukosenivå, interstitialvæske', produsent: 'Abbott', serial: 'NCME119-G0546', deliveryDate: '02.09.2024', owner: 'St. Olavs sykehus', url: '...' },
     consumables: [
-      { name: 'Sensor/sender CGM Freestyle Libre 3 Plus', quota: '', nextOrderDate: '2026-04-08', lastOrder: '19.03.2026', activeOrder: true },
+      { name: 'Sensor/sender CGM Freestyle Libre 3 Plus', quota: '', nextOrderDate: '2026-04-08', lastOrder: '19.03.2026' },
       { name: 'Desinfeksjon Klorhexidinsprit 5 mg/ml 250 ml', quota: '', lastOrder: '08.03.2026' },
     ],
   },
