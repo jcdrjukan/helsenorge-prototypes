@@ -65,7 +65,6 @@ export const TJENESTE_GROUPS: TjenesteGroup[] = [
     rows: [
       { id: 'og-innboks',           label: 'Innboks',                     icon: Envelope },
       { id: 'og-timeavtaler',       label: 'Timeavtaler',                 icon: CalendarEvent },
-      { id: 'og-gravid',            label: 'Gravid',                      icon: Pregnant },
       { id: 'og-henvisninger',      label: 'Henvisninger',                icon: Referral },
       { id: 'og-pasientjournal',    label: 'Pasientjournal',              icon: Journal },
       { id: 'og-delte-opplysninger',label: 'Helseopplysninger som deles', icon: SharedHealthData },
