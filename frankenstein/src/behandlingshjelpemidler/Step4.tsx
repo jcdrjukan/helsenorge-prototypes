@@ -114,7 +114,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
       </ExpanderList>
 
       <StepButtons
-        forwardButton={<Button onClick={onSubmit}>Bekreft og send bestilling</Button>}
+        forwardButton={<Button onClick={onSubmit}>Send</Button>}
         backButton={<Button onClick={onBack}><Icon svgIcon={ArrowLeft} />Tilbake</Button>}
       />
     </div>

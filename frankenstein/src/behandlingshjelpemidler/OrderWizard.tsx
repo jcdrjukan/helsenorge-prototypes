@@ -57,9 +57,9 @@ export default function OrderWizard({
   return (
     <>
       <div className="order-nav" style={{ padding: '0 4px' }}>
-        <button className="order-nav__back" onClick={currentStep === 1 ? onAbandonRequest : onBack}>
+        <button className="order-nav__back" onClick={onAbandonRequest}>
           <Icon svgIcon={ChevronLeft} size={38} />
-          <span>{currentStep === 1 ? backLabel : 'Tilbake'}</span>
+          <span>{backLabel}</span>
         </button>
       </div>
       <hr className="bhm-divider" />
