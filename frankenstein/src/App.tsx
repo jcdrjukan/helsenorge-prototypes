@@ -29,7 +29,7 @@ const hostname = window.location.hostname;
 const dedicatedPrototype: Prototype | null =
   hostname.includes('psykisk') || hostname.includes('veiviser') ||
   hostname.startsWith('joyful-blancmange') ? 'psykisk-helse' :
-  hostname.includes('behandling') ? 'behandlingshjelpemidler' :
+  hostname.includes('behandling') || hostname.startsWith('magical-tanuki') ? 'behandlingshjelpemidler' :
   hostname.includes('sykdom') || hostname.includes('kritisk') ||
   hostname.startsWith('melodic-cobbler') ? 'sykdom-kritisk-info' :
   hostname.includes('legemid') || hostname.includes('resept') ||
