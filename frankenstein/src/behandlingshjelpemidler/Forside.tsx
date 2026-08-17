@@ -12,7 +12,13 @@ import ElementHeader from '@helsenorge/designsystem-react/components/ElementHead
 import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
-import type { Equipment, SubmittedOrder, AppView } from './data';
+import type { Equipment, SubmittedOrder, AppView, DeliveryMode } from './data';
+
+const DELIVERY_MODE_LABEL: Record<DeliveryMode, string> = {
+  post: 'Send i posten',
+  hentes: 'Hentes på lokasjon1',
+  hentes2: 'Hentes på lokasjon2',
+};
 
 interface OrderCardProps {
   order: SubmittedOrder;
@@ -55,6 +61,8 @@ function OrderCard({ order }: OrderCardProps) {
           <Field label="Produktnavn" value={produktnavn} />
           <Field label="Type" value={type} />
           <Field label="Bestilt" value={order.date} />
+          <Field label="Forsendelsesmetode" value={DELIVERY_MODE_LABEL[order.delivery]} />
+          <Field label="Kommentar" value={order.comment} />
           <Field label="Levert" value={order.levert} />
           <Field label="Saksbehandler kommentar" value={order.saksbehandlerKommentar} />
         </div>
