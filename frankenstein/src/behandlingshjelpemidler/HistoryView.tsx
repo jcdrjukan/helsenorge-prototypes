@@ -67,7 +67,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
 
         <ul className="order-summary-list">
           {allItems.map((item, i) => (
-            <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.qty}x {item.name}</li>
+            <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.name} x {item.qty} stk.</li>
           ))}
         </ul>
       </ExpanderList.Expander>
@@ -95,10 +95,7 @@ export default function HistoryView({ submittedOrders, historyEntries, onBack }:
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-        <h1 style={{ font: 'var(--mobile-h1)', margin: '8px 0 0 0' }}>Bestillingshistorikk</h1>
-        <p style={{ font: 'var(--mobile-body)', margin: 0 }}>
-          Her finner du tidligere bestillinger av forbruksmateriell.
-        </p>
+        <h1 style={{ font: 'var(--mobile-h1)', margin: '32px 0 0 0' }}>Bestillingshistorikk</h1>
 
         {allOrders.length === 0 ? (
           <p style={{ font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>

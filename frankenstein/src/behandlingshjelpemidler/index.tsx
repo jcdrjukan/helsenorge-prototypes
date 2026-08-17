@@ -196,6 +196,7 @@ export default function Behandlingshjelpemidler() {
           equipment={EQUIPMENT}
           submittedOrders={submittedOrders}
           justSubmittedId={justSubmittedId}
+          onDismissJustSubmitted={() => setJustSubmittedId(null)}
           onShowMachine={showMachine}
           onStartOrder={startOrder}
           onShowHistory={() => setView('history')}

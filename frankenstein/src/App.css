@@ -32,6 +32,39 @@
   overflow: hidden;
   overflow-y: auto;
   scrollbar-width: none;
+  /* Establishes a containing block for position:fixed descendants (e.g.
+     the design system's Modal overlay), so fixed-position UI is confined
+     to the phone frame instead of covering the whole browser viewport. */
+  contain: layout;
+}
+
+/* Modal's own width rules key off the real browser viewport (100vw, plus
+   fixed px widths past md/lg breakpoints) rather than its actual container
+   — same real-viewport-breakpoint issue as everywhere else in this app.
+   Force it back to the phone frame's own width now that contain:layout
+   above has scoped the overlay to it. The 0.75rem margin is applied once,
+   on .align below — this just fills .align exactly so the reduction
+   doesn't compound across both layers (which produced an off-center card). */
+.phone-frame__screen [class*="modal--large"],
+.phone-frame__screen [class*="modal--medium"] {
+  width: 100% !important;
+}
+
+/* The modal card's wrapper (.align) relies on flexbox static-position
+   centering (its parent .modal-overlay is display:flex + centered) since
+   it has no explicit left/top of its own — but that static-position
+   centering doesn't resolve correctly once the overlay is scoped down via
+   contain:layout above, leaving the card flush against the left edge
+   instead of centered. Force horizontal centering explicitly; vertical
+   centering already resolves correctly so it's left alone.
+   .align also needs its own explicit width here: it has none of its own
+   (auto/shrink-to-fit), and the card's width:calc(100% - 0.75rem) above
+   can't resolve against an indefinite auto-sized parent, so without this
+   it collapses to the card's intrinsic (text-wrapped) width instead. */
+.phone-frame__screen [class*="align"] {
+  width: calc(100% - 0.75rem) !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
 }
 
 .phone-frame__screen::-webkit-scrollbar {

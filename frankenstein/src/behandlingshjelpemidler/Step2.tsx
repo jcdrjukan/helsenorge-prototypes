@@ -3,6 +3,10 @@ import Input from '@helsenorge/designsystem-react/components/Input';
 import FormFieldTag from '@helsenorge/designsystem-react/components/FormFieldTag';
 import Panel from '@helsenorge/designsystem-react/components/Panel';
 import { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import Button from '@helsenorge/designsystem-react/components/Button';
+import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
+import Icon from '@helsenorge/designsystem-react/components/Icon';
+import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import type { DeliveryForm } from './data';
 
 interface Step2Props {
@@ -40,7 +44,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
       {delivery.mode === 'post' && (
         <div className="delivery-address-form">
           <Input
-            label="Fullt navn"
+            label="Navn"
             inputId="deliveryNavn"
             value={delivery.navn}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('navn', e.target.value)}
@@ -121,14 +125,10 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
         </Panel>
       )}
 
-      <div className="order-step__actions">
-        <button className="btn-primary" onClick={onNext}>
-          Neste: Kommentar
-        </button>
-        <button className="btn-outline" onClick={onBack}>
-          Tilbake
-        </button>
-      </div>
+      <StepButtons
+        forwardButton={<Button onClick={onNext} arrow="icon">Neste</Button>}
+        backButton={<Button onClick={onBack}><Icon svgIcon={ArrowLeft} />Tilbake</Button>}
+      />
     </div>
   );
 }

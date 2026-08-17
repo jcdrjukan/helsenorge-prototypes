@@ -6,7 +6,9 @@ import HelpExpanderStandalone from '@helsenorge/designsystem-react/components/He
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel from '@helsenorge/designsystem-react/components/Panel';
 import { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
-import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
+// StatusDot is only needed by the commented-out order-status block below —
+// re-add this import when that block is restored.
+// import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import type { Equipment, AppView } from './data';
 
@@ -18,26 +20,28 @@ function formatDate(iso: string): string {
   return d.toLocaleDateString('nb-NO', { day: '2-digit', month: '2-digit', year: 'numeric' });
 }
 
-function getConsumableStatus(
-  nextOrderDate?: string,
-  lastOrder?: string,
-  activeOrder?: boolean,
-  orderedDates?: Record<string, Date>
-): 'active' | 'soon' | 'ok' | 'none' {
-  if (activeOrder) return 'active';
-  if (orderedDates) {
-    // recently ordered means ok
-  }
-  if (nextOrderDate) {
-    const next = new Date(nextOrderDate);
-    const now = new Date();
-    const diffDays = (next.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
-    if (diffDays <= 14) return 'soon';
-    return 'ok';
-  }
-  if (lastOrder) return 'ok';
-  return 'none';
-}
+// getConsumableStatus is only needed by the commented-out order-status
+// block below — re-add this function when that block is restored.
+// function getConsumableStatus(
+//   nextOrderDate?: string,
+//   lastOrder?: string,
+//   activeOrder?: boolean,
+//   orderedDates?: Record<string, Date>
+// ): 'active' | 'soon' | 'ok' | 'none' {
+//   if (activeOrder) return 'active';
+//   if (orderedDates) {
+//     // recently ordered means ok
+//   }
+//   if (nextOrderDate) {
+//     const next = new Date(nextOrderDate);
+//     const now = new Date();
+//     const diffDays = (next.getTime() - now.getTime()) / (1000 * 60 * 60 * 24);
+//     if (diffDays <= 14) return 'soon';
+//     return 'ok';
+//   }
+//   if (lastOrder) return 'ok';
+//   return 'none';
+// }
 
 interface MachinePageProps {
   eq: Equipment;
@@ -46,7 +50,9 @@ interface MachinePageProps {
   onStartOrder: (eqId: string, from: AppView) => void;
 }
 
-export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: MachinePageProps) {
+// orderedDates is only read by the commented-out order-status block below —
+// kept in the prop signature (unused for now) so callers don't need to change.
+export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, onStartOrder }: MachinePageProps) {
 
   return (
     <>
@@ -59,7 +65,7 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-      <div style={{ marginTop: '8px' }}>
+      <div style={{ marginTop: '32px' }}>
         <EyebrowHeader>
           <EyebrowHeader.Subtitle>Ditt utstyr</EyebrowHeader.Subtitle>
           <h1 style={{ font: 'var(--mobile-h1)', margin: 0 }}>{eq.model}</h1>
@@ -116,19 +122,22 @@ export default function MachinePage({ eq, orderedDates, onBack, onStartOrder }: 
         <div className="consumable-section">
           <h2 style={{ font: 'var(--mobile-h2)', margin: '0 0 var(--space-s) 0' }}>Forbruksmateriell</h2>
           {eq.consumables.map((c, i) => {
-            const status = getConsumableStatus(c.nextOrderDate, c.lastOrder, c.activeOrder, orderedDates);
             return (
               <div key={i} style={{ marginBottom: 'var(--space-s)' }}>
                 <p style={{ margin: 0, font: 'var(--mobile-body)' }}>{c.name}</p>
                 {c.lastOrder && (
-                  <p style={{ margin: 0, font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>
+                  <p style={{ margin: 0, font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)' }}>
                     Sist bestilt: {formatDate(c.lastOrder)}
                   </p>
                 )}
-                {status === 'active'
+                {/* Order status ("kan bestilles" / "aktiv bestilling") is temporarily
+                    hidden everywhere except the actual order form (Step1), to keep
+                    this browsing view uncluttered. Uncomment to bring it back:
+                {getConsumableStatus(c.nextOrderDate, c.lastOrder, c.activeOrder, orderedDates) === 'active'
                   ? <StatusDot variant="inprocess" text="aktiv bestilling" />
                   : <StatusDot variant="active" text="kan bestilles" />
                 }
+                */}
               </div>
             );
           })}

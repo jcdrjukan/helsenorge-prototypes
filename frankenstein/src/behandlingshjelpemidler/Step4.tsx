@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
+import Button from '@helsenorge/designsystem-react/components/Button';
+import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
+import Icon from '@helsenorge/designsystem-react/components/Icon';
+import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import type { Equipment, DeliveryForm } from './data';
 
 interface Step4Props {
@@ -109,14 +113,10 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
         </ExpanderList.Expander>
       </ExpanderList>
 
-      <div className="order-step__actions">
-        <button className="btn-primary" onClick={onSubmit}>
-          Bekreft og send bestilling
-        </button>
-        <button className="btn-outline" onClick={onBack}>
-          Endre bestilling
-        </button>
-      </div>
+      <StepButtons
+        forwardButton={<Button onClick={onSubmit}>Bekreft og send bestilling</Button>}
+        backButton={<Button onClick={onBack}><Icon svgIcon={ArrowLeft} />Tilbake</Button>}
+      />
     </div>
   );
 }

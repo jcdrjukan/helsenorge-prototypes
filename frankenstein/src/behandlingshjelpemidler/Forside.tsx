@@ -4,14 +4,15 @@ import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/Chevron
 import MobilePhone from '@helsenorge/designsystem-react/components/Icons/MobilePhone';
 import HelpSign from '@helsenorge/designsystem-react/components/Icons/HelpSign';
 import Globe from '@helsenorge/designsystem-react/components/Icons/Globe';
+import TreatmentAids from '@helsenorge/designsystem-react/components/Icons/TreatmentAids';
+import { IconSize } from '@helsenorge/designsystem-react/constants';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
-import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
+import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import type { Equipment, SubmittedOrder, AppView } from './data';
-import { EQUIPMENT_ICON } from './data';
 
 interface OrderCardProps {
   order: SubmittedOrder;
@@ -62,7 +63,7 @@ function OrderCard({ order }: OrderCardProps) {
           <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
           <ul className="order-summary-list">
             {allItems.map((item, i) => (
-              <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.qty}x {item.name}</li>
+              <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.name} x {item.qty} stk.</li>
             ))}
           </ul>
         </div>
@@ -75,6 +76,7 @@ interface ForsideProps {
   equipment: Equipment[];
   submittedOrders: SubmittedOrder[];
   justSubmittedId: string | null;
+  onDismissJustSubmitted: () => void;
   onShowMachine: (eqId: string) => void;
   onStartOrder: (eqId: string | null, from: AppView) => void;
   onShowHistory: () => void;
@@ -84,6 +86,7 @@ export default function Forside({
   equipment,
   submittedOrders,
   justSubmittedId,
+  onDismissJustSubmitted,
   onShowMachine,
   onStartOrder,
   onShowHistory,
@@ -91,15 +94,19 @@ export default function Forside({
   const activeEquipment = equipment.filter(e => !e.deaktivert);
   const deaktivertEquipment = equipment.filter(e => e.deaktivert);
 
-  const getEquipStatus = (eq: Equipment): 'active-order' | 'warning' | 'ok' | 'none' => {
-    const hasActiveOrder = eq.consumables.some(c => c.activeOrder);
-    if (hasActiveOrder) return 'active-order';
-    const hasUpcoming = eq.consumables.some(
-      c => c.nextOrderDate && new Date(c.nextOrderDate) <= new Date(Date.now() + 14 * 24 * 3600000)
-    );
-    if (hasUpcoming) return 'warning';
-    return 'none';
-  };
+  // Order-status ("kan bestilles" / "aktiv bestilling") is temporarily
+  // hidden everywhere except the actual order form (Step1), to keep this
+  // browsing view uncluttered. Uncomment to bring the equipment-list badge
+  // back:
+  // const getEquipStatus = (eq: Equipment): 'active-order' | 'warning' | 'ok' | 'none' => {
+  //   const hasActiveOrder = eq.consumables.some(c => c.activeOrder);
+  //   if (hasActiveOrder) return 'active-order';
+  //   const hasUpcoming = eq.consumables.some(
+  //     c => c.nextOrderDate && new Date(c.nextOrderDate) <= new Date(Date.now() + 14 * 24 * 3600000)
+  //   );
+  //   if (hasUpcoming) return 'warning';
+  //   return 'none';
+  // };
 
   const justSubmitted = submittedOrders.find(o => o.id === justSubmittedId) ?? null;
 
@@ -114,36 +121,35 @@ export default function Forside({
       <hr className="page-divider" />
       <div className="bhm-page-content">
 
-      <h1 style={{ font: 'var(--mobile-h1)', margin: '8px 0 0 0' }}>Behandlings&shy;hjelpemidler</h1>
-      <p style={{ font: 'var(--mobile-body)', margin: 0 }}>
-        Her finner du utstyret ditt, kan bestille forbruksmateriell og se bestillingshistorikk.
+      <h1 style={{ font: 'var(--mobile-h1)', margin: '32px 0 0 0' }}>Behandlings&shy;hjelpemidler</h1>
+      <p style={{ font: 'var(--mobile-ingress)', margin: '24px 0 0 0' }}>
+        Her kan du bestille forbruksmateriell og se bestillingshistorikk for ditt utstyr.
       </p>
 
       {justSubmitted && (
-        <div style={{ marginTop: '1rem' }}>
-          <NotificationPanel variant="success" label="Bestilling er mottatt">
-            {justSubmitted.delivery === 'hentes' || justSubmitted.delivery === 'hentes2'
-              ? 'Du vil få beskjed når ordren er klar til henting. '
-              : 'Ordren sendes vanligvis innen 1-2 arbeidsdager. '}
-            Dersom du har spørsmål om din bestilling kan du kontakte Regional enhet for behandlingshjelpemidler. Tel: 72 57 63 00
-          </NotificationPanel>
-        </div>
+        <Modal
+          title="Bestilling er mottatt"
+          description="Du kan se status på bestillingen din under Aktive bestillinger."
+          variant="success"
+          onClose={onDismissJustSubmitted}
+          onSuccess={onDismissJustSubmitted}
+          disableCloseEvents
+        />
       )}
 
       <section>
         <h2 className="section-h2">Ditt utstyr</h2>
         <LinkList variant="line" color="white" chevron>
           {activeEquipment.map(eq => {
-            const status = getEquipStatus(eq);
             return (
               <LinkList.Link
                 key={eq.id}
                 htmlMarkup="button"
                 onClick={() => onShowMachine(eq.id)}
-                icon={<img src={EQUIPMENT_ICON} alt="" aria-hidden="true" width={40} height={40} />}
+                icon={<Icon svgIcon={TreatmentAids} size={IconSize.XXSmall} />}
               >
                 <ElementHeader>
-                  {status === 'active-order' && <StatusDot variant="inprocess" text="aktiv bestilling" />}
+                  {/* Order status badge temporarily hidden — see note above getEquipStatus. */}
                   <ElementHeader.Text firstText={eq.model} firstTextEmphasised />
                   <ElementHeader.Text firstText={eq.details.type} subText />
                   {eq.units && eq.units.length > 1 && (
@@ -158,7 +164,7 @@ export default function Forside({
               key={eq.id}
               htmlMarkup="button"
               onClick={() => onShowMachine(eq.id)}
-              icon={<img src={EQUIPMENT_ICON} alt="" aria-hidden="true" width={40} height={40} />}
+              icon={<Icon svgIcon={TreatmentAids} size={IconSize.XXSmall} />}
             >
               <ElementHeader>
                 <StatusDot variant="cancelled" text="Deaktivert. Skal returneres." />
