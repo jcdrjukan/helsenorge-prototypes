@@ -5,6 +5,19 @@ html {
 body {
   margin: 0;
   background: #fff;
+  /* The design system's own `body` mixin sets font-size/line-height via a
+     real-viewport min-width media query (18px/27px mobile, 20px/30px
+     desktop) — same real-viewport-breakpoint issue as everywhere else in
+     this app, except body sits outside the phone-frame mockup entirely,
+     so no per-frame scoping can catch it. Any component that doesn't set
+     its own line-height (e.g. ElementHeader's subtext) inherits whichever
+     tier body landed on, which on a real wide browser window is always
+     the desktop one — making inherited text render visibly more spaced
+     out here than it does in production on an actual phone. Force the
+     mobile tier so inherited text matches prod regardless of the real
+     window width. */
+  font-size: 1.125rem !important;
+  line-height: 1.688rem !important;
 }
 
 #root {

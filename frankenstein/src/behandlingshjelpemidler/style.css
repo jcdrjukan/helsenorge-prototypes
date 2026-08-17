@@ -51,15 +51,19 @@
   --space-m: 1.5rem;
   --space-l: 2rem;
   --space-xl: 3rem;
+  /* These match node_modules/@helsenorge/designsystem-react's own
+     Supernova-generated typography.css (--mobile-h1-title1 etc.) — the
+     real, canonical Frankenstein type scale — rather than hand-guessed
+     values, so this stays in sync with what ships to production. */
   --mobile-h1: 600 2rem/120% 'Source Sans Pro', sans-serif;
   --mobile-h2: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
-  --mobile-ingress: 600 1.375rem/2rem 'Source Sans Pro', sans-serif;
+  --mobile-preamble: 400 1.25rem/130% 'Source Sans Pro', sans-serif;
   --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
   --mobile-body-strong: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
   --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
   --mobile-label-subdued: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
-  --mobile-sublabel: 600 1rem/120% 'Source Sans Pro', sans-serif;
-  --mobile-sublabel-subdued: 400 1rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-sublabel: 600 1rem/120% 'Source Sans 3', sans-serif;
+  --mobile-sublabel-subdued: 400 1rem/120% 'Source Sans 3', sans-serif;
   --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
   --radius-s: 4px;
   --radius-m: 8px;
@@ -96,6 +100,22 @@
 .bhm-avatar {
   margin-top: 2px;
   margin-bottom: 2px;
+}
+
+/* =====================================================================
+   LinkList's own anchor element sets font-size/line-height directly
+   (not inherited), gated by a real-viewport min-width media query —
+   same real-viewport-breakpoint bug as elsewhere, so on a real wide
+   browser window it renders at the desktop tier (20px/30px) instead of
+   the mobile tier (18px/28px), making "Ditt utstyr" row text (model
+   name + type subtext) looser than in prod. Same fix already applied
+   in other prototypes (Legemiddelliste, Psykisk helse) for this exact
+   class; values confirmed against the design system's own
+   $font-size-sm/$lineheight-size-sm.
+   ===================================================================== */
+.bhm-page [class*="link-list__anchor--medium"] {
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
 }
 
 /* =====================================================================

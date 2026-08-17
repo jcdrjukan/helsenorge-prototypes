@@ -53,6 +53,15 @@ interface MachinePageProps {
 // orderedDates is only read by the commented-out order-status block below —
 // kept in the prop signature (unused for now) so callers don't need to change.
 export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, onStartOrder }: MachinePageProps) {
+  // Equipment with a real units[] list has one entry per physical device.
+  // Equipment without one still has a single device's serial/delivery/owner
+  // on eq.details — normalize that into the same shape so both cases render
+  // through the same one-panel-per-unit UI below.
+  const units = eq.units && eq.units.length > 0
+    ? eq.units
+    : eq.details.serial && eq.details.deliveryDate && eq.details.owner
+      ? [{ serial: eq.details.serial, deliveryDate: eq.details.deliveryDate, owner: eq.details.owner }]
+      : [];
 
   return (
     <>
@@ -86,16 +95,14 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
           <DuolistGroup term="Type" description={eq.details.type} />
           <DuolistGroup term="Produsent" description={eq.details.produsent} />
           {eq.modelNo && <DuolistGroup term="Modellnr." description={eq.modelNo} />}
-          {!eq.units && eq.details.serial && <DuolistGroup term="Serienr." description={eq.details.serial} />}
-          {!eq.units && eq.details.deliveryDate && <DuolistGroup term="Utlevert" description={formatDate(eq.details.deliveryDate)} />}
-          {!eq.units && eq.details.owner && <DuolistGroup term="Eier" description={eq.details.owner} />}
         </Duolist>
       </section>
 
-      {/* Multiple units */}
-      {eq.units && eq.units.length > 0 && (
+      {/* Device-specific info (Serienr./Utlevert/Eier) — always shown as its
+          own panel box, one per physical unit, even when there's only one. */}
+      {units.length > 0 && (
         <section style={{ marginBottom: 'var(--space-m)', display: 'flex', flexDirection: 'column', gap: 'var(--space-xs)' }}>
-          {eq.units.map(unit => (
+          {units.map(unit => (
             <Panel key={unit.serial} variant={PanelVariant.outline} className="bhm-unit-panel">
               <Panel.A>
                 <Duolist boldColumn="first">

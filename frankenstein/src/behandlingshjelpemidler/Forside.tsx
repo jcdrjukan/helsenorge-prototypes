@@ -122,7 +122,7 @@ export default function Forside({
       <div className="bhm-page-content">
 
       <h1 style={{ font: 'var(--mobile-h1)', margin: '32px 0 0 0' }}>Behandlings&shy;hjelpemidler</h1>
-      <p style={{ font: 'var(--mobile-ingress)', margin: '24px 0 0 0' }}>
+      <p style={{ font: 'var(--mobile-preamble)', margin: '24px 0 0 0' }}>
         Her kan du bestille forbruksmateriell og se bestillingshistorikk for ditt utstyr.
       </p>
 
