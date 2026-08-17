@@ -39,7 +39,7 @@ const DEFAULT_ACTIVE_ORDERS: SubmittedOrder[] = [
     poststed: '7010 Trondheim',
     navn: 'Tora Hansen',
     telefon: '924 62 478',
-    comment: '',
+    comment: 'Filteret er nesten tomt, håper på rask levering.',
   },
 ];
 
