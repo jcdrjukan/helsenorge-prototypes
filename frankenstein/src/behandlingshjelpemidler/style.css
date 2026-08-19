@@ -1048,66 +1048,6 @@
 }
 
 /* =====================================================================
-   iOS-style confirm alert overlay
-   ===================================================================== */
-.ios-alert-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.4);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-}
-
-.ios-alert {
-  background: #fff;
-  border-radius: 14px;
-  width: 270px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.18);
-}
-
-.ios-alert__title {
-  text-align: center;
-  font: var(--mobile-body-strong);
-  padding: var(--space-s) var(--space-s) var(--space-3xs);
-  margin: 0;
-}
-
-.ios-alert__msg {
-  text-align: center;
-  font: var(--mobile-sublabel-subdued);
-  color: var(--color-base-text-onlight-subdued);
-  padding: 0 var(--space-s) var(--space-s);
-  margin: 0;
-}
-
-.ios-alert__actions {
-  display: flex;
-  border-top: 1px solid var(--neutral-200);
-}
-
-.ios-alert__btn {
-  flex: 1;
-  padding: var(--space-xs) 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  font: var(--mobile-label);
-  font-size: 1.0625rem;
-  color: var(--color-action-text-onlight);
-}
-
-.ios-alert__btn:first-child {
-  border-right: 1px solid var(--neutral-200);
-}
-
-.ios-alert__btn--destructive {
-  color: var(--cherry-500);
-}
-
-/* =====================================================================
    Page content wrapper
    ===================================================================== */
 .bhm-page-content {

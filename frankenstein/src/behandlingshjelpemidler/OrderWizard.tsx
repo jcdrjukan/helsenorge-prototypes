@@ -1,6 +1,7 @@
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import Stepper from '@helsenorge/designsystem-react/components/Stepper';
+import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import Step1 from './Step1';
 import Step2 from './Step2';
 import Step3 from './Step3';
@@ -113,24 +114,16 @@ export default function OrderWizard({
         />
       )}
 
-      {/* Abandon alert overlay */}
       {showAbandonAlert && (
-        <div className="ios-alert-overlay">
-          <div className="ios-alert">
-            <p className="ios-alert__title">Avbryt bestilling?</p>
-            <p className="ios-alert__msg">
-              Endringene dine vil ikke bli lagret hvis du avbryter nå.
-            </p>
-            <div className="ios-alert__actions">
-              <button className="ios-alert__btn" onClick={onAbandonCancel}>
-                Fortsett
-              </button>
-              <button className="ios-alert__btn ios-alert__btn--destructive" onClick={onAbandonConfirm}>
-                Avbryt bestilling
-              </button>
-            </div>
-          </div>
-        </div>
+        <Modal
+          title="Det finnes endringer som ikke er lagret"
+          description="Hvis du forlater siden, vil du miste alle endringer du har gjort."
+          variant="warning"
+          primaryButtonText="Forsett redigering"
+          secondaryButtonText="Forkast endringer"
+          onSuccess={onAbandonCancel}
+          onClose={onAbandonConfirm}
+        />
       )}
     </>
   );
