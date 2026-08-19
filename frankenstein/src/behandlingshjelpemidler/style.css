@@ -1048,6 +1048,41 @@
 }
 
 /* =====================================================================
+   Design-system Modal — same real-viewport-breakpoint bug as elsewhere
+   in this file (see the LinkList anchor fix above): the dialog's
+   width/padding and the title's title3 size are gated behind a real
+   min-width: 768px media query, so on a normal-width dev browser it
+   renders at the desktop tier (612/696px wide, more padding, 26px/32px
+   title) instead of the mobile tier this app's 390px frame ships in
+   production. Force the mobile-tier values (confirmed 1:1 against the
+   design system's own spacers.scss and font-mixins.scss). Also stack
+   the call-to-action buttons, matching the Figma modal (node 110-6566)
+   instead of the design system's default side-by-side row.
+   ===================================================================== */
+.bhm-page [class*="modal--large"] {
+  width: calc(100vw - 0.75rem) !important;
+  padding-bottom: var(--space-l) !important;
+}
+
+.bhm-page [class*="modal__contentWrapper__scroll--large"] {
+  padding: var(--space-xl) var(--space-m) var(--space-2xs) !important;
+}
+
+.bhm-page [class*="modal__call-to-action--large"] {
+  padding: var(--space-l) var(--space-m) 0 !important;
+}
+
+.bhm-page [class*="title--title3"] {
+  font-size: 1.375rem !important;
+  line-height: 1.813rem !important;
+}
+
+.bhm-page [class*="modal__call-to-action"] {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* =====================================================================
    Page content wrapper
    ===================================================================== */
 .bhm-page-content {
