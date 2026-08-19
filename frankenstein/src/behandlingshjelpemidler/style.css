@@ -578,55 +578,6 @@
 
 
 /* =====================================================================
-   Form field (plain HTML, fallback for textarea etc.)
-   ===================================================================== */
-.form-field {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-  margin-bottom: var(--space-s);
-}
-
-.form-field__label {
-  font: var(--mobile-label);
-  color: var(--color-base-text-onlight);
-}
-
-.form-field__input,
-.form-field__textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: var(--space-2xs) var(--space-xs);
-  border: 1.5px solid var(--color-base-border-onlight);
-  border-radius: var(--radius-s);
-  font: var(--mobile-body);
-  color: var(--color-base-text-onlight);
-  background: #fff;
-  outline: none;
-}
-
-.form-field__input:focus,
-.form-field__textarea:focus {
-  border-color: var(--blueberry-500);
-  box-shadow: 0 0 0 2px var(--blueberry-100);
-}
-
-.form-field__input--error,
-.form-field__textarea--error {
-  border-color: var(--cherry-500);
-}
-
-.form-field__error {
-  font: var(--mobile-sublabel);
-  color: var(--cherry-500);
-}
-
-.form-field__textarea {
-  min-height: 100px;
-  resize: vertical;
-}
-
-/* =====================================================================
    Delivery address form
    ===================================================================== */
 .delivery-address-form {
@@ -1080,6 +1031,30 @@
 .bhm-page [class*="modal__call-to-action"] {
   flex-direction: column;
   align-items: flex-start;
+}
+
+/* =====================================================================
+   Design-system Button — same real-viewport-breakpoint bug, app-wide:
+   min-height/font-size jump to a desktop tier (50px tall, 20px text)
+   behind the same real min-width:768px media query, instead of the
+   mobile tier (44px tall, 18px text) this app ships in production.
+   Deliberately does NOT touch padding: the design system computes
+   padding-left/right per icon variant (arrow, left-icon, borderless,
+   etc, see $with-icons in the DS's own Button/styles.module.scss) via
+   longhand declarations — an earlier version of this rule used the
+   shorthand `padding` with !important, which clobbered those and both
+   widened every button and hid the arrow/back icons entirely. The two
+   selectors both match the Button component's own base class
+   regardless of its position in the class list (css modules emit e.g.
+   "_button_e2oiz_48"), while the underscore boundaries avoid matching
+   unrelated BEM-style classes that merely end in "__button_"
+   (ExpanderList's "_expander__button_...", TabList's "_tab-list__button_...").
+   ===================================================================== */
+.bhm-page [class^="_button_"],
+.bhm-page [class*=" _button_"] {
+  min-height: 2.75rem !important;
+  font-size: 1.125rem !important;
+  line-height: 1.375rem !important;
 }
 
 /* =====================================================================

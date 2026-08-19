@@ -83,7 +83,6 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
             errorText={errors.sted}
             placeholder="Poststed"
             width={28}
-            maxCharacters={28}
           />
 
           <Input
@@ -95,6 +94,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
             errorText={errors.telefon}
             placeholder="8 siffer"
             type="tel"
+            width={16}
           />
         </div>
       )}
