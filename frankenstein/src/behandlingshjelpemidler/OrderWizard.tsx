@@ -13,6 +13,7 @@ interface OrderWizardProps {
   equipment: Equipment[];
   quantities: Record<string, number[]>;
   orderedDates: Record<string, Date>;
+  activeOrderKeys: Set<string>;
   focusedEqId: string | null;
   delivery: DeliveryForm;
   deliveryErrors: Partial<Record<keyof DeliveryForm, string>>;
@@ -23,6 +24,7 @@ interface OrderWizardProps {
   onCommentChange: (val: string) => void;
   onNext: () => void;
   onBack: () => void;
+  onNoProductsAvailable: () => void;
   onAbandonRequest: () => void;
   onAbandonConfirm: () => void;
   onAbandonCancel: () => void;
@@ -37,6 +39,7 @@ export default function OrderWizard({
   equipment,
   quantities,
   orderedDates,
+  activeOrderKeys,
   focusedEqId,
   delivery,
   deliveryErrors,
@@ -47,6 +50,7 @@ export default function OrderWizard({
   onCommentChange,
   onNext,
   onBack,
+  onNoProductsAvailable,
   onAbandonRequest,
   onAbandonConfirm,
   onAbandonCancel,
@@ -73,10 +77,12 @@ export default function OrderWizard({
           equipment={equipment}
           quantities={quantities}
           orderedDates={orderedDates}
+          activeOrderKeys={activeOrderKeys}
           focusedEqId={focusedEqId}
           onChangeQty={onChangeQty}
           onNext={onNext}
           onBack={onAbandonRequest}
+          onNoProductsAvailable={onNoProductsAvailable}
         />
       )}
       {currentStep === 2 && (

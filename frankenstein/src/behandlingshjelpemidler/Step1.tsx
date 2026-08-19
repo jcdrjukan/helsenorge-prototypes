@@ -12,10 +12,12 @@ interface Step1Props {
   equipment: Equipment[];
   quantities: Record<string, number[]>;
   orderedDates: Record<string, Date>;
+  activeOrderKeys: Set<string>;
   focusedEqId: string | null;
   onChangeQty: (eqId: string, idx: number, delta: number) => void;
   onNext: () => void;
   onBack: () => void;
+  onNoProductsAvailable: () => void;
 }
 
 // The "Tilgjengelig fra <dato>" pill and its button-disabling are
@@ -44,14 +46,24 @@ export default function Step1({
   equipment,
   quantities,
   orderedDates: _orderedDates,
+  activeOrderKeys,
   focusedEqId,
   onChangeQty,
   onNext,
   onBack,
+  onNoProductsAvailable,
 }: Step1Props) {
   const [showError, setShowError] = useState(false);
 
   const activeEquipment = equipment.filter(e => !e.deaktivert);
+
+  const isInActiveOrder = (eqId: string, idx: number) => activeOrderKeys.has(`${eqId}:${idx}`);
+
+  // True when every orderable consumable is already tied to an active
+  // order, i.e. no +/- control is rendered anywhere on this step.
+  const allInActiveOrder =
+    activeEquipment.length > 0 &&
+    activeEquipment.every(eq => eq.consumables.every((_c, i) => isInActiveOrder(eq.id, i)));
 
   const initOpenIds = () =>
     focusedEqId === null
@@ -66,6 +78,10 @@ export default function Step1({
   );
 
   const handleNext = () => {
+    if (allInActiveOrder) {
+      onNoProductsAvailable();
+      return;
+    }
     if (totalSelected === 0) {
       setShowError(true);
       return;
@@ -108,10 +124,11 @@ export default function Step1({
             >
               {eq.consumables.map((c, i) => {
                 const qty = eqQtys[i] ?? 0;
+                const isActive = isInActiveOrder(eq.id, i);
 
                 return (
                   <div className="order-consumable-row" key={i}>
-                    {c.activeOrder ? (
+                    {isActive ? (
                       <div className="qty-control" />
                     ) : (
                       <div className="qty-control">
@@ -135,7 +152,7 @@ export default function Step1({
                     )}
                     <div className="order-consumable-row__info">
                       <p className="order-consumable-row__name">{c.name}</p>
-                      {c.activeOrder && (
+                      {isActive && (
                         <StatusDot variant="inprocess" text="aktiv bestilling" />
                       )}
                     </div>

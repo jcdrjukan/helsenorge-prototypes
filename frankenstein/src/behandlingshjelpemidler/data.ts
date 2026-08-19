@@ -3,7 +3,6 @@ export interface Consumable {
   quota?: string;
   lastOrder?: string;
   nextOrderDate?: string;
-  activeOrder?: boolean;
 }
 
 export interface Unit {
@@ -36,7 +35,7 @@ export interface Equipment {
 }
 
 export type DeliveryMode = 'post' | 'hentes' | 'hentes2';
-export type AppView = 'forside' | 'machine' | 'order' | 'history';
+export type AppView = 'forside' | 'machine' | 'order' | 'history' | 'cannot-order';
 
 export interface DeliveryForm {
   mode: DeliveryMode;
@@ -80,8 +79,8 @@ export const EQUIPMENT: Equipment[] = [
     details: { type: 'Positivt luftveistrykkapparat, kontinuerlig, auto', produsent: 'ResMed', url: '...' },
     consumables: [
       { name: 'Slange CPAP m/varmetråd ClimateLine 11 CPAP Airsense 11', quota: '', nextOrderDate: '2026-04-15', lastOrder: '15.01.2026' },
-      { name: 'Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]', quota: '', lastOrder: TODAY, activeOrder: true },
-      { name: 'Maske NIV helmaske AirFit F30i str. S', quota: '', lastOrder: TODAY, activeOrder: true },
+      { name: 'Filter inntak pasient Resmed Air 11 standard [Frp 2 stk/pk]', quota: '', lastOrder: TODAY },
+      { name: 'Maske NIV helmaske AirFit F30i str. S', quota: '', lastOrder: TODAY },
       { name: 'Vannkammer fuktekammer CPAP HumidAir 11', quota: '', lastOrder: '20.11.2025' },
     ],
   },

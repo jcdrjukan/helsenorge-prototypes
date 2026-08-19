@@ -5,6 +5,7 @@ import Forside from './Forside';
 import MachinePage from './MachinePage';
 import OrderWizard from './OrderWizard';
 import HistoryView from './HistoryView';
+import CannotOrderView from './CannotOrderView';
 import type { AppView, DeliveryForm, DeliveryMode, SubmittedOrder } from './data';
 import { EQUIPMENT, HISTORY_ENTRIES, TODAY } from './data';
 
@@ -101,6 +102,20 @@ export default function Behandlingshjelpemidler() {
     }
   };
 
+  const handleNoProductsAvailable = () => {
+    setView('cannot-order');
+  };
+
+  const handleCannotOrderBack = () => {
+    resetOrder();
+    if (orderOrigin.view === 'machine' && orderOrigin.eqId) {
+      setSelectedEqId(orderOrigin.eqId);
+      setView('machine');
+    } else {
+      setView('forside');
+    }
+  };
+
   const resetOrder = () => {
     setQuantities(initQuantities());
     setDelivery(DEFAULT_DELIVERY);
@@ -178,6 +193,18 @@ export default function Behandlingshjelpemidler() {
     });
   };
 
+  // Consumables that are part of any current "aktiv bestilling" — derived
+  // from submittedOrders (not a static flag) so newly placed orders disable
+  // their own +/- controls the same way the seeded AirSense order does.
+  const activeOrderKeys = new Set<string>();
+  for (const order of submittedOrders) {
+    for (const { eq, quantities } of order.equipmentItems) {
+      quantities.forEach((qty, i) => {
+        if (qty > 0) activeOrderKeys.add(`${eq.id}:${i}`);
+      });
+    }
+  }
+
   const getOriginLabel = () => {
     if (orderOrigin.view === 'machine' && orderOrigin.eqId) {
       const eq = EQUIPMENT.find(e => e.id === orderOrigin.eqId);
@@ -224,6 +251,7 @@ export default function Behandlingshjelpemidler() {
           equipment={EQUIPMENT}
           quantities={quantities}
           orderedDates={orderedDates}
+          activeOrderKeys={activeOrderKeys}
           focusedEqId={orderOrigin.eqId}
           delivery={delivery}
           deliveryErrors={deliveryErrors}
@@ -234,6 +262,7 @@ export default function Behandlingshjelpemidler() {
           onCommentChange={setComment}
           onNext={handleOrderNext}
           onBack={handleOrderBack}
+          onNoProductsAvailable={handleNoProductsAvailable}
           onAbandonRequest={() => setShowAbandonAlert(true)}
           onAbandonConfirm={() => {
             setShowAbandonAlert(false);
@@ -257,6 +286,10 @@ export default function Behandlingshjelpemidler() {
           historyEntries={HISTORY_ENTRIES}
           onBack={() => setView('forside')}
         />
+      )}
+
+      {view === 'cannot-order' && (
+        <CannotOrderView onBack={handleCannotOrderBack} />
       )}
     </div>
   );
