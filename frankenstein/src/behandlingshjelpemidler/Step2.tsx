@@ -63,30 +63,28 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
             placeholder="Gatenavn og husnummer"
           />
 
-          <div style={{ display: 'flex', gap: 'var(--space-xs)' }}>
-            <div style={{ flex: '0 0 100px' }}>
-              <Input
-                label="Postnr."
-                inputId="deliveryPostnr"
-                value={delivery.postnr}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('postnr', e.target.value)}
-                error={!!errors.postnr}
-                errorText={errors.postnr}
-                placeholder="0000"
-              />
-            </div>
-            <div style={{ flex: 1 }}>
-              <Input
-                label="Poststed"
-                inputId="deliverySted"
-                value={delivery.sted}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('sted', e.target.value)}
-                error={!!errors.sted}
-                errorText={errors.sted}
-                placeholder="Poststed"
-              />
-            </div>
-          </div>
+          <Input
+            label="Postnr."
+            inputId="deliveryPostnr"
+            value={delivery.postnr}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('postnr', e.target.value)}
+            error={!!errors.postnr}
+            errorText={errors.postnr}
+            placeholder="0000"
+            width={4}
+          />
+
+          <Input
+            label="Poststed"
+            inputId="deliverySted"
+            value={delivery.sted}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('sted', e.target.value)}
+            error={!!errors.sted}
+            errorText={errors.sted}
+            placeholder="Poststed"
+            width={28}
+            maxCharacters={28}
+          />
 
           <Input
             label="Telefonnummer"
