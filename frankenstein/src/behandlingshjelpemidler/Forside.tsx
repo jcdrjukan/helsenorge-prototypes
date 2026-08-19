@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import MobilePhone from '@helsenorge/designsystem-react/components/Icons/MobilePhone';
@@ -44,7 +44,7 @@ function OrderCard({ order }: OrderCardProps) {
     </span>
   );
 
-  const Field = ({ label, value }: { label: string; value?: string }) => {
+  const Field = ({ label, value }: { label: string; value?: React.ReactNode }) => {
     if (!value) return null;
     return (
       <div>
@@ -62,6 +62,13 @@ function OrderCard({ order }: OrderCardProps) {
           <Field label="Type" value={type} />
           <Field label="Bestilt" value={order.date} />
           <Field label="Forsendelsesmetode" value={DELIVERY_MODE_LABEL[order.delivery]} />
+          <Field label="Adresse" value={
+            order.delivery === 'post'
+              ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
+              : order.addr
+          } />
+          <Field label="Telefon" value={order.telefon} />
+          <Field label="Status" value={order.status} />
           <Field label="Kommentar" value={order.comment} />
           <Field label="Levert" value={order.levert} />
           <Field label="Saksbehandler kommentar" value={order.saksbehandlerKommentar} />

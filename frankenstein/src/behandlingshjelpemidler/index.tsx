@@ -40,6 +40,7 @@ const DEFAULT_ACTIVE_ORDERS: SubmittedOrder[] = [
     navn: 'Tora Hansen',
     telefon: '924 62 478',
     comment: 'Filteret er nesten tomt, håper på rask levering.',
+    status: 'Til pakking',
   },
 ];
 

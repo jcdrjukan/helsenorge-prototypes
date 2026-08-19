@@ -59,6 +59,7 @@ export interface SubmittedOrder {
   comment: string;
   levert?: string;
   saksbehandlerKommentar?: string;
+  status?: string;
 }
 
 // The date the demo's one seeded "aktiv bestilling" (AirSense 11 AutoSet)
