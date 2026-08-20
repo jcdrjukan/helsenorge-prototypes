@@ -27,7 +27,7 @@ const DEFAULT_DELIVERY: DeliveryForm = {
 };
 
 // Seeds "Under behandling" with an order already in progress, matching the
-// deprecated prototype's default state (AirSense 11 AutoSet, "Til pakking").
+// deprecated prototype's default state (AirSense 11 AutoSet, "Behandles").
 const DEFAULT_ACTIVE_ORDERS: SubmittedOrder[] = [
   {
     id: 'active-cpap-1',
@@ -41,7 +41,7 @@ const DEFAULT_ACTIVE_ORDERS: SubmittedOrder[] = [
     navn: 'Tora Hansen',
     telefon: '924 62 478',
     comment: 'Filteret er nesten tomt, håper på rask levering.',
-    status: 'Til pakking',
+    status: 'Behandles',
   },
 ];
 
