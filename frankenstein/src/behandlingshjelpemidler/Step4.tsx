@@ -14,6 +14,7 @@ interface Step4Props {
   comment: string;
   onSubmit: () => void;
   onBack: () => void;
+  onAbandonRequest: () => void;
 }
 
 function deliveryModeLabel(mode: string): string {
@@ -23,7 +24,7 @@ function deliveryModeLabel(mode: string): string {
   return '';
 }
 
-export default function Step4({ equipment, quantities, delivery, comment, onSubmit, onBack }: Step4Props) {
+export default function Step4({ equipment, quantities, delivery, comment, onSubmit, onBack, onAbandonRequest }: Step4Props) {
   const [openIds, setOpenIds] = useState(new Set(['forbruksvarer', 'levering', 'kommentar']));
 
   const toggle = (id: string, isExpanded: boolean) => {
@@ -114,8 +115,9 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
       </ExpanderList>
 
       <StepButtons
-        forwardButton={<Button onClick={onSubmit}>Send</Button>}
+        forwardButton={<Button onClick={onSubmit} arrow="icon">Send</Button>}
         backButton={<Button onClick={onBack}><Icon svgIcon={ArrowLeft} />Tilbake</Button>}
+        cancelButton={<Button onClick={onAbandonRequest}>Avbryt</Button>}
       />
     </div>
   );

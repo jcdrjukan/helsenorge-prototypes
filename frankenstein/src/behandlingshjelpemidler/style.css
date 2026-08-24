@@ -62,8 +62,8 @@
   --mobile-body-strong: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
   --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
   --mobile-label-subdued: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
-  --mobile-sublabel: 600 1rem/120% 'Source Sans 3', sans-serif;
-  --mobile-sublabel-subdued: 400 1rem/120% 'Source Sans 3', sans-serif;
+  --mobile-sublabel: 600 1rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-sublabel-subdued: 400 1rem/120% 'Source Sans Pro', sans-serif;
   --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
   --radius-s: 4px;
   --radius-m: 8px;
@@ -576,6 +576,9 @@
   color: var(--color-base-text-onlight);
 }
 
+.order-step__sentral-panel {
+  margin-bottom: var(--space-s);
+}
 
 /* =====================================================================
    Delivery address form

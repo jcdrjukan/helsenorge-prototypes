@@ -82,7 +82,7 @@ export default function OrderWizard({
           focusedEqId={focusedEqId}
           onChangeQty={onChangeQty}
           onNext={onNext}
-          onBack={onAbandonRequest}
+          onAbandonRequest={onAbandonRequest}
           onNoProductsAvailable={onNoProductsAvailable}
         />
       )}
@@ -93,6 +93,7 @@ export default function OrderWizard({
           onChange={onDeliveryChange}
           onNext={onNext}
           onBack={onBack}
+          onAbandonRequest={onAbandonRequest}
         />
       )}
       {currentStep === 3 && (
@@ -101,6 +102,7 @@ export default function OrderWizard({
           onChange={onCommentChange}
           onNext={onNext}
           onBack={onBack}
+          onAbandonRequest={onAbandonRequest}
         />
       )}
       {currentStep === 4 && (
@@ -111,6 +113,7 @@ export default function OrderWizard({
           comment={comment}
           onSubmit={onSubmit}
           onBack={onBack}
+          onAbandonRequest={onAbandonRequest}
         />
       )}
 

@@ -6,6 +6,7 @@ import TreatmentAids from '@helsenorge/designsystem-react/components/Icons/Treat
 import { IconSize } from '@helsenorge/designsystem-react/constants';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
+import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import type { Equipment } from './data';
 
 interface Step1Props {
@@ -16,7 +17,7 @@ interface Step1Props {
   focusedEqId: string | null;
   onChangeQty: (eqId: string, idx: number, delta: number) => void;
   onNext: () => void;
-  onBack: () => void;
+  onAbandonRequest: () => void;
   onNoProductsAvailable: () => void;
 }
 
@@ -50,7 +51,7 @@ export default function Step1({
   focusedEqId,
   onChangeQty,
   onNext,
-  onBack,
+  onAbandonRequest,
   onNoProductsAvailable,
 }: Step1Props) {
   const [showError, setShowError] = useState(false);
@@ -102,6 +103,14 @@ export default function Step1({
   return (
     <div className="order-step">
       <h2 className="order-step__title">Velg antall forbruksmateriell</h2>
+
+      {/* Example only, not wired to real "valgt hjelpemiddelsentral" state
+          yet — for developers to see where/how this panel would sit. */}
+      <NotificationPanel variant="info" className="order-step__sentral-panel">
+        <p style={{ margin: 0, fontWeight: 400 }}>
+          Du har valgt hjelpemiddelsentralen hos Helgelandssykehus og ser kun forbruksmateriell tilgjengelig derfra.
+        </p>
+      </NotificationPanel>
 
       <ExpanderList variant="line" color="white">
         {activeEquipment.map(eq => {
@@ -171,7 +180,7 @@ export default function Step1({
       )}
       <StepButtons
         forwardButton={<Button onClick={handleNext} arrow="icon">Neste</Button>}
-        backButton={<Button onClick={onBack}>Avbryt</Button>}
+        cancelButton={<Button onClick={onAbandonRequest}>Avbryt</Button>}
       />
     </div>
   );

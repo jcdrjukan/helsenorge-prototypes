@@ -15,9 +15,10 @@ interface Step2Props {
   onChange: (field: keyof DeliveryForm, value: string) => void;
   onNext: () => void;
   onBack: () => void;
+  onAbandonRequest: () => void;
 }
 
-export default function Step2({ delivery, errors, onChange, onNext, onBack }: Step2Props) {
+export default function Step2({ delivery, errors, onChange, onNext, onBack, onAbandonRequest }: Step2Props) {
   return (
     <div className="order-step">
       <h2 className="order-step__title">Leveringsdetaljer</h2>
@@ -126,6 +127,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack }: St
       <StepButtons
         forwardButton={<Button onClick={onNext} arrow="icon">Neste</Button>}
         backButton={<Button onClick={onBack}><Icon svgIcon={ArrowLeft} />Tilbake</Button>}
+        cancelButton={<Button onClick={onAbandonRequest}>Avbryt</Button>}
       />
     </div>
   );
