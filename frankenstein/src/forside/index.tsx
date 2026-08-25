@@ -147,7 +147,7 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
                     activation control; same plain-row layout as every
                     other group above. ─────────────────────────────── */}
                 <div className="fs-tjeneste-group">
-                  <h2 className="fs-section-title">Valgbare tjenester</h2>
+                  <h2 className="fs-section-title">Situasjonstjenester</h2>
                   <LinkList variant="line" color="white" chevron>
                     {VALGBARE_TJENESTER.map(t => (
                       <LinkList.Link
