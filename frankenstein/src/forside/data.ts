@@ -119,6 +119,10 @@ export interface ValgbarTjeneste {
   icon: SvgIcon;
   /** Whether this tjeneste has a real prototype to navigate to. */
   hasPrototype: boolean;
+  /** Placeholder-only "Støtte til din situasjon" card badge (e.g. "Nytt innhold") — real content model TBD. */
+  badge?: string;
+  /** Placeholder-only "Støtte til din situasjon" teaser bullets — real content model TBD. */
+  teaser?: string[];
 }
 
 export const VALGBARE_TJENESTER: ValgbarTjeneste[] = [
@@ -135,6 +139,8 @@ export const VALGBARE_TJENESTER: ValgbarTjeneste[] = [
     description: 'Følg svangerskapet uke for uke.',
     icon: Pregnant,
     hasPrototype: true,
+    badge: 'Nytt innhold',
+    teaser: ['Gravid uke 32', 'Vise målinger og informasjon'],
   },
   {
     id: 'smabarnsliv',

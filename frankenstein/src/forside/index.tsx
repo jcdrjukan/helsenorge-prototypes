@@ -28,31 +28,26 @@ export interface ForsideProps {
 export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideProps) {
   const [showAllTjenester, setShowAllTjenester] = useState(false);
 
-  // Base fixed snarveier, with any activated valgbare tjenester spliced in —
-  // Gravid at the same position the Figma reference shows it (between
-  // Vaksiner and Pasientjournal); Psykisk helse/Småbarnsliv appended after,
-  // in canonical order, when active. Psykisk helse's "activated" isn't a
-  // manually toggled flag like the other two — it's derived straight from
-  // hasCompletedVeiviser() (has a results page), per the user's framing:
-  // completing the veiviser creates the snarvei, confirming Avslutt
-  // (which clears that flag) removes it — no separate state to keep in sync.
-  const [sykdom, helsekontakter, vaksiner, pasientjournal] = FIXED_SNARVEIER;
-  const gravidTjeneste = VALGBARE_TJENESTER.find(t => t.id === 'gravid')!;
-  const psykiskHelseTjeneste = VALGBARE_TJENESTER.find(t => t.id === 'psykisk-helse')!;
-  const smabarnslivTjeneste = VALGBARE_TJENESTER.find(t => t.id === 'smabarnsliv')!;
+  // Snarveier reduced to just Pasientjournal and Resepter — per user
+  // request, everything else (sykdom/helsekontakter/vaksiner, and the
+  // Gravid/Psykisk helse/Småbarnsliv conditionals) dropped.
+  const [, , , pasientjournal] = FIXED_SNARVEIER;
+  const resepter = TJENESTER_TILES.find(t => t.id === 'resepter')!;
 
-  const snarveier = [
-    sykdom,
-    helsekontakter,
-    vaksiner,
-    ...(activatedTjenester.has('gravid') ? [{ id: gravidTjeneste.id, label: gravidTjeneste.label, icon: gravidTjeneste.icon }] : []),
-    pasientjournal,
-    ...(hasCompletedVeiviser() ? [{ id: psykiskHelseTjeneste.id, label: psykiskHelseTjeneste.label, icon: psykiskHelseTjeneste.icon }] : []),
-    ...(activatedTjenester.has('smabarnsliv') ? [{ id: smabarnslivTjeneste.id, label: smabarnslivTjeneste.label, icon: smabarnslivTjeneste.icon }] : []),
-  ];
+  const snarveier = [pasientjournal, resepter];
 
   const isValgbarId = (id: string): id is ValgbarTjenesteId =>
     id === 'psykisk-helse' || id === 'gravid' || id === 'smabarnsliv';
+
+  // "Støtte til din situasjon" — where Gravid/Småbarnsliv/Psykisk helse
+  // show up once activated (moved out of Snarveier per user request).
+  // Psykisk helse's "activated" is derived from hasCompletedVeiviser()
+  // rather than a manually toggled flag, same as it worked under Snarveier
+  // before: completing the veiviser creates the entry, confirming Avslutt
+  // (which clears that flag) removes it.
+  const situasjonTjenester = VALGBARE_TJENESTER.filter(t =>
+    t.id === 'psykisk-helse' ? hasCompletedVeiviser() : activatedTjenester.has(t.id)
+  );
 
   return (
     <div className="fs-shell">
@@ -86,6 +81,42 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
       <main className="fs-page">
         <div className="fs-hero">
           <h1 className="fs-h1">Hva ser du etter?</h1>
+
+          {/* ── Støtte til din situasjon ──────────────────────────────
+              Hand-rolled placeholder cards after the Figma sketch (node
+              239:3681 in the Psykisk helse file) — icon circle, optional
+              "new content" badge, title/description, optional teaser
+              bullets. Not a real Frankenstein component yet; which
+              design-system pieces these become is still TBD. ─────────── */}
+          {situasjonTjenester.length > 0 && (
+            <section>
+              <h2 className="fs-section-title">Støtte til din situasjon</h2>
+              <div className="fs-situasjon-grid">
+                {situasjonTjenester.map(t => (
+                  <button
+                    key={t.id}
+                    type="button"
+                    className="fs-situasjon-card"
+                    onClick={() => {
+                      if (t.hasPrototype) onGoToTjeneste(t.id);
+                    }}
+                  >
+                    {t.badge && <span className="fs-situasjon-card__badge">{t.badge}</span>}
+                    <span className="fs-situasjon-card__icon">
+                      <Icon svgIcon={t.icon} size={32} />
+                    </span>
+                    <span className="fs-situasjon-card__title">{t.label}</span>
+                    <span className="fs-situasjon-card__desc">{t.description}</span>
+                    {t.teaser && (
+                      <ul className="fs-situasjon-card__teaser">
+                        {t.teaser.map((line, i) => <li key={i}>{line}</li>)}
+                      </ul>
+                    )}
+                  </button>
+                ))}
+              </div>
+            </section>
+          )}
 
           {/* ── Snarveier ──────────────────────────────────────────── */}
           <section>
