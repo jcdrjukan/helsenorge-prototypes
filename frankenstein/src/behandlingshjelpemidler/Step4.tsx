@@ -67,7 +67,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
             <ul className="order-summary-list">
               {selectedItems.map((item, i) => (
                 <li key={i} style={{ font: 'var(--mobile-body)' }}>
-                  {item.qty}x {item.consumableName} til {item.eqName}
+                  {item.consumableName} x {item.qty} stk. til {item.eqName}
                 </li>
               ))}
             </ul>
