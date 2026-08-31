@@ -15,11 +15,24 @@
 }
 
 /* .top-bar is a shared global class (App.css) used by every prototype,
-   normally white — scoped here (not edited globally) so only Forside's
-   logo/meny/varsler/logg-ut row picks up the same light-blue background
-   as .header/.fs-hero below it, continuing the colour with no seam. */
-.fs-shell .top-bar {
+   normally white — scoped to .fs-shell--forside specifically (not .fs-shell
+   generally, which every page on this branch also uses) so only Forside's
+   logo/meny/varsler/logg-ut row picks up the same light-blue background as
+   .header/.fs-hero below it, continuing the colour with no seam. The other
+   fs-shell pages (Artikkel, Spesialister, Kommunale tjenester) have white
+   page backgrounds, so they keep .top-bar's normal white from App.css. */
+.fs-shell--forside .top-bar {
   background: #E4F7F9;
+}
+
+/* .header (App.css) is light-blue globally, so its own background peeks
+   through wherever a child leaves it transparent — e.g. .profile-bar's
+   "To Tora Hansen" row below .top-bar. Forside wants that (continues into
+   .fs-hero below), but the other fs-shell pages have plain white
+   backgrounds, so their whole header — top-bar row and profile-bar row
+   alike — should read as white too. */
+.fs-shell:not(.fs-shell--forside) .header {
+  background: #fff;
 }
 
 /* .nav-icon-btn__label/.profile-bar__name are shared global classes
@@ -391,12 +404,6 @@
 /* ── Spesialister: Behandlinger og undersøkelser med ventetider ──────
    Recreated from Figma node 333:3684 (a flattened screenshot, no real
    layer structure) using this project's own components. ─────────────── */
-.spesialist-title {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
 .spesialist-search {
   display: flex;
   flex-direction: column;
@@ -407,7 +414,7 @@
 }
 
 .spesialist-search__label {
-  font: 600 1rem/1.4 'Source Sans Pro', sans-serif;
+  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
   color: #000;
 }
 

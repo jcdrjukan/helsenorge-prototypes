@@ -7,7 +7,6 @@ import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
-import DotQuestionMark from '@helsenorge/designsystem-react/components/Icons/DotQuestionMark';
 import MentalHealthChild from '@helsenorge/designsystem-react/components/Icons/MentalHealthChild';
 import MentalHealthAdult from '@helsenorge/designsystem-react/components/Icons/MentalHealthAdult';
 import BeerAndPills from '@helsenorge/designsystem-react/components/Icons/BeerAndPills';
@@ -119,10 +118,7 @@ export default function SpesialistOversikt({ onNavigateBack }: SpesialistOversik
       <hr className="page-divider" />
 
       <main className="fs-page">
-        <h1 className="fs-h1 spesialist-title">
-          Behandlinger og undersøkelser med ventetider
-          <Icon svgIcon={DotQuestionMark} size={24} color="#5B22A6" />
-        </h1>
+        <h1 className="fs-h1">Behandlinger og undersøkelser med ventetider</h1>
 
         <div className="spesialist-search">
           <label htmlFor="spesialist-search-input" className="spesialist-search__label">
@@ -139,7 +135,6 @@ export default function SpesialistOversikt({ onNavigateBack }: SpesialistOversik
               key={g.title}
               title={g.title}
               icon={<Icon svgIcon={g.icon} size={32} />}
-              expanded
             >
               <ul className="spesialist-liste">
                 {g.items.map(item => (

@@ -26,6 +26,7 @@ import Archive from '@helsenorge/designsystem-react/components/Icons/Archive';
 import MedicineWarning from '@helsenorge/designsystem-react/components/Icons/MedicineWarning';
 import HealthWarning from '@helsenorge/designsystem-react/components/Icons/HealthWarning';
 import MentalHealthAdult from '@helsenorge/designsystem-react/components/Icons/MentalHealthAdult';
+import ChildIcon from './ChildIcon';
 
 export interface TjenesteRow {
   id: string;
@@ -106,13 +107,16 @@ export const TJENESTE_GROUPS: TjenesteGroup[] = [
 ];
 
 // ── Valgbare tjenester ───────────────────────────────────────────────
-// psykiskhelse-demo branch: standalone copy of Forside with Psykisk helse
-// and a static, non-clickable Gravid card (no Gravid prototype exists on
-// this branch, so hasPrototype:false keeps it purely decorative — see
-// index.tsx's onClick guard). No Småbarnsliv here. Psykisk helse's
-// "activation" is derived purely from hasCompletedVeiviser(), not a
-// toggled Set, so there's no persisted activation state to manage here.
-export type ValgbarTjenesteId = 'psykisk-helse' | 'gravid';
+// psykiskhelse-demo branch: standalone copy of Forside with Psykisk helse,
+// a static non-clickable Gravid card (no Gravid prototype on this branch,
+// so hasPrototype:false keeps it purely decorative — see index.tsx's
+// onClick guard), and Småbarnsliv (also hasPrototype:false, and — unlike
+// Gravid — deliberately excluded from "Støtte til din situasjon" so it
+// only shows in the "Situasjonstjenester" list under "Se alle tjenester",
+// see index.tsx's situasjonTjenester filter). Psykisk helse's "activation"
+// is derived purely from hasCompletedVeiviser(), not a toggled Set, so
+// there's no persisted activation state to manage here.
+export type ValgbarTjenesteId = 'psykisk-helse' | 'gravid' | 'smabarnsliv';
 
 export interface ValgbarTjeneste {
   id: ValgbarTjenesteId;
@@ -140,6 +144,13 @@ export const VALGBARE_TJENESTER: ValgbarTjeneste[] = [
     label: 'Gravid',
     description: 'Følg svangerskapet uke for uke.',
     icon: Pregnant,
+    hasPrototype: false,
+  },
+  {
+    id: 'smabarnsliv',
+    label: 'Småbarnsliv',
+    description: 'Råd og oversikt de første leveårene.',
+    icon: ChildIcon,
     hasPrototype: false,
   },
 ];

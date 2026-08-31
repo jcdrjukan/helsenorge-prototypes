@@ -14,7 +14,7 @@ import './App.css';
 // Helsenorge content pages: an article page (stands in for
 // https://www.helsenorge.no/psykisk-helse/), a specialist-treatment
 // overview (recreated from Figma node 333:3684), and a blank Oslo kommune
-// tjenester page. Forside's "Veiviser til Psykisk helsehjelp" article link
+// tjenester page. Forside's "Veiviser til psykisk helsehjelp" article link
 // opens the article page; its first panel ("Selvhjelp") continues on into
 // Psykisk helse, its second panel ("Kommunale tjenester") and third panel
 // ("Spesialister") open the other two content pages. Psykisk helse is also

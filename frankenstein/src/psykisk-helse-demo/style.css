@@ -9,6 +9,13 @@
   flex-direction: column;
 }
 
+/* .header (App.css) is light-blue globally — override to white here since
+   only Forside (a different fs-shell page) wants that continuity colour;
+   Psykisk helse's own page background is white. */
+.ph-shell .header {
+  background: #fff;
+}
+
 /* ── Page content ────────────────────────────────────────────────── */
 .ph-page {
   padding: 3rem 1rem 3rem;

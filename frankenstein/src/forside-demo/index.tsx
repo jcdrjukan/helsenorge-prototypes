@@ -25,7 +25,7 @@ export interface ForsideProps {
    *  its click handlers never invoke this) — takes the user to Psykisk
    *  helse's own frontpage. */
   onGoToTjeneste: (id: ValgbarTjenesteId) => void;
-  /** Opens the "Veiviser til Psykisk helsehjelp" article page. */
+  /** Opens the "Veiviser til psykisk helsehjelp" article page. */
   onOpenArtikkel: () => void;
 }
 
@@ -40,19 +40,21 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps
 
   const snarveier = [pasientjournal, resepter];
 
-  const isValgbarId = (id: string): id is ValgbarTjenesteId => id === 'psykisk-helse' || id === 'gravid';
+  const isValgbarId = (id: string): id is ValgbarTjenesteId => id === 'psykisk-helse' || id === 'gravid' || id === 'smabarnsliv';
 
   // "Støtte til din situasjon" — psykiskhelse-demo branch: Gravid is a
   // static card shown by default (no activation toggle, no Gravid
   // prototype on this branch — hasPrototype:false in data.ts already makes
   // it non-clickable). Psykisk helse only shows up once the veiviser has
   // been completed, appearing next to Gravid. Both are plain cards now —
-  // no badge, no teaser bullets.
+  // no badge, no teaser bullets. Småbarnsliv is deliberately excluded from
+  // this section (it only appears in the "Situasjonstjenester" list under
+  // "Se alle tjenester" below, matching the original Forside).
   const situasjonTjenester = VALGBARE_TJENESTER
-    .filter(t => t.id === 'gravid' || hasCompletedVeiviser());
+    .filter(t => t.id === 'gravid' || (t.id === 'psykisk-helse' && hasCompletedVeiviser()));
 
   return (
-    <div className="fs-shell">
+    <div className="fs-shell fs-shell--forside">
 
       {/* ── Header ─────────────────────────────────────────────── */}
       <header className="header">
@@ -233,7 +235,7 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps
                 href="#"
                 onClick={e => { e.preventDefault(); onOpenArtikkel(); }}
               >
-                Veiviser til Psykisk helsehjelp →
+                Veiviser til psykisk helsehjelp →
               </a>
             </article>
             <article className="fs-article">

@@ -23,7 +23,7 @@ import './style.css';
 
 import {
   Q1_OPTIONS, Q2_OPTIONS,
-  computeResults, getSeenIds, persistSeen,
+  computeResults, getSeenIds, persistSeen, clearSeen,
   markVeiviserCompleted, clearVeiviserCompleted,
   getAnswers, persistAnswers, clearAnswers,
   type Resource,
@@ -513,7 +513,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
             Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
-            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); setQ1(new Set()); setQ2(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
+            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); clearSeen(); setQ1(new Set()); setQ2(new Set()); setSeenIds(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
               <Icon svgIcon={TrashCan} size={24} />
               Avslutt tjenesten
             </Button>

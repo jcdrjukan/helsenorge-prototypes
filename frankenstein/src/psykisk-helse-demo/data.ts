@@ -140,6 +140,14 @@ export function persistSeen(ids: Set<string>): void {
   }
 }
 
+export function clearSeen(): void {
+  try {
+    localStorage.removeItem(LS_KEY);
+  } catch {
+    // ignore
+  }
+}
+
 // The actual quiz answers (q1/q2) — without this, navigating away (e.g. to
 // Forside) and back via a snarvei loses the selections entirely, even
 // though hasCompletedVeiviser() still correctly deep-links to results:

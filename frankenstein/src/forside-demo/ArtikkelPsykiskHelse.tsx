@@ -31,7 +31,7 @@ export interface ArtikkelPsykiskHelseProps {
 
 function artikkelPaneler(onOpenPsykiskHelse: () => void, onOpenSpesialister: () => void, onOpenKommunaleTjenester: () => void) {
   return [
-    { title: 'Selvhjelp', text: 'Helsenorge tilbyr en rekke selvhjelpsverktøy og ressurser som du kan ta i bruk.', icon: Toolbox, onClick: onOpenPsykiskHelse },
+    { title: 'Selvhjelp', text: 'Helsenorge tilbyr en rekke selvhjelpsverktøy og ressurser som du kan ta i bruk nå.', icon: Toolbox, onClick: onOpenPsykiskHelse },
     { title: 'Kommunale tjenester', text: 'Se psykisk helse tjenestetilbud i din kommune.', icon: HealthClinic, onClick: onOpenKommunaleTjenester },
     { title: 'Spesialister', text: 'Med henvisning fra din fastlege kan du få hjelp fra ulike spesialister.', icon: HealthcarePersonell, onClick: onOpenSpesialister },
   ] satisfies { title: string; text: string; icon: SvgIcon; onClick: () => void }[];
@@ -80,7 +80,7 @@ export default function ArtikkelPsykiskHelse({ onNavigateHome, onOpenPsykiskHels
       <hr className="page-divider" />
 
       <main className="fs-page">
-        <h1 className="fs-h1">Veiviser til Psykisk helsehjelp</h1>
+        <h1 className="fs-h1">Veiviser til psykisk helsehjelp</h1>
         <p className="fs-article__body">
           Her får du en oversikt over psykisk helse tjenestetilbud i Norge.
         </p>
