@@ -83,7 +83,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
       <main className="fs-page">
         <h1 className="fs-h1">Psykisk helse tjenester i Oslo kommune</h1>
 
-        <ExpanderList variant="line">
+        <ExpanderList variant="outline">
           {SEKSJONER.map(s => (
             <ExpanderList.Expander key={s.title} title={s.title}>
               <p className="fs-article__body">{s.text}</p>
