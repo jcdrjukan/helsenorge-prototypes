@@ -17,6 +17,7 @@ import ChevronRight from '@helsenorge/designsystem-react/components/Icons/Chevro
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
 import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
+import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
 import './style.css';
 
@@ -59,6 +60,9 @@ const TAG_LABELS: Record<string, string> = {
   'spilleavhengighet':   'SPILL',
   'ensomhet-relasjoner': 'RELASJONER',
   'generell-mestring':   'MESTRING',
+  'fysisk-aktivitet':    'FYSISK AKTIVITET',
+  'graviditet-barsel':   'GRAVIDITET/BARSEL',
+  'konsentrasjon':       'KONSENTRASJON',
 };
 
 function CategoryTags({ tags }: { tags: string[] }) {
@@ -90,7 +94,7 @@ function ResourceCard({
       <Panel.Title
         title={resource.title}
         titleMarkup="h3"
-        icon={<Icon svgIcon={resource.type === 'verktøy' ? Toolbox : Publication} size={48} />}
+        icon={<Icon svgIcon={resource.type === 'verktøy' ? Toolbox : resource.type === 'artikkel' ? Publication : PeopleTalking} size={48} />}
       />
       <Panel.A>
         <div style={{ marginTop: '0rem', marginBottom: '0.5rem' }}>
@@ -110,7 +114,7 @@ function ResourceCard({
               );
             }}
           >
-            {resource.type === 'verktøy' ? 'Gå til verktøy' : 'Gå til artikkel'}
+            {resource.ctaLabel ?? (resource.type === 'verktøy' ? 'Gå til verktøy' : resource.type === 'artikkel' ? 'Gå til artikkel' : 'Gå til tjeneste')}
           </Button>
         </div>
       </Panel.A>
@@ -441,6 +445,19 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
               <h2 className="ph-section-heading">Artikler</h2>
               <ul className="ph-resource-list">
                 {results.artikler.map(r => (
+                  <li key={r.id} style={{ marginBottom: '8px' }}>
+                    <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {results.veiledningstjenester.length > 0 && (
+            <section>
+              <h2 className="ph-section-heading">Veiledningstjenester</h2>
+              <ul className="ph-resource-list">
+                {results.veiledningstjenester.map(r => (
                   <li key={r.id} style={{ marginBottom: '8px' }}>
                     <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
                   </li>

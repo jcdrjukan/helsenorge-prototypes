@@ -140,7 +140,7 @@ export const VALGBARE_TJENESTER: ValgbarTjeneste[] = [
     icon: Pregnant,
     hasPrototype: true,
     badge: 'Nytt innhold',
-    teaser: ['Gravid uke 32', 'Vise målinger og informasjon'],
+    teaser: ['Uke 32', 'Vise målinger og informasjon'],
   },
   {
     id: 'smabarnsliv',

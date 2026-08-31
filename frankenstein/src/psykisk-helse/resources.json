@@ -174,5 +174,190 @@
     "shortDescription": "Små grep i hverdagen som kan styrke den psykiske helsa.",
     "url": "https://www.helsenorge.no/psykisk-helse/abc-for-god-psykisk-helse/",
     "tags": ["generell-mestring"]
+  },
+  {
+    "id": "veiledning-rustelefonen",
+    "type": "veiledningstjeneste",
+    "title": "Rustelefonen",
+    "shortDescription": "Anonym rådgivning om alkohol og rusmidler, på chat eller telefon.",
+    "url": "https://rustelefonen.no",
+    "tags": ["rus-og-avhengighet"]
+  },
+  {
+    "id": "veiledning-kommunal-rustjeneste",
+    "type": "veiledningstjeneste",
+    "title": "Rustjenester - Oslo kommune",
+    "shortDescription": "Oppfølging og hjelp fra rus- og avhengighetstjenesten i kommunen din.",
+    "url": "https://www.oslo.kommune.no/helse-og-omsorg/rustjenester/",
+    "tags": ["rus-og-avhengighet"]
+  },
+  {
+    "id": "veiledning-akan",
+    "type": "veiledningstjeneste",
+    "title": "AKAN",
+    "shortDescription": "Støtte til å endre forholdet til rus eller spill gjennom arbeidsplassen.",
+    "url": "https://www.akan.no",
+    "tags": ["rus-og-avhengighet"]
+  },
+  {
+    "id": "veiledning-rode-kors-ta-en-prat",
+    "type": "veiledningstjeneste",
+    "title": "Røde Kors \"Ta en prat\"",
+    "shortDescription": "En anonym samtale med en frivillig, når du trenger noen å snakke med.",
+    "url": "https://www.rodekors.no/tilbudene/samtaletilbud/",
+    "tags": ["ensomhet-relasjoner"]
+  },
+  {
+    "id": "veiledning-kirkens-sos",
+    "type": "veiledningstjeneste",
+    "title": "Kirkens SOS",
+    "shortDescription": "Døgnåpen krisetjeneste for samtaler om det som er vanskelig.",
+    "url": "https://www.kirkens-sos.no/",
+    "tags": ["ensomhet-relasjoner"]
+  },
+  {
+    "id": "veiledning-kommunale-treffsteder",
+    "type": "veiledningstjeneste",
+    "title": "Kommunale treffsteder",
+    "shortDescription": "Møteplasser i kommunen for sosialt fellesskap og aktivitet.",
+    "url": "#",
+    "tags": ["ensomhet-relasjoner"]
+  },
+  {
+    "id": "veiledning-frisklivssentral",
+    "type": "veiledningstjeneste",
+    "title": "Frisklivssentral",
+    "shortDescription": "Veiledning og aktivitetstilbud for å komme i gang med fysisk aktivitet.",
+    "url": "https://www.helsedirektoratet.no/tema/frisklivssentraler",
+    "tags": ["fysisk-aktivitet"]
+  },
+  {
+    "id": "veiledning-aktiv-pa-dagtid",
+    "type": "veiledningstjeneste",
+    "title": "Aktiv på dagtid",
+    "shortDescription": "Rimelige, tilrettelagte treningstilbud på dagtid.",
+    "url": "#",
+    "tags": ["fysisk-aktivitet"]
+  },
+  {
+    "id": "veiledning-jordmor-helsestasjon",
+    "type": "veiledningstjeneste",
+    "title": "Jordmor/helsestasjon",
+    "shortDescription": "Oppfølging gjennom svangerskap og barseltid.",
+    "url": "https://www.helsenorge.no/gravid/",
+    "tags": ["graviditet-barsel"]
+  },
+  {
+    "id": "veiledning-ammehjelpen",
+    "type": "veiledningstjeneste",
+    "title": "Ammehjelpen",
+    "shortDescription": "Rådgivning om amming fra frivillige ammekonsulenter.",
+    "url": "https://ammehjelpen.no",
+    "tags": ["graviditet-barsel"]
+  },
+  {
+    "id": "veiledning-fodselsdepresjonsforeningen",
+    "type": "veiledningstjeneste",
+    "title": "Fødselsdepresjons­foreningen",
+    "shortDescription": "Støtte til foreldre som sliter psykisk i forbindelse med fødsel.",
+    "url": "#",
+    "tags": ["graviditet-barsel"]
+  },
+  {
+    "id": "veiledning-rask-psykisk-helsehjelp",
+    "type": "veiledningstjeneste",
+    "title": "Rask psykisk helsehjelp",
+    "shortDescription": "Kommunalt lavterskeltilbud for deg med angst, nedstemthet eller mye grubling.",
+    "url": "https://napha.no/temaside/rask-psykisk-helsehjelp",
+    "tags": ["angst", "stress", "nedstemthet"]
+  },
+  {
+    "id": "veiledning-adhd-norge",
+    "type": "veiledningstjeneste",
+    "title": "ADHD Norge",
+    "shortDescription": "Informasjon og veiledning om konsentrasjonsvansker og ADHD.",
+    "url": "https://www.adhdnorge.no/",
+    "tags": ["konsentrasjon"]
+  },
+  {
+    "id": "veiledning-fastlege-utredning",
+    "type": "veiledningstjeneste",
+    "title": "Fastlegen",
+    "shortDescription": "Din fastlege kan henvise deg videre til utredning av konsentrasjonsvansker.",
+    "url": "#",
+    "tags": ["konsentrasjon"],
+    "ctaLabel": "Gå til din fastlege"
+  },
+  {
+    "id": "veiledning-ppt",
+    "type": "veiledningstjeneste",
+    "title": "PPT (barn/unge)",
+    "shortDescription": "Pedagogisk-psykologisk tjeneste for barn og unge med konsentrasjonsvansker.",
+    "url": "#",
+    "tags": ["konsentrasjon"]
+  },
+  {
+    "id": "veiledning-kors-pa-halsen",
+    "type": "veiledningstjeneste",
+    "title": "Kors på halsen",
+    "shortDescription": "Røde Kors' samtaletilbud for barn og unge.",
+    "url": "https://www.rodekors.no/tilbudene/samtaletilbud/",
+    "tags": ["nedstemthet"]
+  },
+  {
+    "id": "veiledning-hjelpelinjen-spilleavhengighet",
+    "type": "veiledningstjeneste",
+    "title": "Hjelpelinjen for spilleavhengighet",
+    "shortDescription": "Gratis og anonym rådgivning om pengespill og spilleproblemer.",
+    "url": "https://www.hjelpelinjen.no",
+    "tags": ["spilleavhengighet"]
+  },
+  {
+    "id": "veiledning-nav-okonomisk-radgivning",
+    "type": "veiledningstjeneste",
+    "title": "NAV økonomisk rådgivning",
+    "shortDescription": "Hjelp til å få oversikt over økonomien og håndtere gjeld.",
+    "url": "https://www.nav.no/okonomi-gjeld",
+    "tags": ["spilleavhengighet"]
+  },
+  {
+    "id": "veiledning-frisklivssentral-stressmestring",
+    "type": "veiledningstjeneste",
+    "title": "Frisklivssentral (stressmestring)",
+    "shortDescription": "Kurs og veiledning i stressmestring gjennom kommunens frisklivssentral.",
+    "url": "https://www.helsedirektoratet.no/tema/frisklivssentraler",
+    "tags": ["stress"]
+  },
+  {
+    "id": "veiledning-bedriftshelsetjeneste",
+    "type": "veiledningstjeneste",
+    "title": "Bedriftshelsetjeneste",
+    "shortDescription": "Støtte til å håndtere stress og press knyttet til jobb.",
+    "url": "#",
+    "tags": ["stress"]
+  },
+  {
+    "id": "veiledning-frisklivssentral-sovnkurs",
+    "type": "veiledningstjeneste",
+    "title": "Frisklivssentral (søvnkurs)",
+    "shortDescription": "Kurs i søvnmestring gjennom kommunens frisklivssentral.",
+    "url": "https://www.helsedirektoratet.no/tema/frisklivssentraler",
+    "tags": ["sove-bedre"]
+  },
+  {
+    "id": "veiledning-angstringen-norge",
+    "type": "veiledningstjeneste",
+    "title": "Angstringen Norge",
+    "shortDescription": "Selvhjelpsgrupper og likepersonsstøtte for deg med angst.",
+    "url": "https://www.angstringen.no",
+    "tags": ["angst"]
+  },
+  {
+    "id": "veiledning-mental-helses-hjelpetelefon",
+    "type": "veiledningstjeneste",
+    "title": "Mental Helses hjelpetelefon",
+    "shortDescription": "Døgnåpen telefon- og chattetjeneste for samtaler om det som er vanskelig.",
+    "url": "https://mentalhelse.no/fa-hjelp/hjelpetelefonen/",
+    "tags": ["angst", "stress"]
   }
 ]

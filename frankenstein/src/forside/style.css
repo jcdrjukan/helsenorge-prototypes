@@ -134,7 +134,7 @@
   left: 0.5rem;
   background: var(--color-action-background-onlight, #188097);
   color: #fff;
-  font: 600 0.75rem/1.2 'Source Sans Pro', sans-serif;
+  font: 400 0.75rem/1.2 'Source Sans Pro', sans-serif;
   padding: 0.125rem 0.5rem;
   border-radius: 999px;
 }
@@ -164,7 +164,9 @@
   align-self: stretch;
   list-style: disc;
   margin: 0.5rem 0 0;
-  padding-left: 1.125rem;
+  padding: 0.5rem 0.75rem 0.5rem 1.625rem;
+  background: var(--color-base-background-onlight-subdued, #f2f2f0);
+  border-radius: 8px;
   text-align: left;
   font: 400 0.875rem/1.4 'Source Sans Pro', sans-serif;
   color: var(--color-base-text-onlight-subdued, #474745);

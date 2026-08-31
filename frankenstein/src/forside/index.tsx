@@ -18,7 +18,7 @@ import {
   FIXED_SNARVEIER, TJENESTER_TILES, TJENESTE_GROUPS, VALGBARE_TJENESTER,
   type ValgbarTjenesteId,
 } from './data';
-import { hasCompletedVeiviser } from '../psykisk-helse/data';
+import { hasCompletedVeiviser, computeResults, getAnswers } from '../psykisk-helse/data';
 
 export interface ForsideProps {
   activatedTjenester: Set<ValgbarTjenesteId>;
@@ -45,9 +45,25 @@ export default function Forside({ activatedTjenester, onGoToTjeneste }: ForsideP
   // rather than a manually toggled flag, same as it worked under Snarveier
   // before: completing the veiviser creates the entry, confirming Avslutt
   // (which clears that flag) removes it.
-  const situasjonTjenester = VALGBARE_TJENESTER.filter(t =>
-    t.id === 'psykisk-helse' ? hasCompletedVeiviser() : activatedTjenester.has(t.id)
-  );
+  // Psykisk helse's badge/teaser aren't static content like Gravid's —
+  // they reflect the veiviser's actual results count, so they're computed
+  // here from the persisted answers rather than baked into VALGBARE_TJENESTER.
+  const psykiskHelseResultCount = (() => {
+    const { q1, q2 } = getAnswers();
+    const results = computeResults(q1, q2);
+    return results.verktøy.length + results.artikler.length + results.veiledningstjenester.length;
+  })();
+
+  const situasjonTjenester = VALGBARE_TJENESTER
+    .filter(t => t.id === 'psykisk-helse' ? hasCompletedVeiviser() : activatedTjenester.has(t.id))
+    .map(t => t.id === 'psykisk-helse'
+      ? {
+          ...t,
+          badge: 'Nytt innhold',
+          teaser: [`${psykiskHelseResultCount} ${psykiskHelseResultCount === 1 ? 'ressurs' : 'ressurser'} funnet`],
+        }
+      : t
+    );
 
   return (
     <div className="fs-shell">

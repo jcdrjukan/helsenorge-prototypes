@@ -8,9 +8,12 @@ export type Tag =
   | 'rus-og-avhengighet'
   | 'spilleavhengighet'
   | 'ensomhet-relasjoner'
-  | 'generell-mestring';
+  | 'generell-mestring'
+  | 'fysisk-aktivitet'
+  | 'graviditet-barsel'
+  | 'konsentrasjon';
 
-export type ResourceType = 'verktøy' | 'artikkel';
+export type ResourceType = 'verktøy' | 'artikkel' | 'veiledningstjeneste';
 
 export interface Resource {
   id: string;
@@ -19,6 +22,8 @@ export interface Resource {
   shortDescription: string;
   url: string;
   tags: Tag[];
+  /** Overrides the default "Gå til <type>" button label when set. */
+  ctaLabel?: string;
 }
 
 export const RESOURCES: Resource[] = resourcesJson as Resource[];
@@ -44,6 +49,9 @@ export const Q2_OPTIONS: QuizOption[] = [
   { label: 'endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
   { label: 'få bedre kontroll på pengespillingen', tag: 'spilleavhengighet' },
   { label: 'føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
+  { label: 'bli mer fysisk aktiv', tag: 'fysisk-aktivitet' },
+  { label: 'få støtte i svangerskap eller barseltid', tag: 'graviditet-barsel' },
+  { label: 'bedre konsentrasjonen min', tag: 'konsentrasjon' },
   { label: 'forstå meg selv og situasjonen min bedre', tag: 'generell-mestring' },
   { label: 'noe annet / Ingen av disse', tag: null, exclusive: true },
 ];
@@ -57,6 +65,7 @@ const FALLBACK_IDS = [
 export interface ScoredResults {
   verktøy: Resource[];
   artikler: Resource[];
+  veiledningstjenester: Resource[];
   isEmpty: boolean;
 }
 
@@ -88,6 +97,7 @@ export function computeResults(
     return {
       verktøy: fallback.filter(r => r.type === 'verktøy'),
       artikler: fallback.filter(r => r.type === 'artikkel'),
+      veiledningstjenester: fallback.filter(r => r.type === 'veiledningstjeneste'),
       isEmpty: true,
     };
   }
@@ -95,6 +105,7 @@ export function computeResults(
   return {
     verktøy: ranked.filter(r => r.type === 'verktøy'),
     artikler: ranked.filter(r => r.type === 'artikkel'),
+    veiledningstjenester: ranked.filter(r => r.type === 'veiledningstjeneste'),
     isEmpty: false,
   };
 }
