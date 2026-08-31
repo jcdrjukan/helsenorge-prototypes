@@ -1,0 +1,365 @@
+/* ── Psykisk helse / veiviser prototype ─────────────────────────── */
+
+.ph-shell {
+  width: 390px;
+  min-height: 100%;
+  margin: 0 auto;
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Page content ────────────────────────────────────────────────── */
+.ph-page {
+  padding: 3rem 1rem 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+.ph-page--quiz {
+  padding-top: 1.5rem;
+  gap: var(--space-s, 1rem);
+}
+
+/* ── Unauthenticated header border ───────────────────────────────── */
+.ph-header--unauth { border-bottom: 1px solid #D6D4D3; }
+
+/* ── Frontpage ───────────────────────────────────────────────────── */
+.ph-hero-title {
+  font: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ph-preamble {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ph-benefit-list {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.ph-benefit-list li {
+  font: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+}
+
+.ph-cta-text {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+/* ── Progress bar ────────────────────────────────────────────────── */
+.ph-progress {
+  display: flex;
+  align-items: center;
+  padding: 12px 0 4px;
+}
+.ph-progress__line {
+  flex: 1;
+  height: 3px;
+  background: #CAE7ED;
+}
+.ph-progress__line--done { background: #188097; }
+.ph-progress__dot {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2.5px solid #CAE7ED;
+  background: #fff;
+  flex-shrink: 0;
+  position: relative;
+}
+.ph-progress__dot--done {
+  background: #188097;
+  border-color: #188097;
+}
+.ph-progress__dot--active {
+  width: 24px;
+  height: 24px;
+  border: 2.5px solid #188097;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(24,128,151,0.15);
+}
+.ph-progress__dot--active::after {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #188097;
+}
+
+/* ── Quiz ────────────────────────────────────────────────────────── */
+.ph-quiz-title {
+  font: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ph-quiz-subtitle {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ph-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #D6D4D3;
+}
+
+.ph-checkbox-list li {
+  border-bottom: 1px solid #D6D4D3;
+  padding: 4px 0;
+}
+
+.ph-quiz-nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  padding-top: 8px;
+}
+
+/* ── Results ─────────────────────────────────────────────────────── */
+.ph-results-intro {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+.ph-results-sub {
+  font: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 0;
+}
+
+.ph-section-heading {
+  font: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 8px;
+}
+
+.ph-resource-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* ── Type badge ──────────────────────────────────────────────────── */
+.ph-type-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 99px;
+  font: 600 13px/1.4 'Source Sans Pro', sans-serif;
+  letter-spacing: 0.02em;
+  margin-bottom: 8px;
+}
+.ph-type-badge--verktoey {
+  background: #E4F7F9;
+  color: #084350;
+  border: 1px solid #188097;
+}
+.ph-type-badge--artikkel {
+  background: #F5F3F3;
+  color: #474745;
+  border: 1px solid #BDBAB9;
+}
+
+/* ── Resource card content ───────────────────────────────────────── */
+.ph-resource-card__desc {
+  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
+  color: #474745;
+  margin: 0;
+}
+
+/* ── Ta kontakt ──────────────────────────────────────────────────── */
+.ph-contact-title {
+  font: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 8px;
+}
+
+/* ── Frontpage layout ────────────────────────────────────────────── */
+.ph-front {
+  display: flex;
+  flex-direction: column;
+}
+
+.ph-front__content {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.ph-front__content:first-child {
+  padding-top: 3rem;
+}
+
+.ph-front__hero {
+  width: 100%;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  flex-shrink: 0;
+}
+
+.ph-front__hero--dark {
+  background-image: url('/ph-hero-dark.jpg');
+  height: 200px;
+}
+
+.ph-front__hero--warm {
+  background-image: url('/ph-hero-warm.jpg');
+  height: 200px;
+}
+
+.ph-front__section-title {
+  font: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+
+/* ── Footer ──────────────────────────────────────────────────────── */
+.ph-footer {
+  background: #2B2C2B;
+  padding: 24px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-top: auto;
+}
+.ph-footer__top {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 20px;
+}
+.ph-footer__row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  color: #fff;
+}
+.ph-footer__row svg { flex-shrink: 0; margin-top: 2px; }
+.ph-footer__link-title {
+  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #fff;
+  margin: 0;
+}
+.ph-footer__link-sub {
+  font: 400 0.875rem/1.4 'Source Sans Pro', sans-serif;
+  color: #BDBAB9;
+  margin: 0;
+}
+.ph-footer__lang {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.ph-footer__lang-sep {
+  width: 1px;
+  height: 16px;
+  background: #62625F;
+  flex-shrink: 0;
+}
+.ph-footer__divider {
+  height: 1px;
+  background: #474745;
+  margin: 16px 0;
+}
+.ph-footer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.ph-footer__link {
+  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #fff;
+  text-decoration: none;
+}
+.ph-footer__link:hover { text-decoration: underline; }
+.ph-footer__brand {
+  font: 600 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #fff;
+  margin: 0;
+}
+
+/* ── Header text sizing (matches Forside's header fix) ──────────────
+   nav-icon-btn__label/profile-bar__name are shared App.css classes used
+   by every prototype's header — force the 16px size and 0.5rem label
+   spacing here rather than editing App.css globally. */
+.ph-shell .nav-icon-btn__label,
+.ph-shell .profile-bar__name {
+  font-size: 16px;
+}
+.ph-shell .nav-icon-btn__label {
+  margin-bottom: 0.5rem;
+}
+.ph-avatar {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+/* LinkList row text ("Ta kontakt" section) bumps from 18/28px to
+   20/30px past the real-viewport desktop breakpoint — same fix as
+   Forside's snarveier/tjenester lists. */
+.ph-shell [class*="link-list__anchor--medium"] {
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+}
+
+/* ElementHeader leading icon bumps from 38px to 48px past the same
+   breakpoint — force back to the mobile size. */
+.ph-shell [class*="element-header__icon"] svg {
+  width: 38px !important;
+  height: 38px !important;
+}
+
+/* ── Emergency panel ─────────────────────────────────────────────── */
+.ph-emergency {
+  background: #FFF2EA;
+  border: 1px solid #C83521;
+  border-radius: 4px;
+  padding: 12px;
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  text-decoration: none;
+}
+.ph-emergency__icon {
+  width: 44px;
+  height: 44px;
+  background: #C83521;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+.ph-emergency__body { flex: 1; }
+.ph-emergency__title {
+  font: 600 1.125rem/1.3 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 4px;
+}
+.ph-emergency__text {
+  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
