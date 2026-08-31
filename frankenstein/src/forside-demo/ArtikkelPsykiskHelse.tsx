@@ -33,7 +33,7 @@ function artikkelPaneler(onOpenPsykiskHelse: () => void, onOpenSpesialister: () 
   return [
     { title: 'Selvhjelp', text: 'Helsenorge tilbyr en rekke selvhjelpsverktøy og ressurser som du kan ta i bruk nå.', icon: Toolbox, onClick: onOpenPsykiskHelse },
     { title: 'Kommunale tjenester', text: 'Se psykisk helse tjenestetilbud i din kommune.', icon: HealthClinic, onClick: onOpenKommunaleTjenester },
-    { title: 'Spesialister', text: 'Med henvisning fra din fastlege kan du få hjelp fra ulike spesialister.', icon: HealthcarePersonell, onClick: onOpenSpesialister },
+    { title: 'Spesialister', text: 'Med henvisning fra din fastlege kan du få ulike spesialistbehandlinger.', icon: HealthcarePersonell, onClick: onOpenSpesialister },
   ] satisfies { title: string; text: string; icon: SvgIcon; onClick: () => void }[];
 }
 
