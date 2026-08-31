@@ -80,40 +80,6 @@ function App() {
 
   return (
     <div className="phone-wrapper">
-      <div className="prototype-switcher">
-        <span className="prototype-switcher__label">Prototype:</span>
-        <button
-          className={`prototype-switcher__btn${prototype === 'forside-demo' ? ' prototype-switcher__btn--active' : ''}`}
-          onClick={goHome}
-        >
-          Forside
-        </button>
-        <button
-          className={`prototype-switcher__btn${prototype === 'artikkel-psykisk-helse' ? ' prototype-switcher__btn--active' : ''}`}
-          onClick={goToArtikkel}
-        >
-          Artikkel: Psykisk helse
-        </button>
-        <button
-          className={`prototype-switcher__btn${prototype === 'spesialister-oversikt' ? ' prototype-switcher__btn--active' : ''}`}
-          onClick={goToSpesialister}
-        >
-          Spesialister
-        </button>
-        <button
-          className={`prototype-switcher__btn${prototype === 'kommunale-tjenester-oslo' ? ' prototype-switcher__btn--active' : ''}`}
-          onClick={goToKommunaleTjenester}
-        >
-          Kommunale tjenester
-        </button>
-        <button
-          className={`prototype-switcher__btn${prototype === 'psykisk-helse-demo' ? ' prototype-switcher__btn--active' : ''}`}
-          onClick={() => navigateTo('psykisk-helse-demo')}
-        >
-          Psykisk helse
-        </button>
-      </div>
-
       <div className="phone-frame">
         <div className="phone-frame__screen">
           {prototype === 'forside-demo' && <ForsideDemo onGoToTjeneste={goToTjeneste} onOpenArtikkel={goToArtikkel} />}
