@@ -3,6 +3,7 @@ import type { SvgIcon } from '@helsenorge/designsystem-react/components/Icon';
 import CriticalHealthInfo from '@helsenorge/designsystem-react/components/Icons/CriticalHealthInfo';
 import Contacts from '@helsenorge/designsystem-react/components/Icons/Contacts';
 import Vaccine from '@helsenorge/designsystem-react/components/Icons/Vaccine';
+import Pregnant from '@helsenorge/designsystem-react/components/Icons/Pregnant';
 import Journal from '@helsenorge/designsystem-react/components/Icons/Journal';
 import CalendarEvent from '@helsenorge/designsystem-react/components/Icons/CalendarEvent';
 import Medicine from '@helsenorge/designsystem-react/components/Icons/Medicine';
@@ -105,12 +106,13 @@ export const TJENESTE_GROUPS: TjenesteGroup[] = [
 ];
 
 // ── Valgbare tjenester ───────────────────────────────────────────────
-// psykiskhelse-demo branch: this is a standalone copy of Forside with only
-// the Psykisk helse entry — no Gravid/Småbarnsliv here (those prototypes
-// aren't part of this demo). Its "activation" is derived purely from
-// hasCompletedVeiviser(), not a toggled Set, so there's no persisted
-// activation state to manage here any more.
-export type ValgbarTjenesteId = 'psykisk-helse';
+// psykiskhelse-demo branch: standalone copy of Forside with Psykisk helse
+// and a static, non-clickable Gravid card (no Gravid prototype exists on
+// this branch, so hasPrototype:false keeps it purely decorative — see
+// index.tsx's onClick guard). No Småbarnsliv here. Psykisk helse's
+// "activation" is derived purely from hasCompletedVeiviser(), not a
+// toggled Set, so there's no persisted activation state to manage here.
+export type ValgbarTjenesteId = 'psykisk-helse' | 'gravid';
 
 export interface ValgbarTjeneste {
   id: ValgbarTjenesteId;
@@ -132,5 +134,12 @@ export const VALGBARE_TJENESTER: ValgbarTjeneste[] = [
     description: 'Verktøy og artikler tilpasset det du ønsker hjelp med.',
     icon: MentalHealthAdult,
     hasPrototype: true,
+  },
+  {
+    id: 'gravid',
+    label: 'Gravid',
+    description: 'Følg svangerskapet uke for uke.',
+    icon: Pregnant,
+    hasPrototype: false,
   },
 ];

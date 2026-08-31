@@ -18,15 +18,18 @@ import {
   FIXED_SNARVEIER, TJENESTER_TILES, TJENESTE_GROUPS, VALGBARE_TJENESTER,
   type ValgbarTjenesteId,
 } from './data';
-import { hasCompletedVeiviser, computeResults, getAnswers } from '../psykisk-helse-demo/data';
+import { hasCompletedVeiviser } from '../psykisk-helse-demo/data';
 
 export interface ForsideProps {
-  /** No-op on this branch — Forside and Psykisk helse are deliberately
-   *  disconnected here, so this is never expected to actually navigate. */
+  /** Only ever called for 'psykisk-helse' (Gravid is hasPrototype:false, so
+   *  its click handlers never invoke this) — takes the user to Psykisk
+   *  helse's own frontpage. */
   onGoToTjeneste: (id: ValgbarTjenesteId) => void;
+  /** Opens the "Veiviser til Psykisk helsehjelp" article page. */
+  onOpenArtikkel: () => void;
 }
 
-export default function Forside({ onGoToTjeneste }: ForsideProps) {
+export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps) {
   const [showAllTjenester, setShowAllTjenester] = useState(false);
 
   // Snarveier reduced to just Pasientjournal and Resepter — per user
@@ -37,29 +40,16 @@ export default function Forside({ onGoToTjeneste }: ForsideProps) {
 
   const snarveier = [pasientjournal, resepter];
 
-  const isValgbarId = (id: string): id is ValgbarTjenesteId => id === 'psykisk-helse';
+  const isValgbarId = (id: string): id is ValgbarTjenesteId => id === 'psykisk-helse' || id === 'gravid';
 
-  // "Støtte til din situasjon" — Psykisk helse shows up once the veiviser
-  // has been completed. psykiskhelse-demo branch: this is the only entry
-  // (Gravid/Småbarnsliv aren't part of this demo), and its card is purely
-  // informational — onGoToTjeneste is a no-op on this branch, so there's no
-  // way to actually navigate from here into Psykisk helse.
-  // Its badge/teaser aren't static content like Gravid's used to be — they
-  // reflect the veiviser's actual results count, computed here from the
-  // persisted answers rather than baked into VALGBARE_TJENESTER.
-  const psykiskHelseResultCount = (() => {
-    const { q1, q2 } = getAnswers();
-    const results = computeResults(q1, q2);
-    return results.verktøy.length + results.artikler.length + results.veiledningstjenester.length;
-  })();
-
+  // "Støtte til din situasjon" — psykiskhelse-demo branch: Gravid is a
+  // static card shown by default (no activation toggle, no Gravid
+  // prototype on this branch — hasPrototype:false in data.ts already makes
+  // it non-clickable). Psykisk helse only shows up once the veiviser has
+  // been completed, appearing next to Gravid. Both are plain cards now —
+  // no badge, no teaser bullets.
   const situasjonTjenester = VALGBARE_TJENESTER
-    .filter(() => hasCompletedVeiviser())
-    .map(t => ({
-      ...t,
-      badge: 'Nytt innhold',
-      teaser: [`${psykiskHelseResultCount} ${psykiskHelseResultCount === 1 ? 'ressurs' : 'ressurser'} funnet`],
-    }));
+    .filter(t => t.id === 'gravid' || hasCompletedVeiviser());
 
   return (
     <div className="fs-shell">
@@ -234,11 +224,17 @@ export default function Forside({ onGoToTjeneste }: ForsideProps) {
           <hr className="fs-section-divider" />
           <div className="fs-article-list">
             <article className="fs-article">
-              <h3 className="fs-article__title">Husk å ta med Europeisk helsetrygdkort på ferie</h3>
+              <h3 className="fs-article__title">Ønsker du psykisk helsehjelp?</h3>
               <p className="fs-article__body">
-                Skal du på ferie i EU/EØS, Sveits eller Storbritania? Husk å ta med helsetrygdkort. Kortet gir deg rett til nødvendig helsehjelp i det offentlige helsevesenet på samme vilkår som innbyggerne i landet du besøker.
+                Det finnes mye forskjellig slags psykisk helsehjelp du kan få. Se på veiviseren og velg det som er riktig for deg.
               </p>
-              <a className="fs-article__link" href="#">Les mer og søk om Europeisk helsetrygdkort →</a>
+              <a
+                className="fs-article__link"
+                href="#"
+                onClick={e => { e.preventDefault(); onOpenArtikkel(); }}
+              >
+                Veiviser til Psykisk helsehjelp →
+              </a>
             </article>
             <article className="fs-article">
               <h3 className="fs-article__title">Finn en klinisk studie</h3>

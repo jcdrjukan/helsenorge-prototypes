@@ -37,6 +37,9 @@ export interface PsykiskHelseProps {
    *  dedicated single-prototype domain, with no Forside to go back to), the
    *  breadcrumb keeps its previous no-op behaviour on the results view. */
   onNavigateHome?: () => void;
+  /** Called when "Kommunale tjenester" (first item under "Ta kontakt") is
+   *  clicked — opens the Oslo kommune tjenester page. */
+  onOpenKommunaleTjenester?: () => void;
 }
 
 function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
@@ -144,7 +147,7 @@ function viewFromHash(): View {
   return HASH_TO_VIEW[window.location.hash] ?? 'front';
 }
 
-export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {}) {
+export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
   const [q1, setQ1]               = useState<Set<string>>(() => getAnswers().q1);
   const [q2, setQ2]               = useState<Set<string>>(() => getAnswers().q2);
@@ -285,10 +288,10 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er vanlig å ha det vanskelig i perioder. Det er en del av å være et menneske. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Prøv veiviseren for å finne det som passer for deg og din situasjon.
+              Det er vanlig å ha det vanskelig i perioder. Det er en del av å være et menneske. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Ta en kjapp quiz for å se selvhjelpsressurser tilpasset din situasjon.
             </p>
             <Button variant="fill" arrow="icon" fluid onClick={() => setView('quiz1')}>
-              Prøv veiviseren
+              Start quiz
             </Button>
           </div>
 
@@ -476,10 +479,10 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
           <section>
             <h2 className="ph-contact-title">Ta kontakt</h2>
             <LinkList chevron>
-              <LinkList.Link href="#">
+              <LinkList.Link href="#" onClick={e => { e.preventDefault(); onOpenKommunaleTjenester?.(); }}>
                 <ElementHeader>
-                  <ElementHeader.Text firstText="Snakk med din fastlege" firstTextEmphasised />
-                  <ElementHeader.Text firstText="Om langvarige psykiske helseutfordringer" subText />
+                  <ElementHeader.Text firstText="Kommunale tjenester" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Se på psykisk helse tjenestetilbudet i din kommune" subText />
                 </ElementHeader>
               </LinkList.Link>
               <LinkList.Link href="tel:116123">
