@@ -53,6 +53,18 @@ function App() {
     applyPrototypeMeta(prototype);
   }, [prototype]);
 
+  // Scroll to top on every top-level page switch — without this, a page
+  // reached while scrolled down elsewhere (e.g. Spesialister's long
+  // treatment list) stays scrolled to that position, since these are all
+  // just swapped-in components, not real page loads. Psykisk helse's own
+  // internal view changes (front/quiz/results) are handled by its own copy
+  // of this same effect, since `prototype` doesn't change between those.
+  useEffect(() => {
+    const el = document.querySelector('.phone-frame__screen');
+    if (el) el.scrollTop = 0;
+    else window.scrollTo(0, 0);
+  }, [prototype]);
+
   // hashOverride lets goToTjeneste below deep-link into Psykisk helse's own
   // internal view-hash (e.g. "resultater") instead of the prototype-level
   // hash — same two-layer hash trick the original connected prototypes
