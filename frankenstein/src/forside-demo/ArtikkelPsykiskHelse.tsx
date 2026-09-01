@@ -46,6 +46,10 @@ export default function ArtikkelPsykiskHelse({ onNavigateHome, onOpenPsykiskHels
   return (
     <div className="fs-shell">
 
+      <div className="illustration-banner">
+        Kun konseptskisse
+      </div>
+
       <header className="header">
         <div className="top-bar">
           <Logo size={80} />

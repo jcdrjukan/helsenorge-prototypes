@@ -401,6 +401,18 @@
   background: var(--component-listelements-background-blueberry-medium, #cae7ed);
 }
 
+/* ── Illustration banner ───────────────────────────────────────────
+   Deliberately plain/flat — not a NotificationPanel or any other real
+   design-system component, so it can't be mistaken for actual page
+   content. Sits above .header, outside the normal content flow. ──── */
+.illustration-banner {
+  background: #F5DBA6;
+  color: #4A3B0F;
+  font: 400 0.75rem/1.4 'Source Sans Pro', sans-serif;
+  text-align: center;
+  padding: 0.375rem 1rem;
+}
+
 /* ── Spesialister: Behandlinger og undersøkelser med ventetider ──────
    Recreated from Figma node 333:3684 (a flattened screenshot, no real
    layer structure) using this project's own components. ─────────────── */

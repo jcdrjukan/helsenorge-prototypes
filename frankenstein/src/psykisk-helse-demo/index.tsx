@@ -322,8 +322,8 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
                 </svg>
               </div>
               <div className="ph-emergency__body">
-                <p className="ph-emergency__title">Ring 116 123</p>
-                <p className="ph-emergency__text">Ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+                <p className="ph-emergency__title">Akutt hjelp</p>
+                <p className="ph-emergency__text">Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
               </div>
               <div style={{ color: '#126F87', alignSelf: 'center', flexShrink: 0 }}>
                 <Icon svgIcon={ChevronRight} size={38} />
@@ -492,8 +492,8 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
               </LinkList.Link>
               <LinkList.Link href="tel:116123">
                 <ElementHeader>
-                  <ElementHeader.Text firstText="Ring 116 123" firstTextEmphasised />
-                  <ElementHeader.Text firstText="Ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />
+                  <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />
                 </ElementHeader>
               </LinkList.Link>
             </LinkList>

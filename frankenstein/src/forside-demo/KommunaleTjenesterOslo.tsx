@@ -47,6 +47,10 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
   return (
     <div className="fs-shell">
 
+      <div className="illustration-banner">
+        Kun konseptskisse
+      </div>
+
       <header className="header">
         <div className="top-bar">
           <Logo size={80} />
@@ -81,7 +85,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
       <hr className="page-divider" />
 
       <main className="fs-page">
-        <h1 className="fs-h1">Psykisk helse tjenester i Oslo kommune</h1>
+        <h1 className="fs-h1">Psykisk helse tjenestetilbud i Oslo kommune</h1>
 
         <ExpanderList variant="outline">
           {SEKSJONER.map(s => (

@@ -26,7 +26,7 @@ export const PROTOTYPE_META: Record<string, PrototypeMeta> = {
   'psykisk-helse-demo':     { title: 'Psykisk helse',           letters: 'PH', color: '#916500' },
   'artikkel-psykisk-helse': { title: 'Veiviser til psykisk helsehjelp', letters: 'PH', color: '#916500' },
   'spesialister-oversikt':  { title: 'Behandlinger og undersøkelser med ventetider', letters: 'PH', color: '#5B22A6' },
-  'kommunale-tjenester-oslo': { title: 'Psykisk helse tjenester i Oslo kommune', letters: 'OK', color: '#099150' },
+  'kommunale-tjenester-oslo': { title: 'Psykisk helse tjenestetilbud i Oslo kommune', letters: 'OK', color: '#099150' },
 };
 
 // Matches public/favicon.svg's own visual style (rounded square + centred

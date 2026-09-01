@@ -122,7 +122,7 @@ export default function SpesialistOversikt({ onNavigateBack }: SpesialistOversik
 
         <div className="spesialist-search">
           <label htmlFor="spesialist-search-input" className="spesialist-search__label">
-            Søk etter behandlinger, for eksempel røntgen eller allergiutredning
+            Søk etter behandlinger, for eksempel depresjon eller spiseforstyrrelser
           </label>
           <input id="spesialist-search-input" type="text" className="spesialist-search__input" />
         </div>
