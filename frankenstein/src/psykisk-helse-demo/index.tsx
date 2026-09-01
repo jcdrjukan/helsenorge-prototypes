@@ -303,9 +303,9 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
           <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />
 
           <div className="ph-front__content">
-            <h2 className="ph-front__section-title">Om veiviseren</h2>
+            <h2 className="ph-front__section-title">Om quiz</h2>
             <p className="ph-preamble">
-              Veiviseren består av noen enkle spørsmål og finner informasjon og verktøy som er tilpasset din situasjon, for eksempel hvordan du kan
+              Denne quiz består av noen enkle spørsmål og finner informasjon og verktøy som er tilpasset din situasjon, for eksempel hvordan du kan
             </p>
             <ul className="ph-benefit-list">
               <li>sove bedre</li>
