@@ -62,11 +62,23 @@ const FALLBACK_IDS = [
   'opp',
 ];
 
+// Both veiledningstjenester (Kirkens SOS, Mental Helse) are general crisis-
+// support contacts, not tied to any one quiz category — they should show
+// up in every result set regardless of tag matches or which answers were
+// picked, unlike every other resource.
+const ALWAYS_SHOW_VEILEDNING_IDS = ['veiledning-kirkens-sos', 'veiledning-mental-helse'];
+const ALWAYS_SHOW_VEILEDNING = RESOURCES.filter(r => ALWAYS_SHOW_VEILEDNING_IDS.includes(r.id));
+
 export interface ScoredResults {
   verktøy: Resource[];
   artikler: Resource[];
   veiledningstjenester: Resource[];
   isEmpty: boolean;
+}
+
+function withAlwaysShowVeiledning(matched: Resource[]): Resource[] {
+  const matchedIds = new Set(matched.map(r => r.id));
+  return [...matched, ...ALWAYS_SHOW_VEILEDNING.filter(r => !matchedIds.has(r.id))];
 }
 
 export function computeResults(
@@ -97,7 +109,7 @@ export function computeResults(
     return {
       verktøy: fallback.filter(r => r.type === 'verktøy'),
       artikler: fallback.filter(r => r.type === 'artikkel'),
-      veiledningstjenester: fallback.filter(r => r.type === 'veiledningstjeneste'),
+      veiledningstjenester: withAlwaysShowVeiledning(fallback.filter(r => r.type === 'veiledningstjeneste')),
       isEmpty: true,
     };
   }
@@ -105,7 +117,7 @@ export function computeResults(
   return {
     verktøy: ranked.filter(r => r.type === 'verktøy'),
     artikler: ranked.filter(r => r.type === 'artikkel'),
-    veiledningstjenester: ranked.filter(r => r.type === 'veiledningstjeneste'),
+    veiledningstjenester: withAlwaysShowVeiledning(ranked.filter(r => r.type === 'veiledningstjeneste')),
     isEmpty: false,
   };
 }

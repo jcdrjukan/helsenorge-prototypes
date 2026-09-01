@@ -472,7 +472,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
           <div>
             <Button variant="outline" onClick={retake}>
               <Icon svgIcon={ArrowLeft} size={38} />
-              Start veiviseren på nytt
+              Ta quiz på nytt
             </Button>
           </div>
 
