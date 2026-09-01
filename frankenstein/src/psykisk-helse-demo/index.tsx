@@ -219,7 +219,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
     });
   };
 
+  // Deactivates the Forside "Psykisk helse" card immediately — it only
+  // reappears once markVeiviserCompleted() fires again on reaching a new
+  // results view (see the view==='results' effect above), not just from
+  // having completed the veiviser at some point in the past.
   const retake = () => {
+    clearVeiviserCompleted();
     setView('quiz1');
   };
 
