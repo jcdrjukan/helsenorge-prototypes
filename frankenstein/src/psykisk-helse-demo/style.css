@@ -195,7 +195,7 @@
 
 /* ── Ta kontakt ──────────────────────────────────────────────────── */
 .ph-contact-title {
-  font: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
+  font: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0 0 8px;
 }
@@ -215,6 +215,10 @@
 
 .ph-front__content:first-child {
   padding-top: 3rem;
+}
+
+.ph-front__content--contact {
+  padding-bottom: 4.5rem;
 }
 
 .ph-front__hero {
@@ -337,36 +341,3 @@
   height: 38px !important;
 }
 
-/* ── Emergency panel ─────────────────────────────────────────────── */
-.ph-emergency {
-  background: #FFF2EA;
-  border: 1px solid #C83521;
-  border-radius: 4px;
-  padding: 12px;
-  display: flex;
-  gap: 12px;
-  align-items: flex-start;
-  text-decoration: none;
-}
-.ph-emergency__icon {
-  width: 44px;
-  height: 44px;
-  background: #C83521;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  color: #fff;
-}
-.ph-emergency__body { flex: 1; }
-.ph-emergency__title {
-  font: 600 1.125rem/1.3 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: 0 0 4px;
-}
-.ph-emergency__text {
-  font: 400 1rem/1.4 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: 0;
-}

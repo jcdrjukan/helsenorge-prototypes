@@ -314,21 +314,22 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
             </ul>
           </div>
 
-          <div className="ph-front__content">
-            <a href="tel:116123" className="ph-emergency">
-              <div className="ph-emergency__icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.11 12 19.79 19.79 0 0 1 1.08 3.44 2 2 0 0 1 3.05 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" />
-                </svg>
-              </div>
-              <div className="ph-emergency__body">
-                <p className="ph-emergency__title">Akutt hjelp</p>
-                <p className="ph-emergency__text">Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
-              </div>
-              <div style={{ color: '#126F87', alignSelf: 'center', flexShrink: 0 }}>
-                <Icon svgIcon={ChevronRight} size={38} />
-              </div>
-            </a>
+          <div className="ph-front__content ph-front__content--contact">
+            <h2 className="ph-contact-title">Ta kontakt</h2>
+            <LinkList chevron>
+              <LinkList.Link href="#" onClick={e => { e.preventDefault(); onOpenKommunaleTjenester?.(); }}>
+                <ElementHeader>
+                  <ElementHeader.Text firstText="Finn kommunale tjenester" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Se på psykisk helse tjenestetilbudet i din kommune" subText />
+                </ElementHeader>
+              </LinkList.Link>
+              <LinkList.Link href="tel:116123">
+                <ElementHeader>
+                  <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />
+                </ElementHeader>
+              </LinkList.Link>
+            </LinkList>
           </div>
 
           <footer className="ph-footer">
@@ -486,7 +487,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenKommunaleTjenester 
             <LinkList chevron>
               <LinkList.Link href="#" onClick={e => { e.preventDefault(); onOpenKommunaleTjenester?.(); }}>
                 <ElementHeader>
-                  <ElementHeader.Text firstText="Kommunale tjenester" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Finn kommunale tjenester" firstTextEmphasised />
                   <ElementHeader.Text firstText="Se på psykisk helse tjenestetilbudet i din kommune" subText />
                 </ElementHeader>
               </LinkList.Link>
