@@ -576,10 +576,6 @@
   color: var(--color-base-text-onlight);
 }
 
-.order-step__sentral-panel {
-  margin-bottom: var(--space-s);
-}
-
 /* =====================================================================
    Delivery address form
    ===================================================================== */
