@@ -19,6 +19,8 @@ import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
 import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
+import TravelRoute from '@helsenorge/designsystem-react/components/Icons/TravelRoute';
+import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
 import './style.css';
 
 import {
@@ -316,13 +318,13 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel }: Psykisk
 
           <div className="ph-front__content ph-front__content--contact">
             <LinkList chevron>
-              <LinkList.Link href="#" onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
+              <LinkList.Link href="#" icon={<Icon svgIcon={TravelRoute} />} onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
                 <ElementHeader>
                   <ElementHeader.Text firstText="Veiviser til psykisk helsehjelp" firstTextEmphasised />
                   <ElementHeader.Text firstText="En oversikt over psykisk helse tjenestetilbud i Norge" subText />
                 </ElementHeader>
               </LinkList.Link>
-              <LinkList.Link href="tel:116123">
+              <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>
                 <ElementHeader>
                   <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />
                   <ElementHeader.Text firstText="Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />
@@ -483,13 +485,13 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel }: Psykisk
 
           <section>
             <LinkList chevron>
-              <LinkList.Link href="#" onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
+              <LinkList.Link href="#" icon={<Icon svgIcon={TravelRoute} />} onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
                 <ElementHeader>
                   <ElementHeader.Text firstText="Veiviser til psykisk helsehjelp" firstTextEmphasised />
                   <ElementHeader.Text firstText="En oversikt over psykisk helse tjenestetilbud i Norge" subText />
                 </ElementHeader>
               </LinkList.Link>
-              <LinkList.Link href="tel:116123">
+              <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>
                 <ElementHeader>
                   <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />
                   <ElementHeader.Text firstText="Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />

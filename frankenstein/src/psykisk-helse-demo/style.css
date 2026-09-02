@@ -334,3 +334,13 @@
   height: 38px !important;
 }
 
+/* ElementHeader's own grid only gives the icon the first (title-height)
+   row — with a two-line subtext (Veiviser/Akutt hjelp), the icon then
+   reads as top-aligned against the whole row instead of centered. Span
+   the icon across both text rows so the library's own `align-self:
+   center` (already set on this class) centers it against the full
+   wrapped-text height instead. */
+.ph-shell [class*="link-list"] [class*="element-header__icon"] {
+  grid-row: 2 / span 2;
+}
+
