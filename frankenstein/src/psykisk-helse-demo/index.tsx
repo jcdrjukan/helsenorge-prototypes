@@ -20,6 +20,7 @@ import Publication from '@helsenorge/designsystem-react/components/Icons/Publica
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
 import TravelRoute from '@helsenorge/designsystem-react/components/Icons/TravelRoute';
+import HealthClinic from '@helsenorge/designsystem-react/components/Icons/HealthClinic';
 import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
 import './style.css';
 
@@ -40,8 +41,13 @@ export interface PsykiskHelseProps {
    *  breadcrumb keeps its previous no-op behaviour on the results view. */
   onNavigateHome?: () => void;
   /** Called when "Veiviser til psykisk helsehjelp" (first item under "Ta
-   *  kontakt") is clicked — opens the mock Helsenorge article page. */
+   *  kontakt" on the front page) is clicked — opens the mock Helsenorge
+   *  article page. */
   onOpenArtikkel?: () => void;
+  /** Called when "Finn kommunale tjenester" (first item under the results
+   *  page's footer LinkList) is clicked — opens the Kommunale tjenester
+   *  (Oslo) page. */
+  onOpenKommunaleTjenester?: () => void;
 }
 
 function ProgressBar({ step }: { step: 1 | 2 | 3 }) {
@@ -149,7 +155,7 @@ function viewFromHash(): View {
   return HASH_TO_VIEW[window.location.hash] ?? 'front';
 }
 
-export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel }: PsykiskHelseProps = {}) {
+export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKommunaleTjenester }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
   const [q1, setQ1]               = useState<Set<string>>(() => getAnswers().q1);
   const [q2, setQ2]               = useState<Set<string>>(() => getAnswers().q2);
@@ -485,10 +491,10 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel }: Psykisk
 
           <section>
             <LinkList chevron>
-              <LinkList.Link href="#" icon={<Icon svgIcon={TravelRoute} />} onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
+              <LinkList.Link href="#" icon={<Icon svgIcon={HealthClinic} />} onClick={e => { e.preventDefault(); onOpenKommunaleTjenester?.(); }}>
                 <ElementHeader>
-                  <ElementHeader.Text firstText="Veiviser til psykisk helsehjelp" firstTextEmphasised />
-                  <ElementHeader.Text firstText="En oversikt over psykisk helse tjenestetilbud i Norge" subText />
+                  <ElementHeader.Text firstText="Finn kommunale tjenester" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Psykisk helse tjenestetilbud i din kommune" subText />
                 </ElementHeader>
               </LinkList.Link>
               <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>

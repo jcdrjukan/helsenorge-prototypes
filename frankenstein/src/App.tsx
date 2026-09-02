@@ -1,11 +1,12 @@
 import { useState, useEffect } from 'react';
+import IntroPage from './forside-demo/IntroPage';
 import ForsideDemo from './forside-demo';
 import ArtikkelPsykiskHelse from './forside-demo/ArtikkelPsykiskHelse';
 import SpesialistOversikt from './forside-demo/SpesialistOversikt';
 import KommunaleTjenesterOslo from './forside-demo/KommunaleTjenesterOslo';
 import PsykiskHelseDemo from './psykisk-helse-demo';
 import type { ValgbarTjenesteId } from './forside-demo/data';
-import { hasCompletedVeiviser } from './psykisk-helse-demo/data';
+import { hasCompletedVeiviser, clearSeen, clearAnswers, clearVeiviserCompleted } from './psykisk-helse-demo/data';
 import { applyPrototypeMeta } from './prototypeMeta';
 import './App.css';
 
@@ -33,16 +34,20 @@ import './App.css';
 // from. Every other screen's breadcrumb — including Psykisk helse's own,
 // which always says/goes to "Forside" — is fixed.
 type Prototype =
-  | 'forside-demo' | 'artikkel-psykisk-helse' | 'spesialister-oversikt'
+  | 'intro' | 'forside-demo' | 'artikkel-psykisk-helse' | 'spesialister-oversikt'
   | 'kommunale-tjenester-oslo' | 'psykisk-helse-demo';
 
+// The site's root URL now lands on the intro cover screen — Forside (the
+// actual start of the prototype) is only reached via its own explicit
+// hash from here on, not as the default fallback.
 function getInitialPrototype(): Prototype {
   const hash = window.location.hash.slice(1);
+  if (hash === 'forside-demo') return 'forside-demo';
   if (hash === 'psykisk-helse-demo') return 'psykisk-helse-demo';
   if (hash === 'artikkel-psykisk-helse') return 'artikkel-psykisk-helse';
   if (hash === 'spesialister-oversikt') return 'spesialister-oversikt';
   if (hash === 'kommunale-tjenester-oslo') return 'kommunale-tjenester-oslo';
-  return 'forside-demo';
+  return 'intro';
 }
 
 function App() {
@@ -85,6 +90,17 @@ function App() {
   };
 
   const goHome = () => navigateTo('forside-demo');
+
+  // Intro screen's "Åpne prototype" button — a fresh visitor should never
+  // see leftover state from someone else's earlier run through the quiz
+  // (seen resources, saved answers, or a completed result unlocking the
+  // Forside "Støtte til din situasjon" card).
+  const openPrototypeFromIntro = () => {
+    clearSeen();
+    clearAnswers();
+    clearVeiviserCompleted();
+    goHome();
+  };
   const goToArtikkel = () => navigateTo('artikkel-psykisk-helse');
   const goToSpesialister = () => navigateTo('spesialister-oversikt');
   const goToKommunaleTjenester = () => navigateTo('kommunale-tjenester-oslo');
@@ -94,6 +110,7 @@ function App() {
     <div className="phone-wrapper">
       <div className="phone-frame">
         <div className="phone-frame__screen">
+          {prototype === 'intro' && <IntroPage onOpenPrototype={openPrototypeFromIntro} />}
           {prototype === 'forside-demo' && <ForsideDemo onGoToTjeneste={goToTjeneste} onOpenArtikkel={goToArtikkel} />}
           {prototype === 'artikkel-psykisk-helse' && (
             <ArtikkelPsykiskHelse
@@ -110,7 +127,7 @@ function App() {
             <KommunaleTjenesterOslo onNavigateBack={goBack} />
           )}
           {prototype === 'psykisk-helse-demo' && (
-            <PsykiskHelseDemo onNavigateHome={goHome} onOpenArtikkel={goToArtikkel} />
+            <PsykiskHelseDemo onNavigateHome={goHome} onOpenArtikkel={goToArtikkel} onOpenKommunaleTjenester={goToKommunaleTjenester} />
           )}
         </div>
         <div className="phone-frame__home" />

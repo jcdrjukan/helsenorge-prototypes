@@ -22,6 +22,7 @@ export const PROTOTYPE_META: Record<string, PrototypeMeta> = {
   'pasientens-planer':      { title: 'Pasientens planer',       letters: 'PP', color: '#084350' },
   forside:                  { title: 'Forside',                 letters: 'FS', color: '#2B2C2B' },
   gravid:                   { title: 'Gravid',                  letters: 'GR', color: '#C83521' },
+  intro:                    { title: 'Psykisk helse på Helsenorge', letters: 'PH', color: '#084350' },
   'forside-demo':           { title: 'Forside',                 letters: 'FS', color: '#2B2C2B' },
   'psykisk-helse-demo':     { title: 'Psykisk helse',           letters: 'PH', color: '#916500' },
   'artikkel-psykisk-helse': { title: 'Veiviser til psykisk helsehjelp', letters: 'PH', color: '#916500' },
