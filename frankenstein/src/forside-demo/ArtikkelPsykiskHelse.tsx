@@ -47,7 +47,7 @@ export default function ArtikkelPsykiskHelse({ onNavigateHome, onOpenPsykiskHels
     <div className="fs-shell">
 
       <div className="illustration-banner">
-        Kun konseptskisse
+        Konseptskisse
       </div>
 
       <header className="header">

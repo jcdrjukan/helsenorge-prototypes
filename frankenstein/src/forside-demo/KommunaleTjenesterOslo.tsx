@@ -48,7 +48,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
     <div className="fs-shell">
 
       <div className="illustration-banner">
-        Kun konseptskisse
+        Konseptskisse
       </div>
 
       <header className="header">
