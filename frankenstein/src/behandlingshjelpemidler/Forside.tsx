@@ -198,7 +198,7 @@ export default function Forside({
 
       <div style={{ alignSelf: 'flex-start', marginTop: '1rem' }}>
         <Button variant="fill" onClick={() => onStartOrder(null, 'forside')}>
-          Bestill forbruksvarer
+          Bestill forbruksmateriell
         </Button>
       </div>
 
