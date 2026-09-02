@@ -193,13 +193,6 @@
   margin: 0;
 }
 
-/* ── Ta kontakt ──────────────────────────────────────────────────── */
-.ph-contact-title {
-  font: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
-  color: #000;
-  margin: 0 0 8px;
-}
-
 /* ── Frontpage layout ────────────────────────────────────────────── */
 .ph-front {
   display: flex;

@@ -110,7 +110,7 @@ function App() {
             <KommunaleTjenesterOslo onNavigateBack={goBack} />
           )}
           {prototype === 'psykisk-helse-demo' && (
-            <PsykiskHelseDemo onNavigateHome={goHome} onOpenKommunaleTjenester={goToKommunaleTjenester} />
+            <PsykiskHelseDemo onNavigateHome={goHome} onOpenArtikkel={goToArtikkel} />
           )}
         </div>
         <div className="phone-frame__home" />
