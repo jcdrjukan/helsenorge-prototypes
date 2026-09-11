@@ -125,18 +125,19 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
         </section>
       )}
 
-      {/* Help expander — not shown for "Annet", which explains itself via
-          the ingress above instead. */}
-      {!eq.isAnnet && (
-        <HelpExpanderStandalone triggerText="Har du spørsmål om utstyret eller materiellet?">
-          <p style={{ margin: '0 0 8px 0' }}>
-            Kontakt behandleren din eller helseforetaket som eier utstyret. Du finner serienummeret og informasjon om hvem som eier utstyret i oversikten over.
-          </p>
-          <p style={{ margin: 0 }}>
-            <a href="https://behandlingshjelpemidler.no/enhet/">Se kontaktinformasjonen til behandlingshjelpemiddelenheter i Norge.</a>
-          </p>
-        </HelpExpanderStandalone>
-      )}
+      {/* Help expander — Annet gets its own trigger/body, since neither
+          can reference "utstyret" or a serial number when there's no
+          linked utstyr to point to. */}
+      <HelpExpanderStandalone triggerText={eq.isAnnet ? 'Har du spørsmål om forbruksmateriell?' : 'Har du spørsmål om utstyret eller materiellet?'}>
+        <p style={{ margin: '0 0 8px 0' }}>
+          {eq.isAnnet
+            ? 'Kontakt behandleren din eller helseforetaket som har bestilt forbruksmateriellet, dersom du har spørsmål.'
+            : 'Kontakt behandleren din eller helseforetaket som eier utstyret. Du finner serienummeret og informasjon om hvem som eier utstyret i oversikten over.'}
+        </p>
+        <p style={{ margin: 0 }}>
+          <a href="https://behandlingshjelpemidler.no/enhet/">Se kontaktinformasjonen til behandlingshjelpemiddelenheter i Norge.</a>
+        </p>
+      </HelpExpanderStandalone>
 
       {/* Consumable section */}
       {!eq.deaktivert && (
