@@ -64,13 +64,24 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
               Ingen produkter valgt.
             </p>
           ) : (
-            <ul className="order-summary-list">
-              {selectedItems.map((item, i) => (
-                <li key={i} style={{ font: 'var(--mobile-body)' }}>
-                  {item.consumableName} til {item.eqName} x {item.qty} stk.
-                </li>
-              ))}
-            </ul>
+            <table className="order-summary-table">
+              <thead>
+                <tr>
+                  {/* Headers stay in the markup for screen readers — just
+                      visually hidden, per the no-visible-headers request. */}
+                  <th scope="col" className="order-summary-table__sr-only">Forbruksvare</th>
+                  <th scope="col" className="order-summary-table__sr-only">Utstyr</th>
+                </tr>
+              </thead>
+              <tbody>
+                {selectedItems.map((item, i) => (
+                  <tr key={i}>
+                    <td>{item.consumableName} x {item.qty} stk.</td>
+                    <td>{item.eqName}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           )}
         </ExpanderList.Expander>
 
