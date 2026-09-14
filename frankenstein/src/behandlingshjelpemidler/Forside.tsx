@@ -60,7 +60,7 @@ function OrderCard({ order }: OrderCardProps) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Field label="Bestilt" value={order.date} />
           <Field label="Forsendelsesmetode" value={DELIVERY_MODE_LABEL[order.delivery]} />
-          <Field label="Adresse" value={
+          <Field label={order.delivery === 'post' ? 'Sendes til' : 'Hentested'} value={
             order.delivery === 'post'
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
               : order.addr
