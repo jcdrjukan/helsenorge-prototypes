@@ -247,8 +247,17 @@
   /* Keeps this much clearance above the panel when it's scrolled into
      view (card click, or any future keyboard/anchor navigation) so the
      sticky strip (~108px tall) never ends up flush against the panel's
-     top edge and clipping the focus ring below. */
+     top edge. */
   scroll-margin-top: 124px;
+}
+/* Programmatic focus (card-click navigation) moves focus here for
+   keyboard/screen-reader continuity, but the background flash below is
+   the only visible landing cue — no separate outline/border. */
+.md-panel:focus {
+  outline: none;
+}
+.md-panel--flash {
+  background-color: var(--color-base-background-blueberry-subtle, #e4f7f9);
 }
 /* The sticky strip above already has its own border-bottom — without
    this, the first panel's border-top sits a few px below it and the two
@@ -256,23 +265,7 @@
 .md-panel:first-child {
   border-top: none;
 }
-.md-panel:focus {
-  outline: 2px solid var(--core-color-blueberry-400, #58aabb);
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-.md-panel--flash {
-  background-color: var(--color-base-background-blueberry-subtle, #e4f7f9);
-}
-
-/* Title and actions stack instead of sharing one row — at real body-text
-   sizes a long series name plus both action links no longer fit next to
-   each other on 358px of usable width. */
 .md-panel__head {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 6px;
   margin-bottom: 4px;
 }
 .md-panel__title {
@@ -286,35 +279,16 @@
   font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
   color: var(--core-color-neutral-700, #62625f);
 }
-.md-panel__actions {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-shrink: 0;
-}
-.md-panel__link {
-  /* --mobile-help-text */
-  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
-  color: var(--core-color-blueberry-700, #08667c);
-  background: none;
-  border: 0;
-  padding: 8px 0;
-  min-height: 44px;
-  cursor: pointer;
-  text-decoration: underline;
-}
-.md-panel__hide {
-  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
-  color: var(--core-color-neutral-700, #62625f);
-  background: none;
-  border: 0;
-  padding: 8px 0;
-  min-height: 44px;
-  cursor: pointer;
-}
 .md-panel__svg {
   display: block;
   margin-top: 4px;
+}
+/* The Expander component's trigger label defaults to a bold (600) weight,
+   which reads as a heading here — bring "Vis som tabell" back to regular
+   text weight. */
+.md-panel button,
+.md-panel button span {
+  font-weight: 400;
 }
 
 /* ── Legend ────────────────────────────────────────────────────── */
@@ -335,7 +309,7 @@
   gap: 8px;
 }
 
-/* ── Table view / CSV links ───────────────────────────────────── */
+/* ── CSV download link ────────────────────────────────────────── */
 .md-chart-links {
   display: flex;
   align-items: center;
@@ -357,50 +331,9 @@
   text-decoration: underline;
 }
 
-.md-table-view {
-  margin-top: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-.md-table-view__title {
-  /* --mobile-body-strong */
-  font: 600 1.125rem/1.5 'Source Sans Pro', sans-serif;
-  margin: 0 0 8px;
-  color: #000;
-}
-.md-table-view__title span {
-  font-weight: 400;
-  color: var(--core-color-neutral-700, #62625f);
-}
-
+/* Table itself is the real design-system component now (compact mode). */
 .md-table {
   width: 100%;
-  border-collapse: collapse;
-  /* --mobile-body — the table is the priority accessible artifact (see
-     data.ts's working-notes reference), so it gets full body size, not a
-     compact/dense treatment. */
-  font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif;
-}
-.md-table__caption {
-  caption-side: top;
-  text-align: left;
-  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
-  color: var(--core-color-neutral-700, #62625f);
-  padding-bottom: 6px;
-}
-.md-table th,
-.md-table td {
-  text-align: left;
-  padding: 10px 8px;
-  border-bottom: 0.5px solid var(--core-color-neutral-200, #d6d4d3);
-}
-.md-table th {
-  font-weight: 600;
-  color: #000;
-}
-.md-table td {
-  color: var(--core-color-neutral-800, #474745);
 }
 
 /* ── Footer (shared Helsenorge footer, scoped to this prototype) ─── */

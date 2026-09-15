@@ -7,6 +7,13 @@ import Select from '@helsenorge/designsystem-react/components/Select';
 import VisualCheckboxCloud from '@helsenorge/designsystem-react/components/VisualCheckboxCloud/VisualCheckboxCloud';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel/NotificationPanel';
 import EmptyState from '@helsenorge/designsystem-react/components/EmptyState/EmptyState';
+import Expander from '@helsenorge/designsystem-react/components/Expander/Expander';
+// This subpath's own .d.ts only declares the default export (a packaging
+// bug — the compiled JS genuinely exports all of these, confirmed by
+// reading node_modules directly), so TypeScript can't see the named
+// exports even though they exist at runtime.
+// @ts-expect-error — see note above
+import Table, { TableHead, TableBody, TableRow, TableHeadCell, TableCell, ModeType } from '@helsenorge/designsystem-react/components/Table/Table';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -108,38 +115,39 @@ interface SeriesTableProps {
   days: number;
 }
 
-// A plain semantic <table>, not a design-system component — this is the
-// accessible artifact the working notes call the priority-#1 requirement
-// (§11): the visual chart is an enhancement on top of it, not the other way
-// round, so it has to stand on its own without depending on the chart.
+// The accessible artifact the working notes call the priority-#1
+// requirement (§11): the visual chart is an enhancement on top of it, not
+// the other way round, so it has to stand on its own without depending on
+// the chart. scrollAriaLabel carries the "which series is this" context a
+// visual caption would otherwise — each usage already has its own visible
+// heading (panel title or the table-view section title) right above it.
 function SeriesTable({ series, days }: SeriesTableProps) {
   const vals = windowValues(series, days);
   // Most recent first — matches how the latest-registration cards read.
   const rows = vals.map((v, k) => ({ offset: days - 1 - k, value: v })).reverse();
   return (
-    <table className="md-table">
-      <caption className="md-table__caption">{series.name} som tabell</caption>
-      <thead>
-        <tr>
-          <th scope="col">Dato</th>
-          <th scope="col">Verdi</th>
-          <th scope="col">Status</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Table mode={ModeType.compact} scrollAriaLabel={`${series.name} som tabell`} className="md-table">
+      <TableHead>
+        <TableRow mode={ModeType.compact}>
+          <TableHeadCell mode={ModeType.compact}>Dato</TableHeadCell>
+          <TableHeadCell mode={ModeType.compact}>Verdi</TableHeadCell>
+          <TableHeadCell mode={ModeType.compact}>Status</TableHeadCell>
+        </TableRow>
+      </TableHead>
+      <TableBody>
         {rows.map(({ offset, value }) => {
           const missing = value == null;
           const out = !missing && !!series.band && (value < series.band[0] || value > series.band[1]);
           return (
-            <tr key={offset}>
-              <td>{agoLabel(offset)}</td>
-              <td>{missing ? '–' : `${formatValue(value, series.decimals)} ${series.unit}`}</td>
-              <td>{missing ? 'Mangler' : out ? 'Utenfor målområdet' : series.band ? 'I målområdet' : '–'}</td>
-            </tr>
+            <TableRow key={offset} mode={ModeType.compact}>
+              <TableCell mode={ModeType.compact} dataLabel="Dato">{dateLabel(offset)}</TableCell>
+              <TableCell mode={ModeType.compact} dataLabel="Verdi">{missing ? '–' : `${formatValue(value, series.decimals)} ${series.unit}`}</TableCell>
+              <TableCell mode={ModeType.compact} dataLabel="Status">{missing ? 'Mangler' : out ? 'Utenfor målområdet' : series.band ? 'I målområdet' : '–'}</TableCell>
+            </TableRow>
           );
         })}
-      </tbody>
-    </table>
+      </TableBody>
+    </Table>
   );
 }
 
@@ -148,12 +156,11 @@ interface SeriesPanelProps {
   days: number;
   flashing: boolean;
   tableOpen: boolean;
-  onHide: (id: string) => void;
-  onToggleTable: (id: string) => void;
+  onToggleTable: (id: string, expanded: boolean) => void;
   panelRef: (el: HTMLDivElement | null) => void;
 }
 
-function SeriesPanel({ series, days, flashing, tableOpen, onHide, onToggleTable, panelRef }: SeriesPanelProps) {
+function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRef }: SeriesPanelProps) {
   const h = series.ordinal ? 56 : 78;
   const y0 = 5;
   const y1 = h - 6;
@@ -189,12 +196,6 @@ function SeriesPanel({ series, days, flashing, tableOpen, onHide, onToggleTable,
         <p className="md-panel__title">
           {series.name} <span className="md-panel__unit">{series.unit}{series.source === 'form' ? ' · skjema' : ''}</span>
         </p>
-        <div className="md-panel__actions">
-          <button className="md-panel__link" onClick={() => onToggleTable(series.id)}>
-            {tableOpen ? 'Skjul tabell' : 'Vis som tabell'}
-          </button>
-          <button className="md-panel__hide" onClick={() => onHide(series.id)}>Skjul</button>
-        </div>
       </div>
 
       <svg viewBox={`0 0 ${VB_WIDTH} ${h}`} width="100%" role="img" className="md-panel__svg">
@@ -205,8 +206,7 @@ function SeriesPanel({ series, days, flashing, tableOpen, onHide, onToggleTable,
             y={sy(series.band[1])}
             width={PLOT_X1 - PLOT_X0}
             height={sy(series.band[0]) - sy(series.band[1])}
-            fill="var(--core-color-neutral-300)"
-            opacity={0.35}
+            fill="#C4E3EA"
           />
         )}
         {gridValues.map((v, i) => (
@@ -253,7 +253,14 @@ function SeriesPanel({ series, days, flashing, tableOpen, onHide, onToggleTable,
         })}
       </svg>
 
-      {tableOpen && <SeriesTable series={series} days={days} />}
+      {/* size defaults to ExpanderSize.small */}
+      <Expander
+        title="Vis som tabell"
+        expanded={tableOpen}
+        onExpand={isExpanded => onToggleTable(series.id, isExpanded)}
+      >
+        <SeriesTable series={series} days={days} />
+      </Expander>
     </div>
   );
 }
@@ -270,7 +277,6 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
   );
   const [days, setDays] = useState(28);
   const [customChosen, setCustomChosen] = useState(false);
-  const [tableView, setTableView] = useState(false);
   const [tableOpen, setTableOpen] = useState<Record<string, boolean>>({});
   const [pendingFocusId, setPendingFocusId] = useState<string | null>(null);
   const [flashId, setFlashId] = useState<string | null>(null);
@@ -299,7 +305,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
     setPendingFocusId(id);
   };
 
-  const toggleTableFor = (id: string) => setTableOpen(prev => ({ ...prev, [id]: !prev[id] }));
+  const setTableOpenFor = (id: string, expanded: boolean) => setTableOpen(prev => ({ ...prev, [id]: expanded }));
 
   const handleTimeframeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const v = e.target.value;
@@ -446,8 +452,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
                 days={days}
                 flashing={flashId === s.id}
                 tableOpen={!!tableOpen[s.id]}
-                onHide={toggleShown}
-                onToggleTable={toggleTableFor}
+                onToggleTable={setTableOpenFor}
                 panelRef={el => { panelRefs.current[s.id] = el; }}
               />
             ))}
@@ -460,7 +465,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
 
           <div className="md-legend">
             <span>
-              <svg width="10" height="10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="var(--core-color-neutral-300)" /></svg>
+              <svg width="10" height="10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="#C4E3EA" /></svg>
               Målområde
             </span>
             <span>
@@ -478,25 +483,10 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
           </div>
 
           <div className="md-chart-links">
-            <button className="md-text-link" onClick={() => setTableView(v => !v)}>
-              {tableView ? 'Skjul tabell' : 'Vis som tabell'}
-            </button>
-            <span aria-hidden="true">·</span>
             <button className="md-text-link" onClick={downloadCsv}>
-              <Icon svgIcon={Download} size={20} /> Last ned
+              <Icon svgIcon={Download} size={20} /> Last ned (.csv format)
             </button>
           </div>
-
-          {tableView && (
-            <div className="md-table-view">
-              {visibleSeries.map(s => (
-                <div key={s.id} className="md-table-view__item">
-                  <h3 className="md-table-view__title">{s.name} <span>{s.unit}</span></h3>
-                  <SeriesTable series={s} days={days} />
-                </div>
-              ))}
-            </div>
-          )}
         </section>
       </main>
 
