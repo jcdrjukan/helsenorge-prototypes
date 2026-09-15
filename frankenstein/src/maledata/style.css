@@ -208,7 +208,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  align-items: flex-end;
+  align-items: flex-start;
   gap: 6px 10px;
   margin-bottom: 4px;
 }
@@ -224,7 +224,10 @@
   font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
   color: var(--core-color-neutral-700, #62625f);
   white-space: nowrap;
-  padding-bottom: 8px;
+  /* Vis tidsrom's own label sits above the select box, so the box's
+     vertical center sits lower than the select wrapper's own top edge —
+     this pushes the range text down to meet it. */
+  margin-top: 44px;
 }
 .md-axis-svg {
   display: block;
@@ -334,6 +337,9 @@
 /* Table itself is the real design-system component now (compact mode). */
 .md-table {
   width: 100%;
+}
+.md-table__more {
+  margin-top: 4px;
 }
 
 /* ── Footer (shared Helsenorge footer, scoped to this prototype) ─── */

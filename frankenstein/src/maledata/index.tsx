@@ -119,35 +119,52 @@ interface SeriesTableProps {
 // requirement (§11): the visual chart is an enhancement on top of it, not
 // the other way round, so it has to stand on its own without depending on
 // the chart. scrollAriaLabel carries the "which series is this" context a
-// visual caption would otherwise — each usage already has its own visible
-// heading (panel title or the table-view section title) right above it.
+// visual caption would otherwise — the panel's own title is right above it.
+const TABLE_ROWS_PER_PAGE = 14;
+
 function SeriesTable({ series, days }: SeriesTableProps) {
+  const [visibleCount, setVisibleCount] = useState(TABLE_ROWS_PER_PAGE);
   const vals = windowValues(series, days);
   // Most recent first — matches how the latest-registration cards read.
   const rows = vals.map((v, k) => ({ offset: days - 1 - k, value: v })).reverse();
+  // A long period (3 months, or a long custom range) can produce far more
+  // rows than fit comfortably on screen, so only render a page at a time.
+  const shownRows = rows.slice(0, visibleCount);
+  const hasMore = visibleCount < rows.length;
+
   return (
-    <Table mode={ModeType.compact} scrollAriaLabel={`${series.name} som tabell`} className="md-table">
-      <TableHead>
-        <TableRow mode={ModeType.compact}>
-          <TableHeadCell mode={ModeType.compact}>Dato</TableHeadCell>
-          <TableHeadCell mode={ModeType.compact}>Verdi</TableHeadCell>
-          <TableHeadCell mode={ModeType.compact}>Status</TableHeadCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map(({ offset, value }) => {
-          const missing = value == null;
-          const out = !missing && !!series.band && (value < series.band[0] || value > series.band[1]);
-          return (
-            <TableRow key={offset} mode={ModeType.compact}>
-              <TableCell mode={ModeType.compact} dataLabel="Dato">{dateLabel(offset)}</TableCell>
-              <TableCell mode={ModeType.compact} dataLabel="Verdi">{missing ? '–' : `${formatValue(value, series.decimals)} ${series.unit}`}</TableCell>
-              <TableCell mode={ModeType.compact} dataLabel="Status">{missing ? 'Mangler' : out ? 'Utenfor målområdet' : series.band ? 'I målområdet' : '–'}</TableCell>
-            </TableRow>
-          );
-        })}
-      </TableBody>
-    </Table>
+    <>
+      <Table mode={ModeType.compact} scrollAriaLabel={`${series.name} som tabell`} className="md-table">
+        <TableHead>
+          <TableRow mode={ModeType.compact}>
+            <TableHeadCell mode={ModeType.compact}>Dato</TableHeadCell>
+            <TableHeadCell mode={ModeType.compact}>Verdi</TableHeadCell>
+            <TableHeadCell mode={ModeType.compact}>Status</TableHeadCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {shownRows.map(({ offset, value }) => {
+            const missing = value == null;
+            const out = !missing && !!series.band && (value < series.band[0] || value > series.band[1]);
+            return (
+              <TableRow key={offset} mode={ModeType.compact}>
+                <TableCell mode={ModeType.compact} dataLabel="Dato">{dateLabel(offset)}</TableCell>
+                <TableCell mode={ModeType.compact} dataLabel="Verdi">{missing ? '–' : `${formatValue(value, series.decimals)} ${series.unit}`}</TableCell>
+                <TableCell mode={ModeType.compact} dataLabel="Status">{missing ? 'Mangler' : out ? 'Utenfor målområdet' : series.band ? 'I målområdet' : '–'}</TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      </Table>
+      {hasMore && (
+        <button
+          className="md-text-link md-table__more"
+          onClick={() => setVisibleCount(c => c + TABLE_ROWS_PER_PAGE)}
+        >
+          Vis flere rader
+        </button>
+      )}
+    </>
   );
 }
 
@@ -171,17 +188,21 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
 
   const gridValues = series.ordinal ? [0, 4] : series.band ? series.band : [series.lo, series.hi];
 
-  let pathD = '';
+  const isOut = (v: number) => !!series.band && (v < series.band[0] || v > series.band[1]);
+
+  // One segment per pair of adjacent, present points — a segment is
+  // warning-colored if either endpoint is out of range, and only shows the
+  // normal series color when both endpoints agree.
+  const segments: { key: number; x1: number; y1: number; x2: number; y2: number; color: string }[] = [];
   if (!series.ordinal) {
-    let pen = false;
-    for (let k = 0; k < days; k++) {
-      const v = vals[k];
-      if (v == null) {
-        pen = false;
-        continue;
-      }
-      pathD += `${pen ? 'L' : 'M'}${sx(k, days).toFixed(1)} ${sy(v).toFixed(1)} `;
-      pen = true;
+    for (let k = 1; k < days; k++) {
+      const prev = vals[k - 1];
+      const cur = vals[k];
+      if (prev == null || cur == null) continue;
+      const color = isOut(prev) || isOut(cur)
+        ? 'var(--color-notification-graphics-warning)'
+        : 'var(--core-color-blueberry-700)';
+      segments.push({ key: k, x1: sx(k - 1, days), y1: sy(prev), x2: sx(k, days), y2: sy(cur), color });
     }
   }
 
@@ -206,7 +227,7 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
             y={sy(series.band[1])}
             width={PLOT_X1 - PLOT_X0}
             height={sy(series.band[0]) - sy(series.band[1])}
-            fill="#C4E3EA"
+            fill="var(--core-color-blueberry-50, #e4f7f9)"
           />
         )}
         {gridValues.map((v, i) => (
@@ -225,9 +246,17 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
             </text>
           </g>
         ))}
-        {!series.ordinal && pathD && (
-          <path d={pathD} fill="none" stroke="var(--core-color-blueberry-700)" strokeWidth={1.2} />
-        )}
+        {segments.map(seg => (
+          <line
+            key={seg.key}
+            x1={seg.x1}
+            y1={seg.y1}
+            x2={seg.x2}
+            y2={seg.y2}
+            stroke={seg.color}
+            strokeWidth={1.2}
+          />
+        ))}
         {vals.map((v, k) => {
           if (v == null) {
             return (
@@ -242,8 +271,7 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
               />
             );
           }
-          const out = !!series.band && (v < series.band[0] || v > series.band[1]);
-          const color = out ? 'var(--color-notification-graphics-warning)' : 'var(--core-color-blueberry-700)';
+          const color = isOut(v) ? 'var(--color-notification-graphics-warning)' : 'var(--core-color-blueberry-700)';
           if (series.ordinal) {
             return (
               <rect key={k} x={sx(k, days) - r} y={sy(v) - r} width={2 * r} height={2 * r} fill={color} />
@@ -465,7 +493,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
 
           <div className="md-legend">
             <span>
-              <svg width="10" height="10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="#C4E3EA" /></svg>
+              <svg width="10" height="10" aria-hidden="true"><rect width="10" height="10" rx="2" fill="var(--core-color-blueberry-50, #e4f7f9)" /></svg>
               Målområde
             </span>
             <span>
