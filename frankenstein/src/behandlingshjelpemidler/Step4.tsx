@@ -5,7 +5,7 @@ import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList
 // reading node_modules directly), so TypeScript can't see the named
 // exports even though they exist at runtime.
 // @ts-expect-error — see note above
-import Table, { TableHead, TableBody, TableRow, TableHeadCell, TableCell, ModeType } from '@helsenorge/designsystem-react/components/Table/Table';
+import Table, { TableHead, TableBody, TableRow, TableHeadCell, TableCell, ModeType, TextAlign } from '@helsenorge/designsystem-react/components/Table/Table';
 import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
@@ -74,7 +74,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
               <TableHead>
                 <TableRow mode={ModeType.compact}>
                   <TableHeadCell mode={ModeType.compact}>Forbruksvare</TableHeadCell>
-                  <TableHeadCell mode={ModeType.compact}>Antall</TableHeadCell>
+                  <TableHeadCell mode={ModeType.compact} className="order-summary-table__antall-head">Antall</TableHeadCell>
                   <TableHeadCell mode={ModeType.compact}>Utstyr</TableHeadCell>
                 </TableRow>
               </TableHead>
@@ -82,7 +82,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
                 {selectedItems.map((item, i) => (
                   <TableRow key={i} mode={ModeType.compact}>
                     <TableCell mode={ModeType.compact} dataLabel="Forbruksvare">{item.consumableName}</TableCell>
-                    <TableCell mode={ModeType.compact} dataLabel="Antall">{item.qty}</TableCell>
+                    <TableCell mode={ModeType.compact} dataLabel="Antall" textAlign={TextAlign.center}>{item.qty}</TableCell>
                     <TableCell mode={ModeType.compact} dataLabel="Utstyr">{item.eqName}</TableCell>
                   </TableRow>
                 ))}
