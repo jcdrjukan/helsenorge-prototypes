@@ -101,7 +101,10 @@ export const SERIES: MaledataSeries[] = [
     name: 'Oksygenmetning',
     unit: '%',
     lo: 86,
-    hi: 100,
+    // Padded above the band's own top (100) so the chart reserves the same
+    // proportion of headroom above its top gridline as the other series —
+    // band[1] sitting exactly at hi left this one with none.
+    hi: 105,
     band: [92, 100],
     decimals: 0,
     source: 'device',
@@ -123,7 +126,9 @@ export const SERIES: MaledataSeries[] = [
     name: 'Tungpust',
     unit: '0–4',
     lo: -0.5,
-    hi: 4.5,
+    // Padded above the top gridline (4) to match the headroom on the other
+    // panels — see the spo2 series above for the same reasoning.
+    hi: 6,
     band: null,
     decimals: 0,
     source: 'form',
