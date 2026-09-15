@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './style.css';
 import BhmHeader from './BhmHeader';
 import Forside from './Forside';
@@ -61,6 +61,18 @@ export default function Behandlingshjelpemidler() {
   const [submittedOrders, setSubmittedOrders] = useState<SubmittedOrder[]>(DEFAULT_ACTIVE_ORDERS);
   const [justSubmittedId, setJustSubmittedId] = useState<string | null>(null);
   const [showAbandonAlert, setShowAbandonAlert] = useState(false);
+
+  // Scroll to top on every navigation (view change, or a step change within
+  // the order wizard). Whichever of these two is actually the live
+  // scrolling container depends on the real browser viewport width (see
+  // .phone-frame__screen's own responsive rules), so reset both
+  // unconditionally rather than picking one — resetting the inactive one
+  // is a harmless no-op.
+  useEffect(() => {
+    const el = document.querySelector('.phone-frame__screen');
+    if (el) el.scrollTop = 0;
+    window.scrollTo(0, 0);
+  }, [view, currentStep]);
 
   // ── Navigation helpers ────────────────────────────────────────────────────
 

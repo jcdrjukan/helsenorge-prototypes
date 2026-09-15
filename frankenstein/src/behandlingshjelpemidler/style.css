@@ -685,44 +685,10 @@
   flex-shrink: 0;
 }
 
+/* Table itself is the real design-system component now (compact mode) —
+   just a little breathing room above it in the expander. */
 .order-summary-table {
-  width: 100%;
-  border-collapse: collapse;
-  border: 1px solid var(--neutral-200);
-}
-
-.order-summary-table th,
-.order-summary-table td {
-  text-align: left;
-  padding: var(--space-2xs) var(--space-s);
-  vertical-align: top;
-}
-
-/* Headers stay in the DOM for screen readers, hidden visually. */
-.order-summary-table__sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.order-summary-table td {
-  font: var(--mobile-body);
-  color: var(--color-base-text-onlight);
-  border-bottom: 1px solid var(--neutral-200);
-}
-
-.order-summary-table tr:last-child td {
-  border-bottom: none;
-}
-
-.order-summary-table td:first-child {
-  border-right: 1px solid var(--neutral-200);
+  margin-top: var(--space-2xs);
 }
 
 /* =====================================================================
