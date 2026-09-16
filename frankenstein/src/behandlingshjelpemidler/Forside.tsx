@@ -12,13 +12,8 @@ import ElementHeader from '@helsenorge/designsystem-react/components/ElementHead
 import StatusDot from '@helsenorge/designsystem-react/components/StatusDot';
 import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
-import type { Equipment, SubmittedOrder, AppView, DeliveryMode } from './data';
-
-const DELIVERY_MODE_LABEL: Record<DeliveryMode, string> = {
-  post: 'Send i posten',
-  hentes: 'Hentes på lokasjon1',
-  hentes2: 'Hentes på lokasjon2',
-};
+import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
+import type { Equipment, SubmittedOrder, AppView } from './data';
 
 interface OrderCardProps {
   order: SubmittedOrder;
@@ -59,7 +54,6 @@ function OrderCard({ order }: OrderCardProps) {
       <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Field label="Bestilt" value={order.date} />
-          <Field label="Forsendelsesmetode" value={DELIVERY_MODE_LABEL[order.delivery]} />
           <Field label={order.delivery === 'post' ? 'Sendes til' : 'Hentested'} value={
             order.delivery === 'post'
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
@@ -74,11 +68,11 @@ function OrderCard({ order }: OrderCardProps) {
         <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />
         <div>
           <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
-          <ul className="order-summary-list">
+          <Duolist boldColumn="first">
             {allItems.map((item, i) => (
-              <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.name} x {item.qty} stk.</li>
+              <DuolistGroup key={i} term={`${item.qty} stk.`} description={item.name} />
             ))}
-          </ul>
+          </Duolist>
         </div>
       </ExpanderList.Expander>
     </ExpanderList>
