@@ -17,13 +17,6 @@ interface Step4Props {
   onAbandonRequest: () => void;
 }
 
-function deliveryModeLabel(mode: string): string {
-  if (mode === 'post') return 'Send i posten';
-  if (mode === 'hentes') return 'Hentes på lokasjon1';
-  if (mode === 'hentes2') return 'Hentes på lokasjon2';
-  return '';
-}
-
 export default function Step4({ equipment, quantities, delivery, comment, onSubmit, onBack, onAbandonRequest }: Step4Props) {
   const [openIds, setOpenIds] = useState(new Set(['forbruksvarer', 'levering', 'kommentar']));
 
@@ -78,15 +71,15 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
           onExpand={isExpanded => toggle('levering', isExpanded)}
         >
           <Duolist boldColumn="first">
-            <DuolistGroup term="Leveringsmåte" description={deliveryModeLabel(delivery.mode)} />
             {delivery.mode === 'post' && (
               <DuolistGroup
-                term="Adresse"
+                term="Sendes til"
                 description={
                   <span>
                     {delivery.navn && <>{delivery.navn}<br /></>}
                     {delivery.gate}<br />
-                    {`${delivery.postnr} ${delivery.sted}`.trim()}
+                    {`${delivery.postnr} ${delivery.sted}`.trim()}<br />
+                    Telefon: {delivery.telefon}
                   </span>
                 }
               />
@@ -107,9 +100,6 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
                 />
               );
             })()}
-            {delivery.mode === 'post' && delivery.telefon && (
-              <DuolistGroup term="Telefon" description={delivery.telefon} />
-            )}
           </Duolist>
         </ExpanderList.Expander>
 
