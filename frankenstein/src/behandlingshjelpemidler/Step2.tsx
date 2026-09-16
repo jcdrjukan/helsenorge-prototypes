@@ -7,7 +7,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import type { DeliveryForm } from './data';
+import { PICKUP_LOCATIONS, type DeliveryForm } from './data';
 
 interface Step2Props {
   delivery: DeliveryForm;
@@ -100,31 +100,21 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
         </div>
       )}
 
-      {delivery.mode === 'hentes' && (
-        <Panel variant={PanelVariant.outline}>
-          <Panel.A>
-            <p style={{ font: 'var(--mobile-label)', margin: '0 0 4px 0' }}>Medisinsk utstyrssentralen</p>
-            <p style={{ font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
-              Olav Kyrres gate 13<br />
-              7030 Trondheim<br />
-              Telefon: 725 73 300
-            </p>
-          </Panel.A>
-        </Panel>
-      )}
-
-      {delivery.mode === 'hentes2' && (
-        <Panel variant={PanelVariant.outline}>
-          <Panel.A>
-            <p style={{ font: 'var(--mobile-label)', margin: '0 0 4px 0' }}>Poliklinisk skranke</p>
-            <p style={{ font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
-              Prinsesse Kristinas gate 3<br />
-              7030 Trondheim<br />
-              Telefon: 725 82 400
-            </p>
-          </Panel.A>
-        </Panel>
-      )}
+      {(delivery.mode === 'hentes' || delivery.mode === 'hentes2') && (() => {
+        const loc = PICKUP_LOCATIONS[delivery.mode];
+        return (
+          <Panel variant={PanelVariant.outline}>
+            <Panel.A>
+              <p style={{ font: 'var(--mobile-label)', margin: '0 0 4px 0' }}>{loc.name}</p>
+              <p style={{ font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)', margin: 0 }}>
+                {loc.gate}<br />
+                {loc.postnr} {loc.sted}<br />
+                Telefon: {loc.telefon}
+              </p>
+            </Panel.A>
+          </Panel>
+        );
+      })()}
 
       <StepButtons
         forwardButton={<Button onClick={onNext} arrow="icon">Neste</Button>}

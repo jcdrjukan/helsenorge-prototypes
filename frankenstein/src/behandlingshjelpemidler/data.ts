@@ -55,6 +55,34 @@ export interface DeliveryForm {
   telefon: string;
 }
 
+export interface PickupLocation {
+  name: string;
+  gate: string;
+  postnr: string;
+  sted: string;
+  telefon: string;
+}
+
+// Shared by Step2 (where the location is shown as the chosen delivery
+// method's own detail panel) and Step4 (where it's repeated as the
+// "Hentested" under Oppsummering) — single source so the two can't drift.
+export const PICKUP_LOCATIONS: Record<'hentes' | 'hentes2', PickupLocation> = {
+  hentes: {
+    name: 'Medisinsk utstyrssentralen',
+    gate: 'Olav Kyrres gate 13',
+    postnr: '7030',
+    sted: 'Trondheim',
+    telefon: '725 73 300',
+  },
+  hentes2: {
+    name: 'Poliklinisk skranke',
+    gate: 'Prinsesse Kristinas gate 3',
+    postnr: '7030',
+    sted: 'Trondheim',
+    telefon: '725 82 400',
+  },
+};
+
 export interface SubmittedOrder {
   id: string;
   date: string;

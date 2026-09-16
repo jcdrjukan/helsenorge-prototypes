@@ -1,17 +1,11 @@
 import { useState } from 'react';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
-// This subpath's own .d.ts only declares the default export (a packaging
-// bug — the compiled JS genuinely exports all of these, confirmed by
-// reading node_modules directly), so TypeScript can't see the named
-// exports even though they exist at runtime.
-// @ts-expect-error — see note above
-import Table, { TableHead, TableBody, TableRow, TableHeadCell, TableCell, ModeType, TextAlign } from '@helsenorge/designsystem-react/components/Table/Table';
 import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import type { Equipment, DeliveryForm } from './data';
+import { PICKUP_LOCATIONS, type Equipment, type DeliveryForm } from './data';
 
 interface Step4Props {
   equipment: Equipment[];
@@ -42,13 +36,13 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
     });
   };
 
-  const selectedItems: { eqName: string; consumableName: string; qty: number }[] = [];
+  const selectedItems: { consumableName: string; qty: number }[] = [];
   for (const eq of equipment) {
     if (eq.deaktivert) continue;
     const qtys = quantities[eq.id] ?? [];
     eq.consumables.forEach((c, i) => {
       const qty = qtys[i] ?? 0;
-      if (qty > 0) selectedItems.push({ eqName: eq.model, consumableName: c.name, qty });
+      if (qty > 0) selectedItems.push({ consumableName: c.name, qty });
     });
   }
 
@@ -70,24 +64,11 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
               Ingen produkter valgt.
             </p>
           ) : (
-            <Table mode={ModeType.compact} scrollAriaLabel="Forbruksvarer" className="order-summary-table">
-              <TableHead>
-                <TableRow mode={ModeType.compact}>
-                  <TableHeadCell mode={ModeType.compact}>Forbruksvare</TableHeadCell>
-                  <TableHeadCell mode={ModeType.compact} className="order-summary-table__antall-head">Antall</TableHeadCell>
-                  <TableHeadCell mode={ModeType.compact}>Utstyr</TableHeadCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {selectedItems.map((item, i) => (
-                  <TableRow key={i} mode={ModeType.compact}>
-                    <TableCell mode={ModeType.compact} dataLabel="Forbruksvare">{item.consumableName}</TableCell>
-                    <TableCell mode={ModeType.compact} dataLabel="Antall" textAlign={TextAlign.center}>{item.qty}</TableCell>
-                    <TableCell mode={ModeType.compact} dataLabel="Utstyr">{item.eqName}</TableCell>
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+            <Duolist boldColumn="first">
+              {selectedItems.map((item, i) => (
+                <DuolistGroup key={i} term={`${item.qty} stk.`} description={item.consumableName} />
+              ))}
+            </Duolist>
           )}
         </ExpanderList.Expander>
 
@@ -110,7 +91,23 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
                 }
               />
             )}
-            {delivery.telefon && (
+            {(delivery.mode === 'hentes' || delivery.mode === 'hentes2') && (() => {
+              const loc = PICKUP_LOCATIONS[delivery.mode];
+              return (
+                <DuolistGroup
+                  term="Hentested"
+                  description={
+                    <span>
+                      {loc.name}<br />
+                      {loc.gate}<br />
+                      {loc.postnr} {loc.sted}<br />
+                      Telefon: {loc.telefon}
+                    </span>
+                  }
+                />
+              );
+            })()}
+            {delivery.mode === 'post' && delivery.telefon && (
               <DuolistGroup term="Telefon" description={delivery.telefon} />
             )}
           </Duolist>

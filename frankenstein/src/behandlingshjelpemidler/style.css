@@ -685,18 +685,6 @@
   flex-shrink: 0;
 }
 
-/* Table itself is the real design-system component now (compact mode) —
-   just a little breathing room above it in the expander. */
-.order-summary-table {
-  margin-top: var(--space-2xs);
-}
-
-/* TableHeadCell has no textAlign prop (TableCell does) — center this one
-   header via CSS to match the centered Antall column below it. */
-.order-summary-table__antall-head {
-  text-align: center;
-}
-
 /* =====================================================================
    Duolist (key-value pairs)
    ===================================================================== */
