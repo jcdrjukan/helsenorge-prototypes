@@ -25,6 +25,17 @@
   padding-bottom: 1rem !important;
   padding-left: calc(1rem - 6px) !important;
 }
+/* Panel.Title's icon is pulled left by a matching negative margin (see the
+   library's own PanelTitle styles) that assumes the panel reserves 4.5rem
+   of left padding for it — the blanket mobile-sizing override above
+   doesn't know about that and was leaving the icon hanging off the left
+   edge of the panel. Restore just the icon-panel's own left padding.
+   The attribute selector is repeated to match the specificity of the
+   rule above (.ph-shell + 1 attribute + :not(1 attribute) = 3), since
+   otherwise this loses to it on source order despite coming later. */
+.ph-shell [class*="_panel--icon_"][class*="_panel--icon_"] {
+  padding-left: calc(3.5rem + 1rem) !important;
+}
 .ph-shell [class*="_link-list__anchor--medium_"] {
   font-size: 1.125rem !important;
   line-height: 1.75rem !important;
@@ -207,6 +218,84 @@
 .ph-resource-card__desc {
   font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
   color: #474745;
+  margin: 0;
+}
+
+/* ── Verktøy: expandable tool card (Figma node 394:3898) ──────────── */
+/* Light grey background behind the whole section so the white tool
+   cards stand out against it. */
+.ph-tool-section {
+  background: var(--core-color-neutral-100, #f5f3f3);
+  border-radius: 8px;
+  padding: 1rem;
+}
+.ph-tool-card {
+  border: 1px solid var(--color-base-border-neutral, #d6d4d3);
+  border-radius: 8px;
+  overflow: hidden;
+}
+/* Icon + title + favorite-star row. Plain content inside Panel.A (not
+   Panel.Title's own icon slot) so the description/button/expand-toggle
+   below share the icon's left edge instead of a deeper indent. */
+.ph-tool-card__header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.ph-tool-card__heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 0 0;
+  min-width: 0;
+}
+.ph-tool-card__title {
+  margin: 0;
+}
+/* Bordered frame around the tool icon — without it, a white/light icon
+   glyph has no visible edge against the card's own white background and
+   loses its "shape" next to the others. */
+.ph-tool-card__icon-frame {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  border: 1px solid var(--core-color-neutral-300, #bdbab9);
+  border-radius: 8px;
+  background: #fff;
+  overflow: hidden;
+}
+/* Placeholder for a real third-party icon — fills the frame edge to edge,
+   the way an actual app/tool icon image would, so the frame's own border
+   (not this) is what stays consistent across wildly different icons. */
+.ph-tool-card__icon-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.ph-tool-card__favorite {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+.ph-tool-card__section-title {
+  font: 600 1.125rem/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0 0 4px;
+}
+.ph-tool-card__section-body {
+  font: 400 1.125rem/1.56 'Source Sans Pro', sans-serif;
+  color: #000;
   margin: 0;
 }
 

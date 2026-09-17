@@ -5,7 +5,8 @@
     "title": "Grubl",
     "shortDescription": "Vil du bruke mindre tid på grubling og bekymring, men vet ikke hvordan? Da kan Grubl være appen for deg.",
     "url": "https://tjenester.helsenorge.no/verktoy/4f7facd9-1dfe-4ee1-aa6c-9aea3c5ed1be",
-    "tags": ["angst", "stress"]
+    "tags": ["angst", "stress"],
+    "isApp": true
   },
   {
     "id": "nettopp",
@@ -13,7 +14,8 @@
     "title": "NettOpp",
     "shortDescription": "NettOpp er en app som kan hjelpe barn og unge å håndtere negative hendelser på nett.",
     "url": "https://tjenester.helsenorge.no/verktoy/91aead41-4154-4a45-827c-8b4ce2ec344a",
-    "tags": ["ensomhet-relasjoner"]
+    "tags": ["ensomhet-relasjoner"],
+    "isApp": true
   },
   {
     "id": "opp",
@@ -21,7 +23,8 @@
     "title": "Opp",
     "shortDescription": "En app for bedre psykisk helse og trivsel.",
     "url": "https://tjenester.helsenorge.no/verktoy/c4bddc1b-0561-4b69-92b2-2017100b303e",
-    "tags": ["generell-mestring"]
+    "tags": ["generell-mestring"],
+    "isApp": true
   },
   {
     "id": "selvhjelpsvideo-kortvarige-sovnvansker",
@@ -69,7 +72,8 @@
     "title": "Slutta-app",
     "shortDescription": "Slutta er en gratis app som kan gjøre det lettere for deg å slutte med røyk, vape og snus.",
     "url": "https://tjenester.helsenorge.no/verktoy/d222374b-6385-4fa3-b1fe-7798b9cc0840",
-    "tags": ["rus-og-avhengighet"]
+    "tags": ["rus-og-avhengighet"],
+    "isApp": true
   },
   {
     "id": "spillfri",
@@ -77,7 +81,8 @@
     "title": "Spillfri",
     "shortDescription": "Verktøyet er laget for de som spiller for mye eller har moderat pengespillavhengighet.",
     "url": "https://tjenester.helsenorge.no/verktoy/f34033da-0314-4807-b265-7ce5a091bcd0",
-    "tags": ["spilleavhengighet"]
+    "tags": ["spilleavhengighet"],
+    "isApp": true
   },
   {
     "id": "tankevirus",
@@ -85,7 +90,8 @@
     "title": "Tankevirus",
     "shortDescription": "Er selvtilliten frynsete og bekymringene hyppige? En tankevirus-infeksjon kan ramme alle.",
     "url": "https://tjenester.helsenorge.no/verktoy/40b7e336-0a9b-48f6-bd5b-68c471e7971b",
-    "tags": ["angst", "stress"]
+    "tags": ["angst", "stress"],
+    "isApp": true
   },
   {
     "id": "ungspotlight",
@@ -93,7 +99,8 @@
     "title": "UngSpotlight",
     "shortDescription": "UngSpotlight er et selvhjelpsprogram på nett for ungdom med frykt for å snakke foran klassen.",
     "url": "https://tjenester.helsenorge.no/verktoy/86ab3446-5e68-4c12-9673-1e2f6da08d96",
-    "tags": ["angst", "ensomhet-relasjoner"]
+    "tags": ["angst", "ensomhet-relasjoner"],
+    "isApp": true
   },
   {
     "id": "artikkel-deprimert-eller-trist",
