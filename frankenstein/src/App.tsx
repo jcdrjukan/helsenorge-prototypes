@@ -6,7 +6,7 @@ import SpesialistOversikt from './forside-demo/SpesialistOversikt';
 import KommunaleTjenesterOslo from './forside-demo/KommunaleTjenesterOslo';
 import PsykiskHelseDemo from './psykisk-helse-demo';
 import type { ValgbarTjenesteId } from './forside-demo/data';
-import { hasCompletedVeiviser, clearSeen, clearAnswers, clearVeiviserCompleted } from './psykisk-helse-demo/data';
+import { hasCompletedVeiviser, clearAnswers, clearVeiviserCompleted } from './psykisk-helse-demo/data';
 import { applyPrototypeMeta } from './prototypeMeta';
 import './App.css';
 
@@ -93,10 +93,9 @@ function App() {
 
   // Intro screen's "Åpne prototype" button — a fresh visitor should never
   // see leftover state from someone else's earlier run through the quiz
-  // (seen resources, saved answers, or a completed result unlocking the
-  // Forside "Støtte til din situasjon" card).
+  // (saved answers, or a completed result unlocking the Forside "Støtte
+  // til din situasjon" card).
   const openPrototypeFromIntro = () => {
-    clearSeen();
     clearAnswers();
     clearVeiviserCompleted();
     goHome();

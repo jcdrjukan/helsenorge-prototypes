@@ -2,8 +2,9 @@ import { useState, useEffect, useMemo } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
+import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
-import Panel, { PanelStatus, PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
@@ -15,18 +16,20 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
+import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
 import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
 import TravelRoute from '@helsenorge/designsystem-react/components/Icons/TravelRoute';
 import HealthClinic from '@helsenorge/designsystem-react/components/Icons/HealthClinic';
 import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
+import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
+import StarFill from '@helsenorge/designsystem-react/components/Icons/StarFill';
 import './style.css';
 
 import {
   Q1_OPTIONS, Q2_OPTIONS,
-  computeResults, getSeenIds, persistSeen, clearSeen,
+  computeResults,
   markVeiviserCompleted, clearVeiviserCompleted,
   getAnswers, persistAnswers, clearAnswers,
   type Resource,
@@ -88,24 +91,131 @@ function CategoryTags({ tags }: { tags: string[] }) {
   );
 }
 
+function openResource(url: string) {
+  window.open(
+    url,
+    '_blank',
+    'width=390,height=844,menubar=no,toolbar=no,location=yes,status=no,scrollbars=yes,resizable=yes'
+  );
+}
+
+// Real verktøy icons will come from third-party providers — all manner of
+// colors and shapes, not just a uniform outlined glyph. Standing in for
+// that with a deterministic (per resource.id, so it doesn't reshuffle on
+// every re-render) colored shape, to give an impression of that variety
+// against .ph-tool-card__icon-frame's fixed grey-bordered box, which stays
+// visible regardless of what the icon itself looks like.
+const PLACEHOLDER_ICON_COLORS = ['#E4572E', '#17BEBB', '#2E86AB', '#F4A259', '#76B041', '#7768AE', '#1B998B', '#D65DB1'];
+type PlaceholderShape = 'circle' | 'square' | 'triangle' | 'diamond' | 'hex';
+const PLACEHOLDER_ICON_SHAPES: PlaceholderShape[] = ['circle', 'square', 'triangle', 'diamond', 'hex'];
+
+function hashSeed(seed: string): number {
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  return h;
+}
+
+function ToolPlaceholderIcon({ seed }: { seed: string }) {
+  const h = hashSeed(seed);
+  const background = PLACEHOLDER_ICON_COLORS[h % PLACEHOLDER_ICON_COLORS.length];
+  const shape = PLACEHOLDER_ICON_SHAPES[Math.floor(h / PLACEHOLDER_ICON_COLORS.length) % PLACEHOLDER_ICON_SHAPES.length];
+  return (
+    <div className="ph-tool-card__icon-placeholder" style={{ background }} aria-hidden="true">
+      <svg width="26" height="26" viewBox="0 0 24 24">
+        {shape === 'circle' && <circle cx="12" cy="12" r="9" fill="#fff" />}
+        {shape === 'square' && <rect x="4" y="4" width="16" height="16" rx="3" fill="#fff" />}
+        {shape === 'triangle' && <polygon points="12,3 21,20 3,20" fill="#fff" />}
+        {shape === 'diamond' && <polygon points="12,2 22,12 12,22 2,12" fill="#fff" />}
+        {shape === 'hex' && <polygon points="12,2 20,7 20,17 12,22 4,17 4,7" fill="#fff" />}
+      </svg>
+    </div>
+  );
+}
+
+// New expandable card design for Verktøy (Figma node 394:3898) — collapsed
+// state shows the icon/title/favorite-star, short description and a filled
+// CTA; expanding reveals the description again as a "Beskrivelse" section
+// plus a secondary link. There's no separate long-form description or
+// "Faglig ansvarlig" field in the data, so the expanded Beskrivelse reuses
+// shortDescription and Faglig ansvarlig is omitted rather than inventing a
+// value.
+//
+// Deliberately NOT using Panel.Title's own `icon` prop: that slot lives in
+// a separate grid column with a negative margin, which forces every other
+// piece of panel content onto a much deeper left indent to clear it. In
+// the actual Figma design the icon+title+star sit in their own row, and
+// everything below (description, button, expand toggle) shares the same
+// left edge as the icon, not the title — so the header row is built by
+// hand here, as ordinary content inside Panel.A alongside the rest.
+function ToolCard({ resource }: { resource: Resource }) {
+  const [favorited, setFavorited] = useState(false);
+
+  return (
+    <Panel color="white" className="ph-tool-card">
+      <Panel.A>
+        <div className="ph-tool-card__header">
+          <div className="ph-tool-card__icon-frame">
+            <ToolPlaceholderIcon seed={resource.id} />
+          </div>
+          <div className="ph-tool-card__heading">
+            <Title htmlMarkup="h3" appearance="title3" className="ph-tool-card__title">
+              {resource.title}
+            </Title>
+            <button
+              type="button"
+              className="ph-tool-card__favorite"
+              aria-pressed={favorited}
+              aria-label={favorited ? 'Fjern fra favoritter' : 'Legg til i favoritter'}
+              onClick={() => setFavorited(f => !f)}
+            >
+              <Icon svgIcon={favorited ? StarFill : StarStroke} size={32} color="#126F87" />
+            </button>
+          </div>
+        </div>
+        <p className="ph-resource-card__desc">{resource.shortDescription}</p>
+        <div style={{ marginTop: '1rem' }}>
+          {resource.isApp ? (
+            <Button variant="fill" onClick={() => openResource(resource.url)}>
+              {resource.ctaLabel ?? 'Last ned app'}
+              <Icon svgIcon={ArrowUpRight} />
+            </Button>
+          ) : (
+            <Button variant="fill" arrow="icon" onClick={() => openResource(resource.url)}>
+              {resource.ctaLabel ?? 'Gå til verktøy'}
+            </Button>
+          )}
+        </div>
+      </Panel.A>
+      <Panel.ExpandedContent>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          <div>
+            <p className="ph-tool-card__section-title">Beskrivelse</p>
+            <p className="ph-tool-card__section-body">{resource.shortDescription}</p>
+          </div>
+          <Button variant="borderless" arrow="icon" onClick={() => openResource(resource.url)}>
+            Vis mer om verktøyet
+          </Button>
+        </div>
+      </Panel.ExpandedContent>
+    </Panel>
+  );
+}
+
 function ResourceCard({
   resource,
-  seen,
-  onSeen,
 }: {
   resource: Resource;
-  seen: boolean;
-  onSeen: (id: string) => void;
 }) {
+  if (resource.type === 'verktøy') {
+    return <ToolCard resource={resource} />;
+  }
+
   return (
-    <Panel
-      variant={PanelVariant.outline}
-      status={seen ? PanelStatus.none : PanelStatus.new}
-    >
+    <Panel variant={PanelVariant.outline}>
       <Panel.Title
         title={resource.title}
         titleMarkup="h3"
-        icon={<Icon svgIcon={resource.type === 'verktøy' ? Toolbox : resource.type === 'artikkel' ? Publication : PeopleTalking} size={48} />}
+        icon={<Icon svgIcon={resource.type === 'artikkel' ? Publication : PeopleTalking} size={48} />}
       />
       <Panel.A>
         <div style={{ marginTop: '0rem', marginBottom: '0.5rem' }}>
@@ -113,19 +223,8 @@ function ResourceCard({
         </div>
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
         <div style={{ marginTop: '1rem' }}>
-          <Button
-            variant="outline"
-            arrow="icon"
-            onClick={() => {
-              onSeen(resource.id);
-              window.open(
-                resource.url,
-                '_blank',
-                'width=390,height=844,menubar=no,toolbar=no,location=yes,status=no,scrollbars=yes,resizable=yes'
-              );
-            }}
-          >
-            {resource.ctaLabel ?? (resource.type === 'verktøy' ? 'Gå til verktøy' : resource.type === 'artikkel' ? 'Gå til artikkel' : 'Gå til tjeneste')}
+          <Button variant="outline" arrow="icon" onClick={() => openResource(resource.url)}>
+            {resource.ctaLabel ?? (resource.type === 'artikkel' ? 'Gå til artikkel' : 'Gå til tjeneste')}
           </Button>
         </div>
       </Panel.A>
@@ -159,7 +258,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   const [view, setView]           = useState<View>(() => viewFromHash());
   const [q1, setQ1]               = useState<Set<string>>(() => getAnswers().q1);
   const [q2, setQ2]               = useState<Set<string>>(() => getAnswers().q2);
-  const [seenIds, setSeenIds]     = useState<Set<string>>(() => getSeenIds());
 
   // Sync view → hash
   useEffect(() => {
@@ -215,14 +313,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
       const exclusiveLabel = Q2_OPTIONS.find(o => o.exclusive)?.label;
       if (exclusiveLabel) next.delete(exclusiveLabel);
       next.has(label) ? next.delete(label) : next.add(label);
-      return next;
-    });
-  };
-
-  const markSeen = (id: string) => {
-    setSeenIds(prev => {
-      const next = new Set([...prev, id]);
-      persistSeen(next);
       return next;
     });
   };
@@ -444,12 +534,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           </div>
 
           {results.verktøy.length > 0 && (
-            <section>
+            <section className="ph-tool-section">
               <h2 className="ph-section-heading">Verktøy</h2>
               <ul className="ph-resource-list">
                 {results.verktøy.map(r => (
                   <li key={r.id} style={{ marginBottom: '8px' }}>
-                    <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
+                    <ResourceCard resource={r} />
                   </li>
                 ))}
               </ul>
@@ -462,7 +552,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               <ul className="ph-resource-list">
                 {results.artikler.map(r => (
                   <li key={r.id} style={{ marginBottom: '8px' }}>
-                    <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
+                    <ResourceCard resource={r} />
                   </li>
                 ))}
               </ul>
@@ -475,7 +565,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               <ul className="ph-resource-list">
                 {results.veiledningstjenester.map(r => (
                   <li key={r.id} style={{ marginBottom: '8px' }}>
-                    <ResourceCard resource={r} seen={seenIds.has(r.id)} onSeen={markSeen} />
+                    <ResourceCard resource={r} />
                   </li>
                 ))}
               </ul>
@@ -525,7 +615,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
-            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); clearSeen(); setQ1(new Set()); setQ2(new Set()); setSeenIds(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
+            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); setQ1(new Set()); setQ2(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
               <Icon svgIcon={TrashCan} size={24} />
               Avslutt tjenesten
             </Button>

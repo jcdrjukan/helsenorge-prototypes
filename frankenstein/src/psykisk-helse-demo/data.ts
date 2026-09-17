@@ -24,6 +24,10 @@ export interface Resource {
   tags: Tag[];
   /** Overrides the default "Gå til <type>" button label when set. */
   ctaLabel?: string;
+  /** True for a verktøy that's a downloadable app (vs. a web tool or a
+   *  self-help video/program) — changes the CTA to "Last ned app" with an
+   *  external-link arrow. */
+  isApp?: boolean;
 }
 
 export const RESOURCES: Resource[] = resourcesJson as Resource[];
@@ -122,42 +126,15 @@ export function computeResults(
   };
 }
 
-const LS_KEY = 'veiviser-seen';
 const LS_ANSWERS_KEY = 'veiviser-answers';
 
-// Clear seen-status and answers on every hard page refresh (new browser
-// session) — but NOT on ordinary in-app navigation (e.g. bouncing to
-// Forside and back via a snarvei), which unmounts/remounts this component
-// without a real page reload and should keep the same answers/results.
+// Clear answers on every hard page refresh (new browser session) — but NOT
+// on ordinary in-app navigation (e.g. bouncing to Forside and back via a
+// snarvei), which unmounts/remounts this component without a real page
+// reload and should keep the same answers/results.
 if (!sessionStorage.getItem('veiviser-session')) {
   sessionStorage.setItem('veiviser-session', '1');
-  localStorage.removeItem(LS_KEY);
   localStorage.removeItem(LS_ANSWERS_KEY);
-}
-
-export function getSeenIds(): Set<string> {
-  try {
-    const raw = localStorage.getItem(LS_KEY);
-    return raw ? new Set(JSON.parse(raw)) : new Set<string>();
-  } catch {
-    return new Set<string>();
-  }
-}
-
-export function persistSeen(ids: Set<string>): void {
-  try {
-    localStorage.setItem(LS_KEY, JSON.stringify([...ids]));
-  } catch {
-    // ignore
-  }
-}
-
-export function clearSeen(): void {
-  try {
-    localStorage.removeItem(LS_KEY);
-  } catch {
-    // ignore
-  }
 }
 
 // The actual quiz answers (q1/q2) — without this, navigating away (e.g. to
