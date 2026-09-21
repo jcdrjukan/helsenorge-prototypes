@@ -34,8 +34,8 @@ function OrderCard({ order }: OrderCardProps) {
 
   const titleEl = (
     <span>
+      <span style={{ display: 'block', font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>{order.date}</span>
       <span style={{ display: 'block', font: 'var(--mobile-body-strong)' }}>{forbruksvareLabel}</span>
-      <span style={{ display: 'block', font: 'var(--mobile-body)' }}>{order.date}</span>
     </span>
   );
 
@@ -61,7 +61,7 @@ function OrderCard({ order }: OrderCardProps) {
           } />
           <Field label="Telefon" value={order.telefon} />
           <Field label="Status" value={order.status} />
-          <Field label="Kommentar" value={order.comment} />
+          <Field label="Kommentar til bestillingen" value={order.comment} />
           <Field label="Levert" value={order.levert} />
           <Field label="Saksbehandler kommentar" value={order.saksbehandlerKommentar} />
         </div>

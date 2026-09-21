@@ -3,16 +3,11 @@ import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
-import type { SubmittedOrder, DeliveryMode } from './data';
+import type { SubmittedOrder } from './data';
 
 interface HistoryCardProps {
   order: SubmittedOrder;
   initialOpen?: boolean;
-}
-
-function deliveryLabel(mode: DeliveryMode): string {
-  if (mode === 'post') return 'Send i posten';
-  return 'Hentes';
 }
 
 function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
@@ -50,8 +45,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
       <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Field label="Ordredato" value={order.date} />
-          <Field label="Leveringsmåte" value={deliveryLabel(order.delivery)} />
-          <Field label="Adresse" value={
+          <Field label={order.delivery === 'post' ? 'Sendes til' : 'Hentested'} value={
             order.delivery === 'post'
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
               : order.addr
