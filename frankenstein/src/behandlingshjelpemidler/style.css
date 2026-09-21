@@ -663,28 +663,6 @@
   padding: var(--space-xs) var(--space-s);
 }
 
-.order-summary-list {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-3xs);
-}
-
-.order-summary-list li {
-  font: var(--mobile-sublabel-subdued);
-  color: var(--color-base-text-onlight);
-  display: flex;
-  gap: var(--space-2xs);
-}
-
-.order-summary-list li::before {
-  content: '•';
-  color: var(--blueberry-500);
-  flex-shrink: 0;
-}
-
 /* =====================================================================
    Duolist (key-value pairs)
    ===================================================================== */

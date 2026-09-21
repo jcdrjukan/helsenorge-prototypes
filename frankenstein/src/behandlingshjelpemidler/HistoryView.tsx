@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
+import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import type { SubmittedOrder, DeliveryMode } from './data';
 
 interface HistoryCardProps {
@@ -65,11 +66,14 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />
 
-        <ul className="order-summary-list">
-          {allItems.map((item, i) => (
-            <li key={i} style={{ font: 'var(--mobile-body)' }}>{item.name} x {item.qty} stk.</li>
-          ))}
-        </ul>
+        <div>
+          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
+          <Duolist boldColumn="first">
+            {allItems.map((item, i) => (
+              <DuolistGroup key={i} term={`${item.qty} stk.`} description={item.name} />
+            ))}
+          </Duolist>
+        </div>
       </ExpanderList.Expander>
     </ExpanderList>
   );
