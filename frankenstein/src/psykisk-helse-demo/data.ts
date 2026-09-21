@@ -46,18 +46,14 @@ export const Q1_OPTIONS: QuizOption[] = [
 ];
 
 export const Q2_OPTIONS: QuizOption[] = [
-  { label: 'bli mindre plaget av bekymringer og angst', tag: 'angst' },
-  { label: 'være mindre trist eller nedstemt', tag: 'nedstemthet' },
-  { label: 'sove bedre', tag: 'sove-bedre' },
-  { label: 'håndtere stress på en bedre måte', tag: 'stress' },
-  { label: 'endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
-  { label: 'få bedre kontroll på pengespillingen', tag: 'spilleavhengighet' },
-  { label: 'føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
-  { label: 'bli mer fysisk aktiv', tag: 'fysisk-aktivitet' },
-  { label: 'få støtte i svangerskap eller barseltid', tag: 'graviditet-barsel' },
-  { label: 'bedre konsentrasjonen min', tag: 'konsentrasjon' },
-  { label: 'forstå meg selv og situasjonen min bedre', tag: 'generell-mestring' },
-  { label: 'noe annet / Ingen av disse', tag: null, exclusive: true },
+  { label: 'Bli mindre plaget av bekymringer og angst', tag: 'angst' },
+  { label: 'Være mindre trist eller nedstemt', tag: 'nedstemthet' },
+  { label: 'Sove bedre', tag: 'sove-bedre' },
+  { label: 'Håndtere stress på en bedre måte', tag: 'stress' },
+  { label: 'Endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
+  { label: 'Få bedre kontroll på pengespillingen', tag: 'spilleavhengighet' },
+  { label: 'Føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
+  { label: 'Styrke den psykiske helsa mi', tag: 'generell-mestring' },
 ];
 
 const FALLBACK_IDS = [
