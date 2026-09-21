@@ -4,6 +4,11 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-09-21 — Rework the top-level settings menu
+**Decision:** Removed "Velg språk"; added "Tjenester du har brukt" (services used by you and those with fullmakt, plus external tools/apps Helsenorge exchanges data with); reordered the list to Helsenorge for deg, Kontaktopplysninger, Varsler, Egenregistreringer, Personverninnstillinger i helsesektoren, Tjenester du har brukt, Få hjelp fra pårørende, Økonomi, Inn- og utlogging. The new entry was first titled "Tjenester du har brukt på Helsenorge" and shortened to "Tjenester du har brukt".
+**Alternative considered:** Keeping "Velg språk" and the previous order.
+**Why:** Velg språk was described as "no longer relevant". No rationale was stated for the new entry, its title, or the new order.
+
 <!-- Template for new entries:
 
 ## YYYY-MM-DD — Short decision title
