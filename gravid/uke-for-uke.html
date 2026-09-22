@@ -21,14 +21,19 @@
   --neutral-50:  #F5F3F3;
   --neutral-100: #EAE7E7;
   --neutral-200: #D6D4D3;
+  --neutral-300: #BDBAB9;
+  --neutral-700: #62625F;
 
   --color-action-text-onlight:       #126F87;
   --color-action-text-onlight-hover: #08667C;
   --color-action-background-onlight: #188097;
   --color-action-background-transparent-onlight-hover: rgba(18,111,135,0.13);
+  --color-action-border-onlight:       #188097;
+  --color-action-border-onlight-focus: #000000;
 
   --color-base-text-onlight:          #000000;
   --color-base-text-onlight-subdued:  #474745;
+  --color-base-background-dark-neutral: #2B2C2B;
   --color-disabled-text:              #62625F;
 
   --space-4xs: 0.125rem;
@@ -42,7 +47,9 @@
 
   --mobile-h1: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
   --mobile-h2: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
   --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-label-subdued: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
   --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
   --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
 
@@ -145,47 +152,96 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 
 /* ═══════════════════════════════════════════════════════════
    TABS — Barn / Mor / Svangerskapskontroll (Figma nodes 43:483–485).
-   Underline style, not the design system's boxed Tabs component —
-   the reference screenshots show a plain scrollable underline bar,
-   so that's what this replicates.
+   A static translation of the real Frankenstein/design-system Tabs
+   component (@helsenorge/designsystem-react's Tabs/TabList/TabPanel —
+   see node_modules/@helsenorge/designsystem-react/lib/TabList.js and
+   lib/components/Tabs/{TabList,TabPanel}/styles.module.scss), not a
+   hand-rolled underline bar: same classnames, same DOM shape (ul/li/
+   button), same mobile-width CSS values (color/border tokens, 3rem
+   tab height, 0.5rem/1.5rem padding, 0.5rem top corner radius). Only
+   the component's own scroll-fade/chevron buttons and its >=md
+   desktop boxed-panel variant are left out — this prototype is
+   mobile-only, like the rest of gravid/*.html.
 ══════════════════════════════════════════════════════════════ */
-.tab-bar {
+.tab-list-wrapper {
+  position: relative;
   width: 344px;
-  display: flex;
-  overflow-x: auto;
-  scrollbar-width: none;
-  border-bottom: 1px solid var(--neutral-200);
   margin-top: var(--space-m);
 }
-.tab-bar::-webkit-scrollbar { display: none; }
 
-.tab {
-  flex-shrink: 0;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: var(--space-xs) var(--space-s);
-  font: var(--mobile-body);
-  color: var(--color-action-text-onlight);
-  border-bottom: 3px solid transparent;
-  margin-bottom: -1px;
+.tab-list {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 0.25rem;
+  list-style-type: none;
   white-space: nowrap;
+  overflow: auto hidden;
+  height: 3rem;
+  margin: 0 0 -1px;
+  background-color: #fff;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+  scrollbar-width: none;
+}
+.tab-list::-webkit-scrollbar { display: none; }
+
+.tab-list__tab {
+  display: flex;
+  align-items: start;
+  background-color: #fff;
+  height: 3rem;
+  text-align: start;
+  font-size: 1.25rem;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-decoration: none;
+  padding: 0.5rem 1.5rem;
+  color: var(--color-action-text-onlight);
+  border: 1px solid var(--color-action-border-onlight);
+  border-bottom: 0;
+  border-radius: 0.5rem 0.5rem 0 0;
+  position: relative;
+  cursor: pointer;
+  z-index: 0;
 }
 
-.tab:hover { color: var(--color-action-text-onlight-hover); }
-
-.tab--active {
-  font: var(--mobile-label);
+.tab-list__tab--selected {
+  overflow: visible;
+  border-color: var(--color-action-border-onlight-focus);
   color: var(--color-base-text-onlight);
-  border-bottom-color: var(--color-base-text-onlight);
+  background-color: #fff;
+  z-index: 2;
+}
+
+.tab-list__tab--not-selected:hover {
+  background-color: var(--color-action-background-transparent-onlight-hover);
+}
+
+.tab-list__tab__title-and-icon {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: 0.5rem;
+  height: 2rem;
+}
+
+.tab-list__border {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  border-bottom: 1px solid var(--color-action-border-onlight-focus);
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TAB PANELS
+   TAB PANEL — same padding/border as the real TabPanel component.
 ══════════════════════════════════════════════════════════════ */
 .tab-panel {
   width: 344px;
-  padding: var(--space-m) 0 var(--space-xl);
+  padding: var(--space-l) var(--space-s) var(--space-xl);
+  border-bottom: 1px solid var(--color-action-border-onlight-focus);
   display: flex;
   flex-direction: column;
   gap: var(--space-s);
@@ -204,6 +260,59 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 .caption-text { font: var(--mobile-image-caption); color: var(--color-disabled-text); }
 
 .sp-s { height: var(--space-s); flex-shrink: 0; width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════
+   WEEK NAVIGATION — flip to the adjacent week, keeping the
+   currently-open tab (Figma nodes 43:483–485). Shared across all
+   three tab panels, not per-tab.
+══════════════════════════════════════════════════════════════ */
+.week-nav {
+  width: 344px;
+  padding: var(--space-m) 0 var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-top: 1px solid var(--neutral-200);
+}
+
+.week-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  text-decoration: none;
+  color: var(--color-action-text-onlight);
+  font: var(--mobile-label);
+}
+
+.week-nav__link:hover { color: var(--color-action-text-onlight-hover); }
+.week-nav__link svg { width: 24px; height: 24px; }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER — identical to index.html's/avslutt.html's, kept in sync
+   by hand (this is a separate static file, not a shared stylesheet).
+══════════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--color-base-background-dark-neutral);
+  width: 100%;
+  padding: var(--space-m) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+
+.footer__row { display: flex; align-items: center; gap: var(--space-s); }
+.footer__icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+.footer__icon svg { width: 24px; height: 24px; }
+.footer__text-group { flex: 1; }
+.footer__text-large { font: var(--mobile-label); font-size: 1.125rem; color: #fff; display: block; }
+.footer__text-small { font: var(--mobile-image-caption); color: var(--neutral-300); display: block; }
+.footer__divider { height: 1px; background: var(--neutral-700); }
+.footer__links { display: flex; flex-direction: column; gap: var(--space-s); }
+.footer__link { font: var(--mobile-label-subdued); font-size: 1.125rem; color: #fff; text-decoration: none; }
+.footer__link:hover { text-decoration: underline; }
+.footer__lang { display: flex; gap: var(--space-m); align-items: center; }
+.footer__lang-sep { width: 1px; height: 24px; background: var(--neutral-700); }
+.footer__brand { font: var(--mobile-h4); font-size: 1.375rem; font-weight: 600; color: #fff; }
 </style>
 </head>
 <body>
@@ -283,15 +392,86 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
   <!-- ══════════════════════════════════════════════════════
        TABS
   ═══════════════════════════════════════════════════════════ -->
-  <div class="tab-bar" role="tablist" aria-label="Innhold for uken">
-    <button type="button" class="tab tab--active" data-tab="barn" role="tab" aria-selected="true" onclick="showTab('barn')">Barn</button>
-    <button type="button" class="tab" data-tab="mor" role="tab" aria-selected="false" onclick="showTab('mor')">Mor</button>
-    <button type="button" class="tab" data-tab="kontroll" role="tab" aria-selected="false" onclick="showTab('kontroll')">Svangerskapskontroll</button>
+  <div class="tab-list-wrapper">
+    <ul class="tab-list" role="tablist" aria-label="Innhold for uken">
+      <li role="presentation">
+        <button type="button" role="tab" aria-selected="true" class="tab-list__tab tab-list__tab--selected" data-tab="barn" onclick="showTab('barn')">
+          <span class="tab-list__tab__title-and-icon">Barn</span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button type="button" role="tab" aria-selected="false" class="tab-list__tab tab-list__tab--not-selected" data-tab="mor" onclick="showTab('mor')">
+          <span class="tab-list__tab__title-and-icon">Mor</span>
+        </button>
+      </li>
+      <li role="presentation">
+        <button type="button" role="tab" aria-selected="false" class="tab-list__tab tab-list__tab--not-selected" data-tab="kontroll" onclick="showTab('kontroll')">
+          <span class="tab-list__tab__title-and-icon">Svangerskapskontroll</span>
+        </button>
+      </li>
+    </ul>
+    <div class="tab-list__border" aria-hidden="true"></div>
   </div>
 
   <div class="tab-panel" id="barnPanel" role="tabpanel"></div>
   <div class="tab-panel" id="morPanel" role="tabpanel" hidden></div>
   <div class="tab-panel" id="kontrollPanel" role="tabpanel" hidden></div>
+
+  <!-- ══════════════════════════════════════════════════════
+       WEEK NAVIGATION — flip to the previous/next week, keeping
+       whichever tab is currently open (Figma nodes 43:483–485).
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="week-nav">
+    <a class="week-nav__link" id="weekNavPrev" href="#">
+      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m20.925 9.929 1.142 1.377-10.044 11.721h27.048v1.947H12.023l10.044 11.718-1.142 1.379L8.93 24 20.925 9.929Z"/></svg>
+      <span id="weekNavPrevLabel">Uke 29</span>
+    </a>
+    <a class="week-nav__link" id="weekNavNext" href="#">
+      <span id="weekNavNextLabel">Uke 31</span>
+      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.929-1.142 1.377 10.044 11.721H8.929v1.947h27.048L25.933 36.692l1.142 1.379L39.07 24 27.075 9.929Z"/></svg>
+    </a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       FOOTER — identical markup to index.html's/avslutt.html's.
+  ═══════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="footer__text-group">
+        <span class="footer__text-large">23 32 70 00</span>
+        <span class="footer__text-small">Veiledning helsenorge.no</span>
+      </div>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <span class="footer__text-large">Hjelp og kontakt</span>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="footer__lang">
+        <a href="#" class="footer__link">English</a>
+        <div class="footer__lang-sep"></div>
+        <a href="#" class="footer__link">Sámi</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__links">
+      <a href="#" class="footer__link">Om Helsenorge</a>
+      <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+      <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+    </div>
+    <div class="footer__divider"></div>
+    <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+    <div class="footer__divider"></div>
+    <p class="footer__brand">Drives av Norsk helsenett SF</p>
+  </footer>
 
 </div>
 
@@ -382,18 +562,56 @@ function renderPanel(elId, data) {
 }
 
 // ─── Tabs ──────────────────────────────────────────────────
+let currentTab = 'barn';
+
 function showTab(tabId) {
-  document.querySelectorAll('.tab').forEach(t => {
-    const active = t.dataset.tab === tabId;
-    t.classList.toggle('tab--active', active);
-    t.setAttribute('aria-selected', active ? 'true' : 'false');
+  currentTab = tabId;
+  document.querySelectorAll('.tab-list__tab').forEach(t => {
+    const selected = t.dataset.tab === tabId;
+    t.classList.toggle('tab-list__tab--selected', selected);
+    t.classList.toggle('tab-list__tab--not-selected', !selected);
+    t.setAttribute('aria-selected', selected ? 'true' : 'false');
+    // Matches the real TabList component: scroll the newly-selected tab
+    // into view, since the tab row can overflow on a phone-width screen.
+    if (selected) t.scrollIntoView({ behavior: 'smooth', inline: 'nearest', block: 'nearest' });
   });
   document.querySelectorAll('.tab-panel').forEach(p => {
     p.hidden = p.id !== tabId + 'Panel';
   });
+  // The prev/next links carry the current tab along (&tab=...) so flipping
+  // a week keeps whichever tab you were reading, instead of always
+  // dropping back to Barn.
+  updateWeekNav();
 }
 
-// ─── Init — reads ?uke=NN from the URL (defaults to 30) ─────
+// ─── Week navigation — flip to the previous/next week ───────
+const MIN_WEEK = 1;
+const MAX_WEEK = 42;
+
+function updateWeekNav() {
+  const prevWeek = week - 1;
+  const nextWeek = week + 1;
+  const prevLink = document.getElementById('weekNavPrev');
+  const nextLink = document.getElementById('weekNavNext');
+
+  if (prevWeek >= MIN_WEEK) {
+    prevLink.href = 'uke-for-uke.html?uke=' + prevWeek + '&tab=' + currentTab;
+    document.getElementById('weekNavPrevLabel').textContent = 'Uke ' + prevWeek;
+    prevLink.style.visibility = 'visible';
+  } else {
+    prevLink.style.visibility = 'hidden';
+  }
+
+  if (nextWeek <= MAX_WEEK) {
+    nextLink.href = 'uke-for-uke.html?uke=' + nextWeek + '&tab=' + currentTab;
+    document.getElementById('weekNavNextLabel').textContent = 'Uke ' + nextWeek;
+    nextLink.style.visibility = 'visible';
+  } else {
+    nextLink.style.visibility = 'hidden';
+  }
+}
+
+// ─── Init — reads ?uke=NN (defaults to 30) and ?tab= from the URL ───
 function renderWeek(week) {
   document.getElementById('pageH1').textContent = 'Gravid uke ' + week;
   document.title = 'Gravid uke ' + week + ' – Helsenorge';
@@ -404,8 +622,11 @@ function renderWeek(week) {
 
 const params = new URLSearchParams(location.search);
 const requestedWeek = parseInt(params.get('uke'), 10);
-const week = (requestedWeek >= 1 && requestedWeek <= 42) ? requestedWeek : 30;
+const week = (requestedWeek >= MIN_WEEK && requestedWeek <= MAX_WEEK) ? requestedWeek : 30;
+const requestedTab = params.get('tab');
+const initialTab = ['barn', 'mor', 'kontroll'].includes(requestedTab) ? requestedTab : 'barn';
 renderWeek(week);
+showTab(initialTab); // also sets up the week-nav links via updateWeekNav()
 </script>
 </body>
 </html>
