@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Not linked from anywhere in the patient-facing prototype and kept out
+     of search results — reachable only by whoever has this exact URL. -->
+<meta name="robots" content="noindex, nofollow">
 <title>Dashboard – Gravid (prototype)</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
@@ -128,6 +131,50 @@ input[type="number"] {
 
 .launch-btn:hover { background: var(--blueberry-700); }
 
+.share-field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  border-top: 1px solid var(--neutral-200);
+  padding-top: var(--space-m);
+}
+
+.share-row {
+  display: flex;
+  gap: var(--space-2xs);
+}
+
+.share-row input[type="text"] {
+  flex: 1;
+  min-width: 0;
+  font: inherit;
+  font-size: 1rem;
+  color: var(--color-base-text-onlight-subdued);
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--neutral-700);
+  border-radius: var(--radius-s);
+  background: var(--neutral-100);
+}
+
+.copy-btn {
+  flex-shrink: 0;
+  font: 600 1rem/120% 'Source Sans Pro', sans-serif;
+  color: var(--blueberry-700);
+  background: #fff;
+  border: 1px solid var(--blueberry-500);
+  border-radius: var(--radius-s);
+  padding: var(--space-2xs) var(--space-s);
+  cursor: pointer;
+}
+
+.copy-btn:hover { background: var(--neutral-100); }
+
+.copy-btn[data-copied="1"] {
+  color: #fff;
+  background: var(--blueberry-500);
+  border-color: var(--blueberry-500);
+}
+
 .future-note {
   font-size: 1rem;
   color: var(--color-base-text-onlight-subdued);
@@ -141,7 +188,7 @@ input[type="number"] {
 <div class="panel">
   <div>
     <h1>Gravid — dashboard</h1>
-    <p class="intro">Velg tilstanden prototypen skal åpnes i. Ikke en del av selve tjenesten — dette er et verktøy for å teste/demonstrere ulike situasjoner.</p>
+    <p class="intro">Velg tilstanden prototypen skal åpnes i. Ikke en del av selve tjenesten — dette er et verktøy for å teste/demonstrere ulike situasjoner. Denne siden er ikke lenket til noe sted i prototypen; del aldri lenken til denne siden selv, kun lenken til det ferdige scenarioet under.</p>
   </div>
 
   <div class="field">
@@ -184,6 +231,15 @@ input[type="number"] {
 
   <a class="launch-btn" id="launchBtn" href="index.html">Åpne prototypen →</a>
 
+  <div class="share-field">
+    <label class="field__label" for="shareUrl">Del dette scenarioet</label>
+    <span class="field__hint">Lenken under peker rett til prototypen med akkurat denne uken/tilstanden ferdig satt opp — trygg å sende til andre, uansett hva de selv har åpnet før.</span>
+    <div class="share-row">
+      <input type="text" id="shareUrl" readonly aria-label="Delbar lenke">
+      <button type="button" class="copy-btn" id="copyBtn">Kopier lenke</button>
+    </div>
+  </div>
+
   <p class="future-note">
     Flere parametere kommer etter hvert — f.eks. om "Kartlegging for første svangerskapskontroll" er sendt inn. Denne siden er ment å vokse med prototypen.
   </p>
@@ -197,6 +253,9 @@ const LS_TERMINDATO_CONFIRMED_KEY = 'gravid-dashboard-termindato-confirmed';
 const weekInput = document.getElementById('weekInput');
 const termindatoField = document.getElementById('termindatoField');
 const launchBtn = document.getElementById('launchBtn');
+const shareUrl = document.getElementById('shareUrl');
+const copyBtn = document.getElementById('copyBtn');
+let copyResetTimer = null;
 
 function getConnected() {
   return document.querySelector('input[name="connected"]:checked').value === '1';
@@ -216,7 +275,17 @@ function updateLaunchHref() {
   // so it's always the mother's own (unconfirmed/editable) estimate,
   // regardless of what the now-hidden sub-toggle last held.
   const termindatoConfirmed = connected && getTermindatoConfirmed();
-  launchBtn.href = 'index.html?uke=' + week + '&tilknyttet=' + (connected ? '1' : '0') + '&termindato=' + (termindatoConfirmed ? '1' : '0');
+  const query = '?uke=' + week + '&tilknyttet=' + (connected ? '1' : '0') + '&termindato=' + (termindatoConfirmed ? '1' : '0');
+  launchBtn.href = 'index.html' + query;
+  // Resolved to an absolute URL (not just the relative href above) so it's
+  // meaningful copied out of this page and sent elsewhere — index.html
+  // itself reads uke/tilknyttet/termindato straight from these params
+  // regardless of whatever the recipient's own browser has saved locally.
+  shareUrl.value = new URL('index.html' + query, location.href).href;
+  if (copyBtn.dataset.copied) {
+    copyBtn.dataset.copied = '';
+    copyBtn.textContent = 'Kopier lenke';
+  }
 }
 
 function persistAndUpdate() {
@@ -230,6 +299,24 @@ function persistAndUpdate() {
     // ignore
   }
 }
+
+copyBtn.addEventListener('click', async () => {
+  try {
+    await navigator.clipboard.writeText(shareUrl.value);
+  } catch {
+    // Clipboard API unavailable (e.g. non-HTTPS/local file context) —
+    // fall back to select-and-copy via the input itself.
+    shareUrl.select();
+    document.execCommand('copy');
+  }
+  copyBtn.dataset.copied = '1';
+  copyBtn.textContent = 'Kopiert ✓';
+  clearTimeout(copyResetTimer);
+  copyResetTimer = setTimeout(() => {
+    copyBtn.dataset.copied = '';
+    copyBtn.textContent = 'Kopier lenke';
+  }, 2000);
+});
 
 weekInput.addEventListener('input', persistAndUpdate);
 document.querySelectorAll('input[name="connected"]').forEach(el => el.addEventListener('change', persistAndUpdate));
