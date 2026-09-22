@@ -398,9 +398,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .week-bubble {
   position: absolute;
-  left: -8px;
-  top: 50%;
-  transform: translateY(-50%);
+  /* left/top are the point on the ring (radius 115, center 135,135) that
+     the progress arc ends at — kept in sync with #progressArc by
+     updateWeek() so the arc always terminates exactly at the bubble,
+     rather than a fixed position that only lined up by coincidence at
+     week 30 (75%, which happens to land at the 9 o'clock spot below).
+     This default matches week 30 for a sane pre-JS/fallback paint. */
+  left: 20px;
+  top: 135px;
+  transform: translate(-50%, -50%);
   width: 68px;
   height: 68px;
   background: var(--color-action-background-onlight);
@@ -1588,7 +1594,6 @@ function getDueDate(week) {
 // ─── updateWeek ────────────────────────────────────────────
 function updateWeek(week) {
   week = parseInt(week);
-  document.getElementById('weekDisplay').textContent = 'Uke ' + week;
 
   // Countdown
   const daysLeft = Math.max(0, (40 - week) * 7);
@@ -1598,6 +1603,16 @@ function updateWeek(week) {
   document.getElementById('countdownDays').textContent = daysLeft;
   document.getElementById('weekBubbleNum').textContent = 'uke ' + week;
   document.getElementById('dueDateValue').textContent = formatDate(getDueDate(week));
+
+  // Move the week/day bubble to sit exactly where the progress arc ends
+  // (same ring: center 135,135, radius 115 — matches #progressArc above),
+  // so the arc always meets the bubble instead of only lining up at 75%.
+  const angle = pct * 2 * Math.PI;
+  const bubbleX = 135 + 115 * Math.sin(angle);
+  const bubbleY = 135 - 115 * Math.cos(angle);
+  const weekBubble = document.getElementById('weekBubble');
+  weekBubble.style.left = bubbleX + 'px';
+  weekBubble.style.top = bubbleY + 'px';
 
   // Article
   const d = weekData[week] || weekData[30];
