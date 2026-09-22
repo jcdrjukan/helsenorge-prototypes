@@ -64,10 +64,14 @@ function App() {
   // just swapped-in components, not real page loads. Psykisk helse's own
   // internal view changes (front/quiz/results) are handled by its own copy
   // of this same effect, since `prototype` doesn't change between those.
+  // Reset both scrollers: in the desktop phone mockup .phone-frame__screen
+  // scrolls, but at phone width (<=480px, i.e. a real phone) the frame stops
+  // scrolling and the browser window does — resetting only one of them
+  // leaves the page mid-scroll on a real phone.
   useEffect(() => {
     const el = document.querySelector('.phone-frame__screen');
     if (el) el.scrollTop = 0;
-    else window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [prototype]);
 
   // hashOverride lets goToTjeneste below deep-link into Psykisk helse's own
