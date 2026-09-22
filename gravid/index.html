@@ -340,6 +340,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .page-title {
   width: 344px;
   padding-top: var(--space-xl);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2xs);
 }
 
 .page-title h1 {
@@ -347,6 +351,31 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--color-base-text-onlight);
 }
 
+/* Snarvei (favorite) toggle for the tjeneste — StarStroke when not
+   favorited, StarFill once it is. Both icons are kiwi/green, matching
+   the other clickable affordance on this page (the editable termindato). */
+.favorite-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--kiwi-700);
+}
+
+.favorite-btn__icon {
+  width: 32px;
+  height: 32px;
+}
+
+.favorite-btn__icon--fill {
+  display: none;
+}
 
 /* ═══════════════════════════════════════════════════════════
    COUNTDOWN CARD  (Panel pattern)
@@ -1218,6 +1247,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   ═══════════════════════════════════════════════════════════ -->
   <div class="page-title">
     <h1>Gravid</h1>
+    <button type="button" class="favorite-btn" id="favoriteBtn" onclick="toggleFavorite()"
+      aria-pressed="false" aria-label="Legg til snarvei">
+      <svg class="favorite-btn__icon favorite-btn__icon--stroke" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M23.884 5.258c.453 0 .866.256 1.067.662l4.975 10.084 11.13 1.613a1.19 1.19 0 0 1 .657 2.028l-8.063 7.85 1.901 11.084a1.188 1.188 0 0 1-1.725 1.252l-9.93-5.233-9.954 5.234a1.19 1.19 0 0 1-1.725-1.253l1.9-11.085-8.062-7.849a1.19 1.19 0 0 1 .658-2.028l11.128-1.613L22.818 5.92l.085-.145c.22-.32.585-.517.981-.517Zm-4.787 11.365c-.204.413-.598.7-1.055.767L7.338 18.94l7.756 7.55a1.4 1.4 0 0 1 .404 1.24l-1.829 10.662 9.576-5.035a1.4 1.4 0 0 1 1.304.001l9.55 5.033L32.27 27.73a1.4 1.4 0 0 1 .403-1.239l7.756-7.55-10.703-1.551a1.401 1.401 0 0 1-1.055-.767l-4.787-9.701-4.787 9.701Z"/></svg>
+      <svg class="favorite-btn__icon favorite-btn__icon--fill" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M23.092 7.124a1 1 0 0 1 1.816 0l4.664 10.112a1 1 0 0 0 .79.574l11.059 1.311a1 1 0 0 1 .561 1.728l-8.176 7.56a1 1 0 0 0-.301.93l2.17 10.922a1 1 0 0 1-1.47 1.067l-9.717-5.44a1 1 0 0 0-.976 0l-9.718 5.44a1 1 0 0 1-1.469-1.068l2.17-10.922a1 1 0 0 0-.301-.929l-8.176-7.56a1 1 0 0 1 .561-1.728l11.058-1.31a1 1 0 0 0 .79-.575l4.665-10.112Z"/></svg>
+    </button>
   </div>
 
   <div class="sp-s"></div>
@@ -1763,9 +1797,46 @@ function setTermindatoConfirmed(confirmed) {
   document.getElementById('dueDateEditable').hidden = confirmed;
 }
 
+// ─── Snarvei (favorite) ────────────────────────────────────
+// Whether the mother has added Gravid as a snarvei on Forside. Persisted
+// like the sticky notes above, so it survives a reload rather than
+// resetting every time — there's no real Forside here to reflect it on,
+// but the toggle itself should still behave like the real thing.
+const LS_FAVORITE_KEY = 'gravid-snarvei-favorited';
+
+function applyFavoriteState(favorited) {
+  const btn = document.getElementById('favoriteBtn');
+  btn.setAttribute('aria-pressed', String(favorited));
+  btn.setAttribute('aria-label', favorited ? 'Fjern snarvei' : 'Legg til snarvei');
+  // .hidden doesn't reliably suppress rendering on inline <svg> in every
+  // engine (its UA-stylesheet [hidden] rule loses to SVG's own display
+  // default there) — toggle display directly instead.
+  btn.querySelector('.favorite-btn__icon--stroke').style.display = favorited ? 'none' : '';
+  // .favorite-btn__icon--fill defaults to display:none in CSS (the
+  // pre-JS/static fallback state) — an empty inline style would just
+  // fall back to that class rule and stay hidden, so this needs an
+  // explicit value to actually show it.
+  btn.querySelector('.favorite-btn__icon--fill').style.display = favorited ? 'inline-block' : 'none';
+}
+
+function toggleFavorite() {
+  const favorited = document.getElementById('favoriteBtn').getAttribute('aria-pressed') !== 'true';
+  applyFavoriteState(favorited);
+  try {
+    localStorage.setItem(LS_FAVORITE_KEY, favorited ? '1' : '0');
+  } catch {
+    // ignore
+  }
+}
+
 // ─── Init ──────────────────────────────────────────────────
 updateWeek(30);
 setTermindatoConfirmed(true); // flip to false to preview the unconfirmed/editable state
+try {
+  applyFavoriteState(localStorage.getItem(LS_FAVORITE_KEY) === '1');
+} catch {
+  applyFavoriteState(false);
+}
 </script>
 </body>
 </html>
