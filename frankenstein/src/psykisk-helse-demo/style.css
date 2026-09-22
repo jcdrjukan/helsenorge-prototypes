@@ -128,6 +128,37 @@
   gap: 0.5rem;
 }
 
+/* VisualCheckboxCloud's own pill styling grows past a real
+   min-width:768px media query — meant for an actual wide viewport, but
+   the phone-frame mockup here stays phone-width regardless of how wide
+   the real browser window gets. Same bug already patched the same way
+   for maledata's chips (frankenstein/src/maledata/style.css): force the
+   mobile min-height/padding/font back everywhere so the pills never
+   grow just because the real window (not the mockup) got wider. */
+.ph-quiz-cloud--stacked [class*="visual-checkbox__pill"] {
+  min-height: 2rem !important;
+  padding: 0.25rem 1.75rem !important;
+  font-size: 1rem !important;
+  line-height: 1.375rem !important;
+  /* The outer <label> wrapper is an inline-flex container with the
+     browser default align-items:stretch, and its OWN padding drops from
+     0.313rem to 0 at the same breakpoint — so the stretched pill grows
+     to fill that extra space regardless of the min-height/padding/font
+     overrides above, which only ever set a floor stretch could exceed.
+     Opting this one flex item out of stretch makes it size from its own
+     content again, independent of the outer wrapper's breakpoint. */
+  align-self: center !important;
+}
+/* The component always adds this modifier class on check (confirmed via
+   rendered DOM), so no :has() fallback is needed — a :has(input:checked)
+   variant here would over-match, since "visual-checkbox-cloud" (the
+   outer wrapper) also contains "visual-checkbox" as a substring and
+   would satisfy :has() the moment any one pill is checked, incorrectly
+   widening every pill. */
+.ph-quiz-cloud--stacked [class*="visual-checkbox--checked"] [class*="visual-checkbox__pill"] {
+  padding: 0.25rem 1.25rem !important;
+}
+
 .ph-quiz-nav {
   display: flex;
   align-items: center;
