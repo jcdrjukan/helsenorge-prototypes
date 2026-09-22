@@ -431,7 +431,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .due-date {
-  margin-top: var(--space-xs);
+  margin-top: var(--space-2xs);
   text-align: center;
 }
 
@@ -444,6 +444,39 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font: var(--mobile-label);
   font-size: 1.25rem;
   color: var(--color-base-text-onlight);
+}
+
+/* Unconfirmed termindato: still the mother's own estimate, editable —
+   date + pencil in kiwi (green) is the click-to-edit affordance. */
+.due-date-editable {
+  margin-top: var(--space-2xs);
+  text-align: center;
+  cursor: pointer;
+}
+
+.due-date-editable__title {
+  font: var(--mobile-image-caption);
+  color: var(--color-base-text-onlight);
+}
+
+.due-date-editable__row {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  margin-top: var(--space-4xs);
+}
+
+.due-date-editable__value {
+  font: var(--mobile-label);
+  font-size: 1.25rem;
+  color: var(--kiwi-700);
+}
+
+.due-date-editable__icon {
+  width: 20px;
+  height: 20px;
+  color: var(--kiwi-700);
+  flex-shrink: 0;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1217,15 +1250,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <span class="week-bubble__num" id="weekBubbleNum">uke 30</span>
         <span class="week-bubble__day">dag 2</span>
       </div>
-      <!-- Center -->
+      <!-- Center — order matches Figma (node 39:472): label above the
+           number, due-date info below it, all inside the ring. -->
       <div class="countdown-ring__center" aria-hidden="true">
-        <span class="countdown-ring__days" id="countdownDays">67</span>
         <span class="countdown-ring__label">dager igjen</span>
+        <span class="countdown-ring__days" id="countdownDays">67</span>
+        <!-- Confirmed state: termindato verified by jordmor/lege via
+             ultrasound. Shown by default; toggle with
+             setTermindatoConfirmed() below. -->
+        <div class="due-date" id="dueDateConfirmed">
+          <div class="due-date__title">Bekreftet termindato</div>
+          <div class="due-date__value" id="dueDateValue">28.11.2026</div>
+        </div>
+        <!-- Unconfirmed state: termindato is the mother's own estimate,
+             still editable — date + pencil rendered in kiwi (green) as
+             the clickable affordance. Hidden by default. -->
+        <div class="due-date-editable" id="dueDateEditable" hidden>
+          <div class="due-date-editable__title">Termindato</div>
+          <div class="due-date-editable__row">
+            <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
+            <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="due-date">
-      <div class="due-date__title">Bekreftet termindato</div>
-      <div class="due-date__value" id="dueDateValue">28.11.2026</div>
     </div>
   </div>
 
@@ -1603,6 +1650,7 @@ function updateWeek(week) {
   document.getElementById('countdownDays').textContent = daysLeft;
   document.getElementById('weekBubbleNum').textContent = 'uke ' + week;
   document.getElementById('dueDateValue').textContent = formatDate(getDueDate(week));
+  document.getElementById('dueDateValueEditable').textContent = formatDate(getDueDate(week));
 
   // Move the week/day bubble to sit exactly where the progress arc ends
   // (same ring: center 135,135, radius 115 — matches #progressArc above),
@@ -1712,8 +1760,20 @@ function deleteNote(id) {
   setTimeout(() => el.remove(), 220);
 }
 
+// ─── Termindato confirmation state ────────────────────────
+// true:  termindato verified by jordmor/lege via ultrasound — shows
+//        "Bekreftet termindato" (static, black).
+// false: termindato is still the mother's own estimate — shows
+//        "Termindato" with the date + pencil as a clickable (kiwi/green)
+//        affordance to change it.
+function setTermindatoConfirmed(confirmed) {
+  document.getElementById('dueDateConfirmed').hidden = !confirmed;
+  document.getElementById('dueDateEditable').hidden = confirmed;
+}
+
 // ─── Init ──────────────────────────────────────────────────
 updateWeek(30);
+setTermindatoConfirmed(true); // flip to false to preview the unconfirmed/editable state
 </script>
 </body>
 </html>
