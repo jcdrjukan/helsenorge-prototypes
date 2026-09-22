@@ -1228,17 +1228,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="countdown-card" role="region" aria-label="Graviditetsfremdrift">
     <div class="countdown-ring">
       <svg class="countdown-ring__svg" viewBox="0 0 270 270" aria-hidden="true" id="countdownSvg">
-        <!-- Background segments -->
-        <circle cx="135" cy="135" r="115" fill="none" stroke="#f0f0f0" stroke-width="16"/>
-        <!-- Q1 blueberry-50 -->
-        <circle cx="135" cy="135" r="115" fill="none" stroke="#E4F7F9" stroke-width="16"
-          stroke-dasharray="180.64 541.92" stroke-dashoffset="0"/>
-        <!-- Q2 cherry-50 -->
-        <circle cx="135" cy="135" r="115" fill="none" stroke="#FFF2EA" stroke-width="16"
-          stroke-dasharray="180.64 541.92" stroke-dashoffset="-180.64"/>
-        <!-- Q3 neutral-50 -->
-        <circle cx="135" cy="135" r="115" fill="none" stroke="#F5F3F3" stroke-width="16"
-          stroke-dasharray="180.64 541.92" stroke-dashoffset="-361.28"/>
+        <!-- Remaining (not-yet-elapsed) track — a thin grey line per
+             Figma (node 39:472), not a thick pastel-quadrant ring. -->
+        <circle cx="135" cy="135" r="115" fill="none" stroke="#BDBAB9" stroke-width="2"/> <!-- neutral-300 -->
         <!-- Progress -->
         <circle cx="135" cy="135" r="115" fill="none"
           stroke="#188097" stroke-width="16"
