@@ -121,11 +121,15 @@
 /* Quiz steps 1 and 2: force each VisualCheckboxCloud pill onto its own
    line instead of wrapping several per row. The className prop lands on
    the ErrorWrapper root the component renders internally, not the actual
-   flex-wrap cloud — that's its child <div>. */
+   flex-wrap cloud — that's its child <div>. Gap matches the design
+   system's own mobile row-gap (var(--core-space-4xs), 2px) — same value
+   maledata's chips force back over the md+ breakpoint bug elsewhere in
+   this app, kept here as a literal px value since flex-direction:column
+   makes only the row-gap component of the shorthand apply. */
 .ph-quiz-cloud--stacked > div {
   flex-direction: column;
   align-items: flex-start;
-  gap: 0.5rem;
+  gap: 2px;
 }
 
 /* VisualCheckboxCloud's own pill styling grows past a real
