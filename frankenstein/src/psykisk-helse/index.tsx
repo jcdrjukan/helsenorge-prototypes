@@ -275,11 +275,14 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
     return () => window.removeEventListener('hashchange', onHashChange);
   }, []);
 
-  // Scroll to top on every navigation
+  // Scroll to top on every navigation. Reset both scrollers: in the desktop
+  // phone mockup .phone-frame__screen scrolls, but at phone width (<=480px,
+  // i.e. a real phone) the frame stops scrolling and the browser window does
+  // — resetting only one of them leaves the page mid-scroll on a real phone.
   useEffect(() => {
     const el = document.querySelector('.phone-frame__screen');
     if (el) el.scrollTop = 0;
-    else window.scrollTo(0, 0);
+    window.scrollTo(0, 0);
   }, [view]);
 
   const results = useMemo(() => computeResults(q1, q2), [q1, q2]);
