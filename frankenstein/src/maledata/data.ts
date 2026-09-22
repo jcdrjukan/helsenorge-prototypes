@@ -21,6 +21,12 @@ export interface MaledataSeries {
   /** Ordinal/form-registered scale (e.g. a 0–4 symptom score) — rendered as
    *  discrete markers, never an interpolated line (§8 of the working notes). */
   ordinal?: boolean;
+  /** The scale's own real endpoints (e.g. 0 and 4), used for the chart's
+   *  gridlines when ordinal is true — distinct from lo/hi, which pad the
+   *  plot area for visual headroom and aren't meant to be shown as ticks.
+   *  Defaults to 0–4 (Tungpust's scale) when omitted. */
+  scaleMin?: number;
+  scaleMax?: number;
   /** 90 values, oldest first, most recent last. null = missing that day. */
   values: (number | null)[];
 }
@@ -61,6 +67,7 @@ const rndPuls = seededRng(19);
 const rndSpo2 = seededRng(23);
 const rndTemp = seededRng(31);
 const rndPust = seededRng(37);
+const rndCfs = seededRng(41);
 
 export const SERIES: MaledataSeries[] = [
   {
@@ -133,7 +140,31 @@ export const SERIES: MaledataSeries[] = [
     decimals: 0,
     source: 'form',
     ordinal: true,
+    scaleMin: 0,
+    scaleMax: 4,
     values: generate(rndPust, 1, 0.9, 0, 4, i => (i > 78 ? 0.15 : 0), 0.12).map(v =>
+      v == null ? null : Math.round(v)
+    ),
+  },
+  {
+    id: 'cfs',
+    name: 'CFS',
+    unit: '1–9',
+    // Same top-headroom treatment as pust above; bottom padded just enough
+    // to keep score 1 off the very bottom edge.
+    lo: 0.5,
+    hi: 12,
+    band: null,
+    decimals: 0,
+    source: 'form',
+    ordinal: true,
+    scaleMin: 1,
+    scaleMax: 9,
+    // Clinical Frailty Score is assessed by a clinician, not logged daily
+    // like the other form-registered series — high missingProb reflects
+    // that it's only recorded on the (infrequent) occasions an assessment
+    // actually happens.
+    values: generate(rndCfs, 4, 0.6, 1, 9, i => (i > 78 ? 0.3 : 0), 0.85).map(v =>
       v == null ? null : Math.round(v)
     ),
   },

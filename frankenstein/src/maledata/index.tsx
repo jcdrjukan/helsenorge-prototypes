@@ -99,7 +99,8 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
     <button className="md-card" onClick={() => onSelect(series.id)}>
       <p className="md-card__label">{series.name}</p>
       <p className="md-card__value">
-        {formatValue(value, series.decimals)} <span className="md-card__unit">{series.unit}</span>
+        {formatValue(value, series.decimals)}
+        {series.source !== 'form' && <span className="md-card__unit">{series.unit}</span>}
       </p>
       <p className={`md-card__sub${warn ? ' md-card__sub--warn' : ''}`}>
         {outOfRange ? 'Utenfor · ' : ''}
@@ -149,7 +150,9 @@ function SeriesTable({ series, days }: SeriesTableProps) {
             return (
               <TableRow key={offset} mode={ModeType.compact}>
                 <TableCell mode={ModeType.compact} dataLabel="Dato">{dateLabel(offset)}</TableCell>
-                <TableCell mode={ModeType.compact} dataLabel="Verdi">{missing ? '–' : `${formatValue(value, series.decimals)} ${series.unit}`}</TableCell>
+                <TableCell mode={ModeType.compact} dataLabel="Verdi">
+                  {missing ? '–' : series.ordinal ? formatValue(value, series.decimals) : `${formatValue(value, series.decimals)} ${series.unit}`}
+                </TableCell>
                 <TableCell mode={ModeType.compact} dataLabel="Status">{missing ? 'Mangler' : out ? 'Utenfor målområdet' : series.band ? 'I målområdet' : '–'}</TableCell>
               </TableRow>
             );
@@ -186,7 +189,7 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
   const r = markerRadius(days);
   const midBand = series.band ? (series.band[0] + series.band[1]) / 2 : (series.lo + series.hi) / 2;
 
-  const gridValues = series.ordinal ? [0, 4] : series.band ? series.band : [series.lo, series.hi];
+  const gridValues = series.ordinal ? [series.scaleMin ?? 0, series.scaleMax ?? 4] : series.band ? series.band : [series.lo, series.hi];
 
   const isOut = (v: number) => !!series.band && (v < series.band[0] || v > series.band[1]);
 
@@ -215,7 +218,7 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
     >
       <div className="md-panel__head">
         <p className="md-panel__title">
-          {series.name} <span className="md-panel__unit">{series.unit}{series.source === 'form' ? ' · skjema' : ''}</span>
+          {series.name} <span className="md-panel__unit">{series.source === 'form' ? `skjema (skala ${series.unit})` : series.unit}</span>
         </p>
       </div>
 
@@ -424,7 +427,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
         </p>
 
         <NotificationPanel variant="info" fluid className="md-followup-panel">
-          <p style={{ margin: 0, fontWeight: 400 }}>Følges opp av hjemmetjenesten, hverdager 08–15.</p>
+          <p style={{ margin: 0, fontWeight: 400 }}>Din behandler tar kontakt dersom dine målinger krever noe oppfølging</p>
         </NotificationPanel>
 
         <section>
