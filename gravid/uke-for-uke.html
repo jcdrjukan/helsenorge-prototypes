@@ -621,8 +621,19 @@ function renderWeek(week) {
 }
 
 const params = new URLSearchParams(location.search);
+// Falls back to whatever week dashboard.html last saved, same as
+// index.html, so arriving here without an explicit ?uke= (e.g. a
+// direct link) still reflects the chosen scenario instead of always
+// resetting to 30.
+let dashboardWeekFallback = 30;
+try {
+  const saved = parseInt(localStorage.getItem('gravid-dashboard-week'), 10);
+  if (saved >= MIN_WEEK && saved <= MAX_WEEK) dashboardWeekFallback = saved;
+} catch {
+  // ignore
+}
 const requestedWeek = parseInt(params.get('uke'), 10);
-const week = (requestedWeek >= MIN_WEEK && requestedWeek <= MAX_WEEK) ? requestedWeek : 30;
+const week = (requestedWeek >= MIN_WEEK && requestedWeek <= MAX_WEEK) ? requestedWeek : dashboardWeekFallback;
 const requestedTab = params.get('tab');
 const initialTab = ['barn', 'mor', 'kontroll'].includes(requestedTab) ? requestedTab : 'barn';
 renderWeek(week);

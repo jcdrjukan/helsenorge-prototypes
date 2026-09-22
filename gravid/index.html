@@ -513,12 +513,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Unconfirmed termindato: still the mother's own estimate, editable —
-   date + pencil in #08667C (blueberry-700, the Helsenorge "green" used
-   for clickable elements) is the click-to-edit affordance. */
+   pencil in #08667C (blueberry-700, the Helsenorge "green" used for
+   clickable elements) is the click-to-edit affordance. The pencil sits
+   next to the "Termindato" title, not the date, so the date line stays
+   exactly as narrow as the confirmed state's — the widest line in the
+   block (title+icon) is still narrower than the date, which keeps this
+   state's overall footprint close to the confirmed state's and avoids
+   colliding with the week bubble at the angles where it passes close
+   to the ring's center content (e.g. uke 25). A pencil-beside-the-date
+   layout was tried first and didn't reliably clear the bubble at every
+   week; moving the whole block up to compensate didn't work either —
+   uke 40's bubble sits at the very top with ~4px clearance already,
+   near zero room to push the block into. */
 .due-date-editable {
   margin-top: var(--space-2xs);
   text-align: center;
   cursor: pointer;
+}
+
+.due-date-editable__title-row {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: var(--space-4xs);
 }
 
 .due-date-editable__title {
@@ -526,22 +543,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--color-base-text-onlight);
 }
 
-.due-date-editable__row {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-3xs);
-  margin-top: var(--space-4xs);
-}
-
 .due-date-editable__value {
+  display: block;
+  margin-top: var(--space-4xs);
   font: var(--mobile-label);
   font-size: 1.25rem;
   color: var(--blueberry-700);
+  white-space: nowrap;
 }
 
 .due-date-editable__icon {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   color: var(--blueberry-700);
   flex-shrink: 0;
 }
@@ -1340,11 +1353,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
              clickable green) as the clickable affordance. Hidden by
              default. -->
         <div class="due-date-editable" id="dueDateEditable" hidden>
-          <div class="due-date-editable__title">Termindato</div>
-          <div class="due-date-editable__row">
-            <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
+          <div class="due-date-editable__title-row">
+            <span class="due-date-editable__title">Termindato</span>
             <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
           </div>
+          <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
         </div>
       </div>
     </div>
@@ -1881,9 +1894,38 @@ function toggleFavorite() {
   }
 }
 
-// ─── Init ──────────────────────────────────────────────────
-updateWeek(30);
-setTermindatoConfirmed(true); // flip to false to preview the unconfirmed/editable state
+// ─── Init — settings come from dashboard.html, either passed via URL
+// (?uke=&tilknyttet=&termindato=) or, failing that, whatever was last
+// saved to localStorage there. Falls back to the original defaults
+// (uke 30, tilknyttet, termindato bekreftet) if dashboard.html was
+// never visited at all. ────────────────────────────────────
+const LS_DASHBOARD_WEEK_KEY = 'gravid-dashboard-week';
+const LS_DASHBOARD_CONNECTED_KEY = 'gravid-dashboard-connected';
+const LS_DASHBOARD_TERMINDATO_KEY = 'gravid-dashboard-termindato-confirmed';
+
+function readDashboardSetting(paramName, lsKey, fallback) {
+  const fromUrl = dashboardParams.get(paramName);
+  if (fromUrl !== null) return fromUrl;
+  try {
+    const fromStorage = localStorage.getItem(lsKey);
+    if (fromStorage !== null) return fromStorage;
+  } catch {
+    // ignore
+  }
+  return fallback;
+}
+
+const dashboardParams = new URLSearchParams(location.search);
+const initialWeekRaw = parseInt(readDashboardSetting('uke', LS_DASHBOARD_WEEK_KEY, '30'), 10);
+const initialWeek = (initialWeekRaw >= 1 && initialWeekRaw <= 42) ? initialWeekRaw : 30;
+const initialConnected = readDashboardSetting('tilknyttet', LS_DASHBOARD_CONNECTED_KEY, '1') === '1';
+// No helsekort connection means no jordmor/lege to confirm the
+// termindato via ultrasound — always the mother's own estimate then,
+// whatever the saved/passed termindato setting says.
+const initialTermindatoConfirmed = initialConnected && readDashboardSetting('termindato', LS_DASHBOARD_TERMINDATO_KEY, '1') === '1';
+
+updateWeek(initialWeek);
+setTermindatoConfirmed(initialTermindatoConfirmed);
 try {
   applyFavoriteState(localStorage.getItem(LS_FAVORITE_KEY) === '1');
 } catch {

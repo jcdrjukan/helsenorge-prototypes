@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard – Gravid (prototype)</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* This is a prototype control panel, not a patient-facing screen — it
+   deliberately skips the Helsenorge header/footer chrome the other
+   pages carry. Colors/type still borrow the same design tokens for
+   visual consistency, just via a trimmed token set. */
+:root {
+  --blueberry-500: #188097;
+  --blueberry-700: #08667C;
+  --neutral-100: #EAE7E7;
+  --neutral-200: #D6D4D3;
+  --neutral-300: #BDBAB9;
+  --neutral-700: #62625F;
+  --color-base-text-onlight: #000000;
+  --color-base-text-onlight-subdued: #474745;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-s:   1rem;
+  --space-m:   1.5rem;
+  --space-l:   2rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: var(--color-base-text-onlight);
+  background: var(--neutral-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-l) var(--space-s);
+}
+
+.panel {
+  width: 100%;
+  max-width: 420px;
+  background: #fff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  padding: var(--space-l);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+}
+
+h1 {
+  font: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+}
+
+.intro {
+  color: var(--color-base-text-onlight-subdued);
+  font-size: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.field__label {
+  font: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+}
+
+.field__hint {
+  color: var(--color-base-text-onlight-subdued);
+  font-size: 1rem;
+}
+
+input[type="number"] {
+  font: inherit;
+  font-size: 1.125rem;
+  padding: var(--space-2xs) var(--space-xs);
+  border: 1px solid var(--neutral-700);
+  border-radius: var(--radius-s);
+  width: 100%;
+}
+
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.radio-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.radio-option input { width: 20px; height: 20px; accent-color: var(--blueberry-500); }
+.radio-option label { font-size: 1.125rem; }
+
+.sub-field {
+  margin-left: var(--space-l);
+  padding-left: var(--space-s);
+  border-left: 2px solid var(--neutral-200);
+}
+
+.sub-field[hidden] { display: none; }
+
+.launch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2xs);
+  background: var(--blueberry-500);
+  color: #fff;
+  font: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  border: none;
+  border-radius: var(--radius-s);
+  padding: var(--space-xs) var(--space-s);
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.launch-btn:hover { background: var(--blueberry-700); }
+
+.future-note {
+  font-size: 1rem;
+  color: var(--color-base-text-onlight-subdued);
+  border-top: 1px solid var(--neutral-200);
+  padding-top: var(--space-m);
+}
+</style>
+</head>
+<body>
+
+<div class="panel">
+  <div>
+    <h1>Gravid — dashboard</h1>
+    <p class="intro">Velg tilstanden prototypen skal åpnes i. Ikke en del av selve tjenesten — dette er et verktøy for å teste/demonstrere ulike situasjoner.</p>
+  </div>
+
+  <div class="field">
+    <label class="field__label" for="weekInput">Svangerskapsuke</label>
+    <input type="number" id="weekInput" min="1" max="42" value="30">
+    <span class="field__hint">1–42</span>
+  </div>
+
+  <div class="field">
+    <span class="field__label">Har digitalt helsekort for gravide</span>
+    <span class="field__hint">Det er mulig å bruke tjenesten uten å være tilknyttet en jordmor/lege som er med i ordningen — relevant for partnere, andre pårørende, eller når egen jordmor/lege ennå ikke er tilknyttet.</span>
+    <div class="radio-group">
+      <div class="radio-option">
+        <input type="radio" name="connected" id="connectedYes" value="1" checked>
+        <label for="connectedYes">Ja — tilknyttet jordmor/lege</label>
+      </div>
+      <div class="radio-option">
+        <input type="radio" name="connected" id="connectedNo" value="0">
+        <label for="connectedNo">Nei — ikke tilknyttet</label>
+      </div>
+    </div>
+
+    <div class="sub-field" id="termindatoField">
+      <div class="field">
+        <span class="field__label">Termindato bekreftet av jordmor/lege</span>
+        <span class="field__hint">Kun relevant når tilknyttet — uten en jordmor/lege er det ingen som kan bekrefte termindatoen via ultralyd.</span>
+        <div class="radio-group">
+          <div class="radio-option">
+            <input type="radio" name="termindatoConfirmed" id="termindatoYes" value="1" checked>
+            <label for="termindatoYes">Ja — bekreftet</label>
+          </div>
+          <div class="radio-option">
+            <input type="radio" name="termindatoConfirmed" id="termindatoNo" value="0">
+            <label for="termindatoNo">Nei — fortsatt eget anslag</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <a class="launch-btn" id="launchBtn" href="index.html">Åpne prototypen →</a>
+
+  <p class="future-note">
+    Flere parametere kommer etter hvert — f.eks. om "Kartlegging for første svangerskapskontroll" er sendt inn. Denne siden er ment å vokse med prototypen.
+  </p>
+</div>
+
+<script>
+const LS_WEEK_KEY = 'gravid-dashboard-week';
+const LS_CONNECTED_KEY = 'gravid-dashboard-connected';
+const LS_TERMINDATO_CONFIRMED_KEY = 'gravid-dashboard-termindato-confirmed';
+
+const weekInput = document.getElementById('weekInput');
+const termindatoField = document.getElementById('termindatoField');
+const launchBtn = document.getElementById('launchBtn');
+
+function getConnected() {
+  return document.querySelector('input[name="connected"]:checked').value === '1';
+}
+function getTermindatoConfirmed() {
+  return document.querySelector('input[name="termindatoConfirmed"]:checked').value === '1';
+}
+
+function updateTermindatoFieldVisibility() {
+  termindatoField.hidden = !getConnected();
+}
+
+function updateLaunchHref() {
+  const week = Math.min(42, Math.max(1, parseInt(weekInput.value, 10) || 30));
+  const connected = getConnected();
+  // Without a connection there's no provider to confirm the termindato,
+  // so it's always the mother's own (unconfirmed/editable) estimate,
+  // regardless of what the now-hidden sub-toggle last held.
+  const termindatoConfirmed = connected && getTermindatoConfirmed();
+  launchBtn.href = 'index.html?uke=' + week + '&tilknyttet=' + (connected ? '1' : '0') + '&termindato=' + (termindatoConfirmed ? '1' : '0');
+}
+
+function persistAndUpdate() {
+  updateTermindatoFieldVisibility();
+  updateLaunchHref();
+  try {
+    localStorage.setItem(LS_WEEK_KEY, weekInput.value);
+    localStorage.setItem(LS_CONNECTED_KEY, getConnected() ? '1' : '0');
+    localStorage.setItem(LS_TERMINDATO_CONFIRMED_KEY, getTermindatoConfirmed() ? '1' : '0');
+  } catch {
+    // ignore
+  }
+}
+
+weekInput.addEventListener('input', persistAndUpdate);
+document.querySelectorAll('input[name="connected"]').forEach(el => el.addEventListener('change', persistAndUpdate));
+document.querySelectorAll('input[name="termindatoConfirmed"]').forEach(el => el.addEventListener('change', persistAndUpdate));
+
+// ─── Init — restore whatever was last set ───────────────────
+try {
+  const savedWeek = localStorage.getItem(LS_WEEK_KEY);
+  if (savedWeek) weekInput.value = savedWeek;
+  const savedConnected = localStorage.getItem(LS_CONNECTED_KEY);
+  if (savedConnected !== null) {
+    document.getElementById(savedConnected === '1' ? 'connectedYes' : 'connectedNo').checked = true;
+  }
+  const savedTermindato = localStorage.getItem(LS_TERMINDATO_CONFIRMED_KEY);
+  if (savedTermindato !== null) {
+    document.getElementById(savedTermindato === '1' ? 'termindatoYes' : 'termindatoNo').checked = true;
+  }
+} catch {
+  // ignore
+}
+persistAndUpdate();
+</script>
+</body>
+</html>
