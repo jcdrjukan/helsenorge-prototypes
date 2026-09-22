@@ -118,6 +118,16 @@
   margin: 0;
 }
 
+/* Step 1: force each VisualCheckboxCloud pill onto its own line instead
+   of wrapping several per row. The className prop lands on the
+   ErrorWrapper root the component renders internally, not the actual
+   flex-wrap cloud — that's its child <div>. */
+.ph-quiz-cloud--stacked > div {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
 .ph-quiz-nav {
   display: flex;
   align-items: center;

@@ -475,7 +475,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <ProgressBar step={1} />
           <h1 className="ph-quiz-title">Hvordan går det?</h1>
           <p className="ph-quiz-subtitle">Gjelder noen av disse for deg?</p>
-          <VisualCheckboxCloud>
+          <VisualCheckboxCloud className="ph-quiz-cloud--stacked">
             {Q1_OPTIONS.map(opt => (
               <VisualCheckboxCloud.Checkbox
                 key={opt.label}
