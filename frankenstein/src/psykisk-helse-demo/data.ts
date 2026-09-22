@@ -28,6 +28,10 @@ export interface Resource {
    *  self-help video/program) — changes the CTA to "Last ned app" with an
    *  external-link arrow. */
   isApp?: boolean;
+  /** For an isApp resource: the Apple App Store page for the app itself.
+   *  "Last ned app" opens this, while `url` (the Helsenorge page about the
+   *  app) stays behind "Vis mer om verktøyet" in the expanded card. */
+  appStoreUrl?: string;
 }
 
 export const RESOURCES: Resource[] = resourcesJson as Resource[];

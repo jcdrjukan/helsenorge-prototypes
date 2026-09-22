@@ -175,7 +175,7 @@ function ToolCard({ resource }: { resource: Resource }) {
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
         <div style={{ marginTop: '1rem' }}>
           {resource.isApp ? (
-            <Button variant="fill" onClick={() => openResource(resource.url)}>
+            <Button variant="fill" onClick={() => openResource(resource.appStoreUrl ?? resource.url)}>
               {resource.ctaLabel ?? 'Last ned app'}
               <Icon svgIcon={ArrowUpRight} />
             </Button>
