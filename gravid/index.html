@@ -678,6 +678,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .notification-panel__close {
   order: 1;
+  align-self: flex-start;
   margin-left: auto;
   padding-left: var(--space-3xs);
   background: none;
@@ -706,24 +707,28 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   padding: var(--space-3xs) 0;
 }
 
-.notification-panel__children--with-label {
+.notification-panel__children--with-label,
+.notification-panel__children--outline {
   font-weight: 500;
 }
 
+/* display:inline-block (not inline-flex) so the icon flows as the last
+   inline glyph of the wrapped text — right after the last word — rather
+   than sitting in its own flex slot at the box's end. */
 .notification-panel__link {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--space-4xs);
+  display: inline-block;
   margin-top: var(--space-2xs);
   color: var(--blueberry-700);
-  font: 600 1rem/150% 'Source Sans Pro', sans-serif;
+  font: 400 1rem/150% 'Source Sans Pro', sans-serif;
   text-decoration: underline;
 }
 
 .notification-panel__link-icon {
+  display: inline-block;
   width: 20px;
   height: 20px;
-  flex-shrink: 0;
+  margin-left: var(--space-4xs);
+  vertical-align: -5px;
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -1535,13 +1540,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="notification-panel notification-panel--warn notification-panel--compact">
         <svg class="notification-panel__icon" viewBox="0 0 48 48" fill="var(--color-notification-border-warning)" aria-hidden="true"><path d="M24.896 21.452v7.213a.891.891 0 01-1.782 0v-7.213a.89.89 0 111.782 0zm.5 11.577a1.39 1.39 0 11-2.782-.001 1.39 1.39 0 012.782.001zM6.613 39.725h34.774L24.11 8.275 6.613 39.725z"/></svg>
         <div class="notification-panel__content">
-          <p class="notification-panel__children">Du har ikke delt opplysningene i ditt digitale helsekort ennå.</p>
+          <p class="notification-panel__children notification-panel__children--outline">Du har ikke delt opplysningene i ditt digitale helsekort ennå.</p>
         </div>
       </div>
       <a class="btn-borderless" href="#">
         <span class="btn-borderless__text">Fortsett utfylling</span>
         <div class="btn-borderless__icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
         </div>
       </a>
     </div>
@@ -1554,9 +1559,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="notification-panel__content">
         <h3 class="notification-panel__label">Registrer farskap hos Nav</h3>
         <p class="notification-panel__children notification-panel__children--with-label">Hvis du ikke er gift med barnets far, kan dere registrere farskap digitalt på nav.no. Dette kan dere gjøre fra uke 22 i svangerskapet.</p>
-        <a class="notification-panel__link" href="#">
-          <span>Les mer og registrer farskap på nav.no (nav.no)</span>
-          <svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M18.76 14.426v1.768h11.83L14.719 32.065l1.251 1.25 15.801-15.801v11.691h1.768V14.426z"/></svg>
+        <a class="notification-panel__link" href="#">Les mer og registrer farskap på nav.no (nav.no)<svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M18.76 14.426v1.768h11.83L14.719 32.065l1.251 1.25 15.801-15.801v11.691h1.768V14.426z"/></svg>
         </a>
       </div>
     </div>
