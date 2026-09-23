@@ -167,6 +167,28 @@ a:focus-visible, button:focus-visible {
   margin: var(--space-2xs) 0 0;
 }
 
+/* Språk/Language switcher — decorative (matches Figma nodes 43:483–485
+   exactly; not wired to anything, same treatment as this prototype's
+   other inert chrome like Meny/Varsler). Same markup/CSS as
+   uke-for-uke.html's/index.html's copy. */
+.lang-switcher {
+  width: 344px;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-s);
+}
+.lang-switcher__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-action-text-onlight);
+  font: var(--mobile-label);
+}
+.lang-switcher__btn svg { width: 24px; height: 24px; }
+
 /* ═══════════════════════════════════════════════════════════
    PAGE CONTENT
 ══════════════════════════════════════════════════════════════ */
@@ -293,6 +315,15 @@ a:focus-visible, button:focus-visible {
     </a>
   </nav>
   <hr class="page-divider">
+
+  <!-- Språk/Language — decorative, per Figma (43:483–485). -->
+  <div class="lang-switcher">
+    <button type="button" class="lang-switcher__btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      <span>Språk/Language</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
 
   <!-- ══════════════════════════════════════════════════════
        PAGE CONTENT
