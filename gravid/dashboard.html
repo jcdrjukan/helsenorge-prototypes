@@ -103,8 +103,22 @@ input[type="number"] {
   gap: var(--space-2xs);
 }
 
-.radio-option input { width: 20px; height: 20px; accent-color: var(--blueberry-500); }
-.radio-option label { font-size: 1.125rem; }
+.radio-option input,
+.checkbox-option input { width: 20px; height: 20px; accent-color: var(--blueberry-500); }
+.radio-option label,
+.checkbox-option label { font-size: 1.125rem; }
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+}
+
+.checkbox-option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+}
 
 .sub-field {
   margin-left: var(--space-l);
@@ -229,6 +243,21 @@ input[type="number"] {
     </div>
   </div>
 
+  <div class="field">
+    <span class="field__label">Blueberry-paneler under hjulet</span>
+    <span class="field__hint">To uavhengige paneler — begge, én av dem, eller ingen kan vises samtidig (Figma node 44:495).</span>
+    <div class="checkbox-group">
+      <div class="checkbox-option">
+        <input type="checkbox" id="panelHelsekort">
+        <label for="panelHelsekort">Del opplysninger før første svangerskapskontroll</label>
+      </div>
+      <div class="checkbox-option">
+        <input type="checkbox" id="panelFarskap">
+        <label for="panelFarskap">Registrer farskap hos Nav</label>
+      </div>
+    </div>
+  </div>
+
   <a class="launch-btn" id="launchBtn" href="index.html">Åpne prototypen →</a>
 
   <div class="share-field">
@@ -249,12 +278,16 @@ input[type="number"] {
 const LS_WEEK_KEY = 'gravid-dashboard-week';
 const LS_CONNECTED_KEY = 'gravid-dashboard-connected';
 const LS_TERMINDATO_CONFIRMED_KEY = 'gravid-dashboard-termindato-confirmed';
+const LS_PANEL_HELSEKORT_KEY = 'gravid-dashboard-panel-helsekort';
+const LS_PANEL_FARSKAP_KEY = 'gravid-dashboard-panel-farskap';
 
 const weekInput = document.getElementById('weekInput');
 const termindatoField = document.getElementById('termindatoField');
 const launchBtn = document.getElementById('launchBtn');
 const shareUrl = document.getElementById('shareUrl');
 const copyBtn = document.getElementById('copyBtn');
+const panelHelsekortInput = document.getElementById('panelHelsekort');
+const panelFarskapInput = document.getElementById('panelFarskap');
 let copyResetTimer = null;
 
 function getConnected() {
@@ -275,7 +308,8 @@ function updateLaunchHref() {
   // so it's always the mother's own (unconfirmed/editable) estimate,
   // regardless of what the now-hidden sub-toggle last held.
   const termindatoConfirmed = connected && getTermindatoConfirmed();
-  const query = '?uke=' + week + '&tilknyttet=' + (connected ? '1' : '0') + '&termindato=' + (termindatoConfirmed ? '1' : '0');
+  const query = '?uke=' + week + '&tilknyttet=' + (connected ? '1' : '0') + '&termindato=' + (termindatoConfirmed ? '1' : '0') +
+    '&panelHelsekort=' + (panelHelsekortInput.checked ? '1' : '0') + '&panelFarskap=' + (panelFarskapInput.checked ? '1' : '0');
   launchBtn.href = 'index.html' + query;
   // Resolved to an absolute URL (not just the relative href above) so it's
   // meaningful copied out of this page and sent elsewhere — index.html
@@ -295,6 +329,8 @@ function persistAndUpdate() {
     localStorage.setItem(LS_WEEK_KEY, weekInput.value);
     localStorage.setItem(LS_CONNECTED_KEY, getConnected() ? '1' : '0');
     localStorage.setItem(LS_TERMINDATO_CONFIRMED_KEY, getTermindatoConfirmed() ? '1' : '0');
+    localStorage.setItem(LS_PANEL_HELSEKORT_KEY, panelHelsekortInput.checked ? '1' : '0');
+    localStorage.setItem(LS_PANEL_FARSKAP_KEY, panelFarskapInput.checked ? '1' : '0');
   } catch {
     // ignore
   }
@@ -321,6 +357,8 @@ copyBtn.addEventListener('click', async () => {
 weekInput.addEventListener('input', persistAndUpdate);
 document.querySelectorAll('input[name="connected"]').forEach(el => el.addEventListener('change', persistAndUpdate));
 document.querySelectorAll('input[name="termindatoConfirmed"]').forEach(el => el.addEventListener('change', persistAndUpdate));
+panelHelsekortInput.addEventListener('change', persistAndUpdate);
+panelFarskapInput.addEventListener('change', persistAndUpdate);
 
 // ─── Init — restore whatever was last set ───────────────────
 try {
@@ -334,6 +372,8 @@ try {
   if (savedTermindato !== null) {
     document.getElementById(savedTermindato === '1' ? 'termindatoYes' : 'termindatoNo').checked = true;
   }
+  panelHelsekortInput.checked = localStorage.getItem(LS_PANEL_HELSEKORT_KEY) === '1';
+  panelFarskapInput.checked = localStorage.getItem(LS_PANEL_FARSKAP_KEY) === '1';
 } catch {
   // ignore
 }

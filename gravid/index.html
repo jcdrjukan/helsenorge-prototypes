@@ -596,6 +596,137 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ═══════════════════════════════════════════════════════════
+   BLUEBERRY PANELS  (Figma node 44:495) — two independent panels
+   that can appear beneath the progress ring, each selectable from
+   dashboard.html: "Del opplysninger..." (helsekort) and "Registrer
+   farskap hos Nav". Neither maps to a real PanelVariant/PanelStatus
+   combination in the installed @helsenorge/designsystem-react
+   version (no combination there produces a plain blueberry
+   background with no border/left status stripe, which is what the
+   Figma design actually shows) — built from the same blueberry/
+   notification design tokens the real components use instead. The
+   nested NotificationPanel pieces DO match the real component
+   exactly (lib/components/NotificationPanel/styles.module.scss):
+   compact "outline" variant for the warn one (keeps its border,
+   transparent background — confirmed against the Figma screenshot
+   pixel colors, not just the source read), default/dismissable for
+   the info one.
+══════════════════════════════════════════════════════════════ */
+.blueberry-panels {
+  width: 344px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  margin-bottom: var(--space-l);
+}
+
+.blueberry-panels[hidden],
+.blueberry-panel[hidden],
+.notification-panel[hidden] {
+  display: none;
+}
+
+.blueberry-panel {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xs);
+  background: var(--color-base-background-blueberry);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+}
+
+.blueberry-panel__title {
+  font: var(--mobile-h4);
+  color: var(--color-base-text-onlight);
+}
+
+.notification-panel {
+  display: flex;
+  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-2xs);
+  box-shadow: 0.25rem 0.25rem 0.375rem rgba(0,0,0,0.15);
+  border-radius: var(--radius-s);
+}
+
+.notification-panel--compact {
+  width: fit-content;
+  font-size: 1rem;
+  line-height: 1.25rem;
+  box-shadow: none;
+  background: transparent;
+}
+
+.notification-panel--warn {
+  border: 0.125rem solid var(--color-notification-border-warning);
+}
+
+.notification-panel--info {
+  border: 0.125rem solid var(--color-notification-border-info);
+  background-color: var(--color-notification-background-info);
+}
+
+.notification-panel--dismissable {
+  padding: var(--space-2xs) var(--space-2xs) var(--space-m);
+}
+
+.notification-panel__icon {
+  width: 38px;
+  height: 38px;
+  margin-right: var(--space-3xs);
+  flex-shrink: 0;
+  line-height: 0;
+}
+
+.notification-panel__close {
+  order: 1;
+  margin-left: auto;
+  padding-left: var(--space-3xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.notification-panel__close svg { display: block; width: 38px; height: 38px; }
+
+.notification-panel__content {
+  align-self: center;
+}
+
+.notification-panel__label {
+  display: block;
+  font: 700 1rem/150% 'Source Sans Pro', sans-serif;
+  color: var(--color-base-text-onlight);
+  margin: var(--space-2xs) 0 0;
+}
+
+.notification-panel__children {
+  font: 600 1rem/150% 'Source Sans Pro', sans-serif;
+  color: var(--color-base-text-onlight);
+  margin: 0;
+  padding: var(--space-3xs) 0;
+}
+
+.notification-panel__children--with-label {
+  font-weight: 500;
+}
+
+.notification-panel__link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4xs);
+  margin-top: var(--space-2xs);
+  color: var(--blueberry-700);
+  font: 600 1rem/150% 'Source Sans Pro', sans-serif;
+  text-decoration: underline;
+}
+
+.notification-panel__link-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+/* ═══════════════════════════════════════════════════════════
    WEEKLY ARTICLE  (Figma node 8:469 layout)
 ══════════════════════════════════════════════════════════════ */
 .weekly-article {
@@ -1395,6 +1526,43 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="sp-l"></div>
 
   <!-- ══════════════════════════════════════════════════════
+       BLUEBERRY PANELS — each independently selectable from
+       dashboard.html (?panelHelsekort=1&panelFarskap=1).
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="blueberry-panels" id="blueberryPanels" hidden>
+    <div class="blueberry-panel" id="panelHelsekort" hidden>
+      <h3 class="blueberry-panel__title">Del opplysninger før første svangerskapskontroll</h3>
+      <div class="notification-panel notification-panel--warn notification-panel--compact">
+        <svg class="notification-panel__icon" viewBox="0 0 48 48" fill="var(--color-notification-border-warning)" aria-hidden="true"><path d="M24.896 21.452v7.213a.891.891 0 01-1.782 0v-7.213a.89.89 0 111.782 0zm.5 11.577a1.39 1.39 0 11-2.782-.001 1.39 1.39 0 012.782.001zM6.613 39.725h34.774L24.11 8.275 6.613 39.725z"/></svg>
+        <div class="notification-panel__content">
+          <p class="notification-panel__children">Du har ikke delt opplysningene i ditt digitale helsekort ennå.</p>
+        </div>
+      </div>
+      <a class="btn-borderless" href="#">
+        <span class="btn-borderless__text">Fortsett utfylling</span>
+        <div class="btn-borderless__icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+    </div>
+
+    <div class="notification-panel notification-panel--info notification-panel--dismissable" id="panelFarskap" hidden>
+      <svg class="notification-panel__icon" viewBox="0 0 48 48" fill="var(--color-notification-border-info)" aria-hidden="true"><path d="M26.367 31.224h-4.7v-.543a8.88 8.88 0 00.38-.037c.124-.015.23-.04.32-.075a.612.612 0 00.334-.255.881.881 0 00.097-.443v-6.324a.868.868 0 00-.12-.458 1.001 1.001 0 00-.297-.315 1.543 1.543 0 00-.405-.171 2.644 2.644 0 00-.495-.105v-.543l3.645-.192.11.11v7.9c0 .174.038.322.112.443a.67.67 0 00.32.271 2.363 2.363 0 00.699.194v.543zm-2.64-14.998a1.556 1.556 0 11-.002 3.111 1.556 1.556 0 01.002-3.11zM24 8.728C15.58 8.728 8.728 15.578 8.728 24c0 8.42 6.852 15.272 15.273 15.272 8.42 0 15.27-6.852 15.27-15.272 0-8.421-6.85-15.272-15.27-15.272z"/></svg>
+      <button type="button" class="notification-panel__close" aria-label="Lukk" onclick="dismissBlueberryPanel('panelFarskap')">
+        <svg viewBox="0 0 48 48" fill="black" aria-hidden="true"><path d="M25.773 24l10.432-10.432-1.772-1.773-10.432 10.433-10.433-10.433-1.773 1.772L22.229 24 11.795 34.433l1.773 1.772 10.433-10.433 10.432 10.433 1.772-1.773z"/></svg>
+      </button>
+      <div class="notification-panel__content">
+        <h3 class="notification-panel__label">Registrer farskap hos Nav</h3>
+        <p class="notification-panel__children notification-panel__children--with-label">Hvis du ikke er gift med barnets far, kan dere registrere farskap digitalt på nav.no. Dette kan dere gjøre fra uke 22 i svangerskapet.</p>
+        <a class="notification-panel__link" href="#">
+          <span>Les mer og registrer farskap på nav.no (nav.no)</span>
+          <svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M18.76 14.426v1.768h11.83L14.719 32.065l1.251 1.25 15.801-15.801v11.691h1.768V14.426z"/></svg>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
        WEEKLY ARTICLE
   ═══════════════════════════════════════════════════════════ -->
   <div class="weekly-article">
@@ -1931,6 +2099,27 @@ function toggleFavorite() {
 const LS_DASHBOARD_WEEK_KEY = 'gravid-dashboard-week';
 const LS_DASHBOARD_CONNECTED_KEY = 'gravid-dashboard-connected';
 const LS_DASHBOARD_TERMINDATO_KEY = 'gravid-dashboard-termindato-confirmed';
+const LS_DASHBOARD_PANEL_HELSEKORT_KEY = 'gravid-dashboard-panel-helsekort';
+const LS_DASHBOARD_PANEL_FARSKAP_KEY = 'gravid-dashboard-panel-farskap';
+
+// Each of the two blueberry panels beneath the ring is toggled
+// independently — both can be visible at once (matching the Figma
+// reference, which shows them stacked), either alone, or neither.
+function setBlueberryPanels(showHelsekort, showFarskap) {
+  document.getElementById('panelHelsekort').hidden = !showHelsekort;
+  document.getElementById('panelFarskap').hidden = !showFarskap;
+  document.getElementById('blueberryPanels').hidden = !(showHelsekort || showFarskap);
+}
+
+// The farskap panel's close button hides it for this pageview only —
+// not persisted, so it comes back on the next load/dashboard scenario,
+// same as a real dismissable NotificationPanel would reset once its
+// trigger condition (unmarried + uke 22+) is re-evaluated server-side.
+function dismissBlueberryPanel(id) {
+  document.getElementById(id).hidden = true;
+  const stillVisible = !document.getElementById('panelHelsekort').hidden || !document.getElementById('panelFarskap').hidden;
+  document.getElementById('blueberryPanels').hidden = !stillVisible;
+}
 
 function readDashboardSetting(paramName, lsKey, fallback) {
   const fromUrl = dashboardParams.get(paramName);
@@ -1952,9 +2141,12 @@ const initialConnected = readDashboardSetting('tilknyttet', LS_DASHBOARD_CONNECT
 // termindato via ultrasound — always the mother's own estimate then,
 // whatever the saved/passed termindato setting says.
 const initialTermindatoConfirmed = initialConnected && readDashboardSetting('termindato', LS_DASHBOARD_TERMINDATO_KEY, '1') === '1';
+const initialPanelHelsekort = readDashboardSetting('panelHelsekort', LS_DASHBOARD_PANEL_HELSEKORT_KEY, '0') === '1';
+const initialPanelFarskap = readDashboardSetting('panelFarskap', LS_DASHBOARD_PANEL_FARSKAP_KEY, '0') === '1';
 
 updateWeek(initialWeek);
 setTermindatoConfirmed(initialTermindatoConfirmed);
+setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
 try {
   applyFavoriteState(localStorage.getItem(LS_FAVORITE_KEY) === '1');
 } catch {
