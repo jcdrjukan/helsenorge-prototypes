@@ -62,11 +62,6 @@ h1 {
   font: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
 }
 
-.intro {
-  color: var(--color-base-text-onlight-subdued);
-  font-size: 1rem;
-}
-
 .field {
   display: flex;
   flex-direction: column;
@@ -188,22 +183,12 @@ input[type="number"] {
   background: var(--blueberry-500);
   border-color: var(--blueberry-500);
 }
-
-.future-note {
-  font-size: 1rem;
-  color: var(--color-base-text-onlight-subdued);
-  border-top: 1px solid var(--neutral-200);
-  padding-top: var(--space-m);
-}
 </style>
 </head>
 <body>
 
 <div class="panel">
-  <div>
-    <h1>Gravid — dashboard</h1>
-    <p class="intro">Velg tilstanden prototypen skal åpnes i. Ikke en del av selve tjenesten — dette er et verktøy for å teste/demonstrere ulike situasjoner. Denne siden er ikke lenket til noe sted i prototypen; del aldri lenken til denne siden selv, kun lenken til det ferdige scenarioet under.</p>
-  </div>
+  <h1>Gravid dashboard</h1>
 
   <div class="field">
     <label class="field__label" for="weekInput">Svangerskapsuke</label>
@@ -212,31 +197,29 @@ input[type="number"] {
   </div>
 
   <div class="field">
-    <span class="field__label">Har digitalt helsekort for gravide</span>
-    <span class="field__hint">Det er mulig å bruke tjenesten uten å være tilknyttet en jordmor/lege som er med i ordningen — relevant for partnere, andre pårørende, eller når egen jordmor/lege ennå ikke er tilknyttet.</span>
+    <span class="field__label">Har DHG</span>
     <div class="radio-group">
       <div class="radio-option">
         <input type="radio" name="connected" id="connectedYes" value="1" checked>
-        <label for="connectedYes">Ja — tilknyttet jordmor/lege</label>
+        <label for="connectedYes">Ja</label>
       </div>
       <div class="radio-option">
         <input type="radio" name="connected" id="connectedNo" value="0">
-        <label for="connectedNo">Nei — ikke tilknyttet</label>
+        <label for="connectedNo">Nei</label>
       </div>
     </div>
 
     <div class="sub-field" id="termindatoField">
       <div class="field">
         <span class="field__label">Termindato bekreftet av jordmor/lege</span>
-        <span class="field__hint">Kun relevant når tilknyttet — uten en jordmor/lege er det ingen som kan bekrefte termindatoen via ultralyd.</span>
         <div class="radio-group">
           <div class="radio-option">
             <input type="radio" name="termindatoConfirmed" id="termindatoYes" value="1" checked>
-            <label for="termindatoYes">Ja — bekreftet</label>
+            <label for="termindatoYes">Ja</label>
           </div>
           <div class="radio-option">
             <input type="radio" name="termindatoConfirmed" id="termindatoNo" value="0">
-            <label for="termindatoNo">Nei — fortsatt eget anslag</label>
+            <label for="termindatoNo">Nei</label>
           </div>
         </div>
       </div>
@@ -244,8 +227,7 @@ input[type="number"] {
   </div>
 
   <div class="field">
-    <span class="field__label">Blueberry-paneler under hjulet</span>
-    <span class="field__hint">To uavhengige paneler — begge, én av dem, eller ingen kan vises samtidig (Figma node 44:495).</span>
+    <span class="field__label">Infopaneler</span>
     <div class="checkbox-group">
       <div class="checkbox-option">
         <input type="checkbox" id="panelHelsekort">
@@ -261,17 +243,12 @@ input[type="number"] {
   <a class="launch-btn" id="launchBtn" href="index.html">Åpne prototypen →</a>
 
   <div class="share-field">
-    <label class="field__label" for="shareUrl">Del dette scenarioet</label>
-    <span class="field__hint">Lenken under peker rett til prototypen med akkurat denne uken/tilstanden ferdig satt opp — trygg å sende til andre, uansett hva de selv har åpnet før.</span>
+    <label class="field__label" for="shareUrl">Del scenarioet</label>
     <div class="share-row">
       <input type="text" id="shareUrl" readonly aria-label="Delbar lenke">
       <button type="button" class="copy-btn" id="copyBtn">Kopier lenke</button>
     </div>
   </div>
-
-  <p class="future-note">
-    Flere parametere kommer etter hvert — f.eks. om "Kartlegging for første svangerskapskontroll" er sendt inn. Denne siden er ment å vokse med prototypen.
-  </p>
 </div>
 
 <script>
