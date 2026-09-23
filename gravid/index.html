@@ -1596,7 +1596,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <!-- ══════════════════════════════════════════════════════
        SF-MÅL / GROWTH CHART
   ═══════════════════════════════════════════════════════════ -->
-  <div class="sf-section">
+  <div class="sf-section" id="sfSection">
     <div class="sf-header">
       <h2 class="section-h2" style="width:auto;">Mål av magen</h2>
       <button class="help-trigger" aria-label="Hva er mål av magen?" title="Symfyse-fundus-mål (SF-mål): avstand fra skambenet til toppen av livmoren, utføres fra ca uke 24">
@@ -2066,6 +2066,17 @@ function setTermindatoConfirmed(confirmed) {
   document.getElementById('dueDateEditable').hidden = confirmed;
 }
 
+// ─── Mål av magen (SF-mål) ─────────────────────────────────
+// Only shown for mothers with a digital helsekort (DHG) connection —
+// without one there's no jordmor/lege recording SF-mål into anything
+// this page could read. (Whether it's blank before uke 24, since the
+// first measurement isn't taken until then, is already handled by
+// updateGrowthChart()/weekData's sfNorm:null for those weeks — this
+// only covers the DHG condition on top of that.)
+function setSfSectionVisibility(connected) {
+  document.getElementById('sfSection').hidden = !connected;
+}
+
 // ─── Snarvei (favorite) ────────────────────────────────────
 // Whether the mother has added Gravid as a snarvei on Forside. Persisted
 // like the sticky notes above, so it survives a reload rather than
@@ -2153,6 +2164,7 @@ const initialPanelFarskap = readDashboardSetting('panelFarskap', LS_DASHBOARD_PA
 
 updateWeek(initialWeek);
 setTermindatoConfirmed(initialTermindatoConfirmed);
+setSfSectionVisibility(initialConnected);
 setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
 try {
   applyFavoriteState(localStorage.getItem(LS_FAVORITE_KEY) === '1');
