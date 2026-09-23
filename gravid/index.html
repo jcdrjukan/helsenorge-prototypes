@@ -536,38 +536,36 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* Unconfirmed termindato: still the mother's own estimate, editable —
    pencil in #08667C (blueberry-700, the Helsenorge "green" used for
-   clickable elements) is the click-to-edit affordance. The pencil sits
-   next to the "Termindato" title, not the date, so the date line stays
-   exactly as narrow as the confirmed state's — the widest line in the
-   block (title+icon) is still narrower than the date, which keeps this
-   state's overall footprint close to the confirmed state's and avoids
-   colliding with the week bubble at the angles where it passes close
-   to the ring's center content (e.g. uke 25). A pencil-beside-the-date
-   layout was tried first and didn't reliably clear the bubble at every
-   week; moving the whole block up to compensate didn't work either —
-   uke 40's bubble sits at the very top with ~4px clearance already,
-   near zero room to push the block into. */
+   clickable elements) is the click-to-edit affordance, centered beneath
+   the date per direct request. Width-wise this is as narrow as the
+   confirmed state (title and date are each on their own line, same as
+   confirmed — the icon's own row is narrower than either), but it's a
+   third row taller than confirmed's two, which — since .countdown-
+   ring__center is a justify-content:center flex column — grows the
+   whole center group and eats into clearance against the week bubble
+   on BOTH sides, not just below. Margins here are pulled as tight as
+   they'll go (0 between every row) specifically to claw most of that
+   back: brought the ring-wide overlap count from 9 weeks (uncompensated
+   3-row block) down to 6 (uke 16-18, 22-24), better than the previous
+   2-row/pencil-beside-title layout's 8. The remaining 6 are the
+   pre-existing bubble/content collision pattern noted in DECISIONS.md —
+   still needs a real layout decision (bigger ring/smaller bubble/
+   dynamic layout) to clear entirely, not a spacing tweak. */
 .due-date-editable {
-  margin-top: var(--space-2xs);
+  margin-top: 0;
   text-align: center;
   cursor: pointer;
 }
 
-.due-date-editable__title-row {
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  gap: var(--space-4xs);
-}
-
 .due-date-editable__title {
+  display: block;
   font: var(--mobile-image-caption);
   color: var(--color-base-text-onlight);
 }
 
 .due-date-editable__value {
   display: block;
-  margin-top: var(--space-4xs);
+  margin-top: 0;
   font: var(--mobile-label);
   font-size: 1.25rem;
   color: var(--blueberry-700);
@@ -575,8 +573,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .due-date-editable__icon {
+  display: block;
   width: 16px;
   height: 16px;
+  margin: 0 auto 0;
   color: var(--blueberry-700);
   flex-shrink: 0;
 }
@@ -1384,11 +1384,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
              clickable green) as the clickable affordance. Hidden by
              default. -->
         <div class="due-date-editable" id="dueDateEditable" hidden>
-          <div class="due-date-editable__title-row">
-            <span class="due-date-editable__title">Termindato</span>
-            <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
-          </div>
+          <span class="due-date-editable__title">Termindato</span>
           <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
+          <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
         </div>
       </div>
     </div>
