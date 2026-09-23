@@ -47,6 +47,7 @@
 
   --mobile-h1: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
   --mobile-h2: 600 1.625rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-h3: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
   --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
   --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
   --mobile-label-subdued: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
@@ -258,6 +259,14 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 .section-h2 { width: 344px; font: var(--mobile-h2); color: var(--color-base-text-onlight); }
 .body-text { font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .caption-text { font: var(--mobile-image-caption); color: var(--color-disabled-text); }
+
+/* Sub-structure inside a panel's content (weeks with a <h2>/<ul> in the
+   source spreadsheet cell, e.g. Mor uke 6–8's "Vanlig med blødninger"
+   sub-section, or Kontroll uke 24's several consultation sub-topics) —
+   one level down from the panel's own .section-h2 heading. */
+.section-h3 { font: var(--mobile-h3); color: var(--color-base-text-onlight); margin-top: var(--space-2xs); }
+.body-list { font: var(--mobile-body); color: var(--color-base-text-onlight); margin: 0; padding-left: var(--space-m); }
+.body-list li { margin-bottom: var(--space-3xs); }
 
 .sp-s { height: var(--space-s); flex-shrink: 0; width: 100%; }
 
@@ -487,12 +496,17 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 // single week number but MOR_CONTENT/KONTROLL_CONTENT are lists of
 // {from, to, ...} ranges instead.
 //
-// Only week 30 is filled in below, transcribed from the Figma
-// reference (nodes 43:483–485) as a working example — real content
-// for the rest of the weeks/ranges still needs to be added. Where the
-// reference screenshot's text ran off the bottom of the frame, the
-// paragraph was left out entirely rather than guessed at; check the
-// original design if you want that tail end.
+// Transcribed from uke-for-uke.xlsx (Barn/Mor/Svangerskapskontroll tabs),
+// content-templates/gravid/, 2026-09-23. Extraction notes:
+//  - Three adjacent week-columns had content duplicated verbatim into a
+//    column that should have been left blank as a range continuation
+//    (Mor uke 13/14; Kontroll uke 1-3/4-5; Kontroll uke 11/12) — merged
+//    into one range each rather than kept as accidental duplicates.
+//  - Some Mor range headings still contain a literal "<x>" placeholder
+//    in the source (uke 1-3, 4-5, 13-14, 36, 37-42) — not filled in yet,
+//    left as-is rather than guessed at.
+//  - Kontroll uke 33-36's text starts "nnholdet..." in the source
+//    (missing leading "I") — kept verbatim, not silently corrected.
 //
 // Any week/tab with no matching entry falls back to a placeholder
 // message, so the page still renders correctly for every week in the
@@ -500,43 +514,609 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 // ─────────────────────────────────────────────────────────────
 
 const BARN_CONTENT = {
+  1: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'I starten av svangerskapet vokser fostre relativt likt. Individuelle forskjeller på lengde og vekt øker i samsvar med svangerskapslengde.',
+      'I løpet av denne perioden vil eggcellen og sædcellen smelte sammen til et befruktet egg. Cellene i det befruktede egget deler seg, og det kalles nå et fosteranlegg. Fosteranlegget danner to deler. Den ene delen vil utvikle seg til selve fosteret. Den andre delen vil utvikle seg til morkaken som skal forsyne det fremtidige fosteret med næring.',
+      'Fosteranlegget fester seg i livmorslimhinnen omtrent 1 uke etter befruktning.',
+    ],
+  },
+  2: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'I starten av svangerskapet vokser fostre relativt likt. Individuelle forskjeller på lengde og vekt øker i samsvar med svangerskapslengde.',
+      'I løpet av denne perioden vil eggcellen og sædcellen smelte sammen til et befruktet egg. Cellene i det befruktede egget deler seg, og det kalles nå et fosteranlegg. Fosteranlegget danner to deler. Den ene delen vil utvikle seg til selve fosteret. Den andre delen vil utvikle seg til morkaken som skal forsyne det fremtidige fosteret med næring.',
+      'Fosteranlegget fester seg i livmorslimhinnen omtrent 1 uke etter befruktning.',
+    ],
+  },
+  3: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'I starten av svangerskapet vokser fostre relativt likt. Individuelle forskjeller på lengde og vekt øker i samsvar med svangerskapslengde.',
+      'I løpet av denne perioden vil eggcellen og sædcellen smelte sammen til et befruktet egg. Cellene i det befruktede egget deler seg, og det kalles nå et fosteranlegg. Fosteranlegget danner to deler. Den ene delen vil utvikle seg til selve fosteret. Den andre delen vil utvikle seg til morkaken som skal forsyne det fremtidige fosteret med næring.',
+      'Fosteranlegget fester seg i livmorslimhinnen omtrent 1 uke etter befruktning.',
+    ],
+  },
+  4: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Når fosteranlegget har festet seg i livmorslimhinnen kalles det et embryo. Embryoet er bare noen millimeter langt, og består av tre lag med celler som senere vil danne alle organer og vev. Det ene laget skal for eksempel bli hud, hår, negler, øyne, hjerne og nervesystem. Det andre laget skal for eksempel utvikle seg til muskulatur, skjelett, hjerte og blodårer. Det tredje laget skal blant annet bli til magesekk, lever, skjoldbruskkjertel, lunger og urinblære.',
+      'Rundt denne perioden blir den første antydningen til en morkake dannet. Fostervann blir produsert fra ditt blod.',
+    ],
+  },
+  5: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Når fosteranlegget har festet seg i livmorslimhinnen kalles det et embryo. Embryoet er bare noen millimeter langt, og består av tre lag med celler som senere vil danne alle organer og vev. Det ene laget skal for eksempel bli hud, hår, negler, øyne, hjerne og nervesystem. Det andre laget skal for eksempel utvikle seg til muskulatur, skjelett, hjerte og blodårer. Det tredje laget skal blant annet bli til magesekk, lever, skjoldbruskkjertel, lunger og urinblære.',
+      'Rundt denne perioden blir den første antydningen til en morkake dannet. Fostervann blir produsert fra ditt blod.',
+    ],
+  },
+  6: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Embryoet er vanligvis rundt 5 mm langt på dette stadiet.',
+      'Omtrent i denne perioden begynner det å bli dannet anlegg til armer og bein. Alle de nødvendige cellene er på plass, og embryoet vil gradvis utvikle seg til et foster i løpet av de neste ukene. Organer som hjerte, lever, lunger, bukspyttkjertel og skjoldbruskkjertel begynner å utvikle seg. Magesekken fremstår som et væskefylt hulrom i mageområdet.',
+    ],
+  },
+  7: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Embryoet er vanligvis rundt 9 mm langt på dette stadiet.',
+      'Omtrent i denne perioden begynner det å bli dannet anlegg til tarmsystemet, og navlesnoren starter å utvikle seg. Ryggvirvlene begynner gjerne å lukke seg, og ribbena på ryggen starter å vokse.',
+      'Det vokser frem små knopper på både kropp og hodet. Knoppene skal bli til det ytre øret, anlegg til øyne, armer og bein.',
+      'Embryoet har en kroppsdel som likner på en hale. Den forsvinner senere i svangerskapet, vanligvis rundt uke 9.',
+    ],
+  },
+  8: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'I uke åtte av svangerskapet er embryoet vanligvis ca1,5 cm langt fra hodet til baken.',
+      'Omtrent på dette tidspunktet i utviklingen begynner det å dannes anlegg til nesetipp, øyelokk og overleppe. En antydning til åpning for munnen begynner også å danne seg, og haken starter å ta form. Armer og ben fortsetter å utvikle seg, og den raske utviklingen gjør at embryoet gradvis får et mer menneskelignende utseende.  Deler av embryoets tarmer ligger i navlesnoren, siden det ennå ikke er nok plass inne i mageområdet. Hjertet har fått et kammer på dette tidspunktet, og kan fylle store deler av brysthulen.',
+      'Embryoet kan gjøre små og enkle bevegelser i denne perioden.',
+    ],
+  },
+  9: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Embryoet er vanligvis rundt 2 cm langt på dette stadiet. I tiden fremover vil ansiktet gradvis utvikle seg. Linsen i øyet begynner å dannes, selv om det fortsatt gjenstår en god stund før hele øyet er ferdig utviklet. Øyelokkene utvikler seg, og skal etter hvert dekke hele øyet. Antydninger til nese, ører og nakke vokser frem.',
+      'De indre delene av kjønnsorganene er allerede til stede, og embryoet har enten eggstokker eller testikler. De ytre kjønnsorganene ser foreløpig ganske like ut hos alle embryoer. I denne perioden vil også embryoets hale forsvinne.',
+    ],
+  },
+  10: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Embryoet er vanligvis rundt 3 cm langt og veier omtrent 4 gram.',
+      'I denne perioden blir hodet gradvis rundere, og hodet kan være omtrent like stort som resten av kroppen. Øynene, som tidligere lå på hver sin side av hodet, begynner å flytte seg mot riktig plassering i ansiktet. Anlegg til ørene utvikler seg, og det ytre øret begynner å dannes. Armer og ben fortsetter å vokse, og føttene er omtrent to millimeter lange.',
+    ],
+  },
+  11: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Embryoet blir nå regnet som et foster, og er vanligvis rundt 4 cm langt og veier omtrent 8 gram.',
+      'Omtrent på dette tidspunktet kan man se at fosteret har utviklet fingre og tær. De ytre kjønnsorganene fortsetter å utvikle seg. Det er likevel vanskelig å skille mellom det som skal bli kvinnelige og mannlige kjønnsorganer. I løpet av denne perioden begynner tarmene gradvis å trekke seg inn fra navlestrengen og inn i fosterets bukhule.',
+    ],
+  },
+  12: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er vanligvis rundt 5 cm langt og veier omkring 16 gram på dette stadiet.',
+      'Fosteret begynner nå å ligne mer på et menneske. Anlegg til alle organer er på plass, og de vil fortsette å vokse og modnes i mange uker til. Hjernen er tydelig synlig, og hjertets struktur med fire kamre er i stor grad dannet. Både hjerne og hjerte vil likevel fortsette å utvikle seg videre.',
+      'Fosteret kan bevege seg inne i livmoren, men det er enda en stund til du vil kjenne bevegelsene.',
+    ],
+  },
+  13: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå gjerne mellom 6 og 7 cm langt, og veier rundt 40 gram, men det kan variere fra graviditet til graviditet. Tidlig i svangerskapet blir fostervannet hovedsakelig produsert fra den gravides blod. Etter hvert som fosteret utvikler seg, starter urinproduksjonen. Fostervannet blir da en blanding av væske fra både den gravide og fosteret. Mengden fostervann øker gradvis, noe som gir fosteret mer plass til å bevege seg fritt.',
+      'I denne perioden blir neglene på fingre og tær utviklet, og skjelettet begynner å bli hardere.',
+      'I overgangen til andre trimester er morkaken ferdig utviklet. Fra nå er det morkaken som sørger for å overføre næring og oksygen til fosteret.',
+    ],
+  },
+  14: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 8 cm langt, men det kan variere fra graviditet til graviditet.',
+      'Det begynner å vokse fine, tynne hår på fosterets kropp. Disse hårene bidrar til å beskytte fosterets hud.',
+      'Fosteret kan hikke og bevege seg, selv om du sannsynligvis ikke kjenner det ennå. Dette skyldes blant annet at fostervannet fungerer som en støtdemper, og at det ikke finnes følesans på innsiden av livmoren. Omtrent på dette tidspunktet starter fosteret å svelge små mengder fostervann.',
+    ],
+  },
+  15: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 10 cm langt, og veier rundt 90 gram, men det kan variere fra graviditet til graviditet.',
+      'Fosteret danner anlegg til melketenner tidlig i svangerskapet, og i denne perioden vil utviklingen av de første permanente tennene komme i gang.',
+      'I denne perioden begynner fosteret ofte å suge på fingrene sine. Det bidrar til å utvikle sugerefleksen, som er en viktig ferdighet for ernæring etter fødselen.',
+      'Fosteret kan bevege seg, men nervesystemet er fortsatt under utvikling. Derfor er fosteret ennå ikke modent nok til å gjøre viljestyrte bevegelser.',
+    ],
+  },
+  16: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 12 cm langt, og veier rundt 120 gram, men det kan variere fra graviditet til graviditet.',
+      'I denne perioden fortsetter den raske veksten av nerveceller i både hjernen og ryggmargen. Skjelettet blir hardere. Organene flytter seg gradvis til riktige plasser i kroppen, som en del av den pågående utviklingen.',
+      'Fosteret har god plass til å bevege seg i livmoren. Etter hvert som nervesystemet utvikler seg, blir bevegelsene mer koordinerte.',
+    ],
+  },
+  17: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå gjerne mellom 12 og 16 cm langt, avhengig av om målingen blir gjort fra hode til baken eller fra hode til tå. Vekten ligger ofte rundt 160 gram, men dette kan variere. Fosteret vokser raskt, og etter hvert vil kroppen bli større enn hodet. Dette er en naturlig del av utviklingen.',
+      'I denne perioden begynner fosteret gradvis å gjøre større og mer målrettede bevegelser. Allikevel er det fortsatt ikke alle gravide som kjenner bevegelsene enda.',
+    ],
+  },
+  18: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå gjerne mellom 14 og 20 cm langt, avhengig av om målingen blir gjort fra hode til baken eller fra hode til tå. Vekten ligger ofte rundt 200 gram, men dette kan variere fra graviditet til graviditet. I tiden fremover vil fosteret gradvis lagre mer fett i kroppen, og vekten øker jevnt etter hvert som utviklingen fortsetter.',
+      'Fosterets hud begynner å dekkes av et hvitt fettlag, som fester seg til de fine kroppshårene. Dette laget beskytter huden mens fosteret ligger i fostervannet.',
+    ],
+  },
+  19: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå gjerne mellom 15 og 22 cm langt, avhengig av om målingen blir gjort fra hode til baken eller fra hode til tå. Vekten ligger ofte rundt 235 gram, men dette kan variere fra graviditet til graviditet.',
+      'Fosteret svelger fortsatt fostervann og skiller det ut igjen som urin. Denne prosessen bidrar til å holde fostervannet rent. Rundt denne perioden kan fosteret begynne å hikke, og noen gravide kan merke dette som små, rytmiske dunk.',
+    ],
+  },
+  20: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'De fleste målinger av fosterets lengde blir nå gjort fra hode til hæl. Fosteret er ca 25cm langt og veier rundt 300 gram, men både lengde og vekt kan variere. I tiden fremover blir det nå større og mer individuelle forskjeller i vekstutvikling fra foster til foster.',
+      'Fosteret kan nå begynne å gjøre grimaser og suge på tommelen.',
+      'I denne perioden kan antagelig fosteret begynner å oppfatte lyd, og noen fostre kan reagere på sterke lyder utenfra. Fosterets bevegelser blir gradvis mer avanserte etter hvert som utviklingen fortsetter.',
+    ],
+  },
+  21: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå gjerne rundt 26 cm langt og veier omkring 400 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'I denne perioden skjer det mye i fosterets utvikling. Tenner i tannkjøttet utvikler seg videre, øyelokkene dekker nå hele øyet, og neglene har vokst ut. I hjernen begynner nervecellene å danne forbindelser, slik at de kan kommunisere med hverandre. Dette er en viktig del av den videre utviklingen.',
+    ],
+  },
+  22: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 28 cm langt og veier rundt 475 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Lungene og luftveiene fortsetter å utvikle seg, og fosteret forbereder seg gradvis på å kunne puste luft etter fødselen. Bukspyttkjertelen begynner også å produsere hormoner, inkludert insulin, som er viktig for kroppens regulering av blodsukkeret.',
+    ],
+  },
+  23: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 29 cm langt og veier ca 575 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Fosteret har både våkne og sovende perioder, og det kan antageligvis drømme under søvn.',
+    ],
+  },
+  24: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå gjerne rundt 30 cm langt og veier ca 650 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'I denne perioden begynner fosteret med tydelige pusteøvelser, der det trekker fostervann inn og ut av lungene. Dette er en viktig forberedelse til pusting etter fødselen.',
+    ],
+  },
+  25: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret  veier nå ca 750 gram, men vekten kan variere fra graviditet til graviditet.',
+      'Utviklingen av vitale organer som hjernen og lungene fortsetter. Fosteret kan antageligvis begynne å utvikle en form for bevissthet i denne perioden. Det er også mulig at fosteret kan oppleve smerte. Hørselen utvikler seg gradvis, og fosteret kan sannsynligvis høre lyder som hjerteslag og pust fra den gravide, samt stemmer og lyder utenfra.',
+    ],
+  },
+  26: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 35 cm langt og veier ca 900 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'De store organene begynner å ta form, selv om både lungene og nervesystemet fortsetter å modnes helt frem mot fødselen. Fosteret begynner også å øve seg på å åpne og lukke øynene – en ferdighet som gradvis utvikler seg.',
+    ],
+  },
+  27: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Fosteret er nå ca 36 cm langt og veier rundt 1000 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Rundt denne tiden kan fosteret begynne å åpne øynene for første gang. Synet utvikler seg gradvis både gjennom resten av svangerskapet og etter fødselen.',
+      'I denne perioden vil en del fostre legge seg med hodet ned i bekkenet. Dette ser ut til å være vanligst hos førstegangsfødende. Hvis fosteret ikke har lagt seg med hodet ned enda, er det fortsatt en mulighet for at fosteret kan snu seg senere i svangerskapet.',
+    ],
+  },
+  28: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 38 cm langt, og veier ca 1150 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'I denne perioden kan fosteret ofte begynne å ha tydeligere perioder med aktivitet og hvile. Det er også mulig at fosteret reagerer med å skvette ved plutselige lyder eller bevegelser.',
+    ],
+  },
+  29: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 39 cm langt, og veier gjerne rundt 1250 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Fosteret går nå gjerne inn i en fase med økt vekst. I denne perioden utvikler det seg gradvis, fra å være relativt langt og smalt, til å legge på seg mer i bredden. Dette er en naturlig del av fosterets utvikling.',
+    ],
+  },
   30: {
     heading: 'Utvikling hos fosteret',
     paragraphs: [
-      'På dette tidspunktet veier fosteret rundt 1450 gram, men vekten kan variere fra graviditet til graviditet.',
+      'På dette tidspunktet er fosteret ca 40 cm langt, og veier gjerne rundt 1400 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
       'I tiden fremover kan vekten variere betydelig fra foster til foster. Veksten skjer fortsatt raskt, men hvor mye fosteret veier er individuelt.',
-      'Blodforsyningen til øyet fortsetter å utvikle seg gradvis i denne perioden.',
+      'Blodforsyningen til øyet fortsetter å utvikle seg gradvis i denne perioden. Etter fødselen vil synet hos det nyfødte barnet fortsette å modnes. Allerede kort tid etter fødselen vil den nyfødte forsøke å møte blikket ditt og være interessert i ansikter.',
     ],
   },
-  // 1: { heading: '...', paragraphs: ['...'] },
-  // 2: { heading: '...', paragraphs: ['...'] },
-  // ...one entry per week, 1 through 42.
+  31: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 41 cm langt, og veier rundt 1600 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Fosteret ligner nå et nyfødt barn. Mange fostre legger seg etter hvert med hodet ned i bekkenet, særlig hos førstegangsfødende. Det er fortsatt mulighet for at fosteret kan endre posisjon senere i svangerskapet.',
+      'Fosteret kan sannsynligvis kjenne igjen lyder fra utsiden av livmoren.',
+    ],
+  },
+  32: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 43 cm langt, og veier rundt 1750 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Etter hvert som fosteret vokser, blir det gradvis mindre plass inne i livmoren. Det skal fortsatt være godt med fostervann rundt fosteret, men nærmere termin vil mengden vanligvis avta noe.',
+    ],
+  },
+  33: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 44 cm langt, og veier rundt 2000 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Fosteret fortsetter å vokse i både lengde og bredde for å bli best mulig forberedt til livet utenfor livmoren.',
+      'Fosteret kan sannsynligvis oppfatte forskjellen mellom lys og mørke.',
+    ],
+  },
+  34: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 45 cm langt og veier ca 2300 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'De fleste indre organer er nå ferdig utviklet, med unntak av lungene. De trenger fortsatt tid til å modnes. Fosteret gjør derfor jevnlige pusteøvelser med fostervann – en viktig forberedelse til livet utenfor livmoren.',
+      'Fosteret hører lyder fra kroppen til mor, som hjerteslag, tarmlyder og pust. Etter fødselen kan den nyfødte kjenne igjen hjerteslagene når det ligger med øret mot brystet til mor.',
+    ],
+  },
+  35: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ca 46 cm langt og veier rundt 2400 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Mengden fostervann avtar gradvis, og det blir mindre plass for fosteret å bevege seg fritt. Selv om plassen blir trangere, bør du fortsatt kjenne like mye bevegelser som før.',
+      'Fosteret svelger fortsatt fostervann, og fordøyelsen i tarmene utvikler seg. Dette er med på å gjøre barnets første avføring etter fødselen mørk og klebrig. Dette kalles barnebek.',
+    ],
+  },
+  36: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'På dette tidspunktet er fosteret ofte rundt 47 cm langt og veier mellom 2600 - 2700 gram, men både lengde og vekt kan variere fra graviditet til graviditet.',
+      'Fosterets hjerne er nå i stor grad ferdig utviklet, og mot slutten av denne perioden begynner nervecellene å få beskyttelse av et fettlag. Dette bidrar til effektiv kommunikasjon mellom cellene. Fosterets vekt øker med mer underhudsfett.',
+      'Lungene er blant de siste organene som modnes, og utviklingen fortsetter helt frem mot fødselen. Samtidig blir mengden fostervann gradvis redusert.',
+      'Fosteret har nå lengre og mer tydelige perioder med både søvn og aktivitet. Dette mønsteret kan du kjenne igjen etter fødselen. Etter fødselen vil de fleste nyfødte sove mellom 14 og 17 timer, men alt fra 11 til 19 timer er normalt. Søvnen er oppstykket, og nyfødte skiller ikke mellom natt og dag. I den første tiden etter fødselen er søvn tett knyttet til barnets behov for mat, kroppskontakt og støtte.',
+    ],
+  },
+  37: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Det nærmer seg fødsel. Hvis barnet blir født nå, regnes det som født til termin. De fleste fostre ligger nå med hodet ned mot fødselskanalen, men noen ligger fortsatt med rumpa eller føttene ned. Denne posisjonen blir kalt seteleie.',
+      'Vekt og lengde varierer ut ifra om fødselen skjer tidlig eller sent i denne perioden. Fosteret er antageligvis mellom 48 og 55 cm langt og veier omtrent 2700-4500 gram, men både lengde og vekt kan variere betydelig.',
+      'Etter fødselen har nyfødte et naturlig behov for kroppsvarme, nærhet, trygghet og kjærlighet. Derfor er det viktig at mor og partner kommer tidlig i gang med tilknytning, gjerne gjennom hud mot hud-kontakt med barnet. Hud mot hud kan hjelpe den nyfødte med å tilpasse seg livet utenfor livmoren.',
+      'Hudkontakt har flere fordeler:',
+      'barnet gråter mindre',
+      'barnet oppnår en stabil kroppstemperatur',
+      'tilknytningen og ammingen får en bedre start',
+      'Det er viktig at den som har barnet hud mot hud er våken, slik at barnet kan observeres.',
+      'Omsorgen for det nyfødte barnet og kjennetegn på trivsel - Helsenorge',
+    ],
+  },
+  38: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Det nærmer seg fødsel. Hvis barnet blir født nå, regnes det som født til termin. De fleste fostre ligger nå med hodet ned mot fødselskanalen, men noen ligger fortsatt med rumpa eller føttene ned. Denne posisjonen blir kalt seteleie.',
+      'Vekt og lengde varierer ut ifra om fødselen skjer tidlig eller sent i denne perioden. Fosteret er antageligvis mellom 48 og 55 cm langt og veier omtrent 2700-4500 gram, men både lengde og vekt kan variere betydelig.',
+      'Etter fødselen har nyfødte et naturlig behov for kroppsvarme, nærhet, trygghet og kjærlighet. Derfor er det viktig at mor og partner kommer tidlig i gang med tilknytning, gjerne gjennom hud mot hud-kontakt med barnet. Hud mot hud kan hjelpe den nyfødte med å tilpasse seg livet utenfor livmoren.',
+      'Hudkontakt har flere fordeler:',
+      'barnet gråter mindre',
+      'barnet oppnår en stabil kroppstemperatur',
+      'tilknytningen og ammingen får en bedre start',
+      'Det er viktig at den som har barnet hud mot hud er våken, slik at barnet kan observeres.',
+      'Omsorgen for det nyfødte barnet og kjennetegn på trivsel - Helsenorge',
+    ],
+  },
+  39: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Det nærmer seg fødsel. Hvis barnet blir født nå, regnes det som født til termin. De fleste fostre ligger nå med hodet ned mot fødselskanalen, men noen ligger fortsatt med rumpa eller føttene ned. Denne posisjonen blir kalt seteleie.',
+      'Vekt og lengde varierer ut ifra om fødselen skjer tidlig eller sent i denne perioden. Fosteret er antageligvis mellom 48 og 55 cm langt og veier omtrent 2700-4500 gram, men både lengde og vekt kan variere betydelig.',
+      'Etter fødselen har nyfødte et naturlig behov for kroppsvarme, nærhet, trygghet og kjærlighet. Derfor er det viktig at mor og partner kommer tidlig i gang med tilknytning, gjerne gjennom hud mot hud-kontakt med barnet. Hud mot hud kan hjelpe den nyfødte med å tilpasse seg livet utenfor livmoren.',
+      'Hudkontakt har flere fordeler:',
+      'barnet gråter mindre',
+      'barnet oppnår en stabil kroppstemperatur',
+      'tilknytningen og ammingen får en bedre start',
+      'Det er viktig at den som har barnet hud mot hud er våken, slik at barnet kan observeres.',
+      'Omsorgen for det nyfødte barnet og kjennetegn på trivsel - Helsenorge',
+    ],
+  },
+  40: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Det nærmer seg fødsel. Hvis barnet blir født nå, regnes det som født til termin. De fleste fostre ligger nå med hodet ned mot fødselskanalen, men noen ligger fortsatt med rumpa eller føttene ned. Denne posisjonen blir kalt seteleie.',
+      'Vekt og lengde varierer ut ifra om fødselen skjer tidlig eller sent i denne perioden. Fosteret er antageligvis mellom 48 og 55 cm langt og veier omtrent 2700-4500 gram, men både lengde og vekt kan variere betydelig.',
+      'Etter fødselen har nyfødte et naturlig behov for kroppsvarme, nærhet, trygghet og kjærlighet. Derfor er det viktig at mor og partner kommer tidlig i gang med tilknytning, gjerne gjennom hud mot hud-kontakt med barnet. Hud mot hud kan hjelpe den nyfødte med å tilpasse seg livet utenfor livmoren.',
+      'Hudkontakt har flere fordeler:',
+      'barnet gråter mindre',
+      'barnet oppnår en stabil kroppstemperatur',
+      'tilknytningen og ammingen får en bedre start',
+      'Det er viktig at den som har barnet hud mot hud er våken, slik at barnet kan observeres.',
+      'Omsorgen for det nyfødte barnet og kjennetegn på trivsel - Helsenorge',
+    ],
+  },
+  41: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Det nærmer seg fødsel. Hvis barnet blir født nå, regnes det som født til termin. De fleste fostre ligger nå med hodet ned mot fødselskanalen, men noen ligger fortsatt med rumpa eller føttene ned. Denne posisjonen blir kalt seteleie.',
+      'Vekt og lengde varierer ut ifra om fødselen skjer tidlig eller sent i denne perioden. Fosteret er antageligvis mellom 48 og 55 cm langt og veier omtrent 2700-4500 gram, men både lengde og vekt kan variere betydelig.',
+      'Etter fødselen har nyfødte et naturlig behov for kroppsvarme, nærhet, trygghet og kjærlighet. Derfor er det viktig at mor og partner kommer tidlig i gang med tilknytning, gjerne gjennom hud mot hud-kontakt med barnet. Hud mot hud kan hjelpe den nyfødte med å tilpasse seg livet utenfor livmoren.',
+      'Hudkontakt har flere fordeler:',
+      'barnet gråter mindre',
+      'barnet oppnår en stabil kroppstemperatur',
+      'tilknytningen og ammingen får en bedre start',
+      'Det er viktig at den som har barnet hud mot hud er våken, slik at barnet kan observeres.',
+      'Omsorgen for det nyfødte barnet og kjennetegn på trivsel - Helsenorge',
+    ],
+  },
+  42: {
+    heading: 'Utvikling hos fosteret',
+    paragraphs: [
+      'Det nærmer seg fødsel. Hvis barnet blir født nå, regnes det som født til termin. De fleste fostre ligger nå med hodet ned mot fødselskanalen, men noen ligger fortsatt med rumpa eller føttene ned. Denne posisjonen blir kalt seteleie.',
+      'Vekt og lengde varierer ut ifra om fødselen skjer tidlig eller sent i denne perioden. Fosteret er antageligvis mellom 48 og 55 cm langt og veier omtrent 2700-4500 gram, men både lengde og vekt kan variere betydelig.',
+      'Etter fødselen har nyfødte et naturlig behov for kroppsvarme, nærhet, trygghet og kjærlighet. Derfor er det viktig at mor og partner kommer tidlig i gang med tilknytning, gjerne gjennom hud mot hud-kontakt med barnet. Hud mot hud kan hjelpe den nyfødte med å tilpasse seg livet utenfor livmoren.',
+      'Hudkontakt har flere fordeler:',
+      'barnet gråter mindre',
+      'barnet oppnår en stabil kroppstemperatur',
+      'tilknytningen og ammingen får en bedre start',
+      'Det er viktig at den som har barnet hud mot hud er våken, slik at barnet kan observeres.',
+      'Omsorgen for det nyfødte barnet og kjennetegn på trivsel - Helsenorge',
+    ],
+  },
 };
 
 const MOR_CONTENT = [
   {
-    from: 29, to: 32,
-    heading: 'Hva skjer med mor i uke 29 til 32?',
+    from: 1, to: 3,
+    heading: 'Hva skjer med mor i uke <x>',
     paragraphs: [
-      'Det skjer store endringer i kroppen gjennom svangerskapet, og det er vanlig å merke at det er tyngre å bevege seg nå. Livmoren vokser samtidig med fosteret og presser på omkringliggende organer, noe som blant annet gir mindre plass til lungene.',
-      'Det er vanlig å føle seg andpusten, selv ved små anstrengelser. Lungekapasiteten din øker for å sikre nok oksygen, både til deg og barnet.',
+      'I de første ukene av svangerskapet er det få som kjenner noen tegn på at de er gravide. Uke fire er vanligvis tidspunktet for en ny menstruasjon. Dersom denne uteblir, eller du har en unormalt liten blødning, kan det være et tegn på at du er gravid.',
+      'Lengden på et svangerskap blir regnet fra første blødningsdag i siste menstruasjon, altså rundt to uker før du ble gravid.',
+      'Så tidlig som mulig i svangerskapet, og aller helst før du blir gravid, bør du ta et kosttilskudd som inneholder folat. Du bør ta 400 mikrogram per dag, frem til 12. svangerskapsuke.',
+      'Kosttilskudd med folat kan forebygge ryggmargsbrokk og nevralrørsdefekter hos barnet.',
     ],
   },
-  // { from: 1, to: 4, heading: '...', paragraphs: ['...'] },
-  // ...add one entry per range; ranges should cover 1–42 with no gaps.
+  {
+    from: 4, to: 5,
+    heading: 'Hva skjer med mor i uke <x>',
+    paragraphs: [
+      'I de første ukene av svangerskapet er det få som kjenner noen tegn på at de er gravide. Uke fire er vanligvis tidspunktet for en ny menstruasjon. Dersom denne uteblir, eller du har en unormalt liten blødning, kan det være et tegn på at du er gravid.',
+      'Lengden på et svangerskap blir regnet fra første blødningsdag i siste menstruasjon, altså rundt to uker før du ble gravid.',
+      'Noen kan merke forandringer i kroppen, men de fleste opplever ingen endringer så tidlig i svangerskapet. I uke fem begynner mange å kjenne tegn på graviditet. Vanlige symptomer kan være:',
+      { type: 'list', items: ['Behov for å tisse ofte', 'Ømme, spente og større bryster', 'Verking i korsryggen', 'Lett trykk eller spreng i underlivet'] },
+      'Mange vil også oppleve at de er trøtte og kvalme. Kvalmen gir seg hos de fleste rundt svangerskapsukene 12-14.',
+      'Så tidlig som mulig i svangerskapet, og aller helst før du blir gravid, bør du ta et kosttilskudd som inneholder folat. Du bør ta 400 mikrogram per dag, frem til 12. svangerskapsuke.',
+      'Kosttilskudd med folat kan forebygge ryggmargsbrokk og nevralrørsdefekter hos barnet.',
+    ],
+  },
+  {
+    from: 6, to: 8,
+    heading: 'Hva skjer med mor i uke 6 til 8?',
+    paragraphs: [
+      'Vanlige symptomer på graviditet i disse ukene er:',
+      { type: 'list', items: ['større bryster', 'halsbrann', 'økt utflod (som er normalt så lenge det ikke klør, svir, lukter eller gjør vondt)', 'uren hud', 'vektoppgang'] },
+      'Det er også vanlig å føle seg kvalm, svimmel og trøtt. Nok væske, mat, søvn og hvile kan lindre ubehaget.',
+      'Fordøyelsen går ofte litt langsommere, og du blir raskere mett når du spiser. Noen opplever også mer luft i magen.',
+      { type: 'heading', text: 'Vanlig med blødninger' },
+      'Selv om svangerskapet utvikler seg normalt, er det vanlig med blødninger tidlig i svangerskapet. Hvis du opplever smertefull blødning, anbefales det at du tar kontakt med fastlege eller jordmor.',
+    ],
+  },
+  {
+    from: 9, to: 12,
+    heading: 'Hva skjer med mor i uke 9 til 12?',
+    paragraphs: [
+      'Hormonene dine er i endring, og både tanker og følelser kan svinge veldig. Det er vanlig å være mer følsom i graviditeten. Du kan kjenne på alt fra stor glede til bekymringer og sorg. Det er ikke uvanlig å bekymre seg for å abortere, forholdet til partneren, kroppslige forandringer eller jobb- og livssituasjon.',
+      'Slimhinnene er skjørere enn vanlig. Dette kan føre til litt blod fra tannkjøttet når du pusser tenner, neseblod eller små blødninger fra skjeden ved samleie. Dette er ikke farlig.',
+      'Livmoren vokser stadig, men ligger fortsatt nede i bekkenet. Graviditeten er derfor ikke nødvendigvis synlig for andre. Har du vært gravid før kan magen bli synlig tidligere.',
+      'Har du opplevd svangerskapskvalme, vil du kanskje oppleve at denne plagen gradvis går over i denne perioden. Noen få gravide er fortsatt kvalme etter 20 ukers graviditet.',
+    ],
+  },
+  {
+    from: 13, to: 14,
+    heading: 'Hva skjer med mor i uke <x>',
+    paragraphs: [
+      'I uke 13 og 14 er livmoren på størrelse med en grapefrukt. Det er vanlig at du går opp i vekt i denne perioden. Som regel går du opp én til fire kilo. Svangerskapskvalmen har vanligvis gitt seg, og mange opplever at de er mindre trøtte og har mer energi.',
+    ],
+  },
+  {
+    from: 15, to: 17,
+    heading: 'Hva skjer med mor i uke 15-17',
+    paragraphs: [
+      'I denne perioden blir magen en del større og de fleste opplever at magen blir synlig for andre. Noen kjenner bevegelser fra fosteret i denne fasen, men for de fleste vil det ta noe lengre tid.',
+      'På grunn av mengden hormoner i kroppen, kan du oppleve humørsvingninger.',
+      'Det er vanlig at du blir mer tett i nesen enn vanlig, på grunn av hovne slimhinner. Du kan også merke at du svetter mer enn vanlig på grunn av økte mengder blod i kroppen. Du blir lettere andpusten enn før fordi hjertet skal dekke oksygenbehovet til to.',
+    ],
+  },
+  {
+    from: 18, to: 20,
+    heading: 'Hva skjer med mor i uke 18-20',
+    paragraphs: [
+      'Nå vil du sannsynligvis kjenne at fosteret beveger seg. De som har født før kjenner ofte liv tidligere enn de som venter barn for første gang. I starten kan bevegelsene til fosteret føles som en liten iling eller prikking i magen, og du er kanskje litt usikker på hva det er. Etter hvert blir bevegelsene tydeligere, og du vil ikke være i tvil om at det er fosteret som beveger seg.',
+      'Det er normalt å legge på seg 11-16 kilo i løpet av et svangerskap. Mye av vektøkningen skyldes at du produserer mer blod og fostervann. Vekten øker også fordi livmoren, morkaken og fosteret vokser.',
+      'Hos noen buler navlen ut. Det er helt ufarlig, og vil rette seg selv etter fødselen.',
+    ],
+  },
+  {
+    from: 21, to: 23,
+    heading: 'Hva skjer med mor i uke 21-23',
+    paragraphs: [
+      'Svangerskapet er nå halvveis. Du kan kjenne at du fysisk og mentalt forbereder deg til fødsel og til å bli forelder. Mange opplever at oppmerksomheten rettes mot det kommende barnet og mindre mot resten av omverden.',
+      'Leddbåndene i bekkenet ditt blir stadig mer elastiske. For noen kan det gjøre vondt når du står eller går. Det kan også bli vanskelig å reise seg opp og gå i trapper.',
+    ],
+  },
+  {
+    from: 24, to: 26,
+    heading: 'Hva skjer med mor i uke 24-26',
+    paragraphs: [
+      'Du kan nå merke fosterets bevegelser utenpå magen. Du vil kjenne spark daglig. Bevegelsene til fosteret er et tegn på at fosteret utvikler seg normalt og har det bra.',
+      'Livmoren din fortsetter å vokse, og den kan begynne å klemme på urinblæren, nerver, blodkar og magesekken. I denne perioden kan du oppleve halsbrann, kramper i leggene, og at du må oftere på do.',
+      'Brystene dine fortsetter også å vokse.',
+      'Det er vanlig å bli svimmel når du ligger på ryggen. Det skjer fordi livmoren din presser på blodåren som fører blod tilbake til hjertet. Ofte skal det ikke mer til enn at du snur deg på siden for å unngå å føle deg svimmel.',
+    ],
+  },
+  {
+    from: 27, to: 28,
+    heading: 'Hva skjer med mor i uke 27 og 28',
+    paragraphs: [
+      'I disse ukene er det vanlig å få strekkmerker, pigmentflekker og en mørk pigmentstripe midt på magen. Dette vil sannsynligvis forsvinne eller blekne etter fødselen. Brystknoppene og området rundt kan også bli mørkere. Flere kan oppleve forandringer i huden, som røde prikker i ansiktet, på overarmene og på overkroppen. Dette skyldes endringer i blodkarene, og vil forsvinne etter svangerskapet.',
+      'Mange opplever et økt behov for søvn fra nå og ut resten av svangerskapet. Det er vanlig å våkne flere ganger om natten, og mange har behov for korte hviler på dagen. Økte fosterbevegelser og endringer i kroppen på grunn av graviditeten kan påvirke søvnkvaliteten din. Det er viktig at du hviler når du kan.',
+    ],
+  },
+  {
+    from: 29, to: 32,
+    heading: 'Hva skjer med mor i uke 29 til 32',
+    paragraphs: [
+      'Det skjer store endringer i kroppen gjennom svangerskapet, og det er vanlig å merke at det er tyngre å bevege seg nå. Livmoren vokser samtidig med fosteret og presser på omkringliggende organer, noe som blant annet gir mindre plass til lungene. Det er vanlig å føle seg andpusten, selv ved små anstrengelser. Lungekapasiteten din øker for å sikre nok oksygen, både til deg og barnet. Dette kan du merke ved at du puster raskere. Hjertet ditt slår raskere for å kompensere for de økte behovene kroppen din har.',
+      'Det er vanlig med ekstra vann i kroppen og du merker det kanskje best ved at du har hovne ben.',
+      'I svangerskapet påvirkes tarmen av hormoner og det er mindre bevegelse i mage- og tarmsystemet. Dette gjør at du lettere kan få forstoppelse. Det kan hjelpe med fysisk aktivitet, mer kostfiber og økt inntak av væske.',
+    ],
+  },
+  {
+    from: 33, to: 35,
+    heading: 'Hva skjer med mor i uke 33 til 35',
+    paragraphs: [
+      'Mot slutten av denne perioden vil kroppen din begynne å forberede seg til fødselen med sammentrekninger i livmoren. Disse starter øverst i magen og sprer seg over hele livmoren før de slipper taket. Vanligvis varer sammentrekningene i omkring et halvt minutt. Dette blir kalt kynnere. I begynnelsen kan du kjenne kynnerne som svake menstruasjonssmerter. De kan bli mer ubehagelige etter hvert, men de er ikke smertefulle.',
+      'Har du født før kan du kjenne kynnere tidligere i svangerskapet. Da kan de ofte oppleves som kraftigere og mer intense.',
+      'Noen ganger kan det være vanskelig å skille kynnere og ordentlige rier. Kynnere går vanligvis over etter kort tid og kan endre seg dersom du legger deg ned, bytter stilling eller beveger deg. De er ikke regelmessige og øker sjelden i intensitet.',
+    ],
+  },
+  {
+    from: 36, to: 36,
+    heading: 'Hva skjer med mor i uke <x>',
+    paragraphs: [
+      'Livmoren presser på urinblæren din og det er vanlig å tisse oftere. Etter hvert vil livmoren synke ned. Da kan du oppleve at det blir litt lettere å puste.',
+      'Selv om barnet ikke er født enda, kan det lekke råmelk fra brystene dine. Det kan være vanskelig å finne en behagelig hvilestilling, og mange opplever at søvnen blir forstyrret. Det er normalt med humørsvingninger. Fødselen nærmer seg og det er vanlig å både grue og glede seg.',
+    ],
+  },
+  {
+    from: 37, to: 42,
+    heading: 'Hva skjer med mor i uke <x>',
+    paragraphs: [
+      'Livmorhalsen din blir mykere og kynnerne blir ukoordinerte og uregelmessige. På slutten av svangerskapet kan kynnerne komme oftere, og det kan til tider være plagsomt.',
+      { type: 'heading', text: 'Tegn på fødsel>/h2>\n\nEt tegn på at kroppen din gjør seg klar for fødsel, er at slimproppen løsner. De aller fleste merker imidlertid ikke at slimproppen løsner, og det sier heller ikke noe om når fødselen starter.\n\n<h2>Fødselen' },
+      'Om du føder i uke 37 eller i løpet av de neste 4-5 ukene, er dette regnet som normalt. Hvis svangerskapet ditt har passert uke 41, er det anbefalt at du følges opp med kontroll hos fødestedet ditt. Helsepersonell vil, i samarbeid med deg, vurdere om det er nødvendig å sette i gang fødselen din. Det er anbefalt at dette gjøres senest i uke 42.',
+      'Fødselen kan starte med rier, vannavgang eller blødning, eller som en kombinasjon av disse faktorene.',
+      'De fleste fødsler starter med rier. Hvis vannet går uten at du får rier, vil riene som oftest starte av seg selv innen ett døgn. Dersom vannet går eller det renner ut væske som du tror kan være fostervann, skal du ta kontakt med fødestedet ditt.',
+    ],
+  },
 ];
 
 const KONTROLL_CONTENT = [
   {
-    from: 28, to: 32,
+    from: 1, to: 5,
+    heading: 'Avtal første svangerskapskontroll tidlig',
+    paragraphs: [
+      'Ta kontakt med din lokale helsestasjon eller fastlege for å avtale første svangerskapskonsultasjon når du vet at du er gravid. Kontaktinformasjon til helsestasjon eller jordmor i din kommune finner du på kommunens nettsider.',
+      'Har du testet positivt på en graviditetstest hjemme, er hjemmetesten like sikker som den lege eller jordmor tilbyr.',
+      'Du bør få timeavtale innen en uke. I de fleste tilfeller kan du velge selv om du ønsker oppfølging i svangerskapet hos fastlege eller jordmor. Eller om du ønsker å fordele oppfølgingen hos begge.',
+      'I alle konsultasjonene er det fint om du har med morgenurin til test av urinen.',
+    ],
+  },
+  {
+    from: 6, to: 10,
+    heading: 'Konsultasjon i uke 6 til 12',
+    paragraphs: [
+      'På første konsultasjon vil jordmor eller lege snakke med deg slik at dere sammen er enige om dine behov i svangerskapet og hva som er viktig for deg. Denne tidlige konsultasjonen handler om levevaner og forberedelse til svangerskapet og hvordan du kan få den helsehjelpen du har behov for i svangerskapet.',
+      'Du vil få informasjon om oppfølging under graviditeten (svangerskapsomsorgen) og fødetilbud der du bor. Du vil også få informasjon om fosterdiagnostikk og mulighet til å stille spørsmål om dette.',
+      'Du vil få et helsekort der alle resultater noteres ned. Kortet bringes med til hver konsultasjon og i alle møter med helsepersonell så lenge du er gravid. Les mer om helsekortet og hvilke tester som anbefales.',
+      'I samtalen vil følgende kartlegges:',
+      { type: 'list', items: ['kosthold, trening, røyking, snus og alkohol', 'helsetilstand og eventuell sykdom og bruk av legemidler', 'tidligere svangerskap, fødsler, barseltid, amming og eventuelle aborter', 'psykisk helse', 'eventuell erfaring med vold og overgrep', 'farskapserklæring dersom du og barnefaren ikke er gift', 'søknad om medmorskap i likekjønnede forhold'] },
+      'I alle konsultasjonene kan du spørre om vanlige plager og endringer i kroppen din under graviditeten.',
+      'Du vil få tilbud om å ta blodtrykk og en enkel test av proteiner i urin, samt blodprøve til testing av hepatitt B, hiv, syfilis, hemoglobin (blodprosent) og serumferritin (jernlager). Førgravid vekt registreres i helsekortet.',
+      'Du vil få tilbud om å ta en RhD-blodprøve. Blodprøven blir blant annet tatt for å sjekke om du har blodtype Rhesus-negativ. Hvis du får påvist rhesus-negativ, blir det tatt en ny blodprøve senere for å sjekke fosterets blodtype. Du kan lese mer om det på Oslo universitetssykehus sine sider.',
+      'Andre tester vurderes ved behov.',
+    ],
+  },
+  {
+    from: 11, to: 12,
+    heading: 'Konsultasjon i uke 6 til 12',
+    paragraphs: [
+      'På første konsultasjon vil jordmor eller lege snakke med deg slik at dere sammen er enige om dine behov i svangerskapet og hva som er viktig for deg. Denne tidlige konsultasjonen handler om levevaner og forberedelse til svangerskapet og hvordan du kan få den helsehjelpen du har behov for i svangerskapet.',
+      'Du vil få informasjon om oppfølging under graviditeten (svangerskapsomsorgen) og fødetilbud der du bor. Du vil også få informasjon om fosterdiagnostikk og mulighet til å stille spørsmål om dette.',
+      'Du vil få et helsekort der alle resultater noteres ned. Kortet bringes med til hver konsultasjon og i alle møter med helsepersonell så lenge du er gravid. Les mer om helsekortet og hvilke tester som anbefales.',
+      'I samtalen vil følgende kartlegges:',
+      { type: 'list', items: ['kosthold, trening, røyking, snus og alkohol', 'helsetilstand og eventuell sykdom og bruk av legemidler', 'tidligere svangerskap, fødsler, barseltid, amming og eventuelle aborter', 'psykisk helse', 'eventuell erfaring med vold og overgrep', 'farskapserklæring dersom du og barnefaren ikke er gift', 'søknad om medmorskap i likekjønnede forhold'] },
+      'I alle konsultasjonene kan du spørre om vanlige plager og endringer i kroppen din under graviditeten.',
+      'Du vil få tilbud om å ta blodtrykk og en enkel test av proteiner i urin, samt blodprøve til testing av hepatitt B, hiv, syfilis, hemoglobin (blodprosent) og serumferritin (jernlager). Førgravid vekt registreres i helsekortet.',
+      'Du vil få tilbud om å ta en RhD-blodprøve. Blodprøven blir blant annet tatt for å sjekke om du har blodtype Rhesus-negativ. Hvis du får påvist rhesus-negativ, blir det tatt en ny blodprøve senere for å sjekke fosterets blodtype. Du kan lese mer om det på Oslo universitetssykehus sine sider.',
+      'Andre tester vurderes ved behov.',
+      { type: 'heading', text: 'Konsultasjon i uke 11 til 14: fosterdiagnostikk' },
+      'I disse ukene kan det gjennomføres fosterdiagnostikk. Alle gravide skal få tilbud om tidlig ultralyd i uke 11-14. Gravide som er over 35 år ved termin eller gravide med spesiell indikasjon kan få tilbud om NIPT. Det er frivillig å ta imot tilbud om dette. Du må gi samtykke før det blir gjennomført tidlig ultralyd eller NIPT.',
+      'Les mer om fosterdiagnostikk.',
+    ],
+  },
+  {
+    from: 13, to: 14,
+    heading: 'Konsultasjon i uke 11 til 14: fosterdiagnostikk',
+    paragraphs: [
+      'I disse ukene kan det gjennomføres fosterdiagnostikk. Alle gravide skal få tilbud om tidlig ultralyd i uke 11-14. Gravide som er over 35 år ved termin eller gravide med spesiell indikasjon kan få tilbud om NIPT. Det er frivillig å ta imot tilbud om dette. Du må gi samtykke før det blir gjennomført tidlig ultralyd eller NIPT.',
+      'Les mer om fosterdiagnostikk.',
+    ],
+  },
+  {
+    from: 15, to: 19,
+    heading: 'Konsultasjon i uke 17 til 19: ultralyd for terminfastsettelse',
+    paragraphs: [
+      'I uke 17-18 vil du få tilbud om ultralyd. Her finner du mer informasjon om ultralyd.',
+    ],
+  },
+  {
+    from: 20, to: 24,
+    heading: 'Konsultasjon i uke 24',
+    paragraphs: [
+      { type: 'heading', text: 'Konsultasjon i uke 24' },
+      'Jordmor eller fastlege vil spørre deg om hvordan du har det som gravid. Du vil få tilbud om å ta blodtrykk, veie deg og en enkel test av proteiner i urin.',
+      { type: 'heading', text: 'Symfyse-fundus-mål' },
+      'I denne konsultasjonen undersøkes det hvordan fosteret og livmoren vokser ved å måle avstanden mellom toppen av bekkenbeinet ditt til toppen av livmoren. Resultatet noteres på helsekortet. Målingen utføres ved hver konsultasjon fra og med uke 24.',
+      { type: 'heading', text: 'Fosterets hjerteslag og bevegelser' },
+      'Fosterets hjerteslag blir undersøkt. På helsekortet blir det notert om du kjenner fosterbevegelser. Du vil få informasjon om hva du skal kjenne etter og hva du kan gjøre dersom du kjenner mindre fosteraktivitet.',
+      'Du kan lese mer om å kjenne lite liv i svangerskapet på kjennliv.no',
+      { type: 'heading', text: 'Svangerskapsdiabetes' },
+      'Hvis du er førstegangsfødende over 25 år eller har risiko for å utvikle svangerskapsdiabetes, vil du få tilbud om en glukosebelastningstest.',
+      { type: 'heading', text: 'Har du fått påvist blodtype RhD negativ?' },
+      'Hvis du har fått påvist blodtype RhD negativ blir det tatt en ny blodprøve av deg i uke 24 for å påvise ditt barns RhD-type.',
+      'Du må gi samtykke før denne blodprøven blir tatt.',
+      { type: 'heading', text: 'Vaksine mot kikhoste' },
+      'Du vil få tilbud om vaksine mot kikhoste.',
+    ],
+  },
+  {
+    from: 25, to: 32,
     heading: 'Konsultasjoner i uke 28 og 32',
     paragraphs: [
       'Jordmor eller fastlege vil spørre deg om hvordan du har det. Du vil få tilbud om å måle blodtrykk, måle symfyse-fundus, lytte på fosterets hjerteslag, veie deg og en enkel test av proteiner i urin. Du får også spørsmål om fosterets bevegelser.',
-      'Har fosteret RhD-positivt blod og du har RhD-negativt vil du i uke 28 få en injeksjon som forebygger en reaksjon mellom ditt og barnets blod.',
+      'Har fosteret RhD-positivt blod og du har RhD-negativt vil du i uke 28 få en injeksjon som forebygger en reaksjon mellom ditt og barnets blod. Du kan lese mer om det på Oslo universitetssykehus sine sider.',
+      'I konsultasjonene kan dere samtale om fødsel, barseltid, amming og anbefalinger om spedbarnsernæring.',
     ],
   },
-  // { from: 1, to: 8, heading: '...', paragraphs: ['...'] },
-  // ...add one entry per range; ranges should cover 1–42 with no gaps.
+  {
+    from: 33, to: 36,
+    heading: 'Konsultasjon i uke 36',
+    paragraphs: [
+      'nnholdet i denne konsultasjonen er stort sett likt som i uke 24. I denne konsultasjonen sjekkes det også hvordan barnet ligger i livmoren. De aller fleste legger seg med hodet nedover i fødselskanalen/bekkenet. Dersom barnets rumpe ligger vendt mot fødselskanalen i stedet for hodet (seteleie), vil du bli henvist til fødepoliklinikk for en vurdering og plan for videre oppfølging.',
+      'Det er anbefalt at jordmor eller lege snakker med deg om:',
+      { type: 'list', items: ['fødsel', 'den første tiden etter fødsel', 'hjemmebesøk av jordmor og helsesykepleier', 'oppfølging av barnet fra helsestasjonen'] },
+    ],
+  },
+  {
+    from: 37, to: 42,
+    heading: 'Konsultasjoner i uke 38, 40 og 41',
+    paragraphs: [
+      'De siste konsultasjonene er stort sett like som de foregående. Blodtrykket ditt kontrolleres, vekten din noteres, urinprøven testes og fosterets hjerteslag registreres. I tillegg sjekkes det hvordan barnet ligger i livmoren og barnets aktivitet.',
+      'Det er en god anledning til å ta opp spørsmål du vil ha mer kunnskap om eller ønsker å diskutere eller om det er noe som du synes er vanskelig. Det er et mål at du og eventuell partner skal føle dere så trygge som mulig.',
+      { type: 'heading', text: 'Svangerskap passert termin' },
+      'Du bør få tilbud om en konsultasjon på sykehuset innen en uke etter ultralydtermin.',
+      'Sykehuset har da ansvaret for videre oppfølging av deg og eventuell igangsetting av fødsel.',
+    ],
+  },
 ];
 
 // ─── Helpers ───────────────────────────────────────────────
@@ -550,6 +1130,25 @@ function escapeHtml(s) {
   return div.innerHTML;
 }
 
+// A paragraphs entry is either a plain string (rendered as a <p>), or one
+// of two richer item types the source spreadsheet content used inline —
+// {type:'heading', text} for a sub-heading partway through a panel's
+// content (e.g. Kontroll uke 24's several consultation sub-topics), and
+// {type:'list', items} for a bullet list (e.g. Mor uke 6–8's symptom
+// list). Both are one level below the panel's own .section-h2 heading.
+function renderContentItem(item) {
+  if (typeof item === 'string') {
+    return '<p class="body-text">' + escapeHtml(item) + '</p>';
+  }
+  if (item.type === 'heading') {
+    return '<h3 class="section-h3">' + escapeHtml(item.text) + '</h3>';
+  }
+  if (item.type === 'list') {
+    return '<ul class="body-list">' + item.items.map(i => '<li>' + escapeHtml(i) + '</li>').join('') + '</ul>';
+  }
+  return '';
+}
+
 function renderPanel(elId, data) {
   const el = document.getElementById(elId);
   if (!data) {
@@ -558,7 +1157,7 @@ function renderPanel(elId, data) {
   }
   el.innerHTML =
     '<h2 class="section-h2">' + escapeHtml(data.heading) + '</h2>' +
-    data.paragraphs.map(p => '<p class="body-text">' + escapeHtml(p) + '</p>').join('');
+    data.paragraphs.map(renderContentItem).join('');
 }
 
 // ─── Tabs ──────────────────────────────────────────────────
