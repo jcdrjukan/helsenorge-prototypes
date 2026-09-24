@@ -117,6 +117,9 @@ input[type="number"] {
   gap: var(--space-2xs);
 }
 
+.checkbox-option--disabled label { color: var(--color-base-text-onlight-subdued); cursor: not-allowed; }
+.checkbox-option input:disabled { accent-color: var(--neutral-300); cursor: not-allowed; }
+
 .sub-field {
   margin-left: var(--space-l);
   padding-left: var(--space-s);
@@ -231,10 +234,11 @@ input[type="number"] {
   <div class="field">
     <span class="field__label">Infopaneler</span>
     <div class="checkbox-group">
-      <div class="checkbox-option">
+      <div class="checkbox-option" id="panelHelsekortOption">
         <input type="checkbox" id="panelHelsekort">
         <label for="panelHelsekort">Påminnelse kartlegging</label>
       </div>
+      <span class="field__hint">Kun aktuelt til og med uke 12</span>
       <div class="checkbox-option">
         <input type="checkbox" id="panelFarskap">
         <label for="panelFarskap">Registrer farskap hos Nav</label>
@@ -280,6 +284,20 @@ function updateTermindatoFieldVisibility() {
   termindatoField.hidden = !getConnected();
 }
 
+// "Påminnelse kartlegging" only makes sense before the first
+// svangerskapskontroll (around uke 6-8, per Svangerskapskontroller) —
+// disabled past uke 12, same as the panel itself should stop being
+// relevant. Forces it unchecked rather than leaving a disabled
+// checkbox showing checked, which would look like a contradiction;
+// re-enabling doesn't try to restore whatever it held before.
+function updatePanelHelsekortAvailability() {
+  const week = Math.min(42, Math.max(1, parseInt(weekInput.value, 10) || 30));
+  const eligible = week <= 12;
+  panelHelsekortInput.disabled = !eligible;
+  if (!eligible) panelHelsekortInput.checked = false;
+  document.getElementById('panelHelsekortOption').classList.toggle('checkbox-option--disabled', !eligible);
+}
+
 function updateLaunchHref() {
   const week = Math.min(42, Math.max(1, parseInt(weekInput.value, 10) || 30));
   const connected = getConnected();
@@ -303,6 +321,7 @@ function updateLaunchHref() {
 
 function persistAndUpdate() {
   updateTermindatoFieldVisibility();
+  updatePanelHelsekortAvailability();
   updateLaunchHref();
   try {
     localStorage.setItem(LS_WEEK_KEY, weekInput.value);
