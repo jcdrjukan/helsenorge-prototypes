@@ -884,14 +884,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-shrink: 0;
 }
 
-/* Right-pointing arrows sized to match the production reference
-   (Figma "Total screenshot", node 2030:14806) — measured against that
-   screenshot's own link-text cap-height, the arrow glyph runs ~1.7-1.8x
-   taller than the text beside it. Unified across every plain-link
-   right-arrow on the page (was 20px, then 24px for one scoped case;
-   now one consistent size for all of them). */
-.btn-borderless__icon svg { width: 32px; height: 32px; }
-.btn-borderless__icon--large svg { width: 32px; height: 32px; }
+/* Right-pointing arrows, unified to 38px across every plain-link CTA
+   on the page (was 20px, then 24px for one scoped case, then 32px as a
+   screenshot-measured estimate) — confirmed exact from real markup
+   pasted by the user (Button component's right-icon,
+   width="38" height="38", gravid/static/css/index.DM8mtvRh.css). */
+.btn-borderless__icon svg { width: 38px; height: 38px; }
+.btn-borderless__icon--large svg { width: 38px; height: 38px; }
 
 /* ═══════════════════════════════════════════════════════════
    SF-MÅL / GROWTH CHART
@@ -1041,35 +1040,59 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-shrink: 0;
 }
 
-.quick-link .icon-arrow svg { width: 32px; height: 32px; }
+.quick-link .icon-arrow svg { width: 38px; height: 38px; } /* confirmed 38px, see comment above .btn-borderless__icon */
 
 /* ═══════════════════════════════════════════════════════════
    NYTTIG Å VITE I DENNE PERIODEN  (new section — Stork illustration,
    Figma "✏️ F Illustrations" library, node 2031:15013)
 ══════════════════════════════════════════════════════════════ */
-.info-panel {
+/* Real markup: the illustration and the coloured box
+   (.relevantinfo__illustration / .relevantinfo.container) are SIBLINGS,
+   not nested — the box gets a negative top margin pulling it up under
+   the illustration's lower half, while the illustration keeps normal
+   in-flow stacking priority (position isn't `static`-vs-positioned
+   here — see the explicit z-index below) so it stays fully visible in
+   front rather than getting painted over by the panel's background. */
+.info-panel-wrapper {
   width: 344px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.info-panel__illustration {
+  width: 160px;
+  height: 160px;
+  position: relative;
+  z-index: 1;
+}
+
+.info-panel {
+  width: 100%;
+  margin-top: -80px; /* half the illustration's height */
   background: var(--color-base-background-cherry);
   border: 1px solid var(--color-base-border-cherry);
   border-radius: var(--radius-m);
   /* 24px top / 16px sides / 32px bottom — matches the real HighlightPanel
      component's mobile padding (gravid/static/css/index.DM8mtvRh.css,
-     ._highlightpanel_rh0da_40), not a uniform --space-s. */
-  padding: 1.5rem 1rem 2rem;
+     ._highlightpanel_rh0da_40), not a uniform --space-s. The extra 80px
+     on top cancels out the panel's own negative margin above, so the
+     heading still lands where it would without the overlap — only the
+     background+border box extends up under the illustration. */
+  padding: calc(1.5rem + 80px) 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: var(--space-2xs);
 }
 
-.info-panel__illustration {
-  width: 160px;
-  height: 160px;
-}
-
 .info-panel h2, .info-panel .btn-borderless { align-self: flex-start; }
 
 .info-panel nav { width: 100%; }
+/* .link-list has its own hardcoded 336px width (sized for its other,
+   full-app-width usage in the Personvern list) — too wide for the
+   narrower space left inside this panel's padding. */
+.info-panel .link-list { width: 100%; }
 
 /* ═══════════════════════════════════════════════════════════
    DOCUMENT SECTION
@@ -1803,13 +1826,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <a class="quick-link" href="#">
       <span>Se hele svangerskapsjournal</span>
       <div class="icon-arrow" aria-hidden="true">
-        <svg viewBox="0 0 38 38" fill="#126F87"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
+        <svg viewBox="0 0 48 48" fill="#126F87"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
       </div>
     </a>
     <a class="quick-link" href="#">
       <span>Siste prøver og målinger</span>
       <div class="icon-arrow" aria-hidden="true">
-        <svg viewBox="0 0 38 38" fill="#126F87"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
+        <svg viewBox="0 0 48 48" fill="#126F87"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
       </div>
     </a>
   </div>
@@ -1818,9 +1841,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <!-- ══════════════════════════════════════════════════════
        NYTTIG Å VITE I DENNE PERIODEN  (Stork illustration)
+       Illustration and panel are siblings, not nested — the panel's
+       negative margin-top pulls its background up under the
+       illustration's lower half; the illustration's z-index keeps it
+       visible on top instead of getting painted over. See the CSS
+       comment above .info-panel-wrapper for the real markup this is
+       based on.
   ═══════════════════════════════════════════════════════════ -->
-  <div class="info-panel">
+  <div class="info-panel-wrapper">
     <img src="img/illustrasjoner/stork.png" alt="" class="info-panel__illustration">
+    <div class="info-panel">
     <h2 class="section-h2" style="width:auto;">Nyttig å vite i denne perioden</h2>
     <nav aria-label="Nyttig å vite i denne perioden">
       <ul class="link-list" role="list">
@@ -1844,9 +1874,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     <a class="btn-borderless" href="#">
       <span class="btn-borderless__text">Se alle artikler og verktøy</span>
       <div class="btn-borderless__icon" aria-hidden="true">
-        <svg viewBox="0 0 38 38" fill="currentColor"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
+        <svg viewBox="0 0 48 48" fill="currentColor"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
       </div>
     </a>
+    </div>
   </div>
 
   <div class="sp-xl"></div>
@@ -1901,7 +1932,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <!-- Swapped from a thin-stroke chevron to the same bold filled
            arrow used everywhere else, matching the reference's
            consistent CTA-arrow style. -->
-      <svg viewBox="0 0 38 38" fill="currentColor"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
+      <svg viewBox="0 0 48 48" fill="currentColor"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
     </div>
   </a>
 
@@ -2015,7 +2046,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <a class="exit-btn" href="avslutt.html">
     <span class="exit-btn__text">Avslutt tjenesten Gravid</span>
     <div class="btn-borderless__icon" aria-hidden="true">
-      <svg viewBox="0 0 38 38" fill="currentColor"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
+      <svg viewBox="0 0 48 48" fill="currentColor"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
     </div>
   </a>
 
