@@ -89,6 +89,11 @@
   --color-base-background-cherry:        #FFF2EA;
   --color-base-border-cherry:            #EEC0A5;
   --color-base-background-neutral:       #F5F3F3;
+  /* Not confirmed from real CSS the way cherry's border was — inferred
+     from --neutral-200 (#D6D4D3), the same "subtle border" value this
+     file already uses elsewhere, matching the pattern of cherry's
+     border being one step darker than its own background. */
+  --color-base-border-neutral:           #D6D4D3;
   --color-base-background-dark-neutral:  #2B2C2B;
   --color-base-background-dark-blueberry:#188097;
   --color-base-background-dark-cherry:   #C83521;
@@ -1263,14 +1268,26 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* ═══════════════════════════════════════════════════════════
    DOCUMENT SECTION
+   Real component: a plain (no icon) HighlightPanel--neutral wrapping
+   the whole thing, confirmed from outerHTML the user pasted — this
+   was previously unwrapped page content with no panel background at
+   all, and had an extra "Lesestoff og ressurser" link list that isn't
+   actually part of the real component (dropped).
 ══════════════════════════════════════════════════════════════ */
-.doc-section { width: 344px; }
+.doc-panel {
+  width: 344px;
+  background: var(--color-base-background-neutral);
+  border: 1px solid var(--color-base-border-neutral);
+  border-radius: var(--radius-m);
+  padding: 1.5rem 1rem 2rem; /* real HighlightPanel mobile padding, see .info-panel */
+}
 
 .doc-section__description {
   font: var(--mobile-body);
   color: var(--color-base-text-onlight);
   margin-bottom: var(--space-s);
 }
+.doc-section__description a { color: var(--color-action-text-onlight); text-decoration: underline; }
 
 /* Upload button (Borderless with left icon) */
 .btn-upload {
@@ -1317,7 +1334,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 /* DOK MINI – Panel variant */
 .dok-mini {
-  width: 338px;
+  width: 100%; /* was a fixed 338px sized for the old unwrapped page
+                  column — now lives inside .doc-panel's padded 312px
+                  content width instead. */
   background: #fff;
   border: 6px solid var(--neutral-100);
   border-radius: var(--radius-s);
@@ -2255,11 +2274,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <!-- ══════════════════════════════════════════════════════
        PAPER HEALTH CARD
+       Real component: HighlightPanel--neutral wrapping everything
+       (was unwrapped page content before) — see the CSS comment
+       above .doc-panel. The "Lesestoff og ressurser" link list that
+       used to follow this isn't part of the real component; dropped.
   ═══════════════════════════════════════════════════════════ -->
-  <div class="doc-section">
-    <h2 class="section-h2">Papirhelsekortet og dokumentasjon</h2>
+  <div class="doc-panel">
+    <h2 class="section-h2" style="width:auto;">Papirhelsekortet og dokumentasjon</h2>
     <div class="sp-s"></div>
-    <p class="doc-section__description">Her kan du laste opp bilder av ditt helsekort og annen svangerskaps­dokumentasjon slik at du alltid har backup­kopier.</p>
+    <p class="doc-section__description">Her kan du laste opp bilder av helsekortet ditt og andre dokumenter det kan være nyttig å ha kopier av. <a href="#">Les mer om papirhelsekortet</a>.</p>
 
     <a class="btn-upload" href="#">
       <div class="btn-upload__icon" aria-hidden="true">
@@ -2276,60 +2299,33 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     </a>
 
     <p class="doc-section__last-uploaded">Sist opplastet papirhelsekort:</p>
+
+    <!-- DOK MINI -->
+    <button class="dok-mini">
+      <div class="dok-mini__pdf-icon" aria-hidden="true">
+        <svg viewBox="0 0 32 40" fill="none">
+          <path d="M4 0h16l8 8v32H4z" fill="#fff" stroke="#000" stroke-width="1.5"/>
+          <path d="M20 0l8 8h-8V0z" fill="#474745"/>
+          <text x="5" y="30" font-size="9" font-weight="700" fill="#000" font-family="'Source Sans Pro',sans-serif">PDF</text>
+        </svg>
+      </div>
+      <div class="dok-mini__info">
+        <div class="dok-mini__name">Papirhelsekort</div>
+        <div class="dok-mini__date">18.08.2024</div>
+      </div>
+      <div class="dok-mini__chevron" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+      </div>
+    </button>
+
+    <div class="sp-s"></div>
+    <a class="btn-borderless" href="#">
+      <span class="btn-borderless__text">Se alle dine Gravid-dokumenter</span>
+      <div class="btn-borderless__icon" aria-hidden="true">
+        <svg viewBox="0 0 48 48" fill="currentColor"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
+      </div>
+    </a>
   </div>
-
-  <!-- DOK MINI -->
-  <button class="dok-mini">
-    <div class="dok-mini__pdf-icon" aria-hidden="true">
-      <svg viewBox="0 0 32 40" fill="none">
-        <path d="M4 0h16l8 8v32H4z" fill="#fff" stroke="#000" stroke-width="1.5"/>
-        <path d="M20 0l8 8h-8V0z" fill="#474745"/>
-        <text x="5" y="30" font-size="9" font-weight="700" fill="#000" font-family="'Source Sans Pro',sans-serif">PDF</text>
-      </svg>
-    </div>
-    <div class="dok-mini__info">
-      <div class="dok-mini__name">Papirhelsekort</div>
-      <div class="dok-mini__date">18.08.2024</div>
-    </div>
-    <div class="dok-mini__chevron" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
-  </button>
-
-  <div class="sp-3xs"></div>
-  <a class="btn-borderless" href="#" style="width:344px;">
-    <span class="btn-borderless__text">Se alle dine Gravid-dokumenter</span>
-    <div class="btn-borderless__icon" aria-hidden="true">
-      <!-- Swapped from a thin-stroke chevron to the same bold filled
-           arrow used everywhere else, matching the reference's
-           consistent CTA-arrow style. -->
-      <svg viewBox="0 0 48 48" fill="currentColor"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-    </div>
-  </a>
-
-  <div class="sp-l"></div>
-
-  <!-- LinkList – resources -->
-  <nav aria-label="Lesestoff og ressurser">
-    <ul class="link-list" role="list">
-      <li role="listitem">
-        <a class="link-list__item" href="#">
-          <span>Om papirhelsekort for gravide</span>
-          <div class="link-list__chevron" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </a>
-      </li>
-      <li role="listitem">
-        <a class="link-list__item" href="#">
-          <span>Lesestoff og verktøy</span>
-          <div class="link-list__chevron" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
-          </div>
-        </a>
-      </li>
-    </ul>
-  </nav>
 
   <div class="sp-xl"></div>
 
