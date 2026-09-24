@@ -883,24 +883,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-shrink: 0;
 }
 
-.btn-borderless__icon svg { width: 20px; height: 20px; }
-
-/* Scoped to the "Fortsett utfylling" CTA only — doesn't touch the
-   other pre-existing .btn-borderless arrows on this page. */
-.btn-borderless__icon--large svg { width: 24px; height: 24px; }
+/* Right-pointing arrows sized to match the production reference
+   (Figma "Total screenshot", node 2030:14806) — measured against that
+   screenshot's own link-text cap-height, the arrow glyph runs ~1.7-1.8x
+   taller than the text beside it. Unified across every plain-link
+   right-arrow on the page (was 20px, then 24px for one scoped case;
+   now one consistent size for all of them). */
+.btn-borderless__icon svg { width: 32px; height: 32px; }
+.btn-borderless__icon--large svg { width: 32px; height: 32px; }
 
 /* ═══════════════════════════════════════════════════════════
    SF-MÅL / GROWTH CHART
 ══════════════════════════════════════════════════════════════ */
 .sf-section {
   width: 344px;
-}
-
-.sf-header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xs);
-  margin-bottom: var(--space-2xs);
 }
 
 .help-trigger {
@@ -920,6 +916,43 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .help-trigger:hover { background: rgba(92,39,161,0.08); }
 .help-trigger svg { width: 22px; height: 22px; }
+
+/* ─── Help trigger — contextual trigger text ────────────────────
+   Replaces the old icon-button-beside-the-header pattern (.help-trigger
+   above) with a standalone clickable text row placed directly under the
+   section heading: "?" icon + purple trigger text + chevron, matching
+   the production reference (Figma "Total screenshot", node 2030:14806 —
+   e.g. "Hvorfor måles magen?", "Hvem kan se huskelappene mine?"). Toggles
+   a collapsed help-copy panel beneath it. Help copy text itself is a
+   placeholder pending real wording from the user. */
+.help-trigger-text {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-4xs);
+  background: none;
+  border: none;
+  padding: var(--space-4xs) 0;
+  margin-top: var(--space-4xs);
+  cursor: pointer;
+  color: var(--color-help-graphics-normal);
+  font: var(--mobile-help-trigger-text);
+}
+.help-trigger-text:hover { text-decoration: underline; }
+.help-trigger-text__icon { width: 22px; height: 22px; flex-shrink: 0; }
+.help-trigger-text__chevron {
+  width: 18px; height: 18px; flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+.help-trigger-text[aria-expanded="true"] .help-trigger-text__chevron { transform: rotate(180deg); }
+
+.help-expander {
+  padding: var(--space-3xs) 0 0 30px; /* lines up under the trigger text, past the icon */
+}
+.help-expander__placeholder {
+  font: var(--mobile-body);
+  font-style: italic;
+  color: var(--neutral-600);
+}
 
 .sf-subtitle {
   font: var(--mobile-body);
@@ -1005,7 +1038,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-shrink: 0;
 }
 
-.quick-link .icon-arrow svg { width: 20px; height: 20px; }
+.quick-link .icon-arrow svg { width: 32px; height: 32px; }
 
 /* ═══════════════════════════════════════════════════════════
    DOCUMENT SECTION
@@ -1167,13 +1200,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    STICKY NOTE  (StickyNote component pattern = Huskelapper)
 ══════════════════════════════════════════════════════════════ */
 .sticky-notes { width: 344px; }
-
-.sticky-notes__header {
-  display: flex;
-  align-items: center;
-  gap: var(--space-2xs);
-  margin-bottom: var(--space-2xs);
-}
 
 .sticky-notes__description {
   font: var(--mobile-body);
@@ -1664,50 +1690,62 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
        SF-MÅL / GROWTH CHART
   ═══════════════════════════════════════════════════════════ -->
   <div class="sf-section" id="sfSection">
-    <div class="sf-header">
-      <h2 class="section-h2" style="width:auto;">Mål av magen</h2>
-      <button class="help-trigger" aria-label="Hva er mål av magen?" title="Symfyse-fundus-mål (SF-mål): avstand fra skambenet til toppen av livmoren, utføres fra ca uke 24">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      </button>
+    <h2 class="section-h2" style="width:auto;">Mål av magen</h2>
+    <button class="help-trigger-text" aria-expanded="false" aria-controls="sfHelpExpander" onclick="toggleHelpExpander(this,'sfHelpExpander')">
+      <svg class="help-trigger-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Hvorfor måles magen?</span>
+      <svg class="help-trigger-text__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="help-expander" id="sfHelpExpander" hidden>
+      <!-- Placeholder — real help copy pending from the user. -->
+      <p class="help-expander__placeholder">Hjelpetekst kommer.</p>
     </div>
     <p class="sf-subtitle">Utført av helsepersonell fra ca uke 24</p>
     <div class="sf-value-display" id="sfValue">28cm</div>
 
     <div class="growth-chart" role="img" aria-label="Vekstkurve – symfyse-fundus-mål">
       <svg viewBox="0 0 344 196" preserveAspectRatio="none" id="growthSvg">
-        <!-- Grid -->
-        <line x1="32" y1="12" x2="336" y2="12" stroke="#EAE7E7" stroke-width="1"/>
-        <line x1="32" y1="50" x2="336" y2="50" stroke="#EAE7E7" stroke-width="1"/>
-        <line x1="32" y1="88" x2="336" y2="88" stroke="#EAE7E7" stroke-width="1"/>
-        <line x1="32" y1="126" x2="336" y2="126" stroke="#EAE7E7" stroke-width="1"/>
-        <line x1="32" y1="164" x2="336" y2="164" stroke="#EAE7E7" stroke-width="1"/>
-        <!-- Y labels -->
-        <text x="28" y="16" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">45</text>
-        <text x="28" y="54" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">40</text>
-        <text x="28" y="92" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">35</text>
-        <text x="28" y="130" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">30</text>
-        <text x="28" y="168" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">25</text>
-        <!-- X labels -->
+        <!-- Y labels — no gridlines behind them; the reference chart
+             (Figma "Total screenshot", node 2030:14806) has none, just
+             a bare axis. Extended to a 15–45cm range (was 25–45) to
+             match its full label set. -->
+        <text x="28" y="16"  text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">45</text>
+        <text x="28" y="41.3" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">40</text>
+        <text x="28" y="66.7" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">35</text>
+        <text x="28" y="92"  text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">30</text>
+        <text x="28" y="117.3" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">25</text>
+        <text x="28" y="142.7" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">20</text>
+        <text x="28" y="168" text-anchor="end" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">15</text>
+        <!-- X axis — single baseline + tick marks, no gridlines -->
+        <line x1="32" y1="164" x2="336" y2="164" stroke="#DEDDDA" stroke-width="1"/>
         <text x="64"  y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">24</text>
         <text x="124" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">28</text>
         <text x="184" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">32</text>
         <text x="244" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">36</text>
         <text x="304" y="184" text-anchor="middle" font-size="10" fill="#7D7C79" font-family="'Source Sans Pro'">40</text>
-        <!-- Normal range band -->
-        <path d="M32,152 C90,148 130,136 184,116 C238,96 286,68 336,46"
-          fill="none" stroke="#AFDAE3" stroke-width="18" opacity="0.5"/>
-        <!-- Upper / lower bounds -->
-        <path d="M32,142 C90,138 130,126 184,106 C238,86 286,58 336,36"
-          fill="none" stroke="#188097" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
-        <path d="M32,162 C90,158 130,146 184,126 C238,106 286,78 336,56"
-          fill="none" stroke="#188097" stroke-width="1" stroke-dasharray="4 3" opacity="0.4"/>
-        <!-- Measurement line -->
+        <!-- Normal range band — a single solid fill (no border, no
+             dashed bound lines) with a white curve through the middle,
+             approximating the reference's percentile-band chart as
+             closely as static path data reasonably allows. -->
+        <path d="M32.0,138.7 C40.4,136.6 65.8,130.2 82.7,126.0 C99.6,121.8 116.4,117.6 133.3,113.3 C150.2,109.1 167.1,104.9 184.0,100.7 C200.9,96.4 217.8,91.8 234.7,88.0 C251.6,84.2 268.4,81.2 285.3,77.9 C302.2,74.5 327.6,69.4 336.0,67.7 L336.0,32.3 C327.6,34.0 302.2,38.6 285.3,42.4 C268.4,46.2 251.6,50.8 234.7,55.1 C217.8,59.3 200.9,63.1 184.0,67.7 C167.1,72.4 150.2,77.9 133.3,82.9 C116.4,88.0 99.6,93.1 82.7,98.1 C65.8,103.2 40.4,110.8 32.0,113.3 Z"
+          fill="var(--color-base-background-blueberry, #E4F7F9)" stroke="none"/>
+        <path d="M32.0,126.0 C40.4,123.7 65.8,116.7 82.7,112.1 C99.6,107.4 116.4,102.8 133.3,98.1 C150.2,93.5 167.1,88.6 184.0,84.2 C200.9,79.8 217.8,75.5 234.7,71.5 C251.6,67.5 268.4,63.7 285.3,60.1 C302.2,56.5 327.6,51.7 336.0,50.0"
+          fill="none" stroke="#fff" stroke-width="2"/>
+        <!-- The mother's own tracked measurements, overlaid on the
+             population band above — kept from the previous version
+             (the reference screenshot's account has none logged yet,
+             matching its empty "Termindato ikke registrert" state). -->
         <polyline id="sfLine" points="64,164 124,144 154,128"
           fill="none" stroke="#188097" stroke-width="2.5"
           stroke-linecap="round" stroke-linejoin="round"/>
-        <!-- Data points -->
-        <circle cx="64"  cy="164" r="4" fill="#188097"/>
-        <circle cx="124" cy="144" r="4" fill="#188097"/>
+        <!-- Data points — the earlier ones are rendered dynamically
+             into #sfDotsEarlier by updateGrowthChart() (were static,
+             hardcoded circles left over from before the chart's y-axis
+             was data-driven; that hardcoding silently drifted out of
+             sync whenever the axis scale changed, since they never
+             moved with it). Only the current/latest point keeps its
+             own dedicated element, drawn larger. -->
+        <g id="sfDotsEarlier"></g>
         <circle id="sfDot" cx="154" cy="128" r="5" fill="#188097"/>
         <!-- Current week line -->
         <line id="weekLine" x1="154" y1="12" x2="154" y2="164"
@@ -1787,7 +1825,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <a class="btn-borderless" href="#" style="width:344px;">
     <span class="btn-borderless__text">Se alle dine Gravid-dokumenter</span>
     <div class="btn-borderless__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <!-- Swapped from a thin-stroke chevron to the same bold filled
+           arrow used everywhere else, matching the reference's
+           consistent CTA-arrow style. -->
+      <svg viewBox="0 0 38 38" fill="currentColor"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
     </div>
   </a>
 
@@ -1821,11 +1862,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
        HUSKELAPPER  (StickyNote pattern)
   ═══════════════════════════════════════════════════════════ -->
   <div class="sticky-notes">
-    <div class="sticky-notes__header">
-      <h2 class="section-h2" style="width:auto;">Huskelapper</h2>
-      <button class="help-trigger" aria-label="Hva er huskelapper?">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      </button>
+    <h2 class="section-h2" style="width:auto;">Huskelapper</h2>
+    <button class="help-trigger-text" aria-expanded="false" aria-controls="huskelapperHelpExpander" onclick="toggleHelpExpander(this,'huskelapperHelpExpander')">
+      <svg class="help-trigger-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Hvem kan se huskelappene mine?</span>
+      <svg class="help-trigger-text__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="help-expander" id="huskelapperHelpExpander" hidden>
+      <!-- Placeholder — real help copy pending from the user. -->
+      <p class="help-expander__placeholder">Hjelpetekst kommer.</p>
     </div>
     <p class="sticky-notes__description">Her kan du notere ting du ønsker å ta opp på neste kontroll.</p>
 
@@ -1895,7 +1940,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <a class="exit-btn" href="avslutt.html">
     <span class="exit-btn__text">Avslutt tjenesten Gravid</span>
     <div class="btn-borderless__icon" aria-hidden="true">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      <svg viewBox="0 0 38 38" fill="currentColor"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
     </div>
   </a>
 
@@ -2058,18 +2103,22 @@ const SF_FIXED = [
 ];
 
 function wkToX(w)  { return 32 + ((w - 24) / (42 - 24)) * (336 - 32); }
-function cmToY(cm) { return 164 - ((cm - 25) / (45 - 25)) * (164 - 12); }
+// Range extended to 15–45cm (was 25–45) to match the reference chart's
+// full y-axis label set (Figma "Total screenshot", node 2030:14806).
+function cmToY(cm) { return 164 - ((cm - 15) / (45 - 15)) * (164 - 12); }
 
 function updateGrowthChart(week) {
   const sfLine = document.getElementById('sfLine');
   const sfDot  = document.getElementById('sfDot');
   const wkLine = document.getElementById('weekLine');
   const callout = document.getElementById('measurementCallout');
+  const earlierDots = document.getElementById('sfDotsEarlier');
   const data    = weekData[week];
 
   if (!data || data.sfNorm === null) {
     sfLine.setAttribute('points','');
     sfDot.setAttribute('cx', -100);
+    earlierDots.replaceChildren();
     wkLine.setAttribute('x1', -100); wkLine.setAttribute('x2', -100);
     callout.style.display = 'none';
     document.getElementById('sfValue').textContent = '–';
@@ -2080,6 +2129,22 @@ function updateGrowthChart(week) {
   if (pts.length === 0) return;
 
   sfLine.setAttribute('points', pts.map(p => wkToX(p.week)+','+cmToY(p.cm)).join(' '));
+
+  // Every point except the latest gets a small dot, built fresh each
+  // time from the same wkToX/cmToY mapping the line itself uses — kept
+  // in sync automatically if that mapping (e.g. the axis range) ever
+  // changes again.
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  earlierDots.replaceChildren();
+  pts.slice(0, -1).forEach(p => {
+    const dot = document.createElementNS(SVG_NS, 'circle');
+    dot.setAttribute('cx', wkToX(p.week));
+    dot.setAttribute('cy', cmToY(p.cm));
+    dot.setAttribute('r', 4);
+    dot.setAttribute('fill', '#188097');
+    earlierDots.appendChild(dot);
+  });
+
   const last = pts[pts.length-1];
   const lx = wkToX(last.week);
   const ly = cmToY(last.cm);
@@ -2159,6 +2224,15 @@ function setTermindatoConfirmed(confirmed) {
 // only covers the DHG condition on top of that.)
 function setSfSectionVisibility(connected) {
   document.getElementById('sfSection').hidden = !connected;
+}
+
+// ─── Help trigger (contextual trigger text) ───────────────
+// Toggles the collapsed help-copy panel beneath a .help-trigger-text
+// button — shared by every instance of the pattern on the page.
+function toggleHelpExpander(btn, expanderId) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!expanded));
+  document.getElementById(expanderId).hidden = expanded;
 }
 
 // ─── Snarvei (favorite) ────────────────────────────────────
