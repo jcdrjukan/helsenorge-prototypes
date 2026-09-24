@@ -1107,11 +1107,16 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .help-expander {
   padding: var(--space-3xs) 0 0 30px; /* lines up under the trigger text, past the icon */
+  margin-bottom: var(--space-s);
 }
 .help-expander__placeholder {
   font: var(--mobile-body);
   font-style: italic;
   color: var(--neutral-600);
+}
+.help-expander__text {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
 }
 
 .sf-subtitle {
@@ -2216,8 +2221,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <svg class="help-trigger-text__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
     </button>
     <div class="help-expander" id="huskelapperHelpExpander" hidden>
-      <!-- Placeholder — real help copy pending from the user. -->
-      <p class="help-expander__placeholder">Hjelpetekst kommer.</p>
+      <p class="help-expander__text">Huskelappene er kun synlige for deg og de som har fullmakt til å se din helseinformasjon. De deles ikke med helsepersonell.</p>
     </div>
     <p class="sticky-notes__description">Her kan du notere ting du ønsker å ta opp på neste kontroll.</p>
 
