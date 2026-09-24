@@ -83,7 +83,9 @@ input[type="number"] {
   padding: var(--space-2xs) var(--space-xs);
   border: 1px solid var(--neutral-700);
   border-radius: var(--radius-s);
-  width: 100%;
+  /* Only ever holds two digits (1-42) — no need for the field to span
+     the whole panel width. */
+  width: 4.5rem;
 }
 
 .radio-group {
