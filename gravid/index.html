@@ -905,6 +905,152 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .btn-borderless__icon--large svg { width: 38px; height: 38px; }
 
 /* ═══════════════════════════════════════════════════════════
+   SVANGERSKAPSKONTROLLER  (real component: oversikt__section /
+   forlop / forlop__item, pasted by the user from a test environment —
+   class names below are the real semantic names, sans the build's
+   hashed CSS-module suffixes. Content translated from the pasted
+   markup's Nynorsk to this prototype's Bokmål, cross-checked against
+   the earlier Figma/production reference screenshot where the two
+   overlap (e.g. "Ultralyd med terminfastsettelse", "Se timeavtaler").
+══════════════════════════════════════════════════════════════ */
+.oversikt-section { width: 344px; }
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  margin-top: var(--space-s);
+}
+
+/* Real markup's toggle-container component, rebuilt as a plain
+   checkbox + styled track/dot (no exact CSS available for the real
+   one — this is a clean, standard switch rather than an extraction). */
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  flex-shrink: 0;
+}
+.toggle-switch__input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  cursor: pointer;
+}
+.toggle-switch__track {
+  position: absolute;
+  inset: 0;
+  background: var(--neutral-300, #BDBAB9);
+  border-radius: var(--radius-full);
+  transition: background 0.15s ease;
+}
+.toggle-switch__dot {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  background: #fff;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-action-background-onlight);
+  transition: transform 0.15s ease;
+}
+.toggle-switch__dot svg { width: 12px; height: 12px; opacity: 0; transition: opacity 0.15s ease; }
+.toggle-switch__input:checked ~ .toggle-switch__track { background: var(--color-action-background-onlight); }
+.toggle-switch__input:checked ~ .toggle-switch__track .toggle-switch__dot { transform: translateX(16px); }
+.toggle-switch__input:checked ~ .toggle-switch__track .toggle-switch__dot svg { opacity: 1; }
+
+.toggle-row__label { font: var(--mobile-label-subdued); color: var(--neutral-600); }
+
+.forlop {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-s) 0 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.forlop__item {
+  display: flex;
+  gap: var(--space-2xs);
+}
+.forlop__item[hidden] { display: none; }
+
+.forlop__item__connector {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 16px;
+  flex-shrink: 0;
+}
+.forlop__item__connector__dot {
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-action-background-onlight);
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+.forlop__item__connector__dot--inactive { background: var(--neutral-300, #BDBAB9); }
+.forlop__item__connector__dot--current {
+  width: 16px;
+  height: 16px;
+  margin-top: 3px;
+  box-shadow: 0 0 0 3px var(--color-base-background-blueberry);
+}
+.forlop__item__connector__line {
+  width: 2px;
+  flex: 1;
+  min-height: var(--space-l);
+  background: var(--color-action-background-onlight);
+  margin: 2px 0;
+}
+.forlop__item__connector__line--inactive { background: var(--neutral-300, #BDBAB9); }
+.forlop__item__connector__line--dotted {
+  background: none;
+  border-left: 2px dotted var(--color-action-background-onlight);
+  width: 0;
+}
+.forlop__item:last-child .forlop__item__connector__line { display: none; }
+
+.forlop__item__info { padding-bottom: var(--space-m); flex: 1; min-width: 0; }
+.forlop__item__info__title {
+  font: var(--mobile-h4);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-4xs);
+}
+.forlop__item__info__body { font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.forlop__item__info__body p { margin: 0; }
+.forlop-link {
+  display: inline-block;
+  color: var(--color-action-text-onlight);
+  text-decoration: underline;
+  background: none;
+  border: none;
+  padding: 0;
+  font: var(--mobile-body);
+  cursor: pointer;
+  margin-top: var(--space-4xs);
+}
+
+.forlop-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  text-decoration: none;
+  color: var(--color-action-text-onlight);
+  margin-top: var(--space-s);
+}
+.forlop-cta__icon { width: 38px; height: 38px; flex-shrink: 0; }
+.forlop-cta__text { font: var(--mobile-label); }
+
+/* ═══════════════════════════════════════════════════════════
    SF-MÅL / GROWTH CHART
 ══════════════════════════════════════════════════════════════ */
 .sf-section {
@@ -1765,6 +1911,160 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="sp-xl"></div>
 
   <!-- ══════════════════════════════════════════════════════
+       SVANGERSKAPSKONTROLLER
+       Real component (oversikt__section/forlop), pasted by the user
+       from a test environment — content translated from its Nynorsk
+       to this page's Bokmål. Dot/line state (inactive/current/
+       upcoming) and the collapsed/full toggle are driven by
+       updateSvangerskapskontroller() below, keyed off each item's
+       data-end-week vs. the current svangerskapsuke.
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="oversikt-section">
+    <h2 class="section-h2">Svangerskapskontroller</h2>
+    <div class="toggle-row">
+      <label class="toggle-switch">
+        <input type="checkbox" class="toggle-switch__input" id="svkToggle" aria-label="Vis hele oversikten" checked onchange="updateSvangerskapskontroller()">
+        <span class="toggle-switch__track" aria-hidden="true">
+          <span class="toggle-switch__dot" aria-hidden="true">
+            <svg viewBox="0 0 12 12" fill="none"><path d="M11 2.65L4.7 9.35 1 5.42" stroke="currentColor" stroke-width="2.2"/></svg>
+          </span>
+        </span>
+      </label>
+      <span class="toggle-row__label">Vis hele oversikten</span>
+    </div>
+    <ul class="forlop" id="svkList">
+      <li class="forlop__item" data-end-week="6">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 1-6</h3>
+          <div class="forlop__item__info__body">Avtal første time og fyll inn kartleggingen.</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="8">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Første svangerskapskontroll</h3>
+          <div class="forlop__item__info__body">Målinger og informasjon</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="14">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 11-14</h3>
+          <div class="forlop__item__info__body">Tidlig ultralyd og NIPT</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="19">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 17-19</h3>
+          <div class="forlop__item__info__body">Ultralyd med terminfastsettelse</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="24">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 24</h3>
+          <div class="forlop__item__info__body">Målinger og informasjon</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="28">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 28</h3>
+          <div class="forlop__item__info__body">Målinger og informasjon</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="32">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 32</h3>
+          <div class="forlop__item__info__body">Målinger og informasjon</div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="36">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 36</h3>
+          <div class="forlop__item__info__body">
+            Undersøkelse av leie og informasjon
+            <div><button type="button" class="forlop-link">Les om timen</button></div>
+          </div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="38">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 38</h3>
+          <div class="forlop__item__info__body">
+            Undersøkelse av leie og informasjon
+            <div><button type="button" class="forlop-link">Les om timen</button></div>
+          </div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="40">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line forlop__item__connector__line--dotted"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Uke 40</h3>
+          <div class="forlop__item__info__body">
+            Undersøkelse av leie og informasjon
+            <div><button type="button" class="forlop-link">Les om timen</button></div>
+          </div>
+        </div>
+      </li>
+      <li class="forlop__item" data-end-week="999">
+        <div class="forlop__item__connector">
+          <span class="forlop__item__connector__dot"></span>
+          <span class="forlop__item__connector__line"></span>
+        </div>
+        <div class="forlop__item__info">
+          <h3 class="forlop__item__info__title">Etterkontroll</h3>
+          <div class="forlop__item__info__body">
+            <p>Bestill etterkontroll 4-8 uker etter fødselen<br><a href="#" class="forlop-link">Les mer om etterkontroll</a></p>
+          </div>
+        </div>
+      </li>
+    </ul>
+    <a class="forlop-cta" href="#">
+      <svg class="forlop-cta__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M38.887 16.71H8.6v-6.197h3.862v1.17c0 1.223.994 2.216 2.216 2.216a2.218 2.218 0 002.215-2.215v-1.171h13.582v1.17c0 1.223.994 2.216 2.215 2.216a2.218 2.218 0 002.216-2.215v-1.171h3.982v6.197zM8.6 34.46h30.288V17.974H8.6V34.46zm5.125-26.17a.953.953 0 011.905 0v3.394a.953.953 0 01-1.905 0V8.289zm18.013 0a.953.953 0 011.905 0v3.394a.953.953 0 01-1.905 0V8.289zm3.168.96v-.96a2.218 2.218 0 00-2.216-2.216 2.218 2.218 0 00-2.215 2.215v.96H16.892v-.96a2.218 2.218 0 00-2.215-2.215 2.218 2.218 0 00-2.216 2.215v.96H7.336v26.475h32.815V9.249h-5.246zM27.67 28.292a1.508 1.508 0 100-3.016 1.508 1.508 0 000 3.016z"/></svg>
+      <span class="forlop-cta__text">Se timeavtaler</span>
+      <svg class="forlop-cta__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
+    </a>
+  </div>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
        SF-MÅL / GROWTH CHART
   ═══════════════════════════════════════════════════════════ -->
   <div class="sf-section" id="sfSection">
@@ -2222,6 +2522,46 @@ function updateWeek(week) {
 
   // Growth chart
   updateGrowthChart(week);
+
+  // Svangerskapskontroller
+  updateSvangerskapskontroller(week);
+}
+
+// ─── Svangerskapskontroller ────────────────────────────────
+// Each <li data-end-week="N"> is the week by which that checkpoint
+// should already have happened. The first item whose end-week hasn't
+// passed yet is "current" (your next appointment); everything before
+// it is "inactive" (done); everything after is upcoming/default. The
+// "Vis hele oversikten" toggle hides the inactive (past) items rather
+// than re-rendering anything — collapsed = just current + what's
+// ahead, matching the toggle's apparent purpose (the real markup the
+// user pasted only shows the "show all" state, so the collapsed
+// behavior here is inferred, not confirmed).
+let svkCurrentWeek = 30;
+
+function updateSvangerskapskontroller(week) {
+  if (week !== undefined) svkCurrentWeek = week;
+  const showAll = document.getElementById('svkToggle').checked;
+  let currentFound = false;
+  document.querySelectorAll('#svkList .forlop__item').forEach(li => {
+    const endWeek = parseInt(li.dataset.endWeek, 10);
+    const dot = li.querySelector('.forlop__item__connector__dot');
+    const line = li.querySelector('.forlop__item__connector__line');
+    dot.classList.remove('forlop__item__connector__dot--inactive', 'forlop__item__connector__dot--current');
+    line.classList.remove('forlop__item__connector__line--inactive');
+
+    if (svkCurrentWeek > endWeek) {
+      dot.classList.add('forlop__item__connector__dot--inactive');
+      line.classList.add('forlop__item__connector__line--inactive');
+      li.hidden = !showAll;
+    } else {
+      li.hidden = false;
+      if (!currentFound) {
+        dot.classList.add('forlop__item__connector__dot--current');
+        currentFound = true;
+      }
+    }
+  });
 }
 
 // ─── Growth chart ──────────────────────────────────────────
