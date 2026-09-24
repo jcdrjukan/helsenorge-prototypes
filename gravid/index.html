@@ -1332,59 +1332,106 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-bottom: var(--space-xs);
 }
 
-/* DOK MINI – Panel variant */
-.dok-mini {
-  width: 100%; /* was a fixed 338px sized for the old unwrapped page
-                  column — now lives inside .doc-panel's padded 312px
-                  content width instead. */
+/* DOK PANEL ITEM — real component (Panel--white, expandable), from
+   outerHTML the user pasted from inside <hn-webcomp-dokumentliste>'s
+   shadow root. Replaces the earlier simple chevron-row (.dok-mini,
+   sourced from a Figma screenshot only) with a faithful expand/
+   collapse panel: header (icon + title + caption), an expander
+   button revealing a details section with three action buttons, a
+   "hide from fullmektig" toggle, and a metadata list. Real button/
+   icon sizing (38px icons in medium buttons) confirmed from the same
+   pasted markup, consistent with every other CTA icon on this page. */
+.doc-panel-item {
+  width: 100%;
   background: #fff;
-  border: 6px solid var(--neutral-100);
-  border-radius: var(--radius-s);
+  border: 1px solid var(--color-base-border-onlight-subtle);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+}
+
+.doc-panel-item__header {
   display: flex;
-  align-items: center;
   gap: var(--space-xs);
-  padding: var(--space-xs) var(--space-xs);
+  align-items: flex-start;
+}
+.doc-panel-item__icon { width: 48px; height: 48px; flex-shrink: 0; color: var(--color-base-text-onlight); }
+.doc-panel-item__title { font: var(--mobile-h3); color: var(--color-base-text-onlight); }
+.doc-panel-item__caption {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  margin-top: var(--space-3xs);
+}
+
+.doc-panel-item__expander-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  margin-top: var(--space-2xs);
+  margin-left: calc(-1 * var(--space-3xs));
+  background: none;
+  border: none;
+  padding: 0 var(--space-3xs);
   cursor: pointer;
-  transition: background 0.15s;
-  text-align: left;
-}
-
-.dok-mini:hover { background: var(--neutral-50); }
-
-.dok-mini__pdf-icon {
-  width: 40px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.dok-mini__pdf-icon svg { width: 32px; height: 38px; }
-
-.dok-mini__info { flex: 1; min-width: 0; }
-
-.dok-mini__name {
+  color: var(--color-action-text-onlight);
   font: var(--mobile-label);
-  color: var(--color-base-text-onlight);
 }
+.doc-panel-item__expander-btn svg { width: 38px; height: 38px; flex-shrink: 0; }
+.doc-panel-item__expander-btn .doc-panel-item__expander-icon--up { display: none; }
+.doc-panel-item__expander-btn[aria-expanded="true"] .doc-panel-item__expander-icon--down { display: none; }
+.doc-panel-item__expander-btn[aria-expanded="true"] .doc-panel-item__expander-icon--up { display: block; }
 
-.dok-mini__date {
-  font: var(--mobile-image-caption);
-  color: var(--color-disabled-text);
+.doc-panel-item__details {
+  border-top: 1px solid var(--color-base-border-onlight-subtle);
+  margin-top: var(--space-s);
+  padding-top: var(--space-s);
 }
+.doc-panel-item__details[hidden] { display: none; }
 
-.dok-mini__chevron {
-  width: 38px;
-  height: 38px;
+.doc-panel-item__actions { display: flex; flex-direction: column; gap: var(--space-2xs); }
+
+.btn-fill-medium,
+.btn-outline-medium {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  min-height: 2.75rem;
+  border-radius: var(--radius-m);
+  padding: 0 var(--space-m);
+  cursor: pointer;
+  text-decoration: none;
+  width: fit-content;
+}
+.btn-fill-medium svg, .btn-outline-medium svg { width: 38px; height: 38px; flex-shrink: 0; }
+.btn-fill-medium span, .btn-outline-medium span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; }
+
+.btn-fill-medium { background: var(--blueberry-500); border: none; }
+.btn-fill-medium:hover { background: var(--blueberry-700); }
+.btn-fill-medium svg { color: #fff; }
+.btn-fill-medium span { color: #fff; }
+
+.btn-outline-medium { background: #fff; border: 1px solid var(--color-action-graphics-onlight); }
+.btn-outline-medium:hover { background: var(--color-base-background-neutral); }
+.btn-outline-medium svg { color: var(--color-action-text-onlight); }
+.btn-outline-medium span { color: var(--color-action-text-onlight); }
+
+.btn-outline-medium--destructive { border-color: var(--color-destructive-graphics-normal); }
+.btn-outline-medium--destructive svg { color: var(--color-destructive-graphics-normal); }
+.btn-outline-medium--destructive span { color: var(--color-destructive-graphics-normal); }
+
+.doc-panel-item__fullmektig {
   display: flex;
   align-items: center;
-  justify-content: center;
-  color: var(--color-base-text-onlight);
-  flex-shrink: 0;
+  gap: var(--space-2xs);
+  margin-top: var(--space-s);
 }
+.doc-panel-item__fullmektig-label { font: var(--mobile-label-subdued); color: var(--color-base-text-onlight); flex: 1; }
 
-.dok-mini__chevron svg { width: 16px; height: 16px; }
+.doc-panel-item__meta { margin-top: var(--space-m); }
+.doc-panel-item__meta-row { margin-top: var(--space-s); }
+.doc-panel-item__meta-row:first-child { margin-top: 0; }
+.doc-panel-item__meta-title-row { display: flex; align-items: center; gap: var(--space-3xs); }
+.doc-panel-item__meta-title { font: var(--mobile-h4); color: var(--color-base-text-onlight); }
+.doc-panel-item__meta-value { font: var(--mobile-body); color: var(--color-base-text-onlight); margin-top: var(--space-4xs); }
 
 /* ═══════════════════════════════════════════════════════════
    LINK LIST  (LinkList component pattern)
@@ -2300,23 +2347,100 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
     <p class="doc-section__last-uploaded">Sist opplastet papirhelsekort:</p>
 
-    <!-- DOK MINI -->
-    <button class="dok-mini">
-      <div class="dok-mini__pdf-icon" aria-hidden="true">
-        <svg viewBox="0 0 32 40" fill="none">
-          <path d="M4 0h16l8 8v32H4z" fill="#fff" stroke="#000" stroke-width="1.5"/>
-          <path d="M20 0l8 8h-8V0z" fill="#474745"/>
-          <text x="5" y="30" font-size="9" font-weight="700" fill="#000" font-family="'Source Sans Pro',sans-serif">PDF</text>
-        </svg>
+    <!-- DOK PANEL ITEM — real component, from outerHTML the user pasted
+         from inside <hn-webcomp-dokumentliste>'s shadow root (collapsed
+         by default here; the paste itself was taken mid-expanded). -->
+    <div class="doc-panel-item">
+      <div class="doc-panel-item__header">
+        <svg class="doc-panel-item__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M25.411 17.752a.906.906 0 110 1.813.906.906 0 010-1.813zm0 2.813a1.909 1.909 0 001.906-1.907 1.908 1.908 0 00-1.906-1.906 1.908 1.908 0 00-1.906 1.906c0 1.051.855 1.907 1.906 1.907zm.122 4.296l2.162-2.218 3.316 4.117h-3.876l-1.602-1.899zm-8.544 1.9l4.418-5.239 4.42 5.238h-8.838zm10.776-5.624l-2.88 2.956-3.478-4.122-6.57 7.79H33.1l-5.335-6.624zM12 39.1h24V8.9H12v30.2zm-1.3 1.3h26.6V7.6H10.7v32.8z"/></svg>
+        <div>
+          <h3 class="doc-panel-item__title">Papirhelsekort (Epikrise, sammenfatning)</h3>
+          <p class="doc-panel-item__caption">Gravid, arkivert 24.09.2026</p>
+        </div>
       </div>
-      <div class="dok-mini__info">
-        <div class="dok-mini__name">Papirhelsekort</div>
-        <div class="dok-mini__date">18.08.2024</div>
+      <button type="button" class="doc-panel-item__expander-btn" aria-expanded="false" aria-controls="doc1Details" onclick="toggleDocDetails(this,'doc1Details')">
+        <!-- 90°-rotated (SVG transform, not a hand-derived path) version
+             of the real confirmed right-pointing chevron already used
+             elsewhere on this page — the pasted markup only showed the
+             expanded ("up") state, not collapsed, so this one specific
+             icon isn't independently confirmed. -->
+        <svg class="doc-panel-item__expander-icon--down" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z" transform="rotate(90 24 24)"/></svg>
+        <!-- Real confirmed path, from the pasted markup's "Skjul detaljer" (expanded) state. -->
+        <svg class="doc-panel-item__expander-icon--up" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z"/></svg>
+        <span id="doc1ExpanderLabel">Vis detaljer</span>
+      </button>
+      <div class="doc-panel-item__details" id="doc1Details" hidden>
+        <div class="doc-panel-item__actions">
+          <a class="btn-fill-medium" href="#">
+            <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M23.868 20.878a2.99 2.99 0 100 5.981 2.99 2.99 0 000-5.981m5.01 11.095c2.715-1.683 4.531-4.682 4.531-8.104 0-3.443-1.84-6.457-4.58-8.136 5.71 1.828 8.577 6.464 9.442 8.13-.864 1.637-3.75 6.257-9.393 8.11M15.842 23.87c0-4.426 3.6-8.026 8.026-8.026 4.425 0 8.026 3.6 8.026 8.026 0 4.425-3.6 8.025-8.026 8.025s-8.026-3.6-8.026-8.025m-6.38 0c.865-1.666 3.733-6.308 9.447-8.136-2.742 1.677-4.581 4.693-4.581 8.136 0 3.443 1.839 6.457 4.582 8.135-5.718-1.828-8.585-6.473-9.448-8.135m14.406-10.413c-11.698 0-16.086 10.413-16.086 10.413s4.388 10.412 16.086 10.412c11.698 0 16.087-10.412 16.087-10.412s-4.389-10.413-16.087-10.413"/></svg>
+            <span>Åpne dokumentet</span>
+          </a>
+          <a class="btn-outline-medium" href="#">
+            <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M42.365 15.045l-.299.299-3.797-3.797.3-.299c1.014-1.016 2.782-1.015 3.796 0 .508.507.788 1.181.788 1.899 0 .716-.28 1.391-.788 1.898zm-1.87 1.871l-3.797-3.797.669-.669 3.797 3.797-.67.669zm-10.53 10.53l-1.471-1.471 9.696-9.559 1.403 1.402-9.629 9.628zm2.793 10.589H10.99V9.965h21.77v5.289l-7.945 7.944a.66.66 0 00-.134.198l-3.622 8.333a.639.639 0 00.84.838l8.322-3.633a.657.657 0 00.196-.134l2.342-2.343v11.578zm-8.424-7.924l-1.46.638.637-1.463.823.825zm-.277-2.082l1.42-3.265 3.375 3.375-3.26 1.424-1.535-1.534zm11.738-14.007l1.545 1.545-9.696 9.56-1.476-1.478 9.627-9.627zm7.472-3.676c-1.495-1.495-4.104-1.497-5.6 0l-3.49 3.49V8.547H9.571v30.906h24.604V25.039l9.091-9.092a3.936 3.936 0 001.161-2.8 3.935 3.935 0 00-1.16-2.801z"/></svg>
+            <span>Egenskaper</span>
+          </a>
+          <button type="button" class="btn-outline-medium btn-outline-medium--destructive">
+            <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M23.254 33.848h1.49V19.863h-1.49v13.985zM12.532 14.3h22.934v-1.627H12.532V14.3zm20.543 21.1a2.887 2.887 0 01-2.882 2.883H17.807a2.886 2.886 0 01-2.882-2.882V15.815h18.15v19.586zM22.923 10.77c0-.595.484-1.078 1.076-1.078a1.08 1.08 0 011.078 1.077v.387h-2.154v-.387zm3.644.386v-.387A2.57 2.57 0 0024 8.201a2.57 2.57 0 00-2.566 2.568v.387H11.018v4.66h2.392V35.4a4.402 4.402 0 004.397 4.398h12.386A4.402 4.402 0 0034.59 35.4V15.815h2.392v-4.66H26.567zm1.037 22.692h1.49V19.863h-1.49v13.985zm-8.7 0h1.49V19.863h-1.49v13.985z"/></svg>
+            <span>Slett</span>
+          </button>
+          <div class="doc-panel-item__fullmektig">
+            <label class="toggle-switch">
+              <input type="checkbox" class="toggle-switch__input" aria-label="Skjul dokument for fullmektig">
+              <span class="toggle-switch__track" aria-hidden="true">
+                <span class="toggle-switch__dot" aria-hidden="true">
+                  <svg viewBox="0 0 12 12" fill="none"><path d="M11 2.65L4.7 9.35 1 5.42" stroke="currentColor" stroke-width="2.2"/></svg>
+                </span>
+              </span>
+            </label>
+            <span class="doc-panel-item__fullmektig-label">Skjul dokument for fullmektig</span>
+            <button type="button" class="help-trigger" aria-label="Gå til hjelp om dette">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="doc-panel-item__meta">
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row">
+              <h4 class="doc-panel-item__meta-title">Visningsnavn</h4>
+              <button type="button" class="help-trigger" aria-label="Gå til hjelp om dette" style="width:24px;height:24px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </button>
+            </div>
+            <p class="doc-panel-item__meta-value">Papirhelsekort</p>
+          </div>
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row">
+              <h4 class="doc-panel-item__meta-title">Emneord</h4>
+              <button type="button" class="help-trigger" aria-label="Gå til hjelp om dette" style="width:24px;height:24px;">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+              </button>
+            </div>
+            <!-- No value — matches the real markup exactly (empty for this document). -->
+          </div>
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row"><h4 class="doc-panel-item__meta-title">Arkivert dato</h4></div>
+            <p class="doc-panel-item__meta-value">24.09.2026</p>
+          </div>
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row"><h4 class="doc-panel-item__meta-title">Kommer fra</h4></div>
+            <p class="doc-panel-item__meta-value">Gravid</p>
+          </div>
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row"><h4 class="doc-panel-item__meta-title">Innholdstype</h4></div>
+            <p class="doc-panel-item__meta-value">Epikrise, sammenfatning</p>
+          </div>
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row"><h4 class="doc-panel-item__meta-title">Dokumentnavn</h4></div>
+            <p class="doc-panel-item__meta-value">Papirhelsekort</p>
+          </div>
+          <div class="doc-panel-item__meta-row">
+            <div class="doc-panel-item__meta-title-row"><h4 class="doc-panel-item__meta-title">Filtype</h4></div>
+            <p class="doc-panel-item__meta-value">jpeg</p>
+          </div>
+        </div>
       </div>
-      <div class="dok-mini__chevron" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-      </div>
-    </button>
+    </div>
 
     <div class="sp-s"></div>
     <a class="btn-borderless" href="#">
@@ -2708,6 +2832,17 @@ function toggleHelpExpander(btn, expanderId) {
   const expanded = btn.getAttribute('aria-expanded') === 'true';
   btn.setAttribute('aria-expanded', String(!expanded));
   document.getElementById(expanderId).hidden = expanded;
+}
+
+// ─── Document panel item (Papirhelsekortet) ────────────────
+// Same expand/collapse pattern as toggleHelpExpander, plus swapping
+// the "Vis detaljer"/"Skjul detaljer" label text (the real component
+// does this too, not just the icon).
+function toggleDocDetails(btn, detailsId) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!expanded));
+  document.getElementById(detailsId).hidden = expanded;
+  btn.querySelector('span').textContent = expanded ? 'Vis detaljer' : 'Skjul detaljer';
 }
 
 // ─── Snarvei (favorite) ────────────────────────────────────
