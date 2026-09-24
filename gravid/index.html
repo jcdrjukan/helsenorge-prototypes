@@ -2529,39 +2529,48 @@ function updateWeek(week) {
 
 // ─── Svangerskapskontroller ────────────────────────────────
 // Each <li data-end-week="N"> is the week by which that checkpoint
-// should already have happened. The first item whose end-week hasn't
-// passed yet is "current" (your next appointment); everything before
-// it is "inactive" (done); everything after is upcoming/default. The
-// "Vis hele oversikten" toggle hides the inactive (past) items rather
-// than re-rendering anything — collapsed = just current + what's
-// ahead, matching the toggle's apparent purpose (the real markup the
-// user pasted only shows the "show all" state, so the collapsed
-// behavior here is inferred, not confirmed).
+// should already have happened, so the whole timeline stays synced to
+// the actual svangerskapsuke: the first item whose end-week hasn't
+// passed yet is "current" (the larger dot — your next appointment);
+// everything before it is "inactive"/done; everything after is
+// upcoming. The "Vis hele oversikten" toggle collapses the list down
+// to exactly three items — the one just-passed kontroll, the current
+// one, and the one after that — rather than the full 11, per direct
+// user request.
 let svkCurrentWeek = 30;
 
 function updateSvangerskapskontroller(week) {
   if (week !== undefined) svkCurrentWeek = week;
   const showAll = document.getElementById('svkToggle').checked;
-  let currentFound = false;
-  document.querySelectorAll('#svkList .forlop__item').forEach(li => {
-    const endWeek = parseInt(li.dataset.endWeek, 10);
+  const items = Array.from(document.querySelectorAll('#svkList .forlop__item'));
+
+  let currentIndex = items.findIndex(li => svkCurrentWeek <= parseInt(li.dataset.endWeek, 10));
+  if (currentIndex === -1) currentIndex = items.length - 1;
+
+  items.forEach((li, i) => {
     const dot = li.querySelector('.forlop__item__connector__dot');
     const line = li.querySelector('.forlop__item__connector__line');
     dot.classList.remove('forlop__item__connector__dot--inactive', 'forlop__item__connector__dot--current');
     line.classList.remove('forlop__item__connector__line--inactive');
+    line.style.display = '';
 
-    if (svkCurrentWeek > endWeek) {
+    if (i < currentIndex) {
       dot.classList.add('forlop__item__connector__dot--inactive');
       line.classList.add('forlop__item__connector__line--inactive');
-      li.hidden = !showAll;
-    } else {
-      li.hidden = false;
-      if (!currentFound) {
-        dot.classList.add('forlop__item__connector__dot--current');
-        currentFound = true;
-      }
+    } else if (i === currentIndex) {
+      dot.classList.add('forlop__item__connector__dot--current');
     }
+
+    li.hidden = !showAll && (i < currentIndex - 1 || i > currentIndex + 1);
   });
+
+  // Suppress the trailing connector line on whichever item ends up
+  // last-visible, so a collapsed view doesn't show a line dangling
+  // into hidden space below it.
+  const visible = items.filter(li => !li.hidden);
+  if (visible.length) {
+    visible[visible.length - 1].querySelector('.forlop__item__connector__line').style.display = 'none';
+  }
 }
 
 // ─── Growth chart ──────────────────────────────────────────
