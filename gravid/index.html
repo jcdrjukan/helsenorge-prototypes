@@ -455,7 +455,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--color-base-text-onlight);
   font: var(--mobile-label-subdued);
 }
-.lang-switcher__btn svg { width: 24px; height: 24px; }
+.lang-switcher__btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--blueberry-700); /* "link" green (#08667C) — text itself
+                                   stays black, only the globe + chevron
+                                   are colored */
+}
 
 /* ═══════════════════════════════════════════════════════════
    PAGE TITLE
@@ -541,6 +547,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font-family: 'Source Sans Pro', sans-serif;
   line-height: 1;
   color: var(--color-base-text-onlight);
+  /* Cancels out .countdown-ring__center's flex gap for just this one
+     pair, so "dager igjen" sits as close to the number as "Termindato"
+     sits to its date below (those two have no gap between them at
+     all) — doesn't touch the gap to .due-date/.due-date-editable that
+     follows, which isn't part of this request. */
+  margin-top: calc(-1 * var(--space-3xs));
 }
 
 .countdown-ring__label {
@@ -1061,25 +1073,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .info-panel__illustration {
-  width: 160px;
-  height: 160px;
+  /* 350px — the illustration's real confirmed rendered size (real
+     markup pasted by the user: width="350" height="350"), and by
+     request the largest image on the page (bigger than the ~317px-tall
+     weekly fetal illustration). */
+  width: 350px;
+  height: 350px;
   position: relative;
   z-index: 1;
 }
 
 .info-panel {
   width: 100%;
-  margin-top: -80px; /* half the illustration's height */
+  margin-top: -175px; /* half the illustration's height */
   background: var(--color-base-background-cherry);
   border: 1px solid var(--color-base-border-cherry);
   border-radius: var(--radius-m);
   /* 24px top / 16px sides / 32px bottom — matches the real HighlightPanel
      component's mobile padding (gravid/static/css/index.DM8mtvRh.css,
-     ._highlightpanel_rh0da_40), not a uniform --space-s. The extra 80px
-     on top cancels out the panel's own negative margin above, so the
-     heading still lands where it would without the overlap — only the
-     background+border box extends up under the illustration. */
-  padding: calc(1.5rem + 80px) 1rem 2rem;
+     ._highlightpanel_rh0da_40), not a uniform --space-s. The extra
+     175px on top cancels out the panel's own negative margin above, so
+     the heading still lands where it would without the overlap — only
+     the background+border box extends up under the illustration. */
+  padding: calc(1.5rem + 175px) 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1257,8 +1273,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .sticky-notes__illustration {
   display: block;
-  width: 160px;
-  height: 160px;
+  width: 350px; /* matches Stork — largest image on the page, see
+                   .info-panel__illustration comment */
+  height: 350px;
   margin: 0 auto var(--space-2xs);
 }
 
@@ -1883,6 +1900,57 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="sp-xl"></div>
 
   <!-- ══════════════════════════════════════════════════════
+       HUSKELAPPER  (StickyNote pattern) — Thinking illustration
+       (Figma "✏️ F Illustrations" library, node 2031:14858)
+       Moved ahead of Papirhelsekortet 2026-09-24 per requested section
+       order: Circle → panels → Gravid uke X → Svangerskapskontroller →
+       Mål av magen → Nyttig å vite → Huskelapper → Papirhelsekortet →
+       Avslutt.
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="sticky-notes">
+    <img src="img/illustrasjoner/thinking.png" alt="" class="sticky-notes__illustration">
+    <h2 class="section-h2" style="width:auto;">Huskelapper</h2>
+    <button class="help-trigger-text" aria-expanded="false" aria-controls="huskelapperHelpExpander" onclick="toggleHelpExpander(this,'huskelapperHelpExpander')">
+      <svg class="help-trigger-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>Hvem kan se huskelappene mine?</span>
+      <svg class="help-trigger-text__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="help-expander" id="huskelapperHelpExpander" hidden>
+      <!-- Placeholder — real help copy pending from the user. -->
+      <p class="help-expander__placeholder">Hjelpetekst kommer.</p>
+    </div>
+    <p class="sticky-notes__description">Her kan du notere ting du ønsker å ta opp på neste kontroll.</p>
+
+    <button class="btn-add" onclick="toggleNoteInput()" aria-expanded="false" id="addNoteBtn">
+      <div class="btn-add__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <span class="btn-add__text">Legg til ny</span>
+    </button>
+
+    <!-- Input area -->
+    <div class="note-input-area" id="noteInputArea" role="region" aria-label="Ny huskelapp">
+      <textarea id="noteInput" placeholder="Skriv din huskelapp her..." aria-label="Huskelapp-tekst" rows="3"></textarea>
+      <button class="btn-primary" onclick="saveNote()">Lagre</button>
+    </div>
+
+    <!-- Existing note -->
+    <div class="sticky-note" id="note-default" role="article" aria-label="Huskelapp">
+      <div class="sticky-note__meta">
+        <time class="sticky-note__date" datetime="2024-04-12">12.04.2024 11:14</time>
+        <button class="sticky-note__close" onclick="deleteNote('note-default')" aria-label="Slett huskelapp">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      <p class="sticky-note__text">Burde jeg slutte med mine allergimedisiner?</p>
+    </div>
+
+    <div id="notesContainer"></div>
+  </div>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
        PAPER HEALTH CARD
   ═══════════════════════════════════════════════════════════ -->
   <div class="doc-section">
@@ -1959,53 +2027,6 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       </li>
     </ul>
   </nav>
-
-  <div class="sp-xl"></div>
-
-  <!-- ══════════════════════════════════════════════════════
-       HUSKELAPPER  (StickyNote pattern) — Thinking illustration
-       (Figma "✏️ F Illustrations" library, node 2031:14858)
-  ═══════════════════════════════════════════════════════════ -->
-  <div class="sticky-notes">
-    <img src="img/illustrasjoner/thinking.png" alt="" class="sticky-notes__illustration">
-    <h2 class="section-h2" style="width:auto;">Huskelapper</h2>
-    <button class="help-trigger-text" aria-expanded="false" aria-controls="huskelapperHelpExpander" onclick="toggleHelpExpander(this,'huskelapperHelpExpander')">
-      <svg class="help-trigger-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span>Hvem kan se huskelappene mine?</span>
-      <svg class="help-trigger-text__chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
-    <div class="help-expander" id="huskelapperHelpExpander" hidden>
-      <!-- Placeholder — real help copy pending from the user. -->
-      <p class="help-expander__placeholder">Hjelpetekst kommer.</p>
-    </div>
-    <p class="sticky-notes__description">Her kan du notere ting du ønsker å ta opp på neste kontroll.</p>
-
-    <button class="btn-add" onclick="toggleNoteInput()" aria-expanded="false" id="addNoteBtn">
-      <div class="btn-add__icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-      </div>
-      <span class="btn-add__text">Legg til ny</span>
-    </button>
-
-    <!-- Input area -->
-    <div class="note-input-area" id="noteInputArea" role="region" aria-label="Ny huskelapp">
-      <textarea id="noteInput" placeholder="Skriv din huskelapp her..." aria-label="Huskelapp-tekst" rows="3"></textarea>
-      <button class="btn-primary" onclick="saveNote()">Lagre</button>
-    </div>
-
-    <!-- Existing note -->
-    <div class="sticky-note" id="note-default" role="article" aria-label="Huskelapp">
-      <div class="sticky-note__meta">
-        <time class="sticky-note__date" datetime="2024-04-12">12.04.2024 11:14</time>
-        <button class="sticky-note__close" onclick="deleteNote('note-default')" aria-label="Slett huskelapp">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-      </div>
-      <p class="sticky-note__text">Burde jeg slutte med mine allergimedisiner?</p>
-    </div>
-
-    <div id="notesContainer"></div>
-  </div>
 
   <div class="sp-xl"></div>
 

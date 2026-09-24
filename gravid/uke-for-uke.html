@@ -206,7 +206,13 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
   color: var(--color-base-text-onlight);
   font: var(--mobile-label-subdued);
 }
-.lang-switcher__btn svg { width: 24px; height: 24px; }
+.lang-switcher__btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--blueberry-700); /* "link" green (#08667C) — text stays
+                                   black, only the globe + chevron are
+                                   colored */
+}
 
 /* ═══════════════════════════════════════════════════════════
    PAGE TITLE
