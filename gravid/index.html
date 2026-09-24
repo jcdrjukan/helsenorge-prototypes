@@ -1041,6 +1041,30 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .quick-link .icon-arrow svg { width: 32px; height: 32px; }
 
 /* ═══════════════════════════════════════════════════════════
+   NYTTIG Å VITE I DENNE PERIODEN  (new section — Stork illustration,
+   Figma "✏️ F Illustrations" library, node 2031:15013)
+══════════════════════════════════════════════════════════════ */
+.info-panel {
+  width: 344px;
+  background: var(--color-base-background-cherry);
+  border-radius: var(--radius-m);
+  padding: var(--space-s);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2xs);
+}
+
+.info-panel__illustration {
+  width: 160px;
+  height: 160px;
+}
+
+.info-panel h2, .info-panel .btn-borderless { align-self: flex-start; }
+
+.info-panel nav { width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════
    DOCUMENT SECTION
 ══════════════════════════════════════════════════════════════ */
 .doc-section { width: 344px; }
@@ -1200,6 +1224,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    STICKY NOTE  (StickyNote component pattern = Huskelapper)
 ══════════════════════════════════════════════════════════════ */
 .sticky-notes { width: 344px; }
+
+.sticky-notes__illustration {
+  display: block;
+  width: 160px;
+  height: 160px;
+  margin: 0 auto var(--space-2xs);
+}
 
 .sticky-notes__description {
   font: var(--mobile-body);
@@ -1779,6 +1810,41 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="sp-xl"></div>
 
   <!-- ══════════════════════════════════════════════════════
+       NYTTIG Å VITE I DENNE PERIODEN  (Stork illustration)
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="info-panel">
+    <img src="img/illustrasjoner/stork.png" alt="" class="info-panel__illustration">
+    <h2 class="section-h2" style="width:auto;">Nyttig å vite i denne perioden</h2>
+    <nav aria-label="Nyttig å vite i denne perioden">
+      <ul class="link-list" role="list">
+        <li role="listitem">
+          <a class="link-list__item" href="#"><span>Viktige vitaminer og mineraler</span>
+            <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </a>
+        </li>
+        <li role="listitem">
+          <a class="link-list__item" href="#"><span>Mat og drikke du bør unngå i graviditeten</span>
+            <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </a>
+        </li>
+        <li role="listitem">
+          <a class="link-list__item" href="#"><span>Snus, røyk og graviditet</span>
+            <div class="link-list__chevron" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg></div>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <a class="btn-borderless" href="#">
+      <span class="btn-borderless__text">Se alle artikler og verktøy</span>
+      <div class="btn-borderless__icon" aria-hidden="true">
+        <svg viewBox="0 0 38 38" fill="currentColor"><path d="M21.4344 7.69342L20.292 9.07012L28.2118 18.0263H6.69433V19.9737H28.2118L20.292 28.9267L21.4344 30.3058L31.3065 19.0008L21.4344 7.69342Z"/></svg>
+      </div>
+    </a>
+  </div>
+
+  <div class="sp-xl"></div>
+
+  <!-- ══════════════════════════════════════════════════════
        PAPER HEALTH CARD
   ═══════════════════════════════════════════════════════════ -->
   <div class="doc-section">
@@ -1859,9 +1925,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   <div class="sp-xl"></div>
 
   <!-- ══════════════════════════════════════════════════════
-       HUSKELAPPER  (StickyNote pattern)
+       HUSKELAPPER  (StickyNote pattern) — Thinking illustration
+       (Figma "✏️ F Illustrations" library, node 2031:14858)
   ═══════════════════════════════════════════════════════════ -->
   <div class="sticky-notes">
+    <img src="img/illustrasjoner/thinking.png" alt="" class="sticky-notes__illustration">
     <h2 class="section-h2" style="width:auto;">Huskelapper</h2>
     <button class="help-trigger-text" aria-expanded="false" aria-controls="huskelapperHelpExpander" onclick="toggleHelpExpander(this,'huskelapperHelpExpander')">
       <svg class="help-trigger-text__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
