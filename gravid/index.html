@@ -87,6 +87,7 @@
   --color-base-border-onlight-subtle:    #D6D4D3;
   --color-base-background-blueberry:     #E4F7F9;
   --color-base-background-cherry:        #FFF2EA;
+  --color-base-border-cherry:            #EEC0A5;
   --color-base-background-neutral:       #F5F3F3;
   --color-base-background-dark-neutral:  #2B2C2B;
   --color-base-background-dark-blueberry:#188097;
@@ -928,11 +929,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .help-trigger-text {
   display: inline-flex;
   align-items: center;
-  gap: var(--space-4xs);
+  gap: var(--space-2xs);
+  min-height: 2.75rem; /* real 44px tap target — HelpTriggerStandalone,
+                          ._help-trigger-standalone_vvv07_6 */
   background: none;
   border: none;
-  padding: var(--space-4xs) 0;
-  margin-top: var(--space-4xs);
+  padding: 0 var(--space-3xs);
+  margin: var(--space-4xs) 0 var(--space-4xs) calc(-1 * var(--space-3xs));
   cursor: pointer;
   color: var(--color-help-graphics-normal);
   font: var(--mobile-help-trigger-text);
@@ -1047,8 +1050,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .info-panel {
   width: 344px;
   background: var(--color-base-background-cherry);
+  border: 1px solid var(--color-base-border-cherry);
   border-radius: var(--radius-m);
-  padding: var(--space-s);
+  /* 24px top / 16px sides / 32px bottom — matches the real HighlightPanel
+     component's mobile padding (gravid/static/css/index.DM8mtvRh.css,
+     ._highlightpanel_rh0da_40), not a uniform --space-s. */
+  padding: 1.5rem 1rem 2rem;
   display: flex;
   flex-direction: column;
   align-items: center;
