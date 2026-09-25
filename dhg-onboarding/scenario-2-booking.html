@@ -12,6 +12,7 @@
 :root {
   --blueberry-50:  #E4F7F9;
   --blueberry-500: #188097;
+  --blueberry-600: #126F87;
   --blueberry-700: #08667C;
 
   --neutral-100: #EAE7E7;
@@ -273,38 +274,62 @@ a:focus-visible, button:focus-visible {
    sub-theme="Første svangerskapskontroll") from the earlier Figma-
    sourced rebuild.
 ───────────────────────────────────────────────────────────────── */
-.scn-title { width: 344px; padding: var(--space-l) 0 var(--space-s); }
+.scn-title { width: 344px; padding: 0 0 var(--space-s); }
 .scn-title h1 { font: var(--mobile-h1); font-size: 1.75rem; line-height: 2.125rem; }
 .scn-intro { width: 344px; color: var(--color-base-text-onlight-subdued); font-size: 1rem; padding-bottom: var(--space-m); }
 
-/* Real Stepper component — static replica (see comment block above). */
-.stepper-wrapper { width: 344px; margin: 0 auto var(--space-l); }
-.stepper { position: relative; height: 24px; }
+/* Real Stepper component — static replica, corrected to match the
+   real @helsenorge/designsystem-react source exactly (previous draft
+   had the wrong color — blueberry700 instead of blueberry600 — and
+   the wrong track dimensions; verified against
+   frankenstein/node_modules/@helsenorge/designsystem-react/lib/
+   components/Stepper/{index.js,styles.module.scss}):
+   - Track: 12px tall (not 4px), 4px border-radius, blueberry50 base.
+     A dark blueberry600 fill grows from the left edge as the marker
+     advances — confirmed empirically (not just from reading the SCSS)
+     that the component's two-layer background + backgroundPositionX
+     genuinely produces this sliding reveal in real browsers, up to a
+     fixed 12px ($dot-offset = 8px padding + half the 8px dot) minimum
+     stub visible even at step 1.
+   - Marker: 24×24, 6px blueberry600 border, positioned by its own
+     raw LEFT EDGE (no centering transform) — same as the real
+     component — so it sits flush within the track's ends at the
+     first/last step rather than overhanging past them.
+   - Dots: 8px, positioned by left edge (index × distanceBetweenDots +
+     8px padding), blueberry600 by default, blueberry50 once passed.
+   Exact positions computed in JS (paintStepper) using the same
+   constants/formula as the real component's utils.ts. */
+.stepper-wrapper { width: 344px; margin: var(--space-l) auto var(--space-m); }
+.stepper { position: relative; height: 24px; width: 100%; }
 .stepper__track {
   position: absolute;
-  top: 50%; left: 12px; right: 12px;
-  height: 4px;
+  top: 50%; left: 0; right: 0;
+  height: 12px;
   transform: translateY(-50%);
-  border-radius: 2px;
+  border-radius: 4px;
   background: var(--blueberry-50);
+  overflow: hidden;
 }
 .stepper__track::before {
   content: '';
   position: absolute;
   top: 0; left: 0; bottom: 0;
-  width: var(--stepper-fill, 0%);
-  background: var(--blueberry-700);
-  border-radius: 2px;
+  width: var(--stepper-fill-px, 12px);
+  background: var(--blueberry-600);
   transition: width 0.25s ease;
 }
-.stepper__dots {
+.stepper__dots { position: absolute; inset: 0; }
+.stepper__dot {
   position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  top: 50%;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--blueberry-600);
+  transform: translateY(-50%);
+  z-index: 1;
+  transition: background 0.25s ease;
+  left: 0;
 }
-.stepper__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blueberry-700); position: relative; z-index: 1; transition: background 0.25s ease; }
 .stepper__dot--completed { background: var(--blueberry-50); }
 .stepper__marker {
   position: absolute;
@@ -313,9 +338,9 @@ a:focus-visible, button:focus-visible {
   box-sizing: border-box;
   border-radius: 50%;
   background: #fff;
-  border: 6px solid var(--blueberry-700);
-  transform: translate(-50%, -50%);
-  left: var(--stepper-pos, 0%);
+  border: 6px solid var(--blueberry-600);
+  transform: translateY(-50%);
+  left: 0;
   transition: left 0.25s ease;
   z-index: 2;
 }
@@ -478,9 +503,6 @@ a:focus-visible, button:focus-visible {
        per current step (see script below). -->
 
   <div class="step" id="step1">
-    <div class="scn-title">
-      <h1>Timebestilling hos fastlege</h1>
-    </div>
     <div class="stepper-wrapper">
       <div class="stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-label="Steg 1 av 4">
         <div class="stepper__track"></div>
@@ -492,6 +514,9 @@ a:focus-visible, button:focus-visible {
         </div>
         <div class="stepper__marker"></div>
       </div>
+    </div>
+    <div class="scn-title">
+      <h1>Timebestilling hos fastlege</h1>
     </div>
     <p class="scn-intro">Onboarding-scenario 2 av 4: du bestiller time hos jordmoren eller fastlegen din. Nedtrekksmenyen for hva timebestillingen gjelder er den ekte, i produksjon i dag — «Gravid» er ett av flere alternativer, ikke et eget skjema. Velger du Gravid, dukker det opp et eget undertema.</p>
 
@@ -534,9 +559,6 @@ a:focus-visible, button:focus-visible {
   </div>
 
   <div class="step" id="step2" hidden>
-    <div class="scn-title">
-      <h1>Velg time</h1>
-    </div>
     <div class="stepper-wrapper">
       <div class="stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="2" aria-label="Steg 2 av 4">
         <div class="stepper__track"></div>
@@ -548,6 +570,9 @@ a:focus-visible, button:focus-visible {
         </div>
         <div class="stepper__marker"></div>
       </div>
+    </div>
+    <div class="scn-title">
+      <h1>Velg time</h1>
     </div>
     <p class="scn-intro">Ledig time er allerede valgt for deg i dette scenarioet.</p>
 
@@ -566,9 +591,6 @@ a:focus-visible, button:focus-visible {
   </div>
 
   <div class="step" id="step3" hidden>
-    <div class="scn-title">
-      <h1>Se gjennom før du sender</h1>
-    </div>
     <div class="stepper-wrapper">
       <div class="stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="3" aria-label="Steg 3 av 4">
         <div class="stepper__track"></div>
@@ -580,6 +602,9 @@ a:focus-visible, button:focus-visible {
         </div>
         <div class="stepper__marker"></div>
       </div>
+    </div>
+    <div class="scn-title">
+      <h1>Se gjennom før du sender</h1>
     </div>
 
     <div class="booking-summary">
@@ -686,20 +711,41 @@ const gravidSubLabels = {
 };
 
 // Real Stepper component (static replica — see CSS comment above).
-// Positions the sliding marker/track fill and colors each dot to
-// contrast with the track segment it sits on: dark dots on the light
-// remaining segment (steps not yet reached), light dots on the dark
-// traveled segment (steps already passed).
+// Positions computed with the same constants/formula as the real
+// component's utils.ts (MARKER_WIDTH_PX=24, STEPPER_PADDING_X_PX=8,
+// distanceBetweenDots = (stepperWidth - markerWidth) / (steps - 1)),
+// measuring each stepper's actual rendered width via
+// getBoundingClientRect — same idea as the real component's own
+// useSize-hook-based measurement, just without a ResizeObserver since
+// this layout is fixed-width. The dark track fill's width empirically
+// matches markerPosition + 12px (12 = the real $dot-offset constant),
+// clamped to the full width — verified against the real component's
+// actual rendered CSS gradient/background-position behavior in a
+// browser, not just read from the SCSS source.
 const STEPS = 4;
+const MARKER_WIDTH = 24;
+const PADDING_X = 8;
+const DOT_OFFSET = 12; // PADDING_X + half the 8px dot
+
 function paintStepper(currentStep) {
-  const pct = ((currentStep - 1) / (STEPS - 1)) * 100;
+  const index = currentStep - 1;
   document.querySelectorAll('.stepper').forEach(stepper => {
-    stepper.style.setProperty('--stepper-fill', pct + '%');
-    stepper.style.setProperty('--stepper-pos', pct + '%');
+    const stepperWidth = stepper.getBoundingClientRect().width;
+    const distanceBetweenDots = (stepperWidth - MARKER_WIDTH) / (STEPS - 1);
+    const markerPosition = distanceBetweenDots * index;
+    const isCompleted = currentStep === STEPS;
+    const fillPosition = isCompleted ? stepperWidth : markerPosition;
+    const fillWidth = Math.min(fillPosition + DOT_OFFSET, stepperWidth);
+
+    stepper.style.setProperty('--stepper-fill-px', fillWidth + 'px');
     stepper.setAttribute('aria-valuenow', String(currentStep));
-    stepper.querySelectorAll('.stepper__dot').forEach((dot, i) => {
-      const dotStep = i + 1;
-      dot.classList.toggle('stepper__dot--completed', dotStep < currentStep);
+
+    const marker = stepper.querySelector('.stepper__marker');
+    if (marker) marker.style.left = markerPosition + 'px';
+
+    stepper.querySelectorAll('.stepper__dot').forEach((dot, j) => {
+      dot.style.left = (j * distanceBetweenDots + PADDING_X) + 'px';
+      dot.classList.toggle('stepper__dot--completed', j < index);
     });
   });
 }
