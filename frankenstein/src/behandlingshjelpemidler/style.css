@@ -130,6 +130,16 @@
   min-width: 38px !important;
   min-height: 38px !important;
 }
+/* Duolist (Forbruksvarer list) jumps 1.125rem/1.375rem to 1.25rem/1.625rem
+   past the same real-viewport breakpoint, making it visibly larger than
+   the --mobile-body/--mobile-body-strong text (Bestillingsdato, etc.)
+   above it despite sharing the same mobile-tier font-size. Force the
+   mobile tier so both stay in sync regardless of window width. */
+.bhm-page [class*="_duolist__dt_"],
+.bhm-page [class*="_duolist__dd_"] {
+  font-size: 1.125rem !important;
+  line-height: 1.375rem !important;
+}
 
 /* =====================================================================
    Header — uses the shared .header/.top-bar/.nav-icon-btn/.profile-bar
