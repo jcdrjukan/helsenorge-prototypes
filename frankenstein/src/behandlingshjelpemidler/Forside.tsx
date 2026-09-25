@@ -53,7 +53,7 @@ function OrderCard({ order }: OrderCardProps) {
     <ExpanderList variant="line" color="white">
       <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-          <Field label="Bestilt" value={order.date} />
+          <Field label="Bestillingsdato" value={order.date} />
           <Field label={order.delivery === 'post' ? 'Sendes til' : 'Hentested'} value={
             order.delivery === 'post'
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
