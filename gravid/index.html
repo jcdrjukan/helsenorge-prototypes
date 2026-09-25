@@ -567,6 +567,19 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--color-base-text-onlight);
 }
 
+/* Wraps the "dager igjen" label + number so both can be hidden as one
+   unit in the 'none' termindato state (see setTermindatoState()) —
+   same flex-column/gap as .countdown-ring__center itself, so
+   .countdown-ring__days' negative margin-top above still cancels the
+   right gap and nothing shifts visually in the other two states. */
+#daysRemaining {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+}
+#daysRemaining[hidden] { display: none; }
+
 .week-bubble {
   position: absolute;
   /* left/top are the point on the ring (radius 115, center 135,135) that
@@ -600,6 +613,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   font: var(--mobile-sublabel-subdued);
   font-size: 0.875rem;
 }
+
+/* Same [hidden]-loses-to-display:flex gotcha as elsewhere in this
+   project (see aktiver-helsekort.html's .source-banner) — author CSS's
+   display:flex above always beats the UA stylesheet's default
+   [hidden] { display: none }, regardless of specificity, so without
+   this the bubble still shows up (mispositioned, empty of meaning)
+   when the 'none' termindato state hides it. */
+.week-bubble[hidden] { display: none; }
 
 .due-date {
   margin-top: var(--space-2xs);
@@ -1950,7 +1971,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           stroke-dasharray="0 722.56" stroke-dashoffset="0"
           stroke-linecap="round" id="progressArc"/>
       </svg>
-      <!-- Week bubble -->
+      <!-- Week bubble — hidden along with the days-remaining count
+           whenever there's no termindato at all (state 'none'): both
+           are derived from a dating reference (LMP/ultrasound) that
+           doesn't exist yet, so showing a specific "uke X / dag Y" or
+           a day countdown would assert a precision we don't actually
+           have. Toggled by setTermindatoState() below. -->
       <div class="week-bubble" aria-hidden="true" id="weekBubble">
         <span class="week-bubble__num" id="weekBubbleNum">uke 30</span>
         <span class="week-bubble__day">dag 2</span>
@@ -1958,8 +1984,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <!-- Center — order matches Figma (node 39:472): label above the
            number, due-date info below it, all inside the ring. -->
       <div class="countdown-ring__center" aria-hidden="true">
-        <span class="countdown-ring__label">dager igjen</span>
-        <span class="countdown-ring__days" id="countdownDays">67</span>
+        <div id="daysRemaining">
+          <span class="countdown-ring__label">dager igjen</span>
+          <span class="countdown-ring__days" id="countdownDays">67</span>
+        </div>
         <!-- Confirmed state: termindato verified by jordmor/lege via
              ultrasound. Shown by default; toggle with
              setTermindatoState() below. -->
@@ -2914,6 +2942,22 @@ function setTermindatoState(state) {
   document.getElementById('dueDateConfirmed').hidden = state !== 'confirmed';
   document.getElementById('dueDateEditable').hidden = state !== 'editable';
   document.getElementById('dueDateUnknown').hidden = state !== 'none';
+
+  // 'none' means no dating reference exists at all yet — the week
+  // bubble and "dager igjen" count are both derived from one, so
+  // showing them (or a partially-filled progress arc) would assert a
+  // precision we don't actually have. Hide them and reset the ring to
+  // a plain, empty outline, overriding whatever updateWeek() set.
+  const isNone = state === 'none';
+  document.getElementById('weekBubble').hidden = isNone;
+  document.getElementById('daysRemaining').hidden = isNone;
+  // stroke-dasharray alone still leaves a tiny dot at 0% because of
+  // stroke-linecap="round" (a zero-length round-capped dash still
+  // paints a full-width dot) — drop stroke-width to 0 too so a
+  // genuinely empty state has no colored mark on the ring at all.
+  const progressArc = document.getElementById('progressArc');
+  progressArc.setAttribute('stroke-dasharray', isNone ? '0 722.56' : progressArc.getAttribute('stroke-dasharray'));
+  progressArc.setAttribute('stroke-width', isNone ? '0' : '16');
 }
 
 // ─── Mål av magen (SF-mål) ─────────────────────────────────
