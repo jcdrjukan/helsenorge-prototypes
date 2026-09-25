@@ -243,26 +243,82 @@ a:focus-visible, button:focus-visible {
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 
 /* ─────────────────────────────────────────────────────────────
-   Real "Timebestilling + Gravid" booking flow, copied from a Figma
-   prototype the user shared (file y6IiesaN7CSGRkUM4gE8Oz, "Gravid
-   prototype 21.05.2026" section) — per that file's own designer
-   annotations: "Prototypen med skjemaet som er i prod i dag + med
-   flere temaer under gravid" (the form that's actually in production
-   today, plus more themes under Gravid). Real content used verbatim:
-   the production "Hva gjelder timen?" dropdown's full 15-option list
-   (Gravid is one of many general topics, not a dedicated form), the
-   Gravid-specific sub-dropdown (4 options) that appears once Gravid
-   is chosen, and the real confirmation screen's HighlightPanel
-   ("Bruk tjenesten Gravid med digitalt helsekort", 3 real bullets,
-   "Kom i gang" button). Real designer note confirmed the panel only
-   shows for one specific sub-choice — "Hvis tema er Gravid + første
-   kontrolltime så viser vi Helsekort-panel" / "Hvis andre temaer, så
-   viser vi vanlig kvitteringsside" — reproduced as real conditional
-   logic below (§korrigert), not just decoration.
+   Real "Timebestilling + Gravid" booking flow, corrected per direct
+   feedback to be a genuine 4-step interactive wizard using the real
+   Frankenstein Stepper component (@helsenorge/designsystem-react's
+   Stepper — same component used in the Psykisk helse quiz, confirmed
+   via frankenstein/src/behandlingshjelpemidler/OrderWizard.tsx's
+   `<Stepper value={currentStep} min={1} max={4} .../>` usage). Real
+   Stepper visual logic replicated below: a sliding 24×24 white marker
+   with a 6px blueberry700 border travels along a track; the track is
+   dark (blueberry700) for the already-traveled segment and light
+   (blueberry50) for the remaining segment; the per-step dots take
+   whichever color contrasts with the track segment they sit on —
+   dark blueberry700 dots on the light/remaining segment (steps not
+   yet reached), light blueberry50 dots on the dark/traveled segment
+   (steps already passed) — matching the real component's palette
+   (frankenstein/node_modules/@helsenorge/designsystem-react/lib/scss/
+   _palette.scss: $blueberry50/$blueberry600/$blueberry700).
+
+   Step content (title, defaults, non-interactivity) matches the
+   user's exact spec, overriding this file's earlier single-page
+   reveal-in-place draft: Step 1 "Timebestilling hos fastlege" (single
+   dropdown, unselected by default — "Velg et av alternativene" — with
+   a second dropdown spawned under it only once Gravid is chosen);
+   Step 2 "Velg time" (non-interactive, Knut Andersen + a fixed
+   date/time shown as already selected); Step 3 "Se gjennom før du
+   sender" (summary of the choices made, Send advances to step 4);
+   Step 4 checkmark + "Timebestilling er sendt", keeping the real
+   HighlightPanel and its conditional logic (only for tema=Gravid +
+   sub-theme="Første svangerskapskontroll") from the earlier Figma-
+   sourced rebuild.
 ───────────────────────────────────────────────────────────────── */
 .scn-title { width: 344px; padding: var(--space-l) 0 var(--space-s); }
 .scn-title h1 { font: var(--mobile-h1); font-size: 1.75rem; line-height: 2.125rem; }
 .scn-intro { width: 344px; color: var(--color-base-text-onlight-subdued); font-size: 1rem; padding-bottom: var(--space-m); }
+
+/* Real Stepper component — static replica (see comment block above). */
+.stepper-wrapper { width: 344px; margin: 0 auto var(--space-l); }
+.stepper { position: relative; height: 24px; }
+.stepper__track {
+  position: absolute;
+  top: 50%; left: 12px; right: 12px;
+  height: 4px;
+  transform: translateY(-50%);
+  border-radius: 2px;
+  background: var(--blueberry-50);
+}
+.stepper__track::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; bottom: 0;
+  width: var(--stepper-fill, 0%);
+  background: var(--blueberry-700);
+  border-radius: 2px;
+  transition: width 0.25s ease;
+}
+.stepper__dots {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.stepper__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--blueberry-700); position: relative; z-index: 1; transition: background 0.25s ease; }
+.stepper__dot--completed { background: var(--blueberry-50); }
+.stepper__marker {
+  position: absolute;
+  top: 50%;
+  width: 24px; height: 24px;
+  box-sizing: border-box;
+  border-radius: 50%;
+  background: #fff;
+  border: 6px solid var(--blueberry-700);
+  transform: translate(-50%, -50%);
+  left: var(--stepper-pos, 0%);
+  transition: left 0.25s ease;
+  z-index: 2;
+}
 
 .form-field { width: 344px; margin: 0 auto var(--space-m); display: flex; flex-direction: column; gap: var(--space-3xs); }
 .form-field label { font: var(--mobile-body-strong); }
@@ -300,16 +356,38 @@ a:focus-visible, button:focus-visible {
   color: #fff;
 }
 .btn-fill-medium:hover { background: var(--blueberry-700); }
+.btn-fill-medium:disabled { background: var(--neutral-300); color: var(--neutral-700); cursor: not-allowed; }
+.btn-fill-medium:disabled:hover { background: var(--neutral-300); }
+
+.btn-outline-medium {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 344px; margin: var(--space-s) auto;
+  min-height: 2.75rem; background: #fff;
+  border: 1px solid var(--color-action-text-onlight); border-radius: var(--radius-m);
+  padding: 0 var(--space-m); cursor: pointer; text-decoration: none;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight);
+}
+.btn-outline-medium:hover { background: var(--blueberry-50); }
+
+.step { width: 100%; }
+
+/* Step 2: non-interactive pre-selected time slot. */
+.booking-slot { width: 344px; margin: 0 auto var(--space-m); border: 1px solid var(--neutral-200); border-radius: var(--radius-m); overflow: hidden; }
+.booking-slot__row { display: flex; justify-content: space-between; gap: var(--space-s); padding: var(--space-xs) var(--space-s); }
+.booking-slot__row + .booking-slot__row { border-top: 1px solid var(--neutral-200); }
+.booking-slot__label { font: var(--mobile-body); color: var(--color-base-text-onlight-subdued); }
+.booking-slot__value { font: var(--mobile-body-strong); text-align: right; }
+
+/* Step 3: summary of choices. */
+.booking-summary { width: 344px; margin: 0 auto var(--space-m); border: 1px solid var(--neutral-200); border-radius: var(--radius-m); overflow: hidden; }
+.booking-summary__row { display: flex; justify-content: space-between; gap: var(--space-s); padding: var(--space-xs) var(--space-s); }
+.booking-summary__row + .booking-summary__row { border-top: 1px solid var(--neutral-200); }
+.booking-summary__row[hidden] { display: none; }
+.booking-summary__label { font: var(--mobile-body); color: var(--color-base-text-onlight-subdued); }
+.booking-summary__value { font: var(--mobile-body-strong); text-align: right; }
 
 .booking-confirm { width: 344px; margin: var(--space-l) auto 0; display: flex; flex-direction: column; }
 .booking-confirm[hidden] { display: none; }
-
-/* Real 4-dot stepper, all complete (teal fill + connecting line) —
-   matches the real confirmation screen exactly. */
-.stepper { display: flex; align-items: center; margin-bottom: var(--space-l); }
-.stepper__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--blueberry-700); flex-shrink: 0; }
-.stepper__dot--end { width: 20px; height: 20px; border: 2px solid var(--blueberry-700); background: #fff; }
-.stepper__line { flex: 1; height: 2px; background: var(--blueberry-700); }
 
 .booking-confirm__title { display: flex; align-items: center; gap: var(--space-2xs); margin-bottom: var(--space-m); }
 .booking-confirm__title svg { width: 32px; height: 32px; flex-shrink: 0; color: #1E8A3C; }
@@ -337,16 +415,6 @@ a:focus-visible, button:focus-visible {
 .invite-panel ul { list-style: disc; padding-left: 1.25rem; display: flex; flex-direction: column; gap: var(--space-3xs); }
 .invite-panel li { font: var(--mobile-body); }
 .invite-panel .btn-fill-medium { width: fit-content; }
-
-.btn-outline-medium {
-  display: inline-flex; align-items: center; justify-content: center;
-  width: 344px; margin: var(--space-s) auto 0;
-  min-height: 2.75rem; background: #fff;
-  border: 1px solid var(--color-action-text-onlight); border-radius: var(--radius-m);
-  padding: 0 var(--space-m); cursor: pointer; text-decoration: none;
-  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight);
-}
-.btn-outline-medium:hover { background: var(--blueberry-50); }
 
 </style>
 </head>
@@ -404,22 +472,39 @@ a:focus-visible, button:focus-visible {
   </nav>
   <hr class="page-divider">
 
-  <div id="bookingForm">
+  <!-- Real Stepper markup, reused identically at the top of steps 1–3
+       (step 4 is a receipt screen and doesn't show progress). JS sets
+       --stepper-fill/--stepper-pos and toggles .stepper__dot--completed
+       per current step (see script below). -->
+
+  <div class="step" id="step1">
     <div class="scn-title">
-      <h1>Bestill time</h1>
+      <h1>Timebestilling hos fastlege</h1>
     </div>
-    <p class="scn-intro">Onboarding-scenario 2 av 4: du bestiller time hos jordmoren eller fastlegen din. Nedtrekksmenyen for hva timen gjelder er den ekte, i produksjon i dag — «Gravid» er ett av flere alternativer, ikke et eget skjema. Velger du Gravid, dukker det opp et eget undertema.</p>
+    <div class="stepper-wrapper">
+      <div class="stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="1" aria-label="Steg 1 av 4">
+        <div class="stepper__track"></div>
+        <div class="stepper__dots">
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+        </div>
+        <div class="stepper__marker"></div>
+      </div>
+    </div>
+    <p class="scn-intro">Onboarding-scenario 2 av 4: du bestiller time hos jordmoren eller fastlegen din. Nedtrekksmenyen for hva timebestillingen gjelder er den ekte, i produksjon i dag — «Gravid» er ett av flere alternativer, ikke et eget skjema. Velger du Gravid, dukker det opp et eget undertema.</p>
 
     <div class="form-field">
-      <label for="tema">Hva gjelder timen?</label>
+      <label for="tema">Hva gjelder timebestillingen?</label>
       <select id="tema">
-        <option value="">Velg ett av alternativene</option>
+        <option value="" selected>Velg et av alternativene</option>
         <option value="sykmelding">Forlenge sykmelding</option>
         <option value="skade">Nylig skade (oppstått i løpet av de siste fem dager)</option>
         <option value="psykisk">Psykiske plager (uro, stress, søvnproblemer og annet)</option>
         <option value="allergi">Allergi</option>
         <option value="gynekologisk">Gynekologiske plager</option>
-        <option value="gravid" selected>Gravid</option>
+        <option value="gravid">Gravid</option>
         <option value="hodepine">Hodepine</option>
         <option value="hud">Hud og utslett</option>
         <option value="luftveier">Luftveisplager</option>
@@ -432,10 +517,11 @@ a:focus-visible, button:focus-visible {
       </select>
     </div>
 
-    <div class="form-field form-field--sub" id="gravidSubField">
-      <label for="gravidSub">Hva gjelder graviditeten?</label>
+    <div class="form-field form-field--sub" id="gravidSubField" hidden>
+      <label for="gravidSub">Velg en underkategori</label>
       <select id="gravidSub">
-        <option value="forste" selected>Første svangerskapskontroll</option>
+        <option value="" selected>Velg en underkategori</option>
+        <option value="forste">Første svangerskapskontroll</option>
         <option value="rutine">Rutinemessig svangerskapskontroll</option>
         <option value="plager">Svangerskapsplager</option>
         <option value="annet">Annet</option>
@@ -444,22 +530,76 @@ a:focus-visible, button:focus-visible {
 
     <div class="sp-m"></div>
 
-    <button type="button" class="btn-fill-medium" id="bookBtn">Bestill time</button>
+    <button type="button" class="btn-fill-medium" id="step1Next" disabled>Neste</button>
   </div>
 
-  <div class="booking-confirm" id="bookingConfirm" hidden>
-    <div class="stepper" aria-hidden="true">
-      <div class="stepper__dot"></div>
-      <div class="stepper__line"></div>
-      <div class="stepper__dot"></div>
-      <div class="stepper__line"></div>
-      <div class="stepper__dot"></div>
-      <div class="stepper__line"></div>
-      <div class="stepper__dot stepper__dot--end"></div>
+  <div class="step" id="step2" hidden>
+    <div class="scn-title">
+      <h1>Velg time</h1>
     </div>
+    <div class="stepper-wrapper">
+      <div class="stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="2" aria-label="Steg 2 av 4">
+        <div class="stepper__track"></div>
+        <div class="stepper__dots">
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+        </div>
+        <div class="stepper__marker"></div>
+      </div>
+    </div>
+    <p class="scn-intro">Ledig time er allerede valgt for deg i dette scenarioet.</p>
+
+    <div class="booking-slot">
+      <div class="booking-slot__row"><span class="booking-slot__label">Behandler</span><span class="booking-slot__value">Knut Andersen</span></div>
+      <div class="booking-slot__row"><span class="booking-slot__label">Dato</span><span class="booking-slot__value">Fredag 16. april 2026</span></div>
+      <div class="booking-slot__row"><span class="booking-slot__label">Tidspunkt</span><span class="booking-slot__value">11:30–11:45</span></div>
+      <div class="booking-slot__row"><span class="booking-slot__label">Oppmøtested</span><span class="booking-slot__value">Ekeberg legekontor</span></div>
+      <div class="booking-slot__row"><span class="booking-slot__label">Type</span><span class="booking-slot__value">Konsultasjon</span></div>
+    </div>
+
+    <div class="sp-m"></div>
+
+    <button type="button" class="btn-fill-medium" id="step2Next">Neste</button>
+    <button type="button" class="btn-outline-medium" id="step2Back">Tilbake</button>
+  </div>
+
+  <div class="step" id="step3" hidden>
+    <div class="scn-title">
+      <h1>Se gjennom før du sender</h1>
+    </div>
+    <div class="stepper-wrapper">
+      <div class="stepper" role="progressbar" aria-valuemin="1" aria-valuemax="4" aria-valuenow="3" aria-label="Steg 3 av 4">
+        <div class="stepper__track"></div>
+        <div class="stepper__dots">
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+          <span class="stepper__dot"></span>
+        </div>
+        <div class="stepper__marker"></div>
+      </div>
+    </div>
+
+    <div class="booking-summary">
+      <div class="booking-summary__row"><span class="booking-summary__label">Gjelder</span><span class="booking-summary__value" id="summaryTema"></span></div>
+      <div class="booking-summary__row" id="summarySubRow" hidden><span class="booking-summary__label">Underkategori</span><span class="booking-summary__value" id="summarySub"></span></div>
+      <div class="booking-summary__row"><span class="booking-summary__label">Behandler</span><span class="booking-summary__value">Knut Andersen</span></div>
+      <div class="booking-summary__row"><span class="booking-summary__label">Tid</span><span class="booking-summary__value">Fre 16. april 2026, kl. 11:30–11:45</span></div>
+      <div class="booking-summary__row"><span class="booking-summary__label">Sted</span><span class="booking-summary__value">Ekeberg legekontor</span></div>
+    </div>
+
+    <div class="sp-m"></div>
+
+    <button type="button" class="btn-fill-medium" id="sendBtn">Send</button>
+    <button type="button" class="btn-outline-medium" id="step3Back">Tilbake</button>
+  </div>
+
+  <div class="booking-confirm" id="step4" hidden>
     <div class="booking-confirm__title">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      <h2>Timebestillingen er sendt</h2>
+      <h2>Timebestilling er sendt</h2>
     </div>
     <p>Bestillingen er kun en forespørsel. Timen er ikke tildelt før du mottar en bekreftelse.</p>
     <p>Hvis helsetilstanden din endrer seg før timeavtalen, må du ta kontakt med legekontoret.</p>
@@ -521,23 +661,90 @@ a:focus-visible, button:focus-visible {
 const temaSelect = document.getElementById('tema');
 const gravidSubField = document.getElementById('gravidSubField');
 const gravidSub = document.getElementById('gravidSub');
+const temaLabels = {
+  sykmelding: 'Forlenge sykmelding',
+  skade: 'Nylig skade (oppstått i løpet av de siste fem dager)',
+  psykisk: 'Psykiske plager (uro, stress, søvnproblemer og annet)',
+  allergi: 'Allergi',
+  gynekologisk: 'Gynekologiske plager',
+  gravid: 'Gravid',
+  hodepine: 'Hodepine',
+  hud: 'Hud og utslett',
+  luftveier: 'Luftveisplager',
+  mage: 'Mage- og tarmplager',
+  urinveier: 'Mistanke om urinveisinfeksjon',
+  muskel: 'Muskel- og skjelettplager',
+  prevensjon: 'Prevensjon',
+  rutine: 'Rutinekontroll (diabetes og annet)',
+  annet: 'Annet'
+};
+const gravidSubLabels = {
+  forste: 'Første svangerskapskontroll',
+  rutine: 'Rutinemessig svangerskapskontroll',
+  plager: 'Svangerskapsplager',
+  annet: 'Annet'
+};
+
+// Real Stepper component (static replica — see CSS comment above).
+// Positions the sliding marker/track fill and colors each dot to
+// contrast with the track segment it sits on: dark dots on the light
+// remaining segment (steps not yet reached), light dots on the dark
+// traveled segment (steps already passed).
+const STEPS = 4;
+function paintStepper(currentStep) {
+  const pct = ((currentStep - 1) / (STEPS - 1)) * 100;
+  document.querySelectorAll('.stepper').forEach(stepper => {
+    stepper.style.setProperty('--stepper-fill', pct + '%');
+    stepper.style.setProperty('--stepper-pos', pct + '%');
+    stepper.setAttribute('aria-valuenow', String(currentStep));
+    stepper.querySelectorAll('.stepper__dot').forEach((dot, i) => {
+      const dotStep = i + 1;
+      dot.classList.toggle('stepper__dot--completed', dotStep < currentStep);
+    });
+  });
+}
+
+function goToStep(step) {
+  ['step1', 'step2', 'step3', 'step4'].forEach((id, i) => {
+    document.getElementById(id).hidden = (i + 1) !== step;
+  });
+  if (step < 4) paintStepper(step);
+  window.scrollTo({ top: 0, behavior: 'instant' });
+}
 
 function updateGravidSubVisibility() {
   gravidSubField.hidden = temaSelect.value !== 'gravid';
+  updateStep1NextState();
+}
+function updateStep1NextState() {
+  const temaChosen = temaSelect.value !== '';
+  const subNeeded = temaSelect.value === 'gravid';
+  const subChosen = !subNeeded || gravidSub.value !== '';
+  document.getElementById('step1Next').disabled = !(temaChosen && subChosen);
 }
 temaSelect.addEventListener('change', updateGravidSubVisibility);
+gravidSub.addEventListener('change', updateStep1NextState);
 updateGravidSubVisibility();
 
-document.getElementById('bookBtn').addEventListener('click', () => {
-  document.getElementById('bookingForm').hidden = true;
-  document.getElementById('bookingConfirm').hidden = false;
+paintStepper(1);
 
+document.getElementById('step1Next').addEventListener('click', () => goToStep(2));
+document.getElementById('step2Back').addEventListener('click', () => goToStep(1));
+document.getElementById('step2Next').addEventListener('click', () => {
+  document.getElementById('summaryTema').textContent = temaLabels[temaSelect.value] || '';
+  const showSub = temaSelect.value === 'gravid';
+  document.getElementById('summarySubRow').hidden = !showSub;
+  document.getElementById('summarySub').textContent = showSub ? (gravidSubLabels[gravidSub.value] || '') : '';
+  goToStep(3);
+});
+document.getElementById('step3Back').addEventListener('click', () => goToStep(2));
+
+document.getElementById('sendBtn').addEventListener('click', () => {
   // Real conditional logic from the Figma prototype: the invite panel
   // only shows for tema=Gravid + sub-theme="Første svangerskapskontroll".
   const showInvite = temaSelect.value === 'gravid' && gravidSub.value === 'forste';
   document.getElementById('invitePanel').hidden = !showInvite;
-
-  window.scrollTo({ top: 0, behavior: 'instant' });
+  goToStep(4);
 });
 </script>
 </body>

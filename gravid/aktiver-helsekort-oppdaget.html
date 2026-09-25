@@ -27,8 +27,6 @@
   --color-base-text-onlight:             #000000;
   --color-base-background-blueberry:     #E4F7F9;
   --color-base-background-dark-neutral:  #2B2C2B;
-  --color-notification-background-info:  #E4F7F9;
-  --color-notification-border-info:      #08667C;
 
   --space-3xs: 0.25rem;   /*  4px */
   --space-2xs: 0.5rem;    /*  8px */
@@ -279,36 +277,26 @@ a:focus-visible, button:focus-visible {
 .rich-text p { font: var(--mobile-body); }
 .rich-text a { color: var(--color-action-text-onlight); }
 
-/* Onboarding-source banner — now the real Frankenstein NotificationPanel
-   component, variant "info" (per direct request), not a custom box.
-   Real classes/values ported from @helsenorge/designsystem-react's
-   NotificationPanel (already used faithfully once before this session,
-   for gravid/index.html's farskap panel — same source). */
-.notification-panel {
+/* Onboarding-source banner — prototype-only affordance (not part of
+   the real editorial page), so styled distinctly from the CMS content
+   below it: a quiet neutral note rather than another content panel. */
+.source-banner {
   width: 344px;
   margin-top: var(--space-m);
   display: flex;
-  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-2xs);
-  box-shadow: 0.25rem 0.25rem 0.375rem rgba(0,0,0,0.15);
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  background: var(--neutral-100);
   border-radius: var(--radius-s);
-  border: 0.125rem solid var(--color-notification-border-info);
-  background-color: var(--color-notification-background-info);
+  padding: var(--space-s);
 }
-.notification-panel__icon { width: 38px; height: 38px; margin-right: var(--space-3xs); flex-shrink: 0; line-height: 0; }
-.notification-panel__content { align-self: center; }
-.notification-panel__children {
-  font: 600 1rem/150% 'Source Sans Pro', sans-serif;
-  color: var(--color-base-text-onlight);
-  margin: 0;
-  padding: var(--space-3xs) 0;
-}
+.source-banner svg { width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; }
+.source-banner p { font: 400 1rem/150% 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
 /* The [hidden] attribute alone loses to this class's own `display: flex`
    above — author CSS always beats the UA stylesheet's default
    `[hidden] { display: none }`, regardless of specificity — so without
-   this the banner box still shows up empty when kilde is absent. Hit
-   this same gotcha 3 times already this session (gravid/index.html's
-   .source-banner/.week-bubble, scenario-2-booking.html's .invite-panel). */
-.notification-panel[hidden] { display: none; }
+   this the banner box still shows up empty when kilde is absent. */
+.source-banner[hidden] { display: none; }
 
 /* Panel — blueberry variant (confirmed real: .panel--blueberry on the
    live page compiles to background-color:#e4f7f9 and nothing else —
@@ -345,6 +333,24 @@ a:focus-visible, button:focus-visible {
 }
 .btn-fill:hover { background: var(--blueberry-700); }
 .btn-fill span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; }
+
+/* Button — fill variant, "large-non-borderless" size, fluid width,
+   with a right-arrow icon (section 3's CTA). */
+.btn-fill-large {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  min-height: 3.5rem;
+  background: var(--blueberry-500);
+  border-radius: var(--radius-m);
+  padding: 0 0.75rem 0 1.5rem;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-fill-large:hover { background: var(--blueberry-700); }
+.btn-fill-large span { flex: 1; font: 600 1.3125rem/1.5rem 'Source Sans Pro', sans-serif; color: #fff; }
+.btn-fill-large svg { width: 24px; height: 24px; flex-shrink: 0; margin-left: var(--space-2xs); color: #fff; }
 
 /* Feedback widget ("Fant du det du lette etter?") — decorative,
    matches the real page's own UserFeedback component footer. */
@@ -487,16 +493,12 @@ a:focus-visible, button:focus-visible {
        the user has landed here, driven by ?kilde= (see script below).
        Hidden entirely when kilde is absent/unrecognized (the
        provider-URL scenario keeps the page's original, source-less
-       framing). Now the real Frankenstein NotificationPanel component
-       (variant "info"), per direct request — not a custom box. Not
-       part of the real editorial page; only exists to make each
-       onboarding-scenario demo read clearly on its own.
+       framing). Not part of the real editorial page; only exists to
+       make each onboarding-scenario demo read clearly on its own.
   ═══════════════════════════════════════════════════════════ -->
-  <div class="notification-panel" id="sourceBanner" hidden>
-    <svg class="notification-panel__icon" viewBox="0 0 48 48" fill="var(--color-notification-border-info)" aria-hidden="true"><path d="M26.367 31.224h-4.7v-.543a8.88 8.88 0 00.38-.037c.124-.015.23-.04.32-.075a.612.612 0 00.334-.255.881.881 0 00.097-.443v-6.324a.868.868 0 00-.12-.458 1.001 1.001 0 00-.297-.315 1.543 1.543 0 00-.405-.171 2.644 2.644 0 00-.495-.105v-.543l3.645-.192.11.11v7.9c0 .174.038.322.112.443a.67.67 0 00.32.271 2.363 2.363 0 00.699.194v.543zm-2.64-14.998a1.556 1.556 0 11-.002 3.111 1.556 1.556 0 01.002-3.11zM24 8.728C15.58 8.728 8.728 15.578 8.728 24c0 8.42 6.852 15.272 15.273 15.272 8.42 0 15.27-6.852 15.27-15.272 0-8.421-6.85-15.272-15.27-15.272z" fill="var(--color-notification-border-info)"/></svg>
-    <div class="notification-panel__content">
-      <p class="notification-panel__children" id="sourceBannerText"></p>
-    </div>
+  <div class="source-banner" id="sourceBanner" hidden>
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18S33.941 6 24 6zm-1.35 9h2.7v2.7h-2.7V15zm0 6h2.7v12h-2.7V21z" fill="#126F87"/></svg>
+    <p id="sourceBannerText"></p>
   </div>
 
   <!-- ══════════════════════════════════════════════════════
@@ -539,12 +541,26 @@ a:focus-visible, button:focus-visible {
     <p><a href="#">Les mer om Gravid og digitalt helsekort</a></p>
   </div>
 
-  <div class="sp-xl"></div>
+  <div class="sp-l"></div>
 
-  <!-- SECTION 3 ("Bruk Gravid uten digitalt helsekort" opt-out panel +
-       CTA) removed per direct request — this page now serves S1, S2
-       and S4 only; S3 keeps the full original page (with this
-       section intact) at aktiver-helsekort-oppdaget.html. -->
+  <!-- ══════════════════════════════════════════════════════
+       SECTION 3 — plain rich text + large fluid CTA, unchanged
+       from the live page (this opt-out-of-sharing path doesn't
+       depend on the consent-vs-activation distinction above).
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="rich-text">
+    <div>
+      <h3>Bruk Gravid uten digitalt helsekort</h3>
+      <div class="sp-s"></div>
+      <p>Du kan bruke Gravid uten digitalt helsekort hvis du ikke ønsker å dele informasjon med helsepersonell. Informasjonen du registrerer, lagres da bare for deg. Du kan også bruke tjenesten sammen med partneren din, uten at partneren får tilgang til helseopplysningene dine.</p>
+    </div>
+    <a class="btn-fill-large" href="index.html?tilknyttet=0">
+      <span>Bruk Gravid uten digitalt helsekort</span>
+      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.929-1.142 1.377 10.044 11.721H8.929v1.947h27.048L25.933 36.692l1.142 1.379L39.07 24 27.075 9.929Z"/></svg>
+    </a>
+  </div>
+
+  <div class="sp-xl"></div>
 
   <!-- ══════════════════════════════════════════════════════
        FEEDBACK WIDGET — decorative, matches the real page's own
@@ -629,10 +645,6 @@ a:focus-visible, button:focus-visible {
 // yet. Same default used as the pre-JS fallback href above.
 const DEFAULT_ACTIVATE_QUERY = 'uke=1&tilknyttet=1&termindato=none&panelHelsekort=1';
 
-// Only epj (S1), booking (S2) and no-kilde-at-all (S4) route here now —
-// S3's three discovery variants (frontpage/sok/redaksjonelt) route to
-// aktiver-helsekort-oppdaget.html instead (see DECISIONS.md: this page
-// is now S1/S2/S4-only, per direct request).
 const KILDE_CONFIG = {
   epj: {
     banner: 'Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin.',
@@ -644,6 +656,18 @@ const KILDE_CONFIG = {
     banner: 'Du har bestilt time hos jordmoren eller fastlegen din. Aktiver digitalt helsekort for å svare på noen spørsmål før timen.',
     breadcrumbLabel: 'Timen din',
     breadcrumbHref: 'https://elegant-sundae-931931.netlify.app/scenario-2-booking.html',
+  },
+  frontpage: {
+    breadcrumbLabel: 'Forside',
+    breadcrumbHref: 'https://elegant-sundae-931931.netlify.app/scenario-3-frontpage.html',
+  },
+  sok: {
+    breadcrumbLabel: 'Søk',
+    breadcrumbHref: 'https://elegant-sundae-931931.netlify.app/scenario-3-sok.html',
+  },
+  redaksjonelt: {
+    breadcrumbLabel: 'Gravid og fødsel',
+    breadcrumbHref: 'https://elegant-sundae-931931.netlify.app/scenario-3-redaksjonelt.html',
   },
 };
 
