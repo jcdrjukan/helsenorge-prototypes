@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Søk – Helsenorge</title>
+<title>Gravid – Helsenorge</title>
 <link rel="icon" type="image/svg+xml" href="https://helsenorge-gravid.netlify.app/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -243,98 +243,74 @@ a:focus-visible, button:focus-visible {
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 
 /* ─────────────────────────────────────────────────────────────
-   Real search-results page content, copied from
-   https://www.helsenorge.no/sok/?q=Gravid (the real "Meny" overlay's
-   search field → real results page a real search for "Gravid"
-   produces), per direct user request — classes/values pulled from
-   that page's own live markup + compiled CSS
-   (cdn.helsenorge.no/cmsagent/static/css/index.*.css), not
-   approximated. "Søkeresultater for Gravid" exists as a real <h1> on
-   that page but is screen-reader-only there (clip-path:inset(50%)
-   etc.) — kept the same way here, not shown visually, matching real
-   behavior exactly. Only the first result ("Gravid") is wired to our
-   flow (kilde=sok); the other 11 are real titles/snippets but link to
-   "#" rather than out to the live production site, to keep the demo
-   self-contained. ───────────────────────────────────────────── */
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
-}
+   Real editorial "Gravid" hub page content, copied from
+   https://www.helsenorge.no/gravid/ (the page a real search for
+   "Gravid" leads to), per direct user request. Classes/values pulled
+   from that page's own live markup + compiled CSS
+   (helsenorge-cms-web.*.css) — this is a genuinely different content
+   layer than the React web-components used for the header/search
+   (plain server-rendered CMS markup, .title1/.preamble/._promosection
+   etc., not CSS-module React components).
 
-.sok-page { width: 344px; margin: 0 auto; padding-top: var(--space-s); }
+   Only a representative slice of the real (very long, ~25-section)
+   page is reproduced: H1+preamble, the real promo panel (photo +
+   real copy, real image asset hotlinked from helsenorge.no's own
+   CDN), one more real content link, a real checklist section, and
+   the real feedback widget — enough for scroll depth and visual
+   authenticity without reproducing all 25 sections verbatim.
 
-.sok-form { display: flex; gap: var(--space-2xs); margin-bottom: var(--space-m); }
-.sok-input {
-  flex: 1; min-width: 0;
-  background: #fff; border: 2px solid var(--neutral-700);
-  min-height: 3rem; padding: 0 0.875rem;
-  font: 400 1.125rem/1.5rem 'Source Sans Pro', sans-serif;
-}
-.sok-btn {
-  min-width: 2.75rem; min-height: 2.75rem;
-  background: var(--blueberry-500);
-  border: none; border-radius: var(--radius-m);
-  padding: 0 var(--space-m);
-  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif;
-  color: #fff; cursor: pointer;
-}
-.sok-btn:hover { background: var(--blueberry-700); }
+   Breadcrumb reads "Søkeresultat" (not "Forside") because that's the
+   real page's own behavior when reached via ?retururl=…&retururltekst=
+   Søkeresultat, i.e. exactly how she'd arrive here from search — the
+   same param the real "Gravid" search result link's href already
+   carries (confirmed on the live site). ────────────────────────── */
+.page-title { width: 344px; padding-top: var(--space-l); }
+.page-title h1 { font: 600 2rem/2.375rem 'Source Sans Pro', sans-serif; }
+.preamble { width: 344px; font: 400 1.25rem/1.625rem 'Source Sans Pro', sans-serif; margin-top: var(--space-xs); }
 
-.sok-summary-panel {
+.promo {
+  width: 344px; margin: var(--space-l) auto 0;
+  display: flex; flex-direction: column;
   background: var(--color-base-background-blueberry);
-  border: 1px solid #9CC9CF;
-  border-radius: var(--radius-m);
-  padding: var(--space-s);
-  display: flex; align-items: center; gap: var(--space-s);
-  margin-bottom: var(--space-m);
 }
-.sok-toggle {
-  flex-shrink: 0;
-  width: 2.75rem; height: 1.75rem;
-  background: #fff; border: 2px solid var(--neutral-700);
-  border-radius: 60px; position: relative;
-}
-.sok-toggle__dot {
-  position: absolute; left: 3px; bottom: 3px;
-  width: 1.125rem; height: 1.125rem;
-  background: var(--neutral-700); border-radius: 50%;
-}
-.sok-summary-panel__label { flex: 1; font: var(--mobile-body-strong); }
-.sok-beta-tag {
-  flex-shrink: 0;
-  border: 1px solid #C89EE0; color: #7A3FA0;
-  border-radius: 4px; padding: 0.1875rem var(--space-2xs) 0;
-  font-size: 0.875rem; font-weight: 600; line-height: 1.25rem;
-  text-transform: uppercase;
-}
+.promo__image { width: 100%; height: 172px; object-fit: cover; display: block; }
+.promo__content { padding: var(--space-m) var(--space-s) var(--space-l); display: flex; flex-direction: column; gap: var(--space-m); }
+.promo__title { font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; margin: 0; }
+.promo__title a { color: inherit; text-decoration: none; }
+.promo__title a:hover { text-decoration: underline; }
+.promo__desc { margin: 0; font: var(--mobile-body); }
+.promo__caption { margin: 0; font-size: 1rem; color: var(--color-base-text-onlight-subdued); }
 
-.sok-status { font: var(--mobile-body-strong); margin-bottom: var(--space-l); }
+.rich-text { width: 344px; margin: var(--space-l) auto 0; display: flex; flex-direction: column; gap: var(--space-m); }
+.rich-text h2 { font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; }
+.rich-text h2 a { color: var(--color-action-text-onlight); text-decoration: none; }
+.rich-text h2 a:hover { text-decoration: underline; }
+.rich-text p { font: var(--mobile-body); }
 
-.sok-hits { display: flex; flex-direction: column; }
-.sok-hit {
-  border-top: 1px solid var(--neutral-200);
-  padding: var(--space-xs) var(--space-2xs) var(--space-s);
+.link-section { width: 344px; margin: var(--space-l) auto 0; }
+.link-section h2 { font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; margin-bottom: var(--space-s); }
+.link-section ul { list-style: none; display: flex; flex-direction: column; }
+.link-section li { border-top: 1px solid var(--neutral-200); }
+.link-section li:last-child { border-bottom: 1px solid var(--neutral-200); }
+.link-section a {
+  display: flex; align-items: center; justify-content: space-between;
+  min-height: 3.5rem; padding: var(--space-2xs) 0;
+  color: var(--color-base-text-onlight); text-decoration: none;
+  font: var(--mobile-body-strong);
 }
-.sok-hit:last-child { border-bottom: 1px solid var(--neutral-200); }
-.sok-hit__header { display: flex; justify-content: space-between; align-items: center; gap: var(--space-2xs); margin-bottom: var(--space-2xs); }
-.sok-hit__link { color: inherit; text-decoration: none; font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; }
-.sok-hit__link:hover { text-decoration: underline; }
-.sok-hit__arrow { flex-shrink: 0; width: 38px; height: 38px; color: var(--color-action-text-onlight); }
-.sok-hit__intro { margin: 0; font: var(--mobile-body); }
-.sok-hit__intro mark { background: #FFFA92; font-weight: 600; color: inherit; }
+.link-section a:hover { color: var(--color-action-text-onlight); }
+.link-section a svg { flex-shrink: 0; width: 24px; height: 24px; color: var(--color-action-text-onlight); }
 
-.sok-pagination { margin: var(--space-l) 0 var(--space-s); color: var(--color-base-text-onlight-subdued); }
-.sok-load-more {
-  display: inline-flex; align-items: center; gap: var(--space-2xs);
-  background: #fff; border: 1px solid var(--color-action-text-onlight);
-  border-radius: var(--radius-m);
-  min-height: 2.75rem; padding: 0 var(--space-m);
-  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif;
-  color: var(--color-action-text-onlight); cursor: pointer;
-  margin-bottom: var(--space-xl);
+.feedback { width: 344px; margin: var(--space-xl) auto var(--space-l); display: flex; flex-direction: column; gap: var(--space-s); }
+.feedback h2 { font: var(--mobile-h4); }
+.feedback__buttons { display: flex; gap: var(--space-s); }
+.feedback__btn {
+  min-width: 2.75rem; min-height: 2.75rem;
+  background: var(--blueberry-500); border-radius: var(--radius-m); border: none; cursor: pointer;
+  padding: 0 var(--space-l);
 }
-.sok-load-more:hover { background: var(--blueberry-50); }
-.sok-load-more svg { width: 24px; height: 24px; }
+.feedback__btn:hover { background: var(--blueberry-700); }
+.feedback__btn span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; }
 
 </style>
 </head>
@@ -385,128 +361,51 @@ a:focus-visible, button:focus-visible {
   </header>
 
   <nav class="breadcrumb" aria-label="Brødsmulesti">
-    <a class="breadcrumb__back" href="index.html">
+    <a class="breadcrumb__back" href="scenario-3-sok.html">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Onboarding-scenarioer</span>
+      <span>Søkeresultat</span>
     </a>
   </nav>
   <hr class="page-divider">
 
-  <div class="sok-page">
-    <!-- Real <h1> from the live page — screen-reader-only there too
-         (a genuine sr-only utility class, not a mistake), so kept
-         invisible here rather than shown as a visible page title. -->
-    <h1 class="sr-only">Søkeresultater for Gravid</h1>
+  <div class="page-title">
+    <h1>Gravid</h1>
+    <p class="preamble">Her finner du informasjon om graviditeten uke for uke, svangerskapskontrollene, vanlige plager og hva du bør passe på som gravid.</p>
+  </div>
 
-    <form class="sok-form" onsubmit="return false;">
-      <input class="sok-input" type="search" value="Gravid" aria-label="Søk på helsenorge.no">
-      <button class="sok-btn" type="submit">Søk</button>
-    </form>
-
-    <!-- Real "Vis KI-oppsummering" feature (Beta) — decorative here,
-         off by default matching the real page's default state. -->
-    <div class="sok-summary-panel">
-      <button type="button" class="sok-toggle" role="switch" aria-checked="false" aria-label="Vis KI-oppsummering" onclick="this.setAttribute('aria-checked', this.getAttribute('aria-checked')==='true'?'false':'true')">
-        <span class="sok-toggle__dot"></span>
-      </button>
-      <span class="sok-summary-panel__label">Vis KI-oppsummering</span>
-      <span class="sok-beta-tag">Beta</span>
+  <!-- Real promo panel — this is the wired CTA into our flow. -->
+  <div class="promo">
+    <img class="promo__image" src="https://www.helsenorge.no/499e34/globalassets/bilder/-kvinne-holder-graviditetstest_liggende.jpg?width=550" alt="Kvinne som holder graviditetstest">
+    <div class="promo__content">
+      <h2 class="promo__title"><a href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html?kilde=sok">Bruk tjenesten Gravid og digitalt helsekort</a></h2>
+      <p class="promo__desc">Med tjenesten Gravid kan du følge svangerskapet ditt uke for uke og få nyttig informasjon om deg og barnet ditt. Du får også digitalt helsekort hvis jordmoren eller fastlegen din bruker dette.</p>
+      <p class="promo__caption">Illustrasjon: iStock</p>
     </div>
+  </div>
 
-    <p class="sok-status">170 resultater for &ldquo;Gravid&rdquo;</p>
+  <div class="rich-text">
+    <h2><a href="#">Gravid uke for uke</a></h2>
+    <p>Følg graviditeten og fosterets utvikling uke for uke fram til fødselen. Her finner du informasjon om graviditetens første, andre og tredje trimester.</p>
+  </div>
 
-    <div class="sok-hits">
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="scenario-3-sok-gravid.html">Gravid</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Her finner du informasjon om <mark>graviditeten</mark> uke for uke, svangerskapskontrollene, vanlige plager og hva du bør passe på som gravid.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Graviditet og alkohol</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Det finst ikkje noko tidspunkt i <mark>graviditeten</mark> der det er trygt for barnet at du drikk alkohol. Dersom du som gravid drikk alkohol, får fosteret samme promille som deg.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Snus, røyk og graviditet</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Om du ikkje røyker eller snusar når du er gravid, gir du barnet ditt betre moglegheiter for god vekst og utvikling. Røyk og snus aukar risikoen for komplikasjonar.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Graviditet og legemidler</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Les om trygg bruk av smertestillende og andre medisiner under <mark>graviditet</mark>.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Graviditet og ulike revmatiske sykdommer</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Har du en revmatisk sykdom og ønsker å bli gravid, bør du planlegge svangerskapet sammen med legen din.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Informasjon om graviditet på tegnspråk</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Her finner du videoer på tegnspråk som går gjennom hele prosessen fra unnfangelse til fødsel og tiden etterpå. Du får også informasjon om kosthold, trening, barseltid og amming.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Graviditet, fødsel og familieliv ved revmatisk sykdom</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Revmatiske sykdommer kan opptre ulikt gjennom et svangerskap. Her får du råd om <mark>graviditet</mark>, fødsel, familieliv og trening når du har en revmatisk sykdom.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Videoer om graviditet, fødsel og barselstid</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Her finner du videoer om <mark>graviditet</mark>, fødsel og barseltid. Filmene kan være nyttige å se for alle som skal føde.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Vanlige plager under graviditeten</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Det varierer om og hvordan gravide opplever plager. Noen ganger er plagene små og til å leve med, i andre tilfeller kan det trenges egne tiltak.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Gravid uke for uke</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Følg <mark>graviditeten</mark> og fosterets utvikling uke for uke fram til fødselen. Her finner du informasjon om <mark>graviditeten</mark>s første, andre og tredje trimester.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Bestill gratis kondomer</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Kondomer beskytter både mot kjønnssykdommer og uønsket <mark>graviditet</mark>. Her kan du bestille gratis kondomer og få vite mer om hvorfor du bør beskytte deg.</p>
-      </div>
-      <div class="sok-hit">
-        <div class="sok-hit__header">
-          <h2><a class="sok-hit__link" href="#">Svangerskapsdiabetes</a></h2>
-          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
-        </div>
-        <p class="sok-hit__intro">Svangerskapsdiabetes er en tilstand med forhøyet blodsukker som oppdages eller oppstår i <mark>graviditeten</mark>.</p>
-      </div>
+  <div class="link-section">
+    <h2>Svangerskapskontroller og oppfølging</h2>
+    <ul>
+      <li><a href="#"><span>Svangerskapskontroller</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a></li>
+      <li><a href="#"><span>Helsekort for gravide</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a></li>
+      <li><a href="#"><span>Rutineultralyd</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a></li>
+      <li><a href="#"><span>Fosterdiagnostikk</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a></li>
+      <li><a href="#"><span>Slik bestiller du fødeplass</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a></li>
+      <li><a href="#"><span>Vaksiner i svangerskapet</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a></li>
+    </ul>
+  </div>
+
+  <div class="feedback">
+    <h2>Fant du det du lette etter?</h2>
+    <div class="feedback__buttons">
+      <button type="button" class="feedback__btn"><span>Ja</span></button>
+      <button type="button" class="feedback__btn"><span>Nei</span></button>
     </div>
-
-    <p class="sok-pagination">Viser 12 av 170 treff</p>
-    <button type="button" class="sok-load-more">
-      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M25.254 22.746V7.993h-2.506v14.753H7.993v2.506h14.755v14.755h2.506V25.252h14.753v-2.506z"/></svg>
-      Vis flere
-    </button>
   </div>
 
   <footer class="footer">
