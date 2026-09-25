@@ -44,6 +44,7 @@
   --mobile-body-strong: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
   --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
   --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
+  --mobile-h3: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
 
   --radius-s:  4px;
   --radius-m:  8px;
@@ -440,12 +441,22 @@ a:focus-visible, button:focus-visible {
 .booking-slot__value { font: var(--mobile-body-strong); text-align: right; }
 
 /* Step 3: summary of choices. */
-.booking-summary { width: 344px; margin: 0 auto var(--space-m); border: 1px solid var(--neutral-200); border-radius: var(--radius-m); overflow: hidden; }
-.booking-summary__row { display: flex; justify-content: space-between; gap: var(--space-s); padding: var(--space-xs) var(--space-s); }
-.booking-summary__row + .booking-summary__row { border-top: 1px solid var(--neutral-200); }
-.booking-summary__row[hidden] { display: none; }
-.booking-summary__label { font: var(--mobile-body); color: var(--color-base-text-onlight-subdued); }
-.booking-summary__value { font: var(--mobile-body-strong); text-align: right; }
+/* Step 3 appointment summary — real design, Figma node 45:5797
+   ("CLD - Gravid" file). Real content/structure: a Calendar-icon
+   header line ("Time hos **Knut Andersen**, Ekeberg legekontor"),
+   then a blueberry50 card with a large semibold date/time line
+   (real "Mobile/H3 (title3)" token) and four bold-label detail
+   lines (real "Mobile/Body" token) — Oppmøtested/Type/Behandler/
+   Antatt varighet. Replaces the earlier generic label:value table,
+   which didn't match any real design. */
+.appt-summary { width: 344px; margin: 0 auto var(--space-m); }
+.appt-summary__header { display: flex; align-items: flex-start; gap: var(--space-2xs); margin-bottom: var(--space-s); }
+.appt-summary__icon { width: 38px; height: 38px; flex-shrink: 0; color: var(--color-base-text-onlight); }
+.appt-summary__title { font: var(--mobile-body); padding-top: var(--space-3xs); }
+.appt-summary__card { background: var(--blueberry-50); border-radius: var(--radius-m); padding: var(--space-m); }
+.appt-summary__datetime { font: var(--mobile-h3); margin-bottom: var(--space-m); }
+.appt-summary__details p { font: var(--mobile-body); }
+.appt-summary__details p + p { margin-top: var(--space-2xs); }
 
 .booking-confirm { width: 344px; margin: var(--space-l) auto 0; display: flex; flex-direction: column; }
 /* "Gå til innboksen" — content-width and left-aligned, not the
@@ -659,12 +670,20 @@ a:focus-visible, button:focus-visible {
       <h1>Se gjennom før du sender</h1>
     </div>
 
-    <div class="booking-summary">
-      <div class="booking-summary__row"><span class="booking-summary__label">Gjelder</span><span class="booking-summary__value" id="summaryTema"></span></div>
-      <div class="booking-summary__row" id="summarySubRow" hidden><span class="booking-summary__label">Underkategori</span><span class="booking-summary__value" id="summarySub"></span></div>
-      <div class="booking-summary__row"><span class="booking-summary__label">Behandler</span><span class="booking-summary__value">Knut Andersen</span></div>
-      <div class="booking-summary__row"><span class="booking-summary__label">Tid</span><span class="booking-summary__value">Fre 16. april 2026, kl. 11:30–11:45</span></div>
-      <div class="booking-summary__row"><span class="booking-summary__label">Sted</span><span class="booking-summary__value">Ekeberg legekontor</span></div>
+    <div class="appt-summary">
+      <div class="appt-summary__header">
+        <svg class="appt-summary__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M32.86 22.986a.984.984 0 010 1.967.984.984 0 010-1.967zm0 3.03a2.049 2.049 0 002.046-2.047 2.049 2.049 0 00-2.046-2.046 2.049 2.049 0 00-2.046 2.046c0 1.13.918 2.047 2.046 2.047zm6.21-7.864H8.68v-6.194h3.846v1.161a2.243 2.243 0 002.241 2.241 2.243 2.243 0 002.241-2.24v-1.162H30.62v1.161a2.244 2.244 0 002.241 2.241 2.243 2.243 0 002.241-2.24v-1.162h3.97v6.194zM8.678 35.982H39.07v-16.53H8.678v16.53zm5.148-26.273c0-.518.422-.94.941-.94.52 0 .941.422.941.94v3.41a.942.942 0 01-1.882 0V9.71zm18.093 0c0-.518.422-.94.941-.94.52 0 .941.422.941.94v3.41a.942.942 0 01-1.882 0V9.71zm3.182.95v-.95a2.243 2.243 0 00-2.24-2.24 2.244 2.244 0 00-2.242 2.24v.95H17.01v-.95a2.243 2.243 0 00-2.242-2.24 2.243 2.243 0 00-2.24 2.24v.95H7.378V37.28h32.992V10.658h-5.27zm-8.157 16.167a.984.984 0 110 1.969.984.984 0 010-1.969zm0 3.03a2.049 2.049 0 002.047-2.047 2.049 2.049 0 00-2.047-2.046 2.049 2.049 0 00-2.046 2.046c0 1.13.918 2.047 2.046 2.047z"/></svg>
+        <p class="appt-summary__title">Time hos <strong>Knut Andersen</strong>, Ekeberg legekontor</p>
+      </div>
+      <div class="appt-summary__card">
+        <p class="appt-summary__datetime">Fredag 16. april 2026 kl. 11:30 - 11:45</p>
+        <div class="appt-summary__details">
+          <p><strong>Oppmøtested:</strong> Ekeberg legekontor</p>
+          <p><strong>Type:</strong> Konsultasjon</p>
+          <p><strong>Behandler:</strong> Knut Andersen</p>
+          <p><strong>Antatt varighet:</strong> 15 min</p>
+        </div>
+      </div>
     </div>
 
     <div class="sp-m"></div>
@@ -746,29 +765,6 @@ a:focus-visible, button:focus-visible {
 const temaSelect = document.getElementById('tema');
 const gravidSubField = document.getElementById('gravidSubField');
 const gravidSub = document.getElementById('gravidSub');
-const temaLabels = {
-  sykmelding: 'Forlenge sykmelding',
-  skade: 'Nylig skade (oppstått i løpet av de siste fem dager)',
-  psykisk: 'Psykiske plager (uro, stress, søvnproblemer og annet)',
-  allergi: 'Allergi',
-  gynekologisk: 'Gynekologiske plager',
-  gravid: 'Gravid',
-  hodepine: 'Hodepine',
-  hud: 'Hud og utslett',
-  luftveier: 'Luftveisplager',
-  mage: 'Mage- og tarmplager',
-  urinveier: 'Mistanke om urinveisinfeksjon',
-  muskel: 'Muskel- og skjelettplager',
-  prevensjon: 'Prevensjon',
-  rutine: 'Rutinekontroll (diabetes og annet)',
-  annet: 'Annet'
-};
-const gravidSubLabels = {
-  forste: 'Første svangerskapskontroll',
-  rutine: 'Rutinemessig svangerskapskontroll',
-  plager: 'Svangerskapsplager',
-  annet: 'Annet'
-};
 
 // Real Stepper component (static replica — see CSS comment above).
 // Positions computed with the same constants/formula as the real
@@ -831,13 +827,7 @@ paintStepper(1);
 
 document.getElementById('step1Next').addEventListener('click', () => goToStep(2));
 document.getElementById('step2Back').addEventListener('click', () => goToStep(1));
-document.getElementById('step2Next').addEventListener('click', () => {
-  document.getElementById('summaryTema').textContent = temaLabels[temaSelect.value] || '';
-  const showSub = temaSelect.value === 'gravid';
-  document.getElementById('summarySubRow').hidden = !showSub;
-  document.getElementById('summarySub').textContent = showSub ? (gravidSubLabels[gravidSub.value] || '') : '';
-  goToStep(3);
-});
+document.getElementById('step2Next').addEventListener('click', () => goToStep(3));
 document.getElementById('step3Back').addEventListener('click', () => goToStep(2));
 
 document.getElementById('sendBtn').addEventListener('click', () => {
