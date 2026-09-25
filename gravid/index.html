@@ -3035,7 +3035,13 @@ const initialTermindatoState = !initialConnected
   ? 'editable'
   : (rawTermindatoSetting === 'none' ? 'none' : (rawTermindatoSetting === '1' ? 'confirmed' : 'editable'));
 const initialPanelHelsekort = readDashboardSetting('panelHelsekort', LS_DASHBOARD_PANEL_HELSEKORT_KEY, '0') === '1';
-const initialPanelFarskap = readDashboardSetting('panelFarskap', LS_DASHBOARD_PANEL_FARSKAP_KEY, '0') === '1';
+// Farskap can only actually be registered from uke 22 (the panel's own
+// copy says so), but nothing previously enforced that here — it just
+// trusted whatever panelFarskap said, regardless of week. Re-validate
+// against the real week so an early-pregnancy state (e.g. every DHG
+// onboarding scenario, uke 1) can never show it even if a stale
+// dashboard.html selection or hand-edited URL asked for it.
+const initialPanelFarskap = initialWeek >= 22 && readDashboardSetting('panelFarskap', LS_DASHBOARD_PANEL_FARSKAP_KEY, '0') === '1';
 
 // ─── Forside breadcrumb (DHG onboarding scenarios only) ────
 // kilde is read straight from the URL, never localStorage — it's a

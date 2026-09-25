@@ -7,7 +7,7 @@
      out of search results — reachable only by whoever has this exact
      URL, same convention as gravid/dashboard.html. -->
 <meta name="robots" content="noindex, nofollow">
-<title>DHG onboarding-scenarioer (prototype)</title>
+<title>DHG onboarding (prototype)</title>
 <link rel="icon" type="image/svg+xml" href="https://helsenorge-gravid.netlify.app/favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -49,7 +49,6 @@ body {
 .wrap { width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: var(--space-l); }
 
 h1 { font: 600 1.75rem/120% 'Source Sans Pro', sans-serif; }
-.lede { color: var(--color-base-text-onlight-subdued); max-width: 46em; }
 
 .scenario {
   background: #fff;
@@ -100,23 +99,13 @@ h1 { font: 600 1.75rem/120% 'Source Sans Pro', sans-serif; }
 .btn:hover { background: var(--blueberry-700); }
 .btn--secondary { background: #fff; color: var(--blueberry-700); border: 1px solid var(--blueberry-500); }
 .btn--secondary:hover { background: var(--blueberry-50); }
-
-.status-note {
-  background: var(--neutral-100);
-  border-left: 3px solid var(--neutral-300);
-  border-radius: var(--radius-s);
-  padding: var(--space-2xs) var(--space-s);
-  font-size: 0.9375rem;
-  color: var(--color-base-text-onlight-subdued);
-}
 </style>
 </head>
 <body>
 
 <div class="wrap">
   <div>
-    <h1>DHG onboarding-scenarioer</h1>
-    <p class="lede">Demonstrerer de fire hovedveiene inn i digitalt helsekort for gravide (DHG), for å vise stakeholdere hvordan brukeren kan komme i gang — uavhengig av hvordan hun først blir kjent med tjenesten. Hvert scenario ender med at hun aktiverer DHG på <a href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html">samme landingsside</a>, med en kort kontekstlinje tilpasset hvor hun kom fra. Dette er en egen demo-artefakt, atskilt fra den løpende prototypingen av selve DHG-tjenesten (<a href="https://helsenorge-gravid.netlify.app/index.html">gravid/</a>).</p>
+    <h1>DHG onboarding</h1>
   </div>
 
   <div class="scenario">
@@ -124,16 +113,16 @@ h1 { font: 600 1.75rem/120% 'Source Sans Pro', sans-serif; }
     <h2>Graviditet registreres i EPJ</h2>
     <p class="desc">Jordmoren eller fastlegen registrerer graviditeten i sin journal (EPJ). Det utløser et automatisk hendelsesvarsel på Helsenorge om at DHG er klart.</p>
     <div class="scenario__actions">
-      <a class="btn" href="scenario-1-varsel.html">Se scenario →</a>
+      <a class="btn" href="scenario-1-varsel.html" target="_blank" rel="noopener">Se scenario →</a>
     </div>
   </div>
 
   <div class="scenario">
     <span class="scenario__eyebrow"><span class="num">2</span> Invitasjon ved timebestilling</span>
     <h2>Bestiller time, velger «Gravid»</h2>
-    <p class="desc">Brukeren bestiller time på Helsenorge og velger «Gravid» i nedtrekksmenyen for hva timen gjelder. Det utløser en invitasjon til å aktivere DHG og svare på kartleggingsspørsmål før timen.</p>
+    <p class="desc">Brukeren bestiller time på Helsenorge og velger «Gravid» i nedtrekksmenyen for hva timen gjelder. Det utløser en invitasjon til å aktivere DHG og svare på kartleggingsspørsmål i forkant av første kontrolltime.</p>
     <div class="scenario__actions">
-      <a class="btn" href="scenario-2-booking.html">Se scenario →</a>
+      <a class="btn" href="scenario-2-booking.html" target="_blank" rel="noopener">Se scenario →</a>
     </div>
   </div>
 
@@ -142,20 +131,19 @@ h1 { font: 600 1.75rem/120% 'Source Sans Pro', sans-serif; }
     <h2>Finner DHG på egen hånd</h2>
     <p class="desc">Brukeren oppdager tjenesten selv — via søk, åpent redaksjonelt innhold, eller «Gravid»-flisen under «Situasjonstjenester» på forsiden.</p>
     <div class="scenario__actions">
-      <a class="btn" href="scenario-3-frontpage.html">3a. Forsideflis →</a>
-      <a class="btn" href="scenario-3-sok.html">3b. Søk →</a>
-      <a class="btn" href="scenario-3-redaksjonelt.html">3c. Redaksjonelt innhold →</a>
+      <a class="btn" href="scenario-3-frontpage.html" target="_blank" rel="noopener">3a. Forsideflis →</a>
+      <a class="btn" href="scenario-3-sok.html" target="_blank" rel="noopener">3b. Søk →</a>
+      <a class="btn" href="scenario-3-redaksjonelt.html" target="_blank" rel="noopener">3c. Redaksjonelt innhold →</a>
     </div>
-    <div class="status-note">3a viser en frittstående etterligning av forsideflisen for denne demoen. Selve flisen finnes også reelt fungerende i Frankenstein-appen (helsenorge-forside, «Situasjonstjenester») — den er ikke koblet til aktiveringssiden der ennå.</div>
   </div>
 
   <div class="scenario">
     <span class="scenario__eyebrow"><span class="num">4</span> Dagens løsning</span>
-    <h2>Behandler gir URL (under utfasing)</h2>
-    <p class="desc">Jordmoren eller fastlegen gir brukeren en URL (typisk per SMS) som aktiverer DHG direkte. Fortsatt i bruk mens tjenesten fases over til de nyere veiene ovenfor — samme URL peker nå til den oppdaterte aktiveringssiden.</p>
+    <h2>Behandler formidler URL</h2>
+    <p class="desc">Jordmoren eller fastlegen gir brukeren en URL enten skriftlig, muntlig eller via Helsenorge melding - peker til aktiveringssiden.</p>
     <div class="scenario__actions">
-      <a class="btn" href="scenario-4-behandler.html">Se scenario →</a>
-      <a class="btn btn--secondary" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html">Åpne aktiveringssiden direkte →</a>
+      <a class="btn" href="scenario-4-behandler.html" target="_blank" rel="noopener">Se scenario →</a>
+      <a class="btn btn--secondary" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html" target="_blank" rel="noopener">Åpne aktiveringssiden direkte →</a>
     </div>
   </div>
 </div>
