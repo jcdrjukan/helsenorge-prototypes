@@ -277,6 +277,27 @@ a:focus-visible, button:focus-visible {
 .rich-text p { font: var(--mobile-body); }
 .rich-text a { color: var(--color-action-text-onlight); }
 
+/* Onboarding-source banner — prototype-only affordance (not part of
+   the real editorial page), so styled distinctly from the CMS content
+   below it: a quiet neutral note rather than another content panel. */
+.source-banner {
+  width: 344px;
+  margin-top: var(--space-m);
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-2xs);
+  background: var(--neutral-100);
+  border-radius: var(--radius-s);
+  padding: var(--space-s);
+}
+.source-banner svg { width: 24px; height: 24px; flex-shrink: 0; margin-top: 2px; }
+.source-banner p { font: 400 1rem/150% 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+/* The [hidden] attribute alone loses to this class's own `display: flex`
+   above — author CSS always beats the UA stylesheet's default
+   `[hidden] { display: none }`, regardless of specificity — so without
+   this the banner box still shows up empty when kilde is absent. */
+.source-banner[hidden] { display: none; }
+
 /* Panel — blueberry variant (confirmed real: .panel--blueberry on the
    live page compiles to background-color:#e4f7f9 and nothing else —
    no border, no left status stripe. The frankenstein/node_modules copy
@@ -433,14 +454,16 @@ a:focus-visible, button:focus-visible {
   </header>
 
   <!-- ══════════════════════════════════════════════════════
-       BREADCRUMB — this page sits one level below Gravid, same as
-       the real helsenorge.no/gravid/tjeneste-for-gravide/ page sits
-       under Gravid in the site tree.
+       BREADCRUMB — this page is reachable from several onboarding
+       channels (see the ?kilde= param below), each with its own
+       "back to where I came from" context. Defaults to the original
+       "Gravid" / index.html behavior when kilde is absent or
+       unrecognized (the provider-URL scenario, and direct links).
   ═══════════════════════════════════════════════════════════ -->
   <nav class="breadcrumb" aria-label="Brødsmulesti">
-    <a class="breadcrumb__back" href="index.html">
+    <a class="breadcrumb__back" href="index.html" id="breadcrumbLink">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Gravid</span>
+      <span id="breadcrumbLabel">Gravid</span>
     </a>
   </nav>
   <hr class="page-divider">
@@ -466,13 +489,29 @@ a:focus-visible, button:focus-visible {
   <p class="preamble">Med tjenesten Gravid kan du følge svangerskapet ditt uke for uke og få nyttig informasjon om deg og barnet ditt. Du får også digitalt helsekort hvis jordmoren eller fastlegen din har tatt i bruk dette.</p>
 
   <!-- ══════════════════════════════════════════════════════
+       ONBOARDING-SOURCE BANNER — a short context line explaining why
+       the user has landed here, driven by ?kilde= (see script below).
+       Hidden entirely when kilde is absent/unrecognized (the
+       provider-URL scenario keeps the page's original, source-less
+       framing). Not part of the real editorial page; only exists to
+       make each onboarding-scenario demo read clearly on its own.
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="source-banner" id="sourceBanner" hidden>
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M24 6c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18S33.941 6 24 6zm-1.35 9h2.7v2.7h-2.7V15zm0 6h2.7v12h-2.7V21z" fill="#126F87"/></svg>
+    <p id="sourceBannerText"></p>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
        SECTION 1 — Blueberry panel, activation CTA.
 
        CONTENT NOTE: adapted from the live page's "samtykke"-based
        copy (må du samtykke til at informasjon... / du kan når som
        helst trekke samtykket) for the described future state — once
        Gravid/digitalt helsekort is folded into Kjernejournal, sharing
-       is no longer gated behind an affirmative consent transaction.
+       is no longer gated behind an affirmative consent transaction,
+       though the user still has to make an active selection to create
+       and activate her DHG (confirmed as the intended real-world
+       behavior, not just a placeholder framing — see DECISIONS.md).
        Reframed as a one-step activation, keeping the same practical
        reassurance (you can always turn it back off) via
        personverninnstillinger/reservasjon instead of "trekke
@@ -482,7 +521,7 @@ a:focus-visible, button:focus-visible {
   <div class="panel-blueberry">
     <h2>Aktiver digitalt helsekort</h2>
     <p>Digitalt helsekort for gravide er en del av kjernejournalen din. Når du aktiverer det, kan jordmoren eller fastlegen din registrere og dele informasjon om graviditeten din digitalt. Du kan når som helst reservere deg mot dette i personverninnstillingene dine.</p>
-    <a class="btn-fill" href="index.html?tilknyttet=1&amp;termindato=1&amp;panelHelsekort=0">
+    <a class="btn-fill" href="index.html?tilknyttet=1&amp;termindato=1&amp;panelHelsekort=0" id="activateBtn">
       <span>Aktiver digitalt helsekort</span>
     </a>
   </div>
@@ -585,5 +624,50 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-frame -->
 </div><!-- /phone-wrapper -->
 
+<script>
+// ─── Onboarding-source context (?kilde=) ────────────────────────────
+// Drives the short "why am I here" banner and the breadcrumb, per
+// onboarding scenario. Absent/unrecognized kilde = original page
+// behavior (provider-URL scenario / direct link), no banner shown.
+// See ../dhg-onboarding/ for the scenario screens that link in with
+// each of these.
+const KILDE_CONFIG = {
+  epj: {
+    banner: 'Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin.',
+    breadcrumbLabel: 'Varsler',
+    breadcrumbHref: '../dhg-onboarding/scenario-1-varsel.html',
+  },
+  booking: {
+    banner: 'Du har bestilt time hos jordmoren eller fastlegen din. Aktiver digitalt helsekort for å svare på noen spørsmål før timen.',
+    breadcrumbLabel: 'Timen din',
+    breadcrumbHref: '../dhg-onboarding/scenario-2-booking.html',
+  },
+  frontpage: {
+    breadcrumbLabel: 'Forside',
+    breadcrumbHref: '../dhg-onboarding/scenario-3-frontpage.html',
+  },
+  sok: {
+    breadcrumbLabel: 'Søk',
+    breadcrumbHref: '../dhg-onboarding/scenario-3-sok.html',
+  },
+  redaksjonelt: {
+    breadcrumbLabel: 'Gravid og fødsel',
+    breadcrumbHref: '../dhg-onboarding/scenario-3-redaksjonelt.html',
+  },
+};
+
+const params = new URLSearchParams(location.search);
+const kilde = params.get('kilde');
+const config = kilde ? KILDE_CONFIG[kilde] : null;
+
+if (config) {
+  if (config.banner) {
+    document.getElementById('sourceBannerText').textContent = config.banner;
+    document.getElementById('sourceBanner').hidden = false;
+  }
+  document.getElementById('breadcrumbLabel').textContent = config.breadcrumbLabel;
+  document.getElementById('breadcrumbLink').href = config.breadcrumbHref;
+}
+</script>
 </body>
 </html>

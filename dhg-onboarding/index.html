@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Not linked from anywhere in the patient-facing prototypes and kept
+     out of search results — reachable only by whoever has this exact
+     URL, same convention as gravid/dashboard.html. -->
+<meta name="robots" content="noindex, nofollow">
+<title>DHG onboarding-scenarioer (prototype)</title>
+<link rel="icon" type="image/svg+xml" href="../gravid/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* Chrome-less demo launcher, same pattern as gravid/dashboard.html —
+   not a patient-facing screen. */
+:root {
+  --blueberry-500: #188097;
+  --blueberry-700: #08667C;
+  --blueberry-50:  #E4F7F9;
+  --neutral-100: #EAE7E7;
+  --neutral-200: #D6D4D3;
+  --neutral-300: #BDBAB9;
+  --neutral-700: #62625F;
+  --color-base-text-onlight: #000000;
+  --color-base-text-onlight-subdued: #474745;
+  --radius-s: 4px;
+  --radius-m: 8px;
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-s:   1rem;
+  --space-m:   1.5rem;
+  --space-l:   2rem;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  color: var(--color-base-text-onlight);
+  background: var(--neutral-100);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--space-l) var(--space-s);
+}
+
+.wrap { width: 100%; max-width: 640px; display: flex; flex-direction: column; gap: var(--space-l); }
+
+h1 { font: 600 1.75rem/120% 'Source Sans Pro', sans-serif; }
+.lede { color: var(--color-base-text-onlight-subdued); max-width: 46em; }
+
+.scenario {
+  background: #fff;
+  border: 1px solid var(--neutral-200);
+  border-radius: var(--radius-m);
+  padding: var(--space-m);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.scenario__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  font: 600 0.9375rem/120% 'Source Sans Pro', sans-serif;
+  color: var(--blueberry-700);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.scenario__eyebrow .num {
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: var(--blueberry-500);
+  color: #fff;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 0.8125rem;
+}
+
+.scenario h2 { font: 600 1.375rem/130% 'Source Sans Pro', sans-serif; }
+.scenario p.desc { font-size: 1rem; color: var(--color-base-text-onlight-subdued); }
+
+.scenario__actions { display: flex; flex-wrap: wrap; gap: var(--space-2xs); margin-top: var(--space-2xs); }
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  background: var(--blueberry-500);
+  color: #fff;
+  font: 600 1rem/120% 'Source Sans Pro', sans-serif;
+  border: none;
+  border-radius: var(--radius-s);
+  padding: var(--space-xs) var(--space-s);
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn:hover { background: var(--blueberry-700); }
+.btn--secondary { background: #fff; color: var(--blueberry-700); border: 1px solid var(--blueberry-500); }
+.btn--secondary:hover { background: var(--blueberry-50); }
+
+.status-note {
+  background: var(--neutral-100);
+  border-left: 3px solid var(--neutral-300);
+  border-radius: var(--radius-s);
+  padding: var(--space-2xs) var(--space-s);
+  font-size: 0.9375rem;
+  color: var(--color-base-text-onlight-subdued);
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div>
+    <h1>DHG onboarding-scenarioer</h1>
+    <p class="lede">Demonstrerer de fire hovedveiene inn i digitalt helsekort for gravide (DHG), for å vise stakeholdere hvordan brukeren kan komme i gang — uavhengig av hvordan hun først blir kjent med tjenesten. Hvert scenario ender med at hun aktiverer DHG på <a href="../gravid/aktiver-helsekort.html">samme landingsside</a>, med en kort kontekstlinje tilpasset hvor hun kom fra. Dette er en egen demo-artefakt, atskilt fra den løpende prototypingen av selve DHG-tjenesten (<a href="../gravid/index.html">gravid/</a>).</p>
+  </div>
+
+  <div class="scenario">
+    <span class="scenario__eyebrow"><span class="num">1</span> Automatisk varsel</span>
+    <h2>Graviditet registreres i EPJ</h2>
+    <p class="desc">Jordmoren eller fastlegen registrerer graviditeten i sin journal (EPJ). Det utløser et automatisk hendelsesvarsel på Helsenorge om at DHG er klart.</p>
+    <div class="scenario__actions">
+      <a class="btn" href="scenario-1-varsel.html">Se scenario →</a>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <span class="scenario__eyebrow"><span class="num">2</span> Invitasjon ved timebestilling</span>
+    <h2>Bestiller time, velger «Gravid»</h2>
+    <p class="desc">Brukeren bestiller time på Helsenorge og velger «Gravid» i nedtrekksmenyen for hva timen gjelder. Det utløser en invitasjon til å aktivere DHG og svare på kartleggingsspørsmål før timen.</p>
+    <div class="scenario__actions">
+      <a class="btn" href="scenario-2-booking.html">Se scenario →</a>
+    </div>
+  </div>
+
+  <div class="scenario">
+    <span class="scenario__eyebrow"><span class="num">3</span> Egen oppdagelse</span>
+    <h2>Finner DHG på egen hånd</h2>
+    <p class="desc">Brukeren oppdager tjenesten selv — via søk, åpent redaksjonelt innhold, eller «Gravid»-flisen under «Situasjonstjenester» på forsiden.</p>
+    <div class="scenario__actions">
+      <a class="btn" href="scenario-3-frontpage.html">3a. Forsideflis →</a>
+      <a class="btn" href="scenario-3-sok.html">3b. Søk →</a>
+      <a class="btn" href="scenario-3-redaksjonelt.html">3c. Redaksjonelt innhold →</a>
+    </div>
+    <div class="status-note">3a viser en frittstående etterligning av forsideflisen for denne demoen. Selve flisen finnes også reelt fungerende i Frankenstein-appen (helsenorge-forside, «Situasjonstjenester») — den er ikke koblet til aktiveringssiden der ennå.</div>
+  </div>
+
+  <div class="scenario">
+    <span class="scenario__eyebrow"><span class="num">4</span> Dagens løsning</span>
+    <h2>Behandler gir URL (under utfasing)</h2>
+    <p class="desc">Jordmoren eller fastlegen gir brukeren en URL (typisk per SMS) som aktiverer DHG direkte. Fortsatt i bruk mens tjenesten fases over til de nyere veiene ovenfor — samme URL peker nå til den oppdaterte aktiveringssiden.</p>
+    <div class="scenario__actions">
+      <a class="btn" href="scenario-4-behandler.html">Se scenario →</a>
+      <a class="btn btn--secondary" href="../gravid/aktiver-helsekort.html">Åpne aktiveringssiden direkte →</a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
