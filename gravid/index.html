@@ -664,6 +664,39 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   flex-shrink: 0;
 }
 
+/* "None" state: no termindato established yet at all (not even the
+   mother's own estimate) — e.g. straight after activating DHG, before
+   a dating ultrasound or any self-reported LMP. Compact single-line
+   outline button rather than .btn-outline-medium, which (2.75rem tall,
+   38px icon) is sized for full-width page CTAs and doesn't fit this
+   tight ring center — same clearance concern noted on .due-date-editable
+   above applies here too, so this stays as narrow/short as the other
+   two states' content. Not wired to a real flow yet (no "beregn
+   termindato" calculator exists in this prototype) — placeholder like
+   the other href="#" affordances on this page. */
+.due-date-unknown {
+  margin-top: var(--space-2xs);
+}
+
+.due-date-unknown__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  border: 1px solid var(--blueberry-700);
+  border-radius: var(--radius-s);
+  padding: var(--space-3xs) var(--space-xs);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.due-date-unknown__btn span {
+  font: 600 0.875rem/120% 'Source Sans Pro', sans-serif;
+  color: var(--blueberry-700);
+}
+
+.due-date-unknown__btn:hover { background: var(--blueberry-50); }
+
 /* ═══════════════════════════════════════════════════════════
    SECTION HEADINGS
 ══════════════════════════════════════════════════════════════ */
@@ -1922,7 +1955,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <span class="countdown-ring__days" id="countdownDays">67</span>
         <!-- Confirmed state: termindato verified by jordmor/lege via
              ultrasound. Shown by default; toggle with
-             setTermindatoConfirmed() below. -->
+             setTermindatoState() below. -->
         <div class="due-date" id="dueDateConfirmed">
           <div class="due-date__title">Bekreftet termindato</div>
           <div class="due-date__value" id="dueDateValue">28.11.2026</div>
@@ -1935,6 +1968,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span class="due-date-editable__title">Termindato</span>
           <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
           <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
+        </div>
+        <!-- "None" state: no termindato established at all yet — shown
+             instead of either date state, e.g. right after activating
+             DHG early in the pregnancy. Hidden by default; toggled with
+             setTermindatoState() below. -->
+        <div class="due-date-unknown" id="dueDateUnknown" hidden>
+          <button type="button" class="due-date-unknown__btn">
+            <span>Beregn termindato</span>
+          </button>
         </div>
       </div>
     </div>
@@ -2852,15 +2894,19 @@ function deleteNote(id) {
   setTimeout(() => el.remove(), 220);
 }
 
-// ─── Termindato confirmation state ────────────────────────
-// true:  termindato verified by jordmor/lege via ultrasound — shows
-//        "Bekreftet termindato" (static, black).
-// false: termindato is still the mother's own estimate — shows
-//        "Termindato" with the date + pencil as a clickable (#08667C,
-//        green) affordance to change it.
-function setTermindatoConfirmed(confirmed) {
-  document.getElementById('dueDateConfirmed').hidden = !confirmed;
-  document.getElementById('dueDateEditable').hidden = confirmed;
+// ─── Termindato state ──────────────────────────────────────
+// 'confirmed': verified by jordmor/lege via ultrasound — shows
+//              "Bekreftet termindato" (static, black).
+// 'editable':  a termindato exists but is still an estimate (the
+//              mother's own, or a provider's tentative one before an
+//              ultrasound) — shows "Termindato" with the date + pencil
+//              as a clickable (#08667C, green) affordance to change it.
+// 'none':      no termindato established yet at all — shows a
+//              "Beregn termindato" button instead of any date.
+function setTermindatoState(state) {
+  document.getElementById('dueDateConfirmed').hidden = state !== 'confirmed';
+  document.getElementById('dueDateEditable').hidden = state !== 'editable';
+  document.getElementById('dueDateUnknown').hidden = state !== 'none';
 }
 
 // ─── Mål av magen (SF-mål) ─────────────────────────────────
@@ -2974,13 +3020,18 @@ const initialWeek = (initialWeekRaw >= 1 && initialWeekRaw <= 42) ? initialWeekR
 const initialConnected = readDashboardSetting('tilknyttet', LS_DASHBOARD_CONNECTED_KEY, '1') === '1';
 // No helsekort connection means no jordmor/lege to confirm the
 // termindato via ultrasound — always the mother's own estimate then,
-// whatever the saved/passed termindato setting says.
-const initialTermindatoConfirmed = initialConnected && readDashboardSetting('termindato', LS_DASHBOARD_TERMINDATO_KEY, '1') === '1';
+// whatever the saved/passed termindato setting says. 'none' (no
+// termindato established at all) is only honored when connected — the
+// legacy '1'/'0' values keep meaning 'confirmed'/'editable' as before.
+const rawTermindatoSetting = readDashboardSetting('termindato', LS_DASHBOARD_TERMINDATO_KEY, '1');
+const initialTermindatoState = !initialConnected
+  ? 'editable'
+  : (rawTermindatoSetting === 'none' ? 'none' : (rawTermindatoSetting === '1' ? 'confirmed' : 'editable'));
 const initialPanelHelsekort = readDashboardSetting('panelHelsekort', LS_DASHBOARD_PANEL_HELSEKORT_KEY, '0') === '1';
 const initialPanelFarskap = readDashboardSetting('panelFarskap', LS_DASHBOARD_PANEL_FARSKAP_KEY, '0') === '1';
 
 updateWeek(initialWeek);
-setTermindatoConfirmed(initialTermindatoConfirmed);
+setTermindatoState(initialTermindatoState);
 setSfSectionVisibility(initialConnected);
 setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
 try {

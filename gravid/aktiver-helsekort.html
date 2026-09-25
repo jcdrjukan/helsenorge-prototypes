@@ -521,7 +521,7 @@ a:focus-visible, button:focus-visible {
   <div class="panel-blueberry">
     <h2>Aktiver digitalt helsekort</h2>
     <p>Digitalt helsekort for gravide er en del av kjernejournalen din. Når du aktiverer det, kan jordmoren eller fastlegen din registrere og dele informasjon om graviditeten din digitalt. Du kan når som helst reservere deg mot dette i personverninnstillingene dine.</p>
-    <a class="btn-fill" href="index.html?tilknyttet=1&amp;termindato=1&amp;panelHelsekort=0" id="activateBtn">
+    <a class="btn-fill" href="index.html?uke=6&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=0" id="activateBtn">
       <span>Aktiver digitalt helsekort</span>
     </a>
   </div>
@@ -631,11 +631,23 @@ a:focus-visible, button:focus-visible {
 // behavior (provider-URL scenario / direct link), no banner shown.
 // See ../dhg-onboarding/ for the scenario screens that link in with
 // each of these.
+// activateQuery: the state she lands in on index.html after activating.
+// Every onboarding scenario is a relatively new pregnancy (early uke),
+// per direct request. Only S1 (epj) has a termindato yet at all — a
+// tentative one from the provider's registration, not yet
+// ultrasound-confirmed, so it uses the existing 'editable' state
+// (termindato=0) rather than 'confirmed' (termindato=1). S2-S4 —
+// including no kilde at all, today's actual provider-URL flow — get
+// the 'none' state (no termindato established, "Beregn termindato"
+// button). Same default used as the pre-JS fallback href above.
+const DEFAULT_ACTIVATE_QUERY = 'uke=6&tilknyttet=1&termindato=none&panelHelsekort=0';
+
 const KILDE_CONFIG = {
   epj: {
     banner: 'Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin.',
     breadcrumbLabel: 'Varsler',
     breadcrumbHref: 'https://elegant-sundae-931931.netlify.app/scenario-1-varsel.html',
+    activateQuery: 'uke=6&tilknyttet=1&termindato=0&panelHelsekort=0',
   },
   booking: {
     banner: 'Du har bestilt time hos jordmoren eller fastlegen din. Aktiver digitalt helsekort for å svare på noen spørsmål før timen.',
@@ -668,6 +680,9 @@ if (config) {
   document.getElementById('breadcrumbLabel').textContent = config.breadcrumbLabel;
   document.getElementById('breadcrumbLink').href = config.breadcrumbHref;
 }
+
+document.getElementById('activateBtn').href =
+  'index.html?' + ((config && config.activateQuery) || DEFAULT_ACTIVATE_QUERY);
 </script>
 </body>
 </html>
