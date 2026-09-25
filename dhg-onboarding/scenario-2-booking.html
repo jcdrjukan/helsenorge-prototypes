@@ -242,21 +242,46 @@ a:focus-visible, button:focus-visible {
 .sp-l  { height: var(--space-l);  flex-shrink: 0; width: 100%; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 
-
+/* ─────────────────────────────────────────────────────────────
+   Real "Timebestilling + Gravid" booking flow, copied from a Figma
+   prototype the user shared (file y6IiesaN7CSGRkUM4gE8Oz, "Gravid
+   prototype 21.05.2026" section) — per that file's own designer
+   annotations: "Prototypen med skjemaet som er i prod i dag + med
+   flere temaer under gravid" (the form that's actually in production
+   today, plus more themes under Gravid). Real content used verbatim:
+   the production "Hva gjelder timen?" dropdown's full 15-option list
+   (Gravid is one of many general topics, not a dedicated form), the
+   Gravid-specific sub-dropdown (4 options) that appears once Gravid
+   is chosen, and the real confirmation screen's HighlightPanel
+   ("Bruk tjenesten Gravid med digitalt helsekort", 3 real bullets,
+   "Kom i gang" button). Real designer note confirmed the panel only
+   shows for one specific sub-choice — "Hvis tema er Gravid + første
+   kontrolltime så viser vi Helsekort-panel" / "Hvis andre temaer, så
+   viser vi vanlig kvitteringsside" — reproduced as real conditional
+   logic below (§korrigert), not just decoration.
+───────────────────────────────────────────────────────────────── */
 .scn-title { width: 344px; padding: var(--space-l) 0 var(--space-s); }
 .scn-title h1 { font: var(--mobile-h1); font-size: 1.75rem; line-height: 2.125rem; }
 .scn-intro { width: 344px; color: var(--color-base-text-onlight-subdued); font-size: 1rem; padding-bottom: var(--space-m); }
 
 .form-field { width: 344px; margin: 0 auto var(--space-m); display: flex; flex-direction: column; gap: var(--space-3xs); }
 .form-field label { font: var(--mobile-body-strong); }
-.form-field select, .form-field input {
+.form-field select {
   font: var(--mobile-body);
   padding: var(--space-2xs) var(--space-xs);
   border: 1px solid var(--neutral-700);
   border-radius: var(--radius-s);
   background: #fff;
   width: 100%;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23126F87' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 20px;
+  padding-right: 2.5rem;
 }
+.form-field--sub { padding-left: var(--space-s); border-left: 2px solid var(--blueberry-50); margin-top: calc(-1 * var(--space-2xs)); }
+.form-field--sub[hidden] { display: none; }
 
 .btn-fill-medium {
   display: inline-flex;
@@ -276,24 +301,24 @@ a:focus-visible, button:focus-visible {
 }
 .btn-fill-medium:hover { background: var(--blueberry-700); }
 
-.booking-confirm {
-  width: 344px;
-  margin: var(--space-l) auto 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-s);
-}
+.booking-confirm { width: 344px; margin: var(--space-l) auto 0; display: flex; flex-direction: column; }
 .booking-confirm[hidden] { display: none; }
-.booking-confirm__check {
-  display: flex; align-items: center; gap: var(--space-2xs);
-  color: #1E8A3C; font: var(--mobile-body-strong);
-}
-.booking-confirm__check svg { width: 24px; height: 24px; }
-.booking-confirm p { font: var(--mobile-body); }
+
+/* Real 4-dot stepper, all complete (teal fill + connecting line) —
+   matches the real confirmation screen exactly. */
+.stepper { display: flex; align-items: center; margin-bottom: var(--space-l); }
+.stepper__dot { width: 12px; height: 12px; border-radius: 50%; background: var(--blueberry-700); flex-shrink: 0; }
+.stepper__dot--end { width: 20px; height: 20px; border: 2px solid var(--blueberry-700); background: #fff; }
+.stepper__line { flex: 1; height: 2px; background: var(--blueberry-700); }
+
+.booking-confirm__title { display: flex; align-items: center; gap: var(--space-2xs); margin-bottom: var(--space-m); }
+.booking-confirm__title svg { width: 32px; height: 32px; flex-shrink: 0; color: #1E8A3C; }
+.booking-confirm__title h2 { font: var(--mobile-h2); }
+.booking-confirm p { font: var(--mobile-body); margin-bottom: var(--space-s); }
 
 .invite-panel {
-  width: 344px;
-  margin: var(--space-m) auto 0;
+  width: 100%;
+  margin-top: var(--space-m);
   background: var(--color-base-background-blueberry);
   border-radius: var(--radius-m);
   padding: var(--space-s);
@@ -301,9 +326,27 @@ a:focus-visible, button:focus-visible {
   flex-direction: column;
   gap: var(--space-s);
 }
+/* Same [hidden]-loses-to-display:flex gotcha hit twice already this
+   session (gravid/index.html's .source-banner and .week-bubble) —
+   author CSS's display:flex above always beats the UA stylesheet's
+   default [hidden] rule regardless of specificity. */
+.invite-panel[hidden] { display: none; }
+.invite-panel__header { display: flex; align-items: flex-start; gap: var(--space-2xs); }
+.invite-panel__icon { width: 38px; height: 38px; flex-shrink: 0; color: var(--blueberry-700); }
 .invite-panel h2 { font: var(--mobile-h4); }
-.invite-panel p { font: var(--mobile-body); }
-.invite-panel .btn-fill-medium { width: 100%; }
+.invite-panel ul { list-style: disc; padding-left: 1.25rem; display: flex; flex-direction: column; gap: var(--space-3xs); }
+.invite-panel li { font: var(--mobile-body); }
+.invite-panel .btn-fill-medium { width: fit-content; }
+
+.btn-outline-medium {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 344px; margin: var(--space-s) auto 0;
+  min-height: 2.75rem; background: #fff;
+  border: 1px solid var(--color-action-text-onlight); border-radius: var(--radius-m);
+  padding: 0 var(--space-m); cursor: pointer; text-decoration: none;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight);
+}
+.btn-outline-medium:hover { background: var(--blueberry-50); }
 
 </style>
 </head>
@@ -356,51 +399,91 @@ a:focus-visible, button:focus-visible {
   <nav class="breadcrumb" aria-label="Brødsmulesti">
     <a class="breadcrumb__back" href="index.html">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Forside</span>
+      <span>Onboarding-scenarioer</span>
     </a>
   </nav>
   <hr class="page-divider">
 
-  <div class="scn-title">
-    <h1>Bestill time</h1>
-  </div>
-  <p class="scn-intro">Onboarding-scenario 2 av 4: du bestiller time hos jordmoren eller fastlegen din, og velger «Gravid» i nedtrekksmenyen for hva timen gjelder. Det utløser en invitasjon til å aktivere digitalt helsekort og svare på kartleggingsspørsmål før timen.</p>
+  <div id="bookingForm">
+    <div class="scn-title">
+      <h1>Bestill time</h1>
+    </div>
+    <p class="scn-intro">Onboarding-scenario 2 av 4: du bestiller time hos jordmoren eller fastlegen din. Nedtrekksmenyen for hva timen gjelder er den ekte, i produksjon i dag — «Gravid» er ett av flere alternativer, ikke et eget skjema. Velger du Gravid, dukker det opp et eget undertema.</p>
 
-  <div class="form-field">
-    <label for="gjelder">Hva gjelder timen?</label>
-    <select id="gjelder">
-      <option value="">Velg …</option>
-      <option value="forkjolelse">Forkjølelse/luftveisinfeksjon</option>
-      <option value="vaksine">Vaksinasjon</option>
-      <option value="gravid" selected>Gravid</option>
-      <option value="annet">Annet</option>
-    </select>
-  </div>
+    <div class="form-field">
+      <label for="tema">Hva gjelder timen?</label>
+      <select id="tema">
+        <option value="">Velg ett av alternativene</option>
+        <option value="sykmelding">Forlenge sykmelding</option>
+        <option value="skade">Nylig skade (oppstått i løpet av de siste fem dager)</option>
+        <option value="psykisk">Psykiske plager (uro, stress, søvnproblemer og annet)</option>
+        <option value="allergi">Allergi</option>
+        <option value="gynekologisk">Gynekologiske plager</option>
+        <option value="gravid" selected>Gravid</option>
+        <option value="hodepine">Hodepine</option>
+        <option value="hud">Hud og utslett</option>
+        <option value="luftveier">Luftveisplager</option>
+        <option value="mage">Mage- og tarmplager</option>
+        <option value="urinveier">Mistanke om urinveisinfeksjon</option>
+        <option value="muskel">Muskel- og skjelettplager</option>
+        <option value="prevensjon">Prevensjon</option>
+        <option value="rutine">Rutinekontroll (diabetes og annet)</option>
+        <option value="annet">Annet</option>
+      </select>
+    </div>
 
-  <div class="form-field">
-    <label for="tidspunkt">Tidspunkt</label>
-    <select id="tidspunkt">
-      <option>Tirsdag 29. sep. kl. 10:30</option>
-      <option>Onsdag 30. sep. kl. 13:00</option>
-    </select>
-  </div>
+    <div class="form-field form-field--sub" id="gravidSubField">
+      <label for="gravidSub">Hva gjelder graviditeten?</label>
+      <select id="gravidSub">
+        <option value="forste" selected>Første svangerskapskontroll</option>
+        <option value="rutine">Rutinemessig svangerskapskontroll</option>
+        <option value="plager">Svangerskapsplager</option>
+        <option value="annet">Annet</option>
+      </select>
+    </div>
 
-  <button type="button" class="btn-fill-medium" id="bookBtn">Bestill time</button>
+    <div class="sp-m"></div>
+
+    <button type="button" class="btn-fill-medium" id="bookBtn">Bestill time</button>
+  </div>
 
   <div class="booking-confirm" id="bookingConfirm" hidden>
-    <div class="booking-confirm__check">
+    <div class="stepper" aria-hidden="true">
+      <div class="stepper__dot"></div>
+      <div class="stepper__line"></div>
+      <div class="stepper__dot"></div>
+      <div class="stepper__line"></div>
+      <div class="stepper__dot"></div>
+      <div class="stepper__line"></div>
+      <div class="stepper__dot stepper__dot--end"></div>
+    </div>
+    <div class="booking-confirm__title">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-      Timen er bestilt
+      <h2>Timebestillingen er sendt</h2>
     </div>
-    <p>Du får en bekreftelse per SMS.</p>
+    <p>Bestillingen er kun en forespørsel. Timen er ikke tildelt før du mottar en bekreftelse.</p>
+    <p>Hvis helsetilstanden din endrer seg før timeavtalen, må du ta kontakt med legekontoret.</p>
 
-    <div class="invite-panel">
-      <h2>Klargjør deg til timen</h2>
-      <p>Siden timen gjelder graviditet, kan du aktivere digitalt helsekort og svare på noen spørsmål på forhånd, slik at jordmoren eller fastlegen din er forberedt.</p>
-      <a class="btn-fill-medium" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html?kilde=booking">Aktiver og svar på spørsmål</a>
+    <!-- Real conditional logic from the Figma prototype's own designer
+         notes: the Helsekort-panel only shows when tema=Gravid AND
+         the sub-theme is specifically "Første svangerskapskontroll" —
+         not for routine checkups or other pregnancy topics, which get
+         the plain confirmation above with no panel. -->
+    <div class="invite-panel" id="invitePanel" hidden>
+      <div class="invite-panel__header">
+        <svg class="invite-panel__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M25.643 18.356a.503.503 0 10-.003-1.006.503.503 0 00.003 1.006zm-5.293 0a.503.503 0 10-.003-1.006.503.503 0 00.003 1.006zm-5.232-2.8h.262v.493l.002.053v.995h-.264a.77.77 0 010-1.54zm1.562 0h.728a4.06 4.06 0 003.54-2.08 4.115 4.115 0 003.574 2.08h4.72v.493a6.09 6.09 0 01-6.082 6.082h-.398a6.09 6.09 0 01-6.082-6.082v-.493zm0-2.81a6.09 6.09 0 016.082-6.082h.398a6.09 6.09 0 016.083 6.082v1.76h-4.721a3.062 3.062 0 01-3.06-3.059v-.214h-1.05v.268a3.008 3.008 0 01-3.004 3.004h-.728v-1.759zm6.28-8.253a2.38 2.38 0 012.006 1.102 7.368 7.368 0 00-1.806-.232h-.398c-.624 0-1.227.086-1.806.232a2.381 2.381 0 012.005-1.102zM30.54 16.1l.002-.05v-.494h.262a.771.771 0 010 1.541h-.264V16.1zm-15.422 2.048h.57c.907 3.051 3.733 5.284 7.074 5.284h.398c3.34 0 6.168-2.233 7.074-5.284h.57a1.823 1.823 0 001.82-1.82 1.824 1.824 0 00-1.82-1.823h-.262v-1.759A7.388 7.388 0 0026.58 6.21a3.689 3.689 0 00-3.62-3.017 3.688 3.688 0 00-3.617 3.017 7.387 7.387 0 00-3.963 6.537v1.76h-.262a1.824 1.824 0 00-1.821 1.821c0 1.004.817 1.821 1.82 1.821zm10.708 17.78a.925.925 0 010 1.848h-2.247v-2.95h.848c.25 0 .453.202.453.452v.65h.946zm-.662 8.426c-5.122 0-9.137-3.24-9.187-7.392 1.614 1.24 3.767 1.982 6.3 2.09v.025h3.549a2.227 2.227 0 002.224-2.225 2.227 2.227 0 00-1.99-2.212 1.756 1.756 0 00-1.633-1.116h-1.5c-3.007 0-4.597-1.123-4.597-3.249 0-.478.064-.88.197-1.23l-1.216-.46c-.19.5-.281 1.051-.281 1.69 0 1.31.527 4.283 5.248 4.533v2.951c-3.921-.2-8.2-2.239-8.2-7.484 0-2.632 1.103-4.707 3.198-6.03a8.625 8.625 0 005.486 1.964h.398a8.637 8.637 0 005.39-1.889c2.03 1.277 3.228 3.196 3.228 5.205 0 .148-.014.295-.027.443a15.95 15.95 0 00-3.117-1.212l-.347 1.252c4.456 1.236 6.91 3.678 6.91 6.877 0 3.598-3.14 7.47-10.033 7.47zm7.796-13.66c.07-.387.118-.776.118-1.169 0-2.609-1.598-5.065-4.274-6.566l-.404-.228-.347.31a7.34 7.34 0 01-4.893 1.867h-.398a7.328 7.328 0 01-4.886-1.862l-.251-.5-.593.331c-2.743 1.528-4.254 4.156-4.254 7.398 0 2.194.717 4.083 1.984 5.546-.054.352-.09.707-.09 1.064 0 4.917 4.609 8.77 10.492 8.77 7.44 0 11.333-4.412 11.333-8.77 0-2.494-1.254-4.629-3.537-6.192z"/></svg>
+        <h2>Bruk tjenesten Gravid med digitalt helsekort</h2>
+      </div>
+      <ul>
+        <li>Del informasjon med legen din før første svangerskapskontroll</li>
+        <li>Få kvalitetssikret informasjon uke for uke</li>
+        <li>Se oppfølgingen du får fra helsepersonell</li>
+      </ul>
+      <a class="btn-fill-medium" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html?kilde=booking">Kom i gang</a>
     </div>
+
+    <a class="btn-outline-medium" href="#">Gå til innboksen</a>
   </div>
-
 
   <footer class="footer">
     <div class="footer__row">
@@ -435,9 +518,26 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-frame -->
 </div><!-- /phone-wrapper -->
 <script>
+const temaSelect = document.getElementById('tema');
+const gravidSubField = document.getElementById('gravidSubField');
+const gravidSub = document.getElementById('gravidSub');
+
+function updateGravidSubVisibility() {
+  gravidSubField.hidden = temaSelect.value !== 'gravid';
+}
+temaSelect.addEventListener('change', updateGravidSubVisibility);
+updateGravidSubVisibility();
+
 document.getElementById('bookBtn').addEventListener('click', () => {
+  document.getElementById('bookingForm').hidden = true;
   document.getElementById('bookingConfirm').hidden = false;
-  document.getElementById('bookingConfirm').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Real conditional logic from the Figma prototype: the invite panel
+  // only shows for tema=Gravid + sub-theme="Første svangerskapskontroll".
+  const showInvite = temaSelect.value === 'gravid' && gravidSub.value === 'forste';
+  document.getElementById('invitePanel').hidden = !showInvite;
+
+  window.scrollTo({ top: 0, behavior: 'instant' });
 });
 </script>
 </body>
