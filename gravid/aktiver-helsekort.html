@@ -681,8 +681,13 @@ if (config) {
   document.getElementById('breadcrumbLink').href = config.breadcrumbHref;
 }
 
+// Carries kilde through to index.html so it knows which onboarding
+// scenario she activated from — used e.g. to route the Forside
+// breadcrumb back to the right onboarding-scenario screen, in the
+// right (now-activated) state, rather than a generic/dead link.
 document.getElementById('activateBtn').href =
-  'index.html?' + ((config && config.activateQuery) || DEFAULT_ACTIVATE_QUERY);
+  'index.html?' + ((config && config.activateQuery) || DEFAULT_ACTIVATE_QUERY) +
+  (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
 </script>
 </body>
 </html>

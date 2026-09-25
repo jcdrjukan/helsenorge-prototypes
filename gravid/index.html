@@ -1893,15 +1893,22 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <!-- ══════════════════════════════════════════════════════
        BREADCRUMB — back to Forside, as on every other Helsenorge
-       prototype. Decorative here (no combined-app Forside to return to
-       from this standalone prototype), matching Meny/Varsler/Logg ut
-       above which are equally inert.
+       prototype. Decorative/inert by default (no combined-app Forside
+       to return to from this standalone prototype), matching Meny/
+       Varsler/Logg ut above which are equally inert — EXCEPT when
+       arriving via a DHG onboarding scenario that has a real Forside
+       mock to go back to (currently: kilde=frontpage →
+       dhg-onboarding/scenario-3-frontpage.html, reflecting the
+       now-activated state, real Gravid card and all — see
+       wireForsideBreadcrumb() below). href="#" here is the inert
+       fallback; JS overwrites it only when it actually knows where to
+       send her.
   ═══════════════════════════════════════════════════════════ -->
   <nav class="breadcrumb" aria-label="Brødsmulesti">
-    <button type="button" class="breadcrumb__back">
+    <a class="breadcrumb__back" href="#" id="forsideBreadcrumbLink" onclick="return this.dataset.wired === '1';">
       <svg width="38" height="38" viewBox="0 0 48 48" fill="black" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z"/></svg>
       <span>Forside</span>
-    </button>
+    </a>
   </nav>
   <hr class="page-divider">
 
@@ -3030,10 +3037,28 @@ const initialTermindatoState = !initialConnected
 const initialPanelHelsekort = readDashboardSetting('panelHelsekort', LS_DASHBOARD_PANEL_HELSEKORT_KEY, '0') === '1';
 const initialPanelFarskap = readDashboardSetting('panelFarskap', LS_DASHBOARD_PANEL_FARSKAP_KEY, '0') === '1';
 
+// ─── Forside breadcrumb (DHG onboarding scenarios only) ────
+// kilde is read straight from the URL, never localStorage — it's a
+// one-shot "how did she arrive on this exact pageview" signal, not
+// persistent state, so an unrelated later visit doesn't stay wrongly
+// "stuck" pointing at whichever scenario she last came from.
+const FORSIDE_BREADCRUMB_HREF = {
+  frontpage: 'https://elegant-sundae-931931.netlify.app/scenario-3-frontpage.html?aktivert=1',
+};
+function wireForsideBreadcrumb() {
+  const kilde = dashboardParams.get('kilde');
+  const href = kilde && FORSIDE_BREADCRUMB_HREF[kilde];
+  if (!href) return;
+  const link = document.getElementById('forsideBreadcrumbLink');
+  link.href = href;
+  link.dataset.wired = '1';
+}
+
 updateWeek(initialWeek);
 setTermindatoState(initialTermindatoState);
 setSfSectionVisibility(initialConnected);
 setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
+wireForsideBreadcrumb();
 try {
   applyFavoriteState(localStorage.getItem(LS_FAVORITE_KEY) === '1');
 } catch {
