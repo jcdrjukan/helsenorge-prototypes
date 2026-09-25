@@ -393,6 +393,56 @@ a:focus-visible, button:focus-visible {
   font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight);
 }
 .btn-outline-medium:hover { background: var(--blueberry-50); }
+.btn-outline-medium svg { width: 20px; height: 20px; flex-shrink: 0; margin-right: var(--space-3xs); }
+
+/* Real StepButtons layout (@helsenorge/designsystem-react's
+   StepButtons component, confirmed via frankenstein/src/
+   behandlingshjelpemidler/Step1–3.tsx's real usage): a flex row of
+   two groups — [backButton?, forwardButton] (variants outline/fill)
+   sitting together with a small gap, then a second group
+   [cancelButton] (variant borderless) with a larger gap between the
+   groups. Buttons in this context size to their own content rather
+   than the page's usual full 344px width. */
+.stepbuttons {
+  width: 344px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m) var(--space-l);
+}
+.stepbuttons__group { display: flex; gap: var(--space-s); }
+.stepbuttons .btn-fill-medium,
+.stepbuttons .btn-outline-medium,
+.stepbuttons .btn-borderless,
+.stepbuttons .btn-fill-green {
+  width: auto;
+  margin: 0;
+}
+
+/* Borderless variant (Avbryt) — no border/background by default,
+   colored text, subtle hover fill using the same real
+   --color-action-background-transparent-onlight-hover token already
+   used for the header icon buttons' hover state. */
+.btn-borderless {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 2.75rem; background: transparent; border: none; border-radius: var(--radius-m);
+  padding: 0 var(--space-m); cursor: pointer; text-decoration: none;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight);
+}
+.btn-borderless:hover { background: var(--color-action-background-transparent-onlight-hover); }
+
+/* Green fill variant, used only for the Step 3 "Send" button — a
+   distinct affirmative/complete color signaling the booking is about
+   to be submitted, tying visually to the checkmark on the receipt
+   screen it leads to (same #1E8A3C green used for that icon). */
+.btn-fill-green {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-height: 2.75rem; background: #1E8A3C;
+  border-radius: var(--radius-m); border: none;
+  padding: 0 var(--space-m); cursor: pointer; text-decoration: none;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff;
+}
+.btn-fill-green:hover { background: #146B2C; }
 
 .step { width: 100%; }
 
@@ -492,7 +542,7 @@ a:focus-visible, button:focus-visible {
   <nav class="breadcrumb" aria-label="Brødsmulesti">
     <a class="breadcrumb__back" href="index.html">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Onboarding-scenarioer</span>
+      <span>Timebestilling</span>
     </a>
   </nav>
   <hr class="page-divider">
@@ -518,8 +568,6 @@ a:focus-visible, button:focus-visible {
     <div class="scn-title">
       <h1>Timebestilling hos fastlege</h1>
     </div>
-    <p class="scn-intro">Onboarding-scenario 2 av 4: du bestiller time hos jordmoren eller fastlegen din. Nedtrekksmenyen for hva timebestillingen gjelder er den ekte, i produksjon i dag — «Gravid» er ett av flere alternativer, ikke et eget skjema. Velger du Gravid, dukker det opp et eget undertema.</p>
-
     <div class="form-field">
       <label for="tema">Hva gjelder timebestillingen?</label>
       <select id="tema">
@@ -555,7 +603,15 @@ a:focus-visible, button:focus-visible {
 
     <div class="sp-m"></div>
 
-    <button type="button" class="btn-fill-medium" id="step1Next" disabled>Neste</button>
+    <div class="stepbuttons">
+      <div class="stepbuttons__group">
+        <button type="button" class="btn-fill-medium" id="step1Next" disabled>Neste</button>
+      </div>
+      <div class="stepbuttons__group">
+        <a class="btn-borderless" href="index.html">Avbryt</a>
+      </div>
+    </div>
+    <div class="sp-xl"></div>
   </div>
 
   <div class="step" id="step2" hidden>
@@ -617,8 +673,15 @@ a:focus-visible, button:focus-visible {
 
     <div class="sp-m"></div>
 
-    <button type="button" class="btn-fill-medium" id="sendBtn">Send</button>
-    <button type="button" class="btn-outline-medium" id="step3Back">Tilbake</button>
+    <div class="stepbuttons">
+      <div class="stepbuttons__group">
+        <button type="button" class="btn-outline-medium" id="step3Back">
+          <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m20.925 9.929 1.142 1.377-10.044 11.721h27.048v1.947H12.023l10.044 11.718-1.142 1.379L8.93 24 20.925 9.929Z"/></svg>
+          Tilbake
+        </button>
+        <button type="button" class="btn-fill-green" id="sendBtn">Send</button>
+      </div>
+    </div>
   </div>
 
   <div class="booking-confirm" id="step4" hidden>
