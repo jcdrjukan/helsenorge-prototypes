@@ -127,4 +127,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Decision:** A comparison variant with solid neutral600 (#7D7C79) evening bars (`?kveld=gra`) was tried and rolled back at the user's request ("not good"). Evening bars stay hollow blueberry700 outlines, as in the "both bar types in blueberry700" entry above.
 **Why:** Direct user judgment after viewing both versions side by side.
 
+## 2026-09-29 — Måledata BP chart: evening bars light blueberry300 fill with a blueberry700 outline
+**Decision:** Per the request to "try a lighter green", evening bars changed from hollow (white fill) to a **blueberry300** (#7ABECC) fill with a 1px **blueberry700** outline. Morning stays solid blueberry700. The light fill makes evening clearly lighter than morning (3.14:1 between them, so they stay distinct in greyscale and for every color-vision type). The dark outline gives the bar edge 6.56:1 on white, satisfying WCAG 1.4.11, which the light fill alone (2.09:1) wouldn't. A plain lighter-green fill wasn't compliant: blueberry400 and lighter fail 3:1 on white, and blueberry500 passes but is nearly as dark as morning (1.43:1). In the 3-month view the bars are too thin for an outline, so they're plain blueberry300. The legend swatch matches (light fill, 1px outline).
+**Why:** Direct user request after rejecting solid grey.
+
 #helsenorge
