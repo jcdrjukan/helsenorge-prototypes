@@ -810,6 +810,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border: 0.125rem solid var(--color-notification-border-warning);
 }
 
+/* Real non-compact warn variant: banana800 border + banana50 fill
+   (NotificationPanel/styles.module.scss &--warn). Compact stays
+   transparent, as in the real &--warn&--compact rule. */
+.notification-panel--warn:not(.notification-panel--compact) {
+  background-color: var(--color-notification-background-warning);
+}
+
 .notification-panel--info {
   border: 0.125rem solid var(--color-notification-border-info);
   background-color: var(--color-notification-background-info);
@@ -2042,11 +2049,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
        dashboard.html (?panelHelsekort=1&panelFarskap=1).
   ═══════════════════════════════════════════════════════════ -->
   <div class="blueberry-panels" id="blueberryPanels" hidden>
-    <!-- Same real NotificationPanel (info, dismissable) as the farskap
-         panel below, per direct request; CTA is a semibold link with the
-         ArrowRight icon after it. -->
-    <div class="notification-panel notification-panel--info notification-panel--dismissable" id="panelHelsekort" hidden>
-      <svg class="notification-panel__icon" viewBox="0 0 48 48" fill="var(--color-notification-border-info)" aria-hidden="true"><path d="M26.367 31.224h-4.7v-.543a8.88 8.88 0 00.38-.037c.124-.015.23-.04.32-.075a.612.612 0 00.334-.255.881.881 0 00.097-.443v-6.324a.868.868 0 00-.12-.458 1.001 1.001 0 00-.297-.315 1.543 1.543 0 00-.405-.171 2.644 2.644 0 00-.495-.105v-.543l3.645-.192.11.11v7.9c0 .174.038.322.112.443a.67.67 0 00.32.271 2.363 2.363 0 00.699.194v.543zm-2.64-14.998a1.556 1.556 0 11-.002 3.111 1.556 1.556 0 01.002-3.11zM24 8.728C15.58 8.728 8.728 15.578 8.728 24c0 8.42 6.852 15.272 15.273 15.272 8.42 0 15.27-6.852 15.27-15.272 0-8.421-6.85-15.272-15.27-15.272z"/></svg>
+    <!-- Same real NotificationPanel (dismissable) as the farskap panel
+         below, but variant "warn" per direct request; CTA is a semibold
+         link with the ArrowRight icon after it. -->
+    <div class="notification-panel notification-panel--warn notification-panel--dismissable" id="panelHelsekort" hidden>
+      <svg class="notification-panel__icon" viewBox="0 0 48 48" fill="var(--color-notification-border-warning)" aria-hidden="true"><path d="M24.896 21.452v7.213a.891.891 0 01-1.782 0v-7.213a.89.89 0 111.782 0zm.5 11.577a1.39 1.39 0 11-2.782-.001 1.39 1.39 0 012.782.001zM6.613 39.725h34.774L24.11 8.275 6.613 39.725z"/></svg>
       <button type="button" class="notification-panel__close" aria-label="Lukk" onclick="dismissBlueberryPanel('panelHelsekort')">
         <svg viewBox="0 0 48 48" fill="black" aria-hidden="true"><path d="M25.773 24l10.432-10.432-1.772-1.773-10.432 10.433-10.433-10.433-1.773 1.772L22.229 24 11.795 34.433l1.773 1.772 10.433-10.433 10.432 10.433 1.772-1.773z"/></svg>
       </button>

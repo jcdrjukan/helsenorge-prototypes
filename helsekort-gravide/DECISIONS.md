@@ -72,5 +72,6 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 ## 2026-09-29 — "Del opplysninger" panel now uses the same NotificationPanel as "Registrer farskap"
 **Decision:** On `gravid/index.html`, the "Del opplysninger før første svangerskapskontroll" panel was a blueberry box with a separate title, a compact warn-outline NotificationPanel inside it and a borderless button. It is now the same real NotificationPanel (info variant, dismissable, with a close button) as the farskap panel. Title: "Del opplysninger før første svangerskapskontroll". Body: "Du har ikke delt opplysningene i ditt digitale helsekort ennå." CTA underneath: "Fortsett utfylling", the same link style as the farskap panel's link but semibold, with the design system's ArrowRight icon after it.
 **Why:** Direct user request.
+**Follow-up (same day):** switched to the warning variant ("warn"), per direct request: real banana800 border (#AB7C00), banana50 background (#FDF8DF) and the warning-sign icon. Otherwise it keeps the same dismissable layout, text and CTA as the farskap panel.
 
 #helsenorge
