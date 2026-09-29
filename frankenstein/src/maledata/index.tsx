@@ -203,20 +203,12 @@ const BP_EVENING_SOLID = 'var(--core-color-blueberry-300, #7abecc)';
 // BP_EVENING_SOLID.
 const bpOutline = (barW: number) => (barW >= 6 ? 2 : 1);
 const BP_MIN_HOLLOW = 3;
-// Comparison variant (?kveld=gra in the URL): evening bars solid
-// neutral600 (#7D7C79) — the lightest neutral token with ≥3:1 on white
-// (4.17:1; WCAG 1.4.11) — instead of hollow. Only 1.57:1 against the
-// blueberry700 morning bars, so in greyscale the two nearly merge;
-// left/right order, legend, tooltip and table carry the distinction.
-const BP_EVENING_GREY = 'var(--core-color-neutral-600, #7d7c79)';
-const bpEveningGrey = () => new URLSearchParams(window.location.search).get('kveld') === 'gra';
 const BP_GRID = '#e1e0d9';
 const BP_TICK = '#898781';
 
 type BpTip = { x: number; y: number; title: string; line: string };
 
 function BpChart({ days }: { days: number }) {
-  const grey = bpEveningGrey();
   const wrapRef = useRef<HTMLDivElement>(null);
   const [w, setW] = useState(340);
   const [tip, setTip] = useState<BpTip | null>(null);
@@ -261,11 +253,7 @@ function BpChart({ days }: { days: number }) {
     <div className="md-bp">
       <div className="md-bp__legend" aria-hidden="true">
         <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_MORNING }} />Morgen</span>
-        {grey ? (
-          <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_EVENING_GREY }} />Kveld</span>
-        ) : (
-          <span className="md-bp__key"><span className="md-bp__swatch md-bp__swatch--hollow" style={{ borderColor: BP_EVENING }} />Kveld</span>
-        )}
+        <span className="md-bp__key"><span className="md-bp__swatch md-bp__swatch--hollow" style={{ borderColor: BP_EVENING }} />Kveld</span>
         <span className="md-bp__hint">Stolpens bunn = undertrykk, topp = overtrykk</span>
       </div>
       <div className="md-bp__plot" ref={wrapRef} onPointerLeave={() => setTip(null)}>
@@ -282,11 +270,7 @@ function BpChart({ days }: { days: number }) {
             const cx = x0 + slot * (k + 0.5);
             const bars: { r: NonNullable<BpDay['morning']>; x: number; color: string; name: string; hollow: boolean }[] = [];
             if (d.morning) bars.push({ r: d.morning, x: cx - gap / 2 - barW, color: BP_MORNING, name: 'Morgen', hollow: false });
-            if (d.evening) {
-              const hollow = !grey && barW >= BP_MIN_HOLLOW;
-              const color = grey ? BP_EVENING_GREY : hollow ? BP_EVENING : BP_EVENING_SOLID;
-              bars.push({ r: d.evening, x: cx + gap / 2, color, name: 'Kveld', hollow });
-            }
+            if (d.evening) bars.push({ r: d.evening, x: cx + gap / 2, color: barW >= BP_MIN_HOLLOW ? BP_EVENING : BP_EVENING_SOLID, name: 'Kveld', hollow: barW >= BP_MIN_HOLLOW });
             // Thinned date labels; one that would crowd today's end-anchored
             // label at the right edge is skipped.
             const showLabel = weekView || ((days - 1 - k) % labelStep === 0 && (k === days - 1 || x1 - cx > 60));

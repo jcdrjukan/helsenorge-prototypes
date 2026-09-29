@@ -123,8 +123,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Also fixed:** in the 3-month view, a thinned date label that would overlap today's end-anchored label at the right edge is now skipped.
 **Why:** Direct user request to match the green used in the other charts.
 
-## 2026-09-29 — Måledata BP chart: grey evening-bar variant for comparison (?kveld=gra)
-**Decision:** Added a URL switch, `?kveld=gra` (e.g. `/?kveld=gra#maledata`), that draws evening bars solid **neutral600** (#7D7C79) instead of hollow. The default stays hollow. neutral600 is the lightest neutral token that meets WCAG 1.4.11 on white (4.17:1; neutral500 is 2.95:1), but it's only 1.57:1 against the blueberry700 morning bars, so in greyscale the two nearly merge. Left/right order, legend, tooltip and table still carry the distinction (1.4.1).
-**Why:** Direct user request to compare a solid grey against the hollow version; the choice between them is still open.
+## 2026-09-29 — Måledata BP chart: solid grey evening bars tried and rejected
+**Decision:** A comparison variant with solid neutral600 (#7D7C79) evening bars (`?kveld=gra`) was tried and rolled back at the user's request ("not good"). Evening bars stay hollow blueberry700 outlines, as in the "both bar types in blueberry700" entry above.
+**Why:** Direct user judgment after viewing both versions side by side.
 
 #helsenorge
