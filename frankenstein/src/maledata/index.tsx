@@ -186,7 +186,18 @@ function SeriesTable({ series, days }: SeriesTableProps) {
 const BP_H = 300;
 const BP_PAD = { l: 40, r: 8, t: 22, b: 26 };
 const BP_MORNING = '#2a78d6';
-const BP_EVENING = '#1baf7a';
+// Evening = hollow bar outlined in Frankenstein kiwi900 (#078141), so
+// morning/evening differ by shape as well as color: works for every
+// color-vision type (incl. tritanopia, where the hues converge), in
+// greyscale and on paper, and kiwi900 has 4.97:1 contrast on white
+// (the spec's #1baf7a had 2.82:1, below WCAG 1.4.11's 3:1).
+const BP_EVENING = '#078141';
+// Outline is 2px on normal-width bars and thins to 1px on narrow ones
+// (e.g. the default 1-month view, ~4px bars) so a hollow stays visible.
+// Only below BP_MIN_HOLLOW (the 3-month view's ~1px bars) is there no
+// room for a hollow at all, and evening bars fall back to solid kiwi900.
+const bpOutline = (barW: number) => (barW >= 6 ? 2 : 1);
+const BP_MIN_HOLLOW = 3;
 const BP_GRID = '#e1e0d9';
 const BP_TICK = '#898781';
 
@@ -237,7 +248,7 @@ function BpChart({ days }: { days: number }) {
     <div className="md-bp">
       <div className="md-bp__legend" aria-hidden="true">
         <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_MORNING }} />Morgen</span>
-        <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_EVENING }} />Kveld</span>
+        <span className="md-bp__key"><span className="md-bp__swatch md-bp__swatch--hollow" style={{ borderColor: BP_EVENING }} />Kveld</span>
         <span className="md-bp__hint">Stolpens bunn = undertrykk, topp = overtrykk</span>
       </div>
       <div className="md-bp__plot" ref={wrapRef} onPointerLeave={() => setTip(null)}>
@@ -252,9 +263,9 @@ function BpChart({ days }: { days: number }) {
           {data.map((d, k) => {
             const offset = days - 1 - k;
             const cx = x0 + slot * (k + 0.5);
-            const bars: { r: NonNullable<BpDay['morning']>; x: number; color: string; name: string }[] = [];
-            if (d.morning) bars.push({ r: d.morning, x: cx - gap / 2 - barW, color: BP_MORNING, name: 'Morgen' });
-            if (d.evening) bars.push({ r: d.evening, x: cx + gap / 2, color: BP_EVENING, name: 'Kveld' });
+            const bars: { r: NonNullable<BpDay['morning']>; x: number; color: string; name: string; hollow: boolean }[] = [];
+            if (d.morning) bars.push({ r: d.morning, x: cx - gap / 2 - barW, color: BP_MORNING, name: 'Morgen', hollow: false });
+            if (d.evening) bars.push({ r: d.evening, x: cx + gap / 2, color: BP_EVENING, name: 'Kveld', hollow: barW >= BP_MIN_HOLLOW });
             const showLabel = weekView || (days - 1 - k) % labelStep === 0;
             return (
               <g key={k}>
@@ -266,15 +277,22 @@ function BpChart({ days }: { days: number }) {
                     title: weekdayDateLabel(offset),
                     line: `${b.name}: ${formatBp(b.r)}`,
                   });
+                  const height = Math.max(1, sy(b.r.dia) - top);
+                  // Hollow bars: stroke drawn inside the bar's own bounds (inset by
+                  // half the stroke) so both bar types occupy exactly the same box.
+                  const outline = bpOutline(barW);
+                  const inset = b.hollow ? outline / 2 : 0;
                   return (
                     <rect
                       key={b.name}
-                      x={b.x}
-                      y={top}
-                      width={barW}
-                      height={Math.max(1, sy(b.r.dia) - top)}
-                      rx={Math.min(4, barW / 2)}
-                      fill={b.color}
+                      x={b.x + inset}
+                      y={top + inset}
+                      width={barW - 2 * inset}
+                      height={Math.max(1, height - 2 * inset)}
+                      rx={Math.max(0, Math.min(4, barW / 2) - inset)}
+                      fill={b.hollow ? '#fff' : b.color}
+                      stroke={b.hollow ? b.color : 'none'}
+                      strokeWidth={b.hollow ? outline : 0}
                       onPointerEnter={show}
                       onClick={show}
                     />

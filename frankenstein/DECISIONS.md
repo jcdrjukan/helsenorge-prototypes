@@ -111,4 +111,11 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Not done:** dark mode is skipped, because the Måledata page itself has no dark mode, so only the light-mode gridline/text colors are used. The optional reference bands and week/month toggle are also not done; the existing timeframe select already covers the latter.
 **Why:** Direct user request to try a different kind of graph for blodtrykk, with a detailed spec.
 
+## 2026-09-29 — Måledata BP chart: evening bars hollow, outlined in kiwi900
+**Decision:** Evening bars are no longer solid #1baf7a. They are now hollow (white fill) with a Frankenstein **kiwi900** (#078141) outline, while morning bars stay solid #2a78d6. The legend swatch matches: a hollow square.
+- **Why a shape difference:** a colorblindness check (Machado simulation) found blue/green works well for protanopia and deuteranopia (ΔE 74–77). But the two converge for tritanopia (ΔE 22), are nearly the same brightness (1.57:1, so hard to tell apart in greyscale/print/low vision), and #1baf7a has only 2.82:1 contrast on white, below WCAG 1.4.11's 3:1. The shape difference works for every color-vision type.
+- **Why kiwi900:** among the kiwi tokens it has the strongest contrast on white (4.97:1) and stays distinct from the blue for protan/deutan (ΔE 82–86). It's also the design system's success-border color. The token page on frankenstein.helsenorge.design requires login, so tokens were taken from the installed package's `scss/_palette.scss`.
+- **Outline width:** 2px, drawn inside the bar's bounds so both bar types occupy the same box. It thins to 1px on narrow bars (under 6px, e.g. the default 1-month view's ~3.6px bars) so the hollow stays visible. Only under 3px (the 3-month view's ~1px bars) do evening bars fall back to solid kiwi900.
+**Why:** Direct user request (option 2 of the suggested fixes, using a Frankenstein color token).
+
 #helsenorge

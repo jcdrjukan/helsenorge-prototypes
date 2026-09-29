@@ -416,7 +416,8 @@
   margin-bottom: 6px;
 }
 .md-bp__key { display: inline-flex; align-items: center; gap: 5px; }
-.md-bp__swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.md-bp__swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; box-sizing: border-box; }
+.md-bp__swatch--hollow { background: #fff; border: 2px solid; }
 .md-bp__plot { position: relative; width: 100%; }
 .md-bp__svg { display: block; overflow: visible; }
 .md-bp__svg rect { cursor: pointer; }
