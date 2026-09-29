@@ -760,7 +760,9 @@ document.getElementById('activateBtn').href =
 // the activated Gravid page (the activate button's own href, built
 // above); "Jeg er ikke gravid selv" (following someone else's
 // pregnancy) goes to Gravid without digitalt helsekort — same
-// destination as this page's "Bruk Gravid uten digitalt helsekort".
+// destination as this page's "Bruk Gravid uten digitalt helsekort" —
+// with the "Del opplysninger" panel explicitly off (panelHelsekort=0):
+// she isn't pregnant herself, so there's nothing of hers to share.
 // Avbryt, ✕, Esc or a click on the grey mask just closes it.
 (function () {
   const overlay = document.getElementById('gravidModal');
@@ -768,7 +770,7 @@ document.getElementById('activateBtn').href =
   const activateBtn = document.getElementById('activateBtn');
   const screen = document.querySelector('.phone-frame__screen');
   document.getElementById('gmSelf').href = activateBtn.href;
-  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&dokumenter=0' +
+  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0' +
     (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
   let lastFocus = null;
   let scroller = null;
