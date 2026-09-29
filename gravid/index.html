@@ -721,6 +721,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    centered in the ring. The week bubble is hidden in this state, so the
    taller button has nothing to collide with. */
 .due-date-unknown__btn {
+  text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2041,7 +2042,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
              still editable — date + pencil rendered in #08667C (the
              clickable green) as the clickable affordance. Hidden by
              default. -->
-        <div class="due-date-editable" id="dueDateEditable" hidden>
+        <div class="due-date-editable" id="dueDateEditable" role="link" tabindex="0" aria-label="Endre termindato" hidden>
           <span class="due-date-editable__title">Termindato</span>
           <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
           <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
@@ -2052,9 +2053,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
              setTermindatoState() below. -->
         <div class="due-date-unknown" id="dueDateUnknown" hidden>
           <span class="due-date-unknown__text">Termindato<br>ikke registrert</span>
-          <button type="button" class="due-date-unknown__btn">
+          <a class="due-date-unknown__btn" href="beregn-termindato.html" id="beregnTermindatoLink">
             <span>Beregn termindato</span>
-          </button>
+          </a>
         </div>
       </div>
     </div>
@@ -3130,6 +3131,42 @@ const initialPanelHelsekort = readDashboardSetting('panelHelsekort', LS_DASHBOAR
 // dashboard.html selection or hand-edited URL asked for it.
 const initialPanelFarskap = initialWeek >= 22 && readDashboardSetting('panelFarskap', LS_DASHBOARD_PANEL_FARSKAP_KEY, '0') === '1';
 
+// ─── Registered termindato (beregn-/registrer-termindato.html) ────
+// Those pages send the chosen date back as termindatoDato=YYYY-MM-DD
+// (with termindato=0, i.e. the mother's own, editable estimate). When
+// present it drives the ring: real days left, the real date, and the
+// week/day derived from it using the same 283-day pregnancy length the
+// calculator uses (elapsed = 283 − days left → "uke W dag D").
+function applyRegisteredTermindato() {
+  const iso = dashboardParams.get('termindatoDato');
+  if (!iso || !/^\d{4}-\d{2}-\d{2}$/.test(iso)) return;
+  const [y, m, d] = iso.split('-').map(Number);
+  const due = new Date(y, m - 1, d);
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const daysLeft = Math.max(0, Math.round((due - today) / 86400000));
+  const elapsed = Math.max(0, 283 - daysLeft);
+  const week = Math.min(42, Math.max(1, Math.floor(elapsed / 7)));
+  updateWeek(week);
+  setTermindatoState('editable');
+  document.getElementById('countdownDays').textContent = daysLeft;
+  document.getElementById('dueDateValue').textContent = formatDate(due);
+  document.getElementById('dueDateValueEditable').textContent = formatDate(due);
+  const dayEl = document.querySelector('.week-bubble__day');
+  if (dayEl) dayEl.textContent = 'dag ' + (elapsed % 7);
+}
+
+// "Beregn termindato" and the editable date (pencil) open the
+// calculator / manual-entry pages, carrying this page's URL state along
+// so saving or cancelling lands back in the same scenario.
+function wireTermindatoLinks() {
+  const q = location.search;
+  document.getElementById('beregnTermindatoLink').href = 'beregn-termindato.html' + q;
+  const editable = document.getElementById('dueDateEditable');
+  const go = () => { location.href = 'registrer-termindato.html' + q; };
+  editable.addEventListener('click', go);
+  editable.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); } });
+}
+
 // ─── Forside breadcrumb (DHG onboarding scenarios only) ────
 // kilde is read straight from the URL, never localStorage — it's a
 // one-shot "how did she arrive on this exact pageview" signal, not
@@ -3149,6 +3186,8 @@ function wireForsideBreadcrumb() {
 
 updateWeek(initialWeek);
 setTermindatoState(initialTermindatoState);
+applyRegisteredTermindato();
+wireTermindatoLinks();
 setSfSectionVisibility(initialConnected);
 setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
 wireForsideBreadcrumb();

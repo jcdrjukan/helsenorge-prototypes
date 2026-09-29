@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registrer termindato – Helsenorge</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   FRANKENSTEIN / HELSENORGE DESIGN SYSTEM TOKENS
+   Source: github.com/helsenorge/designsystem
+   (Subset of gravid/index.html's token set — only what this page uses.)
+───────────────────────────────────────────────────────────── */
+:root {
+  --blueberry-50:  #E4F7F9;
+  --blueberry-500: #188097;
+  --blueberry-700: #08667C;
+
+  --neutral-100: #EAE7E7;
+  --neutral-300: #BDBAB9;
+  --neutral-700: #62625F;
+
+  --color-action-text-onlight:                        #126F87;
+  --color-action-background-onlight:                  #188097;
+  --color-action-background-transparent-onlight-hover: rgba(18,111,135,0.13);
+  --color-base-text-onlight:             #000000;
+  --color-base-background-blueberry:     #E4F7F9;
+  --color-base-background-dark-neutral:  #2B2C2B;
+  --color-notification-background-info:  #E4F7F9;
+  --color-notification-border-info:      #08667C;
+
+  --space-3xs: 0.25rem;   /*  4px */
+  --space-2xs: 0.5rem;    /*  8px */
+  --space-xs:  0.75rem;   /* 12px */
+  --space-s:   1rem;      /* 16px */
+  --space-m:   1.5rem;    /* 24px */
+  --space-l:   2rem;      /* 32px */
+  --space-xl:  3rem;      /* 48px */
+
+  --mobile-h1: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
+  --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
+
+  --radius-s:  4px;
+  --radius-m:  8px;
+
+  --focus-outline: 3px solid #000000;
+  --focus-offset:  2px;
+  --color-help-graphics-normal: #5C27A1;
+  --color-help-background-normal: #F4ECFE;
+  --color-help-border-subtle-wcag: #9862DF;
+  --mobile-help-trigger-text: 600 1rem/120% 'Source Sans 3', sans-serif;
+  --color-error: #A31F0E;
+  --space-4xs: 0.125rem;
+  --color-base-text-onlight-subdued: #474745;
+}
+
+/* ─── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  background: var(--neutral-100);
+}
+
+/* ─── Phone-frame mockup ─────────────────────────────────────
+   Desktop-only bezel chrome around the prototype; collapses to
+   nothing on real phone viewports so the page renders edge-to-edge
+   there. Ported verbatim from frankenstein/src/App.css so every
+   Helsenorge prototype shares the same phone presentation. ────── */
+.phone-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #b0b0b0;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+.phone-frame {
+  width: 418px;
+  height: 900px;
+  flex-shrink: 0;
+  background: #111;
+  border-radius: 54px;
+  padding: 14px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    0 50px 120px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.phone-frame__screen {
+  flex: 1;
+  background: #fff;
+  border-radius: 42px;
+  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  contain: layout; /* scopes position:fixed descendants to the frame */
+}
+.phone-frame__screen::-webkit-scrollbar { display: none; }
+.phone-frame__home {
+  height: 5px;
+  width: 130px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+  margin: 10px auto 4px;
+  flex-shrink: 0;
+}
+@media (max-width: 480px) {
+  .phone-wrapper { background: #fff; padding: 0; justify-content: flex-start; }
+  .phone-frame {
+    width: 100%; height: auto; border-radius: 0; padding: 0;
+    background: transparent; box-shadow: none;
+    overflow: visible; /* leftover overflow:hidden would otherwise become the
+                           nearest scrolling ancestor for position:sticky
+                           descendants, breaking sticky on real phones */
+  }
+  .phone-frame__screen { border-radius: 0; overflow: visible; overflow-y: visible; }
+  .phone-frame__home { display: none; }
+}
+
+a:focus-visible, button:focus-visible {
+  outline: var(--focus-outline);
+  outline-offset: var(--focus-offset);
+  border-radius: var(--radius-s);
+}
+
+.app {
+  background: #fff;
+  width: 360px;
+  min-height: 100vh;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3xs);
+}
+@media (min-width: 481px) {
+  /* Inside the framed screen the app should fill that fixed-height
+     container rather than the real (much taller) browser viewport. */
+  .app { min-height: 100%; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER  (Helsenorge global nav pattern — mirrors index.html)
+══════════════════════════════════════════════════════════════ */
+.header { background: var(--blueberry-50); width: 100%; }
+
+.header__top {
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+}
+
+.header__left { display: flex; gap: 24px; align-items: center; }
+
+.logo { display: flex; align-items: center; text-decoration: none; flex-shrink: 0; height: 36px; }
+
+.icon-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0 4px 4px;
+  border-radius: var(--radius-m);
+  color: var(--color-base-text-onlight);
+  text-decoration: none;
+}
+.icon-btn:hover { background: var(--color-action-background-transparent-onlight-hover); }
+.icon-btn__icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; }
+.icon-btn__icon svg { display: block; width: 38px; height: 38px; }
+.icon-btn__label { font: 600 16px/18px 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); white-space: nowrap; }
+
+.profile-bar {
+  background: var(--blueberry-50);
+  border-top: 1px solid var(--blueberry-700);
+  border-bottom: 1px solid var(--blueberry-700);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xs);
+  padding: var(--space-3xs) var(--space-xs);
+  cursor: pointer;
+}
+.profile-bar__inner { display: flex; flex: 1; gap: var(--space-2xs); align-items: center; min-width: 0; }
+
+.avatar {
+  width: 38px; height: 38px;
+  background: var(--color-action-background-onlight);
+  border-radius: var(--radius-s);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; color: #fff;
+  font: 600 16px/1.4 'Source Sans Pro', sans-serif;
+}
+.profile-bar__name { font: var(--mobile-label); color: var(--color-base-text-onlight); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.chevron { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-base-text-onlight); }
+.chevron svg { width: 18px; height: 18px; }
+
+/* ═══════════════════════════════════════════════════════════
+   BREADCRUMB
+══════════════════════════════════════════════════════════════ */
+.breadcrumb { width: 100%; padding: var(--space-2xs) var(--space-xs) 0; }
+
+.breadcrumb__back {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 0;
+  color: #000;
+  text-decoration: none;
+  font: var(--mobile-label);
+}
+.breadcrumb__back:hover { text-decoration: underline; }
+.breadcrumb__back svg { width: 38px; height: 38px; flex-shrink: 0; }
+
+.page-divider {
+  border: none;
+  border-top: 1px solid var(--neutral-300);
+  width: 100%;
+  margin: var(--space-2xs) 0 0;
+}
+
+/* Språk/Language switcher — decorative, same markup/CSS as this
+   prototype's other pages. */
+.lang-switcher {
+  width: 344px;
+  display: flex;
+  justify-content: flex-end;
+  padding-top: var(--space-s);
+}
+.lang-switcher__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-base-text-onlight);
+  font: 400 1.125rem/120% 'Source Sans Pro', sans-serif;
+}
+.lang-switcher__btn svg {
+  width: 24px;
+  height: 24px;
+  color: var(--blueberry-700); /* "link" green (#08667C) — text stays
+                                   black, only the globe + chevron are
+                                   colored */
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PAGE CONTENT — this is a CMS "standard page" (title1 + preamble +
+   rich-text), not an app screen, so its typography is drawn straight
+   from the real page at helsenorge.no/gravid/tjeneste-for-gravide/
+   (confirmed against that page's own compiled CSS — title1, preamble,
+   title3, title4, .panel--blueberry, and the two Button variants
+   below all match its actual computed mobile values, not estimates).
+══════════════════════════════════════════════════════════════ */
+.page-title { width: 344px; padding-top: var(--space-xl); }
+.page-title h1 { font: var(--mobile-h1); font-size: 2rem; line-height: 2.375rem; color: var(--color-base-text-onlight); }
+
+.preamble {
+  width: 344px;
+  font: 400 1.25rem/1.625rem 'Source Sans Pro', sans-serif;
+  color: var(--color-base-text-onlight);
+}
+
+.rich-text { width: 344px; display: flex; flex-direction: column; gap: var(--space-m); }
+.rich-text h2 { font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; }
+.rich-text h3 { font: 600 1.25rem/1.625rem 'Source Sans Pro', sans-serif; }
+.rich-text p { font: var(--mobile-body); }
+.rich-text a { color: var(--color-action-text-onlight); }
+
+/* Onboarding-source banner — now the real Frankenstein NotificationPanel
+   component, variant "info" (per direct request), not a custom box.
+   Real classes/values ported from @helsenorge/designsystem-react's
+   NotificationPanel (already used faithfully once before this session,
+   for gravid/index.html's farskap panel — same source). */
+.notification-panel {
+  width: 344px;
+  margin-top: var(--space-m);
+  display: flex;
+  padding: var(--space-2xs) var(--space-s) var(--space-2xs) var(--space-2xs);
+  box-shadow: 0.25rem 0.25rem 0.375rem rgba(0,0,0,0.15);
+  border-radius: var(--radius-s);
+  border: 0.125rem solid var(--color-notification-border-info);
+  background-color: var(--color-notification-background-info);
+}
+.notification-panel__icon { width: 38px; height: 38px; margin-right: var(--space-3xs); flex-shrink: 0; line-height: 0; }
+.notification-panel__content { align-self: center; }
+.notification-panel__children {
+  font: 600 1rem/150% 'Source Sans Pro', sans-serif;
+  color: var(--color-base-text-onlight);
+  margin: 0;
+  padding: var(--space-3xs) 0;
+}
+/* The [hidden] attribute alone loses to this class's own `display: flex`
+   above — author CSS always beats the UA stylesheet's default
+   `[hidden] { display: none }`, regardless of specificity — so without
+   this the banner box still shows up empty when kilde is absent. Hit
+   this same gotcha 3 times already this session (gravid/index.html's
+   .source-banner/.week-bubble, scenario-2-booking.html's .invite-panel). */
+.notification-panel[hidden] { display: none; }
+
+/* Panel — blueberry variant (confirmed real: .panel--blueberry on the
+   live page compiles to background-color:#e4f7f9 and nothing else —
+   no border, no left status stripe. The frankenstein/node_modules copy
+   of the design system used for this whole prototype doesn't expose
+   this variant — it's newer than our vendored version — so this is
+   hand-matched to the live site's actual computed CSS.) */
+.panel-blueberry {
+  width: 344px;
+  background: var(--color-base-background-blueberry);
+  padding: var(--space-s) var(--space-s) var(--space-l);
+  margin: var(--space-l) 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+.panel-blueberry h2 { font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; }
+.panel-blueberry p { font: var(--mobile-body); }
+
+/* Button — fill variant, "medium" size (the panel's own CTA). */
+.btn-fill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  background: var(--blueberry-500);
+  border-radius: var(--radius-m);
+  padding: 0 var(--space-m);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+}
+.btn-fill:hover { background: var(--blueberry-700); }
+.btn-fill span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; }
+
+/* Feedback widget ("Fant du det du lette etter?") — decorative,
+   matches the real page's own UserFeedback component footer. */
+.feedback { width: 344px; display: flex; flex-direction: column; gap: var(--space-s); }
+.feedback h2 { font: var(--mobile-h4); }
+.feedback__buttons { display: flex; gap: var(--space-s); }
+.feedback__btn {
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  background: var(--blueberry-500);
+  border-radius: var(--radius-m);
+  border: none;
+  cursor: pointer;
+  padding: 0 var(--space-l);
+}
+.feedback__btn:hover { background: var(--blueberry-700); }
+.feedback__btn span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; }
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER  (identical markup/styling to the rest of this prototype)
+══════════════════════════════════════════════════════════════ */
+.footer {
+  background: var(--color-base-background-dark-neutral);
+  width: 100%;
+  padding: var(--space-m) var(--space-xs);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+}
+.footer__row { display: flex; align-items: center; gap: var(--space-s); }
+.footer__icon { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: #fff; }
+.footer__icon svg { width: 24px; height: 24px; }
+.footer__text-group { flex: 1; }
+.footer__text-large { font: var(--mobile-label); font-size: 1.125rem; color: #fff; display: block; }
+.footer__text-small { font: var(--mobile-image-caption); color: var(--neutral-300); display: block; }
+.footer__divider { height: 1px; background: var(--neutral-700); }
+.footer__links { display: flex; flex-direction: column; gap: var(--space-s); }
+.footer__link { font-size: 1.125rem; font-weight: 400; color: #fff; text-decoration: none; }
+.footer__link:hover { text-decoration: underline; }
+.footer__lang { display: flex; gap: var(--space-m); align-items: center; }
+.footer__lang-sep { width: 1px; height: 24px; background: var(--neutral-700); }
+.footer__brand { font: var(--mobile-h4); font-size: 1.375rem; font-weight: 600; color: #fff; }
+
+/* ═══════════════════════════════════════════════════════════
+   SPACING UTILITIES
+══════════════════════════════════════════════════════════════ */
+.sp-s  { height: var(--space-s);  flex-shrink: 0; width: 100%; }
+.sp-m  { height: var(--space-m);  flex-shrink: 0; width: 100%; }
+.sp-l  { height: var(--space-l);  flex-shrink: 0; width: 100%; }
+.sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════
+   TERMINDATO FORM — Figma "CLD - Gravid" nodes 53:27367 (Beregn
+   termindato) and 53:27371 (Registrer termindato); both frames are
+   flat screenshots, so component values come from the real
+   @helsenorge/designsystem-react source:
+   - Label (label + sublabel mixins): 18px/1.375rem 600, sublabel
+     16px/1.2rem 600 subdued.
+   - Input (input-container mixin): 2px neutral700 border, white,
+     44px + 4px border min-height, 0 0.875rem padding, 18px text;
+     focus = neutral900 border + 2px ring. DatePicker's calendar
+     button sits flush to the right in the same border.
+   - Button fill/outline, medium (mobile) size — outline variant is a
+     2px blueberry700 outline, blueberry50 on hover.
+══════════════════════════════════════════════════════════════ */
+.help-trigger-text {
+  display: flex;
+  align-items: flex-start;
+  min-width: 4.6rem;
+  min-height: 2.75rem; /* real 44px tap target */
+  background: none;
+  border: none;
+  padding: 0 var(--space-3xs);
+  margin: var(--space-4xs) 0 var(--space-4xs) calc(-1 * var(--space-3xs));
+  cursor: pointer;
+  color: var(--color-help-graphics-normal);
+  font: var(--mobile-help-trigger-text);
+  text-align: left;
+}
+.help-trigger-text:hover { text-decoration: underline; }
+/* Real CSS: .help-trigger-standalone > * { margin-top: 10px } — gives
+   both direct children (icon, children-span) the same top offset,
+   which is how the real component centers itself within the taller
+   44px tap target despite align-items:flex-start. */
+.help-trigger-text > * { margin-top: 10px; }
+.help-trigger-text__icon { width: 20px; height: 20px; flex-shrink: 0; display: block; }
+.help-trigger-text__children {
+  margin-left: var(--space-2xs);
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3xs);
+  font: var(--mobile-help-trigger-text);
+}
+.help-trigger-text__chevron { width: 24px; height: 24px; flex-shrink: 0; color: var(--color-help-graphics-normal); }
+.help-trigger-text__chevron--up { display: none; }
+.help-trigger-text[aria-expanded="true"] .help-trigger-text__chevron--down { display: none; }
+.help-trigger-text[aria-expanded="true"] .help-trigger-text__chevron--up { display: block; }
+
+/* HelpDetails — real component: a colored, bordered callout box, not
+   plain inline text. */
+.help-expander {
+  margin: var(--space-2xs) 0 var(--space-s);
+  background: var(--color-help-background-normal);
+  border: 1px solid var(--color-help-border-subtle-wcag);
+  border-radius: var(--radius-s);
+}
+.help-expander[hidden] { display: none; }
+.help-expander__content {
+  padding: var(--space-s) var(--space-s) var(--space-s) 2.25rem;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  color: var(--color-base-text-onlight);
+}
+
+
+.tdf { width: 344px; display: flex; flex-direction: column; }
+.tdf__intro { font: var(--mobile-body); margin-top: var(--space-m); }
+.tdf__help { margin-top: var(--space-s); }
+.tdf__label { display: block; font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; margin-top: var(--space-m); }
+.tdf__sublabel { display: block; font: 600 1rem/1.2rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight-subdued); margin: var(--space-3xs) 0 var(--space-2xs); }
+.tdf__error { display: block; font: 600 1rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-error); margin-bottom: var(--space-2xs); }
+.tdf__error[hidden] { display: none; }
+.datepicker { display: flex; width: fit-content; }
+.datepicker__input {
+  width: 9.5rem; min-height: calc(2.75rem + 0.25rem); padding: 0 0.875rem;
+  border: 2px solid var(--neutral-700); border-right: none; background: #fff;
+  font: 400 1.125rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight);
+  outline: none; border-radius: 0;
+}
+.datepicker__input::placeholder { color: var(--neutral-700); }
+.datepicker__btn {
+  width: calc(2.75rem + 0.25rem); min-height: calc(2.75rem + 0.25rem);
+  display: flex; align-items: center; justify-content: center;
+  border: 2px solid var(--neutral-700); background: #fff; cursor: pointer; padding: 0; position: relative;
+}
+.datepicker__btn svg { width: 38px; height: 38px; color: var(--blueberry-500); }
+.datepicker__native { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; border: 0; }
+.datepicker:focus-within .datepicker__input, .datepicker:focus-within .datepicker__btn { border-color: var(--neutral-900, #2B2C2B); }
+.datepicker--error .datepicker__input, .datepicker--error .datepicker__btn { border-color: var(--color-error); }
+.tdf__actions { display: flex; gap: var(--space-s); margin-top: var(--space-l); }
+.btn {
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 2.75rem; min-height: 2.75rem; padding: 0 var(--space-m);
+  border-radius: 0.5rem; border: none; cursor: pointer; text-decoration: none;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; width: fit-content;
+}
+.btn span { padding: 0.4375rem 0; }
+.btn--fill { background: var(--blueberry-500); color: #fff; }
+.btn--fill:hover { background: var(--blueberry-700); box-shadow: 0 0 0 var(--space-3xs) var(--blueberry-700); }
+.btn--outline { background: transparent; color: var(--blueberry-700); outline: 2px solid var(--blueberry-700); outline-offset: -2px; }
+.btn--outline:hover { background: var(--blueberry-50); }
+.tdf__alt { font: var(--mobile-body); margin-top: var(--space-xl); }
+.tdf__alt-cta { margin-top: var(--space-m); }
+.tdf__alt a:not(.btn) { color: var(--color-action-text-onlight); }
+.tdf__alt-follow { font: var(--mobile-body); margin-top: var(--space-m); }
+
+</style>
+</head>
+<body>
+
+<div class="phone-wrapper">
+<div class="phone-frame">
+<div class="phone-frame__screen">
+
+<div class="app" id="app">
+
+  <!-- ══════════════════════════════════════════════════════
+       HEADER
+  ═══════════════════════════════════════════════════════════ -->
+  <header class="header">
+    <div class="header__top">
+      <div class="header__left">
+        <a class="logo" href="index.html" aria-label="Helsenorge – til forsiden">
+          <svg width="80" height="36" viewBox="0 0 80 39" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M56.6469 29.4761C55.1361 29.4761 53.9063 28.197 53.9063 26.6249C53.9063 25.0529 55.1361 23.7737 56.6469 23.7737C58.1578 23.7737 59.3875 25.0529 59.3875 26.6249C59.3875 28.197 58.1578 29.4761 56.6469 29.4761ZM56.7257 32.7427C58.6988 32.7427 60.3043 33.8282 60.3043 35.163C60.3043 36.4977 58.6988 37.5832 56.7257 37.5832C54.752 37.5832 53.1471 36.4977 53.1471 35.163C53.1471 33.8282 54.752 32.7427 56.7257 32.7427ZM56.6469 22.5902C54.4939 22.5902 52.7425 24.4001 52.7425 26.6249C52.7425 28.3882 53.8305 29.928 55.4536 30.4666C54.7744 31.145 53.0065 32.9161 52.8083 33.1319C52.2685 33.7314 51.9832 34.4337 51.9832 35.163C51.9832 37.1498 54.111 38.7661 56.7257 38.7661C59.3404 38.7661 61.4676 37.1498 61.4676 35.163C61.4676 33.1761 59.3404 31.5592 56.7257 31.5592C56.4352 31.5592 56.1447 31.5801 55.8571 31.6214C56.1076 31.3512 56.4446 30.9932 56.764 30.6566C58.8611 30.5921 60.5513 28.8037 60.5513 26.6249C60.5513 26.243 60.4978 25.8622 60.3914 25.491L62.2316 24.1443V22.4605L59.7874 24.2328C59.0505 23.2005 57.8919 22.5902 56.6469 22.5902ZM40.3829 0.180516H37.674V11.9726H44.8301V9.6863H40.3829V0.180516ZM58.7453 4.86556C57.8508 4.50333 56.8957 4.07356 56.8957 3.55832C56.8957 2.81055 57.2591 2.47761 58.0731 2.47761C59.4622 2.47761 59.641 3.76573 59.648 3.82072L59.6715 4.00722L62.5456 3.9588L62.5262 3.73465C62.2998 1.15542 60.2073 0 58.233 0C56.5305 0 53.9963 0.944421 53.9963 3.54457C53.9963 5.18595 55.2025 6.03354 56.3823 6.64622C56.5828 6.75022 56.8745 6.8614 57.2127 6.98991C58.2401 7.37964 59.7933 7.9696 59.7933 8.82974C59.7933 9.03297 59.6998 9.35814 59.4392 9.605C59.1587 9.87219 58.76 9.98935 58.2471 9.95289C57.0539 9.86801 56.6052 8.45496 56.6005 8.44062L56.554 8.28819L53.7352 8.37845L53.7558 8.60021C53.9169 10.3211 55.2449 12.3492 58.4571 12.4036C58.4847 12.4042 58.5118 12.4042 58.5394 12.4042C60.1203 12.4042 61.6564 11.6265 62.2957 10.4938C62.7885 9.62054 62.8226 8.09811 61.934 6.87754C61.3165 6.02935 60.2126 5.45971 58.7453 4.86556ZM74.5453 28.7194H78.1004V26.2525H74.5353V24.0146H79.5295V21.8096H71.7495V33.5616H79.6724V31.3088H74.5453V28.7194ZM39.112 23.0062H37.8375V33.8007H39.112V27.0212L43.0446 24.1443V22.4605L39.112 25.2388V23.0062ZM72.1829 6.10885C72.4252 4.00004 73.9402 2.37958 75.7109 2.37958C77.5247 2.37958 78.6438 3.73525 78.8038 6.10885H72.1829ZM80 6.70659C80 3.3001 78.3568 1.18411 75.7109 1.18411C73.0986 1.18411 70.9726 3.66113 70.9726 6.70659C70.9726 9.75145 73.0986 12.2291 75.7109 12.2291C77.3041 12.2291 78.7809 11.3056 79.6607 9.75922L79.7642 9.57751L78.7456 8.97977L78.6427 9.16089C77.9752 10.3336 76.8789 11.0336 75.7109 11.0336C73.9402 11.0336 72.4252 9.41313 72.1829 7.30432H80V6.70659ZM6.35683 4.58164H2.60119V0.180516H0V11.9439H2.68059V7.25411H6.42388V11.987H9.02918V0.180516H6.35683V4.58164ZM26.8323 9.67972H21.7052V7.09033H25.2597V4.62408H21.6946V2.38556H26.6894V0.180516H18.9082V11.9326H26.8323V9.67972ZM5.03183 22.6518C3.82621 22.6518 2.73057 23.2716 1.76726 24.4964V23.0062H0.492832V33.8007H1.76726V27.7481C1.76726 25.9507 3.24752 24.0122 4.70073 23.9082C5.51349 23.8502 6.12512 24.0188 6.57972 24.4246C7.13548 24.9226 7.45189 25.8054 7.52069 27.0487C7.62067 28.8545 7.58656 33.5431 7.58656 33.5903L7.5848 33.8007H8.75101V26.7397C8.75101 24.708 7.47365 22.6518 5.03183 22.6518ZM22.7979 32.6967C20.8448 32.6967 19.2563 30.7373 19.2563 28.3285C19.2563 25.9196 20.8448 23.9602 22.7979 23.9602C24.7504 23.9602 26.3395 25.9196 26.3395 28.3285C26.3395 30.7373 24.7504 32.6967 22.7979 32.6967ZM22.7979 22.7641C20.1967 22.7641 18.0801 25.2603 18.0801 28.3285C18.0801 31.396 20.1967 33.8922 22.7979 33.8922C25.3985 33.8922 27.5151 31.396 27.5151 28.3285C27.5151 25.2603 25.3985 22.7641 22.7979 22.7641Z" fill="black"/></svg>
+        </a>
+        <button class="icon-btn" aria-label="Åpne meny" aria-expanded="false">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M29.9883 24.709V26.509H8V24.709H29.9883ZM29.9883 17.709V19.509H8V17.709H29.9883ZM29.9883 11V12.8H8V11H29.9883Z" fill="black"/></svg>
+          </div>
+          <span class="icon-btn__label">Meny</span>
+        </button>
+        <button class="icon-btn" aria-label="Varsler">
+          <div class="icon-btn__icon" aria-hidden="true">
+            <svg width="38" height="38" viewBox="0 0 38 38" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.17 27.2979V27.1325H15.672V27.2979H9.42261L11.8427 23.4053H25.9993L28.4187 27.2979H22.17ZM21.1409 28.9121C21.1409 30.136 20.1449 31.132 18.921 31.132V31.132C17.6963 31.132 16.7004 30.136 16.7004 28.9121V28.3271H21.1409V28.9121ZM12.0707 15.2028C12.0707 12.1668 14.1299 9.52896 17.0764 8.78875L17.4659 8.69058V8.16491C17.4659 7.36296 18.1183 6.71062 18.921 6.71062C19.723 6.71062 20.3753 7.36296 20.3753 8.16491V8.69058L20.7648 8.78875C23.7122 9.52896 25.7705 12.1668 25.7705 15.2028V22.3769H12.0707V15.2028ZM29.7819 27.541L26.7997 22.7442V15.2028C26.7997 11.8248 24.5941 8.87266 21.3902 7.89416C21.2549 6.65125 20.1988 5.68066 18.921 5.68066C17.6425 5.68066 16.5864 6.65125 16.4518 7.89416C13.2472 8.87266 11.0416 11.8248 11.0416 15.2028V22.7442L8.06015 27.541C7.9612 27.6993 7.95645 27.8988 8.04749 28.0627C8.13774 28.2257 8.31032 28.3271 8.49715 28.3271H15.672V28.9121C15.672 30.7037 17.1295 32.1611 18.921 32.1611C20.7126 32.1611 22.17 30.7037 22.17 28.9121V28.3271H29.3449C29.5309 28.3271 29.7035 28.2257 29.7946 28.0627C29.8848 27.8988 29.8801 27.6993 29.7819 27.541V27.541Z" fill="black"/></svg>
+          </div>
+          <span class="icon-btn__label">Varsler</span>
+        </button>
+      </div>
+      <button class="icon-btn" aria-label="Logg ut">
+        <div class="icon-btn__icon" aria-hidden="true">
+          <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path d="M9.81074 30.9373V7.06335L22.2524 9.02782V16.2295H23.5524V8.77147C23.5524 8.2794 23.1944 7.86045 22.7084 7.78371L9.6667 5.7245C9.05974 5.62866 8.51074 6.09778 8.51074 6.71226V31.2884C8.51074 31.9028 9.05974 32.372 9.66671 32.2761L22.7084 30.2169C23.1944 30.1402 23.5524 29.7212 23.5524 29.2291V22.5628H22.2524V28.9728L9.81074 30.9373Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M30.6164 19.7414H15.9824V18.7114H30.5879L27.5969 15.7205L28.3245 14.9922L32.2092 18.8761C32.305 18.9727 32.3596 19.1033 32.3596 19.2403C32.3596 19.3772 32.305 19.5078 32.2092 19.6044L28.2738 23.5398L27.5463 22.8115L30.6164 19.7414Z" fill="black"/></svg>
+        </div>
+        <span class="icon-btn__label">Logg ut</span>
+      </button>
+    </div>
+
+    <!-- Profile expander -->
+    <div class="profile-bar" role="button" tabindex="0" aria-expanded="false" aria-label="Brukermeny for Tora Hansen">
+      <div class="profile-bar__inner">
+        <div class="avatar" aria-hidden="true">To</div>
+        <span class="profile-bar__name">Tora Hansen</span>
+      </div>
+      <div class="chevron" aria-hidden="true">
+        <svg width="38" height="38" viewBox="0 0 38 38" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M25.7901 14.1587L27.2097 15.5675L18.9993 23.8413L10.79 15.5674L12.2098 14.1588L18.9994 21.0018L25.7901 14.1587Z" fill="black"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════
+       BREADCRUMB — this page is reachable from several onboarding
+       channels (see the ?kilde= param below), each with its own
+       "back to where I came from" context. Defaults to the original
+       "Gravid" / index.html behavior when kilde is absent or
+       unrecognized (the provider-URL scenario, and direct links).
+  ═══════════════════════════════════════════════════════════ -->
+  <nav class="breadcrumb" aria-label="Brødsmulesti">
+    <a class="breadcrumb__back" href="index.html" id="breadcrumbLink" data-gravid-back>
+      <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
+      <span id="breadcrumbLabel">Gravid</span>
+    </a>
+  </nav>
+  <hr class="page-divider">
+
+  <!-- Språk/Language — decorative. -->
+  <div class="lang-switcher">
+    <button type="button" class="lang-switcher__btn">
+      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M35.49 32.138a21.747 21.747 0 00-4.009-2.281c.58-1.555.974-3.264 1.083-5.1h5.539a14.178 14.178 0 01-2.612 7.381zm-9.244 5.795c1.38-1.417 3.205-3.62 4.552-6.444a19.918 19.918 0 013.576 2.02 14.239 14.239 0 01-8.128 4.424zm-1.488-7.87c1.488.077 2.941.343 4.359.795-1.314 2.683-3.094 4.765-4.36 6.045v-6.84zm0-5.306h6.035a15.719 15.719 0 01-.982 4.467 18.969 18.969 0 00-5.053-.93v-3.537zm0-5.73a19.583 19.583 0 004.988-.834c.572 1.46.958 3.07 1.056 4.796h-6.044v-3.963zm0-8.219c1.232 1.22 2.954 3.196 4.258 5.754-1.367.4-2.788.633-4.258.696v-6.45zm9.46 3.257a18.005 18.005 0 01-3.5 1.903c-1.323-2.685-3.083-4.78-4.43-6.149a14.238 14.238 0 017.93 4.246zm1.134 1.359a14.169 14.169 0 012.75 7.565h-5.53a17.324 17.324 0 00-1.146-5.396 19.764 19.764 0 003.926-2.17zM23.25 17.524a17.287 17.287 0 01-4.273-.768c1.335-2.573 3.066-4.564 4.273-5.767v6.535zm0 5.737h-6.16c.118-1.757.53-3.403 1.133-4.89 1.63.532 3.307.84 5.027.922v3.968zm0 5.299c-1.82.07-3.57.375-5.242.91a15.39 15.39 0 01-.928-4.44h6.17v3.53zm0 8.774c-1.293-1.26-3.194-3.413-4.557-6.233a17.657 17.657 0 014.557-.776v7.009zm-9.693-3.638a18.045 18.045 0 013.454-1.976c1.332 2.825 3.16 5.033 4.56 6.456a14.24 14.24 0 01-8.014-4.48zm-1.108-1.378a14.187 14.187 0 01-2.543-7.289h5.403c.09 1.826.467 3.52 1.03 5.064a19.909 19.909 0 00-3.89 2.225zm.278-16.716a21.62 21.62 0 003.827 2.139 17.704 17.704 0 00-1.237 5.52h-5.41a14.172 14.172 0 012.82-7.659zm8.887-5.494c-1.31 1.35-3.011 3.408-4.327 6.021a19.658 19.658 0 01-3.416-1.88 14.24 14.24 0 017.743-4.141zm2.52-2.005c-8.846 0-16.042 7.196-16.042 16.043 0 8.845 7.196 16.043 16.042 16.043 8.846 0 16.044-7.198 16.044-16.043 0-8.847-7.198-16.043-16.044-16.043z"/></svg>
+      <span>Språk/Language</span>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+  </div>
+
+  <div class="page-title">
+    <h1>Registrer termindato</h1>
+  </div>
+
+  <form class="tdf" id="tdForm" novalidate>
+    <p class="tdf__intro">Hvis du har fått en bekreftet termindato etter ultralydundersøkelsen eller ved IVF, kan du registrere den her.</p>
+    <div class="tdf__help">
+      <button type="button" class="help-trigger-text" aria-expanded="false" aria-controls="helpIvf" onclick="toggleHelpExpander(this,'helpIvf')">
+        <svg class="help-trigger-text__icon" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+        <defs><clipPath id="sfHelpIconClip" clipPathUnits="userSpaceOnUse"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0004 0C4.48644 0 0 4.48565 0 9.99961C0 15.5136 4.48644 20 10.0004 20C15.5144 20 20 15.5136 20 9.99961C20 4.48565 15.5144 0 10.0004 0"/></clipPath></defs>
+        <path d="M10.0004 0V-2C3.38207 -2 -2 3.38088 -2 9.99961H0H2C2 5.59043 5.5908 2 10.0004 2V0ZM0 9.99961H-2C-2 16.6181 3.38187 22 10.0004 22V20V18C5.59101 18 2 14.409 2 9.99961H0ZM10.0004 20V22C16.6191 22 22 16.6179 22 9.99961H20H18C18 14.4092 14.4096 18 10.0004 18V20ZM20 9.99961H22C22 3.38108 16.6189 -2 10.0004 -2V0V2C14.4098 2 18 5.59022 18 9.99961H20Z" fill="currentColor" clip-path="url(#sfHelpIconClip)"/>
+        <path d="M9.93555 4.40039C12.1061 4.40039 13.2998 5.8386 13.2998 7.35156C13.2997 8.52045 12.2922 9.61789 11.8262 9.94238C11.3601 10.2669 11.209 10.5 11.209 10.5C11.0283 10.6756 10.9117 11.0195 10.8721 11.2715C10.8316 11.5286 10.8476 11.5136 10.8477 11.7998V11.9004H9.20117V11.2715C9.20117 10.8463 9.20556 10.7433 9.31934 10.374C9.43483 9.99921 9.75195 9.54492 10.0928 9.18262C10.4336 8.82031 10.751 8.58105 10.751 8.58105C11.1983 8.25659 11.3818 7.87361 11.3818 7.42285C11.3818 7.07417 11.2638 6.74031 11.0283 6.49414C10.794 6.24916 10.435 6.08301 9.93555 6.08301C8.94209 6.08316 8.41811 6.83977 8.41797 7.60742C8.41797 7.81763 8.44731 8.07481 8.49805 8.21582L8.5498 8.36035L6.7793 8.23535L6.70898 8.23047L6.69043 8.16309C6.63105 7.95321 6.60059 7.71544 6.60059 7.47949C6.60081 6.00363 7.71413 4.40053 9.93555 4.40039Z" fill="currentColor"/>
+        <path d="M10 12.7998C10.6024 12.7999 11.0996 13.31 11.0996 13.9072C11.0994 14.506 10.6023 14.9999 10 15C9.38173 15 8.8996 14.506 8.89941 13.9072C8.89941 13.31 9.38162 12.7998 10 12.7998Z" fill="currentColor"/>
+      </svg>
+        <span class="help-trigger-text__children">
+          <span>Om termindato ved IVF</span>
+          <svg class="help-trigger-text__chevron help-trigger-text__chevron--down" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg>
+        <svg class="help-trigger-text__chevron help-trigger-text__chevron--up" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z"/></svg>
+        </span>
+      </button>
+      <div class="help-expander" id="helpIvf" hidden>
+        <div class="help-expander__content"><p>Ved IVF regnes termindatoen ut fra datoen embryoet ble satt inn. Klinikken som har gjort behandlingen, gir deg vanligvis termindatoen.</p></div>
+      </div>
+    </div>
+    <label class="tdf__label" for="dateInput">Oppgi dato</label>
+    <span class="tdf__sublabel" id="dateSublabel">(dd.mm.åååå)</span>
+    <span class="tdf__error" id="dateError" role="alert" hidden></span>
+    <div class="datepicker" id="datepicker">
+      <input class="datepicker__input" id="dateInput" type="text" inputmode="numeric" placeholder="dd.mm.åååå" autocomplete="off" aria-describedby="dateSublabel dateError">
+      <span class="datepicker__btn">
+        <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M32.86 22.986a.984.984 0 010 1.967.984.984 0 010-1.967zm0 3.03a2.049 2.049 0 002.046-2.047 2.049 2.049 0 00-2.046-2.046 2.049 2.049 0 00-2.046 2.046c0 1.13.918 2.047 2.046 2.047zm6.21-7.864H8.68v-6.194h3.846v1.161a2.243 2.243 0 002.241 2.241 2.243 2.243 0 002.241-2.24v-1.162H30.62v1.161a2.244 2.244 0 002.241 2.241 2.243 2.243 0 002.241-2.24v-1.162h3.97v6.194zM8.678 35.982H39.07v-16.53H8.678v16.53zm5.148-26.273c0-.518.422-.94.941-.94.52 0 .941.422.941.94v3.41a.942.942 0 01-1.882 0V9.71zm18.093 0c0-.518.422-.94.941-.94.52 0 .941.422.941.94v3.41a.942.942 0 01-1.882 0V9.71zm3.182.95v-.95a2.243 2.243 0 00-2.24-2.24 2.244 2.244 0 00-2.242 2.24v.95H17.01v-.95a2.243 2.243 0 00-2.242-2.24 2.243 2.243 0 00-2.24 2.24v.95H7.378V37.28h32.992V10.658h-5.27zm-8.157 16.167a.984.984 0 110 1.969.984.984 0 010-1.969zm0 3.03a2.049 2.049 0 002.047-2.047 2.049 2.049 0 00-2.047-2.046 2.049 2.049 0 00-2.046 2.046c0 1.13.918 2.047 2.046 2.047z"/></svg>
+        <input class="datepicker__native" id="dateNative" type="date" tabindex="-1" aria-label="Velg dato i kalender">
+      </span>
+    </div>
+    <div class="tdf__actions">
+      <button type="submit" class="btn btn--fill"><span>Registrer</span></button>
+      <a class="btn btn--outline" href="index.html" data-gravid-back><span>Avbryt</span></a>
+    </div>
+    <p class="tdf__alt-follow tdf__alt">Hvis du ikke vet når du har termin, kan du <a href="beregn-termindato.html" data-carry>gå tilbake og beregne datoen</a> basert på første dag av din siste menstruasjon.</p>
+  </form>
+
+  <div class="sp-xl"></div>
+
+  <footer class="footer">
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.42 2 2 0 0 1 3.57 1.25h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.81a16 16 0 0 0 6.29 6.29l.88-.88a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="footer__text-group">
+        <span class="footer__text-large">23 32 70 00</span>
+        <span class="footer__text-small">Veiledning helsenorge.no</span>
+      </div>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <span class="footer__text-large">Hjelp og kontakt</span>
+    </div>
+    <div class="footer__row">
+      <div class="footer__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      </div>
+      <div class="footer__lang">
+        <a href="#" class="footer__link">English</a>
+        <div class="footer__lang-sep"></div>
+        <a href="#" class="footer__link">Sámi</a>
+      </div>
+    </div>
+    <div class="footer__divider"></div>
+    <div class="footer__links">
+      <a href="#" class="footer__link">Om Helsenorge</a>
+      <a href="#" class="footer__link">Personvern og nettsikkerhet</a>
+      <a href="#" class="footer__link">Tilgjengelighetserklæring</a>
+    </div>
+    <div class="footer__divider"></div>
+    <a href="#" class="footer__link">Last ned Helsenorge-appen</a>
+    <div class="footer__divider"></div>
+    <p class="footer__brand">Drives av Norsk helsenett SF</p>
+  </footer>
+
+</div><!-- /app -->
+
+</div><!-- /phone-frame__screen -->
+<div class="phone-frame__home"></div>
+</div><!-- /phone-frame -->
+</div><!-- /phone-wrapper -->
+
+<script>
+function toggleHelpExpander(btn, expanderId) {
+  const expanded = btn.getAttribute('aria-expanded') === 'true';
+  btn.setAttribute('aria-expanded', String(!expanded));
+  document.getElementById(expanderId).hidden = expanded;
+}
+// Carry the Gravid page's own URL state (uke/tilknyttet/panels/kilde…)
+// through this page and back, so returning lands in the same scenario.
+const params = new URLSearchParams(location.search);
+function gravidHref(extra) {
+  const p = new URLSearchParams(params);
+  if (extra) { p.delete('uke'); Object.keys(extra).forEach(k => p.set(k, extra[k])); }
+  const q = p.toString();
+  return 'index.html' + (q ? '?' + q : '');
+}
+function withParams(page) { const q = params.toString(); return page + (q ? '?' + q : ''); }
+document.querySelectorAll('[data-gravid-back]').forEach(a => { a.href = gravidHref(); });
+document.querySelectorAll('[data-carry]').forEach(a => { a.href = withParams(a.getAttribute('href')); });
+
+// dd.mm.åååå text field + native calendar picker behind the calendar
+// button (DatePicker pattern) kept in sync both ways.
+const dateInput = document.getElementById('dateInput');
+const dateNative = document.getElementById('dateNative');
+const pad = n => String(n).padStart(2, '0');
+function parseNo(v) {
+  const m = /^(\d{1,2})\.(\d{1,2})\.(\d{4})$/.exec(v.trim());
+  if (!m) return null;
+  const d = new Date(+m[3], +m[2] - 1, +m[1]);
+  return (d.getDate() === +m[1] && d.getMonth() === +m[2] - 1) ? d : null;
+}
+const toIso = d => d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+dateNative.addEventListener('change', () => {
+  if (!dateNative.value) return;
+  const [y, mo, da] = dateNative.value.split('-');
+  dateInput.value = da + '.' + mo + '.' + y;
+  clearError();
+});
+dateNative.parentElement.addEventListener('click', () => { try { dateNative.showPicker(); } catch (e) {} });
+function showError(msg) {
+  const e = document.getElementById('dateError');
+  e.textContent = msg; e.hidden = false;
+  document.getElementById('datepicker').classList.add('datepicker--error');
+}
+function clearError() {
+  document.getElementById('dateError').hidden = true;
+  document.getElementById('datepicker').classList.remove('datepicker--error');
+}
+dateInput.addEventListener('input', clearError);
+function today() { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }
+
+// Pre-fill with the currently registered termindato when editing it
+// (pencil on the Gravid page passes termindatoDato through).
+const current = params.get('termindatoDato');
+if (current && /^\d{4}-\d{2}-\d{2}$/.test(current)) {
+  const [y, m, d] = current.split('-');
+  dateInput.value = d + '.' + m + '.' + y;
+}
+document.getElementById('tdForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const due = parseNo(dateInput.value);
+  if (!due) { showError('Oppgi en gyldig dato på formatet dd.mm.åååå.'); return; }
+  if (due < today()) { showError('Termindatoen kan ikke være tilbake i tid.'); return; }
+  const max = today(); max.setDate(max.getDate() + 283);
+  if (due > max) { showError('Termindatoen kan ikke være mer enn 283 dager frem i tid.'); return; }
+  location.href = gravidHref({ termindato: '0', termindatoDato: toIso(due) });
+});
+</script>
+</body>
+</html>
