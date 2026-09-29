@@ -89,6 +89,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ## 2026-09-29 — Uploaded-document block made optional (?dokumenter=0); hidden in DHG onboarding S1
 **Decision:** In "Papirhelsekortet og dokumentasjon" on `gravid/index.html`, the uploaded-document part is now wrapped in `#uploadedDocs`: "Sist opplastet papirhelsekort", the real DokPanelItem card and "Se alle dine Gravid-dokumenter". It's hidden with `?dokumenter=0`. The heading, description and the two upload buttons always show. It's **shown by default**, so the design is kept as the reference for the other Gravid prototypes. DHG onboarding S1 (`kilde=epj`) now activates into `...&dokumenter=0`, since a user who has just activated DHG after an EPJ-triggered varsel can't already have uploaded anything. `dashboard.html` gets a matching "Har lastet opp papirhelsekort" checkbox (default on). The setting is URL-only, not persisted to localStorage, so a scenario link can't leave later default visits without the reference design.
-**Why:** Direct user request: "it doesn't make sense that there would already be a document uploaded there. But retain the design for this somewhere." S2–S4 were left unchanged because only S1 was named, even though the same reasoning applies to them.
+**Why:** Direct user request: "it doesn't make sense that there would already be a document uploaded there. But retain the design for this somewhere."
+**Follow-up (same day):** extended to S2–S4 per direct request. That covers both activation pages' default and fallback links, S3's "Bruk Gravid uten digitalt helsekort" opt-out link, and the Forside "Gravid" tile links on the S1/S3/S4 frontpages. Every onboarding path into the Gravid page now carries `dokumenter=0`.
 
 #helsenorge

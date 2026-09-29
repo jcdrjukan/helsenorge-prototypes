@@ -519,7 +519,7 @@ a:focus-visible, button:focus-visible {
   <div class="panel-blueberry">
     <h2>Aktiver digitalt helsekort</h2>
     <p>Digitalt helsekort for gravide er en del av kjernejournalen din. Når du aktiverer det, kan jordmoren eller fastlegen din registrere og dele informasjon om graviditeten din digitalt. Du kan når som helst reservere deg mot dette i personverninnstillingene dine.</p>
-    <a class="btn-fill" href="index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1" id="activateBtn">
+    <a class="btn-fill" href="index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1&amp;dokumenter=0" id="activateBtn">
       <span>Aktiver digitalt helsekort</span>
     </a>
   </div>
@@ -627,7 +627,7 @@ a:focus-visible, button:focus-visible {
 // and get panelHelsekort=1 (the "del opplysninger før første
 // svangerskapskontroll" nudge) since none of them have shared anything
 // yet. Same default used as the pre-JS fallback href above.
-const DEFAULT_ACTIVATE_QUERY = 'uke=1&tilknyttet=1&termindato=none&panelHelsekort=1';
+const DEFAULT_ACTIVATE_QUERY = 'uke=1&tilknyttet=1&termindato=none&panelHelsekort=1&dokumenter=0';
 
 // Only epj (S1), booking (S2) and no-kilde-at-all (S4) route here now —
 // S3's three discovery variants (frontpage/sok/redaksjonelt) route to
