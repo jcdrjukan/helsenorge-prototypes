@@ -3122,14 +3122,18 @@ const initialWeekRaw = parseInt(readDashboardSetting('uke', LS_DASHBOARD_WEEK_KE
 const initialWeek = (initialWeekRaw >= 1 && initialWeekRaw <= 42) ? initialWeekRaw : 30;
 const initialConnected = readDashboardSetting('tilknyttet', LS_DASHBOARD_CONNECTED_KEY, '1') === '1';
 // No helsekort connection means no jordmor/lege to confirm the
-// termindato via ultrasound — always the mother's own estimate then,
-// whatever the saved/passed termindato setting says. 'none' (no
-// termindato established at all) is only honored when connected — the
-// legacy '1'/'0' values keep meaning 'confirmed'/'editable' as before.
+// termindato via ultrasound — so a termindato is then always the
+// mother's own estimate ('editable'), whatever the saved/passed setting
+// says, unless none has been registered at all ('none', honored either
+// way). The legacy '1'/'0' values keep meaning 'confirmed'/'editable'.
 const rawTermindatoSetting = readDashboardSetting('termindato', LS_DASHBOARD_TERMINDATO_KEY, '1');
-const initialTermindatoState = !initialConnected
-  ? 'editable'
-  : (rawTermindatoSetting === 'none' ? 'none' : (rawTermindatoSetting === '1' ? 'confirmed' : 'editable'));
+// 'none' is honored with or without a connection (e.g. DHG onboarding
+// S3's paths into Gravid *without* digitalt helsekort: nothing
+// registered yet either way); without a connection the other values
+// still always mean 'editable'.
+const initialTermindatoState = rawTermindatoSetting === 'none'
+  ? 'none'
+  : (!initialConnected ? 'editable' : (rawTermindatoSetting === '1' ? 'confirmed' : 'editable'));
 // Whether she has uploaded any documents yet (see #uploadedDocs).
 // URL-only (no localStorage) so a one-off scenario link can't leave a
 // later default visit stuck without the reference design.

@@ -600,7 +600,7 @@ a:focus-visible, button:focus-visible {
       <div class="sp-s"></div>
       <p>Du kan bruke Gravid uten digitalt helsekort hvis du ikke ønsker å dele informasjon med helsepersonell. Informasjonen du registrerer, lagres da bare for deg. Du kan også bruke tjenesten sammen med partneren din, uten at partneren får tilgang til helseopplysningene dine.</p>
     </div>
-    <a class="btn-fill-large" href="index.html?tilknyttet=0&amp;dokumenter=0">
+    <a class="btn-fill-large" href="index.html?uke=1&amp;tilknyttet=0&amp;termindato=none&amp;dokumenter=0">
       <span>Bruk Gravid uten digitalt helsekort</span>
       <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.929-1.142 1.377 10.044 11.721H8.929v1.947h27.048L25.933 36.692l1.142 1.379L39.07 24 27.075 9.929Z"/></svg>
     </a>
@@ -768,7 +768,7 @@ document.getElementById('activateBtn').href =
   const activateBtn = document.getElementById('activateBtn');
   const screen = document.querySelector('.phone-frame__screen');
   document.getElementById('gmSelf').href = activateBtn.href;
-  document.getElementById('gmOther').href = 'index.html?tilknyttet=0&dokumenter=0' +
+  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&dokumenter=0' +
     (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
   let lastFocus = null;
   let scroller = null;

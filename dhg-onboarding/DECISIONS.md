@@ -122,4 +122,8 @@ Started 2026-09-25.
 - **Behaviour:** the overlay covers the visible part of whichever element scrolls (the desktop phone frame's screen, or the window on a real phone), background scrolling is locked while open, focus moves into the dialog and Tab is trapped. Button sizes are exactly as in the Figma: the outline button is the larger variant (20px text, 50px tall), unlike the fill button (18px, 44px).
 **Why:** Direct user request with the Figma link.
 
+## 2026-09-29 — S3: no termindato registered after activation, on every path
+**Decision:** In every S3 variant, she now lands in Gravid with no termindato registered ("Termindato ikke registrert" + "Beregn termindato", no week bubble). The activate path ("Jeg er gravid selv") already did this (`termindato=none`). The two paths *without* digitalt helsekort did not: "Jeg er ikke gravid selv" in the modal and the page's "Bruk Gravid uten digitalt helsekort" linked `tilknyttet=0`, which made `gravid/index.html` force an editable termindato (uke 30, 08.12.2026). Those links now pass `uke=1&tilknyttet=0&termindato=none&dokumenter=0`, and index.html honors `termindato=none` with or without a connection. Without a connection, other values still always mean the mother's own editable estimate, so the dashboard's no-connection scenarios are unchanged.
+**Why:** Direct user request.
+
 #helsenorge
