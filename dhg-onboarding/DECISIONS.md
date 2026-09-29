@@ -130,4 +130,8 @@ Started 2026-09-25.
 **Decision:** The modal's "Jeg er ikke gravid selv" link now passes `panelHelsekort=0` explicitly. Before, it omitted the param, so `gravid/index.html` fell back to whatever `dashboard.html` last saved in localStorage and could show the "Del opplysninger før første svangerskapskontroll" warning panel, which makes no sense for someone following another person's pregnancy. "Jeg er gravid selv" keeps `panelHelsekort=1`. **Follow-up (same day):** per direct request, the page's "Bruk Gravid uten digitalt helsekort" link also passes `panelHelsekort=0` now, since there's no digitalt helsekort to share from on that path either.
 **Why:** Direct user request.
 
+## 2026-09-29 — S4 Varsler: digitalt helsekort message is the only unread item; envelope no longer cropped
+**Decision:** On `scenario-4-varsel.html`, the Oppgave item ("Oppgaven din fra Stavanger universitetssjukehus…") is now a read row (white, no Ulest badge), so the "Digitalt helsekort for gravide" Melding is the only unread varsel. The bell badge and "N uleste" line derive from the list, so they now read 1. The static fallbacks on the Varsler page and the S4 frontpage bell were updated to 1 as well. The top item's envelope icon now renders at its full 24px, like the read Melding rows, instead of inside the 16px StatusDot clip frame, which cropped both sides. The Figma frame puts it in that clip frame, but the envelope glyph is wider than the status-dot icons it's designed for. S1 is unchanged (still 2 unread).
+**Why:** Direct user request.
+
 #helsenorge
