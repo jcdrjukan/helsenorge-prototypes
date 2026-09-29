@@ -406,3 +406,26 @@
   color: #fff;
   margin: 0;
 }
+
+/* ── Blood pressure floating bar chart (spec: legend above in HTML,
+   12px muted text, 10×10 rounded swatches; transparent background) ── */
+.md-bp { margin-top: 6px; }
+.md-bp__legend {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px;
+  font: 400 12px/1.4 'Source Sans Pro', sans-serif; color: #898781;
+  margin-bottom: 6px;
+}
+.md-bp__key { display: inline-flex; align-items: center; gap: 5px; }
+.md-bp__swatch { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.md-bp__plot { position: relative; width: 100%; }
+.md-bp__svg { display: block; overflow: visible; }
+.md-bp__svg rect { cursor: pointer; }
+.md-bp__tip {
+  position: absolute; transform: translate(-50%, calc(-100% - 8px));
+  background: #fff; border: 1px solid #d6d4d3; border-radius: 4px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+  padding: 6px 8px; pointer-events: none; white-space: nowrap;
+  display: flex; flex-direction: column;
+  font: 400 14px/1.35 'Source Sans Pro', sans-serif; color: #000;
+}
+.md-bp__tip strong { font-weight: 600; }

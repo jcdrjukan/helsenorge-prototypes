@@ -98,4 +98,17 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Wait for a design before prototyping.
 **Why:** The vault note's own to-do explicitly asked for "a prototype demonstrating a new conceptual divide" — the prototype *is* the design exploration here, not an implementation of a prior design decision.
 
+## 2026-09-29 — Måledata: blood pressure as a floating bar chart (morning/evening)
+**Decision:** Per a user-supplied spec, the Blodtrykk panel's single-value line chart was replaced with a floating bar chart. Each reading is one bar from diastolic (bottom) to systolic (top), and morning (#2a78d6) and evening (#1baf7a) bars are grouped side by side per day. A missing reading leaves its slot empty.
+- **Axis:** fixed y-axis 60–160 mmHg (expands only if a value falls outside) with an "mmHg" axis title, light gridlines every 20 (#e1e0d9) and muted tick labels (#898781). No vertical gridlines.
+- **Bars:** max 20px wide with a small gap, rounded 4px at both ends.
+- **Legend:** HTML above the chart, 12px muted text, 10×10 swatches, plus the bottom/top hint.
+- **Tooltip:** on hover or tap, e.g. "Tirsdag 29. sep / Morgen: 140/88". The SVG has an aria-label summarizing the chart.
+- **Built as custom SVG instead of Chart.js** (the spec allows any library with floating bars): every other Måledata panel is hand-drawn SVG, and this avoids a new dependency. It's drawn in real pixels, with the width measured via ResizeObserver, so the 20px/4px sizes hold at any width.
+- **Norwegian labels** (Morgen/Kveld, man/tir…, "Stolpens bunn = undertrykk, topp = overtrykk"), since the prototype is Norwegian. Weekday labels for the 7-day view; thinned "21. sep" dates for longer ranges, with today's label end-anchored so it isn't clipped.
+- **Data:** new `BP_DAYS` (90 days of morning/evening readings) in data.ts. The last 7 days are the spec's sample week; earlier days are seeded in the same pattern. The existing "Blodtrykk (over)" series (card, chip, CSV) now takes each day's latest systolic reading from `BP_DAYS`, so it agrees with the chart.
+- **Table:** the "Vis som tabell" table for this panel now has Dato / Morgen / Kveld columns ("140/88 mmHg").
+- **Not done:** dark mode is skipped, because the Måledata page itself has no dark mode, so only the light-mode gridline/text colors are used. The optional reference bands and week/month toggle are also not done; the existing timeframe select already covers the latter.
+**Why:** Direct user request to try a different kind of graph for blodtrykk, with a detailed spec.
+
 #helsenorge

@@ -62,7 +62,6 @@ function generate(
 
 // Each series gets its own seed so panels don't visually echo one another.
 const rndVekt = seededRng(7);
-const rndSbp = seededRng(11);
 const rndPuls = seededRng(19);
 const rndSpo2 = seededRng(23);
 const rndTemp = seededRng(31);
@@ -90,7 +89,8 @@ export const SERIES: MaledataSeries[] = [
     band: [120, 140],
     decimals: 0,
     source: 'device',
-    values: generate(rndSbp, 150, 7, 110, 170, i => (i > 60 && i < 72 ? -1.4 : 0), 0.06),
+    // Filled in from BP_DAYS below (latest systolic reading of each day).
+    values: [],
   },
   {
     id: 'puls',
@@ -219,3 +219,67 @@ export function windowValues(s: MaledataSeries, days: number): (number | null)[]
 }
 
 export const TOTAL_DAYS = N;
+
+// ─── Blood pressure: morning + evening readings (floating-bar chart) ────
+// Each day has up to two readings; a null reading is a missing bar (its
+// slot stays empty, the other bar doesn't shift). The most recent 7 days
+// are the fixed sample week from the chart spec (oldest first); the
+// earlier 83 days are seeded in the same pattern (morning ~140/88,
+// evening ~128/80) so the longer timeframes have something to show.
+
+export type BpReading = { sys: number; dia: number } | null;
+export interface BpDay {
+  morning: BpReading;
+  evening: BpReading;
+}
+
+const BP_SAMPLE_MORNING: [number, number][] = [[141, 88], [145, 90], [138, 86], [143, 89], [139, 87], [136, 85], [140, 88]];
+const BP_SAMPLE_EVENING: [number, number][] = [[129, 80], [132, 82], [127, 79], [130, 81], [126, 78], [128, 80], [125, 79]];
+
+const rndBp = seededRng(53);
+function bpReading(sysBase: number, diaBase: number): BpReading {
+  if (rndBp() < 0.05) return null;
+  const sys = Math.round(sysBase + (rndBp() - 0.5) * 16);
+  const dia = Math.round(diaBase + (rndBp() - 0.5) * 10);
+  return { sys, dia };
+}
+
+/** 90 days, oldest first, most recent last — same indexing as SERIES values. */
+export const BP_DAYS: BpDay[] = Array.from({ length: N }, (_, i) => {
+  const s = i - (N - 7);
+  if (s >= 0) {
+    const [ms, md] = BP_SAMPLE_MORNING[s];
+    const [es, ed] = BP_SAMPLE_EVENING[s];
+    return { morning: { sys: ms, dia: md }, evening: { sys: es, dia: ed } };
+  }
+  return { morning: bpReading(141, 88), evening: bpReading(128, 80) };
+});
+
+/** The most recent `days` BP days, oldest first. */
+export function bpWindow(days: number): BpDay[] {
+  return BP_DAYS.slice(N - days);
+}
+
+export function formatBp(r: NonNullable<BpReading>): string {
+  return `${r.sys}/${r.dia}`;
+}
+
+const WEEKDAYS_SHORT = ['søn', 'man', 'tir', 'ons', 'tor', 'fre', 'lør'];
+const WEEKDAYS_LONG = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
+
+export function weekdayShort(offset: number): string {
+  return WEEKDAYS_SHORT[dateForOffset(offset).getDay()];
+}
+
+/** e.g. "Tirsdag 29. sep" */
+export function weekdayDateLabel(offset: number): string {
+  const w = WEEKDAYS_LONG[dateForOffset(offset).getDay()];
+  return `${w[0].toUpperCase()}${w.slice(1)} ${dateLabel(offset)}`;
+}
+
+// Blodtrykk (over)'s daily value = that day's latest systolic reading
+// (evening if present, else morning), so the card/CSV agree with the chart.
+{
+  const sbp = SERIES.find(x => x.id === 'sbp');
+  if (sbp) sbp.values = BP_DAYS.map(d => (d.evening ?? d.morning)?.sys ?? null);
+}

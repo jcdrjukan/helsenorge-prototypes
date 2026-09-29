@@ -27,6 +27,11 @@ import {
   formatValue,
   latestReading,
   windowValues,
+  bpWindow,
+  formatBp,
+  weekdayShort,
+  weekdayDateLabel,
+  type BpDay,
   type MaledataSeries,
 } from './data';
 import './style.css';
@@ -171,6 +176,178 @@ function SeriesTable({ series, days }: SeriesTableProps) {
   );
 }
 
+// ─── Blood pressure: floating bar chart ─────────────────────────────
+// One bar per reading, spanning [diastolic, systolic]; morning and
+// evening bars grouped side by side per day (a missing reading leaves
+// its slot empty). Drawn in real pixels (width measured with a
+// ResizeObserver) so the ~20px max bar width and 4px corner radius hold
+// at any container width. Legend is HTML above the chart. Colors and
+// sizes per the chart spec; labels in Norwegian.
+const BP_H = 300;
+const BP_PAD = { l: 40, r: 8, t: 22, b: 26 };
+const BP_MORNING = '#2a78d6';
+const BP_EVENING = '#1baf7a';
+const BP_GRID = '#e1e0d9';
+const BP_TICK = '#898781';
+
+type BpTip = { x: number; y: number; title: string; line: string };
+
+function BpChart({ days }: { days: number }) {
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const [w, setW] = useState(340);
+  const [tip, setTip] = useState<BpTip | null>(null);
+
+  // A tooltip from the previous timeframe would point at a different bar.
+  useEffect(() => setTip(null), [days]);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(entries => setW(Math.round(entries[0].contentRect.width)));
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, []);
+
+  const data = bpWindow(days);
+  // Fixed 60–160 so weeks are comparable; expand only if a value falls outside.
+  let lo = 60;
+  let hi = 160;
+  data.forEach(d => [d.morning, d.evening].forEach(r => {
+    if (!r) return;
+    if (r.dia < lo) lo = Math.floor(r.dia / 10) * 10;
+    if (r.sys > hi) hi = Math.ceil(r.sys / 10) * 10;
+  }));
+  const x0 = BP_PAD.l;
+  const x1 = w - BP_PAD.r;
+  const y0 = BP_PAD.t;
+  const y1 = BP_H - BP_PAD.b;
+  const sy = (v: number) => y1 - ((y1 - y0) * (v - lo)) / (hi - lo);
+  const slot = (x1 - x0) / days;
+  const gap = Math.max(1, Math.min(4, slot * 0.08));
+  const barW = Math.max(1, Math.min(20, (slot - gap) * 0.4));
+  const ticks: number[] = [];
+  for (let v = Math.ceil(lo / 20) * 20; v <= hi; v += 20) ticks.push(v);
+  // Weekday names for a one-week view; "21. sep" dates (thinned) for longer ranges.
+  const weekView = days <= 7;
+  const labelStep = weekView ? 1 : Math.ceil(days / 6);
+
+  const summary = `Blodtrykk morgen og kveld, siste ${days} dager. Hver stolpe går fra undertrykket (diastolisk) nederst til overtrykket (systolisk) øverst.`;
+
+  return (
+    <div className="md-bp">
+      <div className="md-bp__legend" aria-hidden="true">
+        <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_MORNING }} />Morgen</span>
+        <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_EVENING }} />Kveld</span>
+        <span className="md-bp__hint">Stolpens bunn = undertrykk, topp = overtrykk</span>
+      </div>
+      <div className="md-bp__plot" ref={wrapRef} onPointerLeave={() => setTip(null)}>
+        <svg width={w} height={BP_H} role="img" aria-label={summary} className="md-bp__svg">
+          <text x={4} y={12} fontSize={11} fill={BP_TICK}>mmHg</text>
+          {ticks.map(v => (
+            <g key={v}>
+              <line x1={x0} x2={x1} y1={sy(v)} y2={sy(v)} stroke={BP_GRID} strokeWidth={1} />
+              <text x={x0 - 6} y={sy(v) + 4} textAnchor="end" fontSize={11} fill={BP_TICK}>{v}</text>
+            </g>
+          ))}
+          {data.map((d, k) => {
+            const offset = days - 1 - k;
+            const cx = x0 + slot * (k + 0.5);
+            const bars: { r: NonNullable<BpDay['morning']>; x: number; color: string; name: string }[] = [];
+            if (d.morning) bars.push({ r: d.morning, x: cx - gap / 2 - barW, color: BP_MORNING, name: 'Morgen' });
+            if (d.evening) bars.push({ r: d.evening, x: cx + gap / 2, color: BP_EVENING, name: 'Kveld' });
+            const showLabel = weekView || (days - 1 - k) % labelStep === 0;
+            return (
+              <g key={k}>
+                {bars.map(b => {
+                  const top = sy(b.r.sys);
+                  const show = () => setTip({
+                    x: b.x + barW / 2,
+                    y: top,
+                    title: weekdayDateLabel(offset),
+                    line: `${b.name}: ${formatBp(b.r)}`,
+                  });
+                  return (
+                    <rect
+                      key={b.name}
+                      x={b.x}
+                      y={top}
+                      width={barW}
+                      height={Math.max(1, sy(b.r.dia) - top)}
+                      rx={Math.min(4, barW / 2)}
+                      fill={b.color}
+                      onPointerEnter={show}
+                      onClick={show}
+                    />
+                  );
+                })}
+                {showLabel && (
+                  // The rightmost (today) date label is end-anchored at the plot
+                  // edge so it isn't clipped; weekday labels are short enough to center.
+                  <text
+                    x={!weekView && k === days - 1 ? x1 : cx}
+                    y={BP_H - 8}
+                    textAnchor={!weekView && k === days - 1 ? 'end' : 'middle'}
+                    fontSize={11}
+                    fill={BP_TICK}
+                  >
+                    {weekView ? weekdayShort(offset) : dateLabel(offset)}
+                  </text>
+                )}
+              </g>
+            );
+          })}
+        </svg>
+        {tip && (
+          <div
+            className="md-bp__tip"
+            style={{ left: Math.min(Math.max(tip.x, 70), w - 70), top: tip.y }}
+            role="status"
+          >
+            <strong>{tip.title}</strong>
+            <span>{tip.line}</span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Table companion for the BP chart (same role as SeriesTable): one row per
+// day, most recent first, morning and evening as "sys/dia".
+function BpTable({ days }: { days: number }) {
+  const [visibleCount, setVisibleCount] = useState(TABLE_ROWS_PER_PAGE);
+  const rows = bpWindow(days).map((d, k) => ({ offset: days - 1 - k, d })).reverse();
+  const shownRows = rows.slice(0, visibleCount);
+  const cell = (r: BpDay['morning']) => (r ? `${formatBp(r)} mmHg` : '–');
+  return (
+    <>
+      <Table mode={ModeType.compact} scrollAriaLabel="Blodtrykk som tabell" className="md-table">
+        <TableHead>
+          <TableRow mode={ModeType.compact}>
+            <TableHeadCell mode={ModeType.compact}>Dato</TableHeadCell>
+            <TableHeadCell mode={ModeType.compact}>Morgen</TableHeadCell>
+            <TableHeadCell mode={ModeType.compact}>Kveld</TableHeadCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {shownRows.map(({ offset, d }) => (
+            <TableRow key={offset} mode={ModeType.compact}>
+              <TableCell mode={ModeType.compact} dataLabel="Dato">{dateLabel(offset)}</TableCell>
+              <TableCell mode={ModeType.compact} dataLabel="Morgen">{cell(d.morning)}</TableCell>
+              <TableCell mode={ModeType.compact} dataLabel="Kveld">{cell(d.evening)}</TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      {visibleCount < rows.length && (
+        <button className="md-text-link md-table__more" onClick={() => setVisibleCount(c => c + TABLE_ROWS_PER_PAGE)}>
+          Vis flere rader
+        </button>
+      )}
+    </>
+  );
+}
+
 interface SeriesPanelProps {
   series: MaledataSeries;
   days: number;
@@ -181,6 +358,9 @@ interface SeriesPanelProps {
 }
 
 function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRef }: SeriesPanelProps) {
+  // Blood pressure gets its own floating-bar chart (morning/evening
+  // readings) instead of the single-value line chart.
+  const isBp = series.id === 'sbp';
   const h = series.ordinal ? 56 : 78;
   const y0 = 5;
   const y1 = h - 6;
@@ -218,71 +398,75 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
     >
       <div className="md-panel__head">
         <p className="md-panel__title">
-          {series.name} <span className="md-panel__unit">{series.source === 'form' ? `skjema (skala ${series.unit})` : series.unit}</span>
+          {isBp ? 'Blodtrykk' : series.name} <span className="md-panel__unit">{series.source === 'form' ? `skjema (skala ${series.unit})` : series.unit}</span>
         </p>
       </div>
 
-      <svg viewBox={`0 0 ${VB_WIDTH} ${h}`} width="100%" role="img" className="md-panel__svg">
-        <title>{series.name}</title>
-        {series.band && (
-          <rect
-            x={PLOT_X0}
-            y={sy(series.band[1])}
-            width={PLOT_X1 - PLOT_X0}
-            height={sy(series.band[0]) - sy(series.band[1])}
-            fill="var(--core-color-blueberry-50, #e4f7f9)"
-          />
-        )}
-        {gridValues.map((v, i) => (
-          <g key={i}>
-            <line
-              x1={PLOT_X0}
-              x2={PLOT_X1}
-              y1={sy(v)}
-              y2={sy(v)}
-              stroke="var(--core-color-neutral-400)"
-              strokeOpacity={0.6}
-              strokeWidth={0.5}
+      {isBp ? (
+        <BpChart days={days} />
+      ) : (
+        <svg viewBox={`0 0 ${VB_WIDTH} ${h}`} width="100%" role="img" className="md-panel__svg">
+          <title>{series.name}</title>
+          {series.band && (
+            <rect
+              x={PLOT_X0}
+              y={sy(series.band[1])}
+              width={PLOT_X1 - PLOT_X0}
+              height={sy(series.band[0]) - sy(series.band[1])}
+              fill="var(--core-color-blueberry-50, #e4f7f9)"
             />
-            <text x={PLOT_X0 - 4} y={sy(v) + 3.5} textAnchor="end" fontSize={11} fill="var(--core-color-neutral-700)">
-              {v}
-            </text>
-          </g>
-        ))}
-        {segments.map(seg => (
-          <line
-            key={seg.key}
-            x1={seg.x1}
-            y1={seg.y1}
-            x2={seg.x2}
-            y2={seg.y2}
-            stroke={seg.color}
-            strokeWidth={1.2}
-          />
-        ))}
-        {vals.map((v, k) => {
-          if (v == null) {
-            return (
-              <circle
-                key={k}
-                cx={sx(k, days)}
-                cy={sy(midBand)}
-                r={r}
-                fill="none"
-                stroke="var(--core-color-neutral-500)"
-                strokeDasharray="2 2"
+          )}
+          {gridValues.map((v, i) => (
+            <g key={i}>
+              <line
+                x1={PLOT_X0}
+                x2={PLOT_X1}
+                y1={sy(v)}
+                y2={sy(v)}
+                stroke="var(--core-color-neutral-400)"
+                strokeOpacity={0.6}
+                strokeWidth={0.5}
               />
-            );
-          }
-          const color = isOut(v) ? 'var(--color-notification-graphics-warning)' : 'var(--core-color-blueberry-700)';
-          if (series.ordinal) {
-            return (
-              <rect key={k} x={sx(k, days) - r} y={sy(v) - r} width={2 * r} height={2 * r} fill={color} />
-            );
-          }
-          return <circle key={k} cx={sx(k, days)} cy={sy(v)} r={r} fill={color} />;
-        })}
-      </svg>
+              <text x={PLOT_X0 - 4} y={sy(v) + 3.5} textAnchor="end" fontSize={11} fill="var(--core-color-neutral-700)">
+                {v}
+              </text>
+            </g>
+          ))}
+          {segments.map(seg => (
+            <line
+              key={seg.key}
+              x1={seg.x1}
+              y1={seg.y1}
+              x2={seg.x2}
+              y2={seg.y2}
+              stroke={seg.color}
+              strokeWidth={1.2}
+            />
+          ))}
+          {vals.map((v, k) => {
+            if (v == null) {
+              return (
+                <circle
+                  key={k}
+                  cx={sx(k, days)}
+                  cy={sy(midBand)}
+                  r={r}
+                  fill="none"
+                  stroke="var(--core-color-neutral-500)"
+                  strokeDasharray="2 2"
+                />
+              );
+            }
+            const color = isOut(v) ? 'var(--color-notification-graphics-warning)' : 'var(--core-color-blueberry-700)';
+            if (series.ordinal) {
+              return (
+                <rect key={k} x={sx(k, days) - r} y={sy(v) - r} width={2 * r} height={2 * r} fill={color} />
+              );
+            }
+            return <circle key={k} cx={sx(k, days)} cy={sy(v)} r={r} fill={color} />;
+          })}
+        </svg>
+      )}
 
       {/* size defaults to ExpanderSize.small */}
       <Expander
@@ -290,7 +474,7 @@ function SeriesPanel({ series, days, flashing, tableOpen, onToggleTable, panelRe
         expanded={tableOpen}
         onExpand={isExpanded => onToggleTable(series.id, isExpanded)}
       >
-        <SeriesTable series={series} days={days} />
+        {isBp ? <BpTable days={days} /> : <SeriesTable series={series} days={days} />}
       </Expander>
     </div>
   );
