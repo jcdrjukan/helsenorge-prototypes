@@ -134,4 +134,8 @@ Started 2026-09-25.
 **Decision:** On `scenario-4-varsel.html`, the Oppgave item ("Oppgaven din fra Stavanger universitetssjukehus…") is now a read row (white, no Ulest badge), so the "Digitalt helsekort for gravide" Melding is the only unread varsel. The bell badge and "N uleste" line derive from the list, so they now read 1. The static fallbacks on the Varsler page and the S4 frontpage bell were updated to 1 as well. The top item's envelope icon now renders at its full 24px, like the read Melding rows, instead of inside the 16px StatusDot clip frame, which cropped both sides. The Figma frame puts it in that clip frame, but the envelope glyph is wider than the status-dot icons it's designed for. S1 is unchanged (still 2 unread).
 **Why:** Direct user request.
 
+## 2026-09-29 — S3 modal: updated texts from Figma
+**Decision:** The "Er du gravid selv?" modal was updated to the revised Figma node 56:27891. Ingress: "Er det ditt eget svangerskap du vil følge med, eller noen andres?". Buttons: "Mitt eget svangerskap" (was "Jeg er gravid selv") and "Noen andres svangerskap" (was "Jeg er ikke gravid selv"). The outline button is now the same medium size as the fill button (18px/22px text, 44px min-height, 0 24px padding), since the revised Figma resolved the earlier size mismatch. Title, destinations and behaviour are unchanged.
+**Why:** Direct user request with the updated Figma.
+
 #helsenorge

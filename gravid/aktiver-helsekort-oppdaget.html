@@ -443,7 +443,7 @@ a:focus-visible, button:focus-visible {
 .gm__btn span { padding: 4px 0 6px; }
 .gm__btn--fill { background: #188097; color: #fff; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
 .gm__btn--fill:hover { background: #08667c; }
-.gm__btn--outline { border: 2px solid #188097; color: #126f87; min-height: 50px; padding: 6px 32px; font-size: 20px; line-height: 24px; }
+.gm__btn--outline { border: 2px solid #188097; color: #126f87; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
 .gm__btn--outline:hover { background: #e4f7f9; }
 .gm__btn--borderless { color: #126f87; min-height: 38px; padding: 3px 8px; font-size: 18px; line-height: 22px; }
 .gm__btn--borderless:hover { background: rgba(18, 111, 135, 0.13); }
@@ -670,11 +670,11 @@ a:focus-visible, button:focus-visible {
     <button type="button" class="gm__close" id="gmClose" aria-label="Lukk"><img src="img/modal-close.svg" width="38" height="38" alt=""></button>
     <div class="gm__top">
       <h2 class="gm__title" id="gmTitle">Er du gravid selv?</h2>
-      <p class="gm__ingress" id="gmIngress">Eller ønsker du å følge med på noen andres svangerskap?</p>
+      <p class="gm__ingress" id="gmIngress">Er det ditt eget svangerskap du vil følge med, eller noen andres?</p>
     </div>
     <div class="gm__buttons">
-      <a class="gm__btn gm__btn--fill" id="gmSelf" href="#"><span>Jeg er gravid selv</span></a>
-      <a class="gm__btn gm__btn--outline" id="gmOther" href="#"><span>Jeg er ikke gravid selv</span></a>
+      <a class="gm__btn gm__btn--fill" id="gmSelf" href="#"><span>Mitt eget svangerskap</span></a>
+      <a class="gm__btn gm__btn--outline" id="gmOther" href="#"><span>Noen andres svangerskap</span></a>
       <button type="button" class="gm__btn gm__btn--borderless" id="gmCancel"><span>Avbryt</span></button>
     </div>
   </div>
@@ -756,9 +756,9 @@ document.getElementById('activateBtn').href =
 
 // ─── "Er du gravid selv?" modal ──────────────────────────────────────
 // "Aktiver digitalt helsekort" no longer navigates directly: it opens
-// the modal, and she has to choose. "Jeg er gravid selv" continues to
+// the modal, and she has to choose. "Mitt eget svangerskap" continues to
 // the activated Gravid page (the activate button's own href, built
-// above); "Jeg er ikke gravid selv" (following someone else's
+// above); "Noen andres svangerskap" (following someone else's
 // pregnancy) goes to Gravid without digitalt helsekort — same
 // destination as this page's "Bruk Gravid uten digitalt helsekort" —
 // with the "Del opplysninger" panel explicitly off (panelHelsekort=0):
