@@ -430,3 +430,15 @@
   font: 400 14px/1.35 'Source Sans Pro', sans-serif; color: #000;
 }
 .md-bp__tip strong { font-weight: 600; }
+
+/* Latest-registration card with trend: text left, sparkline right. */
+.md-card--with-spark { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.md-card__text { display: block; min-width: 0; }
+.md-card__spark { flex-shrink: 0; display: block; }
+.md-card__trend {
+  /* Neutral on purpose — the same subdued text colour whatever the
+     direction; direction is stated in words/sign, never by colour. */
+  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
+  margin: 2px 0 0;
+  color: var(--core-color-neutral-800, #474745);
+}

@@ -135,4 +135,14 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Decision:** The previous entry's light-fill evening bars were a misunderstanding of "try a lighter green" and are reverted. The user meant a lighter color for both the solid (morning) bars and the hollow (evening) outline. Both now use **blueberry500** (#188097), the lightest blueberry token that still clears WCAG 1.4.11's 3:1 on white (4.59:1; blueberry400 is 2.66:1). The shape difference (solid vs hollow) is unchanged. The 3-month fallback for too-thin evening bars stays blueberry300 (2.20:1 against blueberry500).
 **Why:** Direct user clarification.
 
+## 2026-09-29 — Måledata cards: trend as a sparkline + neutral change text
+**Decision:** Each "Siste målinger" card now shows a trend. There's a **sparkline** on the right, and for continuous measurements a **neutral change line** under the timestamp, e.g. "+1,7 kg siste 14 dager", "−3 % siste 14 dager", "Omtrent uendret siste 14 dager".
+- **Neutral by design:** per the vault working notes (Måledata.md §4, §8), Helsenorge doesn't compute verdicts: no red/green, no "bedre/verre", no arrows. Direction is stated only by the sign and number. The change text is the same subdued grey whatever the direction, and whether "up" is good depends on the series and the patient. The only colour is the existing amber latest-point dot when it's outside the target band, matching the panel charts and the card's own "Utenfor" text.
+- **Calculation:** fixed 14-day window (`TREND_DAYS`), independent of the "Vis tidsrom" selector below, so the cards always mean the same thing. It compares **averages**: the readings in the most recent 3 days vs. the first 3 days of the window, so one noisy reading can't flip it. Below a per-series threshold it reads "Omtrent uendret" (vekt 0,5 kg, blodtrykk 5 mmHg, puls 5 /min, SpO₂ 1 %, temperatur 0,3 °C). These thresholds are placeholders to be clinically validated. Real minus sign (U+2212), non-breaking space before the unit.
+- **Sparkline:** 120×40, last 14 days, target band as a faint blueberry-50 strip, line in blueberry700, latest point marked. It's scaled to the window's own values plus the band (standard sparkline practice); the panels' fixed scale made it too flat to read. Gaps break the line (no solid line across missing days).
+- **Form scales** (Tungpust, CFS) get dots only on their real scale endpoints (0–4, 1–9), never a line, and no change text (§8: ordinal data isn't a vital sign).
+- **Accessibility:** the sparkline is aria-hidden; the change text is real text inside the card button, so it's read out.
+**Not done:** a per-card "Stabil" arrow, percentages (§8 calls them a trap), and a whole-period trend.
+**Why:** Direct user request to indicate a trend in the cards; sparkline + neutral text chosen from the options discussed.
+
 #helsenorge

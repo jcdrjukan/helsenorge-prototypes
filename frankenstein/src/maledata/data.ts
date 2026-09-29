@@ -283,3 +283,55 @@ export function weekdayDateLabel(offset: number): string {
   const sbp = SERIES.find(x => x.id === 'sbp');
   if (sbp) sbp.values = BP_DAYS.map(d => (d.evening ?? d.morning)?.sys ?? null);
 }
+
+// ─── Trend for the latest-registration cards ────────────────────────
+// Neutral, descriptive change over a fixed window — never a verdict
+// (working notes §8: no good/bad colours or words; whether "up" is good
+// depends on the series and the patient). Compares averages, not two
+// single readings, so day-to-day noise doesn't flip it: the mean of the
+// readings in the most recent 3 days vs. the mean of the readings 3 days
+// around the start of the window. Below a per-series threshold it's
+// reported as "about unchanged". Ordinal/form series get no trend text.
+
+export const TREND_DAYS = 14;
+
+/** Smallest change worth reporting, per series (same unit as the series). */
+const TREND_STABLE: Record<string, number> = {
+  vekt: 0.5,
+  sbp: 5,
+  puls: 5,
+  spo2: 1,
+  temp: 0.3,
+};
+
+export interface Trend {
+  /** Recent mean minus earlier mean. */
+  delta: number;
+  /** |delta| is below the series' threshold. */
+  stable: boolean;
+}
+
+function meanOf(vals: (number | null)[]): number | null {
+  const present = vals.filter((v): v is number => v != null);
+  return present.length ? present.reduce((a, b) => a + b, 0) / present.length : null;
+}
+
+export function trendFor(s: MaledataSeries, days = TREND_DAYS): Trend | null {
+  if (s.ordinal) return null;
+  const w = windowValues(s, days);
+  const earlier = meanOf(w.slice(0, 3));
+  const recent = meanOf(w.slice(-3));
+  if (earlier == null || recent == null) return null;
+  const delta = recent - earlier;
+  const threshold = TREND_STABLE[s.id] ?? 0;
+  return { delta, stable: Math.abs(delta) < threshold };
+}
+
+/** e.g. "+0,8 kg siste 14 dager", "−5 mmHg siste 14 dager",
+ *  "Omtrent uendret siste 14 dager". Uses a real minus sign (U+2212). */
+export function trendLabel(s: MaledataSeries, t: Trend, days = TREND_DAYS): string {
+  const period = `siste ${days} dager`;
+  if (t.stable) return `Omtrent uendret ${period}`;
+  const sign = t.delta > 0 ? '+' : '−';
+  return `${sign}${formatValue(Math.abs(t.delta), s.decimals)} ${s.unit} ${period}`;
+}
