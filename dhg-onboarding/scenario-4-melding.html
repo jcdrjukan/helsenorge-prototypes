@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Innboks – Helsenorge</title>
+<link rel="icon" type="image/svg+xml" href="https://helsenorge-gravid.netlify.app/favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+
+:root {
+  --blueberry-50:  #E4F7F9;
+  --blueberry-500: #188097;
+  --blueberry-600: #126F87;
+  --blueberry-700: #08667C;
+  --cherry-500: #C83521;
+  --cherry-600: #B62E1C;
+
+  --neutral-100: #EAE7E7;
+  --neutral-200: #D6D4D3;
+  --neutral-300: #BDBAB9;
+  --neutral-700: #62625F;
+
+  --color-action-text-onlight:                        #126F87;
+  --color-action-background-onlight:                  #188097;
+  --color-action-background-transparent-onlight-hover: rgba(18,111,135,0.13);
+  --color-base-text-onlight:             #000000;
+  --color-base-text-onlight-subdued:     #474745;
+  --color-base-background-blueberry:     #E4F7F9;
+  --color-base-background-dark-neutral:  #2B2C2B;
+  --color-base-background-neutral:       #F2F1F1;
+
+  --space-3xs: 0.25rem;
+  --space-2xs: 0.5rem;
+  --space-xs:  0.75rem;
+  --space-s:   1rem;
+  --space-m:   1.5rem;
+  --space-l:   2rem;
+  --space-xl:  3rem;
+
+  --mobile-h1: 600 2.25rem/122% 'Source Sans Pro', sans-serif;
+  --mobile-h2: 600 1.625rem/130% 'Source Sans Pro', sans-serif;
+  --mobile-label: 600 1.125rem/120% 'Source Sans Pro', sans-serif;
+  --mobile-body: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-body-strong: 600 1.125rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-image-caption: 400 1rem/150% 'Source Sans Pro', sans-serif;
+  --mobile-h4: 600 1.25rem/130% 'Source Sans Pro', sans-serif;
+  --mobile-h3: 600 1.375rem/136% 'Source Sans Pro', sans-serif;
+
+  --radius-s:  4px;
+  --radius-m:  8px;
+
+  --focus-outline: 3px solid #000000;
+  --focus-offset:  2px;
+}
+
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font: var(--mobile-body);
+  color: var(--color-base-text-onlight);
+  background: var(--neutral-100);
+}
+
+.phone-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #b0b0b0;
+  padding: 40px 24px;
+  box-sizing: border-box;
+  gap: 20px;
+}
+.phone-frame {
+  width: 418px;
+  height: 900px;
+  flex-shrink: 0;
+  background: #111;
+  border-radius: 54px;
+  padding: 14px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.06),
+    0 50px 120px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.phone-frame__screen {
+  flex: 1;
+  background: #fff;
+  border-radius: 42px;
+  overflow: hidden;
+  overflow-y: auto;
+  scrollbar-width: none;
+  contain: layout;
+}
+.phone-frame__screen::-webkit-scrollbar { display: none; }
+.phone-frame__home {
+  height: 5px;
+  width: 130px;
+  background: rgba(255,255,255,0.3);
+  border-radius: 3px;
+  margin: 10px auto 4px;
+  flex-shrink: 0;
+}
+@media (max-width: 480px) {
+  .phone-wrapper { background: #fff; padding: 0; justify-content: flex-start; }
+  .phone-frame {
+    width: 100%; height: auto; border-radius: 0; padding: 0;
+    background: transparent; box-shadow: none;
+    overflow: visible;
+  }
+  .phone-frame__screen { border-radius: 0; overflow: visible; overflow-y: visible; }
+  .phone-frame__home { display: none; }
+}
+
+a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-offset: var(--focus-offset); border-radius: var(--radius-s); }
+
+/* ─────────────────────────────────────────────────────────────
+   S4: Innboks message, deep-linked straight from the "Melding" varsel
+   (bypassing the Innboks overview). Figma "CLD - Gravid" node 53:6107
+   ("Melding - Samtykke NP Compact Outlined - Mobil") — simplified
+   ("Forenklet visning") header + footer, all sizes/colors from that node.
+───────────────────────────────────────────────────────────────── */
+.app { background: #fff; width: 390px; min-height: 100%; margin: 0 auto; display: flex; flex-direction: column; gap: 48px; }
+.mh { display: flex; height: 76px; align-items: center; justify-content: space-between; padding: 0 12px; }
+.mh__user { display: flex; gap: 19px; align-items: flex-start; font: 600 18px/28px 'Source Sans Pro', sans-serif; }
+.mbc { display: flex; height: 50px; align-items: center; padding: 0 12px; }
+.mbc__inner { width: 100%; border-top: 1px solid #AAA8A6; border-bottom: 1px solid #AAA8A6; padding: 8px 0; }
+.mbc__link { display: inline-flex; align-items: center; gap: 22px; color: #000; text-decoration: none; font: 600 20px/32px 'Source Sans Pro', sans-serif; }
+.mbc__link:hover span { text-decoration: underline; }
+.mc { padding: 0 12px; display: flex; flex-direction: column; gap: 24px; }
+.mc h1 { font: 600 36px/44px 'Source Sans Pro', sans-serif; color: #000; }
+.m-danger { display: inline-flex; align-items: center; gap: 4px; height: 54px; background: none; border: none; cursor: pointer; padding: 0;
+  font: 600 20px/28px 'Source Sans Pro', sans-serif; color: #B62E1C; align-self: flex-start; }
+.m-danger img { width: 38px; height: 38px; }
+.mt-head { background: #EAE7E7; padding: 16px 8px; display: flex; align-items: center; justify-content: space-between; }
+.mt-avatar { width: 48px; height: 48px; background: #2B2C2B; color: #fff; display: flex; align-items: center; justify-content: center; font: 600 24px/1 'Source Sans Pro', sans-serif; flex-shrink: 0; }
+.mt-who { width: 225px; }
+.mt-who__name { font: 700 20px/24px 'Source Sans Pro', sans-serif; }
+.mt-who__sent { font: 400 18px/28px 'Source Sans Pro', sans-serif; }
+.mt-who__sent b { font-weight: 600; line-height: 24px; }
+.mt-body { background: #F5F3F3; padding: 24px; display: flex; flex-direction: column; gap: 16px; }
+.mt-text { display: flex; flex-direction: column; gap: 24px; font: 400 18px/28px 'Source Sans Pro', sans-serif; }
+.m-cta { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; background: #188097; border-radius: 8px; padding: 6px 12px 6px 25px;
+  color: #fff; text-decoration: none; font: 600 20px/24px 'Source Sans Pro', sans-serif; }
+.m-cta:hover { background: #126F87; }
+.m-cta span { padding: 4px 0 6px; }
+.m-cta img { width: 38px; height: 38px; }
+.mt-nav { border-top: 2px solid #D6D4D3; padding-top: 24px; display: flex; gap: 16px; align-items: flex-start; }
+.m-reply { display: inline-flex; align-items: center; gap: 4px; height: 54px; padding: 8px 24px; background: #D6D4D3; border: 2px dashed #62625F;
+  font: 600 20px/28px 'Source Sans Pro', sans-serif; color: #474745; cursor: default; }
+.m-reply img { width: 38px; height: 38px; }
+.mf { padding: 0 12px 24px; display: flex; flex-direction: column; gap: 24px; }
+.mf__row { border-top: 1px solid #AAA8A6; border-bottom: 1px solid #AAA8A6; padding: 24px 0; display: flex; gap: 8px; font: 400 18px/normal 'Source Sans Pro', sans-serif; }
+.mf__row a { color: #126F87; text-decoration: none; border-bottom: 1px solid #126F87; line-height: 23px; }
+</style>
+</head>
+<body>
+
+<div class="phone-wrapper">
+<div class="phone-frame">
+<div class="phone-frame__screen">
+
+<div class="app">
+  <div>
+    <header class="mh">
+      <a href="scenario-4-frontpage.html" aria-label="Helsenorge – til forsiden"><img src="assets/msg-hn-logo.svg" width="103" height="49" alt=""></a>
+      <span class="mh__user"><img src="assets/msg-avatar.svg" width="18.83" height="28.682" alt="">Tora Hansen</span>
+    </header>
+    <nav class="mbc" aria-label="Brødsmulesti">
+      <div class="mbc__inner">
+        <a class="mbc__link" href="scenario-4-varsel.html"><img src="assets/msg-chevron-left.svg" width="9.68259" height="16.4197" alt=""><span>Innboks</span></a>
+      </div>
+    </nav>
+  </div>
+
+  <main class="mc">
+    <h1>Digitalt helsekort for gravide</h1>
+    <button type="button" class="m-danger"><img src="assets/msg-trash.svg" width="38" height="38" alt="">Slett samtale</button>
+    <div>
+      <div class="mt-head">
+        <span class="mt-avatar" aria-hidden="true">Fr</span>
+        <div class="mt-who">
+          <div class="mt-who__name">Frogner legesenter</div>
+          <div class="mt-who__sent"><b>Sendt:</b> 04.03.2026 kl. 07:01</div>
+        </div>
+        <img src="assets/msg-chevron-up.svg" width="38" height="38" alt="">
+      </div>
+      <div class="mt-body">
+        <div class="mt-text">
+          <div>
+            <p>Du er herved invitert til å ta i bruk tjenesten Gravid og digitalt helsekort.</p>
+            <p>&#8203;</p>
+            <p>Mvh</p>
+            <p>&#8203;</p>
+            <p>Solvor Bakke</p>
+          </div>
+          <a class="m-cta" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html?kilde=melding"><span>Gå til tjenesten Gravid</span><img src="assets/msg-arrow-right.svg" width="38" height="38" alt=""></a>
+        </div>
+        <div class="mt-nav">
+          <span class="m-reply"><img src="assets/msg-reply.svg" width="38" height="38" alt="">Svar</span>
+          <button type="button" class="m-danger"><img src="assets/msg-trash.svg" width="38" height="38" alt="">Slett melding</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="mf">
+    <div class="mf__row">Veiledning helsenorge.no <a href="#">23 32 70 00</a></div>
+    <img src="assets/msg-byline-logo.svg" width="111.921" height="13.0588" alt="Helsenorge">
+  </footer>
+</div>
+
+</div><!-- /phone-frame__screen -->
+<div class="phone-frame__home"></div>
+</div><!-- /phone-frame -->
+</div><!-- /phone-wrapper -->
+
+</body>
+</html>

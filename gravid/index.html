@@ -697,15 +697,29 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    the other href="#" affordances on this page. */
 .due-date-unknown {
   margin-top: var(--space-2xs);
+  text-align: center;
 }
 
+/* "Termindato ikke registrert" message shown in the circle alongside
+   the button (per direct request). Same caption token as the other
+   states' title line. */
+.due-date-unknown__text {
+  display: block;
+  font: var(--mobile-image-caption);
+  color: var(--color-base-text-onlight);
+  margin-bottom: var(--space-3xs);
+}
+
+/* Primary (fill) button styling per direct request — solid
+   action-background, white text — kept at the compact size the ring
+   center needs. */
 .due-date-unknown__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
-  border: 1px solid var(--blueberry-700);
-  border-radius: var(--radius-s);
+  background: var(--color-action-background-onlight);
+  border: none;
+  border-radius: var(--radius-m);
   padding: var(--space-3xs) var(--space-xs);
   cursor: pointer;
   white-space: nowrap;
@@ -713,10 +727,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
 .due-date-unknown__btn span {
   font: 600 0.875rem/120% 'Source Sans Pro', sans-serif;
-  color: var(--blueberry-700);
+  color: #fff;
 }
 
-.due-date-unknown__btn:hover { background: var(--blueberry-50); }
+.due-date-unknown__btn:hover { background: var(--color-action-background-onlight-hover); }
 
 /* ═══════════════════════════════════════════════════════════
    SECTION HEADINGS
@@ -1203,6 +1217,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-bottom: var(--space-3xs);
 }
 
+.sf-value-display[hidden] { display: none; }
 .sf-value-display {
   font-size: 2.125rem;
   font-weight: 600;
@@ -2009,6 +2024,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
              DHG early in the pregnancy. Hidden by default; toggled with
              setTermindatoState() below. -->
         <div class="due-date-unknown" id="dueDateUnknown" hidden>
+          <span class="due-date-unknown__text">Termindato ikke registrert</span>
           <button type="button" class="due-date-unknown__btn">
             <span>Beregn termindato</span>
           </button>
@@ -2846,7 +2862,7 @@ function updateGrowthChart(week) {
     earlierDots.replaceChildren();
     wkLine.setAttribute('x1', -100); wkLine.setAttribute('x2', -100);
     callout.style.display = 'none';
-    document.getElementById('sfValue').textContent = '–';
+    document.getElementById('sfValue').hidden = true;
     return;
   }
 
@@ -2878,6 +2894,7 @@ function updateGrowthChart(week) {
   wkLine.setAttribute('x1', lx); wkLine.setAttribute('x2', lx);
   const cm = Math.round(last.cm);
   document.getElementById('sfCalloutValue').textContent = cm + ' cm';
+  document.getElementById('sfValue').hidden = false;
   document.getElementById('sfValue').textContent = cm + 'cm';
   callout.style.display = 'block';
 }

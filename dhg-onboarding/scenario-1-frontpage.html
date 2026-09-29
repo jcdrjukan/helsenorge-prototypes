@@ -131,13 +131,14 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 .fs-expanded-tjenester[hidden] { display: none; }
 .fs-tjeneste-group { margin: 0; }
 
-.fs-fastlege-panel { margin: 0 0 3rem; background: #FBEBE3; border-radius: 8px; display: flex; align-items: center; gap: 0.75rem; padding: 1.5rem 1rem; text-decoration: none; color: #000; cursor: pointer; }
-.fs-fastlege-panel:hover { background: #F7DDD0; }
-.fs-fastlege-panel__icon { width: 56px; height: 56px; flex-shrink: 0; border-radius: 50%; background: #F2C9B4; display: flex; align-items: center; justify-content: center; color: #874421; }
-.fs-fastlege-panel__icon svg { width: 32px; height: 32px; }
-.fs-fastlege-panel__content { flex: 1; display: flex; flex-direction: column; gap: 0.25rem; }
-.fs-fastlege-panel__title { font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; }
-.fs-fastlege-panel__desc { font: 400 1rem/1.4 'Source Sans Pro', sans-serif; color: #474745; }
+/* "Fastlegen din" PromoPanel — Figma CLD - Gravid node 48:1222 (cherry
+   PromoPanel: Doctor illustration 110px, Mobile/H3 + Mobile/Body, ArrowRight). */
+.fs-fastlege-panel { margin: 0 0 3rem; background: #FFF2EA; border-radius: 8px; display: flex; align-items: center; padding-right: 8px; text-decoration: none; color: #000; cursor: pointer; }
+.fs-fastlege-panel__icon { width: 110px; height: 110px; flex-shrink: 0; position: relative; overflow: hidden; }
+.fs-fastlege-panel__icon img { position: absolute; top: 9.06%; bottom: 9.06%; left: 13.76%; right: 13.76%; width: 72.48%; height: 81.88%; }
+.fs-fastlege-panel__content { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; padding: 24px 12px 24px 0; }
+.fs-fastlege-panel__title { font: 600 22px/1.36 'Source Sans Pro', sans-serif; }
+.fs-fastlege-panel__desc { font: 400 18px/1.55 'Source Sans Pro', sans-serif; }
 .fs-fastlege-panel__arrow { width: 38px; height: 38px; flex-shrink: 0; }
 
 .fs-section-divider { border: none; border-top: 1px solid #D6D4D3; margin: 0.75rem 0 1rem; }
@@ -188,10 +189,10 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
           <svg width="38" height="38" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M37.656 31.434v1.75H10.269v-1.75h27.387zm0-8.842v1.75H10.269v-1.75h27.387zm0-8.464v1.75H10.269v-1.75h27.387z"/></svg>
           <span class="nav-icon-btn__label">Meny</span>
         </button>
-        <a class="nav-icon-btn" href="scenario-1-varsel.html" aria-label="Varsler, 1 ulest">
+        <a class="nav-icon-btn" href="scenario-1-varsel.html" aria-label="Varsler, 2 uleste">
           <span class="nav-icon-btn__icon-wrap">
             <svg width="38" height="38" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M28.004 34.481v-.209h-8.208v.21h-7.894l3.057-4.918h17.882l3.056 4.917h-7.893zm-1.3 2.04a2.807 2.807 0 01-2.804 2.803 2.808 2.808 0 01-2.805-2.804v-.739h5.61v.74zM15.247 19.202a8.346 8.346 0 016.323-8.102l.492-.124v-.664A1.84 1.84 0 0123.9 8.476c1.013 0 1.837.824 1.837 1.837v.664l.492.124a8.345 8.345 0 016.323 8.102v9.062H15.247v-9.062zM37.62 34.788l-3.767-6.059v-9.526a9.645 9.645 0 00-6.833-9.232A3.143 3.143 0 0023.9 7.175a3.141 3.141 0 00-3.119 2.796 9.645 9.645 0 00-6.834 9.232v9.526l-3.766 6.06a.648.648 0 00.552.992h9.063v.74a4.109 4.109 0 004.104 4.103 4.109 4.109 0 004.104-4.104v-.739h9.063a.652.652 0 00.552-.993z"/></svg>
-            <span class="nav-icon-btn__badge" aria-hidden="true">1</span>
+            <span class="nav-icon-btn__badge" aria-hidden="true">2</span>
           </span>
           <span class="nav-icon-btn__label">Varsler</span>
         </a>
@@ -440,12 +441,12 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 
     <!-- ── Din fastlege ── -->
     <a class="fs-fastlege-panel" href="#">
-      <span class="fs-fastlege-panel__icon" aria-hidden="true"><svg width="32" height="32" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M43.51 41.823h-3.224V34.91h-.9v6.913H28.334v-8.436c0-2.607-1.023-5.047-2.724-6.879a7.976 7.976 0 012.739-1.535c2.796 1.393 6.255 1.393 9.05 0 3.61 1.162 6.11 4.576 6.11 8.39v8.46zm-16.476 0H5.762v-8.436c0-3.627 2.266-6.888 5.595-8.199v5.467a1.924 1.924 0 00-1.448 1.857c0 1.062.864 1.925 1.925 1.925a1.926 1.926 0 001.925-1.925c0-.895-.617-1.643-1.445-1.857v-5.469c2.578 1.126 5.626 1.122 8.197-.013v3.51a2.163 2.163 0 00-1.683 2.104v2.973h.957v-2.973a1.205 1.205 0 012.409 0v2.973h.956v-2.973a2.162 2.162 0 00-1.681-2.104V25.2c3.313 1.318 5.564 4.571 5.564 8.187v8.435zM11.835 31.544a.968.968 0 110 1.936.968.968 0 010-1.936zm25.68-7.895l-.252-.074-.233.125c-2.543 1.355-5.77 1.355-8.314 0l-.233-.125-.254.074a9.293 9.293 0 00-3.563 1.958 10.014 10.014 0 00-3.627-1.932l-.252-.075-.233.125c-2.543 1.356-5.77 1.356-8.314 0l-.233-.125-.253.075c-4.295 1.245-7.294 5.24-7.294 9.711v9.736h23.223v.001H44.81v-9.762c0-4.474-2.998-8.468-7.294-9.712zM26.593 13.507h3.22a4.09 4.09 0 003.574-2.107 4.036 4.036 0 003.54 2.107h2.228v2.019a6.09 6.09 0 01-6.083 6.082h-.398a6.09 6.09 0 01-6.082-6.082v-2.02zm6.081-7.366h.398a6.09 6.09 0 016.083 6.082v.284h-2.227a3.033 3.033 0 01-3.03-3.03v-.268h-1v.214c0 1.7-1.385 3.084-3.086 3.084h-3.22v-.284a6.09 6.09 0 016.082-6.082zm0 16.767h.398c4.071 0 7.383-3.312 7.383-7.382v-3.303c0-4.07-3.311-7.383-7.382-7.383h-.398c-4.07 0-7.383 3.313-7.383 7.383v3.303c0 4.07 3.313 7.382 7.383 7.382z"/><path d="M35.52 16.332a.502.502 0 100-1.005.502.502 0 000 1.005m-5.293 0a.502.502 0 100-1.005.502.502 0 000 1.005m-20.11-2.825h.728a4.034 4.034 0 003.54-2.107 4.088 4.088 0 003.574 2.107h4.72v2.019a6.09 6.09 0 01-6.083 6.082h-.397a6.09 6.09 0 01-6.082-6.082v-2.02zm6.082-7.366h.397a6.09 6.09 0 016.084 6.082v.284h-4.721a3.088 3.088 0 01-3.084-3.084v-.214h-1v.268c0 1.67-1.36 3.03-3.03 3.03h-.728v-.284a6.09 6.09 0 016.082-6.082zm0 16.767h.397c4.072 0 7.384-3.312 7.384-7.382v-3.303c0-4.07-3.312-7.383-7.384-7.383h-.397c-4.07 0-7.383 3.313-7.383 7.383v3.303c0 4.07 3.313 7.382 7.383 7.382z"/><path d="M13.787 16.332a.503.503 0 100-1.006.503.503 0 000 1.006m5.293 0a.503.503 0 100-1.006.503.503 0 000 1.006"/></svg></span>
+      <span class="fs-fastlege-panel__icon" aria-hidden="true"><img src="assets/fastlege-doctor.svg" width="144.957" height="163.763" alt=""></span>
       <span class="fs-fastlege-panel__content">
-        <span class="fs-fastlege-panel__title">Din fastlege</span>
+        <span class="fs-fastlege-panel__title">Fastlegen din</span>
         <span class="fs-fastlege-panel__desc">Kontakt fastlegen og se alle tjenestene</span>
       </span>
-      <span class="fs-fastlege-panel__arrow" aria-hidden="true"><svg width="38" height="38" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M32.951 18.788l1.419 1.409-10.371 10.451L13.63 20.197l1.419-1.409L24 27.809z"/></svg></span>
+      <img class="fs-fastlege-panel__arrow" src="assets/arrow-right.svg" width="38" height="38" alt="">
     </a>
 
     <!-- ── Kvalitetssikret helseinformasjon ── -->

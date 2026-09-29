@@ -612,7 +612,7 @@ a:focus-visible, button:focus-visible {
 // ─── Onboarding-source context (?kilde=) ────────────────────────────
 // Drives the short "why am I here" banner and the breadcrumb, per
 // onboarding scenario. Absent/unrecognized kilde = original page
-// behavior (provider-URL scenario / direct link), no banner shown.
+// behavior (provider-URL scenario / direct link) plus S4's info banner.
 // See ../dhg-onboarding/ for the scenario screens that link in with
 // each of these.
 // activateQuery: the state she lands in on index.html after activating.
@@ -645,12 +645,27 @@ const KILDE_CONFIG = {
     breadcrumbLabel: 'Timen din',
     breadcrumbHref: 'https://gravid-onboarding.netlify.app/scenario-2-booking.html',
   },
+  // S4 via Helsenorge: Varsler → "Melding" varsel → Innboks message from
+  // the provider → "Gå til tjenesten Gravid".
+  melding: {
+    breadcrumbLabel: 'Innboks',
+    breadcrumbHref: 'https://gravid-onboarding.netlify.app/scenario-4-melding.html',
+  },
 };
+
+// S4's info message (per direct request) — shown both for kilde=melding
+// and for no kilde at all, since both are S4 (the Innboks message and
+// the provider-issued URL, e.g. by SMS).
+const S4_BANNER = 'Dersom du har fått invitasjon av din behandler, kan du ta i bruk digitalt helsekort for gravide i tillegg til flere funksjoner i tjenesten Gravid.';
 
 const params = new URLSearchParams(location.search);
 const kilde = params.get('kilde');
 const config = kilde ? KILDE_CONFIG[kilde] : null;
 
+if (!kilde || kilde === 'melding') {
+  document.getElementById('sourceBannerText').textContent = S4_BANNER;
+  document.getElementById('sourceBanner').hidden = false;
+}
 if (config) {
   if (config.banner) {
     document.getElementById('sourceBannerText').textContent = config.banner;
