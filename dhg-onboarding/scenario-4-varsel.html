@@ -312,6 +312,11 @@ a:focus-visible, button:focus-visible {
 .vl-u__meta { display: flex; align-items: center; justify-content: space-between; padding-left: 16px; margin-right: 48px; min-height: 28px; }
 .vl-u__head { display: flex; align-items: center; justify-content: space-between; padding: 0 0 8px 2px; }
 .vl-u__label { flex: 1; min-width: 0; min-height: 48px; display: flex; flex-direction: column; gap: 4px; padding: 4px 0 10px 14px; }
+/* A row marked read this session keeps its unread-row layout but drops
+   the unread styling (background + Ulest badge). */
+.vl-item--read { padding: 8px 0; }
+.vl-item--read .vl-badge { display: none; }
+.icon-btn__badge[hidden] { display: none; }
 /* read */
 .vl-r { display: flex; align-items: center; justify-content: space-between; padding: 8px 0 8px 8px; min-height: 64px; }
 .vl-r--expander { align-items: flex-start; }
@@ -321,7 +326,7 @@ a:focus-visible, button:focus-visible {
 
 </style>
 </head>
-<body>
+<body data-scenario="s4">
 
 <div class="phone-wrapper">
 <div class="phone-frame">
@@ -382,7 +387,7 @@ a:focus-visible, button:focus-visible {
     <div class="vp-tilpass"><a class="vp-btn" href="#"><img src="assets/btn-tilpass.svg" width="38" height="38" alt=""><span>Tilpass varsler</span></a></div>
     <div class="vp-sticky">
       <div class="vp-actions">
-        <button type="button" class="vp-btn"><img src="assets/btn-check.svg" width="38" height="38" alt=""><span>Marker alle som lest</span></button>
+        <button type="button" class="vp-btn" id="markAllRead"><img src="assets/btn-check.svg" width="38" height="38" alt=""><span>Marker alle som lest</span></button>
         <button type="button" class="vp-btn"><img src="assets/btn-edit.svg" width="38" height="38" alt=""><span>Rediger</span></button>
       </div>
       <div class="vp-count">2 uleste</div>
@@ -502,5 +507,42 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-frame -->
 </div><!-- /phone-wrapper -->
 
+<script>
+// Unread count sync — the bell badge, its aria-label and the "N uleste"
+// line are all derived from the number of unread rows actually in the
+// list (never hardcoded). Rows marked read (by opening one, or via
+// "Marker alle som lest") are remembered for the session under
+// STORE_KEY, and the resulting count is written to COUNT_KEY so this
+// scenario's frontpage bell shows the same number.
+(function () {
+  var SCN = document.body.dataset.scenario;
+  var STORE_KEY = 'dhg-' + SCN + '-read', COUNT_KEY = 'dhg-' + SCN + '-unread';
+  var store = { get: function (k) { try { return sessionStorage.getItem(k); } catch (e) { return null; } },
+                set: function (k, v) { try { sessionStorage.setItem(k, v); } catch (e) {} } };
+  var rows = Array.prototype.slice.call(document.querySelectorAll('.vl-item--unread'));
+  rows.forEach(function (r, i) { r.dataset.uid = r.dataset.uid || String(i); });
+  var read = (store.get(STORE_KEY) || '').split(',').filter(Boolean);
+  function markRead(row) {
+    row.classList.remove('vl-item--unread'); row.classList.add('vl-item--read');
+    if (read.indexOf(row.dataset.uid) < 0) read.push(row.dataset.uid);
+  }
+  function render() {
+    var n = document.querySelectorAll('.vl-item--unread').length;
+    var badge = document.querySelector('.icon-btn__badge');
+    badge.textContent = n; badge.hidden = n === 0;
+    badge.closest('a').setAttribute('aria-label', n ? 'Varsler, ' + n + (n === 1 ? ' ulest' : ' uleste') : 'Varsler');
+    document.querySelector('.vp-count').textContent = n + (n === 1 ? ' ulest' : ' uleste');
+    store.set(STORE_KEY, read.join(',')); store.set(COUNT_KEY, String(n));
+  }
+  rows.forEach(function (r) {
+    if (read.indexOf(r.dataset.uid) >= 0) markRead(r);
+    r.addEventListener('click', function () { markRead(r); render(); });
+  });
+  document.getElementById('markAllRead').addEventListener('click', function () {
+    Array.prototype.slice.call(document.querySelectorAll('.vl-item--unread')).forEach(markRead); render();
+  });
+  render();
+})();
+</script>
 </body>
 </html>

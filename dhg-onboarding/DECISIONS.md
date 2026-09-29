@@ -109,4 +109,8 @@ Started 2026-09-25.
 **Asset note:** every icon comes from Figma's own asset export, with one exception. The "Rediger" button's export returned the component's default eye glyph rather than the pencil shown in Figma's render, so it uses the real `@helsenorge/designsystem-react` Icons/Edit path instead (an exact match to the render).
 **Why:** Direct user request with Figma links for each change.
 
+## 2026-09-29 — Bell badge synced with the actual unread count
+**Decision:** On the S1/S4 Varsler pages, the bell badge, its aria-label and the "N uleste" line are now computed from the number of unread rows actually in the list, rather than hardcoded. Opening an unread row or pressing "Marker alle som lest" marks rows as read: they drop the blueberry background and the Ulest badge, and the count updates. This is remembered for the browser session (sessionStorage, per scenario), and the S1/S4 frontpage bells read the same count. The badge is hidden at 0. Before the Varsler page has been visited, the frontpage falls back to its static "2", which is the list's initial unread count.
+**Why:** Direct user request to sync the bell number with the actual number of unread items.
+
 #helsenorge

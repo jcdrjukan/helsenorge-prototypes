@@ -53,6 +53,7 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 /* Unread-count badge — real Badge component's cherry (red) color
    variant (frankenstein/node_modules/@helsenorge/designsystem-react/
    .../Badge/styles.module.scss), same as scenario-1-varsel.html. */
+.nav-icon-btn__badge[hidden] { display: none; }
 .nav-icon-btn__badge {
   position: absolute;
   top: -4px; right: -4px;
@@ -552,5 +553,19 @@ if (new URLSearchParams(location.search).get('aktivert') === '1') {
 }
 </script>
 
+<script>
+// Bell badge mirrors the unread count the scenario's Varsler page last
+// computed from its list (sessionStorage); falls back to the list's
+// initial unread count before that page has been opened.
+(function () {
+  var n = null;
+  try { n = sessionStorage.getItem('dhg-s4-unread'); } catch (e) {}
+  if (n === null) return;
+  n = parseInt(n, 10);
+  var badge = document.querySelector('.nav-icon-btn__badge');
+  badge.textContent = n; badge.hidden = n === 0;
+  badge.closest('a').setAttribute('aria-label', n ? 'Varsler, ' + n + (n === 1 ? ' ulest' : ' uleste') : 'Varsler');
+})();
+</script>
 </body>
 </html>
