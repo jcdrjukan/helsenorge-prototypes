@@ -100,7 +100,7 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
       <p className="md-card__label">{series.name}</p>
       <p className="md-card__value">
         {formatValue(value, series.decimals)}
-        {series.source !== 'form' && <span className="md-card__unit">{series.unit}</span>}
+        {series.source !== 'form' && <>{' '}<span className="md-card__unit">{series.unit}</span></>}
       </p>
       <p className={`md-card__sub${warn ? ' md-card__sub--warn' : ''}`}>
         {outOfRange ? 'Utenfor · ' : ''}
