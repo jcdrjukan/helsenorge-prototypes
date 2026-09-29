@@ -431,10 +431,8 @@
 }
 .md-bp__tip strong { font-weight: 600; }
 
-/* Latest-registration card with trend: text left, sparkline right. */
-.md-card--with-spark { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+/* Latest-registration card: neutral trend line under the timestamp. */
 .md-card__text { display: block; min-width: 0; }
-.md-card__spark { flex-shrink: 0; display: block; }
 .md-card__trend {
   /* Neutral on purpose — the same subdued text colour whatever the
      direction; direction is stated in words/sign, never by colour. */

@@ -82,7 +82,7 @@ export const SERIES: MaledataSeries[] = [
   },
   {
     id: 'sbp',
-    name: 'Blodtrykk (over)',
+    name: 'Blodtrykk',
     unit: 'mmHg',
     lo: 105,
     hi: 175,
@@ -277,7 +277,7 @@ export function weekdayDateLabel(offset: number): string {
   return `${w[0].toUpperCase()}${w.slice(1)} ${dateLabel(offset)}`;
 }
 
-// Blodtrykk (over)'s daily value = that day's latest systolic reading
+// Blodtrykk's daily value = that day's latest systolic reading
 // (evening if present, else morning), so the card/CSV agree with the chart.
 {
   const sbp = SERIES.find(x => x.id === 'sbp');

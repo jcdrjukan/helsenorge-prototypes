@@ -31,7 +31,6 @@ import {
   formatBp,
   trendFor,
   trendLabel,
-  TREND_DAYS,
   weekdayShort,
   weekdayDateLabel,
   type BpDay,
@@ -91,74 +90,6 @@ interface LatestCardProps {
   onSelect: (id: string) => void;
 }
 
-// Sparkline for the latest-registration cards: last TREND_DAYS days,
-// target band as a faint strip, latest point
-// marked (amber if outside the band, like the panel charts). No axes or
-// labels — it shows the shape; the card's text carries the numbers.
-// Gaps break the line (no solid line across missing days); ordinal/form
-// series are dots only, never a line (working notes §8).
-const SPARK_W = 120;
-const SPARK_H = 40;
-
-function Sparkline({ series }: { series: MaledataSeries }) {
-  const vals = windowValues(series, TREND_DAYS);
-  const pad = 4;
-  const x = (k: number) => pad + ((SPARK_W - 2 * pad) * k) / (TREND_DAYS - 1);
-  // Scaled to this window's own values plus the target band (standard
-  // sparkline practice), so the shape is visible — the series' fixed
-  // panel scale is far too wide for a 40px-tall line.
-  const present = vals.filter((v): v is number => v != null);
-  let lo = Math.min(...present, ...(series.band ? [series.band[0]] : []));
-  let hi = Math.max(...present, ...(series.band ? [series.band[1]] : []));
-  if (!isFinite(lo) || !isFinite(hi)) { lo = series.lo; hi = series.hi; }
-  // Ordinal/form scales keep their real endpoints (e.g. 0–4), so a one-step
-  // change doesn't look as dramatic as auto-scaling would make it.
-  if (series.ordinal) { lo = series.scaleMin ?? 0; hi = series.scaleMax ?? 4; }
-  const span = Math.max(hi - lo, 1e-6);
-  lo -= span * 0.1;
-  hi += span * 0.1;
-  const y = (v: number) => SPARK_H - pad - ((SPARK_H - 2 * pad) * (v - lo)) / (hi - lo);
-  const isOut = (v: number) => !!series.band && (v < series.band[0] || v > series.band[1]);
-  const lines: string[] = [];
-  if (!series.ordinal) {
-    let run: string[] = [];
-    vals.forEach((v, k) => {
-      if (v == null) { if (run.length > 1) lines.push(run.join(' ')); run = []; return; }
-      run.push(`${x(k).toFixed(1)},${y(v).toFixed(1)}`);
-    });
-    if (run.length > 1) lines.push(run.join(' '));
-  }
-  let last = -1;
-  vals.forEach((v, k) => { if (v != null) last = k; });
-  return (
-    <svg className="md-card__spark" viewBox={`0 0 ${SPARK_W} ${SPARK_H}`} width={SPARK_W} height={SPARK_H} aria-hidden="true">
-      {series.band && (
-        <rect
-          x={pad}
-          y={y(series.band[1])}
-          width={SPARK_W - 2 * pad}
-          height={y(series.band[0]) - y(series.band[1])}
-          fill="var(--core-color-blueberry-50, #e4f7f9)"
-        />
-      )}
-      {lines.map((pts, i) => (
-        <polyline key={i} points={pts} fill="none" stroke="var(--core-color-blueberry-700)" strokeWidth={1.5} strokeLinejoin="round" strokeLinecap="round" />
-      ))}
-      {series.ordinal && vals.map((v, k) => (v == null || k === last ? null : (
-        <circle key={k} cx={x(k)} cy={y(v)} r={2} fill="var(--core-color-blueberry-700)" />
-      )))}
-      {last >= 0 && (
-        <circle
-          cx={x(last)}
-          cy={y(vals[last] as number)}
-          r={3}
-          fill={isOut(vals[last] as number) ? 'var(--color-notification-graphics-warning)' : 'var(--core-color-blueberry-700)'}
-        />
-      )}
-    </svg>
-  );
-}
-
 function LatestCard({ series, onSelect }: LatestCardProps) {
   const reading = latestReading(series);
   if (!reading) {
@@ -173,7 +104,7 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
   const warn = outOfRange || stale;
   const trend = trendFor(series);
   return (
-    <button className="md-card md-card--with-spark" onClick={() => onSelect(series.id)}>
+    <button className="md-card" onClick={() => onSelect(series.id)}>
       <span className="md-card__text">
         <p className="md-card__label">{series.name}</p>
         <p className="md-card__value">
@@ -186,7 +117,6 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
         </p>
         {trend && <p className="md-card__trend">{trendLabel(series, trend)}</p>}
       </span>
-      <Sparkline series={series} />
     </button>
   );
 }

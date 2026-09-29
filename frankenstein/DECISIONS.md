@@ -145,4 +145,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Not done:** a per-card "Stabil" arrow, percentages (§8 calls them a trap), and a whole-period trend.
 **Why:** Direct user request to indicate a trend in the cards; sparkline + neutral text chosen from the options discussed.
 
+## 2026-09-29 — Måledata: sparklines removed from cards (text trend kept); "Blodtrykk (over)" → "Blodtrykk"
+**Decision:** Per direct request, the card sparklines from the previous entry were removed, and the neutral change line ("+1,7 kg siste 14 dager", "Omtrent uendret siste 14 dager"…) is kept on its own. The card layout is back to plain stacked text. The blood pressure series is renamed from "Blodtrykk (over)" to "Blodtrykk" everywhere it appears (card, chip, CSV). Its card value is still the latest systolic reading only ("125 mmHg").
+**Why:** Direct user request.
+
 #helsenorge
