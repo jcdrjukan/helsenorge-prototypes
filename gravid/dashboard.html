@@ -246,6 +246,16 @@ input[type="number"] {
     </div>
   </div>
 
+  <div class="field">
+    <span class="field__label">Dokumenter</span>
+    <div class="checkbox-group">
+      <div class="checkbox-option">
+        <input type="checkbox" id="hasDocuments" checked>
+        <label for="hasDocuments">Har lastet opp papirhelsekort</label>
+      </div>
+    </div>
+  </div>
+
   <a class="launch-btn" id="launchBtn" href="index.html">Åpne prototypen →</a>
 
   <div class="share-field">
@@ -271,6 +281,7 @@ const shareUrl = document.getElementById('shareUrl');
 const copyBtn = document.getElementById('copyBtn');
 const panelHelsekortInput = document.getElementById('panelHelsekort');
 const panelFarskapInput = document.getElementById('panelFarskap');
+const hasDocumentsInput = document.getElementById('hasDocuments');
 let copyResetTimer = null;
 
 function getConnected() {
@@ -306,7 +317,8 @@ function updateLaunchHref() {
   // regardless of what the now-hidden sub-toggle last held.
   const termindatoConfirmed = connected && getTermindatoConfirmed();
   const query = '?uke=' + week + '&tilknyttet=' + (connected ? '1' : '0') + '&termindato=' + (termindatoConfirmed ? '1' : '0') +
-    '&panelHelsekort=' + (panelHelsekortInput.checked ? '1' : '0') + '&panelFarskap=' + (panelFarskapInput.checked ? '1' : '0');
+    '&panelHelsekort=' + (panelHelsekortInput.checked ? '1' : '0') + '&panelFarskap=' + (panelFarskapInput.checked ? '1' : '0') +
+    (hasDocumentsInput.checked ? '' : '&dokumenter=0');
   launchBtn.href = 'index.html' + query;
   // Resolved to an absolute URL (not just the relative href above) so it's
   // meaningful copied out of this page and sent elsewhere — index.html
@@ -357,6 +369,7 @@ document.querySelectorAll('input[name="connected"]').forEach(el => el.addEventLi
 document.querySelectorAll('input[name="termindatoConfirmed"]').forEach(el => el.addEventListener('change', persistAndUpdate));
 panelHelsekortInput.addEventListener('change', persistAndUpdate);
 panelFarskapInput.addEventListener('change', persistAndUpdate);
+hasDocumentsInput.addEventListener('change', updateLaunchHref);
 
 // ─── Init — restore whatever was last set ───────────────────
 try {

@@ -87,4 +87,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Deviations/placeholders:** the breadcrumb reads "Gravid" on both pages. The Figma calculator frame says "Forside", but the page is reached from and returns to the Gravid page. The help-expander texts ("Hvordan beregnes termindato?", "Om termindato ved IVF") aren't in the Figma frames, so short placeholder copy was written. The footer is this prototype's existing footer, not the newer one in the screenshots.
 **Why:** Direct user request with Figma links for both pages.
 
+## 2026-09-29 — Uploaded-document block made optional (?dokumenter=0); hidden in DHG onboarding S1
+**Decision:** In "Papirhelsekortet og dokumentasjon" on `gravid/index.html`, the uploaded-document part is now wrapped in `#uploadedDocs`: "Sist opplastet papirhelsekort", the real DokPanelItem card and "Se alle dine Gravid-dokumenter". It's hidden with `?dokumenter=0`. The heading, description and the two upload buttons always show. It's **shown by default**, so the design is kept as the reference for the other Gravid prototypes. DHG onboarding S1 (`kilde=epj`) now activates into `...&dokumenter=0`, since a user who has just activated DHG after an EPJ-triggered varsel can't already have uploaded anything. `dashboard.html` gets a matching "Har lastet opp papirhelsekort" checkbox (default on). The setting is URL-only, not persisted to localStorage, so a scenario link can't leave later default visits without the reference design.
+**Why:** Direct user request: "it doesn't make sense that there would already be a document uploaded there. But retain the design for this somewhere." S2–S4 were left unchanged because only S1 was named, even though the same reasoning applies to them.
+
 #helsenorge

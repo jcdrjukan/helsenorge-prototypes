@@ -2514,6 +2514,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <span class="btn-upload__text">Last opp annet dokument</span>
     </a>
 
+    <!-- Uploaded-document state: "Sist opplastet papirhelsekort" + the
+         real DokPanelItem + "Se alle dine Gravid-dokumenter". Shown by
+         default (kept as the reference design for the Gravid
+         prototypes); hidden with ?dokumenter=0 for a user who hasn't
+         uploaded anything yet — e.g. the DHG onboarding scenarios,
+         where she has only just activated. -->
+    <div id="uploadedDocs">
     <p class="doc-section__last-uploaded">Sist opplastet papirhelsekort:</p>
 
     <!-- DOK PANEL ITEM — real component, from outerHTML the user pasted
@@ -2618,6 +2625,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         <svg viewBox="0 0 48 48" fill="currentColor"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
       </div>
     </a>
+    </div>
   </div>
 
   <div class="sp-xl"></div>
@@ -3122,6 +3130,10 @@ const rawTermindatoSetting = readDashboardSetting('termindato', LS_DASHBOARD_TER
 const initialTermindatoState = !initialConnected
   ? 'editable'
   : (rawTermindatoSetting === 'none' ? 'none' : (rawTermindatoSetting === '1' ? 'confirmed' : 'editable'));
+// Whether she has uploaded any documents yet (see #uploadedDocs).
+// URL-only (no localStorage) so a one-off scenario link can't leave a
+// later default visit stuck without the reference design.
+const initialHasDocuments = dashboardParams.get('dokumenter') !== '0';
 const initialPanelHelsekort = readDashboardSetting('panelHelsekort', LS_DASHBOARD_PANEL_HELSEKORT_KEY, '0') === '1';
 // Farskap can only actually be registered from uke 22 (the panel's own
 // copy says so), but nothing previously enforced that here — it just
@@ -3190,6 +3202,7 @@ applyRegisteredTermindato();
 wireTermindatoLinks();
 setSfSectionVisibility(initialConnected);
 setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
+document.getElementById('uploadedDocs').hidden = !initialHasDocuments;
 wireForsideBreadcrumb();
 try {
   applyFavoriteState(localStorage.getItem(LS_FAVORITE_KEY) === '1');
