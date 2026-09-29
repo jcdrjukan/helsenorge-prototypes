@@ -185,17 +185,22 @@ function SeriesTable({ series, days }: SeriesTableProps) {
 // sizes per the chart spec; labels in Norwegian.
 const BP_H = 300;
 const BP_PAD = { l: 40, r: 8, t: 22, b: 26 };
-const BP_MORNING = '#2a78d6';
-// Evening = hollow bar outlined in Frankenstein kiwi900 (#078141), so
-// morning/evening differ by shape as well as color: works for every
-// color-vision type (incl. tritanopia, where the hues converge), in
-// greyscale and on paper, and kiwi900 has 4.97:1 contrast on white
-// (the spec's #1baf7a had 2.82:1, below WCAG 1.4.11's 3:1).
-const BP_EVENING = '#078141';
+// Morning and evening use the same Frankenstein blueberry700 (#08667C)
+// as every other Måledata chart; they differ by shape — morning solid,
+// evening hollow (outlined) — which works for every color-vision type,
+// in greyscale and on paper (6.56:1 contrast on white, so well above
+// WCAG 1.4.11's 3:1).
+const BP_MORNING = 'var(--core-color-blueberry-700, #08667c)';
+const BP_EVENING = 'var(--core-color-blueberry-700, #08667c)';
+// Where bars are too narrow to show a hollow (3-month view), evening
+// bars fall back to solid blueberry300 — lighter, so the two still
+// differ by brightness rather than becoming identical.
+const BP_EVENING_SOLID = 'var(--core-color-blueberry-300, #7abecc)';
 // Outline is 2px on normal-width bars and thins to 1px on narrow ones
 // (e.g. the default 1-month view, ~4px bars) so a hollow stays visible.
 // Only below BP_MIN_HOLLOW (the 3-month view's ~1px bars) is there no
-// room for a hollow at all, and evening bars fall back to solid kiwi900.
+// room for a hollow at all, and evening bars fall back to solid
+// BP_EVENING_SOLID.
 const bpOutline = (barW: number) => (barW >= 6 ? 2 : 1);
 const BP_MIN_HOLLOW = 3;
 const BP_GRID = '#e1e0d9';
@@ -265,8 +270,10 @@ function BpChart({ days }: { days: number }) {
             const cx = x0 + slot * (k + 0.5);
             const bars: { r: NonNullable<BpDay['morning']>; x: number; color: string; name: string; hollow: boolean }[] = [];
             if (d.morning) bars.push({ r: d.morning, x: cx - gap / 2 - barW, color: BP_MORNING, name: 'Morgen', hollow: false });
-            if (d.evening) bars.push({ r: d.evening, x: cx + gap / 2, color: BP_EVENING, name: 'Kveld', hollow: barW >= BP_MIN_HOLLOW });
-            const showLabel = weekView || (days - 1 - k) % labelStep === 0;
+            if (d.evening) bars.push({ r: d.evening, x: cx + gap / 2, color: barW >= BP_MIN_HOLLOW ? BP_EVENING : BP_EVENING_SOLID, name: 'Kveld', hollow: barW >= BP_MIN_HOLLOW });
+            // Thinned date labels; one that would crowd today's end-anchored
+            // label at the right edge is skipped.
+            const showLabel = weekView || ((days - 1 - k) % labelStep === 0 && (k === days - 1 || x1 - cx > 60));
             return (
               <g key={k}>
                 {bars.map(b => {

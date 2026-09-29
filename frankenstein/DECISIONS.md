@@ -118,4 +118,9 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Outline width:** 2px, drawn inside the bar's bounds so both bar types occupy the same box. It thins to 1px on narrow bars (under 6px, e.g. the default 1-month view's ~3.6px bars) so the hollow stays visible. Only under 3px (the 3-month view's ~1px bars) do evening bars fall back to solid kiwi900.
 **Why:** Direct user request (option 2 of the suggested fixes, using a Frankenstein color token).
 
+## 2026-09-29 — Måledata BP chart: both bar types in blueberry700
+**Decision:** Per direct request, both bar types now use the same color as the other Måledata charts, blueberry700 (#08667C; 6.56:1 on white). This replaces the spec's blue for morning and the kiwi900 evening outline from the previous entry. Morning stays solid and evening hollow (outlined), so the two now differ by shape only, which works for any color-vision type. In the 3-month view the bars are too narrow for a hollow; evening bars there fall back to solid **blueberry300** (#7ABECC), so they differ by brightness (3.14:1 against blueberry700) instead of becoming identical. That fallback is only 2.09:1 on white, below WCAG 1.4.11's 3:1, but it applies only to that dense view, which is hard to read for everyone anyway.
+**Also fixed:** in the 3-month view, a thinned date label that would overlap today's end-anchored label at the right edge is now skipped.
+**Why:** Direct user request to match the green used in the other charts.
+
 #helsenorge
