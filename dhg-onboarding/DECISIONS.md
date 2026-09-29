@@ -135,7 +135,7 @@ Started 2026-09-25.
 **Why:** Direct user request.
 
 ## 2026-09-29 — S3 modal: updated texts from Figma
-**Decision:** The "Er du gravid selv?" modal was updated to the revised Figma node 56:27891. Ingress: "Er det ditt eget svangerskap du vil følge med, eller noen andres?". Buttons: "Mitt eget svangerskap" (was "Jeg er gravid selv") and "Noen andres svangerskap" (was "Jeg er ikke gravid selv"). The outline button is now the same medium size as the fill button (18px/22px text, 44px min-height, 0 24px padding), since the revised Figma resolved the earlier size mismatch. Title, destinations and behaviour are unchanged.
+**Decision:** The "Er du gravid selv?" modal was updated to the revised Figma node 56:27891. Ingress: "Er det ditt eget svangerskap du vil følge med på, eller noen andres?". Buttons: "Mitt eget svangerskap" (was "Jeg er gravid selv") and "Noen andres svangerskap" (was "Jeg er ikke gravid selv"). The outline button is now the same medium size as the fill button (18px/22px text, 44px min-height, 0 24px padding), since the revised Figma resolved the earlier size mismatch. Title, destinations and behaviour are unchanged.
 **Why:** Direct user request with the updated Figma.
 
 #helsenorge
