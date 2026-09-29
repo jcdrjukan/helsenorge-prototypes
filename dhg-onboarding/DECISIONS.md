@@ -113,4 +113,13 @@ Started 2026-09-25.
 **Decision:** On the S1/S4 Varsler pages, the bell badge, its aria-label and the "N uleste" line are now computed from the number of unread rows actually in the list, rather than hardcoded. Opening an unread row or pressing "Marker alle som lest" marks rows as read: they drop the blueberry background and the Ulest badge, and the count updates. This is remembered for the browser session (sessionStorage, per scenario), and the S1/S4 frontpage bells read the same count. The badge is hidden at 0. Before the Varsler page has been visited, the frontpage falls back to its static "2", which is the list's initial unread count.
 **Why:** Direct user request to sync the bell number with the actual number of unread items.
 
+## 2026-09-29 — S3: "Er du gravid selv?" modal before activation
+**Decision:** In every S3 variant (frontpage/sok/redaksjonelt, all of which use `gravid/aktiver-helsekort-oppdaget.html`), "Aktiver digitalt helsekort" no longer navigates directly. It opens a modal built from Figma "CLD - Gravid" node 56:27891 (GravidSelv), and she must choose:
+- **"Jeg er gravid selv" (fill):** continues to the activated Gravid page (same destination the button had before).
+- **"Jeg er ikke gravid selv" (outline):** following someone else's pregnancy. Goes to Gravid without digitalt helsekort (`index.html?tilknyttet=0&dokumenter=0` + kilde), the same destination as the page's "Bruk Gravid uten digitalt helsekort". This destination wasn't specified, so it's an assumption.
+- **Closing:** "Avbryt" (borderless), the ✕ (Figma's X asset), Esc, or a click on the mask closes it.
+- **Styling:** the box and shadow follow the real Modal component. The page mask uses the real `--color-shadow-pagemask` grey (#2c2b2c) at 50% opacity per direct request (the token itself is 72%).
+- **Behaviour:** the overlay covers the visible part of whichever element scrolls (the desktop phone frame's screen, or the window on a real phone), background scrolling is locked while open, focus moves into the dialog and Tab is trapped. Button sizes are exactly as in the Figma: the outline button is the larger variant (20px text, 50px tall), unlike the fill button (18px, 44px).
+**Why:** Direct user request with the Figma link.
+
 #helsenorge

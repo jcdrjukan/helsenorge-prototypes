@@ -401,6 +401,52 @@ a:focus-visible, button:focus-visible {
 .sp-m  { height: var(--space-m);  flex-shrink: 0; width: 100%; }
 .sp-l  { height: var(--space-l);  flex-shrink: 0; width: 100%; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
+
+/* ═══════════════════════════════════════════════════════════
+   "ER DU GRAVID SELV?" MODAL — Figma "CLD - Gravid" node 56:27891
+   (GravidSelv). Opened by "Aktiver digitalt helsekort" in every S3
+   variant; she must choose before continuing. Box/shadow per the real
+   Modal component (white, 0 0 5px rgb(0 0 0 / 50%)); page mask is the
+   real --color-shadow-pagemask grey (#2c2b2c) but at 50% opacity per
+   direct request (the token itself is 72%). Positioned over the
+   visible part of whichever element is scrolling (the phone frame's
+   screen on desktop, the window on a real phone) — see openGravidModal().
+══════════════════════════════════════════════════════════════ */
+.gm-overlay {
+  position: absolute; left: 0; right: 0; z-index: 50;
+  background: rgba(44, 43, 44, 0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.gm-overlay[hidden] { display: none; }
+.gm {
+  position: relative; width: 345px; max-width: calc(100% - 24px);
+  background: #fff; box-shadow: 0 0 5px 0 rgb(0 0 0 / 50%);
+  padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 40px;
+  outline: none;
+}
+.gm__close {
+  position: absolute; top: 4px; right: 4px; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; padding: 0; cursor: pointer; border-radius: 4px;
+}
+.gm__close:hover { background: rgba(18, 111, 135, 0.13); }
+.gm__close img { width: 38px; height: 38px; }
+.gm__top { display: flex; flex-direction: column; gap: 8px; }
+.gm__title { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
+.gm__ingress { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
+.gm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.gm__btn {
+  display: inline-flex; align-items: center; border-radius: 8px; cursor: pointer;
+  text-decoration: none; font-family: 'Source Sans Pro', sans-serif; font-weight: 600;
+  background: none; border: none;
+}
+.gm__btn span { padding: 4px 0 6px; }
+.gm__btn--fill { background: #188097; color: #fff; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
+.gm__btn--fill:hover { background: #08667c; }
+.gm__btn--outline { border: 2px solid #188097; color: #126f87; min-height: 50px; padding: 6px 32px; font-size: 20px; line-height: 24px; }
+.gm__btn--outline:hover { background: #e4f7f9; }
+.gm__btn--borderless { color: #126f87; min-height: 38px; padding: 3px 8px; font-size: 18px; line-height: 22px; }
+.gm__btn--borderless:hover { background: rgba(18, 111, 135, 0.13); }
 </style>
 </head>
 <body>
@@ -617,6 +663,22 @@ a:focus-visible, button:focus-visible {
     <p class="footer__brand">Drives av Norsk helsenett SF</p>
   </footer>
 
+
+<!-- "Er du gravid selv?" modal (Figma 56:27891) — see .gm-overlay CSS. -->
+<div class="gm-overlay" id="gravidModal" hidden>
+  <div class="gm" role="dialog" aria-modal="true" aria-labelledby="gmTitle" aria-describedby="gmIngress" tabindex="-1">
+    <button type="button" class="gm__close" id="gmClose" aria-label="Lukk"><img src="img/modal-close.svg" width="38" height="38" alt=""></button>
+    <div class="gm__top">
+      <h2 class="gm__title" id="gmTitle">Er du gravid selv?</h2>
+      <p class="gm__ingress" id="gmIngress">Eller ønsker du å følge med på noen andres svangerskap?</p>
+    </div>
+    <div class="gm__buttons">
+      <a class="gm__btn gm__btn--fill" id="gmSelf" href="#"><span>Jeg er gravid selv</span></a>
+      <a class="gm__btn gm__btn--outline" id="gmOther" href="#"><span>Jeg er ikke gravid selv</span></a>
+      <button type="button" class="gm__btn gm__btn--borderless" id="gmCancel"><span>Avbryt</span></button>
+    </div>
+  </div>
+</div>
 </div><!-- /app -->
 
 </div><!-- /phone-frame__screen -->
@@ -691,6 +753,61 @@ if (config) {
 document.getElementById('activateBtn').href =
   'index.html?' + ((config && config.activateQuery) || DEFAULT_ACTIVATE_QUERY) +
   (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
+
+// ─── "Er du gravid selv?" modal ──────────────────────────────────────
+// "Aktiver digitalt helsekort" no longer navigates directly: it opens
+// the modal, and she has to choose. "Jeg er gravid selv" continues to
+// the activated Gravid page (the activate button's own href, built
+// above); "Jeg er ikke gravid selv" (following someone else's
+// pregnancy) goes to Gravid without digitalt helsekort — same
+// destination as this page's "Bruk Gravid uten digitalt helsekort".
+// Avbryt, ✕, Esc or a click on the grey mask just closes it.
+(function () {
+  const overlay = document.getElementById('gravidModal');
+  const dialog = overlay.querySelector('.gm');
+  const activateBtn = document.getElementById('activateBtn');
+  const screen = document.querySelector('.phone-frame__screen');
+  document.getElementById('gmSelf').href = activateBtn.href;
+  document.getElementById('gmOther').href = 'index.html?tilknyttet=0&dokumenter=0' +
+    (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
+  let lastFocus = null;
+  let scroller = null;
+
+  function open(e) {
+    e.preventDefault();
+    lastFocus = document.activeElement;
+    // The screen is the containing block (contain: layout). Cover the
+    // part of it currently in view: its own scroll area in the desktop
+    // phone frame, or the window's viewport on a real phone.
+    const innerScroll = getComputedStyle(screen).overflowY !== 'visible';
+    scroller = innerScroll ? screen : document.documentElement;
+    const top = innerScroll ? screen.scrollTop
+      : Math.max(0, -screen.getBoundingClientRect().top);
+    overlay.style.top = top + 'px';
+    overlay.style.height = (innerScroll ? screen.clientHeight : window.innerHeight) + 'px';
+    scroller.style.overflow = 'hidden';
+    overlay.hidden = false;
+    document.getElementById('gmSelf').focus();
+  }
+  function close() {
+    overlay.hidden = true;
+    if (scroller) scroller.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  activateBtn.addEventListener('click', open);
+  document.getElementById('gmClose').addEventListener('click', close);
+  document.getElementById('gmCancel').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key !== 'Tab') return;
+    const f = dialog.querySelectorAll('button, a[href]');
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+})();
 </script>
 </body>
 </html>
