@@ -185,20 +185,23 @@ function SeriesTable({ series, days }: SeriesTableProps) {
 // sizes per the chart spec; labels in Norwegian.
 const BP_H = 300;
 const BP_PAD = { l: 40, r: 8, t: 22, b: 26 };
-// Morning = solid blueberry700 (#08667C), the same color as every other
-// Måledata chart. Evening = lighter blueberry300 (#7ABECC) fill with a
-// 1px blueberry700 outline: the fill makes evening clearly lighter than
-// morning (3.14:1 between them, so they stay apart in greyscale and for
-// every color-vision type), and the dark outline gives the bar's edge
-// 6.56:1 against white, satisfying WCAG 1.4.11 even though the light
-// fill alone (2.09:1) wouldn't.
-const BP_MORNING = 'var(--core-color-blueberry-700, #08667c)';
-const BP_EVENING = 'var(--core-color-blueberry-700, #08667c)';
-const BP_EVENING_FILL = 'var(--core-color-blueberry-300, #7abecc)';
-// Below BP_MIN_HOLLOW (the 3-month view's ~1px bars) there's no room for
-// an outline, so evening bars there are plain blueberry300.
-const BP_EVENING_SOLID = BP_EVENING_FILL;
-const bpOutline = () => 1;
+// Morning and evening both use Frankenstein blueberry500 (#188097) —
+// the lightest blueberry token that still clears WCAG 1.4.11's 3:1 on
+// white (4.59:1; blueberry400 is 2.66:1). They differ by shape —
+// morning solid, evening hollow (outlined) — which works for every
+// color-vision type, in greyscale and on paper.
+const BP_MORNING = 'var(--core-color-blueberry-500, #188097)';
+const BP_EVENING = 'var(--core-color-blueberry-500, #188097)';
+// Where bars are too narrow to show a hollow (3-month view), evening
+// bars fall back to solid blueberry300 — lighter, so the two still
+// differ by brightness rather than becoming identical.
+const BP_EVENING_SOLID = 'var(--core-color-blueberry-300, #7abecc)';
+// Outline is 2px on normal-width bars and thins to 1px on narrow ones
+// (e.g. the default 1-month view, ~4px bars) so a hollow stays visible.
+// Only below BP_MIN_HOLLOW (the 3-month view's ~1px bars) is there no
+// room for a hollow at all, and evening bars fall back to solid
+// BP_EVENING_SOLID.
+const bpOutline = (barW: number) => (barW >= 6 ? 2 : 1);
 const BP_MIN_HOLLOW = 3;
 const BP_GRID = '#e1e0d9';
 const BP_TICK = '#898781';
@@ -250,7 +253,7 @@ function BpChart({ days }: { days: number }) {
     <div className="md-bp">
       <div className="md-bp__legend" aria-hidden="true">
         <span className="md-bp__key"><span className="md-bp__swatch" style={{ background: BP_MORNING }} />Morgen</span>
-        <span className="md-bp__key"><span className="md-bp__swatch md-bp__swatch--outlined" style={{ background: BP_EVENING_FILL, borderColor: BP_EVENING }} />Kveld</span>
+        <span className="md-bp__key"><span className="md-bp__swatch md-bp__swatch--hollow" style={{ borderColor: BP_EVENING }} />Kveld</span>
         <span className="md-bp__hint">Stolpens bunn = undertrykk, topp = overtrykk</span>
       </div>
       <div className="md-bp__plot" ref={wrapRef} onPointerLeave={() => setTip(null)}>
@@ -282,9 +285,9 @@ function BpChart({ days }: { days: number }) {
                     line: `${b.name}: ${formatBp(b.r)}`,
                   });
                   const height = Math.max(1, sy(b.r.dia) - top);
-                  // Outlined (evening) bars: stroke drawn inside the bar's own bounds (inset by
+                  // Hollow bars: stroke drawn inside the bar's own bounds (inset by
                   // half the stroke) so both bar types occupy exactly the same box.
-                  const outline = bpOutline();
+                  const outline = bpOutline(barW);
                   const inset = b.hollow ? outline / 2 : 0;
                   return (
                     <rect
@@ -294,7 +297,7 @@ function BpChart({ days }: { days: number }) {
                       width={barW - 2 * inset}
                       height={Math.max(1, height - 2 * inset)}
                       rx={Math.max(0, Math.min(4, barW / 2) - inset)}
-                      fill={b.hollow ? BP_EVENING_FILL : b.color}
+                      fill={b.hollow ? '#fff' : b.color}
                       stroke={b.hollow ? b.color : 'none'}
                       strokeWidth={b.hollow ? outline : 0}
                       onPointerEnter={show}
