@@ -701,36 +701,53 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* "Termindato ikke registrert" message shown in the circle alongside
-   the button (per direct request). Same caption token as the other
-   states' title line. */
+   the button (per direct request): centered, broken after "Termindato",
+   at the same size as the other states' date value (20px) but regular
+   weight, rather than the small caption. */
 .due-date-unknown__text {
   display: block;
-  font: var(--mobile-image-caption);
+  text-align: center;
+  font: 400 1.25rem/120% 'Source Sans Pro', sans-serif;
   color: var(--color-base-text-onlight);
-  margin-bottom: var(--space-3xs);
+  margin-bottom: var(--space-2xs);
 }
 
-/* Primary (fill) button styling per direct request — solid
-   action-background, white text — kept at the compact size the ring
-   center needs. */
+/* Real Frankenstein Button, variant "fill", mobile (medium) size —
+   @helsenorge/designsystem-react Button/styles.module.scss .button +
+   &__text: blueberry500 fill, 18px/1.375rem semibold white text, 44px
+   min-height, 0 1.5rem padding, 0.5rem radius, text padded 0.4375rem
+   vertically; hover = blueberry700 fill + a 0.25rem blueberry700 ring.
+   Sized to its content rather than the real 100% width, since it sits
+   centered in the ring. The week bubble is hidden in this state, so the
+   taller button has nothing to collide with. */
 .due-date-unknown__btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-action-background-onlight);
+  min-width: 2.75rem;
+  min-height: 2.75rem;
+  padding: 0 var(--space-m);
+  background: var(--blueberry-500);
   border: none;
-  border-radius: var(--radius-m);
-  padding: var(--space-3xs) var(--space-xs);
+  border-radius: 0.5rem;
   cursor: pointer;
-  white-space: nowrap;
+  /* Wrapped onto two lines ("Beregn / termindato") per direct request,
+     to narrow the button inside the ring; text centered, as in the
+     real Button's &__text--centered option. */
+  width: min-content;
+  text-align: center;
 }
 
 .due-date-unknown__btn span {
-  font: 600 0.875rem/120% 'Source Sans Pro', sans-serif;
+  padding: 0.4375rem 0;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif;
   color: #fff;
 }
 
-.due-date-unknown__btn:hover { background: var(--color-action-background-onlight-hover); }
+.due-date-unknown__btn:hover {
+  background: var(--blueberry-700);
+  box-shadow: 0 0 0 var(--space-3xs) var(--blueberry-700);
+}
 
 /* ═══════════════════════════════════════════════════════════
    SECTION HEADINGS
@@ -2034,7 +2051,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
              DHG early in the pregnancy. Hidden by default; toggled with
              setTermindatoState() below. -->
         <div class="due-date-unknown" id="dueDateUnknown" hidden>
-          <span class="due-date-unknown__text">Termindato ikke registrert</span>
+          <span class="due-date-unknown__text">Termindato<br>ikke registrert</span>
           <button type="button" class="due-date-unknown__btn">
             <span>Beregn termindato</span>
           </button>

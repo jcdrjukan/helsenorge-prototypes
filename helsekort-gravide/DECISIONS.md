@@ -74,4 +74,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Why:** Direct user request.
 **Follow-up (same day):** switched to the warning variant ("warn"), per direct request: real banana800 border (#AB7C00), banana50 background (#FDF8DF) and the warning-sign icon. Otherwise it keeps the same dismissable layout, text and CTA as the farskap panel.
 
+## 2026-09-29 — "Beregn termindato" is the real Frankenstein mobile fill Button; empty-state message enlarged
+**Decision:** The button inside the ring (termindato "none" state) was a compact custom button: 14px text, about 25px tall. It now uses the real `@helsenorge/designsystem-react` Button, "fill" variant at the mobile (medium) size. The design system only has medium and large, so medium is its smallest regular size: 18px/1.375rem semibold white text, 44px min-height, 0 1.5rem padding, 0.5rem radius, blueberry500 fill, and on hover blueberry700 plus a 0.25rem ring. At full width on one line it looked too heavy inside the 270px ring, so per direct request the label wraps onto two centered lines ("Beregn / termindato"), making the button about 135px wide. The "Termindato ikke registrert" message above it is now 20px regular (it was the 16px caption), centered, and breaks after "Termindato". Nothing collides, because the week bubble is hidden in this state.
+**Why:** The user asked whether the button used the real Frankenstein mobile style (it didn't), then gave direct layout and size corrections after viewing it locally.
+
 #helsenorge
