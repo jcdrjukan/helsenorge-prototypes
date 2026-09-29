@@ -127,7 +127,7 @@ Started 2026-09-25.
 **Why:** Direct user request.
 
 ## 2026-09-29 — S3: no "Del opplysninger" panel when she isn't pregnant herself
-**Decision:** The modal's "Jeg er ikke gravid selv" link now passes `panelHelsekort=0` explicitly. Before, it omitted the param, so `gravid/index.html` fell back to whatever `dashboard.html` last saved in localStorage and could show the "Del opplysninger før første svangerskapskontroll" warning panel, which makes no sense for someone following another person's pregnancy. "Jeg er gravid selv" keeps `panelHelsekort=1`. The page's separate "Bruk Gravid uten digitalt helsekort" link wasn't changed (not asked for): it still omits the param, so it's hidden by default but follows any dashboard setting saved in that browser.
+**Decision:** The modal's "Jeg er ikke gravid selv" link now passes `panelHelsekort=0` explicitly. Before, it omitted the param, so `gravid/index.html` fell back to whatever `dashboard.html` last saved in localStorage and could show the "Del opplysninger før første svangerskapskontroll" warning panel, which makes no sense for someone following another person's pregnancy. "Jeg er gravid selv" keeps `panelHelsekort=1`. **Follow-up (same day):** per direct request, the page's "Bruk Gravid uten digitalt helsekort" link also passes `panelHelsekort=0` now, since there's no digitalt helsekort to share from on that path either.
 **Why:** Direct user request.
 
 #helsenorge
