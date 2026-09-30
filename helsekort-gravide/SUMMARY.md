@@ -60,6 +60,12 @@ Rebuilt from real markup: PageHeader (title1, snarvei star, the real ingress) an
 
 Both pages are linked from the front page's quick links ("Se hele svangerskapsjournal", "Siste prøver og målinger"). Those links are hidden without digitalt helsekort (`tilknyttet=0`), together with "Mål av magen".
 
+### Kartlegging før første svangerskapskontroll — `gravid/kartlegging.html` (added 2026-09-30)
+Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 sections (Personopplysningar, Svangerskap, Levevanar, Kosttilskot og medisinar, Sjukdommar og tilstandar, Arbeidssituasjon, Anna, Urinprøve), verbatim nynorsk with real options, tags, help triggers, a 250-character textarea, kg/cm fields and full country/language dropdowns.
+- **Styled by Helsenorge's own CSS:** the real Skjemautfyller stylesheets (downloaded from static.hn.test.nhn.no into `gravid/css/skjema/`). A generator (`.playwright-mcp/build_kartlegging.py`) emits the same DOM and hashed class names as the capture. The downloaded CSS has its `@font-face` rules and wider-screen `@media (min-width)` blocks removed, so the real mobile styles always apply in the phone frame. Re-download to update; don't edit by hand.
+- **Flow:** opened from "Fortsett utfylling" in the front page's "Del opplysninger" panel. "Gå vidare" returns to Gravid with `panelHelsekort=0&kartlegging=sendt` (panel gone). "Lagre" shows a toast. "Avbryt" and the breadcrumb return unchanged.
+- **Placeholders:** help texts and the "Slik tar du en urinprøve" content. Conditional follow-up questions (if any) aren't included, because only the untouched form was captured.
+
 ### URL state (`index.html` and the pages that carry it)
 | Param | Values | Effect |
 |---|---|---|
@@ -71,6 +77,7 @@ Both pages are linked from the front page's quick links ("Se hele svangerskapsjo
 | `panelFarskap` | 1 / 0 | "Registrer farskap hos Nav" (info NotificationPanel, only from uke 22) |
 | `dokumenter` | 0 | Hides the uploaded-document block (reference design shown by default) |
 | `kilde` | epj/booking/melding/frontpage/sok/redaksjonelt | DHG onboarding origin (breadcrumbs, banners) |
+| `kartlegging` | sendt | Set by the Kartlegging form's "Gå vidare" (with `panelHelsekort=0`); informational, nothing reads it yet |
 
 `dashboard.html` sets most of these, including a "Har lastet opp papirhelsekort" checkbox for `dokumenter`.
 
