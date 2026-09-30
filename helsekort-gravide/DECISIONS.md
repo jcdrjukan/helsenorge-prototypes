@@ -159,4 +159,8 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 **Alternative considered:** Having X, Esc and a mask click close the modal and stay on the form, as with the S3 modal.
 **Why:** Direct user request with Figma. Returning to an already-submitted form would suggest it could still be edited.
 
+## 2026-09-30 — Mål av magen chart: no title, "uke" axis label
+**Decision:** Removed the chart's visible title "Visualisering av magemål over tid". The text stays as the chart's `aria-label` for screen readers. The x-axis title "veke" (nynorsk, from the real Highcharts output) is now "uke", matching the rest of the bokmål page.
+**Why:** Direct user request.
+
 #helsenorge
