@@ -119,4 +119,9 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Known inconsistency:** the Svangerskapsjournal's own "Andre prøvesvar" section shows the empty state (as in its real capture), while this page lists results. The two should be reconciled once the real expanded content is known.
 **Why:** Direct user request with the real rendered markup.
 
+## 2026-09-30 — Breadcrumb row on Svangerskapsjournal / Siste prøver og målinger matched to the front page
+**Decision:** Both pages had inherited the activation page's breadcrumb styles: 8px top and 12px side padding, and a full-width #BDBAB9 divider 8px below. That made the row taller than the Gravid front page's. They now use the front page's exact rules: `.breadcrumb { padding: 0 4px }` and a divider of 1px #D6D4D3, inset 1rem, directly below. Measured identical to index.html (46px row, 4px link indent, same divider gap, width and colour). The fix lives in both pages' generator scripts, so a regeneration keeps it.
+**Not changed (not asked):** aktiver-helsekort, aktiver-helsekort-oppdaget, beregn-termindato, registrer-termindato and avslutt still have the taller variant (54px row, full-width divider). uke-for-uke already matches the front page.
+**Why:** Direct user request.
+
 #helsenorge
