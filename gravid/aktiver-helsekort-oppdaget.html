@@ -308,7 +308,7 @@ a:focus-visible, button:focus-visible {
 .panel-blueberry {
   width: 344px;
   background: var(--color-base-background-blueberry);
-  padding: var(--space-s) var(--space-s) var(--space-l);
+  padding: var(--space-s); /* button only now (heading + text removed 2026-09-30) */
   margin: var(--space-l) 0;
   display: flex;
   flex-direction: column;
@@ -333,7 +333,7 @@ a:focus-visible, button:focus-visible {
   text-decoration: none;
 }
 .btn-fill:hover { background: var(--blueberry-700); }
-.btn-fill span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; }
+.btn-fill span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; padding: 0.4375rem 0; } /* real Button __text mobile padding: gives wrapped labels breathing room */
 
 /* Button — fill variant, "large-non-borderless" size, fluid width,
    with a right-arrow icon (section 3's CTA). */
@@ -566,10 +566,8 @@ a:focus-visible, button:focus-visible {
        you'd rather see phrased differently.
   ═══════════════════════════════════════════════════════════ -->
   <div class="panel-blueberry">
-    <h2>Aktiver digitalt helsekort</h2>
-    <p>Digitalt helsekort for gravide er en del av kjernejournalen din. Når du aktiverer det, kan jordmoren eller fastlegen din registrere og dele informasjon om graviditeten din digitalt. Du kan når som helst reservere deg mot dette i personverninnstillingene dine.</p>
     <a class="btn-fill" href="index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1&amp;dokumenter=0" id="activateBtn">
-      <span>Aktiver digitalt helsekort</span>
+      <span>Bruk tjenesten Gravid og digitalt helsekort</span>
     </a>
   </div>
 

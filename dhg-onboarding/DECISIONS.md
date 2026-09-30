@@ -163,4 +163,8 @@ Started 2026-09-25.
 All three now point to the same action: take DHG into use and share information with the fastlege/jordmor before the first check-up.
 **Why:** Direct user request.
 
+## 2026-09-30 — Activation panel reduced to the button, now "Bruk tjenesten Gravid og digitalt helsekort"
+**Decision:** On both activation pages (`aktiver-helsekort.html` and `aktiver-helsekort-oppdaget.html`), the green blueberry panel lost its "Aktiver digitalt helsekort" heading and explanatory text. Only the button remains, relabelled "Bruk tjenesten Gravid og digitalt helsekort". The panel padding was evened out (`space-s` all round) now that there is no heading. The button text got the real Button's mobile text padding (`0.4375rem 0`) so the two-line label isn't cramped.
+**Why:** Direct user request.
+
 #helsenorge
