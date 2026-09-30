@@ -15,7 +15,7 @@ Each scenario starts on a real Forside replica (`scenario-N-frontpage.html`) in 
 
 **Unread count is live:** on both Varsler pages the bell badge and "N uleste" are counted from the list, and opening a row or "Marker alle som lest" updates them. The count is remembered for the session and mirrored on that scenario's frontpage bell.
 
-**Every onboarding path lands in Gravid with `dokumenter=0`** (no uploaded papirhelsekort, since she has only just activated). S2–S4 also land with `termindato=none`. S1 lands with a **confirmed, locked** termindato (`termindato=1`), since it was registered by her care provider.
+**Every onboarding path lands in Gravid with `dokumenter=0`** (no uploaded papirhelsekort, since she has only just activated). S2–S4 also land with `termindato=none`. S1 lands with a **confirmed, locked** termindato (`termindato=1`), since it was registered by her care provider. All four scenarios show the non-dismissable "Del opplysninger" info message.
 
 ## Shared landing pages — `gravid/aktiver-helsekort.html` / `aktiver-helsekort-oppdaget.html`
 `?kilde=` drives a context banner (a real NotificationPanel, variant info) and the breadcrumb:

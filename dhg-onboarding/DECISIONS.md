@@ -146,4 +146,8 @@ Started 2026-09-25.
 **Decision:** S1 (EPJ) now activates into `termindato=1`, the Gravid page's **confirmed** state ("Bekreftet termindato", no pencil, not editable), instead of `termindato=0` (her own editable estimate). The termindato was registered by her jordmor/fastlege in the EPJ, so she can't change it. The same change was made in the S3 page's unused copy of the epj settings and in the S1 Forside "Gravid" tile, which had been copied from S3 with `termindato=none`. S2–S4 are unchanged (no termindato registered).
 **Why:** Direct user request.
 
+## 2026-09-30 — S1 also shows the "Del opplysninger" info message
+**Decision:** S1 now activates with `panelHelsekort=1`, like S2–S4, so the Gravid page shows the non-dismissable "Del opplysninger før første svangerskapskontroll" info NotificationPanel ("Fortsett utfylling" → the Kartlegging form). Updated in the activation page, the S3 page's unused epj copy, and the S1 Forside "Gravid" tile. The termindato stays locked (confirmed).
+**Why:** Direct user request.
+
 #helsenorge
