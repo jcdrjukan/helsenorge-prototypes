@@ -333,6 +333,10 @@ a:focus-visible, button:focus-visible {
   text-decoration: none;
 }
 .btn-fill:hover { background: var(--blueberry-700); }
+/* Real Button right-icon, medium, mobile: padding 0 xs 0 s, 38px icon
+   with margin-left 3xs (ArrowRight, white like the text). */
+.btn-fill--right-icon { padding: 0 var(--space-xs) 0 var(--space-s); color: #fff; }
+.btn-fill--right-icon svg { width: 38px; height: 38px; flex-shrink: 0; margin-left: 4px; }
 .btn-fill span { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff; padding: 0.4375rem 0; } /* real Button __text mobile padding: gives wrapped labels breathing room */
 
 /* Button — fill variant, "large-non-borderless" size, fluid width,
@@ -566,8 +570,9 @@ a:focus-visible, button:focus-visible {
        you'd rather see phrased differently.
   ═══════════════════════════════════════════════════════════ -->
   <div class="panel-blueberry">
-    <a class="btn-fill" href="index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1&amp;dokumenter=0" id="activateBtn">
+    <a class="btn-fill btn-fill--right-icon" href="index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1&amp;dokumenter=0" id="activateBtn">
       <span>Bruk tjenesten Gravid og digitalt helsekort</span>
+      <svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
     </a>
   </div>
 

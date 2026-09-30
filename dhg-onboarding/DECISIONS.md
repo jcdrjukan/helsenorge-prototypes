@@ -167,4 +167,8 @@ All three now point to the same action: take DHG into use and share information 
 **Decision:** On both activation pages (`aktiver-helsekort.html` and `aktiver-helsekort-oppdaget.html`), the green blueberry panel lost its "Aktiver digitalt helsekort" heading and explanatory text. Only the button remains, relabelled "Bruk tjenesten Gravid og digitalt helsekort". The panel padding was evened out (`space-s` all round) now that there is no heading. The button text got the real Button's mobile text padding (`0.4375rem 0`) so the two-line label isn't cramped.
 **Why:** Direct user request.
 
+## 2026-09-30 — ArrowRight icon on the activation button
+**Decision:** "Bruk tjenesten Gravid og digitalt helsekort" (both activation pages) now has an ArrowRight icon after the text. It follows the real Button right-icon, medium, mobile spec: padding `0 xs 0 s`, a 38px icon, and a `3xs` margin before it.
+**Why:** Direct user request.
+
 #helsenorge
