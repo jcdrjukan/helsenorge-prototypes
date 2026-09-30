@@ -111,4 +111,12 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Deviations/fixes:** "Helseutfordringer/sykdom" gets a `<wbr>` after the slash, since at 344px it otherwise overflows its chevron. A title4 wrapped in a DictionaryTrigger (Røyk/Alkohol/Snus) keeps its 2rem top spacing. The expanded state is toggled on the title (`--expanded`) like the real component. The ingress is still the earlier draft, because the real ingress text wasn't in the capture. "Lagre til Dokumenter" is not wired up.
 **Why:** Direct user request, with the real rendered markup.
 
+## 2026-09-30 — "Siste prøver og målinger" rebuilt from the real page's rendered markup
+**Decision:** `gravid/prover-og-malinger.html` was rebuilt from outerHTML the user pasted for the page header and one collapsed section. This replaces the earlier empty-state draft.
+- **PageHeader:** H1 "Siste prøver og målinger" (title1 2rem/2.375rem 600), the snarvei star beside it (this prototype's existing favourite button, own localStorage key), and the real ingress text as preamble (1.25rem/1.625rem): "Her finner du resultater fra prøver du har tatt under graviditeten din. Du ser også en oversikt over målinger fra svangerskapskontroller, som blodtrykk og andre målinger." The real `<hn-webcomp-infopanel>` slot was empty in the capture, so it's omitted.
+- **ExpanderList,** variant "line", colour "white", with ElementHeader rows (values from the components' SCSS: #7d7c79 rules, 1.125rem/1.75rem link text, 600 when open, #f5f3f3 hover/open, content padding 0.75rem 1rem 2rem 1.5rem, 38px chevron). The page supports several sections (the user noted there can be several); only categories with results are listed. For now there's the one from the capture, "Andre prøvesvar".
+- **PLACEHOLDER:** the expanded content of "Andre prøvesvar" wasn't in the capture (the item was collapsed). It shows typical first-kontroll blood tests (blodtype, irregulære antistoffer, Hb with reference range, hepatitt B, HIV, syfilis; "Tatt 14.08.2026 hos Ekeberg legekontor") as a Duolist, to be replaced with the real expanded markup.
+- **Known inconsistency:** the Svangerskapsjournal's own "Andre prøvesvar" section shows the empty state (as in its real capture), while this page lists results. The two should be reconciled once the real expanded content is known.
+**Why:** Direct user request with the real rendered markup.
+
 #helsenorge

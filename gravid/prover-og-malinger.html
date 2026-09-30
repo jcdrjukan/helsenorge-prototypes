@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prøver og målinger – Helsenorge</title>
+<title>Siste prøver og målinger – Helsenorge</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -49,7 +49,6 @@
 
   --focus-outline: 3px solid #000000;
   --focus-offset:  2px;
-  --color-base-text-onlight-subdued: #474745;
 }
 
 /* ─── Reset ─────────────────────────────────────────────── */
@@ -397,36 +396,70 @@ a:focus-visible, button:focus-visible {
 .sp-l  { height: var(--space-l);  flex-shrink: 0; width: 100%; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 /* ═══════════════════════════════════════════════════════════
-   JOURNAL / PRØVER — empty state ("ingen data registrert ennå").
-   EmptyState = the real @helsenorge/designsystem-react EmptyState,
-   type "dashed", size "normal", at mobile width: 1px dashed
-   --color-base-border-onlight-emphasized (#62625f) border, 16px
-   radius, 16px padding and gap, the component's own EmptyBoxBeeSmall
-   illustration (90×90, neutral palette; converted from its JSX to
-   img/empty-box-bee-small.svg), title as Title "title4" (mobile),
-   additional text as body.
+   SISTE PRØVER OG MÅLINGER — rebuilt from the real page's rendered
+   markup (PageHeader + ExpanderList). Values from
+   @helsenorge/designsystem-react's own SCSS, mobile width:
+   - PageHeader: title1 (2rem/2.375rem 600), favoritter star beside it
+     (this prototype's existing snarvei button), preamble ingress
+     (1.25rem/1.625rem 400). The real <hn-webcomp-infopanel> slot was
+     empty in the capture, so it's omitted.
+   - ExpanderList variant "line", colour "white": 1px
+     --component-listelements-border-neutral-normal (#7d7c79) rule on
+     top of the first item and under every item; link font
+     1.125rem/1.75rem (weight 600 when open); hover #f5f3f3, open
+     #f5f3f3; content padding 0.75rem 1rem 2rem 1.5rem.
+   - ElementHeader (parent "expanderlist"): 0.5rem 0.5rem 0.5rem 0
+     padding, text padding 10px 0 0.5rem 0.5rem, 38px chevron.
 ══════════════════════════════════════════════════════════════ */
-.jr { width: 344px; display: flex; flex-direction: column; }
-.jr__intro { font: var(--mobile-body); margin-top: var(--space-m); }
-.emptystate {
-  display: flex; flex-flow: row; gap: 1rem; padding: 1rem; align-items: center;
-  border: 1px dashed #62625f; border-radius: 16px; margin-top: var(--space-l);
+.pm-header { width: 344px; padding-top: var(--space-xl); }
+.pm-header__row { display: flex; align-items: flex-start; justify-content: space-between; gap: var(--space-2xs); }
+.pm-header h1 { font: 600 2rem/2.375rem 'Source Sans Pro', sans-serif; margin: 0; color: var(--color-base-text-onlight); }
+.pm-header__ingress { font: 400 1.25rem/1.625rem 'Source Sans Pro', sans-serif; margin: var(--space-m) 0 0; }
+.el { list-style: none; margin: var(--space-xl) 0 0; padding: 0; width: 344px; }
+.el__item { display: grid; border-bottom: 1px solid #7d7c79; background: #fff; }
+.el__item:first-of-type { border-top: 1px solid #7d7c79; }
+.el__link {
+  all: unset; box-sizing: border-box; display: flex; justify-content: space-between; align-items: center; width: 100%;
+  cursor: pointer; font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: #000; padding-left: 8px;
 }
-.emptystate__illustration { align-self: flex-start; flex-shrink: 0; line-height: 0; }
-.emptystate__text { display: flex; flex-flow: column; gap: 0.25rem; }
-.emptystate__title { font: 600 1.25rem/1.3 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
-.emptystate__additional-text { font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
-.jr__h2 { font: 600 1.375rem/1.36 'Source Sans Pro', sans-serif; margin-top: var(--space-xl); }
-.jr__list { margin: var(--space-s) 0 0; padding-left: 1.25rem; display: flex; flex-direction: column; gap: var(--space-2xs); font: var(--mobile-body); }
-.jr__list span { display: block; font-size: 1rem; line-height: 1.5; color: var(--color-base-text-onlight-subdued, #474745); }
-.jr__crosslink {
-  display: flex; align-items: center; justify-content: space-between; gap: var(--space-2xs);
-  margin-top: var(--space-xl); padding: var(--space-s) 0;
-  border-top: 1px solid var(--neutral-200, #d6d4d3); border-bottom: 1px solid var(--neutral-200, #d6d4d3);
-  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight, #126f87); text-decoration: none;
+.el__link[aria-expanded="false"]:hover { background: #f5f3f3; }
+.el__link[aria-expanded="false"]:active { background: #eae7e7; }
+.el__link[aria-expanded="true"] { background: #f5f3f3; font-weight: 600; border-bottom: 1px solid #fff; }
+.el__link:focus-visible { outline: 0.25rem solid #000; }
+.el__header { display: flex; align-items: center; width: 100%; padding: 0.5rem 0.5rem 0.5rem 0; }
+.el__title { flex: 1; min-width: 0; margin: 0; font: inherit; padding: 10px 0 0.5rem 0.5rem; }
+.el__chev-up, .el__link[aria-expanded="true"] .el__chev-down { display: none; }
+.el__link[aria-expanded="true"] .el__chev-up { display: block; }
+.el__content { display: none; padding: 0.75rem 1rem 2rem 1.5rem; }
+.el__link[aria-expanded="true"] + .el__content { display: block; }
+.dl { display: grid; grid-template-columns: 1fr; margin: 0; }
+.dl dt { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; padding: 0 2rem 0.25rem 0; }
+.dl dd { font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; margin: 0; padding-bottom: 1rem; }
+.dl dd span { display: block; font-size: 1rem; line-height: 1.5; color: #474745; }
+.pm-note { font: 400 1rem/1.5 'Source Sans Pro', sans-serif; color: #474745; margin: 0 0 var(--space-s); }
+.favorite-btn {
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: var(--blueberry-700);
 }
-.jr__crosslink:hover span { text-decoration: underline; }
-.jr__crosslink svg { width: 38px; height: 38px; flex-shrink: 0; }
+
+.favorite-btn__icon {
+  width: 32px;
+  height: 32px;
+}
+
+.favorite-btn__icon--fill {
+  display: none;
+}
+
 
 </style>
 </head>
@@ -504,33 +537,26 @@ a:focus-visible, button:focus-visible {
     </button>
   </div>
 
-  <div class="page-title">
-    <h1>Prøver og målinger</h1>
-  </div>
-
-  <div class="jr">
-    <p class="jr__intro">Her ser du resultatene fra prøver og målinger som tas under svangerskapskontrollene.</p>
-
-    <div class="emptystate">
-      <div class="emptystate__illustration"><svg xmlns="http://www.w3.org/2000/svg" width="90" height="90" viewBox="0 0 90 90" aria-hidden="true" role="presentation" focusable="false"><path d="M45.0303 45.3252V80.9694L17.1865 71.3688V36.552L45.0303 45.3252Z" fill="#EAE7E7"/><path d="M17.1805 36.552L9.5625 54.3597L37.4122 63.4013L45.0301 45.3181L17.1805 36.552Z" fill="#F5F3F3"/><path d="M45.0303 45.3335V28.0969L72.874 36.5495" fill="#EAE7E7"/><path fill-rule="evenodd" clip-rule="evenodd" d="M53.575 12.8235C53.8828 12.8657 54.098 13.1495 54.0558 13.4573C53.9445 14.2679 54.11 15.2374 54.4132 16.1637C54.7146 17.0845 55.1327 17.9044 55.4693 18.398C55.6443 18.6547 55.5781 19.0047 55.3215 19.1797C55.0648 19.3547 54.7148 19.2885 54.5398 19.0318C54.1372 18.4413 53.6746 17.5239 53.344 16.5136C53.0151 15.5087 52.7972 14.3533 52.9412 13.3042C52.9835 12.9965 53.2672 12.7812 53.575 12.8235Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M55.4525 11.7755C55.7511 11.8613 55.9235 12.173 55.8376 12.4715C55.7414 12.8063 55.7409 13.2523 55.8363 13.7868C55.9304 14.3147 56.1104 14.8881 56.3346 15.4549C56.7838 16.5911 57.3864 17.6416 57.734 18.1514C57.909 18.4081 57.8428 18.758 57.5861 18.933C57.3294 19.108 56.9795 19.0418 56.8044 18.7852C56.4127 18.2107 55.77 17.0867 55.2884 15.8686C55.0471 15.2583 54.8403 14.6097 54.7287 13.9844C54.6184 13.3657 54.5935 12.7274 54.7565 12.1606C54.8423 11.8621 55.1539 11.6896 55.4525 11.7755Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M57.4988 11.3243C57.6546 11.2548 57.8131 11.1346 57.9638 10.9547C58.2443 10.6201 58.46 10.1142 58.5091 9.51359C58.5582 8.913 58.4275 8.37882 58.2052 8.00302C57.982 7.62576 57.6978 7.44944 57.4308 7.42761C57.1637 7.40578 56.8547 7.53359 56.5731 7.86958C56.4968 7.96067 56.4253 8.06443 56.3606 8.17932C56.3785 8.19552 56.3962 8.21189 56.4138 8.22846C57.0025 8.78155 57.3948 9.4668 57.5334 10.1485C57.6131 10.5399 57.6106 10.9474 57.4988 11.3243ZM54.1606 12.3709C53.3404 12.7719 52.6296 13.2577 52.0732 13.7929C51.1265 14.7033 50.53 15.864 50.8424 17.0232C51.1549 18.1824 52.2539 18.886 53.53 19.1974C54.8286 19.5142 56.4532 19.4706 58.1086 19.0244C59.7639 18.5782 61.1903 17.7994 62.1538 16.8728C63.1005 15.9623 63.697 14.8016 63.3845 13.6424C63.0721 12.4832 61.973 11.7796 60.697 11.4683C60.2107 11.3497 59.6788 11.2816 59.1167 11.2662C59.3984 10.7924 59.5801 10.2196 59.6303 9.60527C59.6962 8.8002 59.5276 8.02882 59.1734 7.43014C58.82 6.83292 58.2502 6.36585 57.5224 6.30635C56.7947 6.24684 56.1565 6.61515 55.7109 7.14703C55.6085 7.2692 55.5143 7.4019 55.429 7.54358C55.1013 7.38337 54.7623 7.2772 54.4278 7.23062C53.7405 7.13491 53.0201 7.2896 52.5201 7.82177C52.0202 8.35394 51.9107 9.08254 52.049 9.76254C52.1877 10.4442 52.5799 11.1295 53.1686 11.6825C53.4736 11.9691 53.8107 12.2008 54.1606 12.3709ZM52.853 14.6037C52.0338 15.3916 51.7724 16.1508 51.9287 16.7304C52.0849 17.3101 52.6925 17.835 53.7967 18.1044C54.8783 18.3683 56.3077 18.3447 57.8158 17.9382C59.3239 17.5317 60.5715 16.8337 61.374 16.0619C62.1932 15.2741 62.4546 14.5149 62.2983 13.9352C62.1421 13.3556 61.5345 12.8306 60.4303 12.5612C59.3487 12.2973 57.9193 12.321 56.4112 12.7275C54.9031 13.134 53.6555 13.8319 52.853 14.6037ZM53.9389 10.8627C53.4998 10.45 53.2385 9.96616 53.1514 9.53827C53.064 9.10872 53.1566 8.78733 53.34 8.59209C53.5235 8.39684 53.8385 8.28441 54.2726 8.34487C54.7051 8.40509 55.2043 8.63574 55.6435 9.04835C56.0827 9.46097 56.344 9.94485 56.431 10.3727C56.5184 10.8023 56.4258 11.1237 56.2424 11.3189C56.0589 11.5142 55.744 11.6266 55.3098 11.5661C54.8773 11.5059 54.3781 11.2753 53.9389 10.8627Z" fill="black"/><path d="M59.266 15.0165C59.5068 14.9898 59.6804 14.773 59.6538 14.5321C59.6271 14.2913 59.4103 14.1177 59.1694 14.1444C58.9286 14.171 58.755 14.3879 58.7817 14.6287C58.8083 14.8695 59.0251 15.0431 59.266 15.0165Z" fill="black"/><path d="M48.6423 18.2672C48.7879 18.5416 48.6836 18.8822 48.4092 19.0278C48.1031 19.1903 47.7997 19.3395 47.4993 19.4769C47.2168 19.6062 46.883 19.482 46.7537 19.1995C46.6245 18.917 46.7487 18.5832 47.0311 18.454C47.3122 18.3254 47.5957 18.186 47.8817 18.0342C48.1561 17.8885 48.4966 17.9928 48.6423 18.2672Z" fill="black"/><path d="M45.0458 19.8154C45.1314 20.114 44.9588 20.4256 44.6602 20.5112C43.9944 20.7023 43.3501 20.8591 42.7359 21.0046C42.4336 21.0762 42.1305 20.8892 42.0589 20.5869C41.9873 20.2846 42.1744 19.9815 42.4767 19.9099C43.0875 19.7652 43.7106 19.6133 44.3499 19.4299C44.6485 19.3442 44.9601 19.5168 45.0458 19.8154Z" fill="black"/><path d="M40.2972 21.0259C40.3952 21.3207 40.2357 21.6391 39.9408 21.7371C39.3349 21.9384 38.7764 22.1744 38.2606 22.479C37.9931 22.637 37.6482 22.5483 37.4902 22.2808C37.3322 22.0133 37.421 21.6684 37.6884 21.5104C38.2915 21.1542 38.928 20.8882 39.5861 20.6695C39.8809 20.5715 40.1993 20.7311 40.2972 21.0259Z" fill="black"/><path d="M48.7868 37.2195C48.9987 36.9924 49.3547 36.9801 49.5818 37.1921C50.0689 37.6468 50.4678 38.175 50.7248 38.7899C50.8445 39.0766 50.7092 39.4061 50.4226 39.5258C50.1359 39.6456 49.8065 39.5103 49.6867 39.2236C49.5024 38.7825 49.2076 38.3818 48.8141 38.0145C48.587 37.8025 48.5748 37.4466 48.7868 37.2195Z" fill="black"/><path d="M50.4574 41.022C50.758 41.1002 50.9383 41.4074 50.8601 41.708C50.7839 42.0004 50.6831 42.3009 50.557 42.6098C50.4395 42.8974 50.1111 43.0353 49.8235 42.9178C49.5359 42.8003 49.398 42.4719 49.5155 42.1843C49.6245 41.9176 49.7089 41.6646 49.7713 41.4246C49.8496 41.124 50.1567 40.9437 50.4574 41.022Z" fill="black"/><path d="M40.6037 34.3914C40.6694 34.0878 40.9689 33.8949 41.2725 33.9607C41.8145 34.0781 42.3923 34.2043 42.9829 34.3447C43.2851 34.4165 43.4719 34.7197 43.4001 35.022C43.3283 35.3242 43.025 35.511 42.7228 35.4392C42.1441 35.3016 41.576 35.1775 41.0343 35.0602C40.7307 34.9944 40.5379 34.695 40.6037 34.3914Z" fill="black"/><path d="M36.4738 32.7257C36.657 32.4749 37.0089 32.42 37.2598 32.6032L38.7681 33.3676C39.0657 33.4567 39.2347 33.7702 39.1456 34.0678C39.0565 34.3654 38.743 34.5345 38.4454 34.4454L37.5366 34.097C37.0778 33.9094 36.1263 33.3676 36.4738 32.7257Z" fill="black"/><path fill-rule="evenodd" clip-rule="evenodd" d="M34.373 28.199C34.6824 28.1703 34.9564 28.3978 34.9851 28.7071C35.0412 29.3112 35.1984 29.8862 35.4442 30.4191L44.8668 27.5587C44.9204 27.5424 44.9754 27.5344 45.0302 27.5344C45.0849 27.5344 45.1399 27.5424 45.1936 27.5587L73.0373 36.0112C73.062 36.0187 73.0859 36.0278 73.1087 36.0382C73.2342 36.0941 73.3392 36.1958 73.397 36.3308L81.015 54.1385C81.0771 54.2838 81.0753 54.4485 81.01 54.5924C80.9446 54.7362 80.8218 54.846 80.6715 54.8948L73.6021 57.1899V71.4139C73.6021 71.6546 73.449 71.8686 73.2212 71.9463L45.2599 81.4828C45.1308 81.5406 44.9831 81.5482 44.8467 81.5012L17.003 71.9006C16.7761 71.8224 16.6239 71.6088 16.6239 71.3688V57.2437L9.3888 54.8948C9.23852 54.846 9.11569 54.7362 9.05035 54.5924C8.98501 54.4485 8.98319 54.2838 9.04533 54.1385L16.6633 36.3308C16.7211 36.1957 16.8262 36.0941 16.9518 36.0382C16.9746 36.0277 16.9983 36.0187 17.023 36.0112L34.3593 30.7484C34.0969 30.1411 33.928 29.4905 33.8649 28.8111C33.8362 28.5018 34.0637 28.2277 34.373 28.199ZM45.5927 36.2577C45.9997 36.4014 46.3931 36.5564 46.7661 36.7249C47.0493 36.8528 47.3824 36.727 47.5103 36.4439C47.6382 36.1608 47.5124 35.8276 47.2293 35.6997C46.7059 35.4633 46.1543 35.2549 45.5927 35.0689V28.8555L70.9768 36.5614L45.5927 44.5514V36.2577ZM44.4676 48.1024V80.1805L17.7489 70.9678V57.6089L37.2385 63.9364C37.5164 64.0267 37.8171 63.8891 37.9306 63.6198L44.4676 48.1024ZM44.2693 45.6752L17.4973 37.2415L10.3218 54.0149L37.0944 62.7068L44.2693 45.6752ZM19.0858 36.5607L44.4676 44.5514V28.8555L19.0858 36.5607ZM45.5926 80.1807V48.1021L52.1298 63.6198C52.2432 63.8891 52.5439 64.0267 52.8218 63.9364L72.4771 57.5552V71.0114L45.5926 80.1807ZM79.7385 54.0149L72.563 37.2415L45.7884 45.6692L52.9659 62.7068L79.7385 54.0149Z" fill="black"/><path d="M35.9555 23.6956C36.2103 23.8733 36.2728 24.2239 36.0951 24.4788C35.7299 25.0025 35.4232 25.5256 35.192 26.0782C35.0721 26.3648 34.7426 26.4999 34.456 26.38C34.1694 26.26 34.0343 25.9305 34.1542 25.6439C34.4246 24.9978 34.7757 24.404 35.1724 23.8352C35.3501 23.5804 35.7007 23.5179 35.9555 23.6956Z" fill="black"/></svg></div>
-      <div class="emptystate__text">
-        <h2 class="emptystate__title">Ingen prøver eller målinger registrert ennå</h2>
-        <span class="emptystate__additional-text">Resultatene vises her etter hvert som de blir registrert, vanligvis fra første svangerskapskontroll.</span>
-      </div>
+  <div class="pm-header">
+    <div class="pm-header__row">
+      <h1 id="sidetittel">Siste prøver og målinger</h1>
+      <button type="button" class="favorite-btn" id="favoriteBtn" 
+      aria-pressed="false" aria-label="Legg til snarvei">
+      <svg class="favorite-btn__icon favorite-btn__icon--stroke" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M23.884 5.258c.453 0 .866.256 1.067.662l4.975 10.084 11.13 1.613a1.19 1.19 0 0 1 .657 2.028l-8.063 7.85 1.901 11.084a1.188 1.188 0 0 1-1.725 1.252l-9.93-5.233-9.954 5.234a1.19 1.19 0 0 1-1.725-1.253l1.9-11.085-8.062-7.849a1.19 1.19 0 0 1 .658-2.028l11.128-1.613L22.818 5.92l.085-.145c.22-.32.585-.517.981-.517Zm-4.787 11.365c-.204.413-.598.7-1.055.767L7.338 18.94l7.756 7.55a1.4 1.4 0 0 1 .404 1.24l-1.829 10.662 9.576-5.035a1.4 1.4 0 0 1 1.304.001l9.55 5.033L32.27 27.73a1.4 1.4 0 0 1 .403-1.239l7.756-7.55-10.703-1.551a1.401 1.401 0 0 1-1.055-.767l-4.787-9.701-4.787 9.701Z"/></svg>
+      <svg class="favorite-btn__icon favorite-btn__icon--fill" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M23.092 7.124a1 1 0 0 1 1.816 0l4.664 10.112a1 1 0 0 0 .79.574l11.059 1.311a1 1 0 0 1 .561 1.728l-8.176 7.56a1 1 0 0 0-.301.93l2.17 10.922a1 1 0 0 1-1.47 1.067l-9.717-5.44a1 1 0 0 0-.976 0l-9.718 5.44a1 1 0 0 1-1.469-1.068l2.17-10.922a1 1 0 0 0-.301-.929l-8.176-7.56a1 1 0 0 1 .561-1.728l11.058-1.31a1 1 0 0 0 .79-.575l4.665-10.112Z"/></svg>
+    </button>
     </div>
-
-    <h2 class="jr__h2">Dette vil du finne her</h2>
-    <ul class="jr__list">
-      <li>Blodtrykk<span>Måles ved hver kontroll</span></li>
-      <li>Vekt<span>Måles ved første kontroll og ved behov</span></li>
-      <li>Urinprøve<span>Undersøkes for blant annet protein og sukker</span></li>
-      <li>Hemoglobin (blodprosent)<span>Blodprøve ved første kontroll og senere i svangerskapet</span></li>
-      <li>Blodtype og antistoffer<span>Blodprøve tidlig i svangerskapet</span></li>
-      <li>Mål av magen (symfyse-fundusmål)<span>Måles fra rundt uke 24</span></li>
-    </ul>
-
-    <a class="jr__crosslink" href="svangerskapsjournal.html" data-carry><span>Se svangerskapsjournal</span><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
+    <p class="pm-header__ingress">Her finner du resultater fra prøver du har tatt under graviditeten din. Du ser også en oversikt over målinger fra svangerskapskontroller, som blodtrykk og andre målinger.</p>
   </div>
+
+  <ul class="el">
+    <li class="el__item">
+      <button type="button" class="el__link" aria-expanded="false" aria-controls="el0">
+        <span class="el__header"><h2 class="el__title">Andre prøvesvar</h2><svg class="el__chev-down" viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg><svg class="el__chev-up" viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z"/></svg></span>
+      </button>
+      <div class="el__content" id="el0"><p class="pm-note">Tatt 14.08.2026 hos Ekeberg legekontor</p><dl class="dl"><dt>Blodtype</dt><dd>A RhD positiv</dd><dt>Irregulære blodtypeantistoffer</dt><dd>Ikke påvist</dd><dt>Hemoglobin (Hb)</dt><dd>12,8 g/dL<span>Referanseområde 11,7–15,3 g/dL</span></dd><dt>Hepatitt B</dt><dd>Negativ</dd><dt>HIV</dt><dd>Negativ</dd><dt>Syfilis</dt><dd>Negativ</dd></dl></div>
+    </li>
+  </ul>
 
   <div class="sp-xl"></div>
 
@@ -580,10 +606,24 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-wrapper -->
 
 <script>
-// Carry the Gravid page's URL state (uke/tilknyttet/kilde…) through, so
-// "Gravid" and the cross-link keep the same scenario.
-const q = location.search;
-document.querySelectorAll('[data-carry]').forEach(a => { a.href = a.getAttribute('href') + q; });
+document.querySelectorAll('[data-carry]').forEach(a => { a.href = a.getAttribute('href') + location.search; });
+document.querySelectorAll('.el__link').forEach(b => b.addEventListener('click', () => {
+  b.setAttribute('aria-expanded', String(b.getAttribute('aria-expanded') !== 'true'));
+}));
+// Snarvei star — same behaviour as the Gravid page's, own storage key.
+(function () {
+  const KEY = 'gravid-prover-snarvei-favorited';
+  const btn = document.getElementById('favoriteBtn');
+  function apply(on) {
+    btn.setAttribute('aria-pressed', String(on));
+    btn.setAttribute('aria-label', on ? 'Fjern snarvei' : 'Legg til snarvei');
+    btn.querySelector('.favorite-btn__icon--stroke').style.display = on ? 'none' : '';
+    btn.querySelector('.favorite-btn__icon--fill').style.display = on ? 'inline-block' : 'none';
+  }
+  let on = false; try { on = localStorage.getItem(KEY) === '1'; } catch (e) {}
+  apply(on);
+  btn.addEventListener('click', () => { on = !on; apply(on); try { localStorage.setItem(KEY, on ? '1' : '0'); } catch (e) {} });
+})();
 </script>
 </body>
 </html>
