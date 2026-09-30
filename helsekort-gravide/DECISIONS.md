@@ -92,4 +92,14 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Why:** Direct user request: "it doesn't make sense that there would already be a document uploaded there. But retain the design for this somewhere."
 **Follow-up (same day):** extended to S2–S4 per direct request. That covers both activation pages' default and fallback links, S3's "Bruk Gravid uten digitalt helsekort" opt-out link, and the Forside "Gravid" tile links on the S1/S3/S4 frontpages. Every onboarding path into the Gravid page now carries `dokumenter=0`.
 
+## 2026-09-30 — Svangerskapsjournal and Prøver og målinger: first empty-state versions
+**Decision:** Added `gravid/svangerskapsjournal.html` and `gravid/prover-og-malinger.html`, linked from the Gravid front page's "Se hele svangerskapsjournal" / "Siste prøver og målinger" quick links (previously `href="#"`). Both are in the "nothing registered yet" state. The source the user pasted for the real Svangerskapsjournal was the client-rendered page shell only (empty `#main-content-wrapper`), so there was no real content or layout to port, and the user chose an empty-state first version instead.
+- **Structure (both pages):** the Gravid page frame (header, "Gravid" breadcrumb, Språk/Language, footer), H1, a short intro, **one** EmptyState, a "Dette vil du finne her" list of what will appear (with a one-line explanation each), and a cross-link to the other page. A single empty state was chosen over a stack of empty expanders, where each would have to be opened to find "nothing" inside.
+- **EmptyState** is the real `@helsenorge/designsystem-react` component (type "dashed", size "normal", mobile): 1px dashed #62625f border, 16px radius, 16px padding/gap. Its own `EmptyBoxBeeSmall` illustration was converted from the component's JSX to `gravid/img/empty-box-bee-small.svg`. Title uses title4 (mobile) and the additional text uses body.
+- **Journal sections** follow the existing clinical `helsekort-gravide` prototype's tabs: Medisinsk bakgrunn, Tidligere svangerskap og fødsler, Nåværende svangerskap, Svangerskapskontroller, Ultralydundersøkelser, Fødsel og barseltid. The lab tab moved to Prøver og målinger. **Prøver og målinger** lists Blodtrykk, Vekt, Urinprøve, Hemoglobin, Blodtype og antistoffer, Mål av magen.
+- **Copy** (intros, empty-state text, list explanations) is a first draft for review, not sourced.
+- **URL state:** the breadcrumb, cross-links and front-page quick links carry the Gravid page's URL state (uke/tilknyttet/kilde…), so a scenario survives the round trip.
+**Not done:** the quick links still show for users without digitalt helsekort (`tilknyttet=0`), where a journal doesn't really apply.
+**Why:** Direct user request.
+
 #helsenorge

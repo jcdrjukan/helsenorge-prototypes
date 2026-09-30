@@ -2369,13 +2369,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 
   <!-- Quick links -->
   <div class="quick-links">
-    <a class="quick-link" href="#">
+    <a class="quick-link" href="svangerskapsjournal.html" id="journalLink">
       <span>Se hele svangerskapsjournal</span>
       <div class="icon-arrow" aria-hidden="true">
         <svg viewBox="0 0 48 48" fill="#126F87"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
       </div>
     </a>
-    <a class="quick-link" href="#">
+    <a class="quick-link" href="prover-og-malinger.html" id="proverLink">
       <span>Siste prøver og målinger</span>
       <div class="icon-arrow" aria-hidden="true">
         <svg viewBox="0 0 48 48" fill="#126F87"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
@@ -3177,6 +3177,8 @@ function applyRegisteredTermindato() {
 function wireTermindatoLinks() {
   const q = location.search;
   document.getElementById('beregnTermindatoLink').href = 'beregn-termindato.html' + q;
+  document.getElementById('journalLink').href = 'svangerskapsjournal.html' + q;
+  document.getElementById('proverLink').href = 'prover-og-malinger.html' + q;
   const editable = document.getElementById('dueDateEditable');
   const go = () => { location.href = 'registrer-termindato.html' + q; };
   editable.addEventListener('click', go);
