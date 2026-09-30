@@ -136,6 +136,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ## 2026-09-30 — "Del opplysninger" panel back to the info variant
 **Decision:** The "Del opplysninger før første svangerskapskontroll" NotificationPanel on `gravid/index.html` was switched from the warning variant (banana, set on 2026-09-29) back to **info** (blueberry), with the info icon, matching the farskap panel and the activation pages' banners. Text, close button and the "Fortsett utfylling →" link (which now opens the Kartlegging form) are unchanged. The warn CSS rules stay, unused.
+**Follow-up (same day):** per direct request the panel is **no longer dismissable**: the close button is removed, and it uses the standard (non-dismissable) NotificationPanel padding. It stays until the kartlegging is sent ("Gå vidare" → `panelHelsekort=0`). The farskap panel keeps its close button.
 **Why:** Direct user request: in the DHG onboarding flow it should be a green "info" message like the others.
 
 #helsenorge
