@@ -84,7 +84,7 @@ Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 s
 ### Other front-page changes since 2026-09-25
 - **No-termindato state:** "Termindato / ikke registrert" (20px regular) above the real Frankenstein mobile fill Button, whose label wraps onto two lines ("Beregn / termindato").
 - **"Del opplysninger" panel:** now the same NotificationPanel as the farskap panel, variant **warn** (banana800 border, banana50 fill), with a semibold "Fortsett utfylling →" link, no underline.
-- **Mål av magen:** no "–" placeholder above the chart when there's no measurement yet.
+- **Mål av magen:** the chart is a 1:1 rebuild of the real Highcharts output (title "Visualisering av magemål over tid", cm/veke axis titles, real band/median paths, plain white). Her own measurements are drawn in its coordinate system, and there is no "–" placeholder when there's no measurement yet.
 - **Breadcrumb row:** identical on every Gravid page (46px, 4px indent, #D6D4D3 divider inset 1rem), matched to the front page on 2026-09-30.
 
 ### Phone-frame mockup (added 2026-09-24)

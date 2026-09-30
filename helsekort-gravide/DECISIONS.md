@@ -139,4 +139,14 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Follow-up (same day):** per direct request the panel is **no longer dismissable**: the close button is removed, and it uses the standard (non-dismissable) NotificationPanel padding. It stays until the kartlegging is sent ("Gå vidare" → `panelHelsekort=0`). The farskap panel keeps its close button.
 **Why:** Direct user request: in the DHG onboarding flow it should be a green "info" message like the others.
 
+## 2026-09-30 — Mål av magen chart rebuilt 1:1 from the real Highcharts output
+**Decision:** The chart on `gravid/index.html` (the only design that draws it; Svangerskapsjournal shows the real empty state for Mål av magen, and the clinical helsekort uses a table) was rebuilt from the user-pasted rendered `<svg class="highcharts-root">` (Highcharts 12.6.0).
+- **Real geometry:** 363×400 viewBox scaled to the column width, plot area x 28–353 / y 30–335, and the in-chart title "Visualisering av magemål over tid" (1.2em bold #333).
+- **Axes:** "cm" and "veke" axis titles (0.8em #666). Labels 15–45 and 24–40 at the real positions (0.8em #333). #D6D4D3 x-axis line with 10px ticks. Gridlines invisible, as in the real chart.
+- **Band and median:** the #AFDAE3@30% normal band and white 2px median use the real paths verbatim, covering weeks 23–42.
+- **Font:** Highcharts' own default system font stack, as in the real chart (not Source Sans Pro).
+- **Removed:** the grey panel background, border and rounding, the "Uke 28 · 25.11.2026 / 28 cm" callout box, and the dashed current-week line. None of these are in the real chart.
+- **Her own measurements** (the real chart's series-0, empty on the captured account) are still drawn as a #188097 line with markers, now through the real coordinate system (`wkToX`: week 23 at plot-x 3.186, 16.77px/week; `cmToY`: 10.1667px/cm). The large "30cm" value above the chart is unchanged.
+**Why:** Direct user request: "Here is the actual design for the Mål av magen graf. Please update all designs that use it."
+
 #helsenorge
