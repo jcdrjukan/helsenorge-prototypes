@@ -149,4 +149,14 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Her own measurements** (the real chart's series-0, empty on the captured account) are still drawn as a #188097 line with markers, now through the real coordinate system (`wkToX`: week 23 at plot-x 3.186, 16.77px/week; `cmToY`: 10.1667px/cm). The large "30cm" value above the chart is unchanged.
 **Why:** Direct user request: "Here is the actual design for the Mål av magen graf. Please update all designs that use it."
 
+## 2026-09-30 — Kartlegging submit shows a "Sendt" success modal
+**Decision:** "Gå vidare" on `gravid/kartlegging.html` now opens a success modal (Figma "CLD - Gravid" node 66:28297) over a 50% grey page mask before returning to Gravid:
+- Title "Sendt" with the CheckOutline icon, in #078141 on #E6F8EE.
+- Text "Skjema er innsendt til dine behandlere og lagres i ditt digitalt helsekort."
+- A single "OK" button.
+
+It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handling. The form is already sent at that point, so every way out of the modal (OK, X, Esc, mask click) continues to Gravid rather than back to the form.
+**Alternative considered:** Having X, Esc and a mask click close the modal and stay on the form, as with the S3 modal.
+**Why:** Direct user request with Figma. Returning to an already-submitted form would suggest it could still be edited.
+
 #helsenorge

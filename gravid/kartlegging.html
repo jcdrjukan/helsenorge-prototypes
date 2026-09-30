@@ -422,6 +422,45 @@ a:focus-visible, button:focus-visible {
 .kl-toast { position: sticky; bottom: 1rem; margin: 1rem auto 0; width: fit-content; padding: 0.5rem 1rem; background: #2b2c2b; color: #fff; border-radius: 4px; font-size: 1rem; }
 .kl-toast[hidden] { display: none; }
 
+/* ═══════════════════════════════════════════════════════════
+   "SENDT" SUCCESS MODAL — Figma "CLD - Gravid" node 66:28297.
+   Same Modal_v2.0 box as the S3 "Er du gravid selv?" modal
+   (aktiver-helsekort-oppdaget.html .gm-*), success variant: background
+   #E6F8EE (color/notification/background/success), CheckOutline icon and
+   title in #078141. 50% grey page mask per direct request.
+══════════════════════════════════════════════════════════════ */
+.sm-overlay {
+  position: absolute; left: 0; right: 0; z-index: 50;
+  background: rgba(44, 43, 44, 0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.sm-overlay[hidden] { display: none; }
+.sm {
+  position: relative; width: 345px; max-width: calc(100% - 24px);
+  background: #e6f8ee; box-shadow: 0 0 5px 0 rgb(0 0 0 / 50%);
+  padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 40px;
+  outline: none; font-family: 'Source Sans Pro', sans-serif;
+}
+.sm__close {
+  position: absolute; top: 4px; right: 4px; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; padding: 0; cursor: pointer; border-radius: 4px;
+}
+.sm__close:hover { background: rgba(18, 111, 135, 0.13); }
+.sm__close img { width: 38px; height: 38px; }
+.sm__top { display: flex; flex-direction: column; gap: 8px; }
+.sm__head { display: flex; align-items: center; gap: 10px; }
+.sm__head img { width: 48px; height: 48px; flex-shrink: 0; }
+.sm__title { margin: 0; font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #078141; }
+.sm__ingress { margin: 0; font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
+.sm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.sm__btn {
+  display: inline-flex; align-items: center; border-radius: 8px; cursor: pointer;
+  border: none; background: #188097; color: #fff; min-height: 44px; padding: 3px 24px;
+  font: 600 18px/22px 'Source Sans Pro', sans-serif;
+}
+.sm__btn:hover { background: #08667c; }
+.sm__btn span { padding: 4px 0 6px; }
 </style>
 </head>
 <body>
@@ -553,6 +592,22 @@ a:focus-visible, button:focus-visible {
 
 </div><!-- /app -->
 
+<!-- "Sendt" success modal (Figma 66:28297) — see .sm-overlay CSS. -->
+<div class="sm-overlay" id="sentModal" hidden>
+  <div class="sm" role="dialog" aria-modal="true" aria-labelledby="smTitle" aria-describedby="smIngress" tabindex="-1">
+    <button type="button" class="sm__close" id="smClose" aria-label="Lukk"><img src="img/modal-close.svg" width="38" height="38" alt=""></button>
+    <div class="sm__top">
+      <div class="sm__head">
+        <img src="img/modal-check-outline.svg" width="48" height="48" alt="">
+        <h2 class="sm__title" id="smTitle">Sendt</h2>
+      </div>
+      <p class="sm__ingress" id="smIngress">Skjema er innsendt til dine behandlere og lagres i ditt digitalt helsekort.</p>
+    </div>
+    <div class="sm__buttons">
+      <button type="button" class="sm__btn" id="smOk"><span>OK</span></button>
+    </div>
+  </div>
+</div>
 </div><!-- /phone-frame__screen -->
 <div class="phone-frame__home"></div>
 </div><!-- /phone-frame -->
@@ -607,17 +662,49 @@ document.querySelectorAll('.kl [data-help]').forEach(b => b.addEventListener('cl
   b.setAttribute('aria-expanded', String(open)); box.hidden = !open;
 }));
 
-// Lagre → "Skjemaet er lagra" toast. Gå vidare → back to Gravid with the
-// "Del opplysninger" panel gone (the kartlegging has been sent).
+// Lagre → "Skjemaet er lagra" toast. Gå vidare → "Sendt" success modal;
+// OK (or closing it) → back to Gravid with the "Del opplysninger" panel
+// gone (the kartlegging has been sent).
 const toast = document.getElementById('kartToast');
 document.getElementById('kartSave').addEventListener('click', () => {
   toast.hidden = false; clearTimeout(toast._t); toast._t = setTimeout(() => { toast.hidden = true; }, 2500);
 });
 document.getElementById('kartForm').addEventListener('submit', e => {
   e.preventDefault();
-  const p = new URLSearchParams(params); p.set('panelHelsekort', '0'); p.set('kartlegging', 'sendt');
-  location.href = 'index.html?' + p.toString();
+  openSentModal();
 });
+
+// The form is already sent when the modal shows, so every way out of it
+// (OK, X, Escape, mask click) continues to Gravid rather than back to
+// the form. Positioned over the visible part of whichever element is
+// scrolling, same as the S3 modal on aktiver-helsekort-oppdaget.html.
+function openSentModal() {
+  const overlay = document.getElementById('sentModal');
+  const dialog = overlay.querySelector('.sm');
+  const screen = document.querySelector('.phone-frame__screen');
+  const innerScroll = getComputedStyle(screen).overflowY !== 'visible';
+  const top = innerScroll ? screen.scrollTop : Math.max(0, -screen.getBoundingClientRect().top);
+  overlay.style.top = top + 'px';
+  overlay.style.height = (innerScroll ? screen.clientHeight : window.innerHeight) + 'px';
+  (innerScroll ? screen : document.documentElement).style.overflow = 'hidden';
+  overlay.hidden = false;
+  const ok = document.getElementById('smOk');
+  ok.focus();
+  const done = () => {
+    const p = new URLSearchParams(params); p.set('panelHelsekort', '0'); p.set('kartlegging', 'sendt');
+    location.href = 'index.html?' + p.toString();
+  };
+  ok.addEventListener('click', done);
+  document.getElementById('smClose').addEventListener('click', done);
+  overlay.addEventListener('click', e => { if (e.target === overlay) done(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { done(); return; }
+    if (e.key !== 'Tab') return;
+    const f = dialog.querySelectorAll('button'); const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+}
 </script>
 </body>
 </html>
