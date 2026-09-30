@@ -6,25 +6,28 @@ Static HTML prototype demonstrating the four main onboarding paths into **Digita
 Chrome-less scenario picker (same convention as `gravid/dashboard.html`), listing the 4 scenarios with a short description each. Not linked from any patient-facing prototype; `noindex, nofollow`.
 
 ## The 4 scenarios
-1. **`scenario-1-varsel.html`** — EPJ registration → automatic "hendelsesvarsel". A single-notification mock of the Varsler screen (adapted pattern from `forstegangsvarsel2/`'s varsel-list), with one unread "Fra Helsenorge" notification ("Digitalt helsekort for gravide er klart for deg").
-2. **`scenario-2-booking.html`** — Booking → pre-appointment invitation. A minimal "Bestill time" form with a "Hva gjelder timen?" dropdown pre-set to "Gravid"; submitting reveals a booking confirmation plus an invitation panel to activate DHG and answer kartlegging questions before the appointment. Deliberately a single trigger screen, not a full booking flow (per user decision).
-3. **Organic discovery, 3 sub-entries** (`scenario-3-frontpage.html`, `scenario-3-sok.html`, `scenario-3-redaksjonelt.html`) — self-contained mocks of a frontpage "Situasjonstjenester" tile, a global search-results page for "gravid", and an open editorial article ("Gravid og fødsel"). `3a` is a standalone imitation of the tile for this demo, not wired to the real "Gravid" tile that already exists (and is already activated by default) in the Frankenstein `forside` prototype — that real tile isn't currently wired to the activation landing page either; left as-is to avoid touching real product logic for a demo-only need.
-4. **S4 via Helsenorge melding** — `scenario-4-frontpage.html` (Varsler badge) → `scenario-4-varsel.html` (top unread "Melding" varsel, "Digitalt helsekort for gravide") → `scenario-4-melding.html` (Innboks message from the provider, deep-linked past the Innboks overview; Figma node 53:6107) → "Gå til tjenesten Gravid" → activation page with `?kilde=melding`.
-   **`scenario-4-behandler.html`** — the current, still-supported, soon-to-be-phased-out flow: a mock SMS from "Jordmortjenesten" containing the same provider-issued activation URL used today, now pointed at the updated shared landing page.
+Each scenario starts on a real Forside replica (`scenario-N-frontpage.html`) in the nothing-activated-yet state, except S2, which starts on its booking flow.
 
-All 4 scenarios funnel into the **same shared activation landing page**, `gravid/aktiver-helsekort.html`.
+1. **S1 — EPJ registration → automatic varsel.** `scenario-1-frontpage.html` (Varsler bell with an unread badge) → `scenario-1-varsel.html`: the Varsler page built from Figma 53:12446. It has a Språk/language button, Tilpass varsler, a sticky "Marker alle som lest / Rediger / N uleste" bar, and the LinkList with separate unread (blueberry, Ulest badge) and read row designs. The top unread row, "Gravid · Digitalt helsekort for gravide 21.04.2026 kl. 09:30", opens the activation page (`kilde=epj`). There are 2 unread items.
+2. **S2 — booking.** `scenario-2-booking.html`: a 4-step Stepper wizard (the real Stepper and StepButtons). Step 3 summary follows Figma 45:5797. The receipt shows a HighlightPanel invitation (only for Gravid + "Første svangerskapskontroll") → activation page (`kilde=booking`).
+3. **S3 — organic discovery, 3 entries:** `scenario-3-frontpage.html` (Forside tile), `scenario-3-sok.html` (+ `scenario-3-sok-gravid.html`) and `scenario-3-redaksjonelt.html`. All three go to `gravid/aktiver-helsekort-oppdaget.html`, where "Aktiver digitalt helsekort" opens the **"Er du gravid selv?" modal** (Figma 56:27891; 50% grey mask). "Mitt eget svangerskap" → activated Gravid, no termindato. "Noen andres svangerskap", and the page's own "Bruk Gravid uten digitalt helsekort", → Gravid without DHG, no termindato, no "Del opplysninger" panel.
+4. **S4 — message from the provider.** `scenario-4-frontpage.html` → `scenario-4-varsel.html` (same Varsler design; the only unread item is the top "Melding · Digitalt helsekort for gravide" varsel) → `scenario-4-melding.html` (the Innboks message itself, deep-linked past the overview; Figma 53:6107) → "Gå til tjenesten Gravid" → activation page (`kilde=melding`). The older SMS mock `scenario-4-behandler.html` still exists and links to the activation page with no `kilde`, which is also treated as S4, but nothing in the new S4 path leads to it.
 
-## Shared landing page changes — `gravid/aktiver-helsekort.html`
-Extended (not replaced) with a `?kilde=` query param (`epj` / `booking` / `frontpage` / `sok` / `redaksjonelt`) that drives:
-- A short context banner above the "Aktiver digitalt helsekort" panel, explaining why the user landed here (only for `epj` and `booking` — the 3 discovery variants change only the breadcrumb, no banner, since arriving via search/tile/article needs no extra explanation).
-- The breadcrumb label/link, pointing back to whichever scenario screen sent the user in.
+**Unread count is live:** on both Varsler pages the bell badge and "N uleste" are counted from the list, and opening a row or "Marker alle som lest" updates them. The count is remembered for the session and mirrored on that scenario's frontpage bell.
 
-No `kilde` param (or an unrecognized one) preserves the page's original behavior exactly — no banner, breadcrumb reads "Gravid" → `index.html`. This is scenario 4's actual behavior: the provider-issued URL carries no `kilde` param.
+**Every onboarding path lands in Gravid with `dokumenter=0`** (no uploaded papirhelsekort, since she has only just activated). S2–S4 also land with `termindato=none`.
 
-The page's copy itself (active-selection CTA, no samtykke wording) was **not** reverted — confirmed by the user as the intended real-world behavior once DHG comes under the Kjernejournal forskrift: samtykke falls away, but the user must still make an active selection to create and activate her DHG. The page's role broadened from "scenario 4's page" to "the shared landing page nearly all scenarios use."
+## Shared landing pages — `gravid/aktiver-helsekort.html` / `aktiver-helsekort-oppdaget.html`
+`?kilde=` drives a context banner (a real NotificationPanel, variant info) and the breadcrumb:
+- **`epj`:** "Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin. Aktiver tjenesten til å lese siste registrering."
+- **`booking`:** a pre-appointment explanation.
+- **`melding` or no `kilde` (S4):** "Dersom dine behandlere bruker digitalt helsekort for gravide kan du også ta det i bruk, i tillegg til flere nyttige funksjoner i tjenesten Gravid."
+- **S3 variants:** only the breadcrumb changes.
+
+The activation copy (active selection, no samtykke wording) reflects the intended state once DHG comes under the Kjernejournal forskrift. More detail on the Gravid side is in `helsekort-gravide/SUMMARY.md`.
 
 ## Notes
-- All new/touched pages reuse the same Helsenorge header/breadcrumb/footer/phone-frame chrome and design-token set as `gravid/aktiver-helsekort.html`, generated from a shared Python template (`/.claude/jobs/.../gen/build.py`, not checked into the repo) to keep the repeated chrome consistent — not a build step for this repo, just how these 6 files were authored.
+- All new/touched pages reuse the same Helsenorge header/breadcrumb/footer/phone-frame chrome and design-token set as `gravid/aktiver-helsekort.html`, originally generated from a shared Python template (not checked into the repo). Later pages (Varsler, S4 message, frontpages) were built from the Figma nodes named above, with icons exported to `assets/`.
 - `noindex, nofollow` on every file in this folder, matching `gravid/dashboard.html`'s convention for non-patient-facing prototype scaffolding.
 
 #helsenorge

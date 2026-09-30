@@ -36,11 +36,52 @@ A prototype control panel, not part of the patient-facing flow — deliberately 
 
 **Known bug, surfaced by testing the dashboard's disconnected state, not yet fixed:** at some weeks (e.g. uke 25) the unconfirmed-termindato block visually overlaps the week bubble — its "date + pencil" inline layout is wider than the confirmed state's two stacked lines, and collides at some bubble angles. Needs a layout decision (e.g. stacking date/pencil vertically), not a quick fix.
 
-### Entrance/onboarding page — `gravid/aktiver-helsekort.html` (added 2026-09-23)
+### Entrance/onboarding page — `gravid/aktiver-helsekort.html` (added 2026-09-23; see also the next section)
 A mobile port of the real "Bruk tjenesten Gravid og digitalt helsekort" editorial page (`helsenorge.no/gravid/tjeneste-for-gravide/`), with content adapted for a described future state: once digitalt helsekort for gravide is folded into Kjernejournal, the legal "samtykke" requirement falls away, so this page's copy was rewritten from consent-transaction framing to one-step "aktivering," keeping an opt-out/reservasjon safety net — flagged in its own code comments as a first-draft interpretation for review, not finalized text. Its two CTAs simulate the onboarding outcomes: activating links to `index.html?tilknyttet=1&termindato=1&panelHelsekort=0`, declining links to `index.html?tilknyttet=0`.
 
+### Entrance/onboarding pages — `gravid/aktiver-helsekort.html` + `aktiver-helsekort-oppdaget.html`
+Since the DHG onboarding work (see `dhg-onboarding/SUMMARY.md`) these two pages are the activation landing pages for all onboarding scenarios:
+- **`aktiver-helsekort.html`** serves DHG onboarding S1 (`kilde=epj`), S2 (`booking`) and S4 (`melding`, or no `kilde` = the provider URL). `?kilde=` drives a real NotificationPanel (info) banner and the breadcrumb. S4 shows "Dersom dine behandlere bruker digitalt helsekort for gravide kan du også ta det i bruk, i tillegg til flere nyttige funksjoner i tjenesten Gravid."
+- **`aktiver-helsekort-oppdaget.html`** serves the three S3 discovery variants (`frontpage`/`sok`/`redaksjonelt`). It keeps the "Bruk Gravid uten digitalt helsekort" opt-out, and "Aktiver digitalt helsekort" opens the **"Er du gravid selv?" modal** (Figma 56:27891): "Mitt eget svangerskap" → activated Gravid page; "Noen andres svangerskap" → Gravid without digitalt helsekort.
+- Every onboarding path lands in Gravid with no uploaded document (`dokumenter=0`). Every path except S1 also lands with no termindato registered (`termindato=none`). S1 lands at uke 6 with an editable termindato, and the paths without DHG also hide the "Del opplysninger" panel.
+
+### Termindato pages — `gravid/beregn-termindato.html` + `registrer-termindato.html` (added 2026-09-29)
+From Figma 53:27367 / 53:27371 (flat screenshots; components rebuilt from the design-system source: Label, Input/DatePicker, fill/outline Button, HelpTrigger).
+- **Beregn termindato:** first day of last menstruation + **283 days**. Opened from "Beregn termindato" in the ring's no-termindato state.
+- **Registrer termindato:** manual entry. Also used when editing an existing termindato (the date/pencil in the ring), pre-filled.
+- Both carry the Gravid page's URL state through and return `termindato=0&termindatoDato=YYYY-MM-DD`. The ring then shows the real date, days left and "uke W dag D" (elapsed = 283 − days left).
+- Help-expander texts are placeholders, and the error messages aren't from Figma.
+
+### Svangerskapsjournal — `gravid/svangerskapsjournal.html` (added 2026-09-30)
+Rebuilt from the real page's rendered markup: "Lagre til Dokumenter" (outline Button, not wired), "Sist oppdatert", then an **ExpanderHierarchy** of ten sections in the real order. Om deg, Oppfølging i svangerskapet, Helseutfordringer/sykdom, Ditt svangerskap, Levevaner and Legemidler have data (Duolist, title4, DictionaryTrigger "ordforklaring" with a help bubble). Tidligere svangerskap, Svangerskapskontroller, Andre prøvesvar and Mål av magen show the real dashed EmptyState ("Det er foreløpig ikke registrert opplysninger."). The data is plausible data for the prototype user Tora Hansen (fastlege Knut Andersen, Ekeberg legekontor), not the real test account's. "Termin" follows the Gravid page's termindato state. **Placeholders:** the ingress and the ordforklaring texts.
+
+### Siste prøver og målinger — `gravid/prover-og-malinger.html` (added 2026-09-30)
+Rebuilt from real markup: PageHeader (title1, snarvei star, the real ingress) and an **ExpanderList** (line/white, ElementHeader rows). It lists only categories that have results; currently just "Andre prøvesvar". **Placeholder:** that section's expanded content (typical first-kontroll blood tests), because the capture was collapsed. It also contradicts the journal's empty "Andre prøvesvar"; to be reconciled when the real expanded markup arrives.
+
+Both pages are linked from the front page's quick links ("Se hele svangerskapsjournal", "Siste prøver og målinger"). Those links are hidden without digitalt helsekort (`tilknyttet=0`), together with "Mål av magen".
+
+### URL state (`index.html` and the pages that carry it)
+| Param | Values | Effect |
+|---|---|---|
+| `uke` | 1–42 | Current week (default 30, or last dashboard choice) |
+| `tilknyttet` | 1 / 0 | Has digitalt helsekort. 0 hides Mål av magen and the journal/prøver links |
+| `termindato` | 1 / 0 / none | Confirmed / editable (mother's own) / not registered ("Termindato ikke registrert" + "Beregn termindato", no week bubble). `none` is honored with or without a connection |
+| `termindatoDato` | YYYY-MM-DD | A registered termindato (from the termindato pages); overrides `uke` |
+| `panelHelsekort` | 1 / 0 | "Del opplysninger før første svangerskapskontroll" (warning NotificationPanel, "Fortsett utfylling") |
+| `panelFarskap` | 1 / 0 | "Registrer farskap hos Nav" (info NotificationPanel, only from uke 22) |
+| `dokumenter` | 0 | Hides the uploaded-document block (reference design shown by default) |
+| `kilde` | epj/booking/melding/frontpage/sok/redaksjonelt | DHG onboarding origin (breadcrumbs, banners) |
+
+`dashboard.html` sets most of these, including a "Har lastet opp papirhelsekort" checkbox for `dokumenter`.
+
+### Other front-page changes since 2026-09-25
+- **No-termindato state:** "Termindato / ikke registrert" (20px regular) above the real Frankenstein mobile fill Button, whose label wraps onto two lines ("Beregn / termindato").
+- **"Del opplysninger" panel:** now the same NotificationPanel as the farskap panel, variant **warn** (banana800 border, banana50 fill), with a semibold "Fortsett utfylling →" link, no underline.
+- **Mål av magen:** no "–" placeholder above the chart when there's no measurement yet.
+- **Breadcrumb row:** identical on every Gravid page (46px, 4px indent, #D6D4D3 divider inset 1rem), matched to the front page on 2026-09-30.
+
 ### Phone-frame mockup (added 2026-09-24)
-`index.html`, `avslutt.html`, `uke-for-uke.html`, and `aktiver-helsekort.html` are wrapped in the same phone-bezel graphic used in the Frankenstein React app (ported from `frankenstein/src/App.css`) — a desktop browser sees a realistic phone frame around the content; a real phone viewport (≤480px) sees it collapse to nothing, unchanged from before. `dashboard.html` deliberately excluded — it's the chrome-less control panel, not part of the simulated device experience.
+`index.html`, `avslutt.html`, `uke-for-uke.html`, `aktiver-helsekort.html` and every page added since (termindato, journal, prøver pages) are wrapped in the same phone-bezel graphic used in the Frankenstein React app (ported from `frankenstein/src/App.css`) — a desktop browser sees a realistic phone frame around the content; a real phone viewport (≤480px) sees it collapse to nothing, unchanged from before. `dashboard.html` deliberately excluded — it's the chrome-less control panel, not part of the simulated device experience.
 
 ## Clinical/record view — `helsekort-gravide/helsekort-gravide.html`
 Full tabbed antenatal record: Personalia → Medisinsk bakgrunn (nationality/language, heart & circulation, endocrinology, psychiatric health, other conditions) → Tidligere svangerskap → Nåværende svangerskap (progression vs. due date) → Svangerskapskontroller (checkups, latest blood pressure) → Blodprøver & lab → Ultralyd → Fødsel (contractions/opening phase, perineum) → Barselperiode.
