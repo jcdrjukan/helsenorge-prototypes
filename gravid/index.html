@@ -2080,7 +2080,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="notification-panel__content">
         <h3 class="notification-panel__label">Del opplysninger før første svangerskapskontroll</h3>
         <p class="notification-panel__children notification-panel__children--with-label">Du har ikke delt opplysningene i ditt digitale helsekort ennå.</p>
-        <a class="notification-panel__link notification-panel__link--cta" href="aktiver-helsekort.html">Fortsett utfylling<svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
+        <a class="notification-panel__link notification-panel__link--cta" href="kartlegging.html" id="kartleggingLink">Fortsett utfylling<svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
       </div>
     </div>
 
@@ -3184,6 +3184,8 @@ function wireTermindatoLinks() {
   document.getElementById('beregnTermindatoLink').href = 'beregn-termindato.html' + q;
   document.getElementById('journalLink').href = 'svangerskapsjournal.html' + q;
   document.getElementById('proverLink').href = 'prover-og-malinger.html' + q;
+  // "Fortsett utfylling" (Del opplysninger panel) → the kartlegging form.
+  document.getElementById('kartleggingLink').href = 'kartlegging.html' + q;
   const editable = document.getElementById('dueDateEditable');
   const go = () => { location.href = 'registrer-termindato.html' + q; };
   editable.addEventListener('click', go);
