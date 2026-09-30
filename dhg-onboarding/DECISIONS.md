@@ -138,4 +138,8 @@ Started 2026-09-25.
 **Decision:** The "Er du gravid selv?" modal was updated to the revised Figma node 56:27891. Ingress: "Er det ditt eget svangerskap du vil følge med på, eller noen andres?". Buttons: "Mitt eget svangerskap" (was "Jeg er gravid selv") and "Noen andres svangerskap" (was "Jeg er ikke gravid selv"). The outline button is now the same medium size as the fill button (18px/22px text, 44px min-height, 0 24px padding), since the revised Figma resolved the earlier size mismatch. Title, destinations and behaviour are unchanged.
 **Why:** Direct user request with the updated Figma.
 
+## 2026-09-30 — S1 Varsler: only the DHG varsel is unread
+**Decision:** On `scenario-1-varsel.html`, the 3rd item (Oppgave, "Oppgaven din fra Stavanger universitetssjukehus…") is now a read row, as was already done for S4. The "Gravid · Digitalt helsekort for gravide" varsel is S1's only unread item. The bell badge and "N uleste" are computed from the list, so they read 1. The static fallbacks on the Varsler page and the S1 frontpage bell were updated to 1.
+**Why:** Direct user request.
+
 #helsenorge

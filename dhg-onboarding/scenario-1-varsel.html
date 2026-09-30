@@ -346,10 +346,10 @@ a:focus-visible, button:focus-visible {
           </div>
           <span class="icon-btn__label">Meny</span>
         </button>
-        <a class="icon-btn" href="#varsel-list" aria-label="Varsler, 2 uleste">
+        <a class="icon-btn" href="#varsel-list" aria-label="Varsler, 1 ulest">
           <div class="icon-btn__icon" aria-hidden="true">
             <svg width="38" height="38" viewBox="0 0 48 48" fill="currentColor"><path d="M28.004 34.481v-.209h-8.208v.21h-7.894l3.057-4.918h17.882l3.056 4.917h-7.893zm-1.3 2.04a2.807 2.807 0 01-2.804 2.803 2.808 2.808 0 01-2.805-2.804v-.739h5.61v.74zM15.247 19.202a8.346 8.346 0 016.323-8.102l.492-.124v-.664A1.84 1.84 0 0123.9 8.476c1.013 0 1.837.824 1.837 1.837v.664l.492.124a8.345 8.345 0 016.323 8.102v9.062H15.247v-9.062zM37.62 34.788l-3.767-6.059v-9.526a9.645 9.645 0 00-6.833-9.232A3.143 3.143 0 0023.9 7.175a3.141 3.141 0 00-3.119 2.796 9.645 9.645 0 00-6.834 9.232v9.526l-3.766 6.06a.648.648 0 00.552.992h9.063v.74a4.109 4.109 0 004.104 4.103 4.109 4.109 0 004.104-4.104v-.739h9.063a.652.652 0 00.552-.993z"/></svg>
-            <span class="icon-btn__badge" aria-hidden="true">2</span>
+            <span class="icon-btn__badge" aria-hidden="true">1</span>
           </div>
           <span class="icon-btn__label">Varsler</span>
         </a>
@@ -390,7 +390,7 @@ a:focus-visible, button:focus-visible {
         <button type="button" class="vp-btn" id="markAllRead"><img src="assets/btn-check.svg" width="38" height="38" alt=""><span>Marker alle som lest</span></button>
         <button type="button" class="vp-btn"><img src="assets/btn-edit.svg" width="38" height="38" alt=""><span>Rediger</span></button>
       </div>
-      <div class="vp-count">2 uleste</div>
+      <div class="vp-count">1 ulest</div>
     </div>
     <div class="vl" id="varsel-list">
     <a class="vl-item vl-item--unread" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort.html?kilde=epj" data-testid="hendelse-epj-dhg">
@@ -409,11 +409,13 @@ a:focus-visible, button:focus-visible {
         <span class="vl-feature"><span class="vl-chev"><img src="assets/chevron-right.svg" width="38" height="38" alt=""></span></span>
       </span>
     </a>
-    <a class="vl-item vl-item--unread" href="#">
-      <span class="vl-u__meta"><span class="vl-dot"><span class="vl-dot__clip"><img src="assets/varsel-form.svg" width="24" height="24" alt=""></span><span>Oppgave</span></span><span class="vl-date">09.06.2026</span></span>
-      <span class="vl-u__head">
-        <span class="vl-u__label"><span class="vl-t">Oppgaven din fra Stavanger universitetssjukehus har ny frist: 22.08.2025</span><span class="vl-sub">Helseerklæring før operasjon</span></span>
-        <span class="vl-feature"><span class="vl-badge">Ulest</span><span class="vl-chev"><img src="assets/chevron-right.svg" width="38" height="38" alt=""></span></span>
+    <a class="vl-item" href="#">
+      <span class="vl-r">
+        <span class="vl-r__col">
+          <span class="vl-r__meta"><span class="vl-dot"><span class="vl-dot__clip"><img src="assets/varsel-form.svg" width="24" height="24" alt=""></span><span>Oppgave</span></span><span class="vl-date">09.06.2026</span></span>
+          <span class="vl-r__label"><span class="vl-t">Oppgaven din fra Stavanger universitetssjukehus har ny frist: 22.08.2025</span><span class="vl-sub">Helseerklæring før operasjon</span></span>
+        </span>
+        <span class="vl-feature"><span class="vl-chev"><img src="assets/chevron-right.svg" width="38" height="38" alt=""></span></span>
       </span>
     </a>
     <a class="vl-item" href="#">
