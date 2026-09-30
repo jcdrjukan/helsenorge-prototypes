@@ -636,13 +636,13 @@ const DEFAULT_ACTIVATE_QUERY = 'uke=1&tilknyttet=1&termindato=none&panelHelsekor
 // is now S1/S2/S4-only, per direct request).
 const KILDE_CONFIG = {
   epj: {
-    banner: 'Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin. Aktiver tjenesten til å lese siste registrering.',
+    banner: 'Jordmor eller fastlegen din har gitt deg et digitalt helsekort. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før første svangerskapskontroll.',
     breadcrumbLabel: 'Varsler',
     breadcrumbHref: 'https://gravid-onboarding.netlify.app/scenario-1-varsel.html',
     activateQuery: 'uke=6&tilknyttet=1&termindato=1&panelHelsekort=1&dokumenter=0',
   },
   booking: {
-    banner: 'Du har bestilt time hos jordmoren eller fastlegen din. Aktiver digitalt helsekort for å svare på noen spørsmål før timen.',
+    banner: 'Du har bestilt time til første svangerskapskontroll. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før timen.',
     breadcrumbLabel: 'Timen din',
     breadcrumbHref: 'https://gravid-onboarding.netlify.app/scenario-2-booking.html',
   },
@@ -657,7 +657,7 @@ const KILDE_CONFIG = {
 // S4's info message (per direct request) — shown both for kilde=melding
 // and for no kilde at all, since both are S4 (the Innboks message and
 // the provider-issued URL, e.g. by SMS).
-const S4_BANNER = 'Dersom dine behandlere bruker digitalt helsekort for gravide kan du også ta det i bruk, i tillegg til flere nyttige funksjoner i tjenesten Gravid.';
+const S4_BANNER = 'Jordmor eller fastlegen din har gitt deg tilbud om å bruke digitalt helsekort. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før første svangerskapskontroll.';
 
 const params = new URLSearchParams(location.search);
 const kilde = params.get('kilde');

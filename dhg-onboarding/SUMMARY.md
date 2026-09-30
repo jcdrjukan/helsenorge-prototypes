@@ -19,9 +19,9 @@ Each scenario starts on a real Forside replica (`scenario-N-frontpage.html`) in 
 
 ## Shared landing pages — `gravid/aktiver-helsekort.html` / `aktiver-helsekort-oppdaget.html`
 `?kilde=` drives a context banner (a real NotificationPanel, variant info) and the breadcrumb:
-- **`epj`:** "Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin. Aktiver tjenesten til å lese siste registrering."
-- **`booking`:** a pre-appointment explanation.
-- **`melding` or no `kilde` (S4):** "Dersom dine behandlere bruker digitalt helsekort for gravide kan du også ta det i bruk, i tillegg til flere nyttige funksjoner i tjenesten Gravid."
+- **`epj`:** "Jordmor eller fastlegen din har gitt deg et digitalt helsekort. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før første svangerskapskontroll."
+- **`booking`:** "Du har bestilt time til første svangerskapskontroll. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før timen."
+- **`melding` or no `kilde` (S4):** "Jordmor eller fastlegen din har gitt deg tilbud om å bruke digitalt helsekort. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før første svangerskapskontroll."
 - **S3 variants:** only the breadcrumb changes.
 
 The activation copy (active selection, no samtykke wording) reflects the intended state once DHG comes under the Kjernejournal forskrift. More detail on the Gravid side is in `helsekort-gravide/SUMMARY.md`.

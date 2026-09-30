@@ -154,4 +154,13 @@ Started 2026-09-25.
 **Decision:** The opt-out section (heading, body text, large fill button) was removed from `gravid/aktiver-helsekort-oppdaget.html`. It had already been removed from `aktiver-helsekort.html`, so no scenario's activation page has it now. The S3 modal's "Noen andres svangerskap" keeps its destination (Gravid without DHG).
 **Why:** Direct user request.
 
+## 2026-09-30 — New activation banner texts for S1, S2 and S4
+**Decision:** The info NotificationPanel on `gravid/aktiver-helsekort.html` now reads:
+- S1 (`epj`): "Jordmor eller fastlegen din har gitt deg et digitalt helsekort. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før første svangerskapskontroll."
+- S2 (`booking`): "Du har bestilt time til første svangerskapskontroll. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før timen."
+- S4 (`melding` / no kilde): "Jordmor eller fastlegen din har gitt deg tilbud om å bruke digitalt helsekort. Ta i bruk digitalt helsekort og del opplysninger med din fastlege eller jordmor før første svangerskapskontroll."
+
+All three now point to the same action: take DHG into use and share information with the fastlege/jordmor before the first check-up.
+**Why:** Direct user request.
+
 #helsenorge
