@@ -150,4 +150,8 @@ Started 2026-09-25.
 **Decision:** S1 now activates with `panelHelsekort=1`, like S2–S4, so the Gravid page shows the non-dismissable "Del opplysninger før første svangerskapskontroll" info NotificationPanel ("Fortsett utfylling" → the Kartlegging form). Updated in the activation page, the S3 page's unused epj copy, and the S1 Forside "Gravid" tile. The termindato stays locked (confirmed).
 **Why:** Direct user request.
 
+## 2026-09-30 — "Bruk Gravid uten digitalt helsekort" removed from the activation page
+**Decision:** The opt-out section (heading, body text, large fill button) was removed from `gravid/aktiver-helsekort-oppdaget.html`. It had already been removed from `aktiver-helsekort.html`, so no scenario's activation page has it now. The S3 modal's "Noen andres svangerskap" keeps its destination (Gravid without DHG).
+**Why:** Direct user request.
+
 #helsenorge

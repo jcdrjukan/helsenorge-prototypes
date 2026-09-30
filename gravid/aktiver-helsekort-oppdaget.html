@@ -588,24 +588,10 @@ a:focus-visible, button:focus-visible {
     <p><a href="#">Les mer om Gravid og digitalt helsekort</a></p>
   </div>
 
-  <div class="sp-l"></div>
-
-  <!-- ══════════════════════════════════════════════════════
-       SECTION 3 — plain rich text + large fluid CTA, unchanged
-       from the live page (this opt-out-of-sharing path doesn't
-       depend on the consent-vs-activation distinction above).
-  ═══════════════════════════════════════════════════════════ -->
-  <div class="rich-text">
-    <div>
-      <h3>Bruk Gravid uten digitalt helsekort</h3>
-      <div class="sp-s"></div>
-      <p>Du kan bruke Gravid uten digitalt helsekort hvis du ikke ønsker å dele informasjon med helsepersonell. Informasjonen du registrerer, lagres da bare for deg. Du kan også bruke tjenesten sammen med partneren din, uten at partneren får tilgang til helseopplysningene dine.</p>
-    </div>
-    <a class="btn-fill-large" href="index.html?uke=1&amp;tilknyttet=0&amp;termindato=none&amp;panelHelsekort=0&amp;dokumenter=0">
-      <span>Bruk Gravid uten digitalt helsekort</span>
-      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.929-1.142 1.377 10.044 11.721H8.929v1.947h27.048L25.933 36.692l1.142 1.379L39.07 24 27.075 9.929Z"/></svg>
-    </a>
-  </div>
+  <!-- SECTION 3 ("Bruk Gravid uten digitalt helsekort" opt-out text +
+       button) removed from all scenarios per direct request, 2026-09-30.
+       Following someone else's pregnancy is still reachable via the
+       "Er du gravid selv?" modal's "Noen andres svangerskap". -->
 
   <div class="sp-xl"></div>
 
@@ -760,8 +746,8 @@ document.getElementById('activateBtn').href =
 // the modal, and she has to choose. "Mitt eget svangerskap" continues to
 // the activated Gravid page (the activate button's own href, built
 // above); "Noen andres svangerskap" (following someone else's
-// pregnancy) goes to Gravid without digitalt helsekort — same
-// destination as this page's "Bruk Gravid uten digitalt helsekort" —
+// pregnancy) goes to Gravid without digitalt helsekort (the page's own
+// "Bruk Gravid uten digitalt helsekort" section was removed 2026-09-30) —
 // with the "Del opplysninger" panel explicitly off (panelHelsekort=0):
 // she isn't pregnant herself, so there's nothing of hers to share.
 // Avbryt, ✕, Esc or a click on the grey mask just closes it.
