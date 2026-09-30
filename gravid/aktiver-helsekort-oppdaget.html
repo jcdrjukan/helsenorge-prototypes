@@ -696,10 +696,9 @@ a:focus-visible, button:focus-visible {
 // each of these.
 // activateQuery: the state she lands in on index.html after activating.
 // Every onboarding scenario is a relatively new pregnancy, per direct
-// request. Only S1 (epj) has a termindato yet at all — a tentative one
-// from the provider's registration, not yet ultrasound-confirmed, so it
-// uses the existing 'editable' state (termindato=0, uke=6) rather than
-// 'confirmed'. S2-S4 — including no kilde at all, today's actual
+// request. Only S1 (epj) has a termindato yet at all — registered by her
+// care provider, so it's locked: the 'confirmed' state (termindato=1,
+// uke=6), not editable by her (per direct request). S2-S4 — including no kilde at all, today's actual
 // provider-URL flow — get the 'none' state (no termindato established,
 // "Beregn termindato" button); without a termindato there's nothing to
 // calculate a current week from, so they land on uke=1 (Gravid uke 1),
@@ -713,7 +712,7 @@ const KILDE_CONFIG = {
     banner: 'Jordmoren eller fastlegen din har registrert graviditeten din i journalen sin.',
     breadcrumbLabel: 'Varsler',
     breadcrumbHref: 'https://gravid-onboarding.netlify.app/scenario-1-varsel.html',
-    activateQuery: 'uke=6&tilknyttet=1&termindato=0&panelHelsekort=0&dokumenter=0',
+    activateQuery: 'uke=6&tilknyttet=1&termindato=1&panelHelsekort=0&dokumenter=0',
   },
   booking: {
     banner: 'Du har bestilt time hos jordmoren eller fastlegen din. Aktiver digitalt helsekort for å svare på noen spørsmål før timen.',

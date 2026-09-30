@@ -142,4 +142,8 @@ Started 2026-09-25.
 **Decision:** On `scenario-1-varsel.html`, the 3rd item (Oppgave, "Oppgaven din fra Stavanger universitetssjukehus…") is now a read row, as was already done for S4. The "Gravid · Digitalt helsekort for gravide" varsel is S1's only unread item. The bell badge and "N uleste" are computed from the list, so they read 1. The static fallbacks on the Varsler page and the S1 frontpage bell were updated to 1.
 **Why:** Direct user request.
 
+## 2026-09-30 — S1: termindato is locked (registered by the care provider)
+**Decision:** S1 (EPJ) now activates into `termindato=1`, the Gravid page's **confirmed** state ("Bekreftet termindato", no pencil, not editable), instead of `termindato=0` (her own editable estimate). The termindato was registered by her jordmor/fastlege in the EPJ, so she can't change it. The same change was made in the S3 page's unused copy of the epj settings and in the S1 Forside "Gravid" tile, which had been copied from S3 with `termindato=none`. S2–S4 are unchanged (no termindato registered).
+**Why:** Direct user request.
+
 #helsenorge
