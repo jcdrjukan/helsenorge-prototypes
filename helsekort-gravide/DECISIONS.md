@@ -134,4 +134,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **PLACEHOLDERS:** the help texts (skjema, vekt, folat før/under, slekt, landbakgrunn) and the urinprøve expander content weren't in the capture. Conditional follow-up questions, if the real form has any, aren't included because only the initial state was captured.
 **Why:** Direct user request with the rendered markup.
 
+## 2026-09-30 — "Del opplysninger" panel back to the info variant
+**Decision:** The "Del opplysninger før første svangerskapskontroll" NotificationPanel on `gravid/index.html` was switched from the warning variant (banana, set on 2026-09-29) back to **info** (blueberry), with the info icon, matching the farskap panel and the activation pages' banners. Text, close button and the "Fortsett utfylling →" link (which now opens the Kartlegging form) are unchanged. The warn CSS rules stay, unused.
+**Why:** Direct user request: in the DHG onboarding flow it should be a green "info" message like the others.
+
 #helsenorge
