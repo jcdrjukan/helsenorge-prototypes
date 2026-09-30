@@ -204,7 +204,7 @@ a:focus-visible, button:focus-visible {
 /* ═══════════════════════════════════════════════════════════
    BREADCRUMB
 ══════════════════════════════════════════════════════════════ */
-.breadcrumb { width: 100%; padding: var(--space-2xs) var(--space-xs) 0; }
+.breadcrumb { width: 100%; padding: 0 4px; }
 
 .breadcrumb__back {
   display: flex;
@@ -221,11 +221,12 @@ a:focus-visible, button:focus-visible {
 .breadcrumb__back:hover { text-decoration: underline; }
 .breadcrumb__back svg { width: 38px; height: 38px; flex-shrink: 0; }
 
+/* Breadcrumb row + divider exactly as on the Gravid front page. */
 .page-divider {
   border: none;
-  border-top: 1px solid var(--neutral-300);
-  width: 100%;
-  margin: var(--space-2xs) 0 0;
+  border-top: 1px solid #D6D4D3;
+  margin: 0 1rem;
+  align-self: stretch;
 }
 
 /* Språk/Language switcher — decorative, same markup/CSS as this
