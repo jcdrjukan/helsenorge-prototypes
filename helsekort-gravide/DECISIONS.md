@@ -99,7 +99,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - **Journal sections** follow the existing clinical `helsekort-gravide` prototype's tabs: Medisinsk bakgrunn, Tidligere svangerskap og fødsler, Nåværende svangerskap, Svangerskapskontroller, Ultralydundersøkelser, Fødsel og barseltid. The lab tab moved to Prøver og målinger. **Prøver og målinger** lists Blodtrykk, Vekt, Urinprøve, Hemoglobin, Blodtype og antistoffer, Mål av magen.
 - **Copy** (intros, empty-state text, list explanations) is a first draft for review, not sourced.
 - **URL state:** the breadcrumb, cross-links and front-page quick links carry the Gravid page's URL state (uke/tilknyttet/kilde…), so a scenario survives the round trip.
-**Not done:** the quick links still show for users without digitalt helsekort (`tilknyttet=0`), where a journal doesn't really apply.
+**Follow-up (same day):** per the user, the two quick links are hidden for users without digitalt helsekort (`tilknyttet=0`). They're hidden together with "Mål av magen" in `setSfSectionVisibility()`. The user also flagged this Svangerskapsjournal draft as "far from where it needs to be" and is gathering real sectional source code, so treat its content and structure as a placeholder.
 **Why:** Direct user request.
 
 #helsenorge

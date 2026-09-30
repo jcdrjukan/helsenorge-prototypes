@@ -1294,6 +1294,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 /* ═══════════════════════════════════════════════════════════
    QUICK LINKS  (borderless arrow links)
 ══════════════════════════════════════════════════════════════ */
+.quick-links[hidden] { display: none; }
 .quick-links {
   width: 344px;
   display: flex;
@@ -2368,7 +2369,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   </div>
 
   <!-- Quick links -->
-  <div class="quick-links">
+  <!-- Journal / prøver links: only for users with digitalt helsekort
+       (hidden together with Mål av magen by setSfSectionVisibility). -->
+  <div class="quick-links" id="journalQuickLinks">
     <a class="quick-link" href="svangerskapsjournal.html" id="journalLink">
       <span>Se hele svangerskapsjournal</span>
       <div class="icon-arrow" aria-hidden="true">
@@ -3021,6 +3024,8 @@ function setTermindatoState(state) {
 // only covers the DHG condition on top of that.)
 function setSfSectionVisibility(connected) {
   document.getElementById('sfSection').hidden = !connected;
+  // No digitalt helsekort → no svangerskapsjournal or registered prøver.
+  document.getElementById('journalQuickLinks').hidden = !connected;
 }
 
 // ─── Help trigger (contextual trigger text) ───────────────
