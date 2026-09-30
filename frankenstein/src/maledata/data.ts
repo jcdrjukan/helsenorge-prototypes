@@ -335,3 +335,45 @@ export function trendLabel(s: MaledataSeries, t: Trend, days = TREND_DAYS): stri
   const sign = t.delta > 0 ? '+' : '−';
   return `${sign}${formatValue(Math.abs(t.delta), s.decimals)} ${s.unit} ${period}`;
 }
+
+// ─── Blood pressure card: full reading + two-part trend ─────────────
+// The card shows the latest full reading ("125/79 mmHg") — the same
+// reading the Blodtrykk series' daily value is taken from (that day's
+// evening reading if present, else morning). Its change line reports
+// systolic and diastolic separately ("+4/+2 mmHg siste 14 dager"),
+// computed exactly like trendFor(): mean of the most recent 3 days vs.
+// the first 3 days of the window; "Omtrent uendret" only if both parts
+// are below their thresholds.
+
+const BP_DIA_STABLE = 3;
+
+function dayReading(d: BpDay): BpReading {
+  return d.evening ?? d.morning;
+}
+
+/** Latest full BP reading and how many days ago it was taken. */
+export function latestBp(): { reading: NonNullable<BpReading>; offset: number } | null {
+  for (let i = N - 1; i >= 0; i--) {
+    const r = dayReading(BP_DAYS[i]);
+    if (r) return { reading: r, offset: N - 1 - i };
+  }
+  return null;
+}
+
+export function bpTrendLabel(days = TREND_DAYS): string | null {
+  const w = bpWindow(days).map(dayReading);
+  const part = (rs: BpReading[], key: 'sys' | 'dia') => meanOf(rs.map(r => (r ? r[key] : null)));
+  const sysE = part(w.slice(0, 3), 'sys');
+  const sysR = part(w.slice(-3), 'sys');
+  const diaE = part(w.slice(0, 3), 'dia');
+  const diaR = part(w.slice(-3), 'dia');
+  if (sysE == null || sysR == null || diaE == null || diaR == null) return null;
+  const dSys = Math.round(sysR - sysE);
+  const dDia = Math.round(diaR - diaE);
+  const period = `siste ${days} dager`;
+  if (Math.abs(sysR - sysE) < (TREND_STABLE.sbp ?? 5) && Math.abs(diaR - diaE) < BP_DIA_STABLE) {
+    return `Omtrent uendret ${period}`;
+  }
+  const signed = (n: number) => (n > 0 ? `+${n}` : n < 0 ? `−${Math.abs(n)}` : '0');
+  return `${signed(dSys)}/${signed(dDia)} mmHg ${period}`;
+}

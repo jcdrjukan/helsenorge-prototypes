@@ -31,6 +31,8 @@ import {
   formatBp,
   trendFor,
   trendLabel,
+  latestBp,
+  bpTrendLabel,
   weekdayShort,
   weekdayDateLabel,
   type BpDay,
@@ -103,19 +105,23 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
   const { value, offset, outOfRange, stale } = reading;
   const warn = outOfRange || stale;
   const trend = trendFor(series);
+  // Blood pressure shows the full reading (sys/dia) and a two-part trend;
+  // "Utenfor" still follows the systolic target band.
+  const bp = series.id === 'sbp' ? latestBp() : null;
+  const trendText = bp ? bpTrendLabel() : trend && trendLabel(series, trend);
   return (
     <button className="md-card" onClick={() => onSelect(series.id)}>
       <span className="md-card__text">
         <p className="md-card__label">{series.name}</p>
         <p className="md-card__value">
-          {formatValue(value, series.decimals)}
+          {bp ? formatBp(bp.reading) : formatValue(value, series.decimals)}
           {series.source !== 'form' && <>{'\u00A0'}<span className="md-card__unit">{series.unit}</span></>}
         </p>
         <p className={`md-card__sub${warn ? ' md-card__sub--warn' : ''}`}>
           {outOfRange ? 'Utenfor · ' : ''}
           {agoLabel(offset)}
         </p>
-        {trend && <p className="md-card__trend">{trendLabel(series, trend)}</p>}
+        {trendText && <p className="md-card__trend">{trendText}</p>}
       </span>
     </button>
   );

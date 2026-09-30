@@ -149,4 +149,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Decision:** Per direct request, the card sparklines from the previous entry were removed, and the neutral change line ("+1,7 kg siste 14 dager", "Omtrent uendret siste 14 dager"…) is kept on its own. The card layout is back to plain stacked text. The blood pressure series is renamed from "Blodtrykk (over)" to "Blodtrykk" everywhere it appears (card, chip, CSV). Its card value is still the latest systolic reading only ("125 mmHg").
 **Why:** Direct user request.
 
+## 2026-09-29 — Måledata: Blodtrykk card shows the full reading (125/79 mmHg)
+**Decision:** Now that the card is named just "Blodtrykk", it shows the latest full reading, "125/79 mmHg", instead of the systolic value alone. That's the day's evening reading if present, else morning, the same reading the series' daily value comes from. Its change line reports both parts, e.g. "+4/+2 mmHg siste 14 dager", computed like the other cards (mean of the most recent 3 days vs. the first 3 days of the 14-day window). It reads "Omtrent uendret" only if both parts are below their thresholds: systolic 5 mmHg, diastolic 3 mmHg (the latter a new placeholder, same caveat as the others). With the current sample data the real 14-day change is −3/−2 mmHg, so the card shows "Omtrent uendret"; the two-part format was checked separately with thresholds forced to 0. "Utenfor" and the amber still follow the systolic target band.
+**Why:** Direct user request.
+
 #helsenorge
