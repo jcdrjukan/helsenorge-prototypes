@@ -175,4 +175,8 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 **Decision:** In the "Del opplysninger" panel, the "Fortsett utfylling →" text link is now a primary (fill, medium) button with the ArrowRight icon after the text. It uses the real Button right-icon, medium, mobile spacing, the same as the activation page's button. It has 1rem of space below it (on top of the panel's own padding). It keeps `id="kartleggingLink"`, so the kartlegging URL wiring is unchanged.
 **Why:** Direct user request.
 
+## 2026-10-01 — Toggle label in regular weight
+**Decision:** "Påminn meg om en uke" now uses the real Toggle's "subdued" label type (`label-subdued`: same 18/22px size, weight 400) instead of the default semibold label.
+**Why:** Direct user request.
+
 #helsenorge
