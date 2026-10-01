@@ -196,4 +196,8 @@ A text-position comparison against the pre-change version found nothing else tha
 **Decision:** In the "Del opplysninger" panel, "Påminn meg om en uke" is now 16/24px, the same as the panel's body text above it, instead of the Toggle's default 18/22px label size. It stays regular weight. The override applies only inside the notification panel.
 **Why:** Direct user request.
 
+## 2026-10-01 — Toggle label semibold when on
+**Decision:** "Påminn meg om en uke" is regular weight when off and semibold (600) when on, done in CSS with `:has(:checked)`. The size stays 16/24px.
+**Why:** Direct user request.
+
 #helsenorge

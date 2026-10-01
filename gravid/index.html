@@ -961,6 +961,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .notification-panel .toggle-container { margin-top: var(--space-2xs); }
 /* Label at the panel's body-text size (16/24px) instead of the Toggle's 18/22px, per direct request. */
 .notification-panel .toggle-container__label { font-size: 1rem; line-height: 1.5rem; }
+/* Semibold while the toggle is on (per direct request). */
+.notification-panel .toggle-container:has(.toggle-container__input:checked) .toggle-container__label__text--subdued { font-weight: 600; }
 
 /* ═══════════════════════════════════════════════════════════
    WEEKLY ARTICLE  (Figma node 8:469 layout)
