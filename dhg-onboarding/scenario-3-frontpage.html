@@ -52,11 +52,11 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 
 /* ── Header (App.css: .header/.top-bar/.nav-icon-btn/.profile-bar) ── */
 .header { width: 100%; background: #E4F7F9; }
-.top-bar { background: #fff; display: flex; align-items: center; padding: 0 4px 0 12px; height: 56px; }
+.top-bar { background: #fff; display: flex; align-items: center; padding: 0 4px 0 12px; height: 60px; } /* 60px like the inner pages' .header__top; the old 56px bar let the 70px-tall buttons spill above the screen edge and clip the badge */
 .top-nav { display: flex; align-items: center; justify-content: space-evenly; flex: 1; }
-.nav-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 0; background: none; border: none; cursor: pointer; padding: 4px 6px; border-radius: 8px; color: #000; }
+.nav-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 0; background: none; border: none; cursor: pointer; padding: 0 4px 4px; border-radius: 8px; color: #000; }
 .nav-icon-btn:hover { background: rgba(18, 111, 135, 0.13); }
-.nav-icon-btn__label { font: 600 16px/1 'Source Sans Pro', sans-serif; color: #000; white-space: nowrap; margin-bottom: 0.5rem; }
+.nav-icon-btn__label { font: 600 16px/18px 'Source Sans Pro', sans-serif; color: #000; white-space: nowrap; }
 .profile-bar { width: 100%; display: flex; align-items: center; gap: 8px; padding: 2px 12px; background: none; border: none; border-top: 1px solid #08667C; border-bottom: 1px solid #08667C; cursor: pointer; text-align: left; }
 .fs-avatar { width: 38px; height: 38px; flex-shrink: 0; background: #188097; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #fff; font: 600 16px/1.4 'Source Sans Pro', sans-serif; margin-top: 2px; margin-bottom: 2px; }
 .profile-bar__name { flex: 1; font: 600 16px/1.2 'Source Sans Pro', sans-serif; color: #000; }

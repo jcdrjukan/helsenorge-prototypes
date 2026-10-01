@@ -126,7 +126,7 @@ a:focus-visible, button:focus-visible {
 
 .app {
   background: #fff;
-  width: 360px;
+  width: 100%; /* full phone width: header, breadcrumb, bands and footer reach the screen edges; text columns keep their own 344px width */
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -177,7 +177,7 @@ a:focus-visible, button:focus-visible {
    same convention as standard notification-count badges. */
 .icon-btn__badge {
   position: absolute;
-  top: -2px; right: -2px;
+  top: 0; right: -2px; /* flush with the icon top so the screen edge never clips it */
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -219,7 +219,7 @@ a:focus-visible, button:focus-visible {
 .chevron { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-base-text-onlight); }
 .chevron svg { width: 18px; height: 18px; }
 
-.breadcrumb { width: 100%; padding: var(--space-2xs) var(--space-xs) 0; }
+.breadcrumb { width: 100%; padding: 0 4px; } /* same as gravid/index.html (Frankenstein App.css) */
 
 .breadcrumb__back {
   display: flex;
@@ -238,9 +238,9 @@ a:focus-visible, button:focus-visible {
 
 .page-divider {
   border: none;
-  border-top: 1px solid var(--neutral-300);
-  width: 100%;
-  margin: var(--space-2xs) 0 0;
+  border-top: 1px solid #D6D4D3;
+  margin: 0 1rem;
+  align-self: stretch;
 }
 
 .footer {

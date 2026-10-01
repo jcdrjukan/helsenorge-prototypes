@@ -171,4 +171,13 @@ All three now point to the same action: take DHG into use and share information 
 **Decision:** "Bruk tjenesten Gravid og digitalt helsekort" (both activation pages) now has an ArrowRight icon after the text. It follows the real Button right-icon, medium, mobile spec: padding `0 xs 0 s`, a 38px icon, and a `3xs` margin before it.
 **Why:** Direct user request.
 
+## 2026-10-01 — Full-width pages, unclipped header, standard breadcrumb height
+**Decision:** Fixed three phone-frame mismatches across the onboarding and Gravid pages.
+- **Full width:** every inner page's `.app` shell went from a fixed 360px to 100% of the 390px screen. Header, breadcrumb row, coloured bands and footer now reach the edges, which removes the white strip on both sides. Text columns keep their 344px width, so body text hasn't moved. The booking page's `.scn-title` also got `margin: 0 auto`; it had been sitting outside that column.
+- **Forside header:** the replicas' `.top-bar` (S1, S3, S4) is now 60px, with buttons `padding: 0 4px 4px` and labels at 16/18px. These match the inner pages' `.header__top`. The old fixed 56px bar held 70px-tall buttons, which spilled 7px above the screen and clipped the Varsler badge.
+- **Badge:** on S1 and S4, Forside and Varsler, it now sits flush with the top of the bell icon (`top: 0`) so the screen edge never clips it.
+- **Breadcrumb:** onboarding breadcrumb rows go from 54px to 46px, using the same rules as `gravid/index.html` (`padding: 0 4px`, divider `#D6D4D3` with `margin: 0 1rem`).
+
+**Why:** User-reported design mismatch. The Forside filled the width but clipped the top. Inner pages had the right top spacing but white side borders, and some breadcrumb rows (e.g. S1 Varsler) were too tall.
+
 #helsenorge

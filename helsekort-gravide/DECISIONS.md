@@ -163,4 +163,8 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 **Decision:** Removed the chart's visible title "Visualisering av magemål over tid". The text stays as the chart's `aria-label` for screen readers. The x-axis title "veke" (nynorsk, from the real Highcharts output) is now "uke", matching the rest of the bokmål page.
 **Why:** Direct user request.
 
+## 2026-10-01 — Gravid pages fill the full phone width
+**Decision:** The `.app` shell on every Gravid page went from a fixed 360px to 100% of the 390px phone screen. The header, breadcrumb row and footer now reach the edges (no white strip on either side). Text columns keep their 344px width. The same fix went into the DHG onboarding pages (see `dhg-onboarding/DECISIONS.md`).
+**Why:** User-reported mismatch: the white border on both sides is incorrect next to the full-width Forside.
+
 #helsenorge

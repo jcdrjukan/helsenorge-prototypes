@@ -44,11 +44,11 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 
 /* ── Header (App.css: .header/.top-bar/.nav-icon-btn/.profile-bar) ── */
 .header { width: 100%; background: #E4F7F9; }
-.top-bar { background: #fff; display: flex; align-items: center; padding: 0 4px 0 12px; height: 56px; }
+.top-bar { background: #fff; display: flex; align-items: center; padding: 0 4px 0 12px; height: 60px; } /* 60px like the inner pages' .header__top; the old 56px bar let the 70px-tall buttons spill above the screen edge and clip the badge */
 .top-nav { display: flex; align-items: center; justify-content: space-evenly; flex: 1; }
-.nav-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 0; background: none; border: none; cursor: pointer; padding: 4px 6px; border-radius: 8px; color: #000; text-decoration: none; }
+.nav-icon-btn { display: flex; flex-direction: column; align-items: center; gap: 0; background: none; border: none; cursor: pointer; padding: 0 4px 4px; border-radius: 8px; color: #000; text-decoration: none; }
 .nav-icon-btn:hover { background: rgba(18, 111, 135, 0.13); }
-.nav-icon-btn__label { font: 600 16px/1 'Source Sans Pro', sans-serif; color: #000; white-space: nowrap; margin-bottom: 0.5rem; }
+.nav-icon-btn__label { font: 600 16px/18px 'Source Sans Pro', sans-serif; color: #000; white-space: nowrap; }
 .nav-icon-btn__icon-wrap { position: relative; width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; }
 /* Unread-count badge — real Badge component's cherry (red) color
    variant (frankenstein/node_modules/@helsenorge/designsystem-react/
@@ -56,7 +56,7 @@ a:focus-visible, button:focus-visible { outline: var(--focus-outline); outline-o
 .nav-icon-btn__badge[hidden] { display: none; }
 .nav-icon-btn__badge {
   position: absolute;
-  top: -4px; right: -4px;
+  top: 0; right: -2px; /* flush with the icon top so it is never clipped by the screen edge */
   display: inline-flex; align-items: center; justify-content: center;
   min-width: 1.375rem; height: 1.375rem;
   border-radius: 1rem;

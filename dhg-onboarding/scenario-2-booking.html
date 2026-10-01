@@ -124,7 +124,7 @@ a:focus-visible, button:focus-visible {
 
 .app {
   background: #fff;
-  width: 360px;
+  width: 100%; /* full phone width: header, breadcrumb, bands and footer reach the screen edges; text columns keep their own 344px width */
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -193,7 +193,7 @@ a:focus-visible, button:focus-visible {
 .chevron { width: 38px; height: 38px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; color: var(--color-base-text-onlight); }
 .chevron svg { width: 18px; height: 18px; }
 
-.breadcrumb { width: 100%; padding: var(--space-2xs) var(--space-xs) 0; }
+.breadcrumb { width: 100%; padding: 0 4px; } /* same as gravid/index.html (Frankenstein App.css) */
 
 .breadcrumb__back {
   display: flex;
@@ -212,9 +212,9 @@ a:focus-visible, button:focus-visible {
 
 .page-divider {
   border: none;
-  border-top: 1px solid var(--neutral-300);
-  width: 100%;
-  margin: var(--space-2xs) 0 0;
+  border-top: 1px solid #D6D4D3;
+  margin: 0 1rem;
+  align-self: stretch;
 }
 
 .footer {
@@ -275,7 +275,7 @@ a:focus-visible, button:focus-visible {
    sub-theme="Første svangerskapskontroll") from the earlier Figma-
    sourced rebuild.
 ───────────────────────────────────────────────────────────────── */
-.scn-title { width: 344px; padding: 0 0 var(--space-s); }
+.scn-title { width: 344px; margin: 0 auto; padding: 0 0 var(--space-s); } /* parent .step is a block, so centre like the other 344px columns */
 .scn-title h1 { font: var(--mobile-h1); font-size: 1.75rem; line-height: 2.125rem; }
 .scn-intro { width: 344px; color: var(--color-base-text-onlight-subdued); font-size: 1rem; padding-bottom: var(--space-m); }
 
