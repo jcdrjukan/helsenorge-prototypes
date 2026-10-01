@@ -63,7 +63,7 @@ Both pages are linked from the front page's quick links ("Se hele svangerskapsjo
 ### Kartlegging før første svangerskapskontroll — `gravid/kartlegging.html` (added 2026-09-30)
 Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 sections (Personopplysningar, Svangerskap, Levevanar, Kosttilskot og medisinar, Sjukdommar og tilstandar, Arbeidssituasjon, Anna, Urinprøve), verbatim nynorsk with real options, tags, help triggers, a 250-character textarea, kg/cm fields and full country/language dropdowns.
 - **Styled by Helsenorge's own CSS:** the real Skjemautfyller stylesheets (downloaded from static.hn.test.nhn.no into `gravid/css/skjema/`). A generator (`.playwright-mcp/build_kartlegging.py`) emits the same DOM and hashed class names as the capture. The downloaded CSS has its `@font-face` rules and wider-screen `@media (min-width)` blocks removed, so the real mobile styles always apply in the phone frame. Re-download to update; don't edit by hand.
-- **Flow:** opened from "Fortsett utfylling" in the front page's "Del opplysninger" panel. "Gå vidare" opens the **"Sendt" success modal** (Figma 66:28297; green success variant over a 50% grey mask). OK, X, Esc or a click on the mask then returns to Gravid with `panelHelsekort=0&kartlegging=sendt` (panel gone). "Lagre" shows a toast. "Avbryt" and the breadcrumb return unchanged.
+- **Flow:** opened from "Kom i gang" in the front page's "Del opplysninger" panel. "Gå vidare" opens the **"Sendt" success modal** (Figma 66:28297; green success variant over a 50% grey mask). OK, X, Esc or a click on the mask then returns to Gravid with `panelHelsekort=0&kartlegging=sendt` (panel gone). "Lagre" shows a toast. "Avbryt" and the breadcrumb return unchanged.
 - **Placeholders:** help texts and the "Slik tar du en urinprøve" content. Conditional follow-up questions (if any) aren't included, because only the untouched form was captured.
 
 ### URL state (`index.html` and the pages that carry it)
@@ -73,7 +73,7 @@ Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 s
 | `tilknyttet` | 1 / 0 | Has digitalt helsekort. 0 hides Mål av magen and the journal/prøver links |
 | `termindato` | 1 / 0 / none | Confirmed / editable (mother's own) / not registered ("Termindato ikke registrert" + "Beregn termindato", no week bubble). `none` is honored with or without a connection |
 | `termindatoDato` | YYYY-MM-DD | A registered termindato (from the termindato pages); overrides `uke` |
-| `panelHelsekort` | 1 / 0 | "Del opplysninger før første svangerskapskontroll" (info NotificationPanel, not dismissable, "Påminn meg om en uke" toggle, "Fortsett utfylling" primary button) |
+| `panelHelsekort` | 1 / 0 | "Del opplysninger før første svangerskapskontroll" (info NotificationPanel, not dismissable, "Påminn meg om en uke" toggle, "Kom i gang" primary button) |
 | `panelFarskap` | 1 / 0 | "Registrer farskap hos Nav" (info NotificationPanel, only from uke 22) |
 | `dokumenter` | 0 | Hides the uploaded-document block (reference design shown by default) |
 | `kilde` | epj/booking/melding/frontpage/sok/redaksjonelt | DHG onboarding origin (breadcrumbs, banners) |
@@ -83,7 +83,7 @@ Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 s
 
 ### Other front-page changes since 2026-09-25
 - **No-termindato state:** "Termindato / ikke registrert" (20px regular) above the real Frankenstein mobile fill Button, whose label wraps onto two lines ("Beregn / termindato").
-- **"Del opplysninger" panel:** the same NotificationPanel as the farskap panel, variant **info**, not dismissable. Below the body text is a real Toggle, "Påminn meg om en uke"; when on, its sublabel reads "Påminnelse sendes <today + 7 days>" (not saved across reloads). Then a primary button "Fortsett utfylling →" (ArrowRight after the text) with 1rem of space below it.
+- **"Del opplysninger" panel:** the same NotificationPanel as the farskap panel, variant **info**, not dismissable. Below the body text is a real Toggle, "Påminn meg om en uke"; when on, its sublabel reads "Påminnelse sendes <today + 7 days>" (not saved across reloads). Then a primary button "Kom i gang →" (ArrowRight after the text) with 1rem of space below it.
 - **Mål av magen:** the chart is a 1:1 rebuild of the real Highcharts output (no visible title, "Visualisering av magemål over tid" kept as the aria-label; cm/uke axis titles, real band/median paths, plain white). Her own measurements are drawn in its coordinate system, and there is no "–" placeholder when there's no measurement yet.
 - **Breadcrumb row:** identical on every Gravid page (46px, 4px indent, #D6D4D3 divider inset 1rem), matched to the front page on 2026-09-30.
 

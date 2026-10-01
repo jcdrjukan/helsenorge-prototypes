@@ -200,4 +200,8 @@ A text-position comparison against the pre-change version found nothing else tha
 **Decision:** "Påminn meg om en uke" is regular weight when off and semibold (600) when on, done in CSS with `:has(:checked)`. The size stays 16/24px.
 **Why:** Direct user request.
 
+## 2026-10-01 — Panel button text "Kom i gang"
+**Decision:** The primary button in the "Del opplysninger" panel now reads "Kom i gang →" instead of "Fortsett utfylling →".
+**Why:** Direct user request.
+
 #helsenorge
