@@ -911,6 +911,55 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* ═══════════════════════════════════════════════════════════
+   TOGGLE — real Toggle component (@helsenorge/designsystem-react
+   lib/components/Toggle: styles.module.scss + index.js), static port.
+   Default togglePosition left, onColor "onblueberry" (it sits in the
+   info NotificationPanel): unchecked track white, hover neutral50,
+   active neutral200; checked track action-graphics-onlight, hover
+   -onlight-hover, active blueberry800. Dot neutral700 → white and
+   slides 16px, check icon fades in, all 0.2s ease-in-out (the real
+   component animates the same properties with motion's animate()).
+══════════════════════════════════════════════════════════════ */
+.toggle-container {
+  display: grid;
+  grid-template: 'toggle label' auto / min-content auto;
+  column-gap: 0.75rem;
+  max-width: 43.5rem;
+}
+.toggle-container__outer-toggle { grid-area: toggle; display: flex; flex-direction: column; align-items: center; gap: 0.375rem; }
+.toggle-container__outer-label { grid-area: label; margin-top: 0.5rem; }
+.toggle-container__label { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #2b2c2b; }
+.toggle-container__sublabel { font: 400 1rem/1.25rem 'Source Sans Pro', sans-serif; color: #474745; text-align: left; margin-top: 0.25rem; }
+.toggle-container__sublabel[hidden] { display: none; }
+.toggle-container__toggle-group { display: flex; align-items: center; cursor: pointer; min-height: 2.75rem; }
+.toggle-container__toggle {
+  position: relative; display: inline-block; width: 2.75rem; height: 1.75rem;
+  background-color: #fff; border-radius: 60px; border: 2px solid #62625f;
+  transition: background-color 0.2s ease-in-out;
+}
+.toggle-container__toggle__dot {
+  position: absolute; width: 1.125rem; height: 1.125rem; left: 3px; bottom: 3px;
+  background-color: #62625f; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+.toggle-container__toggle__dot__icon { opacity: 0; stroke: #188097; transition: opacity 0.2s ease-in-out; }
+.toggle-container__input { position: absolute; opacity: 0; width: 0; height: 0; }
+.toggle-container__toggle-group:hover .toggle-container__toggle { background-color: #f5f3f3; }
+.toggle-container__toggle-group:active .toggle-container__toggle { background-color: #d6d4d3; }
+.toggle-container__input:checked + .toggle-container__toggle { background-color: #188097; }
+.toggle-container__toggle-group:hover .toggle-container__input:checked + .toggle-container__toggle { background-color: #126f87; }
+.toggle-container__toggle-group:active .toggle-container__input:checked + .toggle-container__toggle { background-color: #06596c; }
+.toggle-container__input:checked + .toggle-container__toggle .toggle-container__toggle__dot { transform: translateX(16px); background-color: #fff; }
+.toggle-container__input:checked + .toggle-container__toggle .toggle-container__toggle__dot__icon { opacity: 1; }
+.toggle-container__input:focus-visible + .toggle-container__toggle { border-color: #000; outline: 2px solid #000; }
+.toggle-container__input:focus-visible + .toggle-container__toggle::after {
+  content: ''; display: block; width: 100%; height: 100%; border-radius: 60px; border: 1px solid #fff; box-sizing: border-box;
+}
+/* In the "Del opplysninger" panel: between the body text and the CTA. */
+.notification-panel .toggle-container { margin-top: var(--space-2xs); }
+
+/* ═══════════════════════════════════════════════════════════
    WEEKLY ARTICLE  (Figma node 8:469 layout)
 ══════════════════════════════════════════════════════════════ */
 .weekly-article {
@@ -2052,6 +2101,18 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
       <div class="notification-panel__content">
         <h3 class="notification-panel__label">Del opplysninger før første svangerskapskontroll</h3>
         <p class="notification-panel__children notification-panel__children--with-label">Du har ikke delt opplysningene i ditt digitale helsekort ennå.</p>
+        <div class="toggle-container">
+          <div class="toggle-container__outer-toggle">
+            <label class="toggle-container__toggle-group">
+              <input type="checkbox" role="switch" class="toggle-container__input" id="remindToggle" aria-label="Påminn meg om en uke" aria-describedby="remindSublabel">
+              <span class="toggle-container__toggle" aria-hidden="true"><span class="toggle-container__toggle__dot" aria-hidden="true"><svg width="12" height="12" viewBox="0 0 12 12" fill="none" class="toggle-container__toggle__dot__icon"><path d="M11 2.65247L4.69877 9.34741L1 5.41836" stroke-width="2.2"/></svg></span></span>
+            </label>
+          </div>
+          <div class="toggle-container__outer-label">
+            <span class="toggle-container__label">Påminn meg om en uke</span>
+            <div class="toggle-container__sublabel" id="remindSublabel" aria-live="polite" hidden></div>
+          </div>
+        </div>
         <a class="notification-panel__link notification-panel__link--cta" href="kartlegging.html" id="kartleggingLink">Fortsett utfylling<svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
       </div>
     </div>
@@ -3149,6 +3210,17 @@ try {
 } catch {
   applyFavoriteState(false);
 }
+// "Påminn meg om en uke" toggle in the "Del opplysninger" panel: when on,
+// the Toggle's sublabel shows the reminder date (today + 7 days).
+(function () {
+  const input = document.getElementById('remindToggle');
+  const sub = document.getElementById('remindSublabel');
+  if (!input) return;
+  input.addEventListener('change', () => {
+    if (input.checked) sub.textContent = 'Påminnelse sendes ' + formatDate(new Date(Date.now() + 7 * 86400000));
+    sub.hidden = !input.checked;
+  });
+})();
 </script>
 </body>
 </html>

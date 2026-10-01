@@ -73,7 +73,7 @@ Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 s
 | `tilknyttet` | 1 / 0 | Has digitalt helsekort. 0 hides Mål av magen and the journal/prøver links |
 | `termindato` | 1 / 0 / none | Confirmed / editable (mother's own) / not registered ("Termindato ikke registrert" + "Beregn termindato", no week bubble). `none` is honored with or without a connection |
 | `termindatoDato` | YYYY-MM-DD | A registered termindato (from the termindato pages); overrides `uke` |
-| `panelHelsekort` | 1 / 0 | "Del opplysninger før første svangerskapskontroll" (warning NotificationPanel, "Fortsett utfylling") |
+| `panelHelsekort` | 1 / 0 | "Del opplysninger før første svangerskapskontroll" (info NotificationPanel, not dismissable, "Påminn meg om en uke" toggle, "Fortsett utfylling") |
 | `panelFarskap` | 1 / 0 | "Registrer farskap hos Nav" (info NotificationPanel, only from uke 22) |
 | `dokumenter` | 0 | Hides the uploaded-document block (reference design shown by default) |
 | `kilde` | epj/booking/melding/frontpage/sok/redaksjonelt | DHG onboarding origin (breadcrumbs, banners) |
@@ -83,7 +83,7 @@ Rebuilt from the real Skjemautfyller page's rendered markup: 23 questions in 8 s
 
 ### Other front-page changes since 2026-09-25
 - **No-termindato state:** "Termindato / ikke registrert" (20px regular) above the real Frankenstein mobile fill Button, whose label wraps onto two lines ("Beregn / termindato").
-- **"Del opplysninger" panel:** now the same NotificationPanel as the farskap panel, variant **warn** (banana800 border, banana50 fill), with a semibold "Fortsett utfylling →" link, no underline.
+- **"Del opplysninger" panel:** the same NotificationPanel as the farskap panel, variant **info**, not dismissable. Below the body text is a real Toggle, "Påminn meg om en uke"; when on, its sublabel reads "Påminnelse sendes <today + 7 days>" (not saved across reloads). Then a semibold "Fortsett utfylling →" link, no underline.
 - **Mål av magen:** the chart is a 1:1 rebuild of the real Highcharts output (no visible title, "Visualisering av magemål over tid" kept as the aria-label; cm/uke axis titles, real band/median paths, plain white). Her own measurements are drawn in its coordinate system, and there is no "–" placeholder when there's no measurement yet.
 - **Breadcrumb row:** identical on every Gravid page (46px, 4px indent, #D6D4D3 divider inset 1rem), matched to the front page on 2026-09-30.
 
