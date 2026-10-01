@@ -179,4 +179,9 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 **Decision:** "Påminn meg om en uke" now uses the real Toggle's "subdued" label type (`label-subdued`: same 18/22px size, weight 400) instead of the default semibold label.
 **Why:** Direct user request.
 
+## 2026-10-01 — Reminder date stays a sublabel, with 0.5rem below it
+**Decision:** Kept "Påminnelse sendes <dato>" as the Toggle's sublabel and added 0.5rem below it. The margin only applies when it's shown, i.e. when the toggle is on.
+**Alternative considered:** Swapping the toggle's label to "Påminnelse sendes <dato>" when on.
+**Why:** User's choice after discussing accessibility. A switch's accessible name should stay the same while its on/off state changes. A changing label makes it unclear what turning it off does, and screen readers often don't announce the new name. The sublabel is linked to the switch as its description and is announced when it appears.
+
 #helsenorge
