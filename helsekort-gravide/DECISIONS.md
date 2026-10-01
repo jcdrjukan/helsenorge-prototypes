@@ -192,4 +192,8 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 A text-position comparison against the pre-change version found nothing else that moved on the Gravid pages.
 **Why:** User asked for a check of all pages after a reported alignment regression.
 
+## 2026-10-01 — Toggle label at the panel's body-text size
+**Decision:** In the "Del opplysninger" panel, "Påminn meg om en uke" is now 16/24px, the same as the panel's body text above it, instead of the Toggle's default 18/22px label size. It stays regular weight. The override applies only inside the notification panel.
+**Why:** Direct user request.
+
 #helsenorge
