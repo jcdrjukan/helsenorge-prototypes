@@ -372,7 +372,7 @@ a:focus-visible, button:focus-visible {
 .footer {
   background: var(--color-base-background-dark-neutral);
   width: 100%;
-  padding: var(--space-m) var(--space-xs);
+  padding: var(--space-m) var(--space-s); /* 16px sides, same as the Forside footer (was 12px inside the old 360px shell) */
   display: flex;
   flex-direction: column;
   gap: var(--space-s);
@@ -405,7 +405,7 @@ a:focus-visible, button:focus-visible {
    (not included, to protect this prototype's own chrome) are added here,
    scoped to .kl.
 ══════════════════════════════════════════════════════════════ */
-.kl { width: 100%; padding: 0 12px; box-sizing: border-box; font-family: 'Source Sans Pro', sans-serif; color: #000; }
+.kl { width: 100%; padding: 0 23px; box-sizing: border-box; /* 344px column at 23px, like the other pages (12px was sized for the old 360px shell) */ font-family: 'Source Sans Pro', sans-serif; color: #000; }
 .kl *, .kl *::before, .kl *::after { box-sizing: border-box; }
 .kl fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
 .kl button, .kl input, .kl select, .kl textarea { font-family: inherit; }

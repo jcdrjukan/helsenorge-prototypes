@@ -220,7 +220,7 @@ a:focus-visible, button:focus-visible {
 .footer {
   background: var(--color-base-background-dark-neutral);
   width: 100%;
-  padding: var(--space-m) var(--space-xs);
+  padding: var(--space-m) var(--space-s); /* 16px sides, same as the Forside footer (was 12px inside the old 360px shell) */
   display: flex;
   flex-direction: column;
   gap: var(--space-s);
@@ -277,7 +277,7 @@ a:focus-visible, button:focus-visible {
 ───────────────────────────────────────────────────────────────── */
 .scn-title { width: 344px; margin: 0 auto; padding: 0 0 var(--space-s); } /* parent .step is a block, so centre like the other 344px columns */
 .scn-title h1 { font: var(--mobile-h1); font-size: 1.75rem; line-height: 2.125rem; }
-.scn-intro { width: 344px; color: var(--color-base-text-onlight-subdued); font-size: 1rem; padding-bottom: var(--space-m); }
+.scn-intro { width: 344px; margin: 0 auto; color: var(--color-base-text-onlight-subdued); font-size: 1rem; padding-bottom: var(--space-m); }
 
 /* Real Stepper component — static replica, corrected to match the
    real @helsenorge/designsystem-react source exactly (previous draft

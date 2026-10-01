@@ -184,4 +184,12 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 **Alternative considered:** Swapping the toggle's label to "Påminnelse sendes <dato>" when on.
 **Why:** User's choice after discussing accessibility. A switch's accessible name should stay the same while its on/off state changes. A changing label makes it unclear what turning it off does, and screen readers often don't announce the new name. The sublabel is linked to the switch as its description and is announced when it appears.
 
+## 2026-10-01 — Alignment fixes after the full-width change
+**Decision:** After `.app` went full width, two things on the Gravid pages had moved:
+- Kartlegging form: side padding 12px → 23px, so it sits in the same 344px column as every other page. The title had moved to 12px from the edge.
+- Footer: side padding 12px → 16px on every page, matching the Forside footer.
+
+A text-position comparison against the pre-change version found nothing else that moved on the Gravid pages.
+**Why:** User asked for a check of all pages after a reported alignment regression.
+
 #helsenorge

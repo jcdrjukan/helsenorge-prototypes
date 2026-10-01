@@ -180,4 +180,11 @@ All three now point to the same action: take DHG into use and share information 
 
 **Why:** User-reported design mismatch. The Forside filled the width but clipped the top. Inner pages had the right top spacing but white side borders, and some breadcrumb rows (e.g. S1 Varsler) were too tall.
 
+## 2026-10-01 — Alignment fixes after the full-width change
+**Decision:** Making `.app` full width moved anything laid out against the old 360px shell. I compared every text position against the pre-change version (all pages, hidden steps and states unhidden) and fixed what moved:
+- S2 booking: `.scn-intro` ("Ledig time er allerede valgt…") ended up flush with the screen edge. It's now centred in the 344px column (`margin: 0 auto`), like `.scn-title`.
+- Footer: side padding on all inner pages went from 12px to 16px, the same as the Forside footer. Its text had dropped from 27px to 12px from the edge.
+- Varsler (S1/S4): no change. The list now sits 24px from the edge, which is its Figma position relative to the frame.
+**Why:** User-reported regression ("Ledig time" text hard against the left edge) plus a request to check all pages for the same bug.
+
 #helsenorge
