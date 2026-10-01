@@ -171,4 +171,8 @@ It reuses the S3 "Er du gravid selv?" modal's box, positioning and focus handlin
 **Decision:** The "Del opplysninger før første svangerskapskontroll" info panel on `gravid/index.html` now has a Toggle labelled "Påminn meg om en uke" between the body text and "Fortsett utfylling". It's a static port of the real Frankenstein Toggle (`@helsenorge/designsystem-react` Toggle: markup, `role="switch"`, real token colours, 0.2s dot slide and check-icon fade). It uses the default left position and the "onblueberry" colours because it sits on the info panel's light-blue background. Turning it on shows the component's sublabel, "Påminnelse sendes <dato>" (today + 7 days, dd.mm.åååå). Turning it off hides it again. The state isn't saved; it resets on reload.
 **Why:** Direct user request.
 
+## 2026-10-01 — "Fortsett utfylling" becomes a primary button
+**Decision:** In the "Del opplysninger" panel, the "Fortsett utfylling →" text link is now a primary (fill, medium) button with the ArrowRight icon after the text. It uses the real Button right-icon, medium, mobile spacing, the same as the activation page's button. It has 1rem of space below it (on top of the panel's own padding). It keeps `id="kartleggingLink"`, so the kartlegging URL wiring is unchanged.
+**Why:** Direct user request.
+
 #helsenorge

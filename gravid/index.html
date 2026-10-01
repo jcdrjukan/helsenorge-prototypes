@@ -1548,6 +1548,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .btn-fill-medium:hover { background: var(--blueberry-700); }
 .btn-fill-medium svg { color: #fff; }
 .btn-fill-medium span { color: #fff; }
+/* Real Button right-icon, medium, mobile: padding 0 xs 0 s, 38px icon
+   with margin-left 3xs (same as the activation page's primary button). */
+.btn-fill-medium--right-icon { gap: 0; padding: 0 var(--space-xs) 0 var(--space-s); }
+.btn-fill-medium--right-icon svg { margin-left: var(--space-3xs); }
+/* "Fortsett utfylling" in the "Del opplysninger" panel: primary button,
+   1rem below it (per direct request). */
+.panel-cta { margin-top: var(--space-2xs); margin-bottom: 1rem; }
 
 .btn-outline-medium { background: #fff; border: 1px solid var(--color-action-graphics-onlight); }
 .btn-outline-medium:hover { background: var(--color-base-background-neutral); }
@@ -2113,7 +2120,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
             <div class="toggle-container__sublabel" id="remindSublabel" aria-live="polite" hidden></div>
           </div>
         </div>
-        <a class="notification-panel__link notification-panel__link--cta" href="kartlegging.html" id="kartleggingLink">Fortsett utfylling<svg class="notification-panel__link-icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
+        <a class="btn-fill-medium btn-fill-medium--right-icon panel-cta" href="kartlegging.html" id="kartleggingLink"><span>Fortsett utfylling</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
       </div>
     </div>
 
