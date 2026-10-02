@@ -5,10 +5,8 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 ---
 
 ## 2026-10-02 — Psykisk helse demo: resource sections grey (psykiskhelse-demo branch)
-**Decision:** The three resource containers are grey instead of light blue, using the design system's neutral list-element colours. Shape is unchanged: inset, rounded 8px corners.
-- **First try:** body `neutral-light` #F5F3F3, header `neutral-medium` #EAE7E7.
-- **Final:** one shade darker. Body `neutral-medium` #EAE7E7, header `neutral-dark` #D6D4D3, so the white cards stand out more.
-**Why:** Direct user requests: "make these containers grey", then "try the next shade" after #F5F3F3 read as too pale next to the white cards.
+**Decision:** The three resource containers are grey instead of light blue, using the design system's neutral list-element pair in place of the blueberry one: header `neutral-medium` #EAE7E7 (was #CAE7ED), body `neutral-light` #F5F3F3 (was #E4F7F9). The body grey is the same as the earlier grey Verktøy box. Shape is unchanged: inset, rounded 8px corners.
+**Why:** Direct user request.
 
 ---
 
