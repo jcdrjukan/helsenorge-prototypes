@@ -6,7 +6,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ## 2026-10-02 — Psykisk helse demo: resource sections grey (psykiskhelse-demo branch)
 **Decision:** The three resource containers are grey instead of light blue, using the design system's neutral list-element pair in place of the blueberry one: header `neutral-medium` #EAE7E7 (was #CAE7ED), body `neutral-light` #F5F3F3 (was #E4F7F9). The body grey is the same as the earlier grey Verktøy box. Shape is unchanged: inset, rounded 8px corners.
-**Why:** Direct user request.
+**Why:** Direct user request. A darker try (body #EAE7E7, header #D6D4D3) was reverted on request. Both are valid tokens, but #D6D4D3 is only used as a hover/pressed state in the design system, and #EAE7E7 is its header colour, so that pairing doesn't match any component setting. The #EAE7E7/#F5F3F3 pair matches an open neutral ExpanderList.
 
 ---
 
