@@ -17,6 +17,7 @@ import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
+import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
 import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
@@ -25,6 +26,7 @@ import HealthClinic from '@helsenorge/designsystem-react/components/Icons/Health
 import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
 import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
 import StarFill from '@helsenorge/designsystem-react/components/Icons/StarFill';
+import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
 import './style.css';
 
 import {
@@ -115,6 +117,14 @@ function hashSeed(seed: string): number {
   return h;
 }
 
+// Real tool images from the Selvhjelpsverktøy design (Figma 402:7239),
+// for the tools that design shows. Everything else keeps the placeholder.
+function toolImage(resource: Resource): { src: string; className: string } | null {
+  if (resource.id === 'grubl') return { src: '/ph-tool-grubl.png', className: 'ph-tool-card__image ph-tool-card__image--grubl' };
+  if (resource.id.startsWith('selvhjelpsvideo')) return { src: '/ph-tool-video.png', className: 'ph-tool-card__image ph-tool-card__image--video' };
+  return null;
+}
+
 function ToolPlaceholderIcon({ seed }: { seed: string }) {
   const h = hashSeed(seed);
   const background = PLACEHOLDER_ICON_COLORS[h % PLACEHOLDER_ICON_COLORS.length];
@@ -132,7 +142,7 @@ function ToolPlaceholderIcon({ seed }: { seed: string }) {
   );
 }
 
-// New expandable card design for Verktøy (Figma node 394:3898) — collapsed
+// Expandable tool card (Figma 394:3898, updated by 402:7239/402:7738) — collapsed
 // state shows the icon/title/favorite-star, short description and a filled
 // CTA; expanding reveals the description again as a "Beskrivelse" section
 // plus a secondary link. There's no separate long-form description or
@@ -149,14 +159,21 @@ function ToolPlaceholderIcon({ seed }: { seed: string }) {
 // hand here, as ordinary content inside Panel.A alongside the rest.
 function ToolCard({ resource }: { resource: Resource }) {
   const [favorited, setFavorited] = useState(false);
+  const image = toolImage(resource);
 
   return (
     <Panel color="white" className="ph-tool-card">
       <Panel.A>
         <div className="ph-tool-card__header">
-          <div className="ph-tool-card__icon-frame">
-            <ToolPlaceholderIcon seed={resource.id} />
-          </div>
+          {image ? (
+            <div className={image.className} aria-hidden="true">
+              <img src={image.src} alt="" />
+            </div>
+          ) : (
+            <div className="ph-tool-card__icon-frame">
+              <ToolPlaceholderIcon seed={resource.id} />
+            </div>
+          )}
           <div className="ph-tool-card__heading">
             <Title htmlMarkup="h3" appearance="title3" className="ph-tool-card__title">
               {resource.title}
@@ -180,8 +197,9 @@ function ToolCard({ resource }: { resource: Resource }) {
               <Icon svgIcon={ArrowUpRight} />
             </Button>
           ) : (
-            <Button variant="fill" arrow="icon" onClick={() => openResource(resource.url)}>
-              {resource.ctaLabel ?? 'Gå til verktøy'}
+            <Button variant="fill" onClick={() => openResource(resource.url)}>
+              {resource.ctaLabel ?? 'Åpne verktøy'}
+              <Icon svgIcon={ArrowUpRight} />
             </Button>
           )}
         </div>
@@ -192,9 +210,12 @@ function ToolCard({ resource }: { resource: Resource }) {
             <p className="ph-tool-card__section-title">Beskrivelse</p>
             <p className="ph-tool-card__section-body">{resource.shortDescription}</p>
           </div>
-          <Button variant="borderless" arrow="icon" onClick={() => openResource(resource.url)}>
-            Vis mer om verktøyet
-          </Button>
+          <div style={{ alignSelf: 'flex-start' }}>
+            <Button variant="borderless" onClick={() => openResource(resource.url)}>
+              Vis mer om verktøyet
+              <Icon svgIcon={ArrowRight} />
+            </Button>
+          </div>
         </div>
       </Panel.ExpandedContent>
     </Panel>
@@ -537,11 +558,16 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           </div>
 
           {results.verktøy.length > 0 && (
-            <section className="ph-tool-section">
-              <h2 className="ph-section-heading">Verktøy</h2>
-              <ul className="ph-resource-list">
+            <section className="ph-tool-section" aria-labelledby="ph-tool-section-title">
+              <div className="ph-tool-section__header">
+                <span className="ph-tool-section__icon" aria-hidden="true">
+                  <Icon svgIcon={Toolbox} size={38} />
+                </span>
+                <h2 className="ph-tool-section__title" id="ph-tool-section-title">Selvhjelpsverktøy</h2>
+              </div>
+              <ul className="ph-resource-list ph-tool-section__list">
                 {results.verktøy.map(r => (
-                  <li key={r.id} style={{ marginBottom: '8px' }}>
+                  <li key={r.id}>
                     <ResourceCard resource={r} />
                   </li>
                 ))}

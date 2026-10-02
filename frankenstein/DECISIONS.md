@@ -4,6 +4,29 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-02 — Psykisk helse demo: "Verktøy" becomes "Selvhjelpsverktøy" (psykiskhelse-demo branch)
+**Decision:** On the results page, the Verktøy section follows Figma 402:7239 (section) and 402:7738 (expanded card).
+- **Section:** renamed "Selvhjelpsverktøy" and built as a static block styled like an open blueberry ExpanderList item:
+  - Header: #CAE7ED with the Toolbox icon and an 18px semibold h2, white bottom border.
+  - Body: #E4F7F9, padding 12/16/32/14px.
+  - #7D7C79 rules above and below.
+  - Cards 16px apart.
+- **Not the real ExpanderList:** the design leaves the chevron slot empty, so it's a heading, not something you collapse.
+- **Cards** keep the real Panel and its "Se detaljer"/"Skjul detaljer" expander:
+  - Square corners.
+  - Real tool images where the design has them: the Grubl app icon (with its Figma crop) and the self-help video thumbnail for every "Selvhjelpsvideo(er)…" tool. Other tools keep the coloured placeholder.
+  - Descriptions at 18px/1.5 black.
+  - Web tools' button is now "Åpne verktøy ↗" (fill + ArrowUpRight), like "Last ned app ↗".
+  - "Vis mer om verktøyet" gets its → arrow.
+  - 16px between the main button and "Se detaljer".
+- **Mobile sizes:** Panel padding, Title and Button sizes are pinned inside `.ph-tool-card`. Otherwise the design-system breakpoints read the real desktop browser width and render desktop sizes inside the phone frame.
+- **Not built:** "Faglig ansvarlig" from the expanded design. The data has no such field, and I didn't invent per-tool values. The expanded Beskrivelse still reuses `shortDescription`.
+
+**Alternative considered:** The real ExpanderList (`color="blueberry"`, expanded by default), which would add a collapse chevron the design doesn't have.
+**Why:** Direct user request with Figma.
+
+---
+
 ## 2026-08-11 — Built Forside as a new Frankenstein view, not a standalone static prototype
 **Decision:** New `src/forside/` view recreating the real Helsenorge forside (Figma `OOhkNC18f5jrwa1C3TT4wV`, node 230:3677 default / 230:3673 expanded) inside the shared React app, reusing real design-system components throughout (LinkList, Tile, PromoPanel, Toggle where it was briefly used).
 **Alternative considered:** A hand-rolled static HTML/CSS prototype at the repo root, matching the convention used by `behandlingshjelpemidler/`, `gravid/`, etc.
