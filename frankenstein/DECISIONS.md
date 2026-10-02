@@ -4,6 +4,12 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-02 — Psykisk helse demo: Artikler in the same light-blue container (psykiskhelse-demo branch)
+**Decision:** The Artikler section uses the same container as Selvhjelpsverktøy and Noen å snakke med: a light-blue full-bleed block with a header showing the Publication icon and the title "Artikler". The article cards went from the outline Panel (which rendered a thick grey frame and desktop sizes inside the phone frame) to the same white card shell as the tool cards. The icon and title sit on one row, then the category tag, the description, and the outline "Gå til artikkel →" button.
+**Why:** Direct user request. Keeping the old outline cards inside the new container would have mixed two card styles on one page.
+
+---
+
 ## 2026-10-02 — Psykisk helse demo: "Veiledningstjenester" becomes "Noen å snakke med" (psykiskhelse-demo branch)
 **Decision:** The section uses the same light-blue container as Selvhjelpsverktøy, with the PeopleTalking icon. Both services always show, in the design's order (Mental Helse, then Kirkens SOS).
 

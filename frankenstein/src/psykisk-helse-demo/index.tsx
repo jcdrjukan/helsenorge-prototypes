@@ -319,12 +319,42 @@ function ResourceCard({
     return <ServiceCard resource={resource} />;
   }
 
+  // Articles sit in the same light-blue container as the tool/service
+  // cards, so they use the same white card shell and icon+title row.
+  if (resource.type === 'artikkel') {
+    return (
+      <Panel color="white" className="ph-tool-card ph-article-card">
+        <Panel.A>
+          <div className="ph-tool-card__header">
+            <span className="ph-article-card__icon" aria-hidden="true">
+              <Icon svgIcon={Publication} size={48} />
+            </span>
+            <div className="ph-tool-card__heading">
+              <Title htmlMarkup="h3" appearance="title3" className="ph-tool-card__title">
+                {resource.title}
+              </Title>
+            </div>
+          </div>
+          <div style={{ marginBottom: '0.5rem' }}>
+            <CategoryTags tags={resource.tags} />
+          </div>
+          <p className="ph-resource-card__desc">{resource.shortDescription}</p>
+          <div style={{ marginTop: '1rem' }}>
+            <Button variant="outline" arrow="icon" onClick={() => openResource(resource.url)}>
+              {resource.ctaLabel ?? 'Gå til artikkel'}
+            </Button>
+          </div>
+        </Panel.A>
+      </Panel>
+    );
+  }
+
   return (
     <Panel variant={PanelVariant.outline}>
       <Panel.Title
         title={resource.title}
         titleMarkup="h3"
-        icon={<Icon svgIcon={resource.type === 'artikkel' ? Publication : PeopleTalking} size={48} />}
+        icon={<Icon svgIcon={PeopleTalking} size={48} />}
       />
       <Panel.A>
         <div style={{ marginTop: '0rem', marginBottom: '0.5rem' }}>
@@ -333,7 +363,7 @@ function ResourceCard({
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
         <div style={{ marginTop: '1rem' }}>
           <Button variant="outline" arrow="icon" onClick={() => openResource(resource.url)}>
-            {resource.ctaLabel ?? (resource.type === 'artikkel' ? 'Gå til artikkel' : 'Gå til tjeneste')}
+            {resource.ctaLabel ?? 'Gå til tjeneste'}
           </Button>
         </div>
       </Panel.A>
@@ -664,11 +694,16 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           )}
 
           {results.artikler.length > 0 && (
-            <section>
-              <h2 className="ph-section-heading">Artikler</h2>
-              <ul className="ph-resource-list">
+            <section className="ph-tool-section" aria-labelledby="ph-article-section-title">
+              <div className="ph-tool-section__header">
+                <span className="ph-tool-section__icon" aria-hidden="true">
+                  <Icon svgIcon={Publication} size={38} />
+                </span>
+                <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
+              </div>
+              <ul className="ph-resource-list ph-tool-section__list">
                 {results.artikler.map(r => (
-                  <li key={r.id} style={{ marginBottom: '8px' }}>
+                  <li key={r.id}>
                     <ResourceCard resource={r} />
                   </li>
                 ))}

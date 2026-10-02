@@ -573,3 +573,6 @@
   line-height: 1.2 !important;
 }
 .ph-service-card [class*="_duolist__dt_"] { width: 136px; padding-right: 24px; box-sizing: border-box; }
+
+/* Article cards in the "Artikler" container: same card shell as tools. */
+.ph-article-card__icon { display: flex; width: 48px; height: 48px; flex-shrink: 0; }
