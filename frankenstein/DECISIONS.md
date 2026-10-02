@@ -4,6 +4,12 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-02 — Psykisk helse demo: resource sections grey (psykiskhelse-demo branch)
+**Decision:** The three resource containers are grey instead of light blue, using the design system's neutral list-element pair in place of the blueberry one: header `neutral-medium` #EAE7E7 (was #CAE7ED), body `neutral-light` #F5F3F3 (was #E4F7F9). The body grey is the same as the earlier grey Verktøy box. Shape is unchanged: inset, rounded 8px corners.
+**Why:** Direct user request.
+
+---
+
 ## 2026-10-02 — Psykisk helse demo: resource sections inset with rounded corners (psykiskhelse-demo branch)
 **Decision:** The three light-blue containers (Selvhjelpsverktøy, Artikler, Noen å snakke med) are no longer full-bleed. They sit inside the page margins with 8px rounded corners, and the top/bottom rules are gone (they clashed with the corners). The light-blue area alone frames each group.
 

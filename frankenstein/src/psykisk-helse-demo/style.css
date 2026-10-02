@@ -233,15 +233,16 @@
   /* Inset within the page margins with rounded corners (not full-bleed),
      so the light-blue area reads as one block surrounding its cards —
      per direct request, like the earlier grey Verktøy box. No top/bottom
-     rules: they'd clash with the rounded corners. */
-  background: #e4f7f9;
+     rules: they'd clash with the rounded corners. Grey (listelements
+     neutral-light) per direct request, was blueberry-light #E4F7F9. */
+  background: #f5f3f3;
   border-radius: 8px;
   overflow: hidden;
 }
 .ph-tool-section__header {
   display: flex;
   align-items: flex-start;
-  background: #cae7ed;
+  background: #eae7e7; /* listelements neutral-medium (was blueberry-medium #CAE7ED) */
   border-bottom: 1px solid #fff;
   padding: 8px 0 8px 8px;
 }
