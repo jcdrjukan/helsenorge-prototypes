@@ -234,15 +234,16 @@
      so the light-blue area reads as one block surrounding its cards —
      per direct request, like the earlier grey Verktøy box. No top/bottom
      rules: they'd clash with the rounded corners. Grey (listelements
-     neutral-light) per direct request, was blueberry-light #E4F7F9. */
-  background: #f5f3f3;
+     neutral-medium) per direct request — one shade darker than the first
+     grey try (#F5F3F3), which was too pale against the white cards. */
+  background: #eae7e7;
   border-radius: 8px;
   overflow: hidden;
 }
 .ph-tool-section__header {
   display: flex;
   align-items: flex-start;
-  background: #eae7e7; /* listelements neutral-medium (was blueberry-medium #CAE7ED) */
+  background: #d6d4d3; /* listelements neutral-dark: one step darker than the body */
   border-bottom: 1px solid #fff;
   padding: 8px 0 8px 8px;
 }
