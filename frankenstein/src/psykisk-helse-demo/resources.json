@@ -6,7 +6,10 @@
     "shortDescription": "Vil du bruke mindre tid på grubling og bekymring, men vet ikke hvordan? Da kan Grubl være appen for deg.",
     "url": "https://tjenester.helsenorge.no/verktoy/4f7facd9-1dfe-4ee1-aa6c-9aea3c5ed1be",
     "appStoreUrl": "https://apps.apple.com/no/app/grubl/id6448179040",
-    "tags": ["angst", "stress"],
+    "tags": [
+      "angst",
+      "stress"
+    ],
     "isApp": true
   },
   {
@@ -16,7 +19,9 @@
     "shortDescription": "NettOpp er en app som kan hjelpe barn og unge å håndtere negative hendelser på nett.",
     "url": "https://tjenester.helsenorge.no/verktoy/91aead41-4154-4a45-827c-8b4ce2ec344a",
     "appStoreUrl": "https://apps.apple.com/no/app/nettopp/id1478735947",
-    "tags": ["ensomhet-relasjoner"],
+    "tags": [
+      "ensomhet-relasjoner"
+    ],
     "isApp": true
   },
   {
@@ -26,7 +31,9 @@
     "shortDescription": "En app for bedre psykisk helse og trivsel.",
     "url": "https://tjenester.helsenorge.no/verktoy/c4bddc1b-0561-4b69-92b2-2017100b303e",
     "appStoreUrl": "https://apps.apple.com/no/app/opp/id1565803110",
-    "tags": ["generell-mestring"],
+    "tags": [
+      "generell-mestring"
+    ],
     "isApp": true
   },
   {
@@ -35,7 +42,9 @@
     "title": "Selvhjelpsvideo mot kortvarige søvnvansker",
     "shortDescription": "Denne videoen gir deg noen råd for å håndtere søvnvansker som har vart i en kort periode.",
     "url": "https://tjenester.helsenorge.no/verktoy/8b9bc3fb-67ff-4d34-8274-2a75125bc7e2",
-    "tags": ["sove-bedre"]
+    "tags": [
+      "sove-bedre"
+    ]
   },
   {
     "id": "selvhjelpsvideoer-depresjon",
@@ -43,7 +52,9 @@
     "title": "Selvhjelpsvideoer mot depresjon",
     "shortDescription": "I programmet lærer du om depresjon og hva du kan gjøre for å få det bedre.",
     "url": "https://tjenester.helsenorge.no/verktoy/66494994-e94a-40e8-a1f6-376bd08cfad3",
-    "tags": ["nedstemthet"]
+    "tags": [
+      "nedstemthet"
+    ]
   },
   {
     "id": "selvhjelpsvideoer-langvarige-sovnvansker",
@@ -51,7 +62,9 @@
     "title": "Selvhjelpsvideoer mot langvarige søvnvansker",
     "shortDescription": "I programmet lærer du å mestre søvnplager som har vart lengre enn tre måneder.",
     "url": "https://tjenester.helsenorge.no/verktoy/8bec4e20-ee2a-4419-a16b-917eba51ff2f",
-    "tags": ["sove-bedre"]
+    "tags": [
+      "sove-bedre"
+    ]
   },
   {
     "id": "selvhjelpsvideoer-panikkangst",
@@ -59,7 +72,9 @@
     "title": "Selvhjelpsvideoer mot panikkangst",
     "shortDescription": "I programmet lærer du om prosessen som opprettholder angst, og hvordan du kan arbeide for å bli kvitt angst.",
     "url": "https://tjenester.helsenorge.no/verktoy/d586a599-2ae8-4fa3-bb6a-0f726b23f06d",
-    "tags": ["angst"]
+    "tags": [
+      "angst"
+    ]
   },
   {
     "id": "selvhjelpsvideoer-sosial-angst",
@@ -67,7 +82,10 @@
     "title": "Selvhjelpsvideoer mot sosial angst",
     "shortDescription": "I programmet lærer du mer om sosial angst, blant annet hvordan du kan ha et mer realistisk bilde av din egen påvirkning på andre.",
     "url": "https://tjenester.helsenorge.no/verktoy/37207f12-c6d3-4648-9edd-92bcee56416f",
-    "tags": ["angst", "ensomhet-relasjoner"]
+    "tags": [
+      "angst",
+      "ensomhet-relasjoner"
+    ]
   },
   {
     "id": "slutta-app",
@@ -76,7 +94,9 @@
     "shortDescription": "Slutta er en gratis app som kan gjøre det lettere for deg å slutte med røyk, vape og snus.",
     "url": "https://tjenester.helsenorge.no/verktoy/d222374b-6385-4fa3-b1fe-7798b9cc0840",
     "appStoreUrl": "https://apps.apple.com/no/app/slutta/id1514235393",
-    "tags": ["rus-og-avhengighet"],
+    "tags": [
+      "rus-og-avhengighet"
+    ],
     "isApp": true
   },
   {
@@ -86,7 +106,9 @@
     "shortDescription": "Verktøyet er laget for de som spiller for mye eller har moderat pengespillavhengighet.",
     "url": "https://tjenester.helsenorge.no/verktoy/f34033da-0314-4807-b265-7ce5a091bcd0",
     "appStoreUrl": "https://apps.apple.com/no/app/spillfri/id6755718555",
-    "tags": ["spilleavhengighet"],
+    "tags": [
+      "spilleavhengighet"
+    ],
     "isApp": true
   },
   {
@@ -96,7 +118,10 @@
     "shortDescription": "Er selvtilliten frynsete og bekymringene hyppige? En tankevirus-infeksjon kan ramme alle.",
     "url": "https://tjenester.helsenorge.no/verktoy/40b7e336-0a9b-48f6-bd5b-68c471e7971b",
     "appStoreUrl": "https://apps.apple.com/no/app/tankevirus/id1584631173",
-    "tags": ["angst", "stress"],
+    "tags": [
+      "angst",
+      "stress"
+    ],
     "isApp": true
   },
   {
@@ -106,7 +131,10 @@
     "shortDescription": "UngSpotlight er et selvhjelpsprogram på nett for ungdom med frykt for å snakke foran klassen.",
     "url": "https://tjenester.helsenorge.no/verktoy/86ab3446-5e68-4c12-9673-1e2f6da08d96",
     "appStoreUrl": "https://apps.apple.com/no/app/ungspotlight/id1673711941",
-    "tags": ["angst", "ensomhet-relasjoner"],
+    "tags": [
+      "angst",
+      "ensomhet-relasjoner"
+    ],
     "isApp": true
   },
   {
@@ -115,7 +143,9 @@
     "title": "Er du trist eller har du en depresjon?",
     "shortDescription": "Hjelp til å forstå forskjellen mellom å være nedstemt og å ha en depresjon.",
     "url": "https://www.helsenorge.no/psykisk-helse/deprimert-eller-trist/",
-    "tags": ["nedstemthet"]
+    "tags": [
+      "nedstemthet"
+    ]
   },
   {
     "id": "artikkel-langvarig-stress",
@@ -123,7 +153,9 @@
     "title": "Langvarig stress",
     "shortDescription": "Hva skjer i kroppen ved langvarig stress, og når bør du ta tak i det.",
     "url": "https://www.helsenorge.no/psykisk-helse/langvarig-stress/",
-    "tags": ["stress"]
+    "tags": [
+      "stress"
+    ]
   },
   {
     "id": "artikkel-stress-pa-jobb",
@@ -131,7 +163,9 @@
     "title": "Stress på jobb",
     "shortDescription": "Råd om hvordan du kan håndtere stress og press i jobbsammenheng.",
     "url": "https://www.helsenorge.no/psykisk-helse/stress-pa-jobb/",
-    "tags": ["stress"]
+    "tags": [
+      "stress"
+    ]
   },
   {
     "id": "artikkel-utbrenthet",
@@ -139,7 +173,9 @@
     "title": "Utbrenthet",
     "shortDescription": "Om hvordan langvarig stress og krysspress kan føre til at du blir utbrent.",
     "url": "https://www.helsenorge.no/psykisk-helse/utbrenthet/",
-    "tags": ["stress"]
+    "tags": [
+      "stress"
+    ]
   },
   {
     "id": "artikkel-ensomhet",
@@ -147,7 +183,9 @@
     "title": "Ensomhet",
     "shortDescription": "Råd som kan hjelpe deg å komme ut av ensomheten.",
     "url": "https://www.helsenorge.no/psykisk-helse/ensomhet/",
-    "tags": ["ensomhet-relasjoner"]
+    "tags": [
+      "ensomhet-relasjoner"
+    ]
   },
   {
     "id": "artikkel-rad-for-bedre-sovn",
@@ -155,7 +193,9 @@
     "title": "Råd for bedre søvn",
     "shortDescription": "Konkrete råd for å sove bedre.",
     "url": "https://www.helsenorge.no/sovnproblemer/rad-for-bedre-sovn/",
-    "tags": ["sove-bedre"]
+    "tags": [
+      "sove-bedre"
+    ]
   },
   {
     "id": "artikkel-angst",
@@ -163,7 +203,9 @@
     "title": "Angst",
     "shortDescription": "Informasjon om angst, symptomer og hvor du kan få hjelp.",
     "url": "https://www.helsenorge.no/sykdom/psykiske-lidelser/angst/",
-    "tags": ["angst"]
+    "tags": [
+      "angst"
+    ]
   },
   {
     "id": "artikkel-drikker-du-for-mye",
@@ -171,7 +213,9 @@
     "title": "Drikker du for mye?",
     "shortDescription": "Hjelp til å vurdere eget forhold til alkohol, og hvor du kan få støtte.",
     "url": "https://www.helsenorge.no/alkohol/for-mye-alkohol/",
-    "tags": ["rus-og-avhengighet"]
+    "tags": [
+      "rus-og-avhengighet"
+    ]
   },
   {
     "id": "artikkel-rad-for-god-psykisk-helse",
@@ -179,7 +223,9 @@
     "title": "Slik tar du vare på den psykiske helsa",
     "shortDescription": "Råd og tips om hvordan du kan styrke den psykiske helsa og få bedre livskvalitet.",
     "url": "https://www.helsenorge.no/psykisk-helse/rad-for-god-psykisk-helse/",
-    "tags": ["generell-mestring"]
+    "tags": [
+      "generell-mestring"
+    ]
   },
   {
     "id": "artikkel-abc-for-god-psykisk-helse",
@@ -187,22 +233,147 @@
     "title": "ABC for god psykisk helse",
     "shortDescription": "Små grep i hverdagen som kan styrke den psykiske helsa.",
     "url": "https://www.helsenorge.no/psykisk-helse/abc-for-god-psykisk-helse/",
-    "tags": ["generell-mestring"]
+    "tags": [
+      "generell-mestring"
+    ]
   },
   {
     "id": "veiledning-kirkens-sos",
     "type": "veiledningstjeneste",
     "title": "Kirkens SOS",
-    "shortDescription": "Døgnåpen krisetjeneste for samtaler om det som er vanskelig.",
+    "shortDescription": "Kirkens SOS er Norges største døgnåpne krisetjeneste og samtaletilbud på telefon og internett.",
     "url": "https://www.kirkens-sos.no/telefon",
-    "tags": ["ensomhet-relasjoner"]
+    "tags": [
+      "ensomhet-relasjoner"
+    ],
+    "service": {
+      "image": "/ph-tj-kirkens-sos.png",
+      "longDescription": "Kirkens SOS er her for alle som trenger noen å snakke med. Daglig svarer våre frivillige på godt over 400 henvendelser frå mennesker som trenger noen å snakke med. Vi tror at alle kan oppleve å ha det så vanskelig inn i mellom at vi trenger å snakke med noen - og alle våre frivillige er tilstede for å ta imot de som trenger en prat.",
+      "bemanning": "Frivillige",
+      "phone": "22 40 00 40",
+      "chatUrl": "https://www.soschat.no",
+      "website": "https://www.kirkens-sos.no",
+      "hours": [
+        [
+          "Mandag",
+          [
+            [
+              "11:30",
+              "12:00"
+            ],
+            [
+              "13:00",
+              "16:00"
+            ]
+          ]
+        ],
+        [
+          "Tirsdag",
+          "døgnåpen"
+        ],
+        [
+          "Onsdag",
+          "døgnåpen"
+        ],
+        [
+          "Torsdag",
+          [
+            [
+              "10:00",
+              "16:00"
+            ]
+          ]
+        ],
+        [
+          "Fredag",
+          [
+            [
+              "10:00",
+              "12:00"
+            ],
+            [
+              "13:00",
+              "16:00"
+            ]
+          ]
+        ],
+        [
+          "Lørdag",
+          "stengt"
+        ],
+        [
+          "Søndag",
+          [
+            [
+              "13:00",
+              "16:00"
+            ]
+          ]
+        ]
+      ]
+    }
   },
   {
     "id": "veiledning-mental-helse",
     "type": "veiledningstjeneste",
     "title": "Mental Helse",
-    "shortDescription": "Døgnåpen telefon- og chattetjeneste for samtaler om det som er vanskelig.",
+    "shortDescription": "Mental Helse er en medlemsorganisasjon for alle mennesker med psykiske helseutfordringer, pårørende og andre interesserte.",
     "url": "https://mentalhelse.no/fa-hjelp/hjelpetelefonen/",
-    "tags": ["angst", "stress"]
+    "tags": [
+      "angst",
+      "stress"
+    ],
+    "service": {
+      "image": "/ph-tj-mental-helse.png",
+      "longDescription": "Vi har i over 30 år (siden 1992) hjulpet mennesker i alle aldre gjennom Mental Helses Hjelpetelefon. Alle som ønsker å snakke eller skrive om livets utfordringer kan ta kontakt med Hjelpetelefonens tjenester. Vi kan også gi informasjon om hjelpe- og aktivitetstilbud. Du kan gjerne ta kontakt med oss som pårørende eller om du er bekymret for noen i din omgangskrets. Vi har taushetsplikt og du kan være anonym.",
+      "bemanning": "Frivillige",
+      "phone": "116 123",
+      "chatUrl": "https://www.sidetmedord.no",
+      "website": "https://mentalhelse.no",
+      "hours": [
+        [
+          "Mandag",
+          "døgnåpen"
+        ],
+        [
+          "Tirsdag",
+          "døgnåpen"
+        ],
+        [
+          "Onsdag",
+          [
+            [
+              "10:00",
+              "16:00"
+            ]
+          ]
+        ],
+        [
+          "Torsdag",
+          [
+            [
+              "10:00",
+              "12:00"
+            ],
+            [
+              "13:00",
+              "16:00"
+            ]
+          ]
+        ],
+        [
+          "Fredag",
+          "stengt"
+        ],
+        [
+          "Lørdag",
+          "stengt"
+        ],
+        [
+          "Søndag",
+          "stengt"
+        ]
+      ]
+    }
   }
 ]

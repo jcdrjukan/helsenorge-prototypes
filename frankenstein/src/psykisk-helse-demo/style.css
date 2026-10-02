@@ -230,6 +230,9 @@
    bottom. Static, not a toggle: the design leaves the expander's chevron
    slot empty, so it's a section heading, not a collapsible list. */
 .ph-tool-section {
+  /* Full-bleed like a real ExpanderList (rules top/bottom only), pulling
+     out of .ph-page's 1rem side padding. */
+  margin: 0 -1rem;
   background: #e4f7f9;
   border-top: 1px solid #7d7c79;
   border-bottom: 1px solid #7d7c79;
@@ -533,3 +536,40 @@
 /* Expanded "Beskrivelse": Mobile/Label 18/24 semibold + body 18/28. */
 .ph-tool-card .ph-tool-card__section-title { line-height: 1.5rem; margin: 0; }
 .ph-tool-card .ph-tool-card__section-body { line-height: 1.75rem; }
+
+/* ── "Noen å snakke med" service cards (Figma 402:7929 / 402:7979 /
+   402:7954 / 402:8145) ─ same section container and Panel shell as the
+   Selvhjelpsverktøy cards (.ph-tool-section / .ph-tool-card). ────────── */
+.ph-service-card__image { border-radius: 8px; }
+.ph-service-card__image img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* "Åpen/Stengt - …": Mobile/Status time stamp, 16px/1.1. */
+.ph-service-card__status {
+  margin: 0 0 16px;
+  font: 400 1rem/1.1 'Source Sans Pro', sans-serif;
+  color: #000;
+}
+.ph-service-card__status--open { color: #078141; }
+.ph-service-card__status--closed { color: #c83521; }
+.ph-service-card__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+.ph-service-card__details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.ph-service-card__details > :last-child { align-self: flex-start; }
+.ph-service-card__hours .ph-tool-card__section-title { margin-bottom: 12px; }
+.ph-service-card__interval { display: block; }
+/* Duolist rows: Mobile/Definitionlist-type/-data 18px/1.2 (the Duolist
+   jumps to 20/26px past the real-viewport md breakpoint), 112px term
+   column + 24px gap per the design. */
+.ph-service-card [class*="_duolist__dt_"],
+.ph-service-card [class*="_duolist__dd_"] {
+  font-size: 1.125rem !important;
+  line-height: 1.2 !important;
+}
+.ph-service-card [class*="_duolist__dt_"] { width: 136px; padding-right: 24px; box-sizing: border-box; }

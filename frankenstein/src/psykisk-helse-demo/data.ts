@@ -32,6 +32,23 @@ export interface Resource {
    *  "Last ned app" opens this, while `url` (the Helsenorge page about the
    *  app) stays behind "Vis mer om verktøyet" in the expanded card. */
   appStoreUrl?: string;
+  /** "Noen å snakke med" services only (Figma 402:7929–402:8145). */
+  service?: ServiceDetails;
+}
+
+/** One day's opening hours: open all day, closed, or a list of
+ *  [from, to] "HH:MM" intervals. */
+export type OpeningHours = 'døgnåpen' | 'stengt' | [string, string][];
+
+export interface ServiceDetails {
+  image: string;
+  longDescription: string;
+  bemanning: string;
+  phone: string;
+  chatUrl: string;
+  website: string;
+  /** Mandag → Søndag, in order. */
+  hours: [string, OpeningHours][];
 }
 
 export const RESOURCES: Resource[] = resourcesJson as Resource[];
@@ -70,8 +87,11 @@ const FALLBACK_IDS = [
 // support contacts, not tied to any one quiz category — they should show
 // up in every result set regardless of tag matches or which answers were
 // picked, unlike every other resource.
-const ALWAYS_SHOW_VEILEDNING_IDS = ['veiledning-kirkens-sos', 'veiledning-mental-helse'];
-const ALWAYS_SHOW_VEILEDNING = RESOURCES.filter(r => ALWAYS_SHOW_VEILEDNING_IDS.includes(r.id));
+// Listed in the order the "Noen å snakke med" design shows them.
+const ALWAYS_SHOW_VEILEDNING_IDS = ['veiledning-mental-helse', 'veiledning-kirkens-sos'];
+const ALWAYS_SHOW_VEILEDNING = ALWAYS_SHOW_VEILEDNING_IDS
+  .map(id => RESOURCES.find(r => r.id === id))
+  .filter((r): r is Resource => !!r);
 
 export interface ScoredResults {
   verktøy: Resource[];
@@ -80,9 +100,40 @@ export interface ScoredResults {
   isEmpty: boolean;
 }
 
+// Both services always show, in the design's fixed order (a tag match no
+// longer moves one ahead of the other).
 function withAlwaysShowVeiledning(matched: Resource[]): Resource[] {
-  const matchedIds = new Set(matched.map(r => r.id));
-  return [...matched, ...ALWAYS_SHOW_VEILEDNING.filter(r => !matchedIds.has(r.id))];
+  const alwaysIds = new Set(ALWAYS_SHOW_VEILEDNING_IDS);
+  return [...ALWAYS_SHOW_VEILEDNING, ...matched.filter(r => !alwaysIds.has(r.id))];
+}
+
+const DAY_NAMES = ['søndag', 'mandag', 'tirsdag', 'onsdag', 'torsdag', 'fredag', 'lørdag'];
+const toMin = (hhmm: string) => { const [h, m] = hhmm.split(':').map(Number); return h * 60 + m; };
+
+/** Live open/closed status from a service's opening hours, worded like the
+ *  design: "Åpen - Døgnåpen", "Åpen - Stenger 15:30", "Stengt - Åpner 12:00"
+ *  (or "Åpner i morgen 10:00" / "Åpner mandag 11:30" for a later day). */
+export function serviceStatus(hours: [string, OpeningHours][], now = new Date()): { open: boolean; detail: string } {
+  // hours[] is Mandag-first; JS getDay() is Sunday-first.
+  const dayIdx = (jsDay: number) => (jsDay + 6) % 7;
+  const today = hours[dayIdx(now.getDay())][1];
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  if (today === 'døgnåpen') return { open: true, detail: 'Døgnåpen' };
+  if (today !== 'stengt') {
+    const current = today.find(([from, to]) => nowMin >= toMin(from) && nowMin < toMin(to));
+    if (current) return { open: true, detail: `Stenger ${current[1]}` };
+    const later = today.find(([from]) => toMin(from) > nowMin);
+    if (later) return { open: false, detail: `Åpner ${later[0]}` };
+  }
+  for (let ahead = 1; ahead <= 7; ahead++) {
+    const jsDay = (now.getDay() + ahead) % 7;
+    const day = hours[dayIdx(jsDay)][1];
+    if (day === 'stengt') continue;
+    const when = ahead === 1 ? 'i morgen' : DAY_NAMES[jsDay];
+    // A døgnåpen day opens at midnight — "Åpner mandag" reads better than "Åpner mandag 00:00".
+    return { open: false, detail: day === 'døgnåpen' ? `Åpner ${when}` : `Åpner ${when} ${day[0][0]}` };
+  }
+  return { open: false, detail: '' };
 }
 
 export function computeResults(

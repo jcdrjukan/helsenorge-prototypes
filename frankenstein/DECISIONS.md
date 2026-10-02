@@ -4,6 +4,34 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-02 — Psykisk helse demo: "Veiledningstjenester" becomes "Noen å snakke med" (psykiskhelse-demo branch)
+**Decision:** The section uses the same light-blue container as Selvhjelpsverktøy, with the PeopleTalking icon. Both services always show, in the design's order (Mental Helse, then Kirkens SOS).
+
+**Cards** (Figma 402:7929/402:7979 and 402:7954/402:8145) use the same Panel shell as the tool cards, without the favourite star:
+- Collapsed:
+  - The services' own logos.
+  - A live status line: "Åpen - Døgnåpen", "Åpen - Stenger 12:00", or "Stengt - Åpner 12:00" / "Åpner i morgen 10:00" / "Åpner mandag".
+  - The design's short description.
+  - "Åpne chat ↗" (fill) and "Ring oss ↗" (outline, a `tel:` link) side by side.
+- Expanded:
+  - Beskrivelse, Bemanning and Telefonnummer.
+  - Åpningstider as the real Duolist (line variant, bold first column, pinned to 18px/1.2 with a 112px term column).
+  - "Gå til nettside ↗" as the real AnchorLink with `target="_blank"`.
+
+**Opening hours and status:** the hours are copied from the design and stored in `resources.json` (`service` block). The status is computed from them.
+
+**Both sections are now full-bleed** (`margin: 0 -1rem`), which is how an ExpanderList with rules only top and bottom sits. This also gives the cards enough width for the two buttons on one row.
+
+**Assumptions:**
+- Chat links: sidetmedord.no (Mental Helse) and soschat.no (Kirkens SOS).
+- Website links: the organisations' home pages.
+- Title "Mental Helse" (as the organisation writes it) rather than the design's "Mental helse".
+
+**Alternative considered:** Fixed status copy taken from one design frame.
+**Why:** The frames show different statuses for the same service (collapsed vs. expanded), so the line is clearly meant to reflect the opening hours rather than be fixed text. Direct user request with Figma.
+
+---
+
 ## 2026-10-02 — Psykisk helse demo: "Verktøy" becomes "Selvhjelpsverktøy" (psykiskhelse-demo branch)
 **Decision:** On the results page, the Verktøy section follows Figma 402:7239 (section) and 402:7738 (expanded card).
 - **Section:** renamed "Selvhjelpsverktøy" and built as a static block styled like an open blueberry ExpanderList item:

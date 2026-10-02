@@ -9,6 +9,8 @@ import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
 import VisualCheckboxCloud from '@helsenorge/designsystem-react/components/VisualCheckboxCloud';
+import Duolist, { DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
+import AnchorLink from '@helsenorge/designsystem-react/components/AnchorLink';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -34,7 +36,8 @@ import {
   computeResults,
   markVeiviserCompleted, clearVeiviserCompleted,
   getAnswers, persistAnswers, clearAnswers,
-  type Resource,
+  serviceStatus,
+  type Resource, type OpeningHours,
 } from './data';
 
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
@@ -222,6 +225,88 @@ function ToolCard({ resource }: { resource: Resource }) {
   );
 }
 
+// "Noen å snakke med" service card (Figma 402:7929/402:7979 Mental Helse,
+// 402:7954/402:8145 Kirkens SOS). Same Panel shell as ToolCard, minus the
+// favorite star. The open/closed line is computed live from the opening
+// hours — the design frames show different example states for the same
+// service, so it's a status, not fixed copy.
+function formatHours(h: OpeningHours) {
+  if (h === 'døgnåpen') return 'Døgnåpen';
+  if (h === 'stengt') return 'Stengt';
+  return h.map(([from, to], i) => <span key={i} className="ph-service-card__interval">{from}-{to}</span>);
+}
+
+function ServiceCard({ resource }: { resource: Resource }) {
+  const service = resource.service!;
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 60_000);
+    return () => clearInterval(t);
+  }, []);
+  const status = serviceStatus(service.hours, now);
+
+  return (
+    <Panel color="white" className="ph-tool-card ph-service-card">
+      <Panel.A>
+        <div className="ph-tool-card__header">
+          <div className="ph-tool-card__image ph-service-card__image" aria-hidden="true">
+            <img src={service.image} alt="" />
+          </div>
+          <div className="ph-tool-card__heading">
+            <Title htmlMarkup="h3" appearance="title3" className="ph-tool-card__title">
+              {resource.title}
+            </Title>
+          </div>
+        </div>
+        <p className="ph-service-card__status">
+          <span className={status.open ? 'ph-service-card__status--open' : 'ph-service-card__status--closed'}>
+            {status.open ? 'Åpen' : 'Stengt'}
+          </span>
+          {status.detail && <> - {status.detail}</>}
+        </p>
+        <p className="ph-resource-card__desc">{resource.shortDescription}</p>
+        <div className="ph-service-card__buttons">
+          <Button variant="fill" onClick={() => openResource(service.chatUrl)}>
+            Åpne chat
+            <Icon svgIcon={ArrowUpRight} />
+          </Button>
+          <Button variant="outline" onClick={() => { window.location.href = 'tel:' + service.phone.replace(/\s/g, ''); }}>
+            Ring oss
+            <Icon svgIcon={ArrowUpRight} />
+          </Button>
+        </div>
+      </Panel.A>
+      <Panel.ExpandedContent>
+        <div className="ph-service-card__details">
+          <div>
+            <p className="ph-tool-card__section-title">Beskrivelse</p>
+            <p className="ph-tool-card__section-body">{service.longDescription}</p>
+          </div>
+          <div>
+            <p className="ph-tool-card__section-title">Bemanning</p>
+            <p className="ph-tool-card__section-body">{service.bemanning}</p>
+          </div>
+          <div>
+            <p className="ph-tool-card__section-title">Telefonnummer</p>
+            <p className="ph-tool-card__section-body">{service.phone}</p>
+          </div>
+          <div className="ph-service-card__hours">
+            <p className="ph-tool-card__section-title">Åpningstider</p>
+            <Duolist variant="line" boldColumn="first">
+              {service.hours.map(([day, h]) => (
+                <DuolistGroup key={day} term={day} description={formatHours(h)} />
+              ))}
+            </Duolist>
+          </div>
+          <div>
+            <AnchorLink href={service.website} target="_blank">Gå til nettside</AnchorLink>
+          </div>
+        </div>
+      </Panel.ExpandedContent>
+    </Panel>
+  );
+}
+
 function ResourceCard({
   resource,
 }: {
@@ -229,6 +314,9 @@ function ResourceCard({
 }) {
   if (resource.type === 'verktøy') {
     return <ToolCard resource={resource} />;
+  }
+  if (resource.service) {
+    return <ServiceCard resource={resource} />;
   }
 
   return (
@@ -589,11 +677,16 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           )}
 
           {results.veiledningstjenester.length > 0 && (
-            <section>
-              <h2 className="ph-section-heading">Veiledningstjenester</h2>
-              <ul className="ph-resource-list">
+            <section className="ph-tool-section" aria-labelledby="ph-service-section-title">
+              <div className="ph-tool-section__header">
+                <span className="ph-tool-section__icon" aria-hidden="true">
+                  <Icon svgIcon={PeopleTalking} size={38} />
+                </span>
+                <h2 className="ph-tool-section__title" id="ph-service-section-title">Noen å snakke med</h2>
+              </div>
+              <ul className="ph-resource-list ph-tool-section__list">
                 {results.veiledningstjenester.map(r => (
-                  <li key={r.id} style={{ marginBottom: '8px' }}>
+                  <li key={r.id}>
                     <ResourceCard resource={r} />
                   </li>
                 ))}
