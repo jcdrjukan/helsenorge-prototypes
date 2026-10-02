@@ -4,6 +4,19 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-02 — Psykisk helse demo: resource sections inset with rounded corners (psykiskhelse-demo branch)
+**Decision:** The three light-blue containers (Selvhjelpsverktøy, Artikler, Noen å snakke med) are no longer full-bleed. They sit inside the page margins with 8px rounded corners, and the top/bottom rules are gone (they clashed with the corners). The light-blue area alone frames each group.
+
+To keep "Åpne chat" and "Ring oss" side by side at the narrower width:
+- Container padding is 12px top, 8px sides, 16px bottom (was 12/16/32/14). The 8px sides line up with the header's 8px inset.
+- The gap between those two buttons is 12px instead of the design's 16px. It was 1px short otherwise.
+
+This reverses the full-bleed choice from earlier the same day.
+**Alternative considered:** Full-bleed ExpanderList-style blocks (the Figma frames' top/bottom rules).
+**Why:** User feedback: edge-to-edge blocks don't read as distinct sections. An inset, rounded coloured area visibly surrounds each collection, as the earlier grey Verktøy box did.
+
+---
+
 ## 2026-10-02 — Psykisk helse demo: Artikler in the same light-blue container (psykiskhelse-demo branch)
 **Decision:** The Artikler section uses the same container as Selvhjelpsverktøy and Noen å snakke med: a light-blue full-bleed block with a header showing the Publication icon and the title "Artikler". The article cards went from the outline Panel (which rendered a thick grey frame and desktop sizes inside the phone frame) to the same white card shell as the tool cards. The icon and title sit on one row, then the category tag, the description, and the outline "Gå til artikkel →" button.
 **Why:** Direct user request. Keeping the old outline cards inside the new container would have mixed two card styles on one page.

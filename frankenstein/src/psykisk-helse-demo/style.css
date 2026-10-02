@@ -230,12 +230,13 @@
    bottom. Static, not a toggle: the design leaves the expander's chevron
    slot empty, so it's a section heading, not a collapsible list. */
 .ph-tool-section {
-  /* Full-bleed like a real ExpanderList (rules top/bottom only), pulling
-     out of .ph-page's 1rem side padding. */
-  margin: 0 -1rem;
+  /* Inset within the page margins with rounded corners (not full-bleed),
+     so the light-blue area reads as one block surrounding its cards —
+     per direct request, like the earlier grey Verktøy box. No top/bottom
+     rules: they'd clash with the rounded corners. */
   background: #e4f7f9;
-  border-top: 1px solid #7d7c79;
-  border-bottom: 1px solid #7d7c79;
+  border-radius: 8px;
+  overflow: hidden;
 }
 .ph-tool-section__header {
   display: flex;
@@ -261,7 +262,9 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
-  padding: 12px 16px 32px 14px;
+  /* 8px sides (aligned with the header's 8px inset) so the inset section
+     still leaves room for two buttons side by side in the service cards. */
+  padding: 12px 8px 16px;
 }
 /* Tool card: square corners and a light-grey border, per the design. */
 .ph-tool-card {
@@ -553,7 +556,7 @@
 .ph-service-card__buttons {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
+  gap: 12px; /* design 16px; 12 keeps both buttons on one row inside the inset section */
   margin-top: 16px;
 }
 .ph-service-card__details {
