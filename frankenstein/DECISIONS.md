@@ -4,6 +4,16 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-02 — Psykisk helse demo: real App Store icons for the app verktøy (psykiskhelse-demo branch)
+**Decision:** The six app tools that still had coloured placeholder shapes (NettOpp, Opp, Slutta, Spillfri, Tankevirus, UngSpotlight) now show their actual App Store icons. These were fetched once through Apple's public iTunes lookup API (`itunes.apple.com/lookup?id=…`, using the id in each tool's `appStoreUrl`), downloaded at 256px to `public/ph-tool-<id>.png`, and shown at 48px with 8px rounded corners like Grubl.
+- Grubl keeps its Figma image.
+- The five "Selvhjelpsvideo(er)…" programmes aren't apps and keep the video thumbnail from the Figma design.
+- No verktøy uses the placeholder any more. The placeholder code stays as a fallback for tools added later without an icon.
+
+**Why:** Direct user request to find actual icons for the tools.
+
+---
+
 ## 2026-10-02 — Psykisk helse demo: resource sections grey (psykiskhelse-demo branch)
 **Decision:** The three resource containers are grey instead of light blue, using the design system's neutral list-element pair in place of the blueberry one: header `neutral-medium` #EAE7E7 (was #CAE7ED), body `neutral-light` #F5F3F3 (was #E4F7F9). The body grey is the same as the earlier grey Verktøy box. Shape is unchanged: inset, rounded 8px corners.
 **Why:** Direct user request. A darker try (body #EAE7E7, header #D6D4D3) was reverted on request. Both are valid tokens, but #D6D4D3 is only used as a hover/pressed state in the design system, and #EAE7E7 is its header colour, so that pairing doesn't match any component setting. The #EAE7E7/#F5F3F3 pair matches an open neutral ExpanderList.

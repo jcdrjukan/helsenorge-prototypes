@@ -120,10 +120,14 @@ function hashSeed(seed: string): number {
   return h;
 }
 
-// Real tool images from the Selvhjelpsverktøy design (Figma 402:7239),
-// for the tools that design shows. Everything else keeps the placeholder.
+// Real tool images. Grubl and the self-help video thumbnail come from the
+// Selvhjelpsverktøy design (Figma 402:7239); the other apps' icons are
+// their App Store icons (fetched via Apple's public iTunes lookup API).
+const APP_STORE_ICON_IDS = ['nettopp', 'opp', 'slutta-app', 'spillfri', 'tankevirus', 'ungspotlight'];
+
 function toolImage(resource: Resource): { src: string; className: string } | null {
   if (resource.id === 'grubl') return { src: '/ph-tool-grubl.png', className: 'ph-tool-card__image ph-tool-card__image--grubl' };
+  if (APP_STORE_ICON_IDS.includes(resource.id)) return { src: `/ph-tool-${resource.id}.png`, className: 'ph-tool-card__image ph-tool-card__image--app' };
   if (resource.id.startsWith('selvhjelpsvideo')) return { src: '/ph-tool-video.png', className: 'ph-tool-card__image ph-tool-card__image--video' };
   return null;
 }

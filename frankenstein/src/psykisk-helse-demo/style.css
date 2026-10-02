@@ -285,6 +285,9 @@
 .ph-tool-card__image--grubl { border-radius: 8px; }
 .ph-tool-card__image--grubl img { width: 108.26%; height: 108.26%; left: -4.69%; top: -3.49%; }
 .ph-tool-card__image--video { border-radius: 4px; }
+/* App Store icons: full-bleed square artwork, rounded like Grubl (8px). */
+.ph-tool-card__image--app { border-radius: 8px; }
+.ph-tool-card__image--app img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .ph-tool-card__image--video img { inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* Icon + title + favorite-star row. Plain content inside Panel.A (not
    Panel.Title's own icon slot) so the description/button/expand-toggle
