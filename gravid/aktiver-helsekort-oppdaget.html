@@ -415,7 +415,7 @@ a:focus-visible, button:focus-visible {
    real --color-shadow-pagemask grey (#2c2b2c) but at 50% opacity per
    direct request (the token itself is 72%). Positioned over the
    visible part of whichever element is scrolling (the phone frame's
-   screen on desktop, the window on a real phone) — see openGravidModal().
+   screen on desktop, the window on a real phone) — see show() in the modal script.
 ══════════════════════════════════════════════════════════════ */
 .gm-overlay {
   position: absolute; left: 0; right: 0; z-index: 50;
@@ -448,6 +448,10 @@ a:focus-visible, button:focus-visible {
 .gm__btn span { padding: 4px 0 6px; }
 .gm__btn--fill { background: #188097; color: #fff; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
 .gm__btn--fill:hover { background: #08667c; }
+/* Right-icon fill button (the "ikke tilgjengelig" modal's primary):
+   ArrowRight after the text, same as #activateBtn. */
+.gm__btn--fill.gm__btn--right-icon { padding-right: var(--space-xs); }
+.gm__btn--right-icon svg { width: 38px; height: 38px; flex-shrink: 0; margin-left: var(--space-3xs); }
 .gm__btn--outline { border: 2px solid #188097; color: #126f87; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
 .gm__btn--outline:hover { background: #e4f7f9; }
 .gm__btn--borderless { color: #126f87; min-height: 38px; padding: 3px 8px; font-size: 18px; line-height: 22px; }
@@ -669,6 +673,22 @@ a:focus-visible, button:focus-visible {
     </div>
   </div>
 </div>
+<!-- "Ikke tilgjengelig" modal, shown after "Noen andres svangerskap": she
+     can't get digitalt helsekort for someone else's pregnancy, but can use
+     Gravid without it. Same copy as aktiver-helsekort-ikke-tilgjengelig.html. -->
+<div class="gm-overlay" id="ikkeModal" hidden>
+  <div class="gm" role="dialog" aria-modal="true" aria-labelledby="nmTitle" aria-describedby="nmIngress" tabindex="-1">
+    <button type="button" class="gm__close" id="nmClose" aria-label="Lukk"><img src="img/modal-close.svg" width="38" height="38" alt=""></button>
+    <div class="gm__top">
+      <h2 class="gm__title" id="nmTitle">Du kan dessverre ikke få et digitalt helsekort</h2>
+      <p class="gm__ingress" id="nmIngress">Du kan bruke tjenesten Gravid, men tjenesten vil ikke kunne utveksle helseopplysninger med behandlere</p>
+    </div>
+    <div class="gm__buttons">
+      <a class="gm__btn gm__btn--fill gm__btn--right-icon" id="nmGo" href="index.html?uke=1&amp;tilknyttet=0&amp;termindato=none&amp;panelHelsekort=0&amp;dokumenter=0"><span>Bruk tjenesten Gravid uten digitalt helsekort</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
+      <button type="button" class="gm__btn gm__btn--borderless" id="nmCancel"><span>Avbryt</span></button>
+    </div>
+  </div>
+</div>
 </div><!-- /app -->
 
 </div><!-- /phone-frame__screen -->
@@ -748,26 +768,25 @@ document.getElementById('activateBtn').href =
 // "Aktiver digitalt helsekort" no longer navigates directly: it opens
 // the modal, and she has to choose. "Mitt eget svangerskap" continues to
 // the activated Gravid page (the activate button's own href, built
-// above); "Noen andres svangerskap" (following someone else's
-// pregnancy) goes to Gravid without digitalt helsekort (the page's own
-// "Bruk Gravid uten digitalt helsekort" section was removed 2026-09-30) —
-// with the "Del opplysninger" panel explicitly off (panelHelsekort=0):
-// she isn't pregnant herself, so there's nothing of hers to share.
-// Avbryt, ✕, Esc or a click on the grey mask just closes it.
+// above). "Noen andres svangerskap" (following someone else's pregnancy)
+// swaps to the "ikke tilgjengelig" modal, whose primary button goes to
+// Gravid without digitalt helsekort — with the "Del opplysninger" panel
+// explicitly off (panelHelsekort=0): she isn't pregnant herself, so
+// there's nothing of hers to share.
+// Avbryt, ✕, Esc or a click on the grey mask closes whichever is open.
 (function () {
-  const overlay = document.getElementById('gravidModal');
-  const dialog = overlay.querySelector('.gm');
+  const gravidModal = document.getElementById('gravidModal');
+  const ikkeModal = document.getElementById('ikkeModal');
   const activateBtn = document.getElementById('activateBtn');
   const screen = document.querySelector('.phone-frame__screen');
   document.getElementById('gmSelf').href = activateBtn.href;
-  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0' +
+  document.getElementById('nmGo').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0' +
     (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
+  let current = null;
   let lastFocus = null;
   let scroller = null;
 
-  function open(e) {
-    e.preventDefault();
-    lastFocus = document.activeElement;
+  function show(overlay) {
     // The screen is the containing block (contain: layout). Cover the
     // part of it currently in view: its own scroll area in the desktop
     // phone frame, or the window's viewport on a real phone.
@@ -779,22 +798,35 @@ document.getElementById('activateBtn').href =
     overlay.style.height = (innerScroll ? screen.clientHeight : window.innerHeight) + 'px';
     scroller.style.overflow = 'hidden';
     overlay.hidden = false;
-    document.getElementById('gmSelf').focus();
+    current = overlay;
+    overlay.querySelector('.gm__btn--fill').focus();
   }
   function close() {
-    overlay.hidden = true;
+    if (!current) return;
+    current.hidden = true;
+    current = null;
     if (scroller) scroller.style.overflow = '';
     if (lastFocus) lastFocus.focus();
   }
-  activateBtn.addEventListener('click', open);
-  document.getElementById('gmClose').addEventListener('click', close);
-  document.getElementById('gmCancel').addEventListener('click', close);
-  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  activateBtn.addEventListener('click', e => {
+    e.preventDefault();
+    lastFocus = document.activeElement;
+    show(gravidModal);
+  });
+  document.getElementById('gmOther').addEventListener('click', e => {
+    e.preventDefault();
+    gravidModal.hidden = true;
+    show(ikkeModal);
+  });
+  ['gmClose', 'gmCancel', 'nmClose', 'nmCancel'].forEach(id =>
+    document.getElementById(id).addEventListener('click', close));
+  [gravidModal, ikkeModal].forEach(o =>
+    o.addEventListener('click', e => { if (e.target === o) close(); }));
   document.addEventListener('keydown', e => {
-    if (overlay.hidden) return;
+    if (!current) return;
     if (e.key === 'Escape') { close(); return; }
     if (e.key !== 'Tab') return;
-    const f = dialog.querySelectorAll('button, a[href]');
+    const f = current.querySelectorAll('.gm button, .gm a[href]');
     const first = f[0], last = f[f.length - 1];
     if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
     else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }

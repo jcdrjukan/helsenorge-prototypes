@@ -187,4 +187,9 @@ All three now point to the same action: take DHG into use and share information 
 - Varsler (S1/S4): no change. The list now sits 24px from the edge, which is its Figma position relative to the frame.
 **Why:** User-reported regression ("Ledig time" text hard against the left edge) plus a request to check all pages for the same bug.
 
+## 2026-10-05 — "Noen andres svangerskap" now leads to an "ikke tilgjengelig" modal
+**Decision:** In the S3 "Er du gravid selv?" modal, "Noen andres svangerskap" no longer goes straight to Gravid without DHG. It swaps to a second modal: "Du kan dessverre ikke få et digitalt helsekort" / "Du kan bruke tjenesten Gravid, men tjenesten vil ikke kunne utveksle helseopplysninger med behandlere", with "Bruk tjenesten Gravid uten digitalt helsekort" (ArrowRight; same no-DHG landing state as before) and a borderless "Avbryt" that closes it. The modal also exists on its own at `gravid/aktiver-helsekort-ikke-tilgjengelig.html` (opens on load), not linked from any scenario.
+**Alternative considered:** Keep the direct jump to Gravid without DHG (the earlier assumption, listed as an open item).
+**Why:** Direct user request, with the copy supplied by the user.
+
 #helsenorge
