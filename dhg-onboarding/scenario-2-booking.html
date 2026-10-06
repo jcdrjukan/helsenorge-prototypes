@@ -497,6 +497,50 @@ a:focus-visible, button:focus-visible {
 .invite-panel li { font: var(--mobile-body); }
 .invite-panel .btn-fill-medium { width: fit-content; margin: 0; }
 
+
+/* ══════════════════════════════════════════════════════════════
+   Scenario 2b (Kjernejournal-reservasjon, ?reservasjon=1): "Du kan
+   dessverre ikke få et digitalt helsekort" modal on "Kom i gang".
+   Same modal component as gravid/gravid-tjeneste.html's "Er du
+   gravid selv?" (Figma 56:27891): positioned over the visible part of
+   the phone screen — see showReservasjonModal().
+══════════════════════════════════════════════════════════════ */
+.gm-overlay {
+  position: absolute; left: 0; right: 0; z-index: 50;
+  background: rgba(44, 43, 44, 0.5);
+  display: flex; align-items: center; justify-content: center;
+}
+.gm-overlay[hidden] { display: none; }
+.gm {
+  position: relative; width: 345px; max-width: calc(100% - 24px);
+  background: #fff; box-shadow: 0 0 5px 0 rgb(0 0 0 / 50%);
+  padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 40px;
+  outline: none;
+}
+.gm__close {
+  position: absolute; top: 4px; right: 4px; width: 44px; height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: none; border: none; padding: 0; cursor: pointer; border-radius: 4px;
+}
+.gm__close:hover { background: rgba(18, 111, 135, 0.13); }
+.gm__close img { width: 38px; height: 38px; }
+.gm__top { display: flex; flex-direction: column; gap: 8px; }
+.gm__title { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
+.gm__ingress { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
+.gm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+.gm__btn {
+  display: inline-flex; align-items: center; border-radius: 8px; cursor: pointer;
+  text-decoration: none; font-family: 'Source Sans Pro', sans-serif; font-weight: 600;
+  background: none; border: none;
+}
+.gm__btn span { padding: 4px 0 6px; }
+.gm__btn--fill { background: #188097; color: #fff; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
+.gm__btn--fill:hover { background: #08667c; }
+.gm__btn--borderless { color: #126f87; min-height: 38px; padding: 3px 8px; font-size: 18px; line-height: 22px; }
+.gm__btn--borderless:hover { background: rgba(18, 111, 135, 0.13); }
+/* Right-icon fill button: ArrowRight after the text, same as "Kom i gang". */
+.gm__btn--fill.gm__btn--right-icon { padding-right: var(--space-xs); }
+.gm__btn--right-icon svg { width: 38px; height: 38px; flex-shrink: 0; margin-left: var(--space-3xs); }
 </style>
 <script src="local-links.js"></script>
 </head>
@@ -731,7 +775,7 @@ a:focus-visible, button:focus-visible {
         <li>Få kvalitetssikret informasjon uke for uke</li>
         <li>Se oppfølgingen du får fra helsepersonell</li>
       </ul>
-      <a class="btn-fill-medium btn-fill-medium--right-icon" href="https://helsenorge-gravid.netlify.app/index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1&amp;dokumenter=0&amp;kilde=booking"><span>Kom i gang</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
+      <a class="btn-fill-medium btn-fill-medium--right-icon" id="komIGang" href="https://helsenorge-gravid.netlify.app/index.html?uke=1&amp;tilknyttet=1&amp;termindato=none&amp;panelHelsekort=1&amp;dokumenter=0&amp;kilde=booking"><span>Kom i gang</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
     </div>
 
     <a class="btn-outline-medium" href="#">Gå til innboksen</a>
@@ -763,6 +807,22 @@ a:focus-visible, button:focus-visible {
     <div class="footer__divider"></div>
     <p class="footer__brand">Drives av Norsk helsenett SF</p>
   </footer>
+
+<!-- 2b only: shown on "Kom i gang" when she has reserved herself against
+     Kjernejournal, so she can't get digitalt helsekort. -->
+<div class="gm-overlay" id="reservasjonModal" hidden>
+  <div class="gm" role="dialog" aria-modal="true" aria-labelledby="rmTitle" aria-describedby="rmIngress" tabindex="-1">
+    <button type="button" class="gm__close" id="rmClose" aria-label="Lukk"><img src="assets/modal-close.svg" width="38" height="38" alt=""></button>
+    <div class="gm__top">
+      <h2 class="gm__title" id="rmTitle">Du kan dessverre ikke få et digitalt helsekort</h2>
+      <p class="gm__ingress" id="rmIngress">Du kan bruke tjenesten Gravid, men tjenesten vil ikke kunne utveksle helseopplysninger med behandlere.</p>
+    </div>
+    <div class="gm__buttons">
+      <a class="gm__btn gm__btn--fill gm__btn--right-icon" id="rmGo" href="https://helsenorge-gravid.netlify.app/index.html?uke=1&amp;tilknyttet=0&amp;termindato=none&amp;panelHelsekort=0&amp;dokumenter=0&amp;kilde=booking"><span>Bruk tjenesten Gravid uten digitalt helsekort</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
+      <button type="button" class="gm__btn gm__btn--borderless" id="rmCancel"><span>Avbryt</span></button>
+    </div>
+  </div>
+</div>
 
 </div><!-- /app -->
 
@@ -846,6 +906,57 @@ document.getElementById('sendBtn').addEventListener('click', () => {
   document.getElementById('invitePanel').hidden = !showInvite;
   goToStep(4);
 });
+
+// ─── Scenario 2b: Kjernejournal-reservasjon (?reservasjon=1) ─────────
+// Same booking flow as 2a, but she has reserved herself against
+// Kjernejournal, so "Kom i gang" opens the "Du kan dessverre ikke få et
+// digitalt helsekort" modal instead of entering Gravid with DHG. Its
+// button enters Gravid without DHG (no "Del opplysninger" panel);
+// Avbryt, ✕, Esc or a click on the grey mask closes it.
+if (new URLSearchParams(location.search).get('reservasjon') === '1') (function () {
+  const overlay = document.getElementById('reservasjonModal');
+  const dialog = overlay.querySelector('.gm');
+  const komIGang = document.getElementById('komIGang');
+  const screen = document.querySelector('.phone-frame__screen');
+  komIGang.href = document.getElementById('rmGo').href; // no-JS-ish fallback: same destination
+  let lastFocus = null;
+  let scroller = null;
+
+  function showReservasjonModal(e) {
+    e.preventDefault();
+    lastFocus = document.activeElement;
+    // The screen is the containing block (contain: layout). Cover the
+    // part of it currently in view: its own scroll area in the desktop
+    // phone frame, or the window's viewport on a real phone.
+    const innerScroll = getComputedStyle(screen).overflowY !== 'visible';
+    scroller = innerScroll ? screen : document.documentElement;
+    const top = innerScroll ? screen.scrollTop
+      : Math.max(0, -screen.getBoundingClientRect().top);
+    overlay.style.top = top + 'px';
+    overlay.style.height = (innerScroll ? screen.clientHeight : window.innerHeight) + 'px';
+    scroller.style.overflow = 'hidden';
+    overlay.hidden = false;
+    document.getElementById('rmGo').focus();
+  }
+  function close() {
+    overlay.hidden = true;
+    if (scroller) scroller.style.overflow = '';
+    if (lastFocus) lastFocus.focus();
+  }
+  komIGang.addEventListener('click', showReservasjonModal);
+  document.getElementById('rmClose').addEventListener('click', close);
+  document.getElementById('rmCancel').addEventListener('click', close);
+  overlay.addEventListener('click', e => { if (e.target === overlay) close(); });
+  document.addEventListener('keydown', e => {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') { close(); return; }
+    if (e.key !== 'Tab') return;
+    const f = dialog.querySelectorAll('button, a[href]');
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+})();
 </script>
 </body>
 </html>

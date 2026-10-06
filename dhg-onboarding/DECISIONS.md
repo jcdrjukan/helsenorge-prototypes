@@ -222,4 +222,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keeping the "aktiver-…" file names, or keeping the unused pages unlinked.
 **Why:** Direct user request: the activation pages are no longer relevant, and an "aktiver" name would mislead now that there's nothing to activate. File name chosen by the user. The live URL `aktiver-helsekort-oppdaget.html` stops working once `gravid` is redeployed.
 
+## 2026-10-06 — "Noen andres svangerskap" goes straight in; the "ikke få" modal moves to new scenario 2b (Kjernejournal-reservasjon)
+**Decision:** On the TJENESTE page, "Noen andres svangerskap" again goes directly into Gravid without DHG; the "Du kan dessverre ikke få et digitalt helsekort" modal was removed from that page. The modal is now used in a new scenario **2b — Kjernejournal-reservasjon**: S2 becomes 2a, and 2b runs the same booking flow (`scenario-2-booking.html?reservasjon=1`, one file with a URL switch rather than a copy of the wizard) where "Kom i gang" opens the modal over the receipt. Its button enters Gravid without DHG; Avbryt closes it and leaves her on the receipt.
+**Alternative considered:** Keep the modal after "Noen andres svangerskap"; or a separate 2b file duplicating the booking wizard.
+**Why:** Direct user request: people following someone else's pregnancy don't need to be told they can't get a helsekort, while a Kjernejournal reservation is exactly the case where DHG is unavailable. The URL switch keeps 2a and 2b from drifting apart.
+
 #helsenorge

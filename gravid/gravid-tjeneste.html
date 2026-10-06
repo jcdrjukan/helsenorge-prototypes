@@ -449,10 +449,6 @@ a:focus-visible, button:focus-visible {
 .gm__btn span { padding: 4px 0 6px; }
 .gm__btn--fill { background: #188097; color: #fff; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
 .gm__btn--fill:hover { background: #08667c; }
-/* Right-icon fill button (the "ikke tilgjengelig" modal's primary):
-   ArrowRight after the text, same as #activateBtn. */
-.gm__btn--fill.gm__btn--right-icon { padding-right: var(--space-xs); }
-.gm__btn--right-icon svg { width: 38px; height: 38px; flex-shrink: 0; margin-left: var(--space-3xs); }
 .gm__btn--outline { border: 2px solid #188097; color: #126f87; min-height: 44px; padding: 3px 24px; font-size: 18px; line-height: 22px; }
 .gm__btn--outline:hover { background: #e4f7f9; }
 .gm__btn--borderless { color: #126f87; min-height: 38px; padding: 3px 8px; font-size: 18px; line-height: 22px; }
@@ -688,22 +684,6 @@ a:focus-visible, button:focus-visible {
     </div>
   </div>
 </div>
-<!-- "Ikke tilgjengelig" modal, shown after "Noen andres svangerskap": she
-     can't get digitalt helsekort for someone else's pregnancy, but can use
-     Gravid without it. Same copy as aktiver-helsekort-ikke-tilgjengelig.html. -->
-<div class="gm-overlay" id="ikkeModal" hidden>
-  <div class="gm" role="dialog" aria-modal="true" aria-labelledby="nmTitle" aria-describedby="nmIngress" tabindex="-1">
-    <button type="button" class="gm__close" id="nmClose" aria-label="Lukk"><img src="img/modal-close.svg" width="38" height="38" alt=""></button>
-    <div class="gm__top">
-      <h2 class="gm__title" id="nmTitle">Du kan dessverre ikke få et digitalt helsekort</h2>
-      <p class="gm__ingress" id="nmIngress">Du kan bruke tjenesten Gravid, men tjenesten vil ikke kunne utveksle helseopplysninger med behandlere.</p>
-    </div>
-    <div class="gm__buttons">
-      <a class="gm__btn gm__btn--fill gm__btn--right-icon" id="nmGo" href="index.html?uke=1&amp;tilknyttet=0&amp;termindato=none&amp;panelHelsekort=0&amp;dokumenter=0"><span>Bruk tjenesten Gravid uten digitalt helsekort</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
-      <button type="button" class="gm__btn gm__btn--borderless" id="nmCancel"><span>Avbryt</span></button>
-    </div>
-  </div>
-</div>
 </div><!-- /app -->
 
 </div><!-- /phone-frame__screen -->
@@ -784,18 +764,18 @@ document.getElementById('activateBtn').href =
 // the modal, and she has to choose. "Mitt eget svangerskap" continues to
 // the activated Gravid page (the activate button's own href, built
 // above). "Noen andres svangerskap" (following someone else's pregnancy)
-// swaps to the "ikke tilgjengelig" modal, whose primary button goes to
-// Gravid without digitalt helsekort — with the "Del opplysninger" panel
-// explicitly off (panelHelsekort=0): she isn't pregnant herself, so
-// there's nothing of hers to share.
-// Avbryt, ✕, Esc or a click on the grey mask closes whichever is open.
+// goes straight to Gravid without digitalt helsekort — with the "Del
+// opplysninger" panel explicitly off (panelHelsekort=0): she isn't
+// pregnant herself, so there's nothing of hers to share. (The "Du kan
+// dessverre ikke få et digitalt helsekort" modal moved to scenario 2b,
+// Kjernejournal-reservasjon, 2026-10-06.)
+// Avbryt, ✕, Esc or a click on the grey mask closes it.
 (function () {
   const gravidModal = document.getElementById('gravidModal');
-  const ikkeModal = document.getElementById('ikkeModal');
   const activateBtn = document.getElementById('activateBtn');
   const screen = document.querySelector('.phone-frame__screen');
   document.getElementById('gmSelf').href = activateBtn.href;
-  document.getElementById('nmGo').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0' +
+  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0' +
     (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
   let current = null;
   let lastFocus = null;
@@ -828,15 +808,9 @@ document.getElementById('activateBtn').href =
     lastFocus = document.activeElement;
     show(gravidModal);
   });
-  document.getElementById('gmOther').addEventListener('click', e => {
-    e.preventDefault();
-    gravidModal.hidden = true;
-    show(ikkeModal);
-  });
-  ['gmClose', 'gmCancel', 'nmClose', 'nmCancel'].forEach(id =>
+  ['gmClose', 'gmCancel'].forEach(id =>
     document.getElementById(id).addEventListener('click', close));
-  [gravidModal, ikkeModal].forEach(o =>
-    o.addEventListener('click', e => { if (e.target === o) close(); }));
+  gravidModal.addEventListener('click', e => { if (e.target === gravidModal) close(); });
   document.addEventListener('keydown', e => {
     if (!current) return;
     if (e.key === 'Escape') { close(); return; }
