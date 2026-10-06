@@ -910,6 +910,32 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   vertical-align: -6px;
 }
 
+/* "Du bruker Gravid uten digitalt helsekort" — dismissable info
+   NotificationPanel (Figma CLD - Gravid 81:1339), shown when Gravid is
+   used without DHG (tilknyttet=0). Values taken from the Figma node
+   where they differ from the shared panel rules above: 8px sides,
+   8px top / 12px bottom, text column padded 4px top/bottom and 8px
+   right, regular-weight body, and a small Expander ("Les mer…") as an
+   underlined semibold 18/22 text button with 8px between it and the
+   text. */
+.notification-panel--uten { padding: var(--space-2xs) var(--space-2xs) 0.75rem; gap: var(--space-3xs); }
+.notification-panel--uten .notification-panel__icon { margin-right: 0; }
+.notification-panel--uten .notification-panel__close { order: 0; padding: 3px; margin-left: 0; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; }
+.notification-panel--uten .notification-panel__close img { display: block; width: 38px; height: 38px; }
+.notification-panel--uten .notification-panel__content { flex: 1; min-width: 0; align-self: stretch; display: flex; flex-direction: column; gap: var(--space-2xs); padding: var(--space-3xs) var(--space-2xs) var(--space-3xs) 0; }
+.notification-panel--uten .notification-panel__label { margin: 0; line-height: 1.5rem; }
+.notification-panel--uten .notification-panel__children { font-weight: 400; line-height: 1.5rem; padding: 0; }
+.expander-small__trigger {
+  align-self: flex-start; display: inline-flex; align-items: center;
+  padding: 3px var(--space-2xs) 3px 0; background: none; border: none; cursor: pointer;
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight, #126F87);
+  text-decoration: underline; text-underline-position: from-font;
+  text-align: left; white-space: nowrap; /* Figma: whitespace-nowrap */
+}
+.expander-small__trigger span { padding: 4px 0 6px; }
+.expander-small__content { font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+.expander-small__content[hidden] { display: none; }
+
 /* ═══════════════════════════════════════════════════════════
    TOGGLE — real Toggle component (@helsenorge/designsystem-react
    lib/components/Toggle: styles.module.scss + index.js), static port.
@@ -2104,6 +2130,24 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
        dashboard.html (?panelHelsekort=1&panelFarskap=1).
   ═══════════════════════════════════════════════════════════ -->
   <div class="blueberry-panels" id="blueberryPanels" hidden>
+    <!-- Gravid without digitalt helsekort (tilknyttet=0): she isn't
+         pregnant herself, or a Kjernejournal reservation stops DHG.
+         Figma CLD - Gravid 81:1339. "Les mer" content is placeholder. -->
+    <div class="notification-panel notification-panel--info notification-panel--dismissable notification-panel--uten" id="panelUtenHelsekort" hidden>
+      <img class="notification-panel__icon" src="img/info-sign-fill.svg" width="38" height="38" alt="">
+      <div class="notification-panel__content">
+        <div>
+          <h3 class="notification-panel__label">Du bruker Gravid uten digitalt helsekort</h3>
+          <p class="notification-panel__children notification-panel__children--with-label">Opplysningene dine deles ikke med helsepersonell. Spør jordmoren eller fastlegen din om du kan få digitalt helsekort.</p>
+        </div>
+        <button type="button" class="expander-small__trigger" aria-expanded="false" aria-controls="utenHelsekortMer" id="utenHelsekortMerBtn"><span>Les mer om digital helsekort</span></button>
+        <div class="expander-small__content" id="utenHelsekortMer" hidden>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        </div>
+      </div>
+      <button type="button" class="notification-panel__close" aria-label="Lukk" onclick="dismissBlueberryPanel('panelUtenHelsekort')"><img src="img/notification-close-x.svg" width="38" height="38" alt=""></button>
+    </div>
+
     <!-- Same real NotificationPanel (info) as the farskap panel below, but
          NOT dismissable (no close button), per direct request — it stays
          until the kartlegging is sent. Briefly the "warn" variant, switched
@@ -3095,10 +3139,18 @@ const LS_DASHBOARD_PANEL_FARSKAP_KEY = 'gravid-dashboard-panel-farskap';
 // Each of the two blueberry panels beneath the ring is toggled
 // independently — both can be visible at once (matching the Figma
 // reference, which shows them stacked), either alone, or neither.
-function setBlueberryPanels(showHelsekort, showFarskap) {
+const BLUEBERRY_PANEL_IDS = ['panelUtenHelsekort', 'panelHelsekort', 'panelFarskap'];
+function updateBlueberryPanelsContainer() {
+  document.getElementById('blueberryPanels').hidden =
+    BLUEBERRY_PANEL_IDS.every(id => document.getElementById(id).hidden);
+}
+// showUten: the "Du bruker Gravid uten digitalt helsekort" message,
+// shown whenever there's no DHG connection (tilknyttet=0).
+function setBlueberryPanels(showHelsekort, showFarskap, showUten) {
+  document.getElementById('panelUtenHelsekort').hidden = !showUten;
   document.getElementById('panelHelsekort').hidden = !showHelsekort;
   document.getElementById('panelFarskap').hidden = !showFarskap;
-  document.getElementById('blueberryPanels').hidden = !(showHelsekort || showFarskap);
+  updateBlueberryPanelsContainer();
 }
 
 // The farskap panel's close button hides it for this pageview only —
@@ -3107,8 +3159,7 @@ function setBlueberryPanels(showHelsekort, showFarskap) {
 // trigger condition (unmarried + uke 22+) is re-evaluated server-side.
 function dismissBlueberryPanel(id) {
   document.getElementById(id).hidden = true;
-  const stillVisible = !document.getElementById('panelHelsekort').hidden || !document.getElementById('panelFarskap').hidden;
-  document.getElementById('blueberryPanels').hidden = !stillVisible;
+  updateBlueberryPanelsContainer();
 }
 
 function readDashboardSetting(paramName, lsKey, fallback) {
@@ -3215,7 +3266,12 @@ setTermindatoState(initialTermindatoState);
 applyRegisteredTermindato();
 wireTermindatoLinks();
 setSfSectionVisibility(initialConnected);
-setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap);
+setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap, !initialConnected);
+document.getElementById('utenHelsekortMerBtn').addEventListener('click', function () {
+  const open = this.getAttribute('aria-expanded') !== 'true';
+  this.setAttribute('aria-expanded', String(open));
+  document.getElementById('utenHelsekortMer').hidden = !open;
+});
 document.getElementById('uploadedDocs').hidden = !initialHasDocuments;
 wireForsideBreadcrumb();
 try {

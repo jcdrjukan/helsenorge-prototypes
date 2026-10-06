@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-06 — "Du bruker Gravid uten digitalt helsekort" message under the ring
+**Decision:** Whenever Gravid is used without DHG (`tilknyttet=0`: "Noen andres svangerskap" on the TJENESTE page, DHG onboarding 2b's Kjernejournal reservation, or the dashboard's disconnected setting), a dismissable info NotificationPanel sits first under the termin ring, built from Figma CLD - Gravid 81:1339: "Du bruker Gravid uten digitalt helsekort" / "Opplysningene dine deles ikke med helsepersonell. Spør jordmoren eller fastlegen din om du kan få digitalt helsekort." plus a small Expander "Les mer om digital helsekort". The close button hides it for that pageview, like the farskap panel. The Expander's opened content is placeholder text, since the Figma frame shows it closed.
+**Alternative considered:** Showing it only for the two onboarding paths (via a dedicated URL setting) rather than for every disconnected state.
+**Why:** Direct user request with Figma. Tying it to `tilknyttet=0` covers both named groups with no new setting. Spacing follows the Figma node where it differs from the shared panel rules (12px bottom padding, regular-weight body, the link kept on one line).
+
+---
+
 ## 2026-09-24 — Real production markup/CSS, when available, beats a screenshot for fidelity checks
 **Decision:** When the user can paste a test environment's actual rendered HTML and/or its compiled CSS bundle URLs (fetchable directly even for an authenticated page, since static asset URLs aren't themselves auth-gated), use that as the source of truth over a Figma screenshot approximation — grep the CSS for the real class names/values, and where real markup reveals structure a screenshot can't (e.g. an illustration overlapping a panel edge), rebuild to match it.
 **Alternative considered:** Keep approximating purely from Figma screenshots, as had been done for the rest of `index.html`'s Mål av magen chart and the Nyttig å vite panel.
