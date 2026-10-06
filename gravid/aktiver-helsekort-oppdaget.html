@@ -277,6 +277,7 @@ a:focus-visible, button:focus-visible {
 .rich-text h3 { font: 600 1.25rem/1.625rem 'Source Sans Pro', sans-serif; }
 .rich-text p { font: var(--mobile-body); }
 .rich-text a { color: var(--color-action-text-onlight); }
+.rich-text + .rich-text { margin-top: var(--space-l); } /* stacked sections ("Om tjenesten", then "Digitalt helsekort…"): same 36px gap as panel → first section */
 
 /* Onboarding-source banner — prototype-only affordance (not part of
    the real editorial page), so styled distinctly from the CMS content
@@ -541,7 +542,7 @@ a:focus-visible, button:focus-visible {
 
   <div class="sp-s"></div>
 
-  <p class="preamble">Med tjenesten Gravid kan du følge svangerskapet ditt uke for uke og få nyttig informasjon om deg og barnet ditt. Du får også digitalt helsekort hvis jordmoren eller fastlegen din har tatt i bruk dette.</p>
+  <p class="preamble">Tjenesten Gravid gir deg tilgang til digitalt helsekort samt nyttig uke-for-uke informasjon om deg og barnet ditt.</p>
 
   <!-- ══════════════════════════════════════════════════════
        ONBOARDING-SOURCE BANNER — a short context line explaining why
@@ -578,6 +579,19 @@ a:focus-visible, button:focus-visible {
       <span>Bruk tjenesten Gravid og digitalt helsekort</span>
       <svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
     </a>
+  </div>
+
+  <!-- ══════════════════════════════════════════════════════
+       "Om tjenesten" — new section under the CTA; body is placeholder
+       text until real copy exists.
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="rich-text">
+    <div>
+      <h2>Om tjenesten</h2>
+      <div class="sp-s"></div>
+      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+    </div>
+    <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
 
   <!-- ══════════════════════════════════════════════════════
