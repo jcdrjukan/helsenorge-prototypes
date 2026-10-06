@@ -192,4 +192,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keep the direct jump to Gravid without DHG (the earlier assumption, listed as an open item).
 **Why:** Direct user request, with the copy supplied by the user.
 
+## 2026-10-06 — S1 varsel goes straight into Gravid, skipping activation
+**Decision:** The S1 unread varsel now reads "Digitalt helsekort for gravide" (bold) with "Jordmor eller fastlegen har gitt deg et digitalt helsekort" (normal weight) beneath it, replacing the bold "… 21.04.2026 kl. 09:30" line. It links directly to Gravid in S1's activated state (the same query `aktiver-helsekort.html` used for `kilde=epj`), bypassing the activation page.
+**Alternative considered:** Keep routing through `aktiver-helsekort.html?kilde=epj`.
+**Why:** Direct user request, with the copy supplied by the user. The epj banner text on the activation page is no longer reached from S1.
+
 #helsenorge
