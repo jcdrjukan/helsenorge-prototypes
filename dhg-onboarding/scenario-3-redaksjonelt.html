@@ -267,6 +267,10 @@ a:focus-visible, button:focus-visible {
   font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: #fff;
 }
 .article-cta a.btn-fill-medium:hover { background: var(--blueberry-700); }
+/* Right-icon variant: real Button right-icon, medium, mobile — padding
+   0 xs 0 s, 38px ArrowRight with a 3xs gap; content-width, left-aligned. */
+.article-cta a.btn-fill-medium--right-icon { align-self: flex-start; padding: 0 var(--space-xs) 0 var(--space-s); }
+.btn-fill-medium--right-icon svg { width: 38px; height: 38px; flex-shrink: 0; margin-left: var(--space-3xs); }
 
 </style>
 <script src="local-links.js"></script>
@@ -318,9 +322,9 @@ a:focus-visible, button:focus-visible {
   </header>
 
   <nav class="breadcrumb" aria-label="Brødsmulesti">
-    <a class="breadcrumb__back" href="index.html">
+    <a class="breadcrumb__back" href="#">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Onboarding-scenarioer</span>
+      <span>Kvinnehelse</span>
     </a>
   </nav>
   <hr class="page-divider">
@@ -339,7 +343,7 @@ a:focus-visible, button:focus-visible {
   <div class="article-cta">
     <h2>Prøv tjenesten Gravid</h2>
     <p>Følg svangerskapet ditt og få digitalt helsekort hvis jordmoren eller fastlegen din bruker det.</p>
-    <a class="btn-fill-medium" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort-oppdaget.html?kilde=redaksjonelt">Kom i gang</a>
+    <a class="btn-fill-medium btn-fill-medium--right-icon" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort-oppdaget.html?kilde=redaksjonelt"><span>Kom i gang</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
   </div>
 
 
