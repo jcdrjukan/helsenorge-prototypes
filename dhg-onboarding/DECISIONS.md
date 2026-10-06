@@ -212,4 +212,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Only the article hit, with the service reached through the article's promo.
 **Why:** Direct user request. The intro text for slot 1 wasn't specified; it reuses the service page's ingress.
 
+## 2026-10-06 — S4 "Gå til tjenesten Gravid" goes straight into Gravid; activation page retired from the paths
+**Decision:** The Innboks message's "Gå til tjenesten Gravid" links directly to Gravid in the state the activation page gave S4, bypassing `aktiver-helsekort.html`. With S1 and S2 already changed today, that page is no longer reached from any scenario. Only S3 still goes through an activation page (`aktiver-helsekort-oppdaget.html`, now titled "Gravid").
+**Alternative considered:** Keep routing S4 through `aktiver-helsekort.html?kilde=melding`.
+**Why:** Direct user request: the activation page "is no longer relevant". The page and the SMS mock (`scenario-4-behandler.html`, off the path) were left in place, not deleted.
+
 #helsenorge
