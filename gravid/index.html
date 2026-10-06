@@ -916,7 +916,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    where they differ from the shared panel rules above: 8px sides,
    8px top / 12px bottom, text column padded 4px top/bottom and 8px
    right, regular-weight body, and a small Expander ("Les mer…") as an
-   underlined normal-weight 18/22 text button (Figma: semibold; normal weight per direct request) with 8px between it and the
+   underlined text button at body size, 16/24 normal weight (Figma: 18/22 semibold; changed per direct request) with 8px between it and the
    text. */
 .notification-panel--uten { padding: var(--space-2xs) var(--space-2xs) 0.75rem; gap: var(--space-3xs); }
 .notification-panel--uten .notification-panel__icon { margin-right: 0; }
@@ -928,7 +928,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .expander-small__trigger {
   align-self: flex-start; display: inline-flex; align-items: center;
   padding: 3px var(--space-2xs) 3px 0; background: none; border: none; cursor: pointer;
-  font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight, #126F87);
+  font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight, #126F87); /* same size as the body text above */
   text-decoration: underline; text-underline-position: from-font;
   text-align: left; white-space: nowrap; /* Figma: whitespace-nowrap */
 }
