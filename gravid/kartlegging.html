@@ -425,7 +425,7 @@ a:focus-visible, button:focus-visible {
 /* ═══════════════════════════════════════════════════════════
    "SENDT" SUCCESS MODAL — Figma "CLD - Gravid" node 66:28297.
    Same Modal_v2.0 box as the S3 "Er du gravid selv?" modal
-   (aktiver-helsekort-oppdaget.html .gm-*), success variant: background
+   (gravid-tjeneste.html .gm-*), success variant: background
    #E6F8EE (color/notification/background/success), CheckOutline icon and
    title in #078141. 50% grey page mask per direct request.
 ══════════════════════════════════════════════════════════════ */
@@ -678,7 +678,7 @@ document.getElementById('kartForm').addEventListener('submit', e => {
 // The form is already sent when the modal shows, so every way out of it
 // (OK, X, Escape, mask click) continues to Gravid rather than back to
 // the form. Positioned over the visible part of whichever element is
-// scrolling, same as the S3 modal on aktiver-helsekort-oppdaget.html.
+// scrolling, same as the S3 modal on gravid-tjeneste.html.
 function openSentModal() {
   const overlay = document.getElementById('sentModal');
   const dialog = overlay.querySelector('.sm');

@@ -217,4 +217,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keep routing S4 through `aktiver-helsekort.html?kilde=melding`.
 **Why:** Direct user request: the activation page "is no longer relevant". The page and the SMS mock (`scenario-4-behandler.html`, off the path) were left in place, not deleted.
 
+## 2026-10-06 — No functional activation: one Gravid TJENESTE page; old activation page and SMS mock deleted
+**Decision:** There is no functional activation any more. The Gravid **TJENESTE page** (`gravid/gravid-tjeneste.html`) describes the service and provides the entrance link. The service is technically activated when data is recorded, by the care provider or by the user. Once activated, the Gravid tjeneste URL points to the service itself, no longer to the info page (documented rule, 2026-10-06; not yet modelled in the prototype). Following from that: `gravid/aktiver-helsekort-oppdaget.html` is renamed `gravid/gravid-tjeneste.html` (every link updated); `gravid/aktiver-helsekort.html` (the S1/S2/S4 activation page, on no path since today's S1/S2/S4 changes) is deleted, and so is the S4 SMS mock `scenario-4-behandler.html`. Git history keeps both.
+**Alternative considered:** Keeping the "aktiver-…" file names, or keeping the unused pages unlinked.
+**Why:** Direct user request: the activation pages are no longer relevant, and an "aktiver" name would mislead now that there's nothing to activate. File name chosen by the user. The live URL `aktiver-helsekort-oppdaget.html` stops working once `gravid` is redeployed.
+
 #helsenorge
