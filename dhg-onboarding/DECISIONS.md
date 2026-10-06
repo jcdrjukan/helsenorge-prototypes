@@ -202,4 +202,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keep routing through `aktiver-helsekort.html?kilde=booking`.
 **Why:** Direct user request, same as S1 earlier today. The booking banner on the activation page is no longer reached from S2; only S3 and S4 still go through activation.
 
+## 2026-10-06 — Local preview keeps cross-site links local
+**Decision:** Every page in `dhg-onboarding/` and `gravid/` loads `local-links.js` (identical copy in each folder). On localhost only, it rewrites the absolute production links between the two sites to `localhost:8766` (gravid) and `localhost:8765` (dhg-onboarding), at click time for links and on load for `onclick="location.href=…"` buttons. Production is untouched.
+**Alternative considered:** Relative `../` links (break in production, since each folder deploys as its own site), or living with click-throughs landing on the deployed site.
+**Why:** User noticed local click-throughs showed the deployed Gravid, not undeployed local changes.
+
 #helsenorge
