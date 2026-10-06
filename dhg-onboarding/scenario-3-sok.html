@@ -322,6 +322,11 @@ a:focus-visible, button:focus-visible {
 .sok-hit__arrow { flex-shrink: 0; width: 38px; height: 38px; color: var(--color-action-text-onlight); }
 .sok-hit__intro { margin: 0; font: var(--mobile-body); }
 .sok-hit__intro mark { background: #FFFA92; font-weight: 600; color: inherit; }
+/* Tag — real designsystem-react Tag (variant accent2, mobile size):
+   uppercase 14px/600, 1px banana-700 border, banana-800 text. */
+.tag { display: inline-flex; box-sizing: border-box; align-items: center; text-transform: uppercase; border: 1px solid transparent; height: 1.25rem; font: 600 0.875rem/1.25rem 'Source Sans Pro', sans-serif; border-radius: 4px; padding: 0.1875rem var(--space-2xs) 0; }
+.tag--accent2 { color: #916500; border-color: #AB7C00; }
+.sok-hit > .tag { margin-bottom: var(--space-2xs); }
 
 .sok-pagination { margin: var(--space-l) 0 var(--space-s); color: var(--color-base-text-onlight-subdued); }
 .sok-load-more {
@@ -417,6 +422,16 @@ a:focus-visible, button:focus-visible {
     <p class="sok-status">170 resultater for &ldquo;Gravid&rdquo;</p>
 
     <div class="sok-hits">
+      <!-- Tjeneste hit: goes straight to the Gravid service page (same
+           destination as the "Gravid" article's promo, kilde=sok). -->
+      <div class="sok-hit">
+        <span class="tag tag--accent2">Tjeneste</span>
+        <div class="sok-hit__header">
+          <h2><a class="sok-hit__link" href="https://helsenorge-gravid.netlify.app/aktiver-helsekort-oppdaget.html?kilde=sok">Gravid</a></h2>
+          <svg class="sok-hit__arrow" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
+        </div>
+        <p class="sok-hit__intro">Tjenesten <mark>Gravid</mark> gir deg tilgang til digitalt helsekort samt nyttig uke-for-uke informasjon om deg og barnet ditt.</p>
+      </div>
       <div class="sok-hit">
         <div class="sok-hit__header">
           <h2><a class="sok-hit__link" href="scenario-3-sok-gravid.html">Gravid</a></h2>

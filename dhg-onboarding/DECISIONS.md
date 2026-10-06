@@ -207,4 +207,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Relative `../` links (break in production, since each folder deploys as its own site), or living with click-throughs landing on the deployed site.
 **Why:** User noticed local click-throughs showed the deployed Gravid, not undeployed local changes.
 
+## 2026-10-06 — S3b search shows a TJENESTE hit for Gravid above the article
+**Decision:** The search results now start with two "Gravid" hits. Slot 1 carries a "TJENESTE" Tag (real designsystem-react Tag, variant accent2) and links straight to the Gravid service page (`aktiver-helsekort-oppdaget.html?kilde=sok`), with the page's new ingress as its intro text. Slot 2 is the existing hit to the Gravid article.
+**Alternative considered:** Only the article hit, with the service reached through the article's promo.
+**Why:** Direct user request. The intro text for slot 1 wasn't specified; it reuses the service page's ingress.
+
 #helsenorge
