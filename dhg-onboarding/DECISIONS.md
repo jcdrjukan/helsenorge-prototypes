@@ -197,4 +197,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keep routing through `aktiver-helsekort.html?kilde=epj`.
 **Why:** Direct user request, with the copy supplied by the user. The epj banner text on the activation page is no longer reached from S1.
 
+## 2026-10-06 — S2 "Kom i gang" goes straight into Gravid, with ArrowRight
+**Decision:** The booking receipt's "Kom i gang" now has an ArrowRight icon after the text (real Button right-icon padding) and links directly to Gravid in the state `aktiver-helsekort.html` gave `kilde=booking`, bypassing the activation page.
+**Alternative considered:** Keep routing through `aktiver-helsekort.html?kilde=booking`.
+**Why:** Direct user request, same as S1 earlier today. The booking banner on the activation page is no longer reached from S2; only S3 and S4 still go through activation.
+
 #helsenorge
