@@ -695,9 +695,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    two states' content. Not wired to a real flow yet (no "beregn
    termindato" calculator exists in this prototype) — placeholder like
    the other href="#" affordances on this page. */
+/* Lifted 20px so the one-line button sits near the ring's horizontal
+   centre line, where the circle (r=115) is widest: the 202px-wide button
+   then clears the stroke by ~7px at its corners. */
 .due-date-unknown {
   margin-top: var(--space-2xs);
   text-align: center;
+  position: relative;
+  top: -1.25rem;
 }
 
 /* "Termindato ikke registrert" message shown in the circle alongside
@@ -735,11 +740,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  /* Wrapped onto two lines ("Beregn / termindato") per direct request,
-     to narrow the button inside the ring; text centered, as in the
-     real Button's &__text--centered option. */
-  width: min-content;
-  text-align: center;
+  /* One line since 2026-10-07 (was wrapped "Beregn / termindato"):
+     the whole block is lifted instead, see .due-date-unknown. */
+  width: max-content;
+  white-space: nowrap;
 }
 
 .due-date-unknown__btn span {
