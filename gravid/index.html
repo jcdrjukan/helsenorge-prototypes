@@ -695,14 +695,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    two states' content. Not wired to a real flow yet (no "beregn
    termindato" calculator exists in this prototype) — placeholder like
    the other href="#" affordances on this page. */
-/* Lifted 20px so the one-line button sits near the ring's horizontal
-   centre line, where the circle (r=115) is widest: the 202px-wide button
-   then clears the stroke by ~7px at its corners. */
+/* The button sits in the exact centre of the ring (per direct request):
+   the "Termindato ikke registrert" text is taken out of the flow and
+   hung above it, so .countdown-ring__center (a flexbox centred on the
+   circle) centres the button alone. At the centre line the circle
+   (r=115) is widest, so the one-line button clears the stroke easily. */
 .due-date-unknown {
-  margin-top: var(--space-2xs);
   text-align: center;
   position: relative;
-  top: -1.25rem;
 }
 
 /* "Termindato ikke registrert" message shown in the circle alongside
@@ -710,6 +710,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
    at the same size as the other states' date value (20px) but regular
    weight, rather than the small caption. */
 .due-date-unknown__text {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: max-content;
   display: block;
   text-align: center;
   font: 400 1.25rem/120% 'Source Sans Pro', sans-serif;
@@ -740,8 +745,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
-  /* One line since 2026-10-07 (was wrapped "Beregn / termindato"):
-     the whole block is lifted instead, see .due-date-unknown. */
+  /* One line since 2026-10-07 (was wrapped "Beregn / termindato"),
+     centred in the ring, see .due-date-unknown. */
   width: max-content;
   white-space: nowrap;
 }
