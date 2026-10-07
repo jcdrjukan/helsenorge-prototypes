@@ -1415,7 +1415,13 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* 5rem less white space above the stork (per direct request, 2026-10-07):
+     pulls the illustration's transparent top edge up over the section
+     above it — see pointer-events on .info-panel__illustration. */
+  margin-top: -5rem;
+  pointer-events: none; /* the overlap mustn't swallow clicks on the links above */
 }
+.info-panel-wrapper .info-panel { pointer-events: auto; }
 
 .info-panel__illustration {
   /* 350px — the illustration's real confirmed rendered size (real
@@ -1426,6 +1432,9 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 350px;
   position: relative;
   z-index: 1;
+  /* Its transparent top now overlaps the links above (see
+     .info-panel-wrapper's negative margin) — let clicks through. */
+  pointer-events: none;
 }
 
 .info-panel {
