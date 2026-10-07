@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-10-07 — Pencil beside the editable termindato; small week-bubble overlaps accepted
+**Decision:** In the editable (mother-entered) termindato state, the pencil now sits right after the date instead of centred beneath it. To make room, the date is 18px (confirmed state: 20px) and the ring's centre group is lifted 4px in this state only. Measured over uke 1–42, the week bubble still touches the content at 5 weeks: uke 3–4 and 36–37 ("dager igjen", ~1px, as before) and uke 24 (the date's first digit, up to ~5px).
+**Alternative considered:** Keep the pencil beneath the date (6 weeks touching, never the date itself); pencil beside the date at full size without the lift (8 weeks, up to ~7px); lifting further (moves the collisions to the top of the ring: up to 12 weeks).
+**Why:** Direct user request, with the overlap explicitly accepted: "not critical if there's a few pixel overlap here and there, since the entire date is also clickable". A real fix would be a smaller week bubble or a larger ring.
+
+---
+
 ## 2026-10-06 — "Du bruker Gravid uten digitalt helsekort" message under the ring
 **Decision:** Whenever Gravid is used without DHG (`tilknyttet=0`: "Noen andres svangerskap" on the TJENESTE page, DHG onboarding 2b's Kjernejournal reservation, or the dashboard's disconnected setting), a dismissable info NotificationPanel sits first under the termin ring, built from Figma CLD - Gravid 81:1339: "Du bruker Gravid uten digitalt helsekort" / "Opplysningene dine deles ikke med helsepersonell. Spør jordmoren eller fastlegen din om du kan få digitalt helsekort." plus a small Expander "Les mer om digital helsekort". The close button hides it for that pageview, like the farskap panel. The Expander's opened content is placeholder text, since the Figma frame shows it closed.
 **Alternative considered:** Showing it only for the two onboarding paths (via a dedicated URL setting) rather than for every disconnected state.
