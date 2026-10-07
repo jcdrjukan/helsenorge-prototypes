@@ -722,15 +722,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-bottom: var(--space-2xs);
 }
 
-/* Real Frankenstein Button, variant "outline", mobile (medium) size,
-   with a right icon — @helsenorge/designsystem-react
-   Button/styles.module.scss: transparent background, 2px blueberry700
-   outline inset by 2px, action-text-onlight (#126F87) semibold
+/* Real Frankenstein Button, variant "fill" (primary), mobile (medium)
+   size, with a right icon — @helsenorge/designsystem-react
+   Button/styles.module.scss: blueberry500 fill, white semibold
    18px/1.375rem text padded 0.4375rem vertically, 44px min-height,
-   0.5rem radius; right-icon padding 0 xs 0 s. Hover = transparent
-   action-hover fill, no ring. Was the fill variant until 2026-10-07
-   (per direct request). Sized to its content rather than the real
-   100% width, since it sits centered in the ring. */
+   0.5rem radius; right-icon padding 0 xs 0 s. Hover = blueberry700 fill
+   + a 0.25rem blueberry700 ring. (Briefly the outline variant on
+   2026-10-07, then back to primary, both per direct request.) Sized to
+   its content rather than the real 100% width, since it sits centered
+   in the ring. */
 .due-date-unknown__btn {
   text-decoration: none;
   display: inline-flex;
@@ -739,9 +739,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   min-width: 2.75rem;
   min-height: 2.75rem;
   padding: 0 var(--space-xs) 0 var(--space-s);
-  background: transparent;
-  outline: 0.125rem solid var(--blueberry-700);
-  outline-offset: -0.125rem;
+  background: var(--blueberry-500);
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -754,7 +752,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .due-date-unknown__btn span {
   padding: 0.4375rem 0;
   font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif;
-  color: var(--color-action-text-onlight);
+  color: #fff;
 }
 
 /* Small Pencil (design-system Pencil icon), after the text. */
@@ -763,11 +761,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   height: 24px;
   flex-shrink: 0;
   margin-left: var(--space-3xs);
-  color: var(--color-action-text-onlight);
+  color: #fff;
 }
 
 .due-date-unknown__btn:hover {
-  background: var(--color-action-background-transparent-onlight-hover);
+  background: var(--blueberry-700);
+  box-shadow: 0 0 0 var(--space-3xs) var(--blueberry-700);
 }
 
 /* ═══════════════════════════════════════════════════════════
