@@ -232,4 +232,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keep the generic refusal without a cause.
 **Why:** Direct user request: the refusal is usually caused by an active Kjernejournal reservation, which the user often set themselves and can lift, so the modal should say so and offer a way to change it, while still letting her use Gravid without DHG. The real personverninnstillinger URL isn't known yet, so the link points to `#`.
 
+## 2026-10-07 — 2b modal softened: states the reservation, not who made it or that it can be lifted
+**Decision:** The 2b modal now reads "Du kan dessverre ikke få et digitalt helsekort" / "Det er registrert en reservasjon mot kjernejournal for deg, og digitalt helsekort for gravide krever kjernejournal. Du kan fortsatt bruke tjenesten Gravid, men den vil ikke kunne utveksle helseopplysninger med jordmoren eller fastlegen din." / "I personverninnstillingene kan du se reservasjonen og hvilke valg du har." with a "Se personverninnstillinger" link (placeholder target). It replaces the same day's earlier draft ("Du har reservert deg mot kjernejournal" … "kan du oppheve reservasjonen").
+**Alternative considered:** The earlier draft, which said she had reserved herself and could lift the reservation.
+**Why:** User correction: it isn't certain why or by whom the Kjernejournal reservation was set, nor that she can change it. All we know is that it exists and that DHG requires Kjernejournal. Passive phrasing ("Det er registrert en reservasjon … for deg") and a neutral link ("se reservasjonen og hvilke valg du har") avoid claiming either.
+
 #helsenorge
