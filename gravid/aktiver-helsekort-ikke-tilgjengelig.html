@@ -439,6 +439,11 @@ a:focus-visible, button:focus-visible {
 .gm__top { display: flex; flex-direction: column; gap: 8px; }
 .gm__title { font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
 .gm__ingress { font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
+/* Deep link to personverninnstillinger: real AnchorLink look (underlined
+   action-text-onlight), with the ArrowRight icon after the text. */
+.gm__link { align-self: flex-start; display: inline-flex; align-items: center; font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #126f87; text-decoration: underline; text-underline-position: from-font; }
+.gm__link:hover { color: #08667c; text-decoration-thickness: 2px; }
+.gm__link svg { width: 24px; height: 24px; flex-shrink: 0; margin-left: 4px; }
 .gm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
 .gm__btn {
   display: inline-flex; align-items: center; border-radius: 8px; cursor: pointer;
@@ -669,8 +674,11 @@ a:focus-visible, button:focus-visible {
   <div class="gm" role="dialog" aria-modal="true" aria-labelledby="gmTitle" aria-describedby="gmIngress" tabindex="-1">
     <button type="button" class="gm__close" id="gmClose" aria-label="Lukk"><img src="img/modal-close.svg" width="38" height="38" alt=""></button>
     <div class="gm__top">
-      <h2 class="gm__title" id="gmTitle">Du kan dessverre ikke få et digitalt helsekort</h2>
-      <p class="gm__ingress" id="gmIngress">Du kan bruke tjenesten Gravid, men tjenesten vil ikke kunne utveksle helseopplysninger med behandlere.</p>
+      <h2 class="gm__title" id="gmTitle">Du har reservert deg mot kjernejournal</h2>
+      <p class="gm__ingress" id="gmIngress">Derfor kan du ikke få digitalt helsekort for gravide. Du kan fortsatt bruke tjenesten Gravid, men den vil ikke kunne utveksle helseopplysninger med jordmoren eller fastlegen din.</p>
+      <p class="gm__ingress">Hvis du ønsker digitalt helsekort, kan du oppheve reservasjonen i personverninnstillingene dine.</p>
+      <!-- Deep link target is a placeholder until the real personverninnstillinger URL is known. -->
+      <a class="gm__link" href="#">Gå til personverninnstillinger<svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>
     </div>
     <div class="gm__buttons">
       <a class="gm__btn gm__btn--fill gm__btn--right-icon" id="gmSelf" href="index.html?uke=1&amp;tilknyttet=0&amp;termindato=none&amp;panelHelsekort=0&amp;dokumenter=0"><span>Bruk tjenesten Gravid uten digitalt helsekort</span><svg viewBox="0 0 48 48" width="38" height="38" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg></a>

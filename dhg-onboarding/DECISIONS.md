@@ -227,4 +227,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keep the modal after "Noen andres svangerskap"; or a separate 2b file duplicating the booking wizard.
 **Why:** Direct user request: people following someone else's pregnancy don't need to be told they can't get a helsekort, while a Kjernejournal reservation is exactly the case where DHG is unavailable. The URL switch keeps 2a and 2b from drifting apart.
 
+## 2026-10-07 — 2b modal names the Kjernejournal reservation and links to personverninnstillinger
+**Decision:** The 2b modal no longer just says "Du kan dessverre ikke få et digitalt helsekort". It now reads "Du har reservert deg mot kjernejournal" / "Derfor kan du ikke få digitalt helsekort for gravide. Du kan fortsatt bruke tjenesten Gravid, men den vil ikke kunne utveksle helseopplysninger med jordmoren eller fastlegen din." / "Hvis du ønsker digitalt helsekort, kan du oppheve reservasjonen i personverninnstillingene dine." with a "Gå til personverninnstillinger" link (placeholder target). "Bruk tjenesten Gravid uten digitalt helsekort" and "Avbryt" are unchanged. The standalone copy (`gravid/aktiver-helsekort-ikke-tilgjengelig.html`) has the same text. The wording is a draft written for the prototype.
+**Alternative considered:** Keep the generic refusal without a cause.
+**Why:** Direct user request: the refusal is usually caused by an active Kjernejournal reservation, which the user often set themselves and can lift, so the modal should say so and offer a way to change it, while still letting her use Gravid without DHG. The real personverninnstillinger URL isn't known yet, so the link points to `#`.
+
 #helsenorge
