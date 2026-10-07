@@ -712,14 +712,15 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   margin-bottom: var(--space-2xs);
 }
 
-/* Real Frankenstein Button, variant "fill", mobile (medium) size —
-   @helsenorge/designsystem-react Button/styles.module.scss .button +
-   &__text: blueberry500 fill, 18px/1.375rem semibold white text, 44px
-   min-height, 0 1.5rem padding, 0.5rem radius, text padded 0.4375rem
-   vertically; hover = blueberry700 fill + a 0.25rem blueberry700 ring.
-   Sized to its content rather than the real 100% width, since it sits
-   centered in the ring. The week bubble is hidden in this state, so the
-   taller button has nothing to collide with. */
+/* Real Frankenstein Button, variant "outline", mobile (medium) size,
+   with a right icon — @helsenorge/designsystem-react
+   Button/styles.module.scss: transparent background, 2px blueberry700
+   outline inset by 2px, action-text-onlight (#126F87) semibold
+   18px/1.375rem text padded 0.4375rem vertically, 44px min-height,
+   0.5rem radius; right-icon padding 0 xs 0 s. Hover = transparent
+   action-hover fill, no ring. Was the fill variant until 2026-10-07
+   (per direct request). Sized to its content rather than the real
+   100% width, since it sits centered in the ring. */
 .due-date-unknown__btn {
   text-decoration: none;
   display: inline-flex;
@@ -727,8 +728,10 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   justify-content: center;
   min-width: 2.75rem;
   min-height: 2.75rem;
-  padding: 0 var(--space-m);
-  background: var(--blueberry-500);
+  padding: 0 var(--space-xs) 0 var(--space-s);
+  background: transparent;
+  outline: 0.125rem solid var(--blueberry-700);
+  outline-offset: -0.125rem;
   border: none;
   border-radius: 0.5rem;
   cursor: pointer;
@@ -742,12 +745,20 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 .due-date-unknown__btn span {
   padding: 0.4375rem 0;
   font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif;
-  color: #fff;
+  color: var(--color-action-text-onlight);
+}
+
+/* Small Pencil (design-system Pencil icon), after the text. */
+.due-date-unknown__btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-left: var(--space-3xs);
+  color: var(--color-action-text-onlight);
 }
 
 .due-date-unknown__btn:hover {
-  background: var(--blueberry-700);
-  box-shadow: 0 0 0 var(--space-3xs) var(--blueberry-700);
+  background: var(--color-action-background-transparent-onlight-hover);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -2117,6 +2128,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <span class="due-date-unknown__text">Termindato<br>ikke registrert</span>
           <a class="due-date-unknown__btn" href="beregn-termindato.html" id="beregnTermindatoLink">
             <span>Beregn termindato</span>
+            <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
           </a>
         </div>
       </div>
