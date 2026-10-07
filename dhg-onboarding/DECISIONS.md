@@ -237,4 +237,9 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** The earlier draft, which said she had reserved herself and could lift the reservation.
 **Why:** User correction: it isn't certain why or by whom the Kjernejournal reservation was set, nor that she can change it. All we know is that it exists and that DHG requires Kjernejournal. Passive phrasing ("Det er registrert en reservasjon … for deg") and a neutral link ("se reservasjonen og hvilke valg du har") avoid claiming either.
 
+## 2026-10-07 — 2b modal: link text replaces the closing sentence
+**Decision:** Dropped "I personverninnstillingene kan du se reservasjonen og hvilke valg du har."; the link now reads "Se reservasjonen i personverninnstillinger" and carries that context on its own.
+**Alternative considered:** Keeping the sentence above a generic "Se personverninnstillinger" link.
+**Why:** User asked whether the sentence was necessary; it mostly repeated the link. Shorter modal, same meaning, still no promise that the reservation can be changed.
+
 #helsenorge
