@@ -592,12 +592,6 @@ a:focus-visible, button:focus-visible {
 .dictionarytrigger[aria-expanded="true"]:hover { background-color: var(--color-help-background-transparent-onlight-hover-selected); }
 .dictionarytrigger:focus-visible { outline: 2px solid #000; background-image: none; }
 .nowrap { white-space: nowrap; }
-/* Word explanation shown under the duolist row (stand-in for the
-   real HelpBubble popover; definitions are drafts). */
-.dictionary-bubble { grid-column: 1 / -1; margin: 0 0 0.75rem; font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); background: var(--color-help-background-normal); border: 1px solid var(--color-help-border-subtle-wcag); border-radius: 0.25rem; padding: 0.75rem 1rem; }
-.dictionary-bubble[hidden] { display: none; }
-dd .dictionary-bubble, dt .dictionary-bubble { display: block; margin: 0.5rem 0; font-weight: 400; }
-dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 /* Undersøkelse blocks in the "Prøvesvar (n)" expander follow each
    other directly; blocks with a history button end with a Spacer l. */
 .body-text { font: var(--mobile-body); color: var(--color-base-text-onlight); }
@@ -786,12 +780,10 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     <dl class="duolist-grid">
       <dt>Prøvedato:</dt>
       <dd id="valDato">18.03.2026</dd>
-      <dt><button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="dictRekvirert"><span class="sr-only">Åpne ordforklaring </span><span class="nowrap">Rekvirert av:</span></button></dt>
+      <dt><button type="button" class="dictionarytrigger" data-ord="Rekvirert av:" aria-haspopup="dialog" aria-expanded="false"><span class="sr-only">Åpne ordforklaring </span><span class="nowrap">Rekvirert av:</span></button></dt>
       <dd id="valRekvirert">Uavhengig Fjernsyn, WebMed Test HelseNorge -TREG VOKAL KATT SKORPION</dd>
-      <dd class="dictionary-bubble" id="dictRekvirert" hidden>Den som ba om at prøven skulle tas, for eksempel fastlegen din.</dd>
-      <dt><button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="dictUtfort"><span class="sr-only">Åpne ordforklaring </span><span class="nowrap">Utført av:</span></button></dt>
+      <dt><button type="button" class="dictionarytrigger" data-ord="Utført av:" aria-haspopup="dialog" aria-expanded="false"><span class="sr-only">Åpne ordforklaring </span><span class="nowrap">Utført av:</span></button></dt>
       <dd id="valUtfort">WebMed Test HelseNorge -TREG VOKAL KATT SKORPION</dd>
-      <dd class="dictionary-bubble" id="dictUtfort" hidden>Laboratoriet eller virksomheten som analyserte prøven.</dd>
     </dl>
   </div>
 
@@ -921,20 +913,12 @@ function referanseGraf(verdi, lav, hoy) {
   if (slettetTid(id)) { location.replace('index.html'); return; }
   const r = RESULTATER[id] || RESULTATER[1];
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  let n = 0;
-  // {Term} → dictionary trigger; its (hidden) explanation box is queued
-  // and placed after the whole text (flush()), so opening one doesn't
-  // split a sentence in two. \n → line break.
-  let pending = [];
-  const tekst = t => esc(t).replace(/\{([^}]+)\}/g, (m, ord) => {
-    const forklaring = ORDFORKLARINGER[ord];
-    if (!forklaring) return ord;
-    const bid = 'ord' + (++n);
-    pending.push(`<span class="dictionary-bubble" id="${bid}" hidden>${esc(forklaring)}</span>`);
-    return `<button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="${bid}"><span class="sr-only">Åpne ordforklaring </span>${ord}</button>`;
-  }).replace(/\n/g, '<br>');
-  const flush = () => { const b = pending.join(''); pending = []; return b; };
-  const dd = v => (Array.isArray(v) ? v.map(x => `<div>${tekst(x)}</div>`).join('') : `<div>${tekst(v)}</div>`) + flush();
+  // {Term} → DictionaryTrigger; the explanation opens in a popover
+  // (data.js). \n → line break.
+  const tekst = t => esc(t).replace(/\{([^}]+)\}/g, (m, ord) => ORDFORKLARINGER[ord]
+    ? `<button type="button" class="dictionarytrigger" data-ord="${ord}" aria-haspopup="dialog" aria-expanded="false"><span class="sr-only">Åpne ordforklaring </span>${ord}</button>`
+    : ord).replace(/\n/g, '<br>');
+  const dd = v => Array.isArray(v) ? v.map(x => `<div>${tekst(x)}</div>`).join('') : `<div>${tekst(v)}</div>`;
 
   document.title = `${r.omrade} – Prøvesvar – Helsenorge`;
   document.getElementById('valFagomrade').textContent = r.fagomrade;
@@ -951,7 +935,7 @@ function referanseGraf(verdi, lav, hoy) {
   const blokk = b => `
         <div class="undersokelse">
           <dl class="duolist-stack">${b.rows.map(([dt, v, avvik]) => `
-            <dt>${tekst(dt)}${flush()}</dt>
+            <dt>${tekst(dt)}</dt>
             <dd>${dd(v)}${avvik ? `<span class="avviksmarkor">${esc(avvik)}</span>` : ''}</dd>`).join('')}
           </dl>${b.graf ? `
           <div class="undersokelse__graf">${referanseGraf(...b.graf)}</div>` : ''}${b.historikk ? `
@@ -1074,14 +1058,7 @@ function referanseGraf(verdi, lav, hoy) {
   document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
 })();
 
-// ─── Dictionary triggers (ordforklaring) ─────────────────────────
-document.addEventListener('click', e => {
-  const t = e.target.closest('.dictionarytrigger');
-  if (!t) return;
-  const open = t.getAttribute('aria-expanded') !== 'true';
-  t.setAttribute('aria-expanded', String(open));
-  document.getElementById(t.getAttribute('aria-controls')).hidden = !open;
-});
+// (Dictionary triggers open their popover via data.js.)
 
 // ─── ExpanderList (delegated: the items are rendered from data) ───
 document.getElementById('expList').addEventListener('click', e => {

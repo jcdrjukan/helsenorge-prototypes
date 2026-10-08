@@ -121,3 +121,26 @@
 /* Headings that receive focus programmatically (so screen readers start
    there after a page change) aren't interactive — no focus ring. */
 h1[tabindex="-1"]:focus { outline: none; }
+
+/* ═══════════════════════════════════════════════════════════════
+   Ordforklaring — DictionaryTrigger opens a PopOver with a HelpBubble
+   (real markup: role="group", aria-label="Hjelpetekst"). PopOver: white,
+   1px border-onlight edge, 9px radius, drop shadow, 16px padding, arrow
+   pointing at the word. HelpBubble: 18px/28px text, small plum Close in
+   the top-right corner. One popover per page, positioned in the phone
+   screen under the trigger (above it if there's no room below).
+══════════════════════════════════════════════════════════════════ */
+.popover { position: absolute; z-index: 60; width: max-content; max-width: calc(100% - 16px); background: #fff; box-shadow: 0 0 0 1px #7D7C79; border-radius: 9px; filter: drop-shadow(0 4px 16px rgb(0 0 0 / 30%)); padding: 1rem; outline: none; text-align: start; }
+.popover[hidden] { display: none; }
+.popover__arrow { position: absolute; pointer-events: none; width: 16px; height: 14px; }
+.popover--below .popover__arrow { bottom: 100%; transform: rotate(180deg); margin-bottom: -1px; }
+.popover--above .popover__arrow { top: 100%; margin-top: -1px; }
+.helpbubble { position: relative; display: flex; align-items: flex-start; font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: #000; }
+.helpbubble__content { padding-right: 2.5rem; overflow-wrap: anywhere; }
+.helpbubble__content p { margin: 0; }
+.helpbubble__close { position: absolute; top: -0.5rem; right: -0.5rem; width: 2.75rem; height: 2.75rem; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.helpbubble__close span { width: 2.375rem; height: 2.375rem; display: flex; }
+.helpbubble__close:hover span { background: #6C36B31A; }
+.helpbubble__close:focus-visible { outline: none; }
+.helpbubble__close:focus-visible span { outline: 3px solid #000; }
+.helpbubble__close svg { width: 38px; height: 38px; fill: #5C27A1; }

@@ -101,4 +101,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** Keeping the rows linked to the latest result.
 **Why:** User supplied the analysis page markup.
 
+## 2026-10-08 — Word explanations open in a popover, not inside the text
+**Decision:** Replaced the in-page explanation boxes with the live behaviour, reconstructed from the supplied markup: the DictionaryTrigger (aria-haspopup="dialog", aria-expanded) opens a PopOver (role="group", aria-label="Hjelpetekst"; white, 1px border-onlight edge, 9px radius, drop shadow, 16px padding, arrow pointing at the word) containing a HelpBubble (18px/28px text, small plum Close in the corner). One popover per page, positioned inside the phone screen under the word, or above it when there's no room below, kept within the screen edges; focus moves to it; Esc, ✕ or a click outside closes it and returns focus to the word; another trigger switches it. Shared in `data.js` and `sperring.css`, driven by `data-ord`. "Utført av:" now uses the live explanation ("Den som tar prøven eller utfører undersøkelsen. …").
+**Alternative considered:** The previous inline boxes (under the row, then after the text block).
+**Why:** User: the inline approach was "severely broken"; descriptions should show in a pop-up layer, as on the live page.
+
 #helsenorge
