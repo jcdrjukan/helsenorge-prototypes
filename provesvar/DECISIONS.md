@@ -55,4 +55,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** One static page per result; embedding Highcharts.
 **Why:** User supplied the results sections for 3–9. Static SVG keeps the prototype dependency-free and matches the rendered chart.
 
+## 2026-10-08 — Analyseoversikt tab built from the live markup
+**Decision:** The second tab now has the live FilterSearch ("Søk i listen"), a Spacer m, and a HorizontalScroll wrapping a sortable Table of 26 analyses (live test data), using the installed design-system styles (FilterSearch, HorizontalScroll incl. edge indicators, Table with blueberry50 sortable head, AnchorLink). Search filters live; headers sort (asc/desc; the arrow follows the live markup's rotate(270) for ascending); each analysis links to the result page with its latest answer. Our choices: the link target (the live markup only has a button), searching across analyse/område/date, an empty-state text, the search icon's position (its rule isn't in the installed package), and a 10.5rem minimum width on the Analyse column so names like "B-Hemoglobin" don't break at the hyphen.
+**Alternative considered:** A static, non-interactive table.
+**Why:** User supplied the tab's markup.
+
 #helsenorge

@@ -13,6 +13,11 @@
    (Copied from gravid/avslutt.html, a subset of gravid/index.html's token set.)
 ───────────────────────────────────────────────────────────── */
 :root {
+  --core-color-neutral-500: #989693;
+  --core-color-neutral-700: #62625F;
+  --core-color-blueberry-50: #E4F7F9;
+  --core-color-blueberry-100: #CAE7ED;
+  --color-base-border-onlight-emphasized: #62625F;
   --component-listelements-border-neutral-normal: #7D7C79;
   --component-listelements-background-neutral-light: #F5F3F3;
   --component-listelements-background-neutral-medium: #EAE7E7;
@@ -392,6 +397,62 @@ a:focus-visible, button:focus-visible {
 .tab-panel { width: 100%; padding: var(--space-l) var(--space-s) var(--space-xl); border-bottom: 1px solid var(--color-action-border-onlight-focus); background-color: #fff; }
 .tab-panel[hidden] { display: none; }
 
+/* ═══════════════════════════════════════════════════════════
+   ANALYSEOVERSIKT tab — from the live markup: FilterSearch, Spacer m,
+   HorizontalScroll + sortable Table (blueberry50 head) with AnchorLink
+   analysis names.
+══════════════════════════════════════════════════════════════ */
+.filter-search__wrapper { display: grid; grid-template-columns: 1fr; align-items: center; }
+.filter-search__input-wrapper { position: relative; cursor: text; }
+.filter-search__input__label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.filter-search__input {
+  position: relative; height: 2rem; width: 100%; box-sizing: border-box;
+  border-radius: 100px; border: 2px solid var(--color-base-border-onlight-emphasized); background: #fff;
+  padding: 0.375rem 2.75rem 0.375rem 1rem; text-overflow: ellipsis;
+  font: 400 1.125rem/1.2 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight);
+}
+.filter-search__input::placeholder { color: var(--color-base-text-onlight); }
+.filter-search__input:hover { outline: 1px solid var(--color-base-border-onlight-emphasized); background-color: var(--neutral-50); }
+.filter-search__input:focus-visible { border-color: var(--color-action-border-onlight-focus); outline: 2px solid var(--color-action-border-onlight-focus); }
+/* The search icon's rule isn't in the installed package; placed inside
+   the field, right. */
+.filter-search__input__icon { position: absolute; right: 0.875rem; top: 50%; transform: translateY(-50%); display: flex; pointer-events: none; z-index: 2; }
+.filter-search__input__icon svg { width: 24px; height: 24px; }
+
+.horizontalscroll { position: relative; }
+.horizontalscroll__viewport { display: flex; overflow: auto hidden; }
+.horizontalscroll__indicator { position: absolute; width: 23px; top: 0; height: 100%; opacity: 0; transition: opacity 0.25s ease-in-out; pointer-events: none; z-index: 1; }
+.horizontalscroll__indicator--left { left: 0; background: linear-gradient(to right, rgb(0 0 0 / 27%), rgb(0 0 0 / 27%) 18%, transparent); }
+.horizontalscroll__indicator--right { right: 0; background: linear-gradient(to left, rgb(0 0 0 / 27%), rgb(0 0 0 / 27%) 18%, transparent); }
+.horizontalscroll__indicator--visible { opacity: 1; }
+
+.table { width: 100%; border-collapse: collapse; }
+.table__head--sortable { background: var(--core-color-blueberry-50); }
+.table__head-cell {
+  position: relative; background-clip: padding-box; height: 3.625rem; text-align: left; vertical-align: bottom;
+  font: 700 1.125rem/1.5rem 'Source Sans Pro', sans-serif; padding: 0.5rem 0.75rem;
+  border: 1px solid var(--core-color-neutral-500); white-space: nowrap;
+}
+.table__head-cell--sortable:hover { background-color: var(--core-color-blueberry-100); cursor: pointer; }
+.table__head-cell--sortable:focus-within { outline: 3px solid #000; outline-offset: -3px; }
+.table__head-cell-sort-icon-wrapper { min-height: 2rem; display: flex; align-items: flex-end; }
+.table__sort-button { all: unset; cursor: pointer; }
+.table__sort-button::after { inset: 0; content: ''; position: absolute; }
+.table__cell { font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; padding: 0.5rem 0.75rem; text-align: left; border: 1px solid var(--core-color-neutral-500); }
+.table-body .table-row { outline: 3px solid transparent; }
+.anchorlink-wrapper { all: unset; cursor: pointer; }
+.anchorlink {
+  display: inline; box-decoration-break: clone; overflow-wrap: break-word; color: var(--color-action-text-onlight);
+  border: 0.15rem solid transparent; text-decoration: underline; text-underline-offset: 0.16rem;
+  text-decoration-color: var(--core-color-neutral-700); text-decoration-thickness: 0.0625rem; padding: 0.1rem;
+}
+.anchorlink-wrapper:hover .anchorlink { color: var(--color-action-text-onlight-hover); background-color: var(--color-action-background-transparent-onlight-hover); }
+.anchorlink-wrapper:focus-visible .anchorlink { border-color: var(--color-action-border-onlight-focus); }
+/* Analysis names: a minimum column width so short hyphenated names
+   ("B-Hemoglobin") don't break at the hyphen; the table scrolls sideways. */
+.table__cell[data-label="Analyse"] { min-width: 10.5rem; }
+.analyse-empty { font: var(--mobile-body); color: var(--color-base-text-onlight); padding: 0.75rem 0; }
+
 /* Spacer, size s (real Spacer component). */
 .spacer--s { display: block; width: 100%; height: var(--space-s); flex-shrink: 0; }
 
@@ -678,7 +739,31 @@ a:focus-visible, button:focus-visible {
         <div class="panel-list--outline" data-analyticsid="panel-list" id="provesvarList"></div>
       </div>
       <div class="tab-panel" id="panelAnalyse" role="tabpanel" aria-labelledby="tabAnalyse" hidden>
-        <p style="font: var(--mobile-body); color: var(--color-base-text-onlight);">Analyseoversikt: her navigerer du etter prøvesvartype. (Ikke bygget ennå.)</p>
+        <div class="filter-search__wrapper">
+          <label class="filter-search__input-wrapper">
+            <span class="filter-search__input__label">Søk i listen</span>
+            <div class="filter-search__input__icon"><svg viewBox="0 0 48 48" width="24" height="24" fill="black" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M20.1738 6.88672C27.4533 6.88672 33.3765 12.8075 33.377 20.0879C33.377 22.0407 32.934 23.8871 32.1699 25.5547L38.0918 31.4785C39.7973 33.1852 39.7973 35.9613 38.0918 37.668C37.2652 38.4933 36.1671 38.9509 34.998 38.9512C33.8287 38.9512 32.7281 38.4937 31.9023 37.668L26.1016 31.8672C24.3175 32.7694 22.3071 33.291 20.1738 33.291C12.8934 33.2906 6.97266 27.3673 6.97266 20.0879C6.97311 12.8077 12.8937 6.88717 20.1738 6.88672ZM30.5879 28.166C30.0088 28.9128 29.3558 29.5973 28.6309 30.2051L34 35.5742C34.5316 36.105 35.4668 36.1054 35.998 35.5742C36.2647 35.3076 36.4102 34.9522 36.4102 34.5742C36.4099 34.1967 36.264 33.8424 35.998 33.5762L30.5879 28.166ZM20.1758 9.85156C14.5314 9.85197 9.93993 14.4435 9.93945 20.0879C9.93945 25.7316 14.5311 30.3258 20.1758 30.3262C25.8208 30.3262 30.4141 25.7318 30.4141 20.0879C30.4136 14.4432 25.8205 9.85156 20.1758 9.85156Z"/></svg></div>
+            <input class="filter-search__input" id="analyseSok" placeholder="Søk i listen" value="" autocomplete="off">
+          </label>
+        </div>
+        <span class="spacer--m" data-analyticsid="spacer"></span>
+        <div class="horizontalscroll" data-testid="horizontal-scroll">
+          <div class="horizontalscroll__indicator horizontalscroll__indicator--left" id="hsLeft"></div>
+          <div class="horizontalscroll__indicator horizontalscroll__indicator--right" id="hsRight"></div>
+          <div class="horizontalscroll__viewport" id="hsViewport">
+            <table class="table" data-analyticsid="table">
+              <thead class="table__head--sortable">
+                <tr>
+                  <th scope="col" class="table__head-cell table__head-cell--sortable" data-sort="analyse"><button type="button" class="table__sort-button"><div class="table__head-cell-sort-icon-wrapper"></div>Analyse</button></th>
+                  <th scope="col" class="table__head-cell table__head-cell--sortable" data-sort="omrade"><button type="button" class="table__sort-button"><div class="table__head-cell-sort-icon-wrapper"></div>Område</button></th>
+                  <th scope="col" class="table__head-cell table__head-cell--sortable" data-sort="antall"><button type="button" class="table__sort-button"><div class="table__head-cell-sort-icon-wrapper"></div>Antall svar</button></th>
+                  <th scope="col" class="table__head-cell table__head-cell--sortable" data-sort="dato"><button type="button" class="table__sort-button"><div class="table__head-cell-sort-icon-wrapper"></div>Siste prøvedato</button></th>
+                </tr>
+              </thead>
+              <tbody class="table-body" id="analyseBody"></tbody>
+            </table>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -800,6 +885,82 @@ function renderProvesvar(sort) {
 const sortSelect = document.getElementById('sortSelect');
 sortSelect.addEventListener('change', () => renderProvesvar(sortSelect.value));
 renderProvesvar(sortSelect.value);
+
+// ─── Analyseoversikt: live page's test data; search + sortable table.
+// Each analysis links to the result page with its latest answer (our
+// choice — the live link's target isn't in the markup).
+const ANALYSER = [
+  ['B-Hemoglobin', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['B-Leukocytter', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['CRP (Pasientnær analyse)', 'Medisinsk biokjemi', 2, '18.03.2026', 1],
+  ['Cytologi, HPV-test', 'Patologi', 2, '11.09.2025', 6],
+  ['HPV 16', 'Cytologi', 1, '11.09.2025', 6],
+  ['HPV 16', 'Cytologi', 1, '20.09.2024', 9],
+  ['HPV 18', 'Cytologi', 1, '11.09.2025', 6],
+  ['HPV 18', 'Cytologi', 1, '20.09.2024', 9],
+  ['HPV andre typer', 'Cytologi', 1, '11.09.2025', 6],
+  ['HPV andre typer', 'Cytologi', 1, '20.09.2024', 9],
+  ['Hurtigtest COVID19 (Pasientnær analyse)', 'Medisinsk mikrobiologi', 1, '29.01.2026', 4],
+  ['P-D-dimer', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['P-INR', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['U-Bakterier dyrkning', 'Medisinsk mikrobiologi', 2, '04.08.2025', 8],
+  ['U-Blod (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['U-Ketoner (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['U-Kreatinin (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['U-Leukocytter (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['U-Nitritt (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['U-Protein (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['U-Spesifikk vekt (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
+  ['Us-FSH', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['Us-FT4', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['Us-LH', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+  ['Us-SARS-relatert koronavirus (inkl. SARS-CoV-2) antigen', 'Medisinsk mikrobiologi', 1, '13.01.2026', 5],
+  ['Us-TSH', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
+].map(([analyse, omrade, antall, dato, id]) => ({ analyse, omrade, antall, dato, id }));
+(function () {
+  const body = document.getElementById('analyseBody');
+  const sok = document.getElementById('analyseSok');
+  const vp = document.getElementById('hsViewport');
+  const ARROW = d => `<svg viewBox="0 0 48 48" width="24" height="24" fill="black" aria-hidden="true"><path transform="rotate(${d},26.17,26.17)" d="M20.925 5.929l1.443 1.739-12.53 15.103h32.233v2.46H9.838l12.53 15.099-1.443 1.741-14.996-18.07z"/></svg>`;
+  let sortKey = 'analyse', asc = true;
+  const iso = d => d.split('.').reverse().join('-');
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  function render() {
+    const q = sok.value.trim().toLowerCase();
+    const cmp = { analyse: (a, b) => a.analyse.localeCompare(b.analyse, 'nb'), omrade: (a, b) => a.omrade.localeCompare(b.omrade, 'nb'),
+                  antall: (a, b) => a.antall - b.antall, dato: (a, b) => iso(a.dato).localeCompare(iso(b.dato)) }[sortKey];
+    const rows = ANALYSER.filter(r => !q || `${r.analyse} ${r.omrade} ${r.dato}`.toLowerCase().includes(q))
+      .sort((a, b) => (asc ? 1 : -1) * cmp(a, b) || iso(b.dato).localeCompare(iso(a.dato)));
+    body.innerHTML = rows.length ? rows.map(r => `<tr class="table-row">
+      <td class="table__cell" data-label="Analyse"><button type="button" class="anchorlink-wrapper" onclick="location.href='resultat.html?id=${r.id}'"><span class="anchorlink">${esc(r.analyse)}</span></button></td>
+      <td class="table__cell" data-label="Område">${esc(r.omrade)}</td>
+      <td class="table__cell" data-label="Antall svar">${r.antall}</td>
+      <td class="table__cell" data-label="Siste prøvedato">${r.dato}</td></tr>`).join('')
+      : `<tr><td class="table__cell" colspan="4"><span class="analyse-empty">Ingen analyser passer søket.</span></td></tr>`;
+    document.querySelectorAll('.table__head-cell--sortable').forEach(th => {
+      const on = th.dataset.sort === sortKey;
+      if (on) th.setAttribute('aria-sort', asc ? 'ascending' : 'descending'); else th.removeAttribute('aria-sort');
+      th.querySelector('.table__sort-button').setAttribute('aria-pressed', String(on));
+      th.querySelector('.table__head-cell-sort-icon-wrapper').innerHTML = on ? ARROW(asc ? 270 : 90) : '';
+    });
+    updateIndicators();
+  }
+  function updateIndicators() {
+    const max = vp.scrollWidth - vp.clientWidth;
+    document.getElementById('hsLeft').classList.toggle('horizontalscroll__indicator--visible', vp.scrollLeft > 1);
+    document.getElementById('hsRight').classList.toggle('horizontalscroll__indicator--visible', max > 1 && vp.scrollLeft < max - 1);
+  }
+  document.querySelectorAll('.table__head-cell--sortable').forEach(th => th.addEventListener('click', () => {
+    if (th.dataset.sort === sortKey) asc = !asc; else { sortKey = th.dataset.sort; asc = true; }
+    render();
+  }));
+  sok.addEventListener('input', render);
+  vp.addEventListener('scroll', updateIndicators);
+  // The table is hidden until its tab is shown; re-check overflow then.
+  document.getElementById('tabAnalyse').addEventListener('click', () => requestAnimationFrame(updateIndicators));
+  window.addEventListener('resize', updateIndicators);
+  render();
+})();
 
 // ─── Tabs ────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-list__tab').forEach(tab => tab.addEventListener('click', () => {
