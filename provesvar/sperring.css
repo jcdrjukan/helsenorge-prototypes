@@ -1,0 +1,80 @@
+/* ═══════════════════════════════════════════════════════════════
+   Sperre/slette (vault: "Prøvesvar sperre slette spec") — shared
+   styles for index.html, resultat.html and personvern.html. Values
+   ported from the installed @helsenorge/designsystem-react styles
+   (mobile sizes); class names follow the components they mirror.
+══════════════════════════════════════════════════════════════════ */
+
+/* Title, size title3 (section headings on the flow pages). */
+.title3 { width: 344px; margin: 0; font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+
+/* List (bullets), body text. */
+.list { width: 344px; margin: 0; padding-left: 1.25rem; list-style: disc; font: var(--mobile-body); color: var(--color-base-text-onlight); display: flex; flex-direction: column; gap: 0.25rem; }
+.body-block { width: 344px; margin: 0; font: var(--mobile-body); color: var(--color-base-text-onlight); }
+
+/* Button — fill (primary), outline (secondary), borderless; medium. */
+.btn-row { width: 344px; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); }
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.5rem; border: 0; border-radius: 0.5rem; cursor: pointer; font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; text-decoration: none; }
+.btn span { padding: 0.4375rem 0; }
+.btn--fill { background: #188097; color: #fff; }
+.btn--fill:hover { background: #08667C; box-shadow: 0 0 0 0.25rem #08667C; }
+.btn--outline { background: transparent; color: #126F87; outline: 0.125rem solid #08667C; outline-offset: -0.125rem; }
+.btn--outline:hover { background: rgba(18, 111, 135, 0.13); }
+.btn--borderless { background: transparent; color: #126F87; padding: 0 0.5rem; border-radius: 0; }
+.btn--borderless:hover { background: rgba(18, 111, 135, 0.13); }
+.btn:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+.btn[aria-busy="true"] { cursor: progress; pointer-events: none; }
+
+/* Loader (dots), small, white on the fill button. */
+.loader-dots { display: inline-flex; gap: 0.3rem; padding: 0.6rem 0; }
+.loader-dots i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; animation: loader-dot 1s infinite ease-in-out; }
+.loader-dots i:nth-child(2) { animation-delay: 0.15s; }
+.loader-dots i:nth-child(3) { animation-delay: 0.3s; }
+@keyframes loader-dot { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+
+/* NotificationPanel — warn (banana50 / banana800 border, ErrorSignFill). */
+.np { width: 344px; display: flex; gap: 0.25rem; align-items: flex-start; padding: 0.5rem 1rem 0.75rem 0.5rem; border-radius: 0.25rem; box-shadow: 0.25rem 0.25rem 0.375rem rgba(0,0,0,0.15); color: #000; }
+.np--warn { background: #FDF8DF; border: 2px solid #916500; }
+.np--error { background: #FFF2EA; border: 2px solid #A31F0E; }
+.np--info { background: #E4F7F9; border: 2px solid #08667C; }
+.np__icon { width: 38px; height: 38px; flex-shrink: 0; }
+.np__content { padding: 0.25rem 0; display: flex; flex-direction: column; gap: 0.25rem; }
+.np__label { margin: 0; font: 700 1rem/1.5rem 'Source Sans Pro', sans-serif; }
+.np__text { margin: 0; font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; }
+
+/* HighlightPanel — neutral, with icon (the "Sperret for helsepersonell"
+   banner; NotificationPanel can't carry a lock icon). */
+.highlightpanel--neutral { width: 344px; display: flex; flex-direction: column; padding: var(--space-m) var(--space-s) var(--space-l); background: #F5F3F3; border: 1px solid #D6D4D3; color: var(--color-base-text-onlight); }
+.highlightpanel--neutral .highlightpanel__icon { display: inline-flex; margin-bottom: var(--space-2xs); }
+.highlightpanel--neutral .highlightpanel__icon svg { width: 48px; height: 48px; }
+.highlightpanel__title { margin: 0 0 var(--space-2xs); font: 600 1.25rem/1.625rem 'Source Sans Pro', sans-serif; }
+.highlightpanel__text { margin: 0 0 var(--space-s); font: var(--mobile-body); }
+.highlightpanel--neutral[hidden] { display: none; }
+
+/* SharingStatus — neutral, Lock icon in a neutral700 dot. */
+.sharing-status { display: inline-flex; align-items: center; gap: 0.5rem; font: 600 1.125rem/1.25rem 'Source Sans Pro', sans-serif; }
+.sharing-status__dot { display: inline-flex; justify-content: center; align-items: center; border-radius: 10rem; width: 1.765rem; height: 1.765rem; min-width: 1.765rem; background: #62625F; }
+.sharing-status__dot svg { width: 24px; height: 24px; fill: #fff; }
+.sharing-status__label { color: #62625F; white-space: normal; }
+
+/* Toast (kiwi50 / kiwi900, CheckFill) — role="status". Sticks to the
+   bottom of the visible screen while the page scrolls. */
+.toast-holder { position: sticky; bottom: 1rem; width: 344px; z-index: 40; pointer-events: none; height: 0; overflow: visible; }
+.toast { position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); max-width: 344px; width: max-content; padding: 0.5rem; border-radius: 0.25rem; background: #E6F8EE; border: 2px solid #078141; pointer-events: auto; display: grid; grid-template-columns: 42px auto 48px; align-items: center; box-shadow: 0 4px 16px rgb(0 0 0 / 20%); }
+.toast[hidden] { display: none; }
+.toast__check { width: 38px; height: 38px; fill: #078141; }
+.toast__title { margin: 0; font: 600 1rem/1.375rem 'Source Sans Pro', sans-serif; color: #000; padding-top: 0.125rem; }
+.toast__close { justify-self: end; width: 38px; height: 38px; border: 0; background: none; padding: 0; cursor: pointer; }
+.toast__close svg { width: 38px; height: 38px; fill: #078141; }
+
+/* Modal — medium, normal (same port as gravid-tjeneste.html's .gm). */
+.gm-overlay { position: absolute; left: 0; right: 0; z-index: 50; background: rgba(44, 43, 44, 0.5); display: flex; align-items: center; justify-content: center; }
+.gm-overlay[hidden] { display: none; }
+.gm { position: relative; width: 345px; max-width: calc(100% - 24px); background: #fff; box-shadow: 0 0 5px 0 rgb(0 0 0 / 50%); padding: 48px 24px 32px; display: flex; flex-direction: column; gap: 40px; outline: none; }
+.gm__close { position: absolute; top: 4px; right: 4px; width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; background: none; border: none; padding: 0; cursor: pointer; border-radius: 4px; }
+.gm__close:hover { background: rgba(18, 111, 135, 0.13); }
+.gm__close svg { width: 38px; height: 38px; fill: #126F87; }
+.gm__top { display: flex; flex-direction: column; gap: 8px; }
+.gm__title { margin: 0; font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
+.gm__ingress { margin: 0; font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
+.gm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }

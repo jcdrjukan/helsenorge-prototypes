@@ -674,6 +674,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .sp-m  { height: var(--space-m);  flex-shrink: 0; width: 100%; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 </style>
+<link rel="stylesheet" href="sperring.css">
 </head>
 <body>
 
@@ -731,7 +732,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   <nav class="breadcrumb" aria-label="Brødsmulesti">
     <a class="breadcrumb__back" href="resultat.html" id="tilbakeLink">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Prøvesvaret</span>
+      <span id="tilbakeTekst">Prøvesvaret</span>
     </a>
   </nav>
   <hr class="page-divider">
@@ -781,7 +782,48 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     <p class="personvern__more"><a class="anchorlink" href="#">Les mer om rettighetene dine</a></p>
   </div>
 
-  <!-- Placeholder for the block/delete steps until they're built. -->
+  <!-- ══════════════════════════════════════════════════════
+       SPERR (spec §4.5): explanation and confirmation.
+  ═══════════════════════════════════════════════════════════ -->
+  <div id="stegSperr" hidden>
+    <div class="pageheader">
+      <div class="page-title"><h1>Vil du sperre dette svaret?</h1></div>
+      <p class="personvern__subtitle" data-resultatnavn></p>
+    </div>
+    <span class="spacer--l"></span>
+    <h2 class="title3">Dette skjer</h2>
+    <span class="spacer--s"></span>
+    <ul class="list">
+      <li>Annet helsepersonell i hele landet kan ikke se svaret når de slår opp prøvesvarene dine.</li>
+    </ul>
+    <span class="spacer--l"></span>
+    <h2 class="title3">Dette endres ikke</h2>
+    <span class="spacer--s"></span>
+    <ul class="list">
+      <li>Legen som bestilte prøven, ser fortsatt svaret.</li>
+      <li>Svaret blir lagret i journalen der prøven ble bestilt.</li>
+      <li>Du ser fortsatt svaret selv.</li>
+    </ul>
+    <span class="spacer--l"></span>
+    <!-- [AVKLARES] Gjelder sperringen også i akutte situasjoner
+         (akuttilgang)? Svaret endrer denne teksten. -->
+    <div class="np np--warn">
+      <svg class="np__icon" viewBox="0 0 48 48" fill="#916500" aria-hidden="true"><path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/></svg>
+      <div class="np__content">
+        <h3 class="np__label">Vær oppmerksom på</h3>
+        <p class="np__text">Helsepersonell som skal behandle deg, får ikke vite om dette svaret. Det kan føre til at prøver tas på nytt, eller at de mangler informasjon som er viktig for behandlingen din.</p>
+      </div>
+    </div>
+    <span class="spacer--l"></span>
+    <p class="body-block">Du kan oppheve sperringen når som helst.</p>
+    <span class="spacer--l"></span>
+    <div class="btn-row">
+      <button type="button" class="btn btn--fill" id="sperrBtn"><span>Sperr svaret</span></button>
+      <a class="btn btn--borderless" id="sperrAvbryt" href="#"><span>Avbryt</span></a>
+    </div>
+  </div>
+
+  <!-- Placeholder for the delete step until it's built. -->
   <div id="stegKommer" class="personvern__intro" hidden>
     <div class="pageheader"><div class="page-title"><h1 id="kommerTittel"></h1></div></div>
     <span class="spacer--m"></span>
@@ -791,6 +833,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   </div>
 
   <div class="sp-xl"></div>
+  <div class="toast-holder" id="toastHolder"></div>
 
   <!-- ══════════════════════════════════════════════════════
        FOOTER
@@ -842,25 +885,52 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 
 <script src="data.js"></script>
 <script>
-// ─── Personvernvalg: result name/date from data.js; the steps after
-// this page (sperr / slett) are placeholders until built.
+// ─── Personvernvalg (+ steps). ?id=N picks the result, &steg=sperr is
+// the block page (§4.5); &steg=slett is a placeholder until step 3.
 (function () {
   const params = new URLSearchParams(location.search);
   const id = params.get('id') || '1';
   const steg = params.get('steg');
   const r = RESULTATER[id] || RESULTATER[1];
   const q = s => `personvern.html?id=${encodeURIComponent(id)}${s ? '&steg=' + s : ''}`;
-  document.getElementById('tilbakeLink').href = 'resultat.html?id=' + encodeURIComponent(id);
+  const tilbake = document.getElementById('tilbakeLink');
+  tilbake.href = 'resultat.html?id=' + encodeURIComponent(id);
   document.getElementById('resultatNavn').textContent = `${r.omrade} · Prøvedato ${r.dato}`;
-  document.getElementById('sperrLink').href = q('sperr');
+  document.querySelectorAll('[data-resultatnavn]').forEach(el => el.textContent = `${r.omrade} · Prøvedato ${r.dato}`);
   document.getElementById('slettLink').href = q('slett');
-  // [step 2] If the result is already blocked, row 1 becomes "Opphev sperring".
-  if (steg === 'sperr' || steg === 'slett') {
+  // Row 1: "Sperr…" — or, if already blocked, "Opphev sperring", which
+  // opens the unblock dialog on the result page.
+  if (sperretDato(id)) {
+    document.getElementById('sperrTittel').textContent = 'Opphev sperring';
+    document.getElementById('sperrHint').textContent = `Du sperret svaret ${sperretDato(id)}. Helsepersonell kan se det igjen hvis du opphever sperringen.`;
+    document.getElementById('sperrLink').href = `resultat.html?id=${encodeURIComponent(id)}&opphev=1`;
+  } else {
+    document.getElementById('sperrLink').href = q('sperr');
+  }
+  const visSteg = (el, tittel) => {
     document.getElementById('stegValg').hidden = true;
-    document.getElementById('stegKommer').hidden = false;
-    document.getElementById('kommerTittel').textContent = steg === 'sperr' ? 'Vil du sperre dette svaret?' : 'Vil du slette dette svaret fra Helsenorge?';
+    el.hidden = false;
+    document.title = tittel + ' – Prøvesvar – Helsenorge';
+    tilbake.href = q();
+    document.getElementById('tilbakeTekst').textContent = 'Personvernvalg';
+  };
+  if (steg === 'sperr') {
+    if (sperretDato(id)) { location.replace(`resultat.html?id=${encodeURIComponent(id)}`); return; }
+    visSteg(document.getElementById('stegSperr'), 'Sperr svaret');
+    document.getElementById('sperrAvbryt').href = q();
+    const btn = document.getElementById('sperrBtn');
+    btn.addEventListener('click', async () => {
+      if (btn.getAttribute('aria-busy') === 'true') return;   // no double submit
+      settOpptatt(btn, true);
+      await simulertApi();
+      settSperret(id, iDag());
+      loggHendelse(`Du sperret prøvesvaret ${resultatNavn(r)} for helsepersonell.`);
+      location.href = `resultat.html?id=${encodeURIComponent(id)}&status=sperret`;
+    });
+  } else if (steg === 'slett') {
+    visSteg(document.getElementById('stegKommer'), 'Slett svaret');
+    document.getElementById('kommerTittel').textContent = 'Vil du slette dette svaret fra Helsenorge?';
     document.getElementById('kommerTilbake').href = q();
-    document.title = (steg === 'sperr' ? 'Sperr svaret' : 'Slett svaret') + ' – Prøvesvar – Helsenorge';
   }
 })();
 

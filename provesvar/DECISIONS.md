@@ -66,4 +66,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** a Drawer bottom sheet on mobile; a disabled submit button.
 **Why:** User asked to go ahead with step 1 and to use validation.
 
+## 2026-10-08 — Sperre/slette step 2: block and unblock
+**Decision:** Built the spec's block flow (§4.5–4.7) and the list label (§4.1) with the agreed component mapping: page with List sections and a warn NotificationPanel; fill "Sperr svaret" with a Loader busy state and double-submit guard; success only after a simulated API call resolves; neutral HighlightPanel + Lock icon as the persistent banner with an outline "Opphev sperring"; Modal for the unblock confirmation (focus trapped, returned to the page title afterwards); Toast (role=status) for "Svaret er sperret for helsepersonell" / "Svaret er synlig for helsepersonell igjen."; SharingStatus (neutral, Lock) under the date in the list — no filter, tab or count. Personvernvalg's first row switches to "Opphev sperring" and opens the unblock dialog on the result page. Block/unblock write log entries ("Du sperret prøvesvaret …", "Du opphevet sperringen av …") for the log page in step 4. Prototype state lives in localStorage; `index.html?nullstill=1` resets it. The [AVKLARES] about akuttilgang is kept as a comment next to the warning text.
+**Alternative considered:** NotificationPanel for the banner (can't carry the lock icon); a separate confirmation page for unblocking (spec asks for something lighter).
+**Why:** User approved step 2. A toast bug found while testing (the toast collapsed to zero height in its sticky holder) was fixed before committing.
+
 #helsenorge

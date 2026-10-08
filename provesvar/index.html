@@ -512,6 +512,7 @@ a:focus-visible, button:focus-visible {
 }
 .btn-borderless:hover { color: var(--color-action-text-onlight-hover); text-decoration: underline; }
 .btn-borderless svg { width: 38px; height: 38px; min-width: 38px; }
+.provesvar-sperret { margin-top: var(--space-2xs); }
 
 /* Spacers m and l (real Spacer component). */
 .spacer--m { display: block; width: 100%; height: var(--space-m); flex-shrink: 0; }
@@ -588,6 +589,7 @@ a:focus-visible, button:focus-visible {
 .sp-m  { height: var(--space-m);  flex-shrink: 0; width: 100%; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 </style>
+<link rel="stylesheet" href="sperring.css">
 </head>
 <body>
 
@@ -850,6 +852,7 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-frame -->
 </div><!-- /phone-wrapper -->
 
+<script src="data.js"></script>
 <script>
 // ─── Prøvesvar list: live page's test data, sortable ────────────
 const PROVESVAR = [
@@ -865,6 +868,11 @@ const PROVESVAR = [
 ];
 const CHEVRON_RIGHT = '<svg viewBox="0 0 48 48" width="38" height="38" fill="#126F87" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg>';
 const fmtDato = iso => iso.split('-').reverse().join('.');
+// Blocked results (sperre/slette spec §4.1) show a lock label — no
+// filter, tab or count for them. ?nullstill=1 resets the demo state.
+if (new URLSearchParams(location.search).get('nullstill') === '1') { nullstillPersonvern(); history.replaceState(null, '', location.pathname); }
+const resultatId = r => (r.href.match(/id=(\d+)/) || [])[1];
+const erSperret = r => !!sperretDato(resultatId(r));
 const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 function renderProvesvar(sort) {
   const [key, dir] = sort.split('-');
@@ -876,7 +884,8 @@ function renderProvesvar(sort) {
       <div class="paneltitle"><div class="paneltitle__title"><h3>${esc(r.omrade)}</h3></div></div>
       <div class="panel__content"><div class="panel__content__item">
         <span>${esc(r.rekvirent)}</span>
-        <dl class="duolist"><div><dt data-separator=": ">Prøvedato</dt><dd>${fmtDato(r.dato)}</dd></div></dl>
+        <dl class="duolist"><div><dt data-separator=": ">Prøvedato</dt><dd>${fmtDato(r.dato)}</dd></div></dl>${erSperret(r) ? `
+        <span class="sharing-status provesvar-sperret"><span class="sharing-status__dot" aria-hidden="true"><svg viewBox="0 0 48 48">${IKON.lock}</svg></span><span class="sharing-status__label">Sperret for helsepersonell</span></span>` : ''}
       </div></div>
       <div class="panel__button-bottom"><button type="button" class="btn-borderless"${r.href ? ` onclick="location.href='${r.href}'"` : ''} aria-label="Se resultater ${esc(r.omrade)}, ${esc(r.rekvirent.split(',')[0])}, Prøvedato: ${fmtDato(r.dato)}"><span>Se resultater</span>${CHEVRON_RIGHT}</button></div>
     </div></div></div>`).join('');

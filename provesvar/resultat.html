@@ -664,6 +664,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .sp-m  { height: var(--space-m);  flex-shrink: 0; width: 100%; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 </style>
+<link rel="stylesheet" href="sperring.css">
 </head>
 <body>
 
@@ -765,6 +766,18 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 
   <span class="spacer--m"></span>
 
+  <!-- Blocked state (spec §4.6): only shown once she has blocked this
+       result — the one exception to the "discreet" principle. -->
+  <div id="sperretWrap" hidden>
+    <div class="highlightpanel--neutral" data-analyticsid="highlight-panel">
+      <div class="highlightpanel__icon"><svg viewBox="0 0 48 48" fill="black" aria-hidden="true"><path d="M24 8.475a7.344 7.344 0 017.344 7.344v3.69h3.005v17.444H13.69V19.51l2.964-.001v-3.69a7.344 7.344 0 017.103-7.34zm8.598 12.784H30v.011H18v-.01l-2.56-.001v13.944h17.158V21.259zM24 10.225a5.594 5.594 0 00-5.594 5.594l-.001 3.7h11.19v-3.7A5.594 5.594 0 0024 10.225z"/></svg></div>
+      <h2 class="highlightpanel__title">Sperret for helsepersonell</h2>
+      <p class="highlightpanel__text" id="sperretTekst"></p>
+      <div><button type="button" class="btn btn--outline" id="opphevBtn"><span>Opphev sperring</span></button></div>
+    </div>
+    <span class="spacer--l"></span>
+  </div>
+
   <!-- Result details, from the live markup. -->
   <div class="result-body">
     <dl class="duolist-grid">
@@ -804,6 +817,22 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   <span class="spacer--m"></span>
 
   <div class="sp-xl"></div>
+  <div class="toast-holder" id="toastHolder"></div>
+
+  <!-- Unblock confirmation (spec §4.7): Modal, medium, normal. -->
+  <div class="gm-overlay" id="opphevModal" hidden>
+    <div class="gm" role="dialog" aria-modal="true" aria-labelledby="opphevTittel" aria-describedby="opphevTekst" tabindex="-1">
+      <button type="button" class="gm__close" id="opphevLukk" aria-label="Lukk"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M25.403 24l10.259-10.259-1.403-1.403L24 22.597l-10.259-10.26-1.403 1.403L22.597 24 12.338 34.26l1.403 1.403L24 25.403l10.259 10.259 1.403-1.403z"/></svg></button>
+      <div class="gm__top">
+        <h2 class="gm__title" id="opphevTittel">Oppheve sperringen?</h2>
+        <p class="gm__ingress" id="opphevTekst">Helsepersonell som behandler deg, kan igjen se dette svaret. Du kan sperre det på nytt senere.</p>
+      </div>
+      <div class="gm__buttons">
+        <button type="button" class="btn btn--fill" id="opphevBekreft"><span>Opphev sperring</span></button>
+        <button type="button" class="btn btn--borderless" id="opphevAvbryt"><span>Avbryt</span></button>
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════════════
        FOOTER
@@ -935,6 +964,71 @@ function referanseGraf(verdi, lav, hoy) {
       <div class="expander-list-link__main-content${open ? ' expander-list-link__main-content--expanded' : ''}" id="exp${i + 1}Content">${innhold}</div>
     </li>`;
   }).join('');
+})();
+
+// ─── Sperret state (spec §4.6–4.7): banner, unblock dialog, toasts.
+(function () {
+  const params = new URLSearchParams(location.search);
+  const id = params.get('id') || '1';
+  const r = RESULTATER[id] || RESULTATER[1];
+  const wrap = document.getElementById('sperretWrap');
+  const overlay = document.getElementById('opphevModal');
+  const dialog = overlay.querySelector('.gm');
+  const screen = document.querySelector('.phone-frame__screen');
+  const opphevBtn = document.getElementById('opphevBtn');
+  let lastFocus = null, scroller = null;
+  function visBanner() {
+    const dato = sperretDato(id);
+    wrap.hidden = !dato;
+    if (dato) document.getElementById('sperretTekst').textContent = `Du sperret svaret ${dato}. Annet helsepersonell kan ikke se det. Legen som bestilte prøven, ser det fortsatt.`;
+  }
+  function apne() {
+    lastFocus = document.activeElement;
+    const inner = getComputedStyle(screen).overflowY !== 'visible';
+    scroller = inner ? screen : document.documentElement;
+    overlay.style.top = (inner ? screen.scrollTop : Math.max(0, -screen.getBoundingClientRect().top)) + 'px';
+    overlay.style.height = (inner ? screen.clientHeight : window.innerHeight) + 'px';
+    scroller.style.overflow = 'hidden';
+    overlay.hidden = false;
+    document.getElementById('opphevBekreft').focus();
+  }
+  function lukk(fokus) {
+    overlay.hidden = true;
+    if (scroller) scroller.style.overflow = '';
+    const el = fokus || lastFocus || opphevBtn;
+    if (!el.matches('button, a, input, select, [tabindex]')) el.setAttribute('tabindex', '-1');
+    el.focus();
+  }
+  opphevBtn.addEventListener('click', apne);
+  document.getElementById('opphevLukk').addEventListener('click', () => lukk());
+  document.getElementById('opphevAvbryt').addEventListener('click', () => lukk());
+  overlay.addEventListener('click', e => { if (e.target === overlay) lukk(); });
+  document.addEventListener('keydown', e => {
+    if (overlay.hidden) return;
+    if (e.key === 'Escape') { lukk(); return; }
+    if (e.key !== 'Tab') return;
+    const f = dialog.querySelectorAll('button');
+    const first = f[0], last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  });
+  const bekreft = document.getElementById('opphevBekreft');
+  bekreft.addEventListener('click', async () => {
+    if (bekreft.getAttribute('aria-busy') === 'true') return;   // no double submit
+    settOpptatt(bekreft, true);
+    await simulertApi();
+    settSperret(id, null);
+    loggHendelse(`Du opphevet sperringen av prøvesvaret ${resultatNavn(r)}.`);
+    settOpptatt(bekreft, false);
+    lukk(document.getElementById('sidetittel'));
+    visBanner();
+    visToast('Svaret er synlig for helsepersonell igjen.');
+  });
+  visBanner();
+  // Arriving from the block flow, or from Personvernvalg's "Opphev sperring".
+  if (params.get('status') === 'sperret' && sperretDato(id)) visToast('Svaret er sperret for helsepersonell');
+  if (params.get('opphev') === '1' && sperretDato(id)) apne();
+  if (params.has('status') || params.has('opphev')) history.replaceState(null, '', `resultat.html?id=${encodeURIComponent(id)}`);
 })();
 
 // ─── Flere valg (PopMenu): ⋯ ↔ X, closes on Esc / outside click,
