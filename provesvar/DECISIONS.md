@@ -19,4 +19,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Keeping it as in the live page's markup.
 **Why:** Direct user request.
 
+## 2026-10-08 — "Velg om du vil få varsel om prøvesvar" help expander under the ingress
+**Decision:** Added the live page's HelpExpanderStandalone, rebuilt from the installed design-system styles (HelpTriggerStandalone + standalone HelpDetails, mobile values). It toggles open/closed with ChevronDown/ChevronUp. The opened text is a draft, "Du får ikke automatisk varsel når et prøvesvar er klart. Vil du ha varsel, kan du slå det på i varselinnstillingene dine.", based on the Førstegangsvarsel copy (varsler for prøvesvar now need to be actively switched on).
+**Alternative considered:** Leaving the expander's content empty, or lorem ipsum.
+**Why:** User supplied the live markup for the trigger; the live markup doesn't include the opened content, so a plausible draft stands in until the real wording is supplied.
+
 #helsenorge
