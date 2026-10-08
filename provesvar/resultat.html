@@ -566,9 +566,17 @@ a:focus-visible, button:focus-visible {
    real HelpBubble popover; definitions are drafts). */
 .dictionary-bubble { grid-column: 1 / -1; margin: 0 0 0.75rem; font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); background: var(--color-help-background-normal); border: 1px solid var(--color-help-border-subtle-wcag); border-radius: 0.25rem; padding: 0.75rem 1rem; }
 .dictionary-bubble[hidden] { display: none; }
-dd .dictionary-bubble { margin: 0.5rem 0 0; }
-/* Each undersøkelse block in the "Prøvesvar (n)" expander. */
-.undersokelse + .undersokelse { margin-top: var(--space-l); }
+dd .dictionary-bubble, dt .dictionary-bubble { display: block; margin: 0.5rem 0; font-weight: 400; }
+dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
+/* Undersøkelse blocks in the "Prøvesvar (n)" expander follow each
+   other directly; blocks with a history button end with a Spacer l. */
+.body-text { font: var(--mobile-body); color: var(--color-base-text-onlight); }
+/* Avviksmarkør: shown after a value outside the reference range. Its
+   live styling isn't known; shown as regular text after the value. */
+.avviksmarkor { display: block; }
+/* Reference-range chart (live: Highcharts, 323×175). */
+.undersokelse__graf { margin: 0 0 var(--space-2xs); }
+.referanse-graf { display: block; width: 100%; max-width: 323px; height: auto; }
 
 /* HighlightPanel, blueberry, with icon (mobile: icon above content). */
 .highlightpanel { width: 344px; display: flex; flex-direction: column; padding: var(--space-m) var(--space-s) var(--space-l); background: var(--color-base-background-blueberry); border: 1px solid var(--color-base-border-blueberry); font: var(--mobile-body); color: var(--color-base-text-onlight); }
@@ -738,25 +746,7 @@ dd .dictionary-bubble { margin: 0.5rem 0 0; }
 
   <span class="spacer--l"></span>
 
-  <ul class="expander-list" data-analyticsid="expander-list">
-    <li class="expander-list__item--line">
-      <button type="button" class="expander-list-link" id="exp1" aria-expanded="true" aria-controls="exp1Content"><span class="element-header"><span class="element-header__content"><h2 class="element-header__title" id="exp1Title">Prøvesvar (1)</h2></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z"/></svg></span></span></button>
-      <div class="expander-list-link__main-content expander-list-link__main-content--expanded" id="exp1Content">
-        <dl class="duolist-stack">
-          <dt>Undersøkelse</dt>
-          <dd><div>CRP</div><div>Pasientnær analyse</div></dd>
-          <dt>Laboratorieresultat</dt>
-          <dd><div>123</div></dd>
-        </dl>
-        <span class="spacer--s"></span>
-        <button type="button" class="btn-borderless btn-borderless--left"><svg viewBox="0 0 48 48" width="38" height="38" fill="#126F87" aria-hidden="true"><path d="M8.4 7.625H7.1v32.65h32.65v-1.3H8.4V7.625Z"/><path fill-rule="evenodd" d="M17.123 33.106a2.519 2.519 0 1 1-1.825-2.422l3.3-5.524a2.516 2.516 0 1 1 4.333-1.65L28 24.996a2.51 2.51 0 0 1 2.987-1.121l4.852-7.617a2.52 2.52 0 1 1 1.124.654L32.069 24.6a2.511 2.511 0 1 1-4.403 1.652l-5.114-1.498a2.515 2.515 0 0 1-2.843 1.082l-3.295 5.517c.44.454.71 1.072.71 1.753Zm-1.3 0a1.219 1.219 0 1 1-2.437 0 1.219 1.219 0 0 1 2.437 0Zm4.593-8.469a1.216 1.216 0 1 0 0-2.433 1.216 1.216 0 0 0 0 2.433Zm10.971 1.615a1.211 1.211 0 1 1-2.422 0 1.211 1.211 0 0 1 2.422 0Zm6.24-10.552a1.22 1.22 0 1 0 0-2.441 1.22 1.22 0 0 0 0 2.44Z"/></svg><span>Vis undersøkelseshistorikk</span></button>
-</div>
-    </li>
-    <li class="expander-list__item--line">
-      <button type="button" class="expander-list-link" id="exp2" aria-expanded="false" aria-controls="exp2Content"><span class="element-header"><span class="element-header__content"><h2 class="element-header__title">Tilleggsinformasjon (0)</h2></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg></span></span></button>
-      <div class="expander-list-link__main-content" id="exp2Content"><p style="font: var(--mobile-body);">Ingen tilleggsinformasjon.</p></div>
-    </li>
-  </ul>
+  <ul class="expander-list" data-analyticsid="expander-list" id="expList"></ul>
 
   <span class="spacer--l"></span>
 
@@ -823,40 +813,152 @@ dd .dictionary-bubble { margin: 0.5rem 0 0; }
 
 <script>
 // ─── Result data (?id=N, matching the list on index.html) ─────────
-// From the live page's test data. Word explanations (forklaring) are
-// drafts. Result 2's "Utført av" isn't in the supplied markup; it
-// follows result 1's pattern (the institution from the rekvirent).
-const RESULTATER = {
-  1: {
-    omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '18.03.2026',
-    rekvirert: 'Uavhengig Fjernsyn, WebMed Test HelseNorge -TREG VOKAL KATT SKORPION',
-    utfort: 'WebMed Test HelseNorge -TREG VOKAL KATT SKORPION',
-    undersokelser: [
-      { navn: 'CRP', merknad: 'Pasientnær analyse', resultat: '123' },
-    ],
-  },
-  2: {
-    omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '19.02.2026',
-    rekvirert: 'WebMed Demobruker, Evila Øyelegeseter AS',
-    utfort: 'Evila Øyelegeseter AS',
-    undersokelser: [
-      { navn: 'S-CRP', navnForklaring: 'C-reaktivt protein (CRP) målt i serum. CRP stiger ved betennelse og infeksjon i kroppen.',
-        merknad: 'Pasientnær analyse', resultat: '21',
-        enhet: 'mg/l', enhetForklaring: 'Milligram per liter: hvor mange milligram av stoffet det er i én liter blod.' },
-    ],
-  },
+// From the live page's test data, one entry per list item. Text uses
+// {Term} for words with an ordforklaring (word explanation); the
+// explanations in ORDFORKLARINGER are drafts. "Utført av" for results
+// 2–9 and the eyebrow for Cytologi aren't in the supplied markup:
+// Utført av follows result 1's pattern (the institution from the
+// rekvirent); Cytologi's eyebrow is assumed to be "Patologi".
+const ORDFORKLARINGER = {
+  'Rekvirert av:': 'Den som ba om at prøven skulle tas, for eksempel fastlegen din.',
+  'Utført av:': 'Laboratoriet eller virksomheten som analyserte prøven.',
+  'Referanseområde': 'Området der verdiene til de fleste friske personer ligger. En verdi utenfor betyr ikke nødvendigvis at noe er galt.',
+  'Mengde': 'Hvor mange bakterier som ble funnet i prøven.',
+  'S-CRP': 'C-reaktivt protein (CRP) målt i serum. CRP stiger ved betennelse og infeksjon i kroppen.',
+  'mg/l': 'Milligram per liter: hvor mange milligram av stoffet det er i én liter blod.',
+  'mg/L': 'Milligram per liter: hvor mange milligram av stoffet det er i én liter blod.',
+  'U-Leukocytter': 'Hvite blodceller i urinen. Kan tyde på betennelse eller infeksjon i urinveiene.',
+  'U-Kreatinin': 'Et avfallsstoff fra musklene, målt i urinen. Brukes blant annet til å vurdere hvor konsentrert urinen er.',
+  'Us-SARS-relatert koronavirus': 'Test som påviser koronavirus, inkludert SARS-CoV-2, i en prøve fra luftveiene.',
+  'HPV': 'Humant papillomavirus. Noen typer kan over tid gi celleforandringer i livmorhalsen.',
+  'cervixcytologi': 'Undersøkelse av celler fra livmorhalsen.',
+  'Cervix': 'Livmorhalsen.',
+  'Us-FT4': 'Fritt tyroksin, et hormon fra skjoldbruskkjertelen.',
+  'pmol/L': 'Pikomol per liter.',
+  'P-D-dimer': 'Et nedbrytningsprodukt fra blodpropper. Brukes blant annet til å utelukke blodpropp.',
+  'B-Leukocytter': 'Hvite blodceller i blodet. Er ofte forhøyet ved infeksjon.',
+  '10E9/L': 'Milliarder celler per liter blod.',
+  'B-Hemoglobin': 'Proteinet i de røde blodcellene som frakter oksygen rundt i kroppen.',
+  'g/dL': 'Gram per desiliter.',
+  'Us-TSH': 'Tyreoideastimulerende hormon. Styrer hvor mye hormon skjoldbruskkjertelen lager.',
+  'P-INR': 'Et mål på hvor raskt blodet levrer seg.',
+  'Us-FSH': 'Follikkelstimulerende hormon.',
+  'IU/L': 'Internasjonale enheter per liter.',
+  'U/L': 'Enheter per liter.',
+  'U-Bakterier dyrkning': 'Urinprøven er dyrket for å se om det vokser bakterier i den.',
 };
+// Building blocks. A block is { rows: [[dt, dd], …], historikk, graf }.
+const PNA = 'Pasientnær analyse';
+const lab = (navn, resultat, extra = []) => ({ rows: [['Undersøkelse', [navn, PNA]], ['Laboratorieresultat', resultat], ...extra], historikk: true });
+const ref = (navn, resultat, omrade, enhet, opts = {}) => ({
+  rows: [['Undersøkelse', navn], ['Resultat', resultat, opts.avvik], ['{Referanseområde}', omrade], ['Måleenhet', enhet]],
+  historikk: true, graf: opts.graf,
+});
+const LUKKET = (tittel, tekst) => ({ tittel, tekst });
+const CYTOLOGI_BLOKKER = [
+  { rows: [['Aktuell problemstilling', 'Her kan rekvirenten legge inn kliniske opplysninger som er viktige for denne rekvisisjonen']] },
+  { rows: [['Undersøkelse', ['Cytologi', '{HPV}-test']],
+           ['Funn og resultater fra undersøkelser', 'Normal {cervixcytologi}.\nHøyrisiko {HPV} påvist.\n\nNy livmorhalsprøve til {HPV}-test anbefales om 24 måneder, ifølge retningslinjene i Livmorhalsprogrammet, forutsatt at kliniske funn ikke tilsier annet.'],
+           ['Prøvemateriale', '{Cervix}']] },
+  { rows: [['Vurdering', 'Tilstedeværelse av sylinderepitel er en kvalitetsindikator, men manglende sylinderepitel gjør ikke prøven uegnet.']] },
+  { rows: [['Undersøkelse', '{HPV} 16'], ['Resultat', 'Negativ']] },
+  { rows: [['Undersøkelse', '{HPV} 18'], ['Resultat', 'Negativ']] },
+  { rows: [['Undersøkelse', '{HPV} andre typer'], ['Resultat', 'Positiv'],
+           ['Kommentar', 'Det er utført {HPV}-undersøkelse med Cobas 6800. Følgende høyrisikovirus er undersøkt: 31, 33, 35, 39, 45, 51, 52, 56, 58, 59, 66 og 68.']] },
+];
+const IKKE_MED = 'Innholdet her er ikke med i prototypen ennå.';
+const RESULTATER = {
+  1: { omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '18.03.2026',
+       rekvirert: 'Uavhengig Fjernsyn, WebMed Test HelseNorge -TREG VOKAL KATT SKORPION', utfort: 'WebMed Test HelseNorge -TREG VOKAL KATT SKORPION',
+       ekspandere: [{ tittel: 'Prøvesvar (1)', blokker: [lab('CRP', '123')] }, LUKKET('Tilleggsinformasjon (0)', 'Ingen tilleggsinformasjon.')] },
+  2: { omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '19.02.2026',
+       rekvirert: 'WebMed Demobruker, Evila Øyelegeseter AS', utfort: 'Evila Øyelegeseter AS',
+       ekspandere: [{ tittel: 'Prøvesvar (1)', blokker: [lab('{S-CRP}', '21', [['Måleenhet', '{mg/l}']])] }, LUKKET('Tilleggsinformasjon (0)', 'Ingen tilleggsinformasjon.')] },
+  3: { omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '30.01.2026',
+       rekvirert: 'Grønn Vits, WebMed Test HelseNorge', utfort: 'WebMed Test HelseNorge',
+       ekspandere: [{ tittel: 'Prøvesvar (7)', blokker: [lab('{U-Leukocytter}', '1'), lab('U-Protein', '1'), lab('U-Blod', '1'), lab('U-Spesifikk vekt', '1'), lab('U-Ketoner', '1'), lab('U-Nitritt', '1'), lab('{U-Kreatinin}', '1')] },
+                    LUKKET('Tilleggsinformasjon (0)', 'Ingen tilleggsinformasjon.')] },
+  4: { omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '29.01.2026',
+       rekvirert: 'Grønn Vits, Evila Øyelegeseter AS', utfort: 'Evila Øyelegeseter AS',
+       ekspandere: [{ tittel: 'Prøvesvar (1)', blokker: [lab('Hurtigtest COVID19', 'neg')] }, LUKKET('Tilleggsinformasjon (0)', 'Ingen tilleggsinformasjon.')] },
+  5: { omrade: 'Medisinsk mikrobiologi', fagomrade: 'Laboratoriemedisin', dato: '13.01.2026',
+       rekvirert: 'Kommuneoverlege Gro K, Trondheim kommune - Smittevern', utfort: 'Trondheim kommune - Smittevern',
+       ekspandere: [{ tittel: 'Prøvesvar (1)', blokker: [{ rows: [['Undersøkelse', '{Us-SARS-relatert koronavirus} (inkl. SARS-CoV-2) antigen'], ['Laboratorieresultat', 'Påvist'], ['Prøvemateriale', 'Hals+nasopharynxsekret'], ['Kommentar', 'Her kan man legge inn en kommentar til resultatet ved behov']], historikk: true }] },
+                    LUKKET('Prøvemateriale (1)', IKKE_MED), LUKKET('Tilleggsinformasjon (2)', IKKE_MED)] },
+  6: { omrade: 'Cytologi', fagomrade: 'Patologi', dato: '11.09.2025',
+       rekvirert: 'NORSK HELSENETT SF, Pasientens prøvesvar', utfort: 'NORSK HELSENETT SF',
+       ekspandere: [{ tittel: 'Prøvesvar', blokker: CYTOLOGI_BLOKKER }, LUKKET('Detaljer om prøvesvar', IKKE_MED), LUKKET('Prøvemateriale (1)', IKKE_MED), LUKKET('Tilleggsinformasjon (0)', 'Ingen tilleggsinformasjon.')] },
+  7: { omrade: 'Medisinsk biokjemi', fagomrade: 'Laboratoriemedisin', dato: '04.08.2025',
+       rekvirert: 'Sulten Lege, LIS1, Kattskinnet legesenter', utfort: 'Kattskinnet legesenter',
+       ekspandere: [{ tittel: 'Prøvesvar (8)', blokker: [
+         ref('{Us-FT4}', '11', '10 - 22', '{pmol/L}', { graf: [11, 10, 22] }),
+         ref('{P-D-dimer}', '0,4', '< 0,5', '{mg/L}'),
+         ref('Us-LH', '14', '< 12', '{IU/L}', { avvik: '(over øvre referanseområde)' }),
+         ref('{B-Leukocytter}', '11', '3,5 - 11,0', '{10E9/L}', { graf: [11, 3.5, 11] }),
+         ref('{B-Hemoglobin}', '15', '11,7 - 15,3', '{g/dL}', { graf: [15, 11.7, 15.3] }),
+         ref('{Us-TSH}', '4,4', '0,3 - 4,5', '10E-3/L', { graf: [4.4, 0.3, 4.5] }),
+         ref('{P-INR}', '1,1', '< 1,2', '0'),
+         ref('{Us-FSH}', '11', '< 12', '{U/L}'),
+       ] }, LUKKET('Prøvemateriale (3)', IKKE_MED), LUKKET('Tilleggsinformasjon (2)', IKKE_MED)] },
+  8: { omrade: 'Medisinsk mikrobiologi', fagomrade: 'Laboratoriemedisin', dato: '04.08.2025',
+       rekvirert: 'Sulten Lege, LIS1, Kattskinnet legesenter', utfort: 'Kattskinnet legesenter',
+       ekspandere: [{ tittel: 'Prøvesvar (2)', blokker: [
+         { rows: [['Undersøkelse', '{U-Bakterier dyrkning}'], ['Funn 1', 'Escherichia coli'], ['Prøvemateriale', 'Urin'], ['{Mengde}', '>100.000 bakterier pr.ml.']], historikk: true },
+         { rows: [['Undersøkelse', '{U-Bakterier dyrkning}'], ['Funn 2', 'Klebsiella pneumoniae'], ['Prøvemateriale', 'Urin'], ['{Mengde}', '>1000 CFU/1000 ml.']], historikk: true },
+       ] }, LUKKET('Resistensbestemmelse (5)', IKKE_MED), LUKKET('Prøvemateriale (1)', IKKE_MED), LUKKET('Tilleggsinformasjon (1)', IKKE_MED)] },
+  9: { omrade: 'Cytologi', fagomrade: 'Patologi', dato: '20.09.2024',
+       rekvirert: 'NORSK HELSENETT SF, Pasientens prøvesvar', utfort: 'NORSK HELSENETT SF',
+       ekspandere: [{ tittel: 'Prøvesvar', blokker: CYTOLOGI_BLOKKER }, LUKKET('Detaljer om prøvesvar', IKKE_MED), LUKKET('Prøvemateriale (1)', IKKE_MED), LUKKET('Tilleggsinformasjon (0)', 'Ingen tilleggsinformasjon.')] },
+};
+
 const CHART_ICON = '<svg viewBox="0 0 48 48" width="38" height="38" fill="#126F87" aria-hidden="true"><path d="M8.4 7.625H7.1v32.65h32.65v-1.3H8.4V7.625Z"/><path fill-rule="evenodd" d="M17.123 33.106a2.519 2.519 0 1 1-1.825-2.422l3.3-5.524a2.516 2.516 0 1 1 4.333-1.65L28 24.996a2.51 2.51 0 0 1 2.987-1.121l4.852-7.617a2.52 2.52 0 1 1 1.124.654L32.069 24.6a2.511 2.511 0 1 1-4.403 1.652l-5.114-1.498a2.515 2.515 0 0 1-2.843 1.082l-3.295 5.517c.44.454.71 1.072.71 1.753Zm-1.3 0a1.219 1.219 0 1 1-2.437 0 1.219 1.219 0 0 1 2.437 0Zm4.593-8.469a1.216 1.216 0 1 0 0-2.433 1.216 1.216 0 0 0 0 2.433Zm10.971 1.615a1.211 1.211 0 1 1-2.422 0 1.211 1.211 0 0 1 2.422 0Zm6.24-10.552a1.22 1.22 0 1 0 0-2.441 1.22 1.22 0 0 0 0 2.44Z"/></svg>';
+const CHEV_UP = 'M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z';
+const CHEV_DOWN = 'M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z';
+
+// Reference-range chart, redrawn as static SVG from the live page's
+// Highcharts output (323×175, plot 283×135 at 20,40): a blueberry-200
+// band for the reference range, a thin black axis, the value as a dot
+// with a bubble above it, and the range limits labelled under the band.
+function referanseGraf(verdi, lav, hoy) {
+  const x0 = 15.386, x1 = 267.614;
+  const fmt = n => String(n).replace('.', ',');
+  const x = Math.max(2.77, Math.min(280.2, x0 + (verdi - lav) / (hoy - lav) * (x1 - x0)));
+  const tekst = fmt(verdi), bw = 20 + 8 * tekst.length;
+  const lavT = fmt(lav), hoyT = fmt(hoy);
+  const label = (t, cx) => { const w = 10 + 7 * t.length; return `<g transform="translate(${(20 + cx - w / 2).toFixed(1)},113)"><text x="${w / 2}" y="17" text-anchor="middle" font-size="12">${t}</text></g>`; };
+  return `<svg class="referanse-graf" viewBox="0 0 323 175" width="323" height="175" aria-hidden="true" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+    <g transform="translate(20,40)">
+      <path d="M ${x0} 56.25 L ${x1} 56.25 L ${x1} 33.75 L ${x0} 33.75 Z" fill="#AFDAE3" fill-opacity="0.75" stroke="#AFDAE3" stroke-width="1"/>
+      <path d="M 2.77 45 L 280.23 45" stroke="#000" stroke-width="1"/>
+      <circle cx="${x.toFixed(1)}" cy="45" r="4" fill="#000"/>
+      <g transform="translate(${(x - bw / 2).toFixed(1)},-19)">
+        <path d="M 5 0 L ${bw - 5} 0 A 5 5 0 0 1 ${bw} 5 L ${bw} 34 A 5 5 0 0 1 ${bw - 5} 39 L ${bw / 2 + 6} 39 L ${bw / 2} 45 L ${bw / 2 - 6} 39 L 5 39 A 5 5 0 0 1 0 34 L 0 5 A 5 5 0 0 1 5 0 Z" fill="#fff" stroke="#000" stroke-width="2"/>
+        <text x="${bw / 2}" y="25" text-anchor="middle" font-size="16" font-weight="700">${tekst}</text>
+      </g>
+    </g>
+    ${label(lavT, x0)}${label(hoyT, x1)}
+  </svg>`;
+}
+
 (function renderResultat() {
   const id = new URLSearchParams(location.search).get('id') || '1';
   const r = RESULTATER[id] || RESULTATER[1];
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   let n = 0;
-  const ord = (word, forklaring) => {
-    if (!forklaring) return esc(word);
+  // {Term} → dictionary trigger; its (hidden) explanation box is queued
+  // and placed after the whole text (flush()), so opening one doesn't
+  // split a sentence in two. \n → line break.
+  let pending = [];
+  const tekst = t => esc(t).replace(/\{([^}]+)\}/g, (m, ord) => {
+    const forklaring = ORDFORKLARINGER[ord];
+    if (!forklaring) return ord;
     const bid = 'ord' + (++n);
-    return `<button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="${bid}"><span class="sr-only">Åpne ordforklaring </span>${esc(word)}</button><div class="dictionary-bubble" id="${bid}" hidden>${esc(forklaring)}</div>`;
-  };
+    pending.push(`<span class="dictionary-bubble" id="${bid}" hidden>${esc(forklaring)}</span>`);
+    return `<button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="${bid}"><span class="sr-only">Åpne ordforklaring </span>${ord}</button>`;
+  }).replace(/\n/g, '<br>');
+  const flush = () => { const b = pending.join(''); pending = []; return b; };
+  const dd = v => (Array.isArray(v) ? v.map(x => `<div>${tekst(x)}</div>`).join('') : `<div>${tekst(v)}</div>`) + flush();
+
   document.title = `${r.omrade} – Prøvesvar – Helsenorge`;
   document.getElementById('valFagomrade').textContent = r.fagomrade;
   // Title: the last word and the help trigger stay together on one line.
@@ -868,19 +970,27 @@ const CHART_ICON = '<svg viewBox="0 0 48 48" width="38" height="38" fill="#126F8
   document.getElementById('valDato').textContent = r.dato;
   document.getElementById('valRekvirert').textContent = r.rekvirert;
   document.getElementById('valUtfort').textContent = r.utfort;
-  document.getElementById('exp1Title').textContent = `Prøvesvar (${r.undersokelser.length})`;
-  document.getElementById('exp1Content').innerHTML = r.undersokelser.map(u => `
+
+  const blokk = b => `
         <div class="undersokelse">
-          <dl class="duolist-stack">
-            <dt>Undersøkelse</dt>
-            <dd><div>${ord(u.navn, u.navnForklaring)}</div>${u.merknad ? `<div>${esc(u.merknad)}</div>` : ''}</dd>
-            <dt>Laboratorieresultat</dt>
-            <dd><div>${esc(u.resultat)}</div></dd>
-            ${u.enhet ? `<dt>Måleenhet</dt><dd>${ord(u.enhet, u.enhetForklaring)}</dd>` : ''}
-          </dl>
+          <dl class="duolist-stack">${b.rows.map(([dt, v, avvik]) => `
+            <dt>${tekst(dt)}${flush()}</dt>
+            <dd>${dd(v)}${avvik ? `<span class="avviksmarkor">${esc(avvik)}</span>` : ''}</dd>`).join('')}
+          </dl>${b.graf ? `
+          <div class="undersokelse__graf">${referanseGraf(...b.graf)}</div>` : ''}${b.historikk ? `
           <span class="spacer--s"></span>
           <button type="button" class="btn-borderless btn-borderless--left">${CHART_ICON}<span>Vis undersøkelseshistorikk</span></button>
-        </div>`).join('');
+          <span class="spacer--l"></span>` : ''}
+        </div>`;
+  document.getElementById('expList').innerHTML = r.ekspandere.map((e, i) => {
+    const open = i === 0;
+    const innhold = e.blokker ? e.blokker.map(blokk).join('') : `<p class="body-text">${esc(e.tekst)}</p>`;
+    return `
+    <li class="expander-list__item--line">
+      <button type="button" class="expander-list-link" id="exp${i + 1}" aria-expanded="${open}" aria-controls="exp${i + 1}Content"><span class="element-header"><span class="element-header__content"><h2 class="element-header__title">${esc(e.tittel)}</h2></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="${open ? CHEV_UP : CHEV_DOWN}"/></svg></span></span></button>
+      <div class="expander-list-link__main-content${open ? ' expander-list-link__main-content--expanded' : ''}" id="exp${i + 1}Content">${innhold}</div>
+    </li>`;
+  }).join('');
 })();
 
 // ─── Language picker: opens/closes; choosing marks the language
@@ -914,13 +1024,15 @@ document.addEventListener('click', e => {
   document.getElementById(t.getAttribute('aria-controls')).hidden = !open;
 });
 
-// ─── ExpanderList ────────────────────────────────────────────────
-document.querySelectorAll('.expander-list-link').forEach(btn => btn.addEventListener('click', () => {
+// ─── ExpanderList (delegated: the items are rendered from data) ───
+document.getElementById('expList').addEventListener('click', e => {
+  const btn = e.target.closest('.expander-list-link');
+  if (!btn) return;
   const open = btn.getAttribute('aria-expanded') !== 'true';
   btn.setAttribute('aria-expanded', String(open));
   document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('expander-list-link__main-content--expanded', open);
-  btn.querySelector('.element-header__chevron path').setAttribute('d', open ? 'M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z' : 'M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z');
-}));
+  btn.querySelector('.element-header__chevron path').setAttribute('d', open ? CHEV_UP : CHEV_DOWN);
+});
 
 // HelpExpanderStandalone: toggles the details and swaps
 // ChevronDown ↔ ChevronUp, like the real component.

@@ -49,4 +49,10 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** A separate copy of the page per result.
 **Why:** User is supplying the results one at a time ("Results section #2"); one template plus data avoids nine near-identical files drifting apart.
 
+## 2026-10-08 — Results 3–9 added; richer data model; reference-range charts
+**Decision:** All nine results now have detail pages (`resultat.html?id=1…9`, ids matching the list's records, all linked). The data model moved from one "undersøkelser" list to per-result expanders, each with blocks of [label, value] rows, so the varied live layouts fit: urine dipstick (7 blocks), COVID tests, SARS antigen with Prøvemateriale/Kommentar, cytology/HPV (blocks without a history button, multi-paragraph findings), the 8-analyte blood panel (Referanseområde, avviksmarkør for Us-LH) and urine cultures (Funn, Mengde). Word explanations come from one glossary keyed by term (drafts, ~25 terms). For two-sided reference ranges (FT4, B-Leukocytter, B-Hemoglobin, TSH) the live Highcharts chart is redrawn as a static SVG with the same geometry (band, axis, value dot and bubble, limit labels). Explanation boxes for words inside running text open after the whole text, not mid-sentence.
+Assumed (not in the supplied markup): "Utført av" for results 2–9 (the institution from the rekvirent), Cytologi's eyebrow ("Patologi"), the avviksmarkør's styling (plain text under the value), and the content of collapsed expanders other than "Tilleggsinformasjon (0)" (placeholder text).
+**Alternative considered:** One static page per result; embedding Highcharts.
+**Why:** User supplied the results sections for 3–9. Static SVG keeps the prototype dependency-free and matches the rendered chart.
+
 #helsenorge
