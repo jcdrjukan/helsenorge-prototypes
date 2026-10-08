@@ -14,4 +14,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Keeping the placeholder ingress and a bare title.
 **Why:** User supplied the live page's source code for the title and ingress.
 
+## 2026-10-08 — Help trigger removed from the page header
+**Decision:** The HelpTriggerIcon next to the title is gone; the title row is now title + favourite star.
+**Alternative considered:** Keeping it as in the live page's markup.
+**Why:** Direct user request.
+
 #helsenorge
