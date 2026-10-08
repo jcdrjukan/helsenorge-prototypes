@@ -107,3 +107,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Why:** User: the inline approach was "severely broken"; descriptions should show in a pop-up layer, as on the live page.
 
 #helsenorge
+
+## 2026-10-08 — Personvernvalg choices use the boxed LinkList from Figma
+**Decision:** The two choices on Personvernvalg ("Sperr svaret for helsepersonell", "Slett svaret fra Helsenorge") now follow the "Sperr Slett" LinkList in CLD - Prøvesvar (Figma 3:4504): 1px #7D7C79 outer border; each row a white element in an 8px #EAE7E7 frame (frames overlap), a line under the header, SemiBold 18/1.2 title, 16/1.2 #474745 hint, teal (#188097) chevron. Implemented as a `link-list--boxed` modifier on this list only; the "Se logg over bruk" list keeps the plain line style. The header's 8px vertical padding is dropped so the rows come out at the Figma instance's height (118px).
+**Alternative considered:** The plain line-variant LinkList used until now.
+**Why:** User supplied the Figma element and asked for the prototype to match.
