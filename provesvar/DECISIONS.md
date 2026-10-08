@@ -24,4 +24,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Leaving the expander's content empty, or lorem ipsum.
 **Why:** User supplied the live markup for the trigger; the live markup doesn't include the opened content, so a plausible draft stands in until the real wording is supplied.
 
+## 2026-10-08 — Tabs: Prøvesvar list and Analyseoversikt, from the live markup
+**Decision:** Below the help expander: a Spacer (s), then the real Tabs component's white, sticky, full-width variant with "Prøvesvar" and "Analyseoversikt". The Prøvesvar tab has the filter row (FilterButton "Finn ...", result count, FilterSort select) and an outline PanelList of 9 Panels with the live page's test data. Built from the installed design-system styles (Tabs, Spacer, Filter*, Select, PanelList, Panel, PanelTitle, Duolist, borderless Button); the Tabs port reuses gravid/uke-for-uke.html's. The sort select actually re-orders the list (Dato/Område/Rekvirent, asc/desc; default newest first, matching the live order). "Finn ...", "Se resultater" and the Analyseoversikt content are not built yet.
+**Alternative considered:** A static, unsortable copy of the list.
+**Why:** User supplied the live page's markup and described the two tabs' purposes. Making the sort work costs little and makes the prototype behave as expected when clicked.
+
 #helsenorge

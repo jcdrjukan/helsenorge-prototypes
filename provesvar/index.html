@@ -13,6 +13,15 @@
    (Copied from gravid/avslutt.html, a subset of gravid/index.html's token set.)
 ───────────────────────────────────────────────────────────── */
 :root {
+  --color-action-border-onlight: #188097;
+  --color-action-text-onlight-hover: #08667C;
+  --neutral-50: #F5F3F3;
+  --core-color-neutral-100: #EAE7E7;
+  --core-color-neutral-300: #BDBAB9;
+  --color-base-border-neutral-emphasized: #BDBAB9;
+  --color-action-graphics-onlight: #188097;
+  --color-action-graphics-onlight-hover: #126F87;
+  --color-action-background-onlight-active: #06596C;
   --color-help-graphics-normal: #5C27A1;
   --color-help-graphics-verydark: #3C1471;
   --color-help-background-transparent-onlight-hover: #6C36B31A;
@@ -347,6 +356,100 @@ a:focus-visible, button:focus-visible {
 .help-details__content { padding: 1rem 1rem 1rem 2.25rem; }
 
 /* ═══════════════════════════════════════════════════════════
+   TABS (Prøvesvar / Analyseoversikt) — real Tabs component, white
+   variant, sticky, breaking out to the full screen width, from the
+   live page's markup. TabList/TabPanel values as in
+   gravid/uke-for-uke.html's port, plus the white/sticky bits from
+   Tabs/styles.module.scss: the sticky wrapper holds the tab list and a
+   50px white→transparent gradient; the panel is pulled up 50px under it.
+══════════════════════════════════════════════════════════════ */
+.tabs { width: 100%; }
+.tab-list-sticky { position: sticky; top: 0; z-index: 3; }
+.tab-list-wrapper { position: relative; width: 100%; }
+.tab-list {
+  position: relative; display: flex; flex-direction: row; gap: 0.25rem;
+  list-style-type: none; white-space: nowrap; overflow: auto hidden;
+  height: 3rem; margin: 0 0 -1px; padding: 0 0.5rem;
+  background-color: #fff; scrollbar-width: none;
+}
+.tab-list::-webkit-scrollbar { display: none; }
+.tab-list__tab {
+  display: flex; align-items: start; background-color: #fff; height: 3rem;
+  text-align: start; font: 400 1.25rem/1.2 'Source Sans Pro', sans-serif;
+  padding: 0.5rem 1.5rem; color: var(--color-action-text-onlight);
+  border: 1px solid var(--color-action-border-onlight); border-bottom: 0;
+  border-radius: 0.5rem 0.5rem 0 0; position: relative; cursor: pointer; z-index: 0;
+}
+.tab-list__tab--selected { border-color: var(--color-action-border-onlight-focus); color: var(--color-base-text-onlight); z-index: 2; }
+.tab-list__tab--not-selected:hover { background-color: var(--color-action-background-transparent-onlight-hover); }
+.tab-list__tab__title-and-icon { display: flex; align-items: center; gap: 0.5rem; height: 2rem; }
+.tab-list__border { position: absolute; z-index: 1; pointer-events: none; bottom: 0; left: 0; width: 100%; border-bottom: 1px solid var(--color-action-border-onlight-focus); }
+.panel-wrapper { position: relative; width: 100%; height: 50px; background: linear-gradient(#fff, #0000); pointer-events: none; }
+.tab-panel-pull { margin-top: -50px; }
+.tab-panel { width: 100%; padding: var(--space-l) var(--space-s) var(--space-xl); border-bottom: 1px solid var(--color-action-border-onlight-focus); background-color: #fff; }
+.tab-panel[hidden] { display: none; }
+
+/* Spacer, size s (real Spacer component). */
+.spacer--s { display: block; width: 100%; height: var(--space-s); flex-shrink: 0; }
+
+/* Filter: FilterStateWrapper + chip bar + FilterButton ("Finn ...")
+   + FilterResultCountAndSortWrapper with FilterSort's select. */
+.filter-state-wrapper { display: flex; flex-flow: column; gap: 0.75rem; }
+.filter-chip-bar { display: flex; flex-flow: row wrap; column-gap: 0.75rem; align-items: center; }
+.filter-chip-bar__list { list-style: none; margin: 0; padding: 0; }
+.filter-button { width: fit-content; height: 2.75rem; padding: 0; background: transparent; border: none; outline: none; border-radius: 100px; cursor: pointer; }
+.filter-button__inner {
+  border-radius: 100px; height: 2rem; background-color: var(--color-action-graphics-onlight);
+  border: 1px solid transparent; display: flex; flex-flow: row nowrap; align-items: center;
+  padding: 0.1875rem 1rem 0.1875rem 0.3125rem;
+}
+.filter-button:hover .filter-button__inner { background-color: var(--color-action-graphics-onlight-hover); }
+.filter-button:active .filter-button__inner { background-color: var(--color-action-background-onlight-active); }
+.filter-button:focus-visible .filter-button__inner { outline: 4px solid var(--color-action-border-onlight-focus); border-color: #fff; }
+.filter-button__inner svg { fill: #fff; width: 38px; height: 38px; min-width: 38px; }
+.filter-button__text { color: #fff; text-wrap: nowrap; font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; }
+.filter-result-count-and-sort-wrapper { display: flex; flex-flow: row wrap; justify-content: space-between; align-items: flex-end; gap: 0.75rem; font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.filter-result-count-and-sort-wrapper__count { text-wrap: nowrap; line-height: 3rem; flex-shrink: 0; }
+.filter-result-count-and-sort-wrapper__sort { flex: 1 1 0; }
+.sort-select__wrapper { display: flex; flex-flow: row wrap; align-items: center; justify-content: flex-end; gap: 0.125rem; }
+.sort-select__label { font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+.sort-select__inner { display: inline-grid; align-items: center; grid-template-columns: 1fr 2.8rem; background: #fff; }
+.sort-select__inner:hover { background: var(--neutral-50); }
+.sort-select__inner select {
+  appearance: none; grid-column: 1 / 3; grid-row: 1; height: 2.75rem; border: none; outline: none;
+  background: transparent; padding: 0 3rem 0 0.75rem; cursor: pointer; border-radius: 0;
+  font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: var(--color-action-text-onlight);
+  text-align: right; text-align-last: right; text-overflow: ellipsis;
+}
+.sort-select__inner select:focus { outline: #000 solid 4px; outline-offset: -2px; }
+.sort-select__inner select option { text-align: left; direction: ltr; }
+.sort-select__arrow { grid-column: 2; grid-row: 1; width: 38px; height: 38px; pointer-events: none; }
+
+/* PanelList, variant outline, of white status Panels: list border
+   neutral300; each panel has an 8px neutral100 inner frame, and
+   panels overlap by 9px so neighbours share one frame. */
+.panel-list--outline { border: 1px solid var(--core-color-neutral-300); }
+.panel-list__panel--outline:not(:last-child) { margin-bottom: -9px; }
+.panel__border--outline--inner { border: 8px solid var(--core-color-neutral-100); }
+.panel { display: flex; flex-flow: column; padding: var(--space-s); padding-left: calc(var(--space-s) - 6px); background: #fff; border-left: 6px solid transparent; }
+.panel > *:not(:last-child) { margin-bottom: var(--space-2xs); }
+.paneltitle__title { display: flex; gap: var(--space-s); margin-top: 8px; }
+.paneltitle__title h3 { margin: 0; font: 600 1.375rem/1.813rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+.panel__content { display: flex; flex-flow: column; gap: var(--space-m); font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.duolist { margin: 0; }
+.duolist dt, .duolist dd { display: inline; margin: 0; font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; }
+.duolist dt::after { content: attr(data-separator); }
+.panel__button-bottom { margin-top: var(--space-2xs); }
+/* Button, borderless, medium, right icon (ChevronRight). */
+.btn-borderless {
+  display: inline-flex; align-items: center; gap: var(--space-3xs); background: none; border: none;
+  cursor: pointer; padding: var(--space-2xs) 0; color: var(--color-action-text-onlight);
+  font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif;
+}
+.btn-borderless:hover { color: var(--color-action-text-onlight-hover); text-decoration: underline; }
+.btn-borderless svg { width: 38px; height: 38px; min-width: 38px; }
+
+/* ═══════════════════════════════════════════════════════════
    FOOTER  (identical markup/styling to index.html)
 ══════════════════════════════════════════════════════════════ */
 .footer {
@@ -480,12 +583,59 @@ a:focus-visible, button:focus-visible {
     </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       CONTENT — empty shell (2026-10-08). Prøvesvar content goes here,
-       partly from Figma.
-  ═══════════════════════════════════════════════════════════ -->
+  <span class="spacer--s" data-analyticsid="spacer"></span>
 
-  <div class="sp-xl"></div>
+  <!-- ══════════════════════════════════════════════════════
+       TABS — from the live page's markup: "Prøvesvar" lists the
+       results; "Analyseoversikt" navigates by prøvesvartype (content
+       not built yet). The result data is the live page's test data.
+  ═══════════════════════════════════════════════════════════ -->
+  <div class="tabs">
+    <div class="tab-list-sticky">
+      <div class="tab-list-wrapper">
+        <ul class="tab-list" role="tablist" aria-orientation="horizontal">
+          <li role="presentation"><button type="button" role="tab" id="tabProvesvar" aria-controls="panelProvesvar" aria-selected="true" class="tab-list__tab tab-list__tab--selected" tabindex="0"><span class="tab-list__tab__title-and-icon">Prøvesvar</span></button></li>
+          <li role="presentation"><button type="button" role="tab" id="tabAnalyse" aria-controls="panelAnalyse" aria-selected="false" class="tab-list__tab tab-list__tab--not-selected" tabindex="-1"><span class="tab-list__tab__title-and-icon">Analyseoversikt</span></button></li>
+        </ul>
+        <div class="tab-list__border"></div>
+      </div>
+      <div class="panel-wrapper"></div>
+    </div>
+    <div class="tab-panel-pull">
+      <div class="tab-panel" id="panelProvesvar" role="tabpanel" aria-labelledby="tabProvesvar">
+        <div class="filter-state-wrapper">
+          <div class="filter-chip-bar">
+            <button type="button" class="filter-button"><span class="filter-button__inner"><svg viewBox="0 0 48 48" width="38" height="38" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.111 27.892a2.974 2.974 0 0 1 2.905 2.342h11.935v1.264H25.015a2.973 2.973 0 0 1-2.904 2.34l-.303-.015a2.973 2.973 0 0 1-2.6-2.325H11.68v-1.264h7.529a2.973 2.973 0 0 1 2.903-2.342Zm0 1.263a1.71 1.71 0 1 0 .001 3.42 1.71 1.71 0 0 0 0-3.42Zm8.669-8.229a2.974 2.974 0 0 1 2.904 2.343h3.267v1.263h-3.268a2.973 2.973 0 0 1-2.904 2.341l-.303-.016a2.973 2.973 0 0 1-2.599-2.325H11.679v-1.263h16.197a2.973 2.973 0 0 1 2.903-2.343Zm0 1.263a1.71 1.71 0 1 0 0 3.421 1.71 1.71 0 0 0 0-3.42Zm-11.987-8.295a2.974 2.974 0 0 1 2.905 2.34h15.253v1.264H21.697a2.973 2.973 0 0 1-2.904 2.342l-.303-.015a2.973 2.973 0 0 1-2.6-2.327h-4.21v-1.263h4.21a2.973 2.973 0 0 1 2.903-2.341Zm0 1.263a1.71 1.71 0 1 0 .001 3.42 1.71 1.71 0 0 0 0-3.42Z"/></svg><span class="filter-button__text">Finn ...</span></span></button>
+            <ul aria-label="Aktive filter" class="filter-chip-bar__list"></ul>
+          </div>
+          <div class="filter-result-count-and-sort-wrapper">
+            <span class="filter-result-count-and-sort-wrapper__count" id="resultCount">9 prøvesvar</span>
+            <span class="filter-result-count-and-sort-wrapper__sort">
+              <div class="sort-select__wrapper">
+                <label class="sort-select__label" for="sortSelect">Sortering:</label>
+                <div class="sort-select__inner">
+                  <select id="sortSelect" autocomplete="off">
+                    <option value="Dato-asc">Dato (eldste til nyeste)</option>
+                    <option value="Dato-desc" selected>Dato (nyeste til eldste)</option>
+                    <option value="Overskrift-asc">Område (A - Å)</option>
+                    <option value="Overskrift-desc">Område (Å - A)</option>
+                    <option value="Navn-asc">Rekvirent (A - Å)</option>
+                    <option value="Navn-desc">Rekvirent (Å - A)</option>
+                  </select>
+                  <svg class="sort-select__arrow" viewBox="0 0 48 48" fill="#126F87" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg>
+                </div>
+              </div>
+            </span>
+          </div>
+        </div>
+        <span class="spacer--s" data-analyticsid="spacer"></span>
+        <div class="panel-list--outline" data-analyticsid="panel-list" id="provesvarList"></div>
+      </div>
+      <div class="tab-panel" id="panelAnalyse" role="tabpanel" aria-labelledby="tabAnalyse" hidden>
+        <p style="font: var(--mobile-body); color: var(--color-base-text-onlight);">Analyseoversikt: her navigerer du etter prøvesvartype. (Ikke bygget ennå.)</p>
+      </div>
+    </div>
+  </div>
 
   <!-- ══════════════════════════════════════════════════════
        FOOTER
@@ -536,6 +686,53 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-wrapper -->
 
 <script>
+// ─── Prøvesvar list: live page's test data, sortable ────────────
+const PROVESVAR = [
+  { omrade: 'Medisinsk biokjemi', rekvirent: 'Uavhengig Fjernsyn, WebMed Test HelseNorge -TREG VOKAL KATT SKORPION', dato: '2026-03-18' },
+  { omrade: 'Medisinsk biokjemi', rekvirent: 'WebMed Demobruker, Evila Øyelegeseter AS', dato: '2026-02-19' },
+  { omrade: 'Medisinsk biokjemi', rekvirent: 'Grønn Vits, WebMed Test HelseNorge', dato: '2026-01-30' },
+  { omrade: 'Medisinsk biokjemi', rekvirent: 'Grønn Vits, Evila Øyelegeseter AS', dato: '2026-01-29' },
+  { omrade: 'Medisinsk mikrobiologi', rekvirent: 'Kommuneoverlege Gro K, Trondheim kommune - Smittevern', dato: '2026-01-13' },
+  { omrade: 'Cytologi', rekvirent: 'NORSK HELSENETT SF, Pasientens prøvesvar', dato: '2025-09-11' },
+  { omrade: 'Medisinsk biokjemi', rekvirent: 'Sulten Lege, LIS1, Kattskinnet legesenter', dato: '2025-08-04' },
+  { omrade: 'Medisinsk mikrobiologi', rekvirent: 'Sulten Lege, LIS1, Kattskinnet legesenter', dato: '2025-08-04' },
+  { omrade: 'Cytologi', rekvirent: 'NORSK HELSENETT SF, Pasientens prøvesvar', dato: '2024-09-20' },
+];
+const CHEVRON_RIGHT = '<svg viewBox="0 0 48 48" width="38" height="38" fill="#126F87" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg>';
+const fmtDato = iso => iso.split('-').reverse().join('.');
+const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+function renderProvesvar(sort) {
+  const [key, dir] = sort.split('-');
+  const field = { Dato: 'dato', Overskrift: 'omrade', Navn: 'rekvirent' }[key];
+  const sign = dir === 'asc' ? 1 : -1;
+  const rows = [...PROVESVAR].sort((a, b) => sign * a[field].localeCompare(b[field], 'nb') || b.dato.localeCompare(a.dato));
+  document.getElementById('provesvarList').innerHTML = rows.map(r => `
+    <div class="panel-list__panel--outline"><div class="panel__border--outline--inner"><div class="panel">
+      <div class="paneltitle"><div class="paneltitle__title"><h3>${esc(r.omrade)}</h3></div></div>
+      <div class="panel__content"><div class="panel__content__item">
+        <span>${esc(r.rekvirent)}</span>
+        <dl class="duolist"><div><dt data-separator=": ">Prøvedato</dt><dd>${fmtDato(r.dato)}</dd></div></dl>
+      </div></div>
+      <div class="panel__button-bottom"><button type="button" class="btn-borderless" aria-label="Se resultater ${esc(r.omrade)}, ${esc(r.rekvirent.split(',')[0])}, Prøvedato: ${fmtDato(r.dato)}"><span>Se resultater</span>${CHEVRON_RIGHT}</button></div>
+    </div></div></div>`).join('');
+  document.getElementById('resultCount').textContent = rows.length + ' prøvesvar';
+}
+const sortSelect = document.getElementById('sortSelect');
+sortSelect.addEventListener('change', () => renderProvesvar(sortSelect.value));
+renderProvesvar(sortSelect.value);
+
+// ─── Tabs ────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-list__tab').forEach(tab => tab.addEventListener('click', () => {
+  document.querySelectorAll('.tab-list__tab').forEach(t => {
+    const sel = t === tab;
+    t.classList.toggle('tab-list__tab--selected', sel);
+    t.classList.toggle('tab-list__tab--not-selected', !sel);
+    t.setAttribute('aria-selected', String(sel));
+    t.tabIndex = sel ? 0 : -1;
+    document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
+  });
+}));
+
 // Favoritter (snarvei) star — same behaviour as Gravid's: toggles
 // StarStroke/StarFill, remembered in this browser only.
 const LS_PROVESVAR_FAVORITE_KEY = 'provesvar-favorite';
