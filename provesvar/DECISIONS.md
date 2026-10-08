@@ -44,4 +44,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Keeping the star as in the live markup.
 **Why:** Direct user request.
 
+## 2026-10-08 — Detail page is data-driven (?id=N); result 2 added
+**Decision:** `resultat.html` now renders its title, eyebrow, Prøvedato/Rekvirert av/Utført av and the "Prøvesvar (n)" undersøkelse blocks from a `RESULTATER` object keyed by `?id=` (matching the list order), instead of one HTML file per result. Result 2 (19.02.2026) uses the supplied results section: S-CRP (with word explanation), "Pasientnær analyse", Laboratorieresultat 21, Måleenhet mg/l (with word explanation). Its "Utført av" ("Evila Øyelegeseter AS") isn't in the supplied markup and follows result 1's pattern; the S-CRP and mg/l explanations are drafts. Word-explanation clicks are handled by delegation so rendered triggers work.
+**Alternative considered:** A separate copy of the page per result.
+**Why:** User is supplying the results one at a time ("Results section #2"); one template plus data avoids nine near-identical files drifting apart.
+
 #helsenorge
