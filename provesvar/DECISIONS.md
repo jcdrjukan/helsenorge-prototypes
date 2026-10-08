@@ -34,4 +34,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Reusing Gravid's hand-built "Personvern for Gravid" link list.
 **Why:** User supplied the live markup. The real LinkList styles are available, so they're used instead of Gravid's approximation.
 
+## 2026-10-08 — First detail page (resultat.html) from the live markup
+**Decision:** New `resultat.html` for the first result, built from the live markup with the installed design-system styles (Dropdown + SingleSelect, HelpTriggerIcon, Duolist, DictionaryTrigger, HighlightPanel, ExpanderList, borderless left-icon Button, HelpExpanderStandalone). The help trigger is kept next to the title here (per user: "desirable in this context"). Only the first list item links to it so far. Choices of ours: the language picker marks the choice but doesn't translate; the dictionary triggers open an inline help-styled box under the row (a stand-in for the real HelpBubble popover) with draft definitions ("Den som ba om at prøven skulle tas, for eksempel fastlegen din." / "Laboratoriet eller virksomheten som analyserte prøven."); "Tilleggsinformasjon (0)" opens to "Ingen tilleggsinformasjon."; the last title word and the two icons form one non-breaking unit so a long title never leaves the star alone on a line. The eyebrow's own styling isn't in the package; it uses 18px regular text.
+**Alternative considered:** A static, non-interactive copy.
+**Why:** User supplied the markup for the language picker, eyebrow, header and result content.
+
 #helsenorge

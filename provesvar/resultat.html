@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Prøvesvar – Helsenorge</title>
+<title>Medisinsk biokjemi – Prøvesvar – Helsenorge</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -13,6 +13,19 @@
    (Copied from gravid/avslutt.html, a subset of gravid/index.html's token set.)
 ───────────────────────────────────────────────────────────── */
 :root {
+  --color-base-border-onlight-emphasized: #62625F;
+  --core-color-neutral-200: #D6D4D3;
+  --core-color-blueberry-50: #E4F7F9;
+  --core-color-blueberry-100: #CAE7ED;
+  --core-color-blueberry-200: #AFDAE3;
+  --core-color-blueberry-500: #188097;
+  --color-base-background-blueberry: #E4F7F9;
+  --color-base-border-blueberry: #AFDAE3;
+  --color-help-border-normal: #5C27A1;
+  --color-help-border-dark: #4C1B8C;
+  --color-help-background-transparent-onlight-active: #6C38B34D;
+  --color-help-background-transparent-onlight-hover-selected: #6C38B333;
+  --component-listelements-background-neutral-dark: #D6D4D3;
   --component-listelements-border-neutral-normal: #7D7C79;
   --component-listelements-background-neutral-light: #F5F3F3;
   --component-listelements-background-neutral-medium: #EAE7E7;
@@ -496,6 +509,116 @@ a:focus-visible, button:focus-visible {
 .element-header__chevron svg { width: 38px; height: 38px; min-width: 38px; }
 
 /* ═══════════════════════════════════════════════════════════
+   DETAIL PAGE (resultat.html) — from the live result page's markup.
+══════════════════════════════════════════════════════════════ */
+
+/* Language picker: real Dropdown (borderless toggle with globe left
+   icon and chevron right icon, teal icons) + SingleSelect items. */
+.language-picker-wrapper { width: 344px; display: flex; justify-content: flex-end; padding-top: var(--space-s); }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.dropdown { position: relative; max-width: 100%; }
+.dropdown__toggle {
+  display: flex; justify-content: space-between; align-items: center; min-width: 96px; max-width: 100%;
+  padding: 0.188rem 0.25rem 0.188rem 0.5rem; cursor: pointer; border-radius: 0;
+  border: 2px solid transparent; background: transparent; color: var(--color-base-text-onlight);
+  font: 400 1.125rem/1.3rem 'Source Sans Pro', sans-serif;
+}
+.dropdown__toggle:hover { background-color: var(--core-color-neutral-100); }
+.dropdown__toggle:active { background-color: var(--core-color-neutral-200); }
+.dropdown__toggle[aria-expanded="true"] { border-color: var(--color-base-border-onlight-emphasized); }
+.dropdown__toggle:focus-visible { outline: none; border-color: var(--color-action-border-onlight-focus); box-shadow: 0 0 0 1px var(--color-action-border-onlight-focus); }
+.dropdown__toggle__text { padding: 0.34rem 0; white-space: nowrap; }
+.dropdown__toggle svg { width: 38px; height: 38px; min-width: 38px; fill: var(--color-action-graphics-onlight); }
+.dropdown__toggle:hover svg { fill: var(--color-action-graphics-onlight-hover); }
+.dropdown__left-icon { margin-right: 0.25rem; }
+.dropdown__right-icon { margin-left: 0.25rem; }
+.dropdown__content { display: none; position: absolute; right: 0; top: calc(100% + 2px); min-width: 100%; max-width: 300px; background: #fff; border: 2px solid var(--core-color-blueberry-500); z-index: 20; }
+.dropdown__content--open { display: block; }
+.dropdown__options { list-style: none; padding: 0; margin: 0; }
+.dropdown__list-item { min-height: 44px; border-bottom: 1px solid var(--color-base-border-neutral-emphasized); }
+.dropdown__list-item:last-child { border-bottom: none; }
+.dropdown__list-item:hover { background-color: var(--neutral-50); }
+.dropdown__list-item:has([aria-current="true"]) { background-color: var(--core-color-blueberry-50); }
+.dropdown__list-item:has([aria-current="true"]):hover { background-color: var(--core-color-blueberry-100); }
+.single-select-item__content {
+  all: unset; width: 100%; box-sizing: border-box; display: flex; align-items: baseline; cursor: pointer;
+  padding: 0.5rem 1rem 0.5rem 1rem; line-height: 1.75rem; font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif;
+}
+.single-select-item__dot { display: inline-block; margin: 0 0.667rem 0 0; min-width: 0.67rem; min-height: 0.67rem; border-radius: 10rem; }
+.single-select-item__dot--checked { background-color: #000; }
+
+/* Page header with eyebrow ("pageheader__subtitle") above the title. */
+.pageheader { width: 344px; padding-top: var(--space-xl); }
+.pageheader__subtitle { font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+.pageheader .page-title { padding-top: 0; width: auto; display: block; }
+/* Title wraps on a phone: keep the help trigger and star right after the
+   last word instead of pinned to the row's far end. */
+.pageheader .page-title h1 { display: inline; }
+/* The last word and both icons are one nowrap unit, so they wrap
+   together (a lone star on its own line looked broken). */
+.pageheader__icons { display: inline-flex; align-items: center; vertical-align: middle; margin-left: 0.25rem; position: relative; top: -2px; }
+
+/* HelpTriggerIcon, xlarge, as a button (mobile: 24px icon, 4px margin). */
+.help-trigger-icon {
+  position: relative; display: inline-flex; align-items: center; justify-content: center; flex-shrink: 0;
+  cursor: pointer; background-color: transparent; border: 0; padding: 0; border-radius: 50%; margin: 0.25rem; outline: none;
+}
+.help-trigger-icon svg { width: 1.5rem; height: 1.5rem; }
+.help-trigger-icon:hover { background-color: var(--color-help-background-transparent-onlight-hover); }
+.help-trigger-icon:active { background-color: var(--color-help-background-transparent-onlight-active); }
+.help-trigger-icon:focus-visible { outline: 3.5px solid var(--color-action-border-onlight-focus); outline-offset: -2px; }
+
+/* Duolist (not collapsed, bold dt): two columns, auto + minmax(60%, 1fr). */
+.result-body { width: 344px; }
+.duolist-grid { display: grid; grid-template-columns: auto minmax(60%, 1fr); margin: 0; }
+.duolist-grid dt { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; padding: 0 2rem 0.5rem 0; }
+.duolist-grid dd { font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; margin: 0; padding-bottom: 0.5rem; }
+/* Duolist collapsed (one column): dt 4px below, dd 16px below. */
+.duolist-stack { display: grid; grid-template-columns: 1fr; margin: 0; }
+.duolist-stack dt { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; padding-bottom: 0.25rem; }
+.duolist-stack dd { font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; margin: 0; padding-bottom: 1rem; }
+
+/* DictionaryTrigger: dotted purple underline, help hover. */
+.dictionarytrigger {
+  all: unset; font: inherit; cursor: help; padding: 0 0.125rem; background-color: transparent;
+  --dot-color: var(--color-help-border-normal);
+  background-image: radial-gradient(circle at 1.5px 1.5px, var(--dot-color) 1.5px, transparent 1.5px);
+  background-repeat: repeat-x; background-size: 8px 3px; background-position: bottom left;
+}
+.dictionarytrigger:hover, .dictionarytrigger[aria-expanded="true"] { background-color: var(--color-help-background-transparent-onlight-hover); --dot-color: var(--color-help-border-dark); }
+.dictionarytrigger[aria-expanded="true"]:hover { background-color: var(--color-help-background-transparent-onlight-hover-selected); }
+.dictionarytrigger:focus-visible { outline: 2px solid #000; background-image: none; }
+.nowrap { white-space: nowrap; }
+/* Word explanation shown under the duolist row (stand-in for the
+   real HelpBubble popover; definitions are drafts). */
+.dictionary-bubble { grid-column: 1 / -1; margin: 0 0 0.75rem; font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); background: var(--color-help-background-normal); border: 1px solid var(--color-help-border-subtle-wcag); border-radius: 0.25rem; padding: 0.75rem 1rem; }
+.dictionary-bubble[hidden] { display: none; }
+
+/* HighlightPanel, blueberry, with icon (mobile: icon above content). */
+.highlightpanel { width: 344px; display: flex; flex-direction: column; padding: var(--space-m) var(--space-s) var(--space-l); background: var(--color-base-background-blueberry); border: 1px solid var(--color-base-border-blueberry); font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.highlightpanel__icon { display: inline-flex; margin-bottom: var(--space-2xs); }
+.highlightpanel__icon svg { width: 48px; height: 48px; min-width: 48px; }
+
+/* ExpanderList, line, white. */
+.expander-list { list-style: none; padding: 0; margin: 0; width: 344px; }
+.expander-list__item--line { border-bottom: 1px solid var(--component-listelements-border-neutral-normal); background: #fff; }
+.expander-list__item--line:first-of-type { border-top: 1px solid var(--component-listelements-border-neutral-normal); }
+.expander-list-link {
+  display: flex; width: 100%; padding: 0 0 0 8px; border: 0; background: #fff; cursor: pointer; text-align: left;
+  font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight);
+}
+.expander-list-link[aria-expanded="false"]:hover { background-color: var(--component-listelements-background-neutral-light); }
+.expander-list-link[aria-expanded="false"]:active { background-color: var(--component-listelements-background-neutral-medium); }
+.expander-list-link[aria-expanded="true"] { font-weight: 600; background-color: var(--component-listelements-background-neutral-light); border-bottom: 1px solid #fff; }
+.expander-list-link[aria-expanded="true"]:hover { background-color: var(--component-listelements-background-neutral-medium); }
+.expander-list-link:focus-visible { outline: 0.25rem solid var(--color-action-border-onlight-focus); }
+.expander-list-link .element-header__title { margin: 0; font: inherit; }
+.expander-list-link__main-content { display: none; padding: 0.75rem 1rem 2rem calc(1rem + 8px); }
+.expander-list-link__main-content--expanded { display: block; }
+/* Button, borderless, medium, left icon. */
+.btn-borderless--left { padding: 0 0.5rem 0 0; min-height: 2.75rem; gap: 0.25rem; }
+
+/* ═══════════════════════════════════════════════════════════
    FOOTER  (identical markup/styling to index.html)
 ══════════════════════════════════════════════════════════════ */
 .footer {
@@ -582,44 +705,90 @@ a:focus-visible, button:focus-visible {
        BREADCRUMB
   ═══════════════════════════════════════════════════════════ -->
   <nav class="breadcrumb" aria-label="Brødsmulesti">
-    <a class="breadcrumb__back" href="#">
+    <a class="breadcrumb__back" href="index.html">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span>Forside</span>
+      <span>Prøvesvar</span>
     </a>
   </nav>
   <hr class="page-divider">
 
-  <!-- Språk/Language — decorative, per Figma (43:483–485). -->
-  <div class="lang-switcher">
-    <button type="button" class="lang-switcher__btn">
-      <svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M35.49 32.138a21.747 21.747 0 00-4.009-2.281c.58-1.555.974-3.264 1.083-5.1h5.539a14.178 14.178 0 01-2.612 7.381zm-9.244 5.795c1.38-1.417 3.205-3.62 4.552-6.444a19.918 19.918 0 013.576 2.02 14.239 14.239 0 01-8.128 4.424zm-1.488-7.87c1.488.077 2.941.343 4.359.795-1.314 2.683-3.094 4.765-4.36 6.045v-6.84zm0-5.306h6.035a15.719 15.719 0 01-.982 4.467 18.969 18.969 0 00-5.053-.93v-3.537zm0-5.73a19.583 19.583 0 004.988-.834c.572 1.46.958 3.07 1.056 4.796h-6.044v-3.963zm0-8.219c1.232 1.22 2.954 3.196 4.258 5.754-1.367.4-2.788.633-4.258.696v-6.45zm9.46 3.257a18.005 18.005 0 01-3.5 1.903c-1.323-2.685-3.083-4.78-4.43-6.149a14.238 14.238 0 017.93 4.246zm1.134 1.359a14.169 14.169 0 012.75 7.565h-5.53a17.324 17.324 0 00-1.146-5.396 19.764 19.764 0 003.926-2.17zM23.25 17.524a17.287 17.287 0 01-4.273-.768c1.335-2.573 3.066-4.564 4.273-5.767v6.535zm0 5.737h-6.16c.118-1.757.53-3.403 1.133-4.89 1.63.532 3.307.84 5.027.922v3.968zm0 5.299c-1.82.07-3.57.375-5.242.91a15.39 15.39 0 01-.928-4.44h6.17v3.53zm0 8.774c-1.293-1.26-3.194-3.413-4.557-6.233a17.657 17.657 0 014.557-.776v7.009zm-9.693-3.638a18.045 18.045 0 013.454-1.976c1.332 2.825 3.16 5.033 4.56 6.456a14.24 14.24 0 01-8.014-4.48zm-1.108-1.378a14.187 14.187 0 01-2.543-7.289h5.403c.09 1.826.467 3.52 1.03 5.064a19.909 19.909 0 00-3.89 2.225zm.278-16.716a21.62 21.62 0 003.827 2.139 17.704 17.704 0 00-1.237 5.52h-5.41a14.172 14.172 0 012.82-7.659zm8.887-5.494c-1.31 1.35-3.011 3.408-4.327 6.021a19.658 19.658 0 01-3.416-1.88 14.24 14.24 0 017.743-4.141zm2.52-2.005c-8.846 0-16.042 7.196-16.042 16.043 0 8.845 7.196 16.043 16.042 16.043 8.846 0 16.044-7.198 16.044-16.043 0-8.847-7.198-16.043-16.044-16.043z"/></svg>
-      <span>Språk/Language</span>
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </button>
+  <!-- Language picker — real Dropdown + SingleSelect, from the live markup. -->
+  <div class="language-picker-wrapper">
+    <div class="dropdown" data-testid="language-picker">
+      <span class="sr-only" aria-live="polite" id="langMessage"></span>
+      <button type="button" class="dropdown__toggle" id="langToggle" aria-haspopup="true" aria-controls="langOptions" aria-expanded="false"><svg class="dropdown__left-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M35.49 32.138a21.747 21.747 0 00-4.009-2.281c.58-1.555.974-3.264 1.083-5.1h5.539a14.178 14.178 0 01-2.612 7.381zm-9.244 5.795c1.38-1.417 3.205-3.62 4.552-6.444a19.918 19.918 0 013.576 2.02 14.239 14.239 0 01-8.128 4.424zm-1.488-7.87c1.488.077 2.941.343 4.359.795-1.314 2.683-3.094 4.765-4.36 6.045v-6.84zm0-5.306h6.035a15.719 15.719 0 01-.982 4.467 18.969 18.969 0 00-5.053-.93v-3.537zm0-5.73a19.583 19.583 0 004.988-.834c.572 1.46.958 3.07 1.056 4.796h-6.044v-3.963zm0-8.219c1.232 1.22 2.954 3.196 4.258 5.754-1.367.4-2.788.633-4.258.696v-6.45zm9.46 3.257a18.005 18.005 0 01-3.5 1.903c-1.323-2.685-3.083-4.78-4.43-6.149a14.238 14.238 0 017.93 4.246zm1.134 1.359a14.169 14.169 0 012.75 7.565h-5.53a17.324 17.324 0 00-1.146-5.396 19.764 19.764 0 003.926-2.17zm-12.363 1.828a17.287 17.287 0 01-4.273-.768c1.335-2.573 3.066-4.564 4.273-5.767v6.535zm0 5.737h-6.16c.118-1.757.53-3.403 1.133-4.89 1.63.532 3.307.84 5.027.922v3.968zm0 5.299c-1.82.07-3.57.375-5.242.91a15.39 15.39 0 01-.928-4.44h6.17v3.53zm0 8.774c-1.293-1.26-3.194-3.413-4.557-6.233a17.657 17.657 0 014.557-.776v7.009zm-9.693-3.638a18.045 18.045 0 013.454-1.976c1.332 2.825 3.16 5.033 4.56 6.456a14.24 14.24 0 01-8.014-4.48zm-1.108-1.378a14.187 14.187 0 01-2.543-7.289h5.403c.09 1.826.467 3.52 1.03 5.064a19.909 19.909 0 00-3.89 2.225zm.278-16.716a21.62 21.62 0 003.827 2.139 17.704 17.704 0 00-1.237 5.52h-5.41a14.172 14.172 0 012.82-7.659zm8.887-5.494c-1.31 1.35-3.011 3.408-4.327 6.021a19.658 19.658 0 01-3.416-1.88 14.24 14.24 0 017.743-4.141zm2.52-2.005c-8.846 0-16.042 7.196-16.042 16.043 0 8.845 7.196 16.043 16.042 16.043 8.846 0 16.044-7.198 16.044-16.043 0-8.847-7.198-16.043-16.044-16.043z"/></svg><span class="dropdown__toggle__text">Språk/Language</span><svg class="dropdown__right-icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg></button>
+      <div class="dropdown__content" id="langOptions">
+        <ul class="dropdown__options" role="group" aria-labelledby="langToggle">
+          <li class="dropdown__list-item"><button type="button" class="single-select-item__content" data-lang="bokmål" aria-current="true"><span class="single-select-item__dot single-select-item__dot--checked" aria-hidden="true"></span><span>Bokmål</span></button></li>
+          <li class="dropdown__list-item"><button type="button" class="single-select-item__content" data-lang="nynorsk"><span class="single-select-item__dot" aria-hidden="true"></span><span>Nynorsk</span></button></li>
+          <li class="dropdown__list-item"><button type="button" class="single-select-item__content" data-lang="engelsk"><span class="single-select-item__dot" aria-hidden="true"></span><span>English</span></button></li>
+        </ul>
+      </div>
+    </div>
   </div>
 
-  <!-- ══════════════════════════════════════════════════════
-       PAGE CONTENT
-  ═══════════════════════════════════════════════════════════ -->
-  <div class="page-title">
-    <h1 id="sidetittel">Prøvesvar</h1>
+  <!-- Page header: eyebrow, title, help trigger, favourite star. -->
+  <div class="pageheader">
+    <div class="pageheader__subtitle">Laboratoriemedisin</div>
+    <div class="page-title">
+      <h1 id="sidetittel">Medisinsk <span class="nowrap">biokjemi<span class="pageheader__icons">
+      <button type="button" class="help-trigger-icon" aria-label="Gå til hjelp om dette."><svg fill="none" width="24" height="24" overflow="visible" role="presentation" viewBox="0 0 24 24"><mask id="titleHelpMask" fill="white"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0005 0C5.38373 0 0 5.38278 0 11.9995C0 18.6163 5.38373 24 12.0005 24C18.6172 24 24 18.6163 24 11.9995C24 5.38278 18.6172 0 12.0005 0Z"/></mask><path d="M12.0005 0V-2.2C4.16892 -2.2 -2.2 4.16753 -2.2 11.9995H0H2.2C2.2 6.59803 6.59853 2.2 12.0005 2.2V0ZM0 11.9995H-2.2C-2.2 19.8313 4.1687 26.2 12.0005 26.2V24V21.8C6.59875 21.8 2.2 17.4012 2.2 11.9995H0ZM12.0005 24V26.2C19.8325 26.2 26.2 19.8311 26.2 11.9995H24H21.8C21.8 17.4015 17.402 21.8 12.0005 21.8V24ZM24 11.9995H26.2C26.2 4.16775 19.8322 -2.2 12.0005 -2.2V0V2.2C17.4022 2.2 21.8 6.59781 21.8 11.9995H24Z" fill="var(--color-help-graphics-normal)" mask="url(#titleHelpMask)"/><path d="M11.9229 5.28027C14.5275 5.28027 15.96 7.00613 15.96 8.82168C15.9599 10.2243 14.7509 11.5413 14.1916 11.9307C13.6323 12.3201 13.451 12.5998 13.451 12.5998C13.2342 12.8105 13.0943 13.2232 13.0467 13.5256C12.9982 13.8341 13.0174 13.8161 13.0174 14.1596V14.2803H11.0416V13.5256C11.0416 13.0154 11.0469 12.8918 11.1834 12.4486C11.322 11.9989 11.7025 11.4537 12.1115 11.0189C12.5205 10.5842 12.9014 10.2971 12.9014 10.2971C13.4382 9.90771 13.6584 9.44814 13.6584 8.90723C13.6584 8.48881 13.5167 8.08818 13.2342 7.79277C12.953 7.49879 12.5222 7.29941 11.9229 7.29941C10.7307 7.2996 10.1019 8.20752 10.1018 9.12871C10.1018 9.38096 10.137 9.68958 10.1979 9.85879L10.26 10.0322L8.13535 9.88223L8.05098 9.87637L8.02871 9.79551C7.95745 9.54366 7.9209 9.25834 7.9209 8.9752C7.92117 7.20416 9.25715 5.28045 11.9229 5.28027Z" fill="var(--color-help-graphics-normal)"/><path d="M12.0002 15.3596C12.7231 15.3596 13.3197 15.9718 13.3197 16.6885C13.3195 17.407 12.7229 17.9997 12.0002 17.9998C11.2583 17.9998 10.6797 17.407 10.6795 16.6885C10.6795 15.9717 11.2581 15.3596 12.0002 15.3596Z" fill="var(--color-help-graphics-normal)"/></svg></button>
     <button type="button" class="favorite-btn" id="favoriteBtn" onclick="toggleFavorite()"
       aria-pressed="false" aria-label="Legg til snarvei">
       <svg class="favorite-btn__icon favorite-btn__icon--stroke" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M23.884 5.258c.453 0 .866.256 1.067.662l4.975 10.084 11.13 1.613a1.19 1.19 0 0 1 .657 2.028l-8.063 7.85 1.901 11.084a1.188 1.188 0 0 1-1.725 1.252l-9.93-5.233-9.954 5.234a1.19 1.19 0 0 1-1.725-1.253l1.9-11.085-8.062-7.849a1.19 1.19 0 0 1 .658-2.028l11.128-1.613L22.818 5.92l.085-.145c.22-.32.585-.517.981-.517Zm-4.787 11.365c-.204.413-.598.7-1.055.767L7.338 18.94l7.756 7.55a1.4 1.4 0 0 1 .404 1.24l-1.829 10.662 9.576-5.035a1.4 1.4 0 0 1 1.304.001l9.55 5.033L32.27 27.73a1.4 1.4 0 0 1 .403-1.239l7.756-7.55-10.703-1.551a1.401 1.401 0 0 1-1.055-.767l-4.787-9.701-4.787 9.701Z"/></svg>
       <svg class="favorite-btn__icon favorite-btn__icon--fill" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M23.092 7.124a1 1 0 0 1 1.816 0l4.664 10.112a1 1 0 0 0 .79.574l11.059 1.311a1 1 0 0 1 .561 1.728l-8.176 7.56a1 1 0 0 0-.301.93l2.17 10.922a1 1 0 0 1-1.47 1.067l-9.717-5.44a1 1 0 0 0-.976 0l-9.718 5.44a1 1 0 0 1-1.469-1.068l2.17-10.922a1 1 0 0 0-.301-.929l-8.176-7.56a1 1 0 0 1 .561-1.728l11.058-1.31a1 1 0 0 0 .79-.575l4.665-10.112Z"/></svg>
     </button>
+</span></span></h1>
+    </div>
   </div>
 
-  <div class="sp-s"></div>
+  <span class="spacer--m"></span>
 
-  <!-- Ingress: real copy from the live Prøvesvar page's markup. -->
-  <p class="preamble">Her finner du svar på prøver og undersøkelser, for eksempel blodprøver, røntgen, MR eller CT.</p>
+  <!-- Result details, from the live markup. -->
+  <div class="result-body">
+    <dl class="duolist-grid">
+      <dt>Prøvedato:</dt>
+      <dd>18.03.2026</dd>
+      <dt><button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="dictRekvirert"><span class="sr-only">Åpne ordforklaring </span><span class="nowrap">Rekvirert av:</span></button></dt>
+      <dd>Uavhengig Fjernsyn, WebMed Test HelseNorge -TREG VOKAL KATT SKORPION</dd>
+      <dd class="dictionary-bubble" id="dictRekvirert" hidden>Den som ba om at prøven skulle tas, for eksempel fastlegen din.</dd>
+      <dt><button type="button" class="dictionarytrigger" aria-expanded="false" aria-controls="dictUtfort"><span class="sr-only">Åpne ordforklaring </span><span class="nowrap">Utført av:</span></button></dt>
+      <dd>WebMed Test HelseNorge -TREG VOKAL KATT SKORPION</dd>
+      <dd class="dictionary-bubble" id="dictUtfort" hidden>Laboratoriet eller virksomheten som analyserte prøven.</dd>
+    </dl>
+  </div>
 
-  <div class="sp-s"></div>
+  <span class="spacer--l"></span>
 
-  <!-- HelpExpanderStandalone, from the live page's markup. The opened
-       text is a draft based on the Førstegangsvarsel copy, pending real
-       wording. -->
+  <div class="highlightpanel" data-analyticsid="highlight-panel">
+    <div class="highlightpanel__icon"><svg viewBox="0 0 48 48" width="48" height="48" fill="black" aria-hidden="true"><path d="M35.775 35.722a9.286 9.286 0 01-6.59 2.771 9.26 9.26 0 01-6.618-2.703l-8.5-8.411a1.25 1.25 0 01-.015-1.766 1.23 1.23 0 01.88-.368h.002c.333 0 .647.129.884.365l4.457 4.411.915-.924-6.537-6.47a1.26 1.26 0 01-.002-1.779 1.261 1.261 0 011.78-.016l5.164 5.112.914-.924-7.053-6.982a1.163 1.163 0 01-.334-.892c.015-.371.177-.732.456-1.013a1.542 1.542 0 011.008-.467c.348-.01.667.098.896.325l1.888 1.869.002.001 5.543 5.486.915-.924-5.544-5.486a1.26 1.26 0 01-.002-1.78 1.257 1.257 0 011.78-.015l8.764 8.634c-.5.321-.966.699-1.34 1.167a5.49 5.49 0 00-.555 6.05l1.145-.618a4.186 4.186 0 01.423-4.618 4.206 4.206 0 011.646-1.242.65.65 0 00.398-.64l-.306-4.923c-.045-.617.122-1.133.497-1.536.366-.391.926-.654 1.551-.738l3.517 10.187a8.568 8.568 0 01-2.029 8.857m3.26-9.28l-3.68-10.655a.65.65 0 00-.612-.438h-.02c-1.167 0-2.237.43-2.937 1.181-.623.668-.915 1.539-.844 2.51l.2 3.22-8.165-8.043c-1-.99-2.623-.978-3.618.026a2.548 2.548 0 00-.643 1.14l-.319-.316a2.432 2.432 0 00-1.879-.699 2.834 2.834 0 00-1.864.851 2.831 2.831 0 00-.83 1.872 2.45 2.45 0 00.717 1.871l.32.318a2.532 2.532 0 00-1.877 2.466c.001.684.27 1.325.755 1.805l.506.5a2.515 2.515 0 00-1.117.648 2.55 2.55 0 00.025 3.604l8.5 8.411a10.566 10.566 0 007.482 3.078h.057a10.563 10.563 0 007.507-3.156 9.863 9.863 0 002.335-10.194m-24.63 10.819c-1.95 0-3.626-.592-4.849-1.713-1.27-1.164-1.954-2.822-1.975-4.797l-1 .012c.025 2.257.82 4.167 2.3 5.522 1.411 1.294 3.318 1.976 5.523 1.976l.118-.001-.01-1-.108.001m13.8-28.884c1.443.942 2.387 2.467 2.73 4.411l.985-.173c-.392-2.224-1.488-3.979-3.168-5.076-1.632-1.064-3.667-1.419-5.888-1.029l.173.984c1.966-.349 3.753-.042 5.168.883m-4.957.313l.174.984c2.201-.386 4.865.841 5.333 3.499l.985-.174c-.576-3.265-3.817-4.787-6.492-4.309m-12.59 25.97a5.948 5.948 0 003.78 1.387h.061l-.01-1a5.006 5.006 0 01-3.188-1.151c-.677-.57-1.488-1.584-1.505-3.169l-1 .012c.016 1.532.677 2.924 1.861 3.921"/></svg></div>
+    <div class="highlightpanel__content">Du blir kontaktet av legen din hvis det er behov for å gjennomgå prøvesvaret.</div>
+  </div>
+
+  <span class="spacer--l"></span>
+
+  <ul class="expander-list" data-analyticsid="expander-list">
+    <li class="expander-list__item--line">
+      <button type="button" class="expander-list-link" id="exp1" aria-expanded="true" aria-controls="exp1Content"><span class="element-header"><span class="element-header__content"><h2 class="element-header__title">Prøvesvar (1)</h2></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z"/></svg></span></span></button>
+      <div class="expander-list-link__main-content expander-list-link__main-content--expanded" id="exp1Content">
+        <dl class="duolist-stack">
+          <dt>Undersøkelse</dt>
+          <dd><div>CRP</div><div>Pasientnær analyse</div></dd>
+          <dt>Laboratorieresultat</dt>
+          <dd><div>123</div></dd>
+        </dl>
+        <span class="spacer--s"></span>
+        <button type="button" class="btn-borderless btn-borderless--left"><svg viewBox="0 0 48 48" width="38" height="38" fill="#126F87" aria-hidden="true"><path d="M8.4 7.625H7.1v32.65h32.65v-1.3H8.4V7.625Z"/><path fill-rule="evenodd" d="M17.123 33.106a2.519 2.519 0 1 1-1.825-2.422l3.3-5.524a2.516 2.516 0 1 1 4.333-1.65L28 24.996a2.51 2.51 0 0 1 2.987-1.121l4.852-7.617a2.52 2.52 0 1 1 1.124.654L32.069 24.6a2.511 2.511 0 1 1-4.403 1.652l-5.114-1.498a2.515 2.515 0 0 1-2.843 1.082l-3.295 5.517c.44.454.71 1.072.71 1.753Zm-1.3 0a1.219 1.219 0 1 1-2.437 0 1.219 1.219 0 0 1 2.437 0Zm4.593-8.469a1.216 1.216 0 1 0 0-2.433 1.216 1.216 0 0 0 0 2.433Zm10.971 1.615a1.211 1.211 0 1 1-2.422 0 1.211 1.211 0 0 1 2.422 0Zm6.24-10.552a1.22 1.22 0 1 0 0-2.441 1.22 1.22 0 0 0 0 2.44Z"/></svg><span>Vis undersøkelseshistorikk</span></button>
+</div>
+    </li>
+    <li class="expander-list__item--line">
+      <button type="button" class="expander-list-link" id="exp2" aria-expanded="false" aria-controls="exp2Content"><span class="element-header"><span class="element-header__content"><h2 class="element-header__title">Tilleggsinformasjon (0)</h2></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg></span></span></button>
+      <div class="expander-list-link__main-content" id="exp2Content"><p style="font: var(--mobile-body);">Ingen tilleggsinformasjon.</p></div>
+    </li>
+  </ul>
+
+  <span class="spacer--l"></span>
+
   <div class="help-expander" data-analyticsid="help-expander-standalone">
     <button type="button" class="help-trigger-standalone" id="varselHelpBtn" aria-expanded="false" aria-controls="varselHelpDetails" data-analyticsid="help-trigger-standalone"><span class="help-trigger-standalone__icon" data-analyticsid="help-trigger-icon"><svg fill="none" width="20" height="20" overflow="visible" role="presentation" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><defs><clipPath id="varselHelpClip" clipPathUnits="userSpaceOnUse"><path fill-rule="evenodd" clip-rule="evenodd" d="M10.0004 0C4.48644 0 0 4.48565 0 9.99961C0 15.5136 4.48644 20 10.0004 20C15.5144 20 20 15.5136 20 9.99961C20 4.48565 15.5144 0 10.0004 0"></path></clipPath></defs><path d="M10.0004 0V-2C3.38207 -2 -2 3.38088 -2 9.99961H0H2C2 5.59043 5.5908 2 10.0004 2V0ZM0 9.99961H-2C-2 16.6181 3.38187 22 10.0004 22V20V18C5.59101 18 2 14.409 2 9.99961H0ZM10.0004 20V22C16.6191 22 22 16.6179 22 9.99961H20H18C18 14.4092 14.4096 18 10.0004 18V20ZM20 9.99961H22C22 3.38108 16.6189 -2 10.0004 -2V0V2C14.4098 2 18 5.59022 18 9.99961H20Z" fill="var(--color-help-graphics-normal)" clip-path="url(#varselHelpClip)"></path><path d="M9.93555 4.40039C12.1061 4.40039 13.2998 5.8386 13.2998 7.35156C13.2997 8.52045 12.2922 9.61789 11.8262 9.94238C11.3601 10.2669 11.209 10.5 11.209 10.5C11.0283 10.6756 10.9117 11.0195 10.8721 11.2715C10.8316 11.5286 10.8476 11.5136 10.8477 11.7998V11.9004H9.20117V11.2715C9.20117 10.8463 9.20556 10.7433 9.31934 10.374C9.43483 9.99921 9.75195 9.54492 10.0928 9.18262C10.4336 8.82031 10.751 8.58105 10.751 8.58105C11.1983 8.25659 11.3818 7.87361 11.3818 7.42285C11.3818 7.07417 11.2638 6.74031 11.0283 6.49414C10.794 6.24916 10.435 6.08301 9.93555 6.08301C8.94209 6.08316 8.41811 6.83977 8.41797 7.60742C8.41797 7.81763 8.44731 8.07481 8.49805 8.21582L8.5498 8.36035L6.7793 8.23535L6.70898 8.23047L6.69043 8.16309C6.63105 7.95321 6.60059 7.71544 6.60059 7.47949C6.60081 6.00363 7.71413 4.40053 9.93555 4.40039Z" fill="var(--color-help-graphics-normal)"></path><path d="M10 12.7998C10.6024 12.7999 11.0996 13.31 11.0996 13.9072C11.0994 14.506 10.6023 14.9999 10 15C9.38173 15 8.8996 14.506 8.89941 13.9072C8.89941 13.31 9.38162 12.7998 10 12.7998Z" fill="var(--color-help-graphics-normal)"></path></svg></span><span class="help-trigger-standalone__children">Velg om du vil få varsel om prøvesvar<svg class="help-trigger-standalone__chevron" role="presentation" focusable="false" aria-hidden="true" viewBox="0 0 48 48" width="24" height="24" fill="#5C27A1"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"></path></svg></span></button>
     <div class="help-details" id="varselHelpDetails" hidden>
@@ -629,91 +798,7 @@ a:focus-visible, button:focus-visible {
     </div>
   </div>
 
-  <span class="spacer--s" data-analyticsid="spacer"></span>
-
-  <!-- ══════════════════════════════════════════════════════
-       TABS — from the live page's markup: "Prøvesvar" lists the
-       results; "Analyseoversikt" navigates by prøvesvartype (content
-       not built yet). The result data is the live page's test data.
-  ═══════════════════════════════════════════════════════════ -->
-  <div class="tabs">
-    <div class="tab-list-sticky">
-      <div class="tab-list-wrapper">
-        <ul class="tab-list" role="tablist" aria-orientation="horizontal">
-          <li role="presentation"><button type="button" role="tab" id="tabProvesvar" aria-controls="panelProvesvar" aria-selected="true" class="tab-list__tab tab-list__tab--selected" tabindex="0"><span class="tab-list__tab__title-and-icon">Prøvesvar</span></button></li>
-          <li role="presentation"><button type="button" role="tab" id="tabAnalyse" aria-controls="panelAnalyse" aria-selected="false" class="tab-list__tab tab-list__tab--not-selected" tabindex="-1"><span class="tab-list__tab__title-and-icon">Analyseoversikt</span></button></li>
-        </ul>
-        <div class="tab-list__border"></div>
-      </div>
-      <div class="panel-wrapper"></div>
-    </div>
-    <div class="tab-panel-pull">
-      <div class="tab-panel" id="panelProvesvar" role="tabpanel" aria-labelledby="tabProvesvar">
-        <div class="filter-state-wrapper">
-          <div class="filter-chip-bar">
-            <button type="button" class="filter-button"><span class="filter-button__inner"><svg viewBox="0 0 48 48" width="38" height="38" aria-hidden="true"><path fill-rule="evenodd" clip-rule="evenodd" d="M22.111 27.892a2.974 2.974 0 0 1 2.905 2.342h11.935v1.264H25.015a2.973 2.973 0 0 1-2.904 2.34l-.303-.015a2.973 2.973 0 0 1-2.6-2.325H11.68v-1.264h7.529a2.973 2.973 0 0 1 2.903-2.342Zm0 1.263a1.71 1.71 0 1 0 .001 3.42 1.71 1.71 0 0 0 0-3.42Zm8.669-8.229a2.974 2.974 0 0 1 2.904 2.343h3.267v1.263h-3.268a2.973 2.973 0 0 1-2.904 2.341l-.303-.016a2.973 2.973 0 0 1-2.599-2.325H11.679v-1.263h16.197a2.973 2.973 0 0 1 2.903-2.343Zm0 1.263a1.71 1.71 0 1 0 0 3.421 1.71 1.71 0 0 0 0-3.42Zm-11.987-8.295a2.974 2.974 0 0 1 2.905 2.34h15.253v1.264H21.697a2.973 2.973 0 0 1-2.904 2.342l-.303-.015a2.973 2.973 0 0 1-2.6-2.327h-4.21v-1.263h4.21a2.973 2.973 0 0 1 2.903-2.341Zm0 1.263a1.71 1.71 0 1 0 .001 3.42 1.71 1.71 0 0 0 0-3.42Z"/></svg><span class="filter-button__text">Finn ...</span></span></button>
-            <ul aria-label="Aktive filter" class="filter-chip-bar__list"></ul>
-          </div>
-          <div class="filter-result-count-and-sort-wrapper">
-            <span class="filter-result-count-and-sort-wrapper__count" id="resultCount">9 prøvesvar</span>
-            <span class="filter-result-count-and-sort-wrapper__sort">
-              <div class="sort-select__wrapper">
-                <label class="sort-select__label" for="sortSelect">Sortering:</label>
-                <div class="sort-select__inner">
-                  <select id="sortSelect" autocomplete="off">
-                    <option value="Dato-asc">Dato (eldste til nyeste)</option>
-                    <option value="Dato-desc" selected>Dato (nyeste til eldste)</option>
-                    <option value="Overskrift-asc">Område (A - Å)</option>
-                    <option value="Overskrift-desc">Område (Å - A)</option>
-                    <option value="Navn-asc">Rekvirent (A - Å)</option>
-                    <option value="Navn-desc">Rekvirent (Å - A)</option>
-                  </select>
-                  <svg class="sort-select__arrow" viewBox="0 0 48 48" fill="#126F87" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg>
-                </div>
-              </div>
-            </span>
-          </div>
-        </div>
-        <span class="spacer--s" data-analyticsid="spacer"></span>
-        <div class="panel-list--outline" data-analyticsid="panel-list" id="provesvarList"></div>
-      </div>
-      <div class="tab-panel" id="panelAnalyse" role="tabpanel" aria-labelledby="tabAnalyse" hidden>
-        <p style="font: var(--mobile-body); color: var(--color-base-text-onlight);">Analyseoversikt: her navigerer du etter prøvesvartype. (Ikke bygget ennå.)</p>
-      </div>
-    </div>
-  </div>
-
-
-  <span class="spacer--s" data-analyticsid="spacer"></span>
-
-  <!-- Feedback form, from the live page's markup (not submitted anywhere). -->
-  <form class="feedbackform" onsubmit="return false">
-    <fieldset>
-      <h2 class="field-set__legend">Hvor fornøyd er du med tjenesten Prøvesvar?</h2>
-      <div class="feedbackform__scores">
-        <label for="feedback-score-1" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-1" type="radio" value="1" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.7505 24.2109C42.7505 14.3285 34.7326 6.31055 24.8501 6.31055C14.9676 6.31055 6.94971 14.3285 6.94971 24.2109C6.94971 34.0934 14.9676 42.1113 24.8501 42.1113C34.7326 42.1113 42.7505 34.0934 42.7505 24.2109ZM44.9497 24.2109C44.9497 35.3085 35.9476 44.3105 24.8501 44.3105C13.7526 44.3105 4.75049 35.3085 4.75049 24.2109C4.75049 13.1134 13.7526 4.11133 24.8501 4.11133C35.9476 4.11133 44.9497 13.1134 44.9497 24.2109Z"/><path d="M33.3179 16.0681C33.8936 15.8747 34.5168 16.1849 34.7104 16.7605C34.9041 17.3363 34.5948 17.9604 34.019 18.1541L31.147 19.1189L33.7993 20.157C34.3648 20.3785 34.6437 21.0162 34.4224 21.5818C34.201 22.1475 33.5633 22.427 32.9976 22.2058L27.5278 20.0652C27.097 19.8966 26.8174 19.4769 26.8286 19.0144C26.8398 18.552 27.1392 18.1462 27.5776 17.9988L33.3179 16.0681Z"/><path d="M14.979 16.7605C15.1726 16.1847 15.7967 15.8746 16.3726 16.0681L22.1128 17.9988C22.5511 18.1463 22.8506 18.552 22.8618 19.0144C22.873 19.4769 22.5934 19.8966 22.1626 20.0652L16.6929 22.2058C16.1271 22.4271 15.4894 22.1475 15.2681 21.5818C15.0468 21.0161 15.3255 20.3784 15.8911 20.157L18.5425 19.1189L15.6714 18.1541C15.0956 17.9604 14.7854 17.3363 14.979 16.7605Z"/><path d="M24.8457 24.1012C26.9033 24.1013 29.3331 24.7503 31.3418 26.1305C33.3741 27.5269 35.0067 29.7003 35.3096 32.7008C35.3703 33.3049 34.9303 33.8437 34.3262 33.9049C33.7218 33.9659 33.1822 33.5258 33.1211 32.9215C32.894 30.672 31.6909 29.04 30.0957 27.944C28.4772 26.8319 26.4879 26.3005 24.8457 26.3004C23.2084 26.3004 21.2237 26.8414 19.6064 27.9606C18.0112 29.0644 16.8102 30.6988 16.5791 32.9244C16.5163 33.5286 15.9762 33.9674 15.3721 33.9049C14.7678 33.8421 14.3289 33.3011 14.3916 32.6969C14.7006 29.7227 16.3298 27.5521 18.3545 26.151C20.3572 24.7652 22.7831 24.1012 24.8457 24.1012Z"/></svg><span class="scoreinput__text">Misfornøyd</span></label>
-        <label for="feedback-score-2" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-2" type="radio" value="2" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.916 24C42.916 14.1175 34.8981 6.09961 25.0156 6.09961C15.1331 6.09961 7.11523 14.1175 7.11523 24C7.11523 33.8825 15.1331 41.9004 25.0156 41.9004C34.8981 41.9004 42.916 33.8825 42.916 24ZM45.1152 24C45.1152 35.0975 36.1131 44.0996 25.0156 44.0996C13.9181 44.0996 4.91602 35.0975 4.91602 24C4.91602 12.9025 13.9181 3.90039 25.0156 3.90039C36.1131 3.90039 45.1152 12.9025 45.1152 24Z"/><path d="M31.8047 19.9398C31.8047 20.9579 30.9829 21.7797 29.9648 21.7797C28.9468 21.7796 28.125 20.9579 28.125 19.9398C28.1251 18.9219 28.9469 18.1001 29.9648 18.1C30.9829 18.1 31.8046 18.9218 31.8047 19.9398Z"/><path d="M21.8984 19.9398C21.8984 20.9579 21.0767 21.7797 20.0586 21.7797C19.0406 21.7796 18.2188 20.9579 18.2188 19.9398C18.2188 18.9219 19.0407 18.1001 20.0586 18.1C21.0766 18.1 21.8984 18.9218 21.8984 19.9398Z"/><path d="M24.7979 26.5872C27.4291 26.5873 31.204 28.1083 32.2266 31.76C32.3904 32.345 32.0489 32.9527 31.4639 33.1165C30.8791 33.28 30.2723 32.9384 30.1084 32.3538C29.451 30.0059 26.8665 28.7865 24.7979 28.7864C22.7409 28.7864 20.1624 30.0279 19.4951 32.3596C19.3279 32.9436 18.7188 33.2816 18.1348 33.1145C17.5507 32.9473 17.2128 32.3382 17.3799 31.7542C18.4126 28.1458 22.1548 26.5872 24.7979 26.5872Z"/></svg><span class="scoreinput__text">Litt misfornøyd</span></label>
-        <label for="feedback-score-3" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-3" type="radio" value="3" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.916 24C42.916 14.1175 34.8981 6.09961 25.0156 6.09961C15.1331 6.09961 7.11523 14.1175 7.11523 24C7.11523 33.8825 15.1331 41.9004 25.0156 41.9004C34.8981 41.9004 42.916 33.8825 42.916 24ZM45.1152 24C45.1152 35.0975 36.1131 44.0996 25.0156 44.0996C13.9181 44.0996 4.91602 35.0975 4.91602 24C4.91602 12.9025 13.9181 3.90039 25.0156 3.90039C36.1131 3.90039 45.1152 12.9025 45.1152 24Z"/><path d="M31.8047 19.9398C31.8047 20.9579 30.9829 21.7797 29.9648 21.7797C28.9468 21.7796 28.125 20.9579 28.125 19.9398C28.1251 18.9219 28.9469 18.1001 29.9648 18.1C30.9829 18.1 31.8046 18.9218 31.8047 19.9398Z"/><path d="M21.8984 19.9398C21.8984 20.9579 21.0767 21.7797 20.0586 21.7797C19.0406 21.7796 18.2188 20.9579 18.2188 19.9398C18.2188 18.9219 19.0407 18.1001 20.0586 18.1C21.0766 18.1 21.8984 18.9218 21.8984 19.9398Z"/><path d="M30.9688 28.7106C31.5763 28.7106 32.0684 29.2027 32.0684 29.8102C32.0684 30.4177 31.5763 30.9098 30.9688 30.9098L19.0625 30.9098C18.455 30.9098 17.9629 30.4177 17.9629 29.8102C17.9629 29.2027 18.455 28.7106 19.0625 28.7106L30.9688 28.7106Z"/></svg><span class="scoreinput__text">Nøytral</span></label>
-        <label for="feedback-score-4" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-4" type="radio" value="4" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.916 24C42.916 14.1175 34.8981 6.09961 25.0156 6.09961C15.1331 6.09961 7.11523 14.1175 7.11523 24C7.11523 33.8825 15.1331 41.9004 25.0156 41.9004C34.8981 41.9004 42.916 33.8825 42.916 24ZM45.1152 24C45.1152 35.0975 36.1131 44.0996 25.0156 44.0996C13.9181 44.0996 4.91602 35.0975 4.91602 24C4.91602 12.9025 13.9181 3.90039 25.0156 3.90039C36.1131 3.90039 45.1152 12.9025 45.1152 24Z"/><path d="M31.8047 19.9398C31.8047 20.9579 30.9829 21.7797 29.9648 21.7797C28.9468 21.7796 28.125 20.9579 28.125 19.9398C28.1251 18.9219 28.9469 18.1001 29.9648 18.1C30.9829 18.1 31.8046 18.9218 31.8047 19.9398Z"/><path d="M21.8984 19.9398C21.8984 20.9579 21.0767 21.7797 20.0586 21.7797C19.0406 21.7796 18.2188 20.9579 18.2188 19.9398C18.2188 18.9219 19.0407 18.1001 20.0586 18.1C21.0766 18.1 21.8984 18.9218 21.8984 19.9398Z"/><path d="M30.3235 27.3224C30.4907 26.7386 31.099 26.4007 31.6829 26.5676C32.2669 26.7347 32.6049 27.3438 32.4377 27.9279C31.405 31.536 27.6638 33.0948 25.0208 33.0949C22.3894 33.0949 18.6137 31.5739 17.5911 27.922C17.4273 27.3371 17.7689 26.7295 18.3538 26.5656C18.9387 26.4018 19.5463 26.7434 19.7102 27.3283C20.3676 29.6763 22.9521 30.8957 25.0208 30.8957C27.0777 30.8956 29.6562 29.6541 30.3235 27.3224Z"/></svg><span class="scoreinput__text">Litt fornøyd</span></label>
-        <label for="feedback-score-5" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-5" type="radio" value="5" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.7505 24C42.7505 14.1175 34.7326 6.09961 24.8501 6.09961C14.9676 6.09961 6.94971 14.1175 6.94971 24C6.94971 33.8825 14.9676 41.9004 24.8501 41.9004C34.7326 41.9004 42.7505 33.8825 42.7505 24ZM44.9497 24C44.9497 35.0975 35.9476 44.0996 24.8501 44.0996C13.7526 44.0996 4.75049 35.0975 4.75049 24C4.75049 12.9025 13.7526 3.90039 24.8501 3.90039C35.9476 3.90039 44.9497 12.9025 44.9497 24Z"/><path d="M31.6392 19.9398C31.6392 20.9579 30.8174 21.7797 29.7993 21.7797C28.7813 21.7796 27.9595 20.9579 27.9595 19.9398C27.9596 18.9219 28.7813 18.1001 29.7993 18.1C30.8173 18.1 31.6391 18.9218 31.6392 19.9398Z"/><path d="M21.7329 19.9398C21.7329 20.9579 20.9111 21.7797 19.8931 21.7797C18.8751 21.7796 18.0532 20.9579 18.0532 19.9398C18.0533 18.9219 18.8751 18.1001 19.8931 18.1C20.9111 18.1 21.7328 18.9218 21.7329 19.9398Z"/><path d="M35.2993 25.4209C35.611 25.4209 35.9081 25.5526 36.1167 25.7842C36.3253 26.0159 36.4257 26.3257 36.3931 26.6357C36.0495 29.9015 34.2532 32.2849 32.019 33.8262C29.9448 35.2571 27.4601 35.9911 25.2837 36.0771L24.853 36.085C22.5829 36.0849 19.8999 35.3703 17.6821 33.8506C15.4412 32.315 13.6438 29.929 13.3032 26.6338C13.2712 26.324 13.372 26.0154 13.5806 25.7842C13.7891 25.5529 14.0856 25.4209 14.397 25.4209H35.2993ZM15.7144 27.6201C16.2246 29.5496 17.4221 31.0044 18.9263 32.0352C20.7542 33.2878 22.9973 33.8857 24.853 33.8857C26.7023 33.8857 28.9422 33.2766 30.77 32.0156C32.2716 30.9798 33.4652 29.526 33.978 27.6201H15.7144Z"/></svg><span class="scoreinput__text">Veldig fornøyd</span></label>
-      </div>
-    </fieldset>
-    <span class="spacer--m" data-analyticsid="spacer"></span>
-  </form>
-
-  <span class="spacer--l" data-analyticsid="spacer"></span>
-
-  <h2 class="title2">Personvern for Prøvesvar</h2>
-
-  <span class="spacer--m" data-analyticsid="spacer"></span>
-
-  <!-- LinkList from the live page's markup. The live links go to the test
-       environment (logg over bruk / personverninnstillinger); here they
-       go nowhere. -->
-  <ul class="link-list" data-analyticsid="link-list">
-    <li class="link-list__list-item--line"><a class="link-list__anchor" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Logg over bruk</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
-    <li class="link-list__list-item--line"><a class="link-list__anchor" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Personverninnstillinger</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
-  </ul>
+  <span class="spacer--m"></span>
 
   <div class="sp-xl"></div>
 
@@ -766,51 +851,41 @@ a:focus-visible, button:focus-visible {
 </div><!-- /phone-wrapper -->
 
 <script>
-// ─── Prøvesvar list: live page's test data, sortable ────────────
-const PROVESVAR = [
-  { omrade: 'Medisinsk biokjemi', rekvirent: 'Uavhengig Fjernsyn, WebMed Test HelseNorge -TREG VOKAL KATT SKORPION', dato: '2026-03-18', href: 'resultat.html' },
-  { omrade: 'Medisinsk biokjemi', rekvirent: 'WebMed Demobruker, Evila Øyelegeseter AS', dato: '2026-02-19' },
-  { omrade: 'Medisinsk biokjemi', rekvirent: 'Grønn Vits, WebMed Test HelseNorge', dato: '2026-01-30' },
-  { omrade: 'Medisinsk biokjemi', rekvirent: 'Grønn Vits, Evila Øyelegeseter AS', dato: '2026-01-29' },
-  { omrade: 'Medisinsk mikrobiologi', rekvirent: 'Kommuneoverlege Gro K, Trondheim kommune - Smittevern', dato: '2026-01-13' },
-  { omrade: 'Cytologi', rekvirent: 'NORSK HELSENETT SF, Pasientens prøvesvar', dato: '2025-09-11' },
-  { omrade: 'Medisinsk biokjemi', rekvirent: 'Sulten Lege, LIS1, Kattskinnet legesenter', dato: '2025-08-04' },
-  { omrade: 'Medisinsk mikrobiologi', rekvirent: 'Sulten Lege, LIS1, Kattskinnet legesenter', dato: '2025-08-04' },
-  { omrade: 'Cytologi', rekvirent: 'NORSK HELSENETT SF, Pasientens prøvesvar', dato: '2024-09-20' },
-];
-const CHEVRON_RIGHT = '<svg viewBox="0 0 48 48" width="38" height="38" fill="#126F87" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg>';
-const fmtDato = iso => iso.split('-').reverse().join('.');
-const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-function renderProvesvar(sort) {
-  const [key, dir] = sort.split('-');
-  const field = { Dato: 'dato', Overskrift: 'omrade', Navn: 'rekvirent' }[key];
-  const sign = dir === 'asc' ? 1 : -1;
-  const rows = [...PROVESVAR].sort((a, b) => sign * a[field].localeCompare(b[field], 'nb') || b.dato.localeCompare(a.dato));
-  document.getElementById('provesvarList').innerHTML = rows.map(r => `
-    <div class="panel-list__panel--outline"><div class="panel__border--outline--inner"><div class="panel">
-      <div class="paneltitle"><div class="paneltitle__title"><h3>${esc(r.omrade)}</h3></div></div>
-      <div class="panel__content"><div class="panel__content__item">
-        <span>${esc(r.rekvirent)}</span>
-        <dl class="duolist"><div><dt data-separator=": ">Prøvedato</dt><dd>${fmtDato(r.dato)}</dd></div></dl>
-      </div></div>
-      <div class="panel__button-bottom"><button type="button" class="btn-borderless"${r.href ? ` onclick="location.href='${r.href}'"` : ''} aria-label="Se resultater ${esc(r.omrade)}, ${esc(r.rekvirent.split(',')[0])}, Prøvedato: ${fmtDato(r.dato)}"><span>Se resultater</span>${CHEVRON_RIGHT}</button></div>
-    </div></div></div>`).join('');
-  document.getElementById('resultCount').textContent = rows.length + ' prøvesvar';
-}
-const sortSelect = document.getElementById('sortSelect');
-sortSelect.addEventListener('change', () => renderProvesvar(sortSelect.value));
-renderProvesvar(sortSelect.value);
+// ─── Language picker: opens/closes; choosing marks the language
+// (the page text itself doesn't change) and announces it, like the live
+// "Språk endret til …" message.
+(function () {
+  const toggle = document.getElementById('langToggle');
+  const content = document.getElementById('langOptions');
+  const msg = document.getElementById('langMessage');
+  const setOpen = open => { toggle.setAttribute('aria-expanded', String(open)); content.classList.toggle('dropdown__content--open', open); };
+  toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+  content.querySelectorAll('.single-select-item__content').forEach(btn => btn.addEventListener('click', () => {
+    content.querySelectorAll('.single-select-item__content').forEach(b => {
+      const on = b === btn;
+      b.toggleAttribute('aria-current', on); if (on) b.setAttribute('aria-current', 'true');
+      b.querySelector('.single-select-item__dot').classList.toggle('single-select-item__dot--checked', on);
+    });
+    msg.textContent = 'Språk endret til ' + btn.dataset.lang;
+    setOpen(false); toggle.focus();
+  }));
+  document.addEventListener('click', e => { if (!e.target.closest('.dropdown')) setOpen(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') setOpen(false); });
+})();
 
-// ─── Tabs ────────────────────────────────────────────────────────
-document.querySelectorAll('.tab-list__tab').forEach(tab => tab.addEventListener('click', () => {
-  document.querySelectorAll('.tab-list__tab').forEach(t => {
-    const sel = t === tab;
-    t.classList.toggle('tab-list__tab--selected', sel);
-    t.classList.toggle('tab-list__tab--not-selected', !sel);
-    t.setAttribute('aria-selected', String(sel));
-    t.tabIndex = sel ? 0 : -1;
-    document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
-  });
+// ─── Dictionary triggers (ordforklaring) ─────────────────────────
+document.querySelectorAll('.dictionarytrigger').forEach(t => t.addEventListener('click', () => {
+  const open = t.getAttribute('aria-expanded') !== 'true';
+  t.setAttribute('aria-expanded', String(open));
+  document.getElementById(t.getAttribute('aria-controls')).hidden = !open;
+}));
+
+// ─── ExpanderList ────────────────────────────────────────────────
+document.querySelectorAll('.expander-list-link').forEach(btn => btn.addEventListener('click', () => {
+  const open = btn.getAttribute('aria-expanded') !== 'true';
+  btn.setAttribute('aria-expanded', String(open));
+  document.getElementById(btn.getAttribute('aria-controls')).classList.toggle('expander-list-link__main-content--expanded', open);
+  btn.querySelector('.element-header__chevron path').setAttribute('d', open ? 'M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z' : 'M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z');
 }));
 
 // Favoritter (snarvei) star — same behaviour as Gravid's: toggles
