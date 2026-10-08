@@ -121,10 +121,18 @@ function settSlettet(id, tid) { const s = lesLS(LS_SLETTET, {}); s[id] = tid; sk
 // The ordering institution: the part after the last comma in rekvirert.
 const bestillendeVirksomhet = r => (r.rekvirert.split(',').slice(-1)[0] || r.rekvirert).trim();
 function loggHendelse(tekst) { const l = lesLS(LS_LOGG, []); l.unshift({ tid: naa(), tekst }); skrivLS(LS_LOGG, l); }
-function nullstillPersonvern() { try { [LS_SPERRET, LS_SLETTET, LS_LOGG].forEach(k => localStorage.removeItem(k)); } catch { /* ignore */ } }
-// Simulated API call: resolves after a short delay. Success is shown
-// only after it resolves (spec: never fake success).
-const simulertApi = (ms = 900) => new Promise(res => setTimeout(res, ms));
+const LS_APIFEIL = 'provesvar-apifeil';   // '1' = simulate API errors
+function nullstillPersonvern() { try { [LS_SPERRET, LS_SLETTET, LS_LOGG, LS_APIFEIL].forEach(k => localStorage.removeItem(k)); } catch { /* ignore */ } }
+const apiFeilPa = () => { try { return localStorage.getItem(LS_APIFEIL) === '1'; } catch { return false; } };
+function settApiFeil(on) { try { on ? localStorage.setItem(LS_APIFEIL, '1') : localStorage.removeItem(LS_APIFEIL); } catch { /* ignore */ } }
+// ?apifeil=1 / ?apifeil=0 on any page switches the simulated API error
+// on/off (remembered until switched off or reset; also in demo.html).
+(function () { const v = new URLSearchParams(location.search).get('apifeil'); if (v === '1') settApiFeil(true); if (v === '0') settApiFeil(false); })();
+// Simulated API call: resolves after a short delay — or rejects when
+// API errors are being simulated. Success is shown only after it
+// resolves (spec: never fake success); on rejection nothing changes and
+// the error page (§4.11) is shown.
+const simulertApi = (ms = 900) => new Promise((res, rej) => setTimeout(() => (apiFeilPa() ? rej(new Error('Simulert API-feil')) : res()), ms));
 const resultatNavn = r => `${r.omrade} (${r.dato})`;
 
 // Icons used by the flow (design-system Icons).

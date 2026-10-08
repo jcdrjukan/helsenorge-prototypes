@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personvernvalg – Prøvesvar – Helsenorge</title>
+<title>Logg over bruk – Helsenorge</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <link href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=Source+Sans+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
@@ -675,6 +675,15 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .sp-xl { height: var(--space-xl); flex-shrink: 0; width: 100%; }
 </style>
 <link rel="stylesheet" href="sperring.css">
+<style>
+/* Log entries: a plain line list (LinkList line borders, no links). */
+.logg-liste { width: 344px; list-style: none; margin: 0; padding: 0; }
+.logg-liste li { border-bottom: 1px solid var(--component-listelements-border-neutral-normal); padding: 0.75rem 0.5rem; }
+.logg-liste li:first-child { border-top: 1px solid var(--component-listelements-border-neutral-normal); }
+.logg-liste__tid { display: block; font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: #474745; }
+.logg-liste__tekst { display: block; font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.logg-liste[hidden], .body-block[hidden] { display: none; }
+</style>
 </head>
 <body>
 
@@ -730,9 +739,9 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
        BREADCRUMB
   ═══════════════════════════════════════════════════════════ -->
   <nav class="breadcrumb" aria-label="Brødsmulesti">
-    <a class="breadcrumb__back" href="resultat.html" id="tilbakeLink">
+    <a class="breadcrumb__back" href="index.html" id="tilbakeLink">
       <svg viewBox="0 0 48 48" fill="none" aria-hidden="true"><path d="M30.66 32.951l-1.409 1.42L18.8 24l10.451-10.37 1.409 1.42L21.64 24z" fill="black"/></svg>
-      <span id="tilbakeTekst">Prøvesvaret</span>
+      <span id="tilbakeTekst">Prøvesvar</span>
     </a>
   </nav>
   <hr class="page-divider">
@@ -753,184 +762,21 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   </div>
 
   <!-- ══════════════════════════════════════════════════════
-       PERSONVERNVALG (sperre/slette spec §4.4). Reached only from
-       "⋯ Flere valg" on a result. ?id=N picks the result;
-       &steg=sperr / slett are the next steps (not built yet).
+       LOGG OVER BRUK — prototype stand-in for Helsenorge's usage log,
+       filtered to Pasientens prøvesvar (the live link uses
+       ?filter.kategori=pasientens-provesvar). Shows the block, unblock
+       and delete entries written by the sperre/slette flow (spec §5),
+       newest first, in the same plain words as the UI.
   ═══════════════════════════════════════════════════════════ -->
-  <div id="stegValg">
-    <div class="pageheader">
-      <div class="page-title"><h1 id="sidetittel">Personvernvalg</h1></div>
-      <p class="personvern__subtitle" id="resultatNavn"></p>
-    </div>
-
-    <span class="spacer--m"></span>
-
-    <div class="personvern__intro">
-      <p>De fleste trenger ikke å gjøre noe her. Når helsepersonell kan se prøvesvarene dine, får du tryggere behandling, og du slipper å ta prøver på nytt.</p>
-      <p>Du har likevel rett til å begrense hvem som ser dette svaret.</p>
-    </div>
-
-    <span class="spacer--m"></span>
-
-    <ul class="link-list" data-analyticsid="link-list">
-      <li class="link-list__list-item--line"><a class="link-list__anchor" id="sperrLink" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title" id="sperrTittel">Sperr svaret for helsepersonell</span><span class="element-header__hint" id="sperrHint">Du ser det fortsatt selv, og kan oppheve sperringen.</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
-      <li class="link-list__list-item--line"><a class="link-list__anchor" id="slettLink" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Slett svaret fra Helsenorge</span><span class="element-header__hint">Svaret forsvinner også for deg. Kan ikke angres.</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
-    </ul>
-
-    <span class="spacer--m"></span>
-
-    <p class="personvern__more"><a class="anchorlink" href="#">Les mer om rettighetene dine</a></p>
+  <div class="pageheader">
+    <div class="page-title"><h1 id="sidetittel">Logg over bruk</h1></div>
+    <p class="personvern__subtitle">Pasientens prøvesvar</p>
   </div>
-
-  <!-- ══════════════════════════════════════════════════════
-       SPERR (spec §4.5): explanation and confirmation.
-  ═══════════════════════════════════════════════════════════ -->
-  <div id="stegSperr" hidden>
-    <div class="pageheader">
-      <div class="page-title"><h1>Vil du sperre dette svaret?</h1></div>
-      <p class="personvern__subtitle" data-resultatnavn></p>
-    </div>
-    <span class="spacer--l"></span>
-    <h2 class="title3">Dette skjer</h2>
-    <span class="spacer--s"></span>
-    <ul class="list">
-      <li>Annet helsepersonell i hele landet kan ikke se svaret når de slår opp prøvesvarene dine.</li>
-    </ul>
-    <span class="spacer--l"></span>
-    <h2 class="title3">Dette endres ikke</h2>
-    <span class="spacer--s"></span>
-    <ul class="list">
-      <li>Legen som bestilte prøven, ser fortsatt svaret.</li>
-      <li>Svaret blir lagret i journalen der prøven ble bestilt.</li>
-      <li>Du ser fortsatt svaret selv.</li>
-    </ul>
-    <span class="spacer--l"></span>
-    <!-- [AVKLARES] Gjelder sperringen også i akutte situasjoner
-         (akuttilgang)? Svaret endrer denne teksten. -->
-    <div class="np np--warn">
-      <svg class="np__icon" viewBox="0 0 48 48" fill="#916500" aria-hidden="true"><path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/></svg>
-      <div class="np__content">
-        <h3 class="np__label">Vær oppmerksom på</h3>
-        <p class="np__text">Helsepersonell som skal behandle deg, får ikke vite om dette svaret. Det kan føre til at prøver tas på nytt, eller at de mangler informasjon som er viktig for behandlingen din.</p>
-      </div>
-    </div>
-    <span class="spacer--l"></span>
-    <p class="body-block">Du kan oppheve sperringen når som helst.</p>
-    <span class="spacer--l"></span>
-    <div class="btn-row">
-      <button type="button" class="btn btn--fill" id="sperrBtn"><span>Sperr svaret</span></button>
-      <a class="btn btn--borderless" id="sperrAvbryt" href="#"><span>Avbryt</span></a>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════
-       SLETT (spec §4.8): explanation and consent. "Slett svaret" is
-       disabled until the consent box is ticked.
-  ═══════════════════════════════════════════════════════════ -->
-  <div id="stegSlett" hidden>
-    <div class="pageheader">
-      <div class="page-title"><h1>Vil du slette dette svaret fra Helsenorge?</h1></div>
-      <p class="personvern__subtitle" data-resultatnavn></p>
-    </div>
-    <span class="spacer--l"></span>
-    <h2 class="title3">Dette skjer når du sletter</h2>
-    <span class="spacer--s"></span>
-    <ul class="list">
-      <li>Svaret slettes fra Pasientens prøvesvar, den nasjonale løsningen for prøvesvar.</li>
-      <li><strong>Du kan ikke lenger se svaret</strong> på Helsenorge.</li>
-      <li>Helsepersonell andre steder i landet kan ikke se svaret.</li>
-    </ul>
-    <span class="spacer--l"></span>
-    <h2 class="title3">Dette endres ikke</h2>
-    <span class="spacer--s"></span>
-    <ul class="list">
-      <li>Svaret er fortsatt lagret i journalen der prøven ble bestilt, og hos laboratoriet.</li>
-      <li>Legen som bestilte prøven, ser fortsatt svaret.</li>
-    </ul>
-    <span class="spacer--l"></span>
-    <!-- [AVKLARES] Kan svaret gjenopprettes på noen måte (f.eks. via
-         brukerstøtte)? Avgjør om «kan ikke angres» er bokstavelig sant. -->
-    <div class="np np--error">
-      <svg class="np__icon" viewBox="0 0 48 48" fill="#A31F0E" aria-hidden="true"><path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/></svg>
-      <div class="np__content">
-        <h3 class="np__label">Dette kan ikke angres</h3>
-        <p class="np__text">Svaret kan ikke hentes tilbake til Helsenorge senere. Helsepersonell som skal behandle deg, får ikke vite om svaret. Det kan føre til at prøver tas på nytt, eller at de mangler viktig informasjon.</p>
-      </div>
-    </div>
-    <span class="spacer--m"></span>
-    <!-- Less drastic option first (spec principle 4). Hidden if the
-         result is already blocked. -->
-    <div id="hellerSperr">
-      <div class="np np--info">
-        <svg class="np__icon" viewBox="0 0 48 48" fill="#08667C" aria-hidden="true"><path d="M26.367 31.224h-4.7v-.543a8.88 8.88 0 00.38-.037c.124-.015.23-.04.32-.075a.612.612 0 00.334-.255.881.881 0 00.097-.443v-6.324a.868.868 0 00-.12-.458 1.001 1.001 0 00-.297-.315 1.543 1.543 0 00-.405-.171 2.644 2.644 0 00-.495-.105v-.543l3.645-.192.11.11v7.9c0 .174.038.322.112.443a.67.67 0 00.32.271 2.363 2.363 0 00.699.194v.543zm-2.64-14.998a1.556 1.556 0 11-.002 3.111 1.556 1.556 0 01.002-3.11zM24 8.728C15.58 8.728 8.728 15.578 8.728 24c0 8.42 6.852 15.272 15.273 15.272 8.42 0 15.27-6.852 15.27-15.272 0-8.421-6.85-15.272-15.27-15.272z"/></svg>
-        <div class="np__content">
-          <h3 class="np__label">Vil du heller sperre svaret?</h3>
-          <p class="np__text">Da kan helsepersonell ikke se det, men du ser det selv, og du kan oppheve sperringen når du vil.</p>
-          <p class="np__text"><a class="anchorlink" id="hellerSperrLink" href="#">Sperr svaret i stedet</a></p>
-        </div>
-      </div>
-      <span class="spacer--l"></span>
-    </div>
-    <div id="samtykkeWrapper">
-      <div class="checkbox-wrapper" id="samtykkeCheckbox">
-        <label class="checkbox-label" for="samtykke">
-          <input type="checkbox" class="checkbox-input" id="samtykke">
-          <span class="checkbox__marker" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M22.504 31.198l-9.59-9.966 1.441-1.387 8.149 8.468 14.455-15.016 1.441 1.386z"/></svg></span>
-          <span>Jeg har lest informasjonen og forstår at svaret slettes for godt fra Helsenorge.</span>
-        </label>
-      </div>
-    </div>
-    <span class="spacer--l"></span>
-    <div class="btn-row">
-      <button type="button" class="btn btn--destructive" id="slettBtn" disabled><span>Slett svaret</span></button>
-      <a class="btn btn--borderless" id="slettAvbryt" href="#"><span>Avbryt</span></a>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════
-       FEIL (spec §4.11): the API call failed; nothing has changed.
-       &handling=sperr | opphev | slett adapts the text.
-  ═══════════════════════════════════════════════════════════ -->
-  <div id="stegFeil" hidden>
-    <div class="pageheader">
-      <div class="page-title"><h1 id="feilTittel" tabindex="-1"></h1></div>
-    </div>
-    <span class="spacer--m"></span>
-    <p class="body-block" id="feilTekst"></p>
-    <span class="spacer--s"></span>
-    <p class="body-block">Prøv igjen om litt. Hvis det fortsatt ikke virker, kan du kontakte Veiledning Helsenorge på <a class="anchorlink" href="tel:23327000">23 32 70 00</a>.</p>
-    <span class="spacer--l"></span>
-    <div class="btn-row">
-      <a class="btn btn--fill" id="feilProvIgjen" href="#"><span>Prøv igjen</span></a>
-      <a class="btn btn--borderless" id="feilTilbake" href="#"><span>Tilbake til svaret</span></a>
-    </div>
-  </div>
-
-  <!-- ══════════════════════════════════════════════════════
-       KVITTERING (spec §4.9).
-  ═══════════════════════════════════════════════════════════ -->
-  <div id="stegKvittering" hidden>
-    <div class="pageheader">
-      <svg class="kvittering__ikon" viewBox="0 0 48 48" aria-hidden="true"><path fill-rule="evenodd" d="m33.706 19.928-1.441-1.387-10.314 10.715-5.879-6.108-1.442 1.386 7.321 7.607 11.755-12.213ZM40.135 24c0 8.873-7.193 16.066-16.067 16.066-8.873 0-16.066-7.193-16.066-16.066S15.195 7.934 24.068 7.934c8.874 0 16.067 7.193 16.067 16.066Z"/></svg>
-      <div class="page-title"><h1 id="kvitteringTittel" tabindex="-1">Svaret er slettet fra Helsenorge</h1></div>
-    </div>
-    <span class="spacer--m"></span>
-    <p class="body-block" id="kvitteringTekst"></p>
-    <span class="spacer--m"></span>
-    <dl class="duolist-kvittering">
-      <dt>Prøvesvar</dt><dd id="kvNavn"></dd>
-      <dt>Prøvedato</dt><dd id="kvDato"></dd>
-      <dt>Slettet</dt><dd id="kvSlettet"></dd>
-    </dl>
-    <span class="spacer--m"></span>
-    <p class="body-block">Valget ditt er registrert i loggen din.</p>
-    <span class="spacer--s"></span>
-    <ul class="link-list">
-      <li class="link-list__list-item--line"><a class="link-list__anchor" href="logg.html"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Se logg over bruk</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
-    </ul>
-    <span class="spacer--l"></span>
-    <div class="btn-row"><a class="btn btn--fill" id="tilbakeTilListe" href="index.html"><span>Tilbake til prøvesvar</span></a></div>
-  </div>
+  <span class="spacer--m"></span>
+  <p class="body-block">Her ser du hva du selv har gjort med prøvesvarene dine på Helsenorge.</p>
+  <span class="spacer--l"></span>
+  <ul class="logg-liste" id="loggListe"></ul>
+  <p class="body-block" id="loggTom" hidden>Ingen hendelser er registrert.</p>
 
   <div class="sp-xl"></div>
 
@@ -984,102 +830,14 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 
 <script src="data.js"></script>
 <script>
-// ─── Personvernvalg (+ steps). ?id=N picks the result, &steg=sperr is
-// the block page (§4.5); &steg=slett the delete page (§4.8);
-// &steg=kvittering the receipt (§4.9); &steg=feil the API error page (§4.11).
+// ─── Logg over bruk: entries from the prototype's browser state.
 (function () {
-  const params = new URLSearchParams(location.search);
-  const id = params.get('id') || '1';
-  const steg = params.get('steg');
-  const r = RESULTATER[id] || RESULTATER[1];
-  if (slettetTid(id) && steg !== 'kvittering') { location.replace('index.html'); return; }
-  const q = s => `personvern.html?id=${encodeURIComponent(id)}${s ? '&steg=' + s : ''}`;
-  const tilbake = document.getElementById('tilbakeLink');
-  tilbake.href = 'resultat.html?id=' + encodeURIComponent(id);
-  document.getElementById('resultatNavn').textContent = `${r.omrade} · Prøvedato ${r.dato}`;
-  document.querySelectorAll('[data-resultatnavn]').forEach(el => el.textContent = `${r.omrade} · Prøvedato ${r.dato}`);
-  document.getElementById('slettLink').href = q('slett');
-  // Row 1: "Sperr…" — or, if already blocked, "Opphev sperring", which
-  // opens the unblock dialog on the result page.
-  if (sperretDato(id)) {
-    document.getElementById('sperrTittel').textContent = 'Opphev sperring';
-    document.getElementById('sperrHint').textContent = `Du sperret svaret ${sperretDato(id)}. Helsepersonell kan se det igjen hvis du opphever sperringen.`;
-    document.getElementById('sperrLink').href = `resultat.html?id=${encodeURIComponent(id)}&opphev=1`;
-  } else {
-    document.getElementById('sperrLink').href = q('sperr');
-  }
-  const visSteg = (el, tittel) => {
-    document.getElementById('stegValg').hidden = true;
-    el.hidden = false;
-    document.title = tittel + ' – Prøvesvar – Helsenorge';
-    tilbake.href = q();
-    document.getElementById('tilbakeTekst').textContent = 'Personvernvalg';
-  };
-  if (steg === 'sperr') {
-    if (sperretDato(id)) { location.replace(`resultat.html?id=${encodeURIComponent(id)}`); return; }
-    visSteg(document.getElementById('stegSperr'), 'Sperr svaret');
-    document.getElementById('sperrAvbryt').href = q();
-    const btn = document.getElementById('sperrBtn');
-    btn.addEventListener('click', async () => {
-      if (btn.getAttribute('aria-busy') === 'true') return;   // no double submit
-      settOpptatt(btn, true);
-      try { await simulertApi(); } catch { location.href = q('feil') + '&handling=sperr'; return; }
-      settSperret(id, iDag());
-      loggHendelse(`Du sperret prøvesvaret ${resultatNavn(r)} for helsepersonell.`);
-      location.href = `resultat.html?id=${encodeURIComponent(id)}&status=sperret`;
-    });
-  } else if (steg === 'slett') {
-    if (slettetTid(id)) { location.replace('index.html'); return; }
-    visSteg(document.getElementById('stegSlett'), 'Slett svaret');
-    document.getElementById('slettAvbryt').href = q();
-    document.getElementById('hellerSperrLink').href = q('sperr');
-    document.getElementById('hellerSperr').hidden = !!sperretDato(id);
-    const cb = document.getElementById('samtykke');
-    const btn = document.getElementById('slettBtn');
-    // Disabled until the consent box is ticked (also after back/forward
-    // cache restores, hence syncing on load too).
-    const synk = () => { btn.disabled = !cb.checked; };
-    cb.addEventListener('change', synk);
-    synk();
-    btn.addEventListener('click', async () => {
-      if (btn.getAttribute('aria-busy') === 'true' || !cb.checked) return;   // no double submit
-      settOpptatt(btn, true);
-      try { await simulertApi(); } catch { location.href = q('feil') + '&handling=slett'; return; }
-      settSlettet(id, naa());
-      settSperret(id, null);   // [AVKLARES 7] a block simply disappears with the result
-      loggHendelse(`Du slettet prøvesvaret ${resultatNavn(r)} fra Helsenorge.`);
-      location.replace(q('kvittering'));
-    });
-  } else if (steg === 'feil') {
-    const handling = params.get('handling') || 'slett';
-    const sperret = !!sperretDato(id);
-    const TEKST = {
-      sperr: ['Vi fikk ikke sperret svaret', 'Ingenting er endret. Svaret er ikke sperret, og helsepersonell kan se det som før.', q('sperr')],
-      opphev: ['Vi fikk ikke opphevet sperringen', 'Ingenting er endret. Svaret er fortsatt sperret for helsepersonell.', `resultat.html?id=${encodeURIComponent(id)}&opphev=1`],
-      slett: ['Vi fikk ikke slettet svaret', sperret
-        ? 'Ingenting er endret. Svaret er fortsatt lagret på Helsenorge, og det er fortsatt sperret for helsepersonell.'
-        : 'Ingenting er endret. Svaret er fortsatt lagret på Helsenorge, og helsepersonell kan se det som før.', q('slett')],
-    }[handling] || [];
-    visSteg(document.getElementById('stegFeil'), TEKST[0]);
-    tilbake.href = 'resultat.html?id=' + encodeURIComponent(id);
-    document.getElementById('tilbakeTekst').textContent = 'Prøvesvaret';
-    document.getElementById('feilTittel').textContent = TEKST[0];
-    document.getElementById('feilTekst').textContent = TEKST[1];
-    document.getElementById('feilProvIgjen').href = TEKST[2];
-    document.getElementById('feilTilbake').href = 'resultat.html?id=' + encodeURIComponent(id);
-    document.getElementById('feilTittel').focus();
-  } else if (steg === 'kvittering') {
-    if (!slettetTid(id)) { location.replace(q()); return; }
-    visSteg(document.getElementById('stegKvittering'), 'Svaret er slettet');
-    tilbake.href = 'index.html';
-    document.getElementById('tilbakeTekst').textContent = 'Prøvesvar';
-    document.getElementById('kvitteringTekst').textContent = `Svaret er fjernet fra Pasientens prøvesvar. Det er fortsatt lagret i journalen hos ${bestillendeVirksomhet(r)} og hos laboratoriet.`;
-    document.getElementById('kvNavn').textContent = r.omrade;
-    document.getElementById('kvDato').textContent = r.dato;
-    document.getElementById('kvSlettet').textContent = slettetTid(id).replace(', ', ' kl. ');
-    document.getElementById('tilbakeTilListe').href = 'index.html?slettet=' + encodeURIComponent(id);
-    document.getElementById('kvitteringTittel').focus();
-  }
+  const logg = lesLS(LS_LOGG, []);
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const liste = document.getElementById('loggListe');
+  liste.innerHTML = logg.map(l => `<li><span class="logg-liste__tid">${esc(l.tid.replace(', ', ' kl. '))}</span><span class="logg-liste__tekst">${esc(l.tekst)}</span></li>`).join('');
+  liste.hidden = !logg.length;
+  document.getElementById('loggTom').hidden = !!logg.length;
 })();
 
 // ─── Language picker: opens/closes; choosing marks the language

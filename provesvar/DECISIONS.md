@@ -86,4 +86,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** Validation on submit (the previous choice: enabled button, error message and focus on the checkbox).
 **Why:** User changed their mind: better if the button is disabled until the box is checked. The spec allowed either.
 
+## 2026-10-08 — Sperre/slette step 4: error page, usage log, demo panel
+**Decision:** Completed the spec's build order. (1) The simulated API can fail: when switched on, block, unblock and delete go to the §4.11 error page with per-action text adapted to the actual state (e.g. a failed delete of a blocked result says it's still blocked), "Prøv igjen" back to the action and "Tilbake til svaret"; nothing is changed or logged. The spec's "[telefonnummer]" is filled with Veiledning Helsenorge's 23 32 70 00 (already in the footer). (2) `logg.html` shows the usage-log entries in the same plain words as the UI (spec §5), filtered to Pasientens prøvesvar, with an empty state; the list page's "Logg over bruk" link and the receipt now go there. (3) `demo.html`, a control panel outside the patient-facing pages, shows status per result, toggles the API error simulation and resets everything — so testers don't need URL parameters.
+**Alternative considered:** URL parameters only for error simulation and reset; demo controls inside the patient pages.
+**Why:** User approved step 4. Keeping demo controls off the service pages respects the spec's "discreet by design" principle.
+
 #helsenorge

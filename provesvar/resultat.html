@@ -1020,7 +1020,7 @@ function referanseGraf(verdi, lav, hoy) {
   bekreft.addEventListener('click', async () => {
     if (bekreft.getAttribute('aria-busy') === 'true') return;   // no double submit
     settOpptatt(bekreft, true);
-    await simulertApi();
+    try { await simulertApi(); } catch { location.href = `personvern.html?id=${encodeURIComponent(id)}&steg=feil&handling=opphev`; return; }
     settSperret(id, null);
     loggHendelse(`Du opphevet sperringen av prøvesvaret ${resultatNavn(r)}.`);
     settOpptatt(bekreft, false);
