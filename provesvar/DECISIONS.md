@@ -60,4 +60,10 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** A static, non-interactive table.
 **Why:** User supplied the tab's markup.
 
+## 2026-10-08 — Sperre/slette step 1: "Flere valg" menu and Personvernvalg page
+**Decision:** Building the vault spec ("Prøvesvar sperre slette spec") in the order it suggests. Step 1: a PopMenu ("Flere valg", VerticalDots) at the right end of the result page's title row (the spec's help text says "øverst til høyre"; the language picker already holds the top-right row) as the only entry point, with "Personvernvalg" as its item; and `personvern.html?id=N` with the spec's §4.4 copy and two plain LinkList rows (title + hint). Shared result data moved into `data.js`. Component mapping for the later steps (agreed in chat): SharingStatus + Lock for the list label, HighlightPanel (neutral, Lock icon) for the blocked banner (NotificationPanel's icon is fixed by variant), NotificationPanel warn/error for the consequence alerts, Modal for unblock, Toast for status messages, Checkbox + Validation for consent. **Consent for deletion uses validation on submit, not a disabled "Slett svaret" button** (user decision).
+**Open:** the menu currently holds only Personvernvalg, which makes it more conspicuous than the spec intends; the live page's other secondary actions (print/PDF) should sit above it if they exist [AVKLARES]. No feature flag in the prototype.
+**Alternative considered:** a Drawer bottom sheet on mobile; a disabled submit button.
+**Why:** User asked to go ahead with step 1 and to use validation.
+
 #helsenorge
