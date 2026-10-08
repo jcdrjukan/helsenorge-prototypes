@@ -130,14 +130,20 @@ const IKON = {
   errorSignFill: '<path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/>',
 };
 
-// Toast (role="status"): show a message for a few seconds.
-function visToast(tekst) {
-  const holder = document.getElementById('toastHolder');
+// Success message (NotificationPanel, success) in #statusmelding:
+// stays until closed; focus moves to it so it's announced; closing
+// returns focus to the page title.
+function visStatusmelding(tekst) {
+  const holder = document.getElementById('statusmelding');
   if (!holder) return;
-  holder.innerHTML = `<div class="toast" role="status"><svg class="toast__check" viewBox="0 0 48 48" aria-hidden="true">${IKON.checkFill}</svg><p class="toast__title">${tekst}</p><button type="button" class="toast__close" aria-label="Lukk"><svg viewBox="0 0 48 48" aria-hidden="true">${IKON.x}</svg></button></div>`;
-  const t = holder.firstElementChild;
-  t.querySelector('.toast__close').addEventListener('click', () => t.remove());
-  setTimeout(() => t.remove(), 6000);
+  holder.innerHTML = `<div class="np np--success" role="status" tabindex="-1"><svg class="np__icon" viewBox="0 0 48 48" aria-hidden="true">${IKON.checkFill}</svg><div class="np__content"><p class="np__text">${tekst}</p></div><button type="button" class="np__close" aria-label="Lukk melding"><svg viewBox="0 0 48 48" aria-hidden="true">${IKON.x}</svg></button></div>`;
+  const panel = holder.firstElementChild;
+  panel.querySelector('.np__close').addEventListener('click', () => {
+    holder.innerHTML = '';
+    const h1 = document.getElementById('sidetittel');
+    if (h1) { h1.setAttribute('tabindex', '-1'); h1.focus(); }
+  });
+  panel.focus();
 }
 // Fill button busy state (Loader dots instead of the label).
 function settOpptatt(btn, opptatt) {

@@ -71,4 +71,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** NotificationPanel for the banner (can't carry the lock icon); a separate confirmation page for unblocking (spec asks for something lighter).
 **Why:** User approved step 2. A toast bug found while testing (the toast collapsed to zero height in its sticky holder) was fixed before committing.
 
+## 2026-10-08 — No Toast: success is confirmed with an inline NotificationPanel
+**Decision:** Removed the Toast. Successful operations are now confirmed with a NotificationPanel, success variant (kiwi50 / kiwi900 border, CheckFill), placed in the page flow under the page header, dismissable with ✕ and not on a timer. Focus moves to it (role="status", tabindex="-1") so it's announced after the page change; closing it returns focus to the page title. Used for "Svaret er sperret for helsepersonell." (after blocking) and "Svaret er synlig for helsepersonell igjen." (after unblocking, in the spot the banner left). The same pattern will be used for the deletion message on the list in step 3.
+**Alternative considered:** Keeping Toast; announcing via an aria-live region only (unreliable after a full page change, and invisible if missed).
+**Why:** User: Toast may no longer be used, on accessibility grounds.
+
 #helsenorge

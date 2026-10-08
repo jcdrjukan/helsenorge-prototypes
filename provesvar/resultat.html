@@ -766,6 +766,9 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 
   <span class="spacer--m"></span>
 
+  <!-- Success messages after block/unblock (NotificationPanel, success). -->
+  <div class="statusmelding" id="statusmelding"></div>
+
   <!-- Blocked state (spec §4.6): only shown once she has blocked this
        result — the one exception to the "discreet" principle. -->
   <div id="sperretWrap" hidden>
@@ -817,7 +820,6 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   <span class="spacer--m"></span>
 
   <div class="sp-xl"></div>
-  <div class="toast-holder" id="toastHolder"></div>
 
   <!-- Unblock confirmation (spec §4.7): Modal, medium, normal. -->
   <div class="gm-overlay" id="opphevModal" hidden>
@@ -966,7 +968,7 @@ function referanseGraf(verdi, lav, hoy) {
   }).join('');
 })();
 
-// ─── Sperret state (spec §4.6–4.7): banner, unblock dialog, toasts.
+// ─── Sperret state (spec §4.6–4.7): banner, unblock dialog, success messages.
 (function () {
   const params = new URLSearchParams(location.search);
   const id = params.get('id') || '1';
@@ -1020,13 +1022,14 @@ function referanseGraf(verdi, lav, hoy) {
     settSperret(id, null);
     loggHendelse(`Du opphevet sperringen av prøvesvaret ${resultatNavn(r)}.`);
     settOpptatt(bekreft, false);
-    lukk(document.getElementById('sidetittel'));
+    overlay.hidden = true;
+    if (scroller) scroller.style.overflow = '';
     visBanner();
-    visToast('Svaret er synlig for helsepersonell igjen.');
+    visStatusmelding('Svaret er synlig for helsepersonell igjen.');   // takes focus
   });
   visBanner();
   // Arriving from the block flow, or from Personvernvalg's "Opphev sperring".
-  if (params.get('status') === 'sperret' && sperretDato(id)) visToast('Svaret er sperret for helsepersonell');
+  if (params.get('status') === 'sperret' && sperretDato(id)) visStatusmelding('Svaret er sperret for helsepersonell.');
   if (params.get('opphev') === '1' && sperretDato(id)) apne();
   if (params.has('status') || params.has('opphev')) history.replaceState(null, '', `resultat.html?id=${encodeURIComponent(id)}`);
 })();
