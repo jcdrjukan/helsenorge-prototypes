@@ -81,4 +81,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** a disabled "Slett svaret" until the box is ticked.
 **Why:** User approved step 3 and chose validation. A bug found in testing (the institution helper read a non-existent field, which stopped the receipt script and the list message) was fixed before committing.
 
+## 2026-10-08 — Consent: "Slett svaret" disabled until the box is ticked (replaces validation on submit)
+**Decision:** The destructive "Slett svaret" button is disabled until the consent checkbox is ticked, and disabled again if it's unticked, using the design system's disabled Button (neutral200 fill, 2px dashed neutral700 inset outline, neutral800 text). The ErrorWrapper validation message is removed. Supersedes the earlier "validation on submit" choice (step 1 and step 3 entries).
+**Alternative considered:** Validation on submit (the previous choice: enabled button, error message and focus on the checkbox).
+**Why:** User changed their mind: better if the button is disabled until the box is checked. The spec allowed either.
+
 #helsenorge

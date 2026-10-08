@@ -87,6 +87,11 @@
 /* Button — fill, destructive (cherry500, hover cherry700). */
 .btn--destructive { background: #C83521; color: #fff; }
 .btn--destructive:hover { background: #A31F0E; box-shadow: 0 0 0 0.25rem #A31F0E; }
+/* Disabled (real Button: neutral200 fill, 2px dashed neutral700 inset
+   outline, neutral800 text, no hover). "Slett svaret" stays disabled
+   until the consent box is ticked (user decision, replacing validation
+   on submit). */
+.btn:disabled, .btn:disabled:hover { background: #D6D4D3; color: #474745; outline: 0.125rem dashed #62625F; outline-offset: -0.125rem; box-shadow: none; cursor: not-allowed; }
 
 /* Checkbox (regular, on white): real input, 26px marker with a 2px
    inset border; checked = blueberry500 with a white Check; invalid =
@@ -103,14 +108,6 @@
 .checkbox--invalid .checkbox__marker { color: #C83521; }
 .checkbox--invalid .checkbox-label:hover .checkbox__marker { background: #FFF2EA; }
 .checkbox--invalid .checkbox-input:checked + .checkbox__marker { background: #C83521; color: #C83521; }
-
-/* ErrorWrapper (validation on submit — "Slett svaret" is never
-   disabled): cherry50 fill, cherry400 border, 4px cherry700 left edge,
-   error text in the label style. */
-.error-wrapper { width: 344px; }
-.error-wrapper--with-error { padding: 1rem 0.75rem 1.5rem 0.5rem; background: #FFF2EA; border: 1px solid #D56147; border-left: 4px solid #A31F0E; }
-.error-wrapper__errors { margin: 0 0 0.25rem; color: #A31F0E; font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; }
-.error-wrapper__errors[hidden] { display: none; }
 
 /* Receipt (§4.9). */
 .kvittering__ikon { width: 48px; height: 48px; fill: #078141; display: block; margin-bottom: var(--space-2xs); }
