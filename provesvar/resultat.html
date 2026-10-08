@@ -299,34 +299,6 @@ a:focus-visible, button:focus-visible {
 .page-title { width: 344px; padding-top: var(--space-xl); display: flex; align-items: center; gap: 0; }
 .page-title h1 { font: var(--mobile-h1); color: var(--color-base-text-onlight); }
 
-/* Snarvei (favorite) toggle for the tjeneste — StarStroke when not
-   favorited, StarFill once it is. Both icons are #08667C (blueberry-700,
-   the Helsenorge "green" used for clickable elements). Copied from
-   gravid/index.html; stands in for the real hn-webcomp-favoritter. */
-.favorite-btn {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: none;
-  border: none;
-  padding: 0;
-  cursor: pointer;
-  color: var(--blueberry-700);
-}
-
-.favorite-btn__icon {
-  width: 32px;
-  height: 32px;
-}
-
-.favorite-btn__icon--fill {
-  display: none;
-}
-
-
 /* Ingress — real "preamble" text style (20px regular), same as
    gravid/gravid-tjeneste.html. */
 .preamble {
@@ -554,8 +526,9 @@ a:focus-visible, button:focus-visible {
 /* Title wraps on a phone: keep the help trigger and star right after the
    last word instead of pinned to the row's far end. */
 .pageheader .page-title h1 { display: inline; }
-/* The last word and both icons are one nowrap unit, so they wrap
-   together (a lone star on its own line looked broken). */
+/* The last word and the help trigger are one nowrap unit, so the
+   icon never ends up alone on a line. (Favourite star removed from
+   result pages per direct request, 2026-10-08.) */
 .pageheader__icons { display: inline-flex; align-items: center; vertical-align: middle; margin-left: 0.25rem; position: relative; top: -2px; }
 
 /* HelpTriggerIcon, xlarge, as a button (mobile: 24px icon, 4px margin). */
@@ -727,17 +700,12 @@ a:focus-visible, button:focus-visible {
     </div>
   </div>
 
-  <!-- Page header: eyebrow, title, help trigger, favourite star. -->
+  <!-- Page header: eyebrow, title, help trigger. -->
   <div class="pageheader">
     <div class="pageheader__subtitle">Laboratoriemedisin</div>
     <div class="page-title">
       <h1 id="sidetittel">Medisinsk <span class="nowrap">biokjemi<span class="pageheader__icons">
       <button type="button" class="help-trigger-icon" aria-label="Gå til hjelp om dette."><svg fill="none" width="24" height="24" overflow="visible" role="presentation" viewBox="0 0 24 24"><mask id="titleHelpMask" fill="white"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.0005 0C5.38373 0 0 5.38278 0 11.9995C0 18.6163 5.38373 24 12.0005 24C18.6172 24 24 18.6163 24 11.9995C24 5.38278 18.6172 0 12.0005 0Z"/></mask><path d="M12.0005 0V-2.2C4.16892 -2.2 -2.2 4.16753 -2.2 11.9995H0H2.2C2.2 6.59803 6.59853 2.2 12.0005 2.2V0ZM0 11.9995H-2.2C-2.2 19.8313 4.1687 26.2 12.0005 26.2V24V21.8C6.59875 21.8 2.2 17.4012 2.2 11.9995H0ZM12.0005 24V26.2C19.8325 26.2 26.2 19.8311 26.2 11.9995H24H21.8C21.8 17.4015 17.402 21.8 12.0005 21.8V24ZM24 11.9995H26.2C26.2 4.16775 19.8322 -2.2 12.0005 -2.2V0V2.2C17.4022 2.2 21.8 6.59781 21.8 11.9995H24Z" fill="var(--color-help-graphics-normal)" mask="url(#titleHelpMask)"/><path d="M11.9229 5.28027C14.5275 5.28027 15.96 7.00613 15.96 8.82168C15.9599 10.2243 14.7509 11.5413 14.1916 11.9307C13.6323 12.3201 13.451 12.5998 13.451 12.5998C13.2342 12.8105 13.0943 13.2232 13.0467 13.5256C12.9982 13.8341 13.0174 13.8161 13.0174 14.1596V14.2803H11.0416V13.5256C11.0416 13.0154 11.0469 12.8918 11.1834 12.4486C11.322 11.9989 11.7025 11.4537 12.1115 11.0189C12.5205 10.5842 12.9014 10.2971 12.9014 10.2971C13.4382 9.90771 13.6584 9.44814 13.6584 8.90723C13.6584 8.48881 13.5167 8.08818 13.2342 7.79277C12.953 7.49879 12.5222 7.29941 11.9229 7.29941C10.7307 7.2996 10.1019 8.20752 10.1018 9.12871C10.1018 9.38096 10.137 9.68958 10.1979 9.85879L10.26 10.0322L8.13535 9.88223L8.05098 9.87637L8.02871 9.79551C7.95745 9.54366 7.9209 9.25834 7.9209 8.9752C7.92117 7.20416 9.25715 5.28045 11.9229 5.28027Z" fill="var(--color-help-graphics-normal)"/><path d="M12.0002 15.3596C12.7231 15.3596 13.3197 15.9718 13.3197 16.6885C13.3195 17.407 12.7229 17.9997 12.0002 17.9998C11.2583 17.9998 10.6797 17.407 10.6795 16.6885C10.6795 15.9717 11.2581 15.3596 12.0002 15.3596Z" fill="var(--color-help-graphics-normal)"/></svg></button>
-    <button type="button" class="favorite-btn" id="favoriteBtn" onclick="toggleFavorite()"
-      aria-pressed="false" aria-label="Legg til snarvei">
-      <svg class="favorite-btn__icon favorite-btn__icon--stroke" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M23.884 5.258c.453 0 .866.256 1.067.662l4.975 10.084 11.13 1.613a1.19 1.19 0 0 1 .657 2.028l-8.063 7.85 1.901 11.084a1.188 1.188 0 0 1-1.725 1.252l-9.93-5.233-9.954 5.234a1.19 1.19 0 0 1-1.725-1.253l1.9-11.085-8.062-7.849a1.19 1.19 0 0 1 .658-2.028l11.128-1.613L22.818 5.92l.085-.145c.22-.32.585-.517.981-.517Zm-4.787 11.365c-.204.413-.598.7-1.055.767L7.338 18.94l7.756 7.55a1.4 1.4 0 0 1 .404 1.24l-1.829 10.662 9.576-5.035a1.4 1.4 0 0 1 1.304.001l9.55 5.033L32.27 27.73a1.4 1.4 0 0 1 .403-1.239l7.756-7.55-10.703-1.551a1.401 1.401 0 0 1-1.055-.767l-4.787-9.701-4.787 9.701Z"/></svg>
-      <svg class="favorite-btn__icon favorite-btn__icon--fill" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M23.092 7.124a1 1 0 0 1 1.816 0l4.664 10.112a1 1 0 0 0 .79.574l11.059 1.311a1 1 0 0 1 .561 1.728l-8.176 7.56a1 1 0 0 0-.301.93l2.17 10.922a1 1 0 0 1-1.47 1.067l-9.717-5.44a1 1 0 0 0-.976 0l-9.718 5.44a1 1 0 0 1-1.469-1.068l2.17-10.922a1 1 0 0 0-.301-.929l-8.176-7.56a1 1 0 0 1 .561-1.728l11.058-1.31a1 1 0 0 0 .79-.575l4.665-10.112Z"/></svg>
-    </button>
 </span></span></h1>
     </div>
   </div>
@@ -888,33 +856,6 @@ document.querySelectorAll('.expander-list-link').forEach(btn => btn.addEventList
   btn.querySelector('.element-header__chevron path').setAttribute('d', open ? 'M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z' : 'M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z');
 }));
 
-// Favoritter (snarvei) star — same behaviour as Gravid's: toggles
-// StarStroke/StarFill, remembered in this browser only.
-const LS_PROVESVAR_FAVORITE_KEY = 'provesvar-favorite';
-function applyFavoriteState(favorited) {
-  const btn = document.getElementById('favoriteBtn');
-  btn.setAttribute('aria-pressed', String(favorited));
-  btn.setAttribute('aria-label', favorited ? 'Fjern snarvei' : 'Legg til snarvei');
-  // .hidden doesn't reliably suppress rendering on inline <svg> in every
-  // engine (its UA-stylesheet [hidden] rule loses to SVG's own display
-  // default there) — toggle display directly instead.
-  btn.querySelector('.favorite-btn__icon--stroke').style.display = favorited ? 'none' : '';
-  // .favorite-btn__icon--fill defaults to display:none in CSS (the
-  // pre-JS/static fallback state) — an empty inline style would just
-  // fall back to that class rule and stay hidden, so this needs an
-  // explicit value to actually show it.
-  btn.querySelector('.favorite-btn__icon--fill').style.display = favorited ? 'inline-block' : 'none';
-}
-
-function toggleFavorite() {
-  const favorited = document.getElementById('favoriteBtn').getAttribute('aria-pressed') !== 'true';
-  applyFavoriteState(favorited);
-  try {
-    localStorage.setItem(LS_PROVESVAR_FAVORITE_KEY, favorited ? '1' : '0');
-  } catch {
-    // ignore
-  }
-}
 // HelpExpanderStandalone: toggles the details and swaps
 // ChevronDown ↔ ChevronUp, like the real component.
 (function () {
@@ -930,7 +871,6 @@ function toggleFavorite() {
     chevron.setAttribute('d', open ? UP : DOWN);
   });
 })();
-try { applyFavoriteState(localStorage.getItem(LS_PROVESVAR_FAVORITE_KEY) === '1'); } catch { applyFavoriteState(false); }
 </script>
 </body>
 </html>

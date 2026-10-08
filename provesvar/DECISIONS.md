@@ -39,4 +39,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** A static, non-interactive copy.
 **Why:** User supplied the markup for the language picker, eyebrow, header and result content.
 
+## 2026-10-08 — No favourite star on result pages
+**Decision:** The favourite (snarvei) star is removed from the result detail pages; the title row there is title + help trigger. The list page (`index.html`) keeps its star.
+**Alternative considered:** Keeping the star as in the live markup.
+**Why:** Direct user request.
+
 #helsenorge
