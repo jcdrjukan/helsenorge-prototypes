@@ -874,7 +874,11 @@ const CHEVRON_RIGHT = '<svg viewBox="0 0 48 48" width="38" height="38" fill="#12
 const fmtDato = iso => iso.split('-').reverse().join('.');
 // Blocked results (sperre/slette spec §4.1) show a lock label — no
 // filter, tab or count for them. ?nullstill=1 resets the demo state.
-if (new URLSearchParams(location.search).get('nullstill') === '1') { nullstillPersonvern(); history.replaceState(null, '', location.pathname); }
+if (new URLSearchParams(location.search).get('nullstill') === '1') {
+  nullstillPersonvern();
+  const p = new URLSearchParams(location.search); p.delete('nullstill');   // keep other params (e.g. fane)
+  history.replaceState(null, '', location.pathname + (p.toString() ? '?' + p : ''));
+}
 const resultatId = r => (r.href.match(/id=(\d+)/) || [])[1];
 const erSperret = r => !!sperretDato(resultatId(r));
 const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
@@ -899,37 +903,13 @@ const sortSelect = document.getElementById('sortSelect');
 sortSelect.addEventListener('change', () => renderProvesvar(sortSelect.value));
 renderProvesvar(sortSelect.value);
 
-// ─── Analyseoversikt: live page's test data; search + sortable table.
-// Each analysis links to the result page with its latest answer (our
-// choice — the live link's target isn't in the markup).
-const ANALYSER = [
-  ['B-Hemoglobin', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['B-Leukocytter', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['CRP (Pasientnær analyse)', 'Medisinsk biokjemi', 2, '18.03.2026', 1],
-  ['Cytologi, HPV-test', 'Patologi', 2, '11.09.2025', 6],
-  ['HPV 16', 'Cytologi', 1, '11.09.2025', 6],
-  ['HPV 16', 'Cytologi', 1, '20.09.2024', 9],
-  ['HPV 18', 'Cytologi', 1, '11.09.2025', 6],
-  ['HPV 18', 'Cytologi', 1, '20.09.2024', 9],
-  ['HPV andre typer', 'Cytologi', 1, '11.09.2025', 6],
-  ['HPV andre typer', 'Cytologi', 1, '20.09.2024', 9],
-  ['Hurtigtest COVID19 (Pasientnær analyse)', 'Medisinsk mikrobiologi', 1, '29.01.2026', 4],
-  ['P-D-dimer', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['P-INR', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['U-Bakterier dyrkning', 'Medisinsk mikrobiologi', 2, '04.08.2025', 8],
-  ['U-Blod (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['U-Ketoner (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['U-Kreatinin (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['U-Leukocytter (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['U-Nitritt (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['U-Protein (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['U-Spesifikk vekt (Pasientnær analyse)', 'Medisinsk biokjemi', 1, '30.01.2026', 3],
-  ['Us-FSH', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['Us-FT4', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['Us-LH', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-  ['Us-SARS-relatert koronavirus (inkl. SARS-CoV-2) antigen', 'Medisinsk mikrobiologi', 1, '13.01.2026', 5],
-  ['Us-TSH', 'Medisinsk biokjemi', 1, '04.08.2025', 7],
-].map(([analyse, omrade, antall, dato, id]) => ({ analyse, omrade, antall, dato, id }));
+// ─── Analyseoversikt: search + sortable table of the analyses in
+// data.js. Answers from deleted results are left out; an analysis with
+// no answers left disappears. Each name opens analyse.html?a=N.
+const ANALYSE_RADER = () => ANALYSER.map(a => {
+  const svar = a.svar.filter(x => !slettetTid(x.id));
+  return svar.length ? { a: a.i, analyse: a.analyse, omrade: a.omrade, antall: svar.length, dato: svar[0].dato } : null;
+}).filter(Boolean);
 (function () {
   const body = document.getElementById('analyseBody');
   const sok = document.getElementById('analyseSok');
@@ -942,10 +922,10 @@ const ANALYSER = [
     const q = sok.value.trim().toLowerCase();
     const cmp = { analyse: (a, b) => a.analyse.localeCompare(b.analyse, 'nb'), omrade: (a, b) => a.omrade.localeCompare(b.omrade, 'nb'),
                   antall: (a, b) => a.antall - b.antall, dato: (a, b) => iso(a.dato).localeCompare(iso(b.dato)) }[sortKey];
-    const rows = ANALYSER.filter(r => !slettetTid(String(r.id))).filter(r => !q || `${r.analyse} ${r.omrade} ${r.dato}`.toLowerCase().includes(q))
+    const rows = ANALYSE_RADER().filter(r => !q || `${r.analyse} ${r.omrade} ${r.dato}`.toLowerCase().includes(q))
       .sort((a, b) => (asc ? 1 : -1) * cmp(a, b) || iso(b.dato).localeCompare(iso(a.dato)));
     body.innerHTML = rows.length ? rows.map(r => `<tr class="table-row">
-      <td class="table__cell" data-label="Analyse"><button type="button" class="anchorlink-wrapper" onclick="location.href='resultat.html?id=${r.id}'"><span class="anchorlink">${esc(r.analyse)}</span></button></td>
+      <td class="table__cell" data-label="Analyse"><a class="anchorlink-wrapper" href="analyse.html?a=${r.a}"><span class="anchorlink">${esc(r.analyse)}</span></a></td>
       <td class="table__cell" data-label="Område">${esc(r.omrade)}</td>
       <td class="table__cell" data-label="Antall svar">${r.antall}</td>
       <td class="table__cell" data-label="Siste prøvedato">${r.dato}</td></tr>`).join('')
@@ -985,7 +965,7 @@ const ANALYSER = [
   if (r) visStatusmelding(`<strong>${r.omrade}</strong> (${r.dato}) er slettet fra Helsenorge.`);
 })();
 
-// ─── Tabs ────────────────────────────────────────────────────────
+// ─── Tabs (?fane=analyse opens Analyseoversikt) ────────────────────────────────────────────────────────
 document.querySelectorAll('.tab-list__tab').forEach(tab => tab.addEventListener('click', () => {
   document.querySelectorAll('.tab-list__tab').forEach(t => {
     const sel = t === tab;
@@ -996,6 +976,7 @@ document.querySelectorAll('.tab-list__tab').forEach(tab => tab.addEventListener(
     document.getElementById(t.getAttribute('aria-controls')).hidden = !sel;
   });
 }));
+if (new URLSearchParams(location.search).get('fane') === 'analyse') document.getElementById('tabAnalyse').click();
 
 // Favoritter (snarvei) star — same behaviour as Gravid's: toggles
 // StarStroke/StarFill, remembered in this browser only.

@@ -100,6 +100,55 @@ const RESULTATER = {
 };
 
 
+// ─── Analyses (Analyseoversikt + analyse.html?a=N) ────────────────
+// From the live page's test data. svar = answers, newest first; each
+// links to the result (id) it comes from. Only U-Bakterier dyrkning's
+// explanation and source are from the live page; other analyses fall
+// back to the (draft) ORDFORKLARINGER entry for the name, if any.
+// materiale is only filled in where the prototype's data shows it.
+const ANALYSER = [
+  ['B-Hemoglobin', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '15']]],
+  ['B-Leukocytter', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '11']]],
+  ['CRP (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['18.03.2026', 1, '123'], ['19.02.2026', 2, '21']]],
+  ['Cytologi, HPV-test', 'Patologi', 'Cervix', [['11.09.2025', 6, 'Normal cervixcytologi. Høyrisiko HPV påvist.'], ['20.09.2024', 9, 'Normal cervixcytologi. Høyrisiko HPV påvist.']]],
+  ['HPV 16', 'Cytologi', 'Cervix', [['11.09.2025', 6, 'Negativ']]],
+  ['HPV 16', 'Cytologi', 'Cervix', [['20.09.2024', 9, 'Negativ']]],
+  ['HPV 18', 'Cytologi', 'Cervix', [['11.09.2025', 6, 'Negativ']]],
+  ['HPV 18', 'Cytologi', 'Cervix', [['20.09.2024', 9, 'Negativ']]],
+  ['HPV andre typer', 'Cytologi', 'Cervix', [['11.09.2025', 6, 'Positiv']]],
+  ['HPV andre typer', 'Cytologi', 'Cervix', [['20.09.2024', 9, 'Positiv']]],
+  ['Hurtigtest COVID19 (Pasientnær analyse)', 'Medisinsk mikrobiologi', null, [['29.01.2026', 4, 'neg']]],
+  ['P-D-dimer', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '0,4']]],
+  ['P-INR', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '1,1']]],
+  ['U-Bakterier dyrkning', 'Medisinsk mikrobiologi', 'Urin', [['04.08.2025', 8, 'Klebsiella pneumoniae'], ['04.08.2025', 8, 'Escherichia coli']]],
+  ['U-Blod (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['U-Ketoner (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['U-Kreatinin (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['U-Leukocytter (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['U-Nitritt (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['U-Protein (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['U-Spesifikk vekt (Pasientnær analyse)', 'Medisinsk biokjemi', null, [['30.01.2026', 3, '1']]],
+  ['Us-FSH', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '11']]],
+  ['Us-FT4', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '11']]],
+  ['Us-LH', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '14']]],
+  ['Us-SARS-relatert koronavirus (inkl. SARS-CoV-2) antigen', 'Medisinsk mikrobiologi', 'Hals+nasopharynxsekret', [['13.01.2026', 5, 'Påvist']]],
+  ['Us-TSH', 'Medisinsk biokjemi', null, [['04.08.2025', 7, '4,4']]],
+].map(([analyse, omrade, materiale, svar], i) => ({ i, analyse, omrade, materiale, svar: svar.map(([dato, id, resultat]) => ({ dato, id: String(id), resultat })) }));
+// Live explanation + source (sml.snl.no) for U-Bakterier dyrkning.
+const ANALYSE_INGRESS = {
+  'U-Bakterier dyrkning': {
+    tekst: 'U-Bakterier dyrkning er et prøvesvar på om det forekommer bakterier i urinen. Vanligvis er det ingen bakterier i urinen. Unntaket er eldre mennesker, som kan ha bakterier i urinen uten at det gir symptomer og sykdom. Bakterier i urinen kan skyldes urinveisinfeksjon. U er en forkortelse for urin.',
+    kilde: ['Store medisinske leksikon (sml.snl.no)', 'https://sml.snl.no/U-Bakterier_dyrkning'],
+  },
+};
+// The analysis' explanation: the live one, else a draft from the glossary
+// (looked up on the name without "(Pasientnær analyse)").
+function analyseIngress(a) {
+  if (ANALYSE_INGRESS[a.analyse]) return ANALYSE_INGRESS[a.analyse];
+  const kort = a.analyse.replace(/ \(Pasientnær analyse\)$/, '').replace(/ \(inkl\..*$/, '');
+  return ORDFORKLARINGER[kort] ? { tekst: ORDFORKLARINGER[kort] } : null;
+}
+
 // ─── Sperre/slette prototype state (browser only) ─────────────────
 // Stands in for the real API: blocked results and the usage log live
 // in localStorage. index.html?nullstill=1 resets everything.

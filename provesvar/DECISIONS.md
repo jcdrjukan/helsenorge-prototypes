@@ -96,4 +96,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** SharingStatus with a Lock icon (the earlier mapping).
 **Why:** Direct user request with Figma.
 
+## 2026-10-08 — Analysis page (analyse.html) from the live markup
+**Decision:** New `analyse.html?a=N`, opened from each Analyseoversikt row (previously the rows opened the latest result). Built from the live U-Bakterier dyrkning markup with design-system styles: page header with eyebrow, ingress (the analysis' word explanation + source AnchorLink with the external-link icon), title3 sections "Prøvemateriale" and "Antall prøvesvar", and a compact Table (neutral head; mobile compact sizes) of earlier answers with dates linking to their results. Analyses and their answer history moved into `data.js` so the overview table and the analysis page share them; answers from deleted results are left out of both. The breadcrumb returns to the list with Analyseoversikt open (`?fane=analyse`, new). Our choices: no favourite star (consistent with the result pages, although the live markup has one); Prøvemateriale only where the prototype data knows it; for analyses other than U-Bakterier dyrkning the explanation is the draft glossary text with no source, or none; the analysis rows repeat the live data's quirks (CRP counts the S-CRP answer; HPV rows split per date). Also: `?nullstill=1` now keeps other URL parameters.
+**Alternative considered:** Keeping the rows linked to the latest result.
+**Why:** User supplied the analysis page markup.
+
 #helsenorge
