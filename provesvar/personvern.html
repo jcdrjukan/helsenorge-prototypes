@@ -639,22 +639,23 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
 .element-header__title { display: block; }
 .element-header__hint { display: block; font: 400 1rem/1.5rem 'Source Sans Pro', sans-serif; color: #474745; margin-top: 0.125rem; }
-/* LinkList in a box (Figma CLD - Prøvesvar "Sperr Slett", 3:4504): 1px
-   #7D7C79 outer border; each row is a white element inside an 8px #EAE7E7
-   frame (frames overlap by 8px), with a line under the header; title
-   SemiBold 18/1.2, hint 16/1.2 #474745, teal chevron. */
-.link-list--boxed { border: 1px solid var(--component-listelements-border-neutral-normal); }
+/* LinkList as cards (Figma CLD - Prøvesvar, Personvernvalg 4:7 → 5:111):
+   separate elements 8px apart, each #F5F3F3 with a 1px #7D7C79 border;
+   header 8px top/bottom, SemiBold 18/1.2 title, 16/1.2 #474745 hint,
+   teal (#188097) chevron. Hover/active go one step darker. */
+.link-list--boxed { display: flex; flex-direction: column; gap: 8px; }
 .link-list--boxed .link-list__list-item--line { border: 0; }
-.link-list--boxed .link-list__list-item--line:not(:last-child) { margin-bottom: -8px; }
-.link-list--boxed .link-list__anchor { display: block; min-height: 4rem; border: 8px solid var(--component-listelements-background-neutral-medium); padding: 8px; }
-.link-list__frame { display: flex; border-bottom: 1px solid var(--component-listelements-border-neutral-normal); }
-.link-list--boxed .link-list__status-marker { min-height: 64px; margin-right: 0; }
-.link-list--boxed .element-header { padding: 0 0 0 2px; }
+.link-list--boxed .link-list__anchor { display: block; min-height: 4rem; background-color: var(--component-listelements-background-neutral-light); border: 1px solid var(--component-listelements-border-neutral-normal); }
+.link-list--boxed .link-list__anchor:hover { background-color: var(--component-listelements-background-neutral-medium); }
+.link-list--boxed .link-list__anchor:active { background-color: var(--component-listelements-background-neutral-dark); }
+.link-list__frame { display: flex; }
+.link-list--boxed .link-list__status-marker { margin-right: 0; }
+.link-list--boxed .element-header { padding: 8px 0 8px 2px; }
 .link-list--boxed .element-header__content { padding: 12px 0 10px 8px; display: flex; flex-direction: column; gap: 4px; min-height: 48px; }
 .link-list--boxed .element-header__title { font: 600 1.125rem/1.2 'Source Sans Pro', sans-serif; }
 .link-list--boxed .element-header__hint { font: 400 1rem/1.2 'Source Sans Pro', sans-serif; margin-top: 0; }
 .link-list--boxed .element-header__chevron { padding-left: 4px; }
-.link-list--boxed .element-header__chevron svg { width: 44px; min-width: 44px; height: 38px; fill: var(--color-action-graphics-onlight, #188097); }
+.link-list--boxed .element-header__chevron svg { width: 44px; min-width: 44px; height: 38px; fill: var(--color-action-graphics-onlight); }
 .anchorlink { color: var(--color-action-text-onlight); text-decoration: underline; text-underline-offset: 0.16rem; text-decoration-thickness: 0.0625rem; padding: 0.1rem; }
 .anchorlink:hover { color: var(--color-action-text-onlight-hover); background-color: var(--color-action-background-transparent-onlight-hover); }
 
