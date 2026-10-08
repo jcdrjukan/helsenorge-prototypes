@@ -29,4 +29,9 @@ Started 2026-10-08. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** A static, unsortable copy of the list.
 **Why:** User supplied the live page's markup and described the two tabs' purposes. Making the sort work costs little and makes the prototype behave as expected when clicked.
 
+## 2026-10-08 — Feedback form and "Personvern for Prøvesvar" link list, from the live markup
+**Decision:** After the tabs: Spacer s, the feedback form, Spacer l, title2 "Personvern for Prøvesvar", Spacer m, a LinkList (line, white, medium) with "Logg over bruk" and "Personverninnstillinger", then the existing footer. Spacers, Title, LinkList/ElementHeader and the FormGroup legend use the installed design-system styles. The feedback form's score row isn't in the package, so it's rebuilt from the markup (five 48px plum faces over captions; the chosen one gets a light-purple circle and a bold caption — that selected look is our guess). The live links point to the test environment; here they go to `#`.
+**Alternative considered:** Reusing Gravid's hand-built "Personvern for Gravid" link list.
+**Why:** User supplied the live markup. The real LinkList styles are available, so they're used instead of Gravid's approximation.
+
 #helsenorge

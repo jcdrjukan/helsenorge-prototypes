@@ -13,6 +13,9 @@
    (Copied from gravid/avslutt.html, a subset of gravid/index.html's token set.)
 ───────────────────────────────────────────────────────────── */
 :root {
+  --component-listelements-border-neutral-normal: #7D7C79;
+  --component-listelements-background-neutral-light: #F5F3F3;
+  --component-listelements-background-neutral-medium: #EAE7E7;
   --color-action-border-onlight: #188097;
   --color-action-text-onlight-hover: #08667C;
   --neutral-50: #F5F3F3;
@@ -449,6 +452,49 @@ a:focus-visible, button:focus-visible {
 .btn-borderless:hover { color: var(--color-action-text-onlight-hover); text-decoration: underline; }
 .btn-borderless svg { width: 38px; height: 38px; min-width: 38px; }
 
+/* Spacers m and l (real Spacer component). */
+.spacer--m { display: block; width: 100%; height: var(--space-m); flex-shrink: 0; }
+.spacer--l { display: block; width: 100%; height: var(--space-l); flex-shrink: 0; }
+
+/* Feedback form ("Hvor fornøyd er du med tjenesten Prøvesvar?") — app-level
+   component, not in the design-system package. Legend uses the real
+   FormGroup legend style (18/23px semibold, 24px below). The score row's
+   own styling isn't available, so it's rebuilt from the markup: five
+   radio labels, each a 48px plum (#5B22A6) face over a centred caption;
+   the selected one gets a light-purple circle and a bold caption. */
+.feedbackform { width: 344px; }
+.feedbackform fieldset { border: 0; margin: 0; padding: 0; min-width: 0; }
+.field-set__legend { margin: 0 0 var(--space-m); font: 600 1.125rem/1.438rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+.feedbackform__scores { display: flex; justify-content: space-between; gap: var(--space-3xs); }
+.scoreinput { flex: 1 1 0; display: flex; flex-direction: column; align-items: center; gap: var(--space-3xs); cursor: pointer; text-align: center; }
+.scoreinput__radio { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.scoreinput svg { width: 48px; height: 48px; min-width: 48px; border-radius: 50%; }
+.scoreinput:hover svg { background: var(--color-help-background-transparent-onlight-hover); }
+.scoreinput__radio:checked + svg { background: var(--color-help-background-normal); }
+.scoreinput__radio:focus-visible + svg { outline: 3px solid var(--color-action-border-onlight-focus); }
+.scoreinput__text { font: 400 0.875rem/1.125rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+.scoreinput__radio:checked ~ .scoreinput__text { font-weight: 600; }
+
+/* Title, size title2 (mobile 26/31px semibold). */
+.title2 { width: 344px; margin: 0; font: 600 1.625rem/1.938rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+
+/* LinkList, line variant, white, medium (real LinkList + ElementHeader):
+   1px neutral-normal rules above the first and under every item, 4rem min
+   height, 18/28px text, hover neutral-light, active neutral-medium, black
+   38px ChevronRight. */
+.link-list { list-style: none; padding: 0; margin: 0; width: 344px; }
+.link-list__list-item--line { border-bottom: 1px solid var(--component-listelements-border-neutral-normal); }
+.link-list__list-item--line:first-of-type { border-top: 1px solid var(--component-listelements-border-neutral-normal); }
+.link-list__anchor { display: flex; min-height: 4rem; text-decoration: none; color: var(--color-base-text-onlight); background-color: #fff; font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; }
+.link-list__anchor:hover { background-color: var(--component-listelements-background-neutral-light); }
+.link-list__anchor:active { background-color: var(--component-listelements-background-neutral-medium); }
+.link-list__anchor:focus-visible { outline: 4px solid var(--color-action-border-onlight-focus); outline-offset: 0; position: relative; z-index: 1; }
+.link-list__status-marker { width: 6px; margin-right: 2px; background: transparent; }
+.element-header { padding: 0.5rem var(--space-2xs) 0.5rem 0; display: flex; align-items: center; width: 100%; }
+.element-header__content { flex: 1; padding: 10px 0 0.5rem 0.5rem; }
+.element-header__chevron { display: flex; align-items: center; }
+.element-header__chevron svg { width: 38px; height: 38px; min-width: 38px; }
+
 /* ═══════════════════════════════════════════════════════════
    FOOTER  (identical markup/styling to index.html)
 ══════════════════════════════════════════════════════════════ */
@@ -636,6 +682,40 @@ a:focus-visible, button:focus-visible {
       </div>
     </div>
   </div>
+
+
+  <span class="spacer--s" data-analyticsid="spacer"></span>
+
+  <!-- Feedback form, from the live page's markup (not submitted anywhere). -->
+  <form class="feedbackform" onsubmit="return false">
+    <fieldset>
+      <h2 class="field-set__legend">Hvor fornøyd er du med tjenesten Prøvesvar?</h2>
+      <div class="feedbackform__scores">
+        <label for="feedback-score-1" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-1" type="radio" value="1" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.7505 24.2109C42.7505 14.3285 34.7326 6.31055 24.8501 6.31055C14.9676 6.31055 6.94971 14.3285 6.94971 24.2109C6.94971 34.0934 14.9676 42.1113 24.8501 42.1113C34.7326 42.1113 42.7505 34.0934 42.7505 24.2109ZM44.9497 24.2109C44.9497 35.3085 35.9476 44.3105 24.8501 44.3105C13.7526 44.3105 4.75049 35.3085 4.75049 24.2109C4.75049 13.1134 13.7526 4.11133 24.8501 4.11133C35.9476 4.11133 44.9497 13.1134 44.9497 24.2109Z"/><path d="M33.3179 16.0681C33.8936 15.8747 34.5168 16.1849 34.7104 16.7605C34.9041 17.3363 34.5948 17.9604 34.019 18.1541L31.147 19.1189L33.7993 20.157C34.3648 20.3785 34.6437 21.0162 34.4224 21.5818C34.201 22.1475 33.5633 22.427 32.9976 22.2058L27.5278 20.0652C27.097 19.8966 26.8174 19.4769 26.8286 19.0144C26.8398 18.552 27.1392 18.1462 27.5776 17.9988L33.3179 16.0681Z"/><path d="M14.979 16.7605C15.1726 16.1847 15.7967 15.8746 16.3726 16.0681L22.1128 17.9988C22.5511 18.1463 22.8506 18.552 22.8618 19.0144C22.873 19.4769 22.5934 19.8966 22.1626 20.0652L16.6929 22.2058C16.1271 22.4271 15.4894 22.1475 15.2681 21.5818C15.0468 21.0161 15.3255 20.3784 15.8911 20.157L18.5425 19.1189L15.6714 18.1541C15.0956 17.9604 14.7854 17.3363 14.979 16.7605Z"/><path d="M24.8457 24.1012C26.9033 24.1013 29.3331 24.7503 31.3418 26.1305C33.3741 27.5269 35.0067 29.7003 35.3096 32.7008C35.3703 33.3049 34.9303 33.8437 34.3262 33.9049C33.7218 33.9659 33.1822 33.5258 33.1211 32.9215C32.894 30.672 31.6909 29.04 30.0957 27.944C28.4772 26.8319 26.4879 26.3005 24.8457 26.3004C23.2084 26.3004 21.2237 26.8414 19.6064 27.9606C18.0112 29.0644 16.8102 30.6988 16.5791 32.9244C16.5163 33.5286 15.9762 33.9674 15.3721 33.9049C14.7678 33.8421 14.3289 33.3011 14.3916 32.6969C14.7006 29.7227 16.3298 27.5521 18.3545 26.151C20.3572 24.7652 22.7831 24.1012 24.8457 24.1012Z"/></svg><span class="scoreinput__text">Misfornøyd</span></label>
+        <label for="feedback-score-2" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-2" type="radio" value="2" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.916 24C42.916 14.1175 34.8981 6.09961 25.0156 6.09961C15.1331 6.09961 7.11523 14.1175 7.11523 24C7.11523 33.8825 15.1331 41.9004 25.0156 41.9004C34.8981 41.9004 42.916 33.8825 42.916 24ZM45.1152 24C45.1152 35.0975 36.1131 44.0996 25.0156 44.0996C13.9181 44.0996 4.91602 35.0975 4.91602 24C4.91602 12.9025 13.9181 3.90039 25.0156 3.90039C36.1131 3.90039 45.1152 12.9025 45.1152 24Z"/><path d="M31.8047 19.9398C31.8047 20.9579 30.9829 21.7797 29.9648 21.7797C28.9468 21.7796 28.125 20.9579 28.125 19.9398C28.1251 18.9219 28.9469 18.1001 29.9648 18.1C30.9829 18.1 31.8046 18.9218 31.8047 19.9398Z"/><path d="M21.8984 19.9398C21.8984 20.9579 21.0767 21.7797 20.0586 21.7797C19.0406 21.7796 18.2188 20.9579 18.2188 19.9398C18.2188 18.9219 19.0407 18.1001 20.0586 18.1C21.0766 18.1 21.8984 18.9218 21.8984 19.9398Z"/><path d="M24.7979 26.5872C27.4291 26.5873 31.204 28.1083 32.2266 31.76C32.3904 32.345 32.0489 32.9527 31.4639 33.1165C30.8791 33.28 30.2723 32.9384 30.1084 32.3538C29.451 30.0059 26.8665 28.7865 24.7979 28.7864C22.7409 28.7864 20.1624 30.0279 19.4951 32.3596C19.3279 32.9436 18.7188 33.2816 18.1348 33.1145C17.5507 32.9473 17.2128 32.3382 17.3799 31.7542C18.4126 28.1458 22.1548 26.5872 24.7979 26.5872Z"/></svg><span class="scoreinput__text">Litt misfornøyd</span></label>
+        <label for="feedback-score-3" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-3" type="radio" value="3" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.916 24C42.916 14.1175 34.8981 6.09961 25.0156 6.09961C15.1331 6.09961 7.11523 14.1175 7.11523 24C7.11523 33.8825 15.1331 41.9004 25.0156 41.9004C34.8981 41.9004 42.916 33.8825 42.916 24ZM45.1152 24C45.1152 35.0975 36.1131 44.0996 25.0156 44.0996C13.9181 44.0996 4.91602 35.0975 4.91602 24C4.91602 12.9025 13.9181 3.90039 25.0156 3.90039C36.1131 3.90039 45.1152 12.9025 45.1152 24Z"/><path d="M31.8047 19.9398C31.8047 20.9579 30.9829 21.7797 29.9648 21.7797C28.9468 21.7796 28.125 20.9579 28.125 19.9398C28.1251 18.9219 28.9469 18.1001 29.9648 18.1C30.9829 18.1 31.8046 18.9218 31.8047 19.9398Z"/><path d="M21.8984 19.9398C21.8984 20.9579 21.0767 21.7797 20.0586 21.7797C19.0406 21.7796 18.2188 20.9579 18.2188 19.9398C18.2188 18.9219 19.0407 18.1001 20.0586 18.1C21.0766 18.1 21.8984 18.9218 21.8984 19.9398Z"/><path d="M30.9688 28.7106C31.5763 28.7106 32.0684 29.2027 32.0684 29.8102C32.0684 30.4177 31.5763 30.9098 30.9688 30.9098L19.0625 30.9098C18.455 30.9098 17.9629 30.4177 17.9629 29.8102C17.9629 29.2027 18.455 28.7106 19.0625 28.7106L30.9688 28.7106Z"/></svg><span class="scoreinput__text">Nøytral</span></label>
+        <label for="feedback-score-4" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-4" type="radio" value="4" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.916 24C42.916 14.1175 34.8981 6.09961 25.0156 6.09961C15.1331 6.09961 7.11523 14.1175 7.11523 24C7.11523 33.8825 15.1331 41.9004 25.0156 41.9004C34.8981 41.9004 42.916 33.8825 42.916 24ZM45.1152 24C45.1152 35.0975 36.1131 44.0996 25.0156 44.0996C13.9181 44.0996 4.91602 35.0975 4.91602 24C4.91602 12.9025 13.9181 3.90039 25.0156 3.90039C36.1131 3.90039 45.1152 12.9025 45.1152 24Z"/><path d="M31.8047 19.9398C31.8047 20.9579 30.9829 21.7797 29.9648 21.7797C28.9468 21.7796 28.125 20.9579 28.125 19.9398C28.1251 18.9219 28.9469 18.1001 29.9648 18.1C30.9829 18.1 31.8046 18.9218 31.8047 19.9398Z"/><path d="M21.8984 19.9398C21.8984 20.9579 21.0767 21.7797 20.0586 21.7797C19.0406 21.7796 18.2188 20.9579 18.2188 19.9398C18.2188 18.9219 19.0407 18.1001 20.0586 18.1C21.0766 18.1 21.8984 18.9218 21.8984 19.9398Z"/><path d="M30.3235 27.3224C30.4907 26.7386 31.099 26.4007 31.6829 26.5676C32.2669 26.7347 32.6049 27.3438 32.4377 27.9279C31.405 31.536 27.6638 33.0948 25.0208 33.0949C22.3894 33.0949 18.6137 31.5739 17.5911 27.922C17.4273 27.3371 17.7689 26.7295 18.3538 26.5656C18.9387 26.4018 19.5463 26.7434 19.7102 27.3283C20.3676 29.6763 22.9521 30.8957 25.0208 30.8957C27.0777 30.8956 29.6562 29.6541 30.3235 27.3224Z"/></svg><span class="scoreinput__text">Litt fornøyd</span></label>
+        <label for="feedback-score-5" class="scoreinput"><input class="scoreinput__radio" id="feedback-score-5" type="radio" value="5" name="score"><svg viewBox="0 0 48 48" width="48" height="48" fill="#5B22A6" aria-hidden="true"><path d="M42.7505 24C42.7505 14.1175 34.7326 6.09961 24.8501 6.09961C14.9676 6.09961 6.94971 14.1175 6.94971 24C6.94971 33.8825 14.9676 41.9004 24.8501 41.9004C34.7326 41.9004 42.7505 33.8825 42.7505 24ZM44.9497 24C44.9497 35.0975 35.9476 44.0996 24.8501 44.0996C13.7526 44.0996 4.75049 35.0975 4.75049 24C4.75049 12.9025 13.7526 3.90039 24.8501 3.90039C35.9476 3.90039 44.9497 12.9025 44.9497 24Z"/><path d="M31.6392 19.9398C31.6392 20.9579 30.8174 21.7797 29.7993 21.7797C28.7813 21.7796 27.9595 20.9579 27.9595 19.9398C27.9596 18.9219 28.7813 18.1001 29.7993 18.1C30.8173 18.1 31.6391 18.9218 31.6392 19.9398Z"/><path d="M21.7329 19.9398C21.7329 20.9579 20.9111 21.7797 19.8931 21.7797C18.8751 21.7796 18.0532 20.9579 18.0532 19.9398C18.0533 18.9219 18.8751 18.1001 19.8931 18.1C20.9111 18.1 21.7328 18.9218 21.7329 19.9398Z"/><path d="M35.2993 25.4209C35.611 25.4209 35.9081 25.5526 36.1167 25.7842C36.3253 26.0159 36.4257 26.3257 36.3931 26.6357C36.0495 29.9015 34.2532 32.2849 32.019 33.8262C29.9448 35.2571 27.4601 35.9911 25.2837 36.0771L24.853 36.085C22.5829 36.0849 19.8999 35.3703 17.6821 33.8506C15.4412 32.315 13.6438 29.929 13.3032 26.6338C13.2712 26.324 13.372 26.0154 13.5806 25.7842C13.7891 25.5529 14.0856 25.4209 14.397 25.4209H35.2993ZM15.7144 27.6201C16.2246 29.5496 17.4221 31.0044 18.9263 32.0352C20.7542 33.2878 22.9973 33.8857 24.853 33.8857C26.7023 33.8857 28.9422 33.2766 30.77 32.0156C32.2716 30.9798 33.4652 29.526 33.978 27.6201H15.7144Z"/></svg><span class="scoreinput__text">Veldig fornøyd</span></label>
+      </div>
+    </fieldset>
+    <span class="spacer--m" data-analyticsid="spacer"></span>
+  </form>
+
+  <span class="spacer--l" data-analyticsid="spacer"></span>
+
+  <h2 class="title2">Personvern for Prøvesvar</h2>
+
+  <span class="spacer--m" data-analyticsid="spacer"></span>
+
+  <!-- LinkList from the live page's markup. The live links go to the test
+       environment (logg over bruk / personverninnstillinger); here they
+       go nowhere. -->
+  <ul class="link-list" data-analyticsid="link-list">
+    <li class="link-list__list-item--line"><a class="link-list__anchor" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Logg over bruk</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
+    <li class="link-list__list-item--line"><a class="link-list__anchor" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Personverninnstillinger</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
+  </ul>
+
+  <div class="sp-xl"></div>
 
   <!-- ══════════════════════════════════════════════════════
        FOOTER
