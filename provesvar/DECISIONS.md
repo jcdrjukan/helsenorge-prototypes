@@ -91,4 +91,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** URL parameters only for error simulation and reset; demo controls inside the patient pages.
 **Why:** User approved step 4. Keeping demo controls off the service pages respects the spec's "discreet by design" principle.
 
+## 2026-10-08 — Blocked results in the list use the StatusDot, above the title
+**Decision:** The "Sperret for helsepersonell" marker in the list is now the design system's StatusDot v3 from Figma (CLD - Prøvesvar, node 1:496): the DotNoEye icon (exported asset, 24px clipped to a 16px frame) and the text in Mobile/Sublabel (subdued), 16px Source Sans 3 #474745. It sits above the panel's title (the result type) instead of under the date. Replaces the SharingStatus + Lock label.
+**Alternative considered:** SharingStatus with a Lock icon (the earlier mapping).
+**Why:** Direct user request with Figma.
+
 #helsenorge

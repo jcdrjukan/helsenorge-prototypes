@@ -51,11 +51,14 @@
 .highlightpanel__text { margin: 0 0 var(--space-s); font: var(--mobile-body); }
 .highlightpanel--neutral[hidden] { display: none; }
 
-/* SharingStatus — neutral, Lock icon in a neutral700 dot. */
-.sharing-status { display: inline-flex; align-items: center; gap: 0.5rem; font: 600 1.125rem/1.25rem 'Source Sans Pro', sans-serif; }
-.sharing-status__dot { display: inline-flex; justify-content: center; align-items: center; border-radius: 10rem; width: 1.765rem; height: 1.765rem; min-width: 1.765rem; background: #62625F; }
-.sharing-status__dot svg { width: 24px; height: 24px; fill: #fff; }
-.sharing-status__label { color: #62625F; white-space: normal; }
+/* StatusDot v3 (Figma CLD - Prøvesvar 1:496) — "Sperret for
+   helsepersonell" above a blocked result's title in the list: DotNoEye
+   (24px, clipped to a 16px-wide frame, nudged 4px left), 8px gap,
+   Mobile/Sublabel (subdued) text 16px/1.2 #474745, 28px min height. */
+.statusdot { display: inline-flex; align-items: center; gap: 8px; min-height: 28px; }
+.statusdot__clip { position: relative; width: 16px; height: 24px; overflow: hidden; flex-shrink: 0; }
+.statusdot__clip img { position: absolute; left: -4px; top: 0; width: 24px; height: 24px; display: block; }
+.statusdot__text { font: 400 16px/1.2 'Source Sans 3', 'Source Sans Pro', sans-serif; color: #474745; white-space: nowrap; }
 
 /* Success message after an operation: NotificationPanel, success
    variant (kiwi50 / kiwi900 border, CheckFill), dismissable. Replaces

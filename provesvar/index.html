@@ -512,7 +512,7 @@ a:focus-visible, button:focus-visible {
 }
 .btn-borderless:hover { color: var(--color-action-text-onlight-hover); text-decoration: underline; }
 .btn-borderless svg { width: 38px; height: 38px; min-width: 38px; }
-.provesvar-sperret { margin-top: var(--space-2xs); }
+.provesvar-sperret + .paneltitle .paneltitle__title { margin-top: 0; }
 
 /* Spacers m and l (real Spacer component). */
 .spacer--m { display: block; width: 100%; height: var(--space-m); flex-shrink: 0; }
@@ -885,11 +885,11 @@ function renderProvesvar(sort) {
   const rows = PROVESVAR.filter(r => !slettetTid(resultatId(r))).sort((a, b) => sign * a[field].localeCompare(b[field], 'nb') || b.dato.localeCompare(a.dato));
   document.getElementById('provesvarList').innerHTML = rows.map(r => `
     <div class="panel-list__panel--outline"><div class="panel__border--outline--inner"><div class="panel">
+      ${erSperret(r) ? `<span class="statusdot provesvar-sperret"><span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye.svg" width="24" height="24" alt=""></span><span class="statusdot__text">Sperret for helsepersonell</span></span>` : ''}
       <div class="paneltitle"><div class="paneltitle__title"><h3>${esc(r.omrade)}</h3></div></div>
       <div class="panel__content"><div class="panel__content__item">
         <span>${esc(r.rekvirent)}</span>
-        <dl class="duolist"><div><dt data-separator=": ">Prøvedato</dt><dd>${fmtDato(r.dato)}</dd></div></dl>${erSperret(r) ? `
-        <span class="sharing-status provesvar-sperret"><span class="sharing-status__dot" aria-hidden="true"><svg viewBox="0 0 48 48">${IKON.lock}</svg></span><span class="sharing-status__label">Sperret for helsepersonell</span></span>` : ''}
+        <dl class="duolist"><div><dt data-separator=": ">Prøvedato</dt><dd>${fmtDato(r.dato)}</dd></div></dl>
       </div></div>
       <div class="panel__button-bottom"><button type="button" class="btn-borderless"${r.href ? ` onclick="location.href='${r.href}'"` : ''} aria-label="Se resultater ${esc(r.omrade)}, ${esc(r.rekvirent.split(',')[0])}, Prøvedato: ${fmtDato(r.dato)}"><span>Se resultater</span>${CHEVRON_RIGHT}</button></div>
     </div></div></div>`).join('');
