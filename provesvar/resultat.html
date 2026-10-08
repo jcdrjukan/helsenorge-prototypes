@@ -917,6 +917,8 @@ function referanseGraf(verdi, lav, hoy) {
 
 (function renderResultat() {
   const id = new URLSearchParams(location.search).get('id') || '1';
+  // A deleted result is gone from Helsenorge (spec §4.10).
+  if (slettetTid(id)) { location.replace('index.html'); return; }
   const r = RESULTATER[id] || RESULTATER[1];
   const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   let n = 0;

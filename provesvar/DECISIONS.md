@@ -76,4 +76,9 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** Keeping Toast; announcing via an aria-live region only (unreliable after a full page change, and invisible if missed).
 **Why:** User: Toast may no longer be used, on accessibility grounds.
 
+## 2026-10-08 — Sperre/slette step 3: delete with consent, receipt, list update
+**Decision:** Built §4.8–4.10. Consent uses **validation on submit** (agreed): "Slett svaret" (destructive Button) stays enabled; submitting without the box ticked shows the design system's ErrorWrapper with "Du må krysse av for at du har lest informasjonen og forstår at svaret slettes for godt.", marks the Checkbox invalid (aria-invalid, aria-describedby) and moves focus to it; ticking clears the error. Success: busy Loader, simulated API, then the receipt page with focus on its heading; the list hides the result in both tabs (in Analyseoversikt, every row linking to that result) and shows the success NotificationPanel (the no-Toast pattern) "**{navn}** ({dato}) er slettet fra Helsenorge.". "Vil du heller sperre svaret?" offers blocking first (principle 4) and is hidden when the result is already blocked. Deleting a blocked result removes the block too (one reading of open question 7). The receipt names the ordering institution as the last part of "Rekvirert av". [AVKLARES] comments for restoring a deleted result and for any permanent trace in the list (§4.10) are left in place. Programmatically focused headings get no focus ring.
+**Alternative considered:** a disabled "Slett svaret" until the box is ticked.
+**Why:** User approved step 3 and chose validation. A bug found in testing (the institution helper read a non-existent field, which stopped the receipt script and the list message) was fixed before committing.
+
 #helsenorge

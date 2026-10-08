@@ -83,3 +83,41 @@
 .gm__title { margin: 0; font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
 .gm__ingress { margin: 0; font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
 .gm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+
+/* Button — fill, destructive (cherry500, hover cherry700). */
+.btn--destructive { background: #C83521; color: #fff; }
+.btn--destructive:hover { background: #A31F0E; box-shadow: 0 0 0 0.25rem #A31F0E; }
+
+/* Checkbox (regular, on white): real input, 26px marker with a 2px
+   inset border; checked = blueberry500 with a white Check; invalid =
+   cherry500. */
+.checkbox-wrapper { width: 344px; margin-left: -8px; }
+.checkbox-label { display: flex; align-items: flex-start; gap: 0.75rem; cursor: pointer; padding: 7px 0 7px 8px; font: var(--mobile-body); color: #000; }
+.checkbox-input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.checkbox__marker { display: flex; justify-content: center; align-items: center; width: 1.625rem; height: 1.625rem; min-width: 1.625rem; margin-top: 0.1rem; color: #62625F; box-shadow: inset 0 0 0 0.125rem; background: #fff; }
+.checkbox__marker svg { width: 24px; height: 24px; fill: #fff; visibility: hidden; }
+.checkbox-label:hover .checkbox__marker { background: #CAE7ED; }
+.checkbox-input:checked + .checkbox__marker { background: #188097; color: #188097; }
+.checkbox-input:checked + .checkbox__marker svg { visibility: visible; }
+.checkbox-input:focus-visible + .checkbox__marker { outline: 3px solid #000; outline-offset: 2px; }
+.checkbox--invalid .checkbox__marker { color: #C83521; }
+.checkbox--invalid .checkbox-label:hover .checkbox__marker { background: #FFF2EA; }
+.checkbox--invalid .checkbox-input:checked + .checkbox__marker { background: #C83521; color: #C83521; }
+
+/* ErrorWrapper (validation on submit — "Slett svaret" is never
+   disabled): cherry50 fill, cherry400 border, 4px cherry700 left edge,
+   error text in the label style. */
+.error-wrapper { width: 344px; }
+.error-wrapper--with-error { padding: 1rem 0.75rem 1.5rem 0.5rem; background: #FFF2EA; border: 1px solid #D56147; border-left: 4px solid #A31F0E; }
+.error-wrapper__errors { margin: 0 0 0.25rem; color: #A31F0E; font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; }
+.error-wrapper__errors[hidden] { display: none; }
+
+/* Receipt (§4.9). */
+.kvittering__ikon { width: 48px; height: 48px; fill: #078141; display: block; margin-bottom: var(--space-2xs); }
+.duolist-kvittering { width: 344px; display: grid; grid-template-columns: auto minmax(55%, 1fr); margin: 0; }
+.duolist-kvittering dt { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; padding: 0 1.5rem 0.5rem 0; }
+.duolist-kvittering dd { font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; margin: 0; padding-bottom: 0.5rem; }
+
+/* Headings that receive focus programmatically (so screen readers start
+   there after a page change) aren't interactive — no focus ring. */
+h1[tabindex="-1"]:focus { outline: none; }

@@ -115,8 +115,13 @@ function settSperret(id, dato) {
   if (dato) s[id] = dato; else delete s[id];
   skrivLS(LS_SPERRET, s);
 }
+const LS_SLETTET = 'provesvar-slettet';   // { [id]: 'dd.mm.åååå, tt:mm' }
+function slettetTid(id) { return lesLS(LS_SLETTET, {})[id] || null; }
+function settSlettet(id, tid) { const s = lesLS(LS_SLETTET, {}); s[id] = tid; skrivLS(LS_SLETTET, s); }
+// The ordering institution: the part after the last comma in rekvirert.
+const bestillendeVirksomhet = r => (r.rekvirert.split(',').slice(-1)[0] || r.rekvirert).trim();
 function loggHendelse(tekst) { const l = lesLS(LS_LOGG, []); l.unshift({ tid: naa(), tekst }); skrivLS(LS_LOGG, l); }
-function nullstillPersonvern() { try { localStorage.removeItem(LS_SPERRET); localStorage.removeItem(LS_LOGG); } catch { /* ignore */ } }
+function nullstillPersonvern() { try { [LS_SPERRET, LS_SLETTET, LS_LOGG].forEach(k => localStorage.removeItem(k)); } catch { /* ignore */ } }
 // Simulated API call: resolves after a short delay. Success is shown
 // only after it resolves (spec: never fake success).
 const simulertApi = (ms = 900) => new Promise(res => setTimeout(res, ms));
@@ -126,6 +131,7 @@ const resultatNavn = r => `${r.omrade} (${r.dato})`;
 const IKON = {
   lock: '<path d="M24 8.475a7.344 7.344 0 017.344 7.344v3.69h3.005v17.444H13.69V19.51l2.964-.001v-3.69a7.344 7.344 0 017.103-7.34zm8.598 12.784H30v.011H18v-.01l-2.56-.001v13.944h17.158V21.259zM24 10.225a5.594 5.594 0 00-5.594 5.594l-.001 3.7h11.19v-3.7A5.594 5.594 0 0024 10.225z"/>',
   checkFill: '<path fill-rule="evenodd" d="m33.706 19.928-1.441-1.387-10.314 10.715-5.879-6.108-1.442 1.386 7.321 7.607 11.755-12.213ZM40.135 24c0 8.873-7.193 16.066-16.067 16.066-8.873 0-16.066-7.193-16.066-16.066S15.195 7.934 24.068 7.934c8.874 0 16.067 7.193 16.067 16.066Z"/>',
+  check: '<path d="M22.504 31.198l-9.59-9.966 1.441-1.387 8.149 8.468 14.455-15.016 1.441 1.386z"/>',
   x: '<path d="M25.403 24l10.259-10.259-1.403-1.403L24 22.597l-10.259-10.26-1.403 1.403L22.597 24 12.338 34.26l1.403 1.403L24 25.403l10.259 10.259 1.403-1.403z"/>',
   errorSignFill: '<path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/>',
 };
