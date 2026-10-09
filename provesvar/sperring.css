@@ -15,7 +15,7 @@
 /* Button — fill (primary), outline (secondary), borderless; medium. */
 .btn-row { width: 344px; display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-s); }
 .btn { display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem; min-height: 2.75rem; padding: 0 1.5rem; border: 0; border-radius: 0.5rem; cursor: pointer; font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; text-decoration: none; }
-.btn span { padding: 0.4375rem 0; }
+.btn span:not(.loader, .loader__dot) { padding: 0.4375rem 0; }
 .btn--fill { background: #188097; color: #fff; }
 .btn--fill:hover { background: #08667C; box-shadow: 0 0 0 0.25rem #08667C; }
 .btn--outline { background: transparent; color: #126F87; outline: 0.125rem solid #08667C; outline-offset: -0.125rem; }
@@ -26,11 +26,20 @@
 .btn[aria-busy="true"] { cursor: progress; pointer-events: none; }
 
 /* Loader (dots), small, white on the fill button. */
-.loader-dots { display: inline-flex; gap: 0.3rem; padding: 0.6rem 0; }
-.loader-dots i { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: currentColor; animation: loader-dot 1s infinite ease-in-out; }
-.loader-dots i:nth-child(2) { animation-delay: 0.15s; }
-.loader-dots i:nth-child(3) { animation-delay: 0.3s; }
-@keyframes loader-dot { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+/* Loader (designsystem-react Loader, size tiny), placed inside a busy
+   Button in place of its label. The DS has no Button loading state; the
+   loader itself is a straight port: four 8px dots in a 40×8px box, dot 1
+   scales in, dots 2–3 slide 16px right, dot 4 scales out, 0.6s loop.
+   Colour follows the button text (white on filled buttons). */
+.loader { display: inline-block; position: relative; width: 40px; height: 8px; margin: 0.6rem 0; }
+.loader__dot { position: absolute; top: 0; left: 0; width: 8px; height: 8px; border-radius: 50%; background-color: currentColor; animation-duration: 0.6s; animation-iteration-count: infinite; animation-timing-function: cubic-bezier(0, 1, 1, 0); }
+.loader__dot:nth-child(1) { animation-name: loader-scale-regular; }
+.loader__dot:nth-child(2), .loader__dot:nth-child(3) { animation-name: loader-translate-tiny; }
+.loader__dot:nth-child(3) { left: 16px; }
+.loader__dot:nth-child(4) { left: 32px; animation-name: loader-scale-reverse; }
+@keyframes loader-scale-regular { 0% { transform: scale(0); } 100% { transform: scale(1); } }
+@keyframes loader-scale-reverse { 0% { transform: scale(1); } 100% { transform: scale(0); } }
+@keyframes loader-translate-tiny { 0% { transform: translate(0, 0); } 100% { transform: translate(16px, 0); } }
 
 /* NotificationPanel — warn (banana50 / banana800 border, ErrorSignFill). */
 .np { width: 344px; display: flex; gap: 0.25rem; align-items: flex-start; padding: 0.5rem 1rem 0.75rem 0.5rem; border-radius: 0.25rem; box-shadow: 0.25rem 0.25rem 0.375rem rgba(0,0,0,0.15); color: #000; }

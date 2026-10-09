@@ -210,8 +210,8 @@ function visStatusmelding(tekst) {
 }
 // Fill button busy state (Loader dots instead of the label).
 function settOpptatt(btn, opptatt) {
-  if (opptatt) { btn.dataset.label = btn.innerHTML; btn.innerHTML = '<span class="loader-dots" aria-hidden="true"><i></i><i></i><i></i></span><span class="sr-only">Vent litt</span>'; btn.setAttribute('aria-busy', 'true'); }
-  else { if (btn.dataset.label) btn.innerHTML = btn.dataset.label; btn.removeAttribute('aria-busy'); }
+  if (opptatt) { btn.style.minWidth = btn.offsetWidth + 'px'; btn.dataset.label = btn.innerHTML; btn.innerHTML = '<span class="loader" role="progressbar" aria-label="Laster inn"><span class="loader__dot"></span><span class="loader__dot"></span><span class="loader__dot"></span><span class="loader__dot"></span></span>'; btn.setAttribute('aria-busy', 'true'); }
+  else { if (btn.dataset.label) btn.innerHTML = btn.dataset.label; btn.style.minWidth = ''; btn.removeAttribute('aria-busy'); }
 }
 
 // ─── Ordforklaring popover (shared). Any .dictionarytrigger with a

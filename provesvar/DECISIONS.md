@@ -162,3 +162,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** `logg.html` is deleted. The "Logg over bruk" link in the list page's Personvern links and "Se logg over bruk" on the receipt stay, pointing to `#`. The demo panel's log section (count + "Åpne loggen") is gone. Block/unblock/delete events are still written to the browser log, just not shown anywhere.
 **Alternative considered:** Keeping the page.
 **Why:** Direct user request.
+
+## 2026-10-09 — Busy buttons use the design system's Loader (tiny) inside the button
+**Decision:** While a block, unblock or delete request runs, the button's label is replaced by a straight port of designsystem-react's Loader, size tiny (four 8px dots in 40×8px; dot 1 scales in, dots 2–3 slide 16px, dot 4 scales out; 0.6s, cubic-bezier(0, 1, 1, 0)), coloured like the button text (white on the filled and destructive buttons), with role="progressbar" and the DS label "Laster inn". The button keeps its width and stays aria-busy (no double submit). Previously a home-made three-dot opacity pulse ("Vent litt").
+**Alternative considered:** The DS-only route: leave the button label, disable the button and show an inline Loader next to it. The DS Button has no loading state, so putting the Loader inside the button is our own combination.
+**Why:** User asked whether the spinner was standard Frankenstein (it wasn't) and chose this option.
