@@ -633,7 +633,9 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .btn-borderless--left { padding: 0 0.5rem 0 0; min-height: 2.75rem; gap: 0.25rem; }
 
 /* Personvernvalg page. */
-.personvern__subtitle { width: 344px; margin-top: var(--space-2xs); font: var(--mobile-body); color: var(--color-base-text-onlight); }
+.personvern__subtitle { width: 344px; margin-top: var(--space-2xs); font: 400 1rem/1.2 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+/* Figma 4:79: area and test date on two lines, 16px/1.2 (Mobile/Sublabel size, black). */
+.personvern__subtitle span { display: block; }
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .personvern__intro p + p { margin-top: var(--space-s); }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
@@ -783,8 +785,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     <span class="spacer--m"></span>
 
     <div class="personvern__intro">
-      <p>De fleste trenger ikke å gjøre noe her. Når helsepersonell kan se prøvesvarene dine, får du tryggere behandling, og du slipper å ta prøver på nytt.</p>
-      <p>Du har likevel rett til å begrense hvem som ser dette svaret.</p>
+      <p>Dersom du ønsker det kan du begrense helsepersonells innsyn i utvalgte prøvesvar. Du må imidlertid være klar over at dette kan føre til å du må ta prøver på nytt, og kan påvirke helsepersonells evne til å gi deg best mulig helsehjelp</p>
     </div>
 
     <span class="spacer--m"></span>
@@ -1013,8 +1014,12 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   const q = s => `personvern.html?id=${encodeURIComponent(id)}${s ? '&steg=' + s : ''}`;
   const tilbake = document.getElementById('tilbakeLink');
   tilbake.href = 'resultat.html?id=' + encodeURIComponent(id);
-  document.getElementById('resultatNavn').textContent = `${r.omrade} · Prøvedato ${r.dato}`;
-  document.querySelectorAll('[data-resultatnavn]').forEach(el => el.textContent = `${r.omrade} · Prøvedato ${r.dato}`);
+  // Subtitle under the title: area and test date on two lines (Figma 4:79).
+  const visNavn = el => {
+    el.replaceChildren(...[r.omrade, `Prøvedato ${r.dato}`].map(t => { const sp = document.createElement('span'); sp.textContent = t; return sp; }));
+  };
+  visNavn(document.getElementById('resultatNavn'));
+  document.querySelectorAll('[data-resultatnavn]').forEach(visNavn);
   document.getElementById('slettLink').href = q('slett');
   // Row 1: "Sperr…" — or, if already blocked, "Opphev sperring", which
   // opens the unblock dialog on the result page.
