@@ -137,3 +137,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The back link on the Personvernvalg page reads "Tilbake til prøvesvaret" (was "Prøvesvaret"). Only this page: the steps keep "Personvernvalg", the error page "Prøvesvaret" and the receipt "Prøvesvar".
 **Alternative considered:** The bare destination name, as on the other pages.
 **Why:** Direct user request.
+
+## 2026-10-09 — "Sperret for helsepersonell" panel uses DotNoEye, not Lock
+**Decision:** The icon in the blocked-result HighlightPanel (with "Opphev sperring") is now the design system's DotNoEye (48px, black), replacing Lock. It matches the StatusDot on blocked results in the list.
+**Alternative considered:** Lock.
+**Why:** Direct user request.
