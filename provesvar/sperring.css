@@ -120,7 +120,7 @@
 
 /* Headings that receive focus programmatically (so screen readers start
    there after a page change) aren't interactive — no focus ring. */
-h1[tabindex="-1"]:focus { outline: none; }
+h1[tabindex="-1"]:focus, h2[tabindex="-1"]:focus { outline: none; }
 
 /* ═══════════════════════════════════════════════════════════════
    Ordforklaring — DictionaryTrigger opens a PopOver with a HelpBubble

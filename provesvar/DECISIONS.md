@@ -142,3 +142,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The icon in the blocked-result HighlightPanel (with "Opphev sperring") is now the design system's DotNoEye (48px, black), replacing Lock. It matches the StatusDot on blocked results in the list.
 **Alternative considered:** Lock.
 **Why:** Direct user request.
+
+## 2026-10-09 — No success message after blocking; focus goes to the panel
+**Decision:** After "Sperr svaret" the result page no longer shows the success NotificationPanel "Svaret er sperret for helsepersonell.". The "Sperret for helsepersonell" HighlightPanel, which states the date ("Du sperret svaret …") and offers "Opphev sperring", is the confirmation; its heading takes focus on arrival so screen readers announce it. Unblocking keeps its success message ("Svaret er synlig for helsepersonell igjen."), since the panel disappears and nothing else confirms it. This departs from the sperre/slette spec, which asks for a success message after blocking.
+**Alternative considered:** Keeping both, as in the spec.
+**Why:** User: the message isn't needed while the panel is shown; the two said the same thing stacked on top of each other.
