@@ -168,7 +168,7 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Alternative considered:** The DS-only route: leave the button label, disable the button and show an inline Loader next to it. The DS Button has no loading state, so putting the Loader inside the button is our own combination.
 **Why:** User asked whether the spinner was standard Frankenstein (it wasn't) and chose this option.
 
-## 2026-10-09 — Personvernvalg shows the StatusDot when the result is blocked
-**Decision:** When the result is blocked, Personvernvalg shows the same StatusDot as the list page (DotNoEye, 16px #474745 text) above the title, reading "Du sperret dette svaret {dato}", 4px above the H1. Hidden when not blocked.
-**Alternative considered:** Relying only on row 1 turning into "Opphev sperring" with its hint.
+## 2026-10-09 — Blocked result: StatusDot inside the "Opphev sperring" row on Personvernvalg
+**Decision:** When the result is blocked, Personvernvalg's first row ("Opphev sperring") shows the list page's StatusDot (DotNoEye, 16px #474745) as its hint: "Du sperret dette svaret {dato}". It replaces the hint "Du sperret svaret {dato}. Helsepersonell kan se det igjen hvis du opphever sperringen." (A first version put the StatusDot above the page title; the user meant the row.)
+**Alternative considered:** The StatusDot above the title; the text hint.
 **Why:** Direct user request.
