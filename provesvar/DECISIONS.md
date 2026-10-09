@@ -187,3 +187,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** Following the Figma Sperr (21:152) and Slett (22:152) frames: titles "Du er i ferd med å sperre følgende prøvesvar" / "Du er i ferd med å slette følgende prøvesvar" (were "Vil du sperre dette svaret?" / "Vil du slette dette svaret fra Helsenorge?"). The result is shown 16px below the title in a neutral HighlightPanel (#F5F3F3, 1px #D6D4D3, 16px padding all round, per the user's later Figma update; the result page's "Sperret" panel keeps the standard 24/16/32px): area and "Prøvedato: {dato}" on two lines, 18px / 1.55; this replaces the two-line 16px subtitle on these two pages (Personvernvalg keeps it). Sperr's first heading is now "Dette skjer når du sperrer" (was "Dette skjer").
 **Alternative considered:** The question titles with the subtitle.
 **Why:** User updated both pages in Figma.
+
+## 2026-10-09 — Sperr/Slett titles in the Mobile/H1 (title1) style
+**Decision:** The two "Du er i ferd med å …" titles use the Figma text style Mobile/H1 (title1): SemiBold 32px / 120% (DS title1 on mobile: 2rem / 2.375rem), via `h1.title1`. The prototype's other page titles still use its `--mobile-h1` token (36px / 122%), which is larger than the DS title1.
+**Alternative considered:** Keeping `--mobile-h1` (36px).
+**Why:** User corrected the titles to the Mobile/H1 style in Figma.

@@ -636,6 +636,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .personvern__subtitle { width: 344px; margin-top: var(--space-2xs); font: 400 1rem/1.2 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
 /* Figma 4:79: area and test date on two lines, 16px/1.2 (Mobile/Sublabel size, black). */
 .personvern__subtitle span { display: block; }
+/* Figma text style Mobile/H1 (title1): SemiBold 32px / 120% (DS title1 mobile: 2rem / 2.375rem). */
+.page-title h1.title1 { font: 600 2rem/1.2 'Source Sans Pro', sans-serif; }
 .highlightpanel--neutral.personvern__resultatboks { padding: var(--space-s); }   /* Figma: 16px all round */
 .personvern__resultat { margin: 0; font: 400 1.125rem/1.55 'Source Sans Pro', sans-serif; }
 .personvern__resultat span { display: block; }
@@ -812,7 +814,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   ═══════════════════════════════════════════════════════════ -->
   <div id="stegSperr" hidden>
     <div class="pageheader">
-      <div class="page-title"><h1>Du er i ferd med å sperre følgende prøvesvar</h1></div>
+      <div class="page-title"><h1 class="title1">Du er i ferd med å sperre følgende prøvesvar</h1></div>
       <span class="spacer--s"></span>
       <!-- Result shown in a neutral HighlightPanel (Figma 18:12083). -->
       <div class="highlightpanel--neutral personvern__resultatboks"><p class="personvern__resultat" data-resultatboks></p></div>
@@ -856,7 +858,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   ═══════════════════════════════════════════════════════════ -->
   <div id="stegSlett" hidden>
     <div class="pageheader">
-      <div class="page-title"><h1>Du er i ferd med å slette følgende prøvesvar</h1></div>
+      <div class="page-title"><h1 class="title1">Du er i ferd med å slette følgende prøvesvar</h1></div>
       <span class="spacer--s"></span>
       <!-- Result shown in a neutral HighlightPanel (Figma 18:12083). -->
       <div class="highlightpanel--neutral personvern__resultatboks"><p class="personvern__resultat" data-resultatboks></p></div>
