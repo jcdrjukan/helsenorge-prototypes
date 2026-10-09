@@ -152,3 +152,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** Following the Figma Personvernvalg frame (4:7): the intro is one paragraph, "Dersom du ønsker det kan du begrense helsepersonells innsyn i utvalgte prøvesvar. Du må imidlertid være klar over at dette kan føre til at du må ta prøver på nytt, og kan påvirke helsepersonells evne til å gi deg best mulig helsehjelp." (Figma text with two typos fixed at the user's request: "til å" → "til at", missing final full stop), replacing the two "De fleste trenger ikke …" / "Du har likevel rett …" paragraphs. The text under the title is now area and test date on two lines ("Medisinsk biokjemi" / "Prøvedato 18.03.2026"), 16px / 1.2, black, 8px below the title; previously one line at body size joined by "·". The same subtitle style is used on the Sperr and Slett pages.
 **Alternative considered:** The previous texts and one-line subtitle.
 **Why:** User updated the texts and subtitle styling in Figma and asked for Sperr/Slett to follow.
+
+## 2026-10-09 — Receipt after deleting: new title and body text
+**Decision:** Title "Svaret er slettet" (was "Svaret er slettet fra Helsenorge"). Body: "Prøvesvaret er permanent fjernet fra den nasjonale prøvesvar-tjenesten og Helsenorge. Det er fortsatt lagret i journalen hos <ordering organisation> og hos laboratoriet." The organisation stays drawn from each result's data (result 1: "WebMed Test HelseNorge -TREG VOKAL KATT SKORPION", as in the user's text).
+**Alternative considered:** The previous wording ("Svaret er fjernet fra Pasientens prøvesvar. …").
+**Why:** User supplied the new texts.

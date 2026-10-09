@@ -930,7 +930,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   <div id="stegKvittering" hidden>
     <div class="pageheader">
       <svg class="kvittering__ikon" viewBox="0 0 48 48" aria-hidden="true"><path fill-rule="evenodd" d="m33.706 19.928-1.441-1.387-10.314 10.715-5.879-6.108-1.442 1.386 7.321 7.607 11.755-12.213ZM40.135 24c0 8.873-7.193 16.066-16.067 16.066-8.873 0-16.066-7.193-16.066-16.066S15.195 7.934 24.068 7.934c8.874 0 16.067 7.193 16.067 16.066Z"/></svg>
-      <div class="page-title"><h1 id="kvitteringTittel" tabindex="-1">Svaret er slettet fra Helsenorge</h1></div>
+      <div class="page-title"><h1 id="kvitteringTittel" tabindex="-1">Svaret er slettet</h1></div>
     </div>
     <span class="spacer--m"></span>
     <p class="body-block" id="kvitteringTekst"></p>
@@ -1095,7 +1095,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     visSteg(document.getElementById('stegKvittering'), 'Svaret er slettet');
     tilbake.href = 'index.html';
     document.getElementById('tilbakeTekst').textContent = 'Prøvesvar';
-    document.getElementById('kvitteringTekst').textContent = `Svaret er fjernet fra Pasientens prøvesvar. Det er fortsatt lagret i journalen hos ${bestillendeVirksomhet(r)} og hos laboratoriet.`;
+    document.getElementById('kvitteringTekst').textContent = `Prøvesvaret er permanent fjernet fra den nasjonale prøvesvar-tjenesten og Helsenorge. Det er fortsatt lagret i journalen hos ${bestillendeVirksomhet(r)} og hos laboratoriet.`;
     document.getElementById('kvNavn').textContent = r.omrade;
     document.getElementById('kvDato').textContent = r.dato;
     document.getElementById('kvSlettet').textContent = slettetTid(id).replace(', ', ' kl. ');
