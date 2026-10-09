@@ -960,7 +960,7 @@ const ANALYSE_RADER = () => ANALYSER.map(a => {
   if (!id || !slettetTid(id)) return;
   const r = RESULTATER[id];
   history.replaceState(null, '', location.pathname);
-  if (r) visStatusmelding(`<strong>${r.omrade}</strong> (${r.dato}) er slettet fra Helsenorge.`);
+  if (r) visStatusmelding(`<strong>${r.omrade}</strong> (${r.dato}) er slettet fra prøvesvarregisteret.`);
 })();
 
 // ─── Tabs (?fane=analyse opens Analyseoversikt) ────────────────────────────────────────────────────────
