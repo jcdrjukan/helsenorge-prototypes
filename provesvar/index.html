@@ -887,7 +887,7 @@ function renderProvesvar(sort) {
   const rows = PROVESVAR.filter(r => !slettetTid(resultatId(r))).sort((a, b) => sign * a[field].localeCompare(b[field], 'nb') || b.dato.localeCompare(a.dato));
   document.getElementById('provesvarList').innerHTML = rows.map(r => `
     <div class="panel-list__panel--outline"><div class="panel__border--outline--inner"><div class="panel">
-      ${erSperret(r) ? `<span class="statusdot provesvar-sperret"><span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye.svg" width="24" height="24" alt=""></span><span class="statusdot__text">Sperret for helsepersonell</span></span>` : ''}
+      ${erSperret(r) ? `<span class="statusdot provesvar-sperret"><span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye-red.svg" width="24" height="24" alt=""></span><span class="statusdot__text">Sperret for helsepersonell</span></span>` : ''}
       <div class="paneltitle"><div class="paneltitle__title"><h3>${esc(r.omrade)}</h3></div></div>
       <div class="panel__content"><div class="panel__content__item">
         <span>${esc(r.rekvirent)}</span>

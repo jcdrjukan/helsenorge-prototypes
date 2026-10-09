@@ -172,3 +172,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** When the result is blocked, Personvernvalg's first row ("Opphev sperring") shows the list page's StatusDot (DotNoEye, 16px #474745), "Du sperret dette svaret {dato}", above the row's label; the hint below drops the now-redundant date and reads "Helsepersonell kan se det igjen hvis du opphever sperringen." (Earlier versions put it above the page title, then in place of the hint; the user meant above the label.)
 **Alternative considered:** The StatusDot above the page title; the StatusDot in place of the hint.
 **Why:** Direct user request.
+
+## 2026-10-09 — Red eye in the "Sperret" StatusDots
+**Decision:** The DotNoEye icon in the StatusDots for blocked results (the list page card, "Sperret for helsepersonell"; the Personvernvalg "Opphev sperring" row, "Du sperret dette svaret {dato}") is red, using the design system's StatusDot cherry colour (`--component-statusdot-graphics-cherry-onlight`, #A31F0E, the colour of its alert/cancelled/inactive states), via `img/dot-no-eye-red.svg`. The text stays grey. The 48px icon in the result page's "Sperret for helsepersonell" panel stays black.
+**Alternative considered:** Black (the Figma StatusDot 1:496).
+**Why:** User tried it on Personvernvalg, then asked for the list page to match.
