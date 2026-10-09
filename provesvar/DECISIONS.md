@@ -122,3 +122,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The placeholder Språk/Language button (index.html; the other pages already had it inline. The same files went to gravid/ and dhg-onboarding/) is replaced by the working language picker from the Prøvesvar prototype: Dropdown toggle (teal globe + chevron) that opens a SingleSelect list (Bokmål, Nynorsk, English); choosing marks the language and announces "Språk endret til …" (page text doesn't change); Esc or a click outside closes it. Shared as `sprakvelger.css` + `sprakvelger.js` in the folder, filling a `data-sprakvelger` container.
 **Alternative considered:** Keeping the inert placeholder.
 **Why:** Direct user request: swap the openable picker in wherever the language selector was only a placeholder.
+
+## 2026-10-09 — "Velg om du vil få varsel om prøvesvar": live help text
+**Decision:** The HelpExpander now has the live text: "Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du endre innstillingene dine." + "Gå til Tilpass varsler." (AnchorLink). The link points to `#`: the live target is the test environment's varselinnstillinger, which the prototype doesn't have.
+**Alternative considered:** The earlier draft text ("… kan du slå det på i varselinnstillingene dine").
+**Why:** User supplied the live markup.
