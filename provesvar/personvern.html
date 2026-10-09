@@ -657,6 +657,10 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .link-list--boxed .element-header__title { font: 600 1.125rem/1.2 'Source Sans Pro', sans-serif; }
 .link-list--boxed .element-header__hint { font: 400 1rem/1.2 'Source Sans Pro', sans-serif; margin-top: 0; }
 .link-list--boxed .element-header__chevron { padding-left: 4px; }
+/* Single-label card (Figma 18:11532, "Logg over bruk"): no hint, label
+   regular 18/1.2 (Mobile/Label subdued), 12px above and below. */
+.link-list--boxed .element-header__content--label-only { padding: 12px 0 12px 8px; min-height: 0; }
+.link-list--boxed .element-header__title--regular { font-weight: 400; }
 .link-list--boxed .element-header__chevron svg { width: 44px; min-width: 44px; height: 38px; fill: var(--color-action-graphics-onlight); }
 .anchorlink { color: var(--color-action-text-onlight); text-decoration: underline; text-underline-offset: 0.16rem; text-decoration-thickness: 0.0625rem; padding: 0.1rem; }
 .anchorlink:hover { color: var(--color-action-text-onlight-hover); background-color: var(--color-action-background-transparent-onlight-hover); }
@@ -942,8 +946,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     <span class="spacer--m"></span>
     <p class="body-block">Valget ditt er loggført.</p>
     <span class="spacer--s"></span>
-    <ul class="link-list">
-      <li class="link-list__list-item--line"><a class="link-list__anchor" href="#"><div class="link-list__status-marker"></div><span class="element-header"><span class="element-header__content"><span class="element-header__title">Se logg over bruk</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></a></li>
+    <ul class="link-list link-list--boxed">
+      <li class="link-list__list-item--line"><a class="link-list__anchor" href="#"><span class="link-list__frame"><span class="link-list__status-marker"></span><span class="element-header"><span class="element-header__content element-header__content--label-only"><span class="element-header__title element-header__title--regular">Logg over bruk</span></span><span class="element-header__chevron"><svg viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M17.885 32.577l1.779 1.793 10.451-10.371L19.664 13.63l-1.779 1.793 8.644 8.576z"/></svg></span></span></span></a></li>
     </ul>
     <span class="spacer--l"></span>
     <div class="btn-row"><a class="btn btn--fill" id="tilbakeTilListe" href="index.html"><span>Tilbake til prøvesvar</span></a></div>

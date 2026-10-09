@@ -177,3 +177,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The DotNoEye icon in the StatusDots for blocked results (the list page card, "Sperret for helsepersonell"; the Personvernvalg "Opphev sperring" row, "Du sperret dette svaret {dato}") is red, using the design system's StatusDot cherry colour (`--component-statusdot-graphics-cherry-onlight`, #A31F0E, the colour of its alert/cancelled/inactive states), via `img/dot-no-eye-red.svg`. The text stays grey. The 48px DotNoEye in the result page's "Sperret for helsepersonell" panel is the same red (added at the user's request).
 **Alternative considered:** Black (the Figma StatusDot 1:496).
 **Why:** User tried it on Personvernvalg, then asked for the list page to match.
+
+## 2026-10-09 — Receipt: "Logg over bruk" as a grey LinkList card
+**Decision:** Following the Figma receipt frame (20:108, LinkList 18:11532): the plain line row "Se logg over bruk" on "Svaret er slettet" is now a single grey card (same boxed LinkList as Personvernvalg) reading "Logg over bruk", with no hint and the label in regular weight (Mobile/Label subdued, 18/1.2), 64px tall. Still links to `#` (the log page was removed). The list page's Personvern link list keeps the line style.
+**Alternative considered:** The line-variant row "Se logg over bruk".
+**Why:** User updated the receipt in Figma.
