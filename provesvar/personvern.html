@@ -636,6 +636,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .personvern__subtitle { width: 344px; margin-top: var(--space-2xs); font: 400 1rem/1.2 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
 /* Figma 4:79: area and test date on two lines, 16px/1.2 (Mobile/Sublabel size, black). */
 .personvern__subtitle span { display: block; }
+.personvern__status { margin-bottom: var(--space-3xs); }
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .personvern__intro p + p { margin-top: var(--space-s); }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
@@ -778,6 +779,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   ═══════════════════════════════════════════════════════════ -->
   <div id="stegValg">
     <div class="pageheader">
+      <!-- Blocked result: same StatusDot (DotNoEye) as on the list page. -->
+      <div class="personvern__status" id="sperretStatus" hidden><span class="statusdot"><span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye.svg" width="24" height="24" alt=""></span><span class="statusdot__text" id="sperretStatusTekst"></span></span></div>
       <div class="page-title"><h1 id="sidetittel">Personvernvalg</h1></div>
       <p class="personvern__subtitle" id="resultatNavn"></p>
     </div>
@@ -1024,6 +1027,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   // opens the unblock dialog on the result page.
   if (sperretDato(id)) {
     document.getElementById('sperrTittel').textContent = 'Opphev sperring';
+    document.getElementById('sperretStatusTekst').textContent = `Du sperret dette svaret ${sperretDato(id)}`;
+    document.getElementById('sperretStatus').hidden = false;
     document.getElementById('sperrHint').textContent = `Du sperret svaret ${sperretDato(id)}. Helsepersonell kan se det igjen hvis du opphever sperringen.`;
     document.getElementById('sperrLink').href = `resultat.html?id=${encodeURIComponent(id)}&opphev=1`;
   } else {

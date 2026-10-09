@@ -167,3 +167,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** While a block, unblock or delete request runs, the button's label is replaced by a straight port of designsystem-react's Loader, size tiny (four 8px dots in 40×8px; dot 1 scales in, dots 2–3 slide 16px, dot 4 scales out; 0.6s, cubic-bezier(0, 1, 1, 0)), coloured like the button text (white on the filled and destructive buttons), with role="progressbar" and the DS label "Laster inn". The button keeps its width and stays aria-busy (no double submit). Previously a home-made three-dot opacity pulse ("Vent litt").
 **Alternative considered:** The DS-only route: leave the button label, disable the button and show an inline Loader next to it. The DS Button has no loading state, so putting the Loader inside the button is our own combination.
 **Why:** User asked whether the spinner was standard Frankenstein (it wasn't) and chose this option.
+
+## 2026-10-09 — Personvernvalg shows the StatusDot when the result is blocked
+**Decision:** When the result is blocked, Personvernvalg shows the same StatusDot as the list page (DotNoEye, 16px #474745 text) above the title, reading "Du sperret dette svaret {dato}", 4px above the H1. Hidden when not blocked.
+**Alternative considered:** Relying only on row 1 turning into "Opphev sperring" with its hint.
+**Why:** Direct user request.
