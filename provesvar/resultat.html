@@ -981,7 +981,7 @@ function referanseGraf(verdi, lav, hoy) {
   function visBanner() {
     const dato = sperretDato(id);
     wrap.hidden = !dato;
-    if (dato) document.getElementById('sperretTekst').textContent = `Du sperret svaret ${dato}. Annet helsepersonell kan ikke se det. Legen som bestilte prøven, ser det fortsatt.`;
+    if (dato) document.getElementById('sperretTekst').textContent = `Du sperret dette svaret ${dato}. Annet helsepersonell kan ikke se det. Legen som bestilte prøven, ser det fortsatt.`;
   }
   function apne() {
     lastFocus = document.activeElement;
