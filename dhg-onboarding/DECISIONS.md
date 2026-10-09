@@ -243,3 +243,8 @@ All three now point to the same action: take DHG into use and share information 
 **Why:** User asked whether the sentence was necessary; it mostly repeated the link. Shorter modal, same meaning, still no promise that the reservation can be changed.
 
 #helsenorge
+
+## 2026-10-09 — Working language picker on the Varsler pages
+**Decision:** The placeholder Språk/Language button (scenario-1-varsel.html, scenario-4-varsel.html) is replaced by the working language picker from the Prøvesvar prototype: Dropdown toggle (teal globe + chevron) that opens a SingleSelect list (Bokmål, Nynorsk, English); choosing marks the language and announces "Språk endret til …" (page text doesn't change); Esc or a click outside closes it. Shared as `sprakvelger.css` + `sprakvelger.js` in the folder, filling a `data-sprakvelger` container.
+**Alternative considered:** Keeping the inert placeholder.
+**Why:** Direct user request: swap the openable picker in wherever the language selector was only a placeholder.

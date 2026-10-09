@@ -117,3 +117,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** Replaces the boxed style above. Following the updated LinkList in the Figma Personvernvalg frame (4:7 → instance 5:111): each choice is its own card, 8px apart, #F5F3F3 background with a 1px #7D7C79 border; no outer frame, no grey 8px frame and no line under the header; the header keeps its 8px top/bottom padding. Title, hint and teal chevron unchanged. Hover/active step to #EAE7E7/#D6D4D3 (our choice; Figma shows only the default state).
 **Alternative considered:** The white-in-grey-frame style from the previous entry.
 **Why:** User updated the LinkList style in Figma and asked for the prototype to match.
+
+## 2026-10-09 — Working language picker on the list page too
+**Decision:** The placeholder Språk/Language button (index.html; the other pages already had it inline. The same files went to gravid/ and dhg-onboarding/) is replaced by the working language picker from the Prøvesvar prototype: Dropdown toggle (teal globe + chevron) that opens a SingleSelect list (Bokmål, Nynorsk, English); choosing marks the language and announces "Språk endret til …" (page text doesn't change); Esc or a click outside closes it. Shared as `sprakvelger.css` + `sprakvelger.js` in the folder, filling a `data-sprakvelger` container.
+**Alternative considered:** Keeping the inert placeholder.
+**Why:** Direct user request: swap the openable picker in wherever the language selector was only a placeholder.

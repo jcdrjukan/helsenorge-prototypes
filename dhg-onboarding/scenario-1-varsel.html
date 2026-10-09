@@ -326,6 +326,7 @@ a:focus-visible, button:focus-visible {
 
 </style>
 <script src="local-links.js"></script>
+<link rel="stylesheet" href="sprakvelger.css">
 </head>
 <body data-scenario="s1">
 
@@ -383,7 +384,7 @@ a:focus-visible, button:focus-visible {
   <hr class="page-divider">
 
   <div class="vp">
-    <div class="vp-lang"><button type="button" class="vp-btn"><img src="assets/btn-globe.svg" width="38" height="38" alt=""><span>Språk/language</span></button><img src="assets/btn-lang-chevron.svg" width="38" height="38" alt=""></div>
+    <div class="vp-lang" data-sprakvelger></div>
     <h1 class="vp-title">Varsler</h1>
     <div class="vp-tilpass"><a class="vp-btn" href="#"><img src="assets/btn-tilpass.svg" width="38" height="38" alt=""><span>Tilpass varsler</span></a></div>
     <div class="vp-sticky">
@@ -547,5 +548,6 @@ a:focus-visible, button:focus-visible {
   render();
 })();
 </script>
+<script src="sprakvelger.js"></script>
 </body>
 </html>

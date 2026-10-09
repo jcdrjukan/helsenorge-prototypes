@@ -1,0 +1,37 @@
+/* Språk/Language picker — real Dropdown (borderless toggle, teal globe +
+   chevron) + SingleSelect items, copied from the Prøvesvar prototype
+   (provesvar/personvern.html, built from the live markup). Colours are
+   the design-system token values, written out so the file works on any
+   prototype. Markup comes from sprakvelger.js. */
+.sprakvelger { position: relative; max-width: 100%; }
+.sprakvelger .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.sprakvelger__toggle {
+  display: flex; justify-content: space-between; align-items: center; min-width: 96px; max-width: 100%;
+  padding: 0.188rem 0.25rem 0.188rem 0.5rem; cursor: pointer; border-radius: 0;
+  border: 2px solid transparent; background: transparent; color: #000;
+  font: 400 1.125rem/1.3rem 'Source Sans Pro', sans-serif;
+}
+.sprakvelger__toggle:hover { background-color: #EAE7E7; }
+.sprakvelger__toggle:active { background-color: #D6D4D3; }
+.sprakvelger__toggle[aria-expanded="true"] { border-color: #62625F; }
+.sprakvelger__toggle:focus-visible { outline: none; border-color: #000; box-shadow: 0 0 0 1px #000; }
+.sprakvelger__text { padding: 0.34rem 0; white-space: nowrap; }
+.sprakvelger__toggle svg { width: 38px; height: 38px; min-width: 38px; fill: #188097; }
+.sprakvelger__toggle:hover svg { fill: #126F87; }
+.sprakvelger__left-icon { margin-right: 0.25rem; }
+.sprakvelger__right-icon { margin-left: 0.25rem; }
+.sprakvelger__content { display: none; position: absolute; right: 0; top: calc(100% + 2px); min-width: 100%; max-width: 300px; background: #fff; border: 2px solid #188097; z-index: 20; }
+.sprakvelger__content--open { display: block; }
+.sprakvelger__options { list-style: none; padding: 0; margin: 0; }
+.sprakvelger__item { min-height: 44px; border-bottom: 1px solid #BDBAB9; }
+.sprakvelger__item:last-child { border-bottom: none; }
+.sprakvelger__item:hover { background-color: #F5F3F3; }
+.sprakvelger__item:has([aria-current="true"]) { background-color: #E4F7F9; }
+.sprakvelger__item:has([aria-current="true"]):hover { background-color: #CAE7ED; }
+.sprakvelger__option {
+  all: unset; width: 100%; box-sizing: border-box; display: flex; align-items: baseline; cursor: pointer;
+  padding: 0.5rem 1rem; color: #000; font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif;
+}
+.sprakvelger__option:focus-visible { outline: 3px solid #000; outline-offset: -3px; }
+.sprakvelger__dot { display: inline-block; margin: 0 0.667rem 0 0; min-width: 0.67rem; min-height: 0.67rem; border-radius: 10rem; }
+.sprakvelger__dot--checked { background-color: #000; }
