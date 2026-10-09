@@ -636,6 +636,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .personvern__subtitle { width: 344px; margin-top: var(--space-2xs); font: 400 1rem/1.2 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
 /* Figma 4:79: area and test date on two lines, 16px/1.2 (Mobile/Sublabel size, black). */
 .personvern__subtitle span { display: block; }
+.highlightpanel--neutral.personvern__resultatboks { padding: var(--space-s); }   /* Figma: 16px all round */
 .personvern__resultat { margin: 0; font: 400 1.125rem/1.55 'Source Sans Pro', sans-serif; }
 .personvern__resultat span { display: block; }
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
@@ -814,7 +815,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
       <div class="page-title"><h1>Du er i ferd med å sperre følgende prøvesvar</h1></div>
       <span class="spacer--s"></span>
       <!-- Result shown in a neutral HighlightPanel (Figma 18:12083). -->
-      <div class="highlightpanel--neutral"><p class="personvern__resultat" data-resultatboks></p></div>
+      <div class="highlightpanel--neutral personvern__resultatboks"><p class="personvern__resultat" data-resultatboks></p></div>
     </div>
     <span class="spacer--l"></span>
     <h2 class="title3">Dette skjer når du sperrer</h2>
@@ -858,7 +859,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
       <div class="page-title"><h1>Du er i ferd med å slette følgende prøvesvar</h1></div>
       <span class="spacer--s"></span>
       <!-- Result shown in a neutral HighlightPanel (Figma 18:12083). -->
-      <div class="highlightpanel--neutral"><p class="personvern__resultat" data-resultatboks></p></div>
+      <div class="highlightpanel--neutral personvern__resultatboks"><p class="personvern__resultat" data-resultatboks></p></div>
     </div>
     <span class="spacer--l"></span>
     <h2 class="title3">Dette skjer når du sletter</h2>
