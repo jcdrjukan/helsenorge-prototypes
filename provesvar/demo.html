@@ -53,12 +53,6 @@ button, .knapp { font: 600 1.125rem 'Source Sans Pro', sans-serif; padding: 0.6r
     <p class="hint">Sperring, oppheving og sletting feiler og viser feilsiden («Vi fikk ikke …»). Ingenting endres.</p>
   </section>
 
-  <section>
-    <h2>Logg over bruk</h2>
-    <p id="loggAntall"></p>
-    <p class="hint"><a href="logg.html">Åpne loggen</a></p>
-  </section>
-
   <div class="knapper">
     <a class="knapp knapp--primar" href="index.html">Åpne prototypen</a>
     <button type="button" class="knapp--sekundar" id="nullstill">Nullstill alt</button>
@@ -79,14 +73,12 @@ button, .knapp { font: 600 1.125rem 'Source Sans Pro', sans-serif; padding: 0.6r
       return `<tr><td>${r.omrade}<br><span class="hint">${r.dato}</span></td><td>${status}</td><td>${lenke}</td></tr>`;
     }).join('');
     document.getElementById('apiFeil').checked = apiFeilPa();
-    const n = lesLS(LS_LOGG, []).length;
-    document.getElementById('loggAntall').textContent = n ? `${n} hendelse${n === 1 ? '' : 'r'} registrert.` : 'Ingen hendelser registrert.';
   }
   document.getElementById('apiFeil').addEventListener('change', e => settApiFeil(e.target.checked));
   document.getElementById('nullstill').addEventListener('click', () => {
     nullstillPersonvern();
     render();
-    document.getElementById('nullstilt').textContent = 'Alt er nullstilt: ingen svar er sperret eller slettet, loggen er tom, og API-feil er slått av.';
+    document.getElementById('nullstilt').textContent = 'Alt er nullstilt: ingen svar er sperret eller slettet, og API-feil er slått av.';
   });
   render();
 })();

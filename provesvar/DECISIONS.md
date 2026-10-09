@@ -157,3 +157,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** Title "Svaret er slettet" (was "Svaret er slettet fra Helsenorge"). Body: "Prøvesvaret er permanent fjernet fra det nasjonale prøvesvarregisteret og Helsenorge. Det er fortsatt lagret i journalen hos <ordering organisation> og hos laboratoriet." The organisation stays drawn from each result's data (result 1: "WebMed Test HelseNorge -TREG VOKAL KATT SKORPION", as in the user's text).
 **Alternative considered:** The previous wording ("Svaret er fjernet fra Pasientens prøvesvar. …").
 **Why:** User supplied the new texts.
+
+## 2026-10-09 — "Logg over bruk" page removed; links kept
+**Decision:** `logg.html` is deleted. The "Logg over bruk" link in the list page's Personvern links and "Se logg over bruk" on the receipt stay, pointing to `#`. The demo panel's log section (count + "Åpne loggen") is gone. Block/unblock/delete events are still written to the browser log, just not shown anywhere.
+**Alternative considered:** Keeping the page.
+**Why:** Direct user request.
