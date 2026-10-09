@@ -113,7 +113,6 @@
 .checkbox--invalid .checkbox-input:checked + .checkbox__marker { background: #C83521; color: #C83521; }
 
 /* Receipt (§4.9). */
-.kvittering__ikon { width: 48px; height: 48px; fill: #078141; display: block; margin-bottom: var(--space-2xs); }
 .duolist-kvittering { width: 344px; display: grid; grid-template-columns: auto minmax(55%, 1fr); margin: 0; }
 .duolist-kvittering dt { font: 600 1.125rem/1.375rem 'Source Sans Pro', sans-serif; padding: 0 1.5rem 0.5rem 0; }
 .duolist-kvittering dd { font: 400 1.125rem/1.375rem 'Source Sans Pro', sans-serif; margin: 0; padding-bottom: 0.5rem; }
