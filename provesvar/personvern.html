@@ -636,6 +636,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .personvern__subtitle { width: 344px; margin-top: var(--space-2xs); font: 400 1rem/1.2 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
 /* Figma 4:79: area and test date on two lines, 16px/1.2 (Mobile/Sublabel size, black). */
 .personvern__subtitle span { display: block; }
+.personvern__resultat { margin: 0; font: 400 1.125rem/1.55 'Source Sans Pro', sans-serif; }
+.personvern__resultat span { display: block; }
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .personvern__intro p + p { margin-top: var(--space-s); }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
@@ -809,11 +811,13 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   ═══════════════════════════════════════════════════════════ -->
   <div id="stegSperr" hidden>
     <div class="pageheader">
-      <div class="page-title"><h1>Vil du sperre dette svaret?</h1></div>
-      <p class="personvern__subtitle" data-resultatnavn></p>
+      <div class="page-title"><h1>Du er i ferd med å sperre følgende prøvesvar</h1></div>
+      <span class="spacer--s"></span>
+      <!-- Result shown in a neutral HighlightPanel (Figma 18:12083). -->
+      <div class="highlightpanel--neutral"><p class="personvern__resultat" data-resultatboks></p></div>
     </div>
     <span class="spacer--l"></span>
-    <h2 class="title3">Dette skjer</h2>
+    <h2 class="title3">Dette skjer når du sperrer</h2>
     <span class="spacer--s"></span>
     <ul class="list">
       <li>Annet helsepersonell i hele landet kan ikke se svaret når de slår opp prøvesvarene dine.</li>
@@ -851,8 +855,10 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   ═══════════════════════════════════════════════════════════ -->
   <div id="stegSlett" hidden>
     <div class="pageheader">
-      <div class="page-title"><h1>Vil du slette dette svaret fra Helsenorge?</h1></div>
-      <p class="personvern__subtitle" data-resultatnavn></p>
+      <div class="page-title"><h1>Du er i ferd med å slette følgende prøvesvar</h1></div>
+      <span class="spacer--s"></span>
+      <!-- Result shown in a neutral HighlightPanel (Figma 18:12083). -->
+      <div class="highlightpanel--neutral"><p class="personvern__resultat" data-resultatboks></p></div>
     </div>
     <span class="spacer--l"></span>
     <h2 class="title3">Dette skjer når du sletter</h2>
@@ -1023,6 +1029,10 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   };
   visNavn(document.getElementById('resultatNavn'));
   document.querySelectorAll('[data-resultatnavn]').forEach(visNavn);
+  // Sperr/Slett: area and "Prøvedato: …" in the HighlightPanel.
+  document.querySelectorAll('[data-resultatboks]').forEach(el => {
+    el.replaceChildren(...[r.omrade, `Prøvedato: ${r.dato}`].map(t => { const sp = document.createElement('span'); sp.textContent = t; return sp; }));
+  });
   document.getElementById('slettLink').href = q('slett');
   // Row 1: "Sperr…" — or, if already blocked, "Opphev sperring", which
   // opens the unblock dialog on the result page.

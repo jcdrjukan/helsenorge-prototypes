@@ -182,3 +182,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** Following the Figma receipt frame (20:108, LinkList 18:11532): the plain line row "Se logg over bruk" on "Svaret er slettet" is now a single grey card (same boxed LinkList as Personvernvalg) reading "Logg over bruk", with no hint and the label in regular weight (Mobile/Label subdued, 18/1.2), 64px tall. Still links to `#` (the log page was removed). The list page's Personvern link list keeps the line style.
 **Alternative considered:** The line-variant row "Se logg over bruk".
 **Why:** User updated the receipt in Figma.
+
+## 2026-10-09 — Sperr/Slett: "Du er i ferd med å …" titles and the result in a HighlightPanel
+**Decision:** Following the Figma Sperr (21:152) and Slett (22:152) frames: titles "Du er i ferd med å sperre følgende prøvesvar" / "Du er i ferd med å slette følgende prøvesvar" (were "Vil du sperre dette svaret?" / "Vil du slette dette svaret fra Helsenorge?"). The result is shown 16px below the title in a neutral HighlightPanel (#F5F3F3, 1px #D6D4D3, 24/16/32px padding): area and "Prøvedato: {dato}" on two lines, 18px / 1.55; this replaces the two-line 16px subtitle on these two pages (Personvernvalg keeps it). Sperr's first heading is now "Dette skjer når du sperrer" (was "Dette skjer").
+**Alternative considered:** The question titles with the subtitle.
+**Why:** User updated both pages in Figma.
