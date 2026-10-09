@@ -1024,9 +1024,13 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   // opens the unblock dialog on the result page.
   if (sperretDato(id)) {
     document.getElementById('sperrTittel').textContent = 'Opphev sperring';
-    // Hint becomes the list page's StatusDot (DotNoEye): "Du sperret dette svaret {dato}".
-    document.getElementById('sperrHint').innerHTML = '<span class="statusdot"><span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye.svg" width="24" height="24" alt=""></span><span class="statusdot__text"></span></span>';
-    document.querySelector('#sperrHint .statusdot__text').textContent = `Du sperret dette svaret ${sperretDato(id)}`;
+    document.getElementById('sperrHint').textContent = `Du sperret svaret ${sperretDato(id)}. Helsepersonell kan se det igjen hvis du opphever sperringen.`;
+    // StatusDot (DotNoEye, as on the list page) above the row's label.
+    const dot = document.createElement('span');
+    dot.className = 'statusdot link-list__statusdot';
+    dot.innerHTML = '<span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye.svg" width="24" height="24" alt=""></span><span class="statusdot__text"></span>';
+    dot.querySelector('.statusdot__text').textContent = `Du sperret dette svaret ${sperretDato(id)}`;
+    document.getElementById('sperrTittel').before(dot);
     document.getElementById('sperrLink').href = `resultat.html?id=${encodeURIComponent(id)}&opphev=1`;
   } else {
     document.getElementById('sperrLink').href = q('sperr');
