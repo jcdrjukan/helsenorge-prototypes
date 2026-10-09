@@ -1024,7 +1024,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   // opens the unblock dialog on the result page.
   if (sperretDato(id)) {
     document.getElementById('sperrTittel').textContent = 'Opphev sperring';
-    document.getElementById('sperrHint').textContent = `Du sperret svaret ${sperretDato(id)}. Helsepersonell kan se det igjen hvis du opphever sperringen.`;
+    document.getElementById('sperrHint').textContent = 'Helsepersonell kan se det igjen hvis du opphever sperringen.';
     // StatusDot (DotNoEye, as on the list page) above the row's label.
     const dot = document.createElement('span');
     dot.className = 'statusdot link-list__statusdot';

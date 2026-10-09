@@ -169,6 +169,6 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Why:** User asked whether the spinner was standard Frankenstein (it wasn't) and chose this option.
 
 ## 2026-10-09 — Blocked result: StatusDot inside the "Opphev sperring" row on Personvernvalg
-**Decision:** When the result is blocked, Personvernvalg's first row ("Opphev sperring") shows the list page's StatusDot (DotNoEye, 16px #474745), "Du sperret dette svaret {dato}", above the row's label; the hint below is unchanged ("Du sperret svaret {dato}. Helsepersonell kan se det igjen hvis du opphever sperringen."). (Earlier versions put it above the page title, then in place of the hint; the user meant above the label.)
+**Decision:** When the result is blocked, Personvernvalg's first row ("Opphev sperring") shows the list page's StatusDot (DotNoEye, 16px #474745), "Du sperret dette svaret {dato}", above the row's label; the hint below drops the now-redundant date and reads "Helsepersonell kan se det igjen hvis du opphever sperringen." (Earlier versions put it above the page title, then in place of the hint; the user meant above the label.)
 **Alternative considered:** The StatusDot above the page title; the StatusDot in place of the hint.
 **Why:** Direct user request.
