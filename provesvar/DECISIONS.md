@@ -124,6 +124,6 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Why:** Direct user request: swap the openable picker in wherever the language selector was only a placeholder.
 
 ## 2026-10-09 — "Velg om du vil få varsel om prøvesvar": live help text
-**Decision:** The HelpExpander now has the live text: "Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du endre innstillingene dine." + "Gå til Tilpass varsler." (AnchorLink). The link points to `#`: the live target is the test environment's varselinnstillinger, which the prototype doesn't have.
+**Decision:** The HelpExpander (list page and result pages) now has the live text: "Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du endre innstillingene dine." + "Gå til Tilpass varsler." (AnchorLink). The link points to `#`: the live target is the test environment's varselinnstillinger, which the prototype doesn't have.
 **Alternative considered:** The earlier draft text ("… kan du slå det på i varselinnstillingene dine").
 **Why:** User supplied the live markup.
