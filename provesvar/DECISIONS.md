@@ -154,6 +154,6 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Why:** User updated the texts and subtitle styling in Figma and asked for Sperr/Slett to follow.
 
 ## 2026-10-09 — Receipt after deleting: new title and body text
-**Decision:** Title "Svaret er slettet" (was "Svaret er slettet fra Helsenorge"). Body: "Prøvesvaret er permanent fjernet fra den nasjonale prøvesvar-tjenesten og Helsenorge. Det er fortsatt lagret i journalen hos <ordering organisation> og hos laboratoriet." The organisation stays drawn from each result's data (result 1: "WebMed Test HelseNorge -TREG VOKAL KATT SKORPION", as in the user's text).
+**Decision:** Title "Svaret er slettet" (was "Svaret er slettet fra Helsenorge"). Body: "Prøvesvaret er permanent fjernet fra det nasjonale prøvesvarregisteret og Helsenorge. Det er fortsatt lagret i journalen hos <ordering organisation> og hos laboratoriet." The organisation stays drawn from each result's data (result 1: "WebMed Test HelseNorge -TREG VOKAL KATT SKORPION", as in the user's text).
 **Alternative considered:** The previous wording ("Svaret er fjernet fra Pasientens prøvesvar. …").
 **Why:** User supplied the new texts.

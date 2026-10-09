@@ -1095,7 +1095,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     visSteg(document.getElementById('stegKvittering'), 'Svaret er slettet');
     tilbake.href = 'index.html';
     document.getElementById('tilbakeTekst').textContent = 'Prøvesvar';
-    document.getElementById('kvitteringTekst').textContent = `Prøvesvaret er permanent fjernet fra den nasjonale prøvesvar-tjenesten og Helsenorge. Det er fortsatt lagret i journalen hos ${bestillendeVirksomhet(r)} og hos laboratoriet.`;
+    document.getElementById('kvitteringTekst').textContent = `Prøvesvaret er permanent fjernet fra det nasjonale prøvesvarregisteret og Helsenorge. Det er fortsatt lagret i journalen hos ${bestillendeVirksomhet(r)} og hos laboratoriet.`;
     document.getElementById('kvNavn').textContent = r.omrade;
     document.getElementById('kvDato').textContent = r.dato;
     document.getElementById('kvSlettet').textContent = slettetTid(id).replace(', ', ' kl. ');
