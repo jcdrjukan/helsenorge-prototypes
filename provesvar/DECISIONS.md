@@ -174,6 +174,6 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Why:** Direct user request.
 
 ## 2026-10-09 — Red eye in the "Sperret" StatusDots
-**Decision:** The DotNoEye icon in the StatusDots for blocked results (the list page card, "Sperret for helsepersonell"; the Personvernvalg "Opphev sperring" row, "Du sperret dette svaret {dato}") is red, using the design system's StatusDot cherry colour (`--component-statusdot-graphics-cherry-onlight`, #A31F0E, the colour of its alert/cancelled/inactive states), via `img/dot-no-eye-red.svg`. The text stays grey. The 48px icon in the result page's "Sperret for helsepersonell" panel stays black.
+**Decision:** The DotNoEye icon in the StatusDots for blocked results (the list page card, "Sperret for helsepersonell"; the Personvernvalg "Opphev sperring" row, "Du sperret dette svaret {dato}") is red, using the design system's StatusDot cherry colour (`--component-statusdot-graphics-cherry-onlight`, #A31F0E, the colour of its alert/cancelled/inactive states), via `img/dot-no-eye-red.svg`. The text stays grey. The 48px DotNoEye in the result page's "Sperret for helsepersonell" panel is the same red (added at the user's request).
 **Alternative considered:** Black (the Figma StatusDot 1:496).
 **Why:** User tried it on Personvernvalg, then asked for the list page to match.
