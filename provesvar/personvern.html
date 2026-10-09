@@ -1028,7 +1028,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     // StatusDot (DotNoEye, as on the list page) above the row's label.
     const dot = document.createElement('span');
     dot.className = 'statusdot link-list__statusdot';
-    dot.innerHTML = '<span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye.svg" width="24" height="24" alt=""></span><span class="statusdot__text"></span>';
+    // Trial: red eye (DS StatusDot cherry, --component-statusdot-graphics-cherry-onlight #A31F0E).
+    dot.innerHTML = '<span class="statusdot__clip" aria-hidden="true"><img src="img/dot-no-eye-red.svg" width="24" height="24" alt=""></span><span class="statusdot__text"></span>';
     dot.querySelector('.statusdot__text').textContent = `Du sperret dette svaret ${sperretDato(id)}`;
     document.getElementById('sperrTittel').before(dot);
     document.getElementById('sperrLink').href = `resultat.html?id=${encodeURIComponent(id)}&opphev=1`;
