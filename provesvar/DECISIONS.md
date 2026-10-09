@@ -127,3 +127,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The HelpExpander (list page and result pages) now has the live text: "Du får ikke varsler automatisk når et prøvesvar er klart. Hvis du vil ha varsler, må du endre innstillingene dine." + "Gå til Tilpass varsler." (AnchorLink). The link points to `#`: the live target is the test environment's varselinnstillinger, which the prototype doesn't have.
 **Alternative considered:** The earlier draft text ("… kan du slå det på i varselinnstillingene dine").
 **Why:** User supplied the live markup.
+
+## 2026-10-09 — Eyebrow aligned to the design system
+**Decision:** The eyebrow above the title (`pageheader__subtitle`, result and analysis pages) now follows the design system's EyebrowHeader.Subtitle: a paragraph with margin 0 in the DS body style, mobile 18px / 1.688rem (27px). It was 18px / 1.75rem (28px), with no traceable source. The DS step to 20px / 1.875rem at md (768px+) is left out, because it keys off the window width, which on desktop is wider than the phone frame.
+**Alternative considered:** Keeping 18/28; including the md step.
+**Why:** User asked whether the eyebrow followed a defined Frankenstein style; it didn't exactly, and they asked to align it.

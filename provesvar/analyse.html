@@ -521,7 +521,11 @@ a:focus-visible, button:focus-visible {
 
 /* Page header with eyebrow ("pageheader__subtitle") above the title. */
 .pageheader { width: 344px; padding-top: var(--space-xl); }
-.pageheader__subtitle { font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
+/* EyebrowHeader.Subtitle: a <p> with margin 0 that inherits the DS body
+   style (fonts.body, mobile: 18px / 1.688rem). The md (768px+) step to
+   20px/1.875rem is left out: it keys off the window, which on desktop
+   is wider than the phone frame. */
+.pageheader__subtitle { margin: 0; font: 400 1.125rem/1.688rem 'Source Sans Pro', sans-serif; color: var(--color-base-text-onlight); }
 .pageheader .page-title { padding-top: 0; width: auto; display: flex; align-items: flex-start; gap: var(--space-2xs); position: relative; }
 .pageheader .page-title h1 { flex: 1; min-width: 0; }
 
