@@ -132,3 +132,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The eyebrow above the title (`pageheader__subtitle`, result and analysis pages) now follows the design system's EyebrowHeader.Subtitle: a paragraph with margin 0 in the DS body style, mobile 18px / 1.688rem (27px). It was 18px / 1.75rem (28px), with no traceable source. The DS step to 20px / 1.875rem at md (768px+) is left out, because it keys off the window width, which on desktop is wider than the phone frame.
 **Alternative considered:** Keeping 18/28; including the md step.
 **Why:** User asked whether the eyebrow followed a defined Frankenstein style; it didn't exactly, and they asked to align it.
+
+## 2026-10-09 — Personvernvalg breadcrumb: "Tilbake til prøvesvaret"
+**Decision:** The back link on the Personvernvalg page reads "Tilbake til prøvesvaret" (was "Prøvesvaret"). Only this page: the steps keep "Personvernvalg", the error page "Prøvesvaret" and the receipt "Prøvesvar".
+**Alternative considered:** The bare destination name, as on the other pages.
+**Why:** Direct user request.
