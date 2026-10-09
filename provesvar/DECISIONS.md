@@ -192,3 +192,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The two "Du er i ferd med å …" titles use the Figma text style Mobile/H1 (title1): SemiBold 32px / 120% (DS title1 on mobile: 2rem / 2.375rem), via `h1.title1`. The prototype's other page titles still use its `--mobile-h1` token (36px / 122%), which is larger than the DS title1.
 **Alternative considered:** Keeping `--mobile-h1` (36px).
 **Why:** User corrected the titles to the Mobile/H1 style in Figma.
+
+## 2026-10-09 — All page titles in Mobile/H1 (title1)
+**Decision:** The `--mobile-h1` token on every page (index, resultat, analyse, personvern) is now Figma's Mobile/H1 (title1), SemiBold 32px / 120% (was 36px / 122%), so every H1 matches: list page, result pages, analysis pages, Personvernvalg, Sperr, Slett, the error page and "Svaret er slettet". The one-off `h1.title1` class from the previous entry is gone. The demo control panel (not a patient page) is unchanged.
+**Alternative considered:** Only Sperr/Slett at 32px.
+**Why:** User asked for all mobile pages to use the same H1 style.
