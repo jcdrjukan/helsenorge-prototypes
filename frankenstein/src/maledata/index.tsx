@@ -642,7 +642,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
       <hr className="page-divider" />
 
       <main className="md-page">
-        <Title htmlMarkup="h1" appearance="title1">Måledata</Title>
+        <Title htmlMarkup="h1" appearance="title1">Målinger</Title>
         <p className="md-ingress">
           Her ser du målingene dine over tid, sammen med målområdene som er satt for deg.
         </p>

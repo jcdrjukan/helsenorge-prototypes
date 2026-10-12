@@ -154,7 +154,7 @@ function App() {
             className={`prototype-switcher__btn${prototype === 'maledata' ? ' prototype-switcher__btn--active' : ''}`}
             onClick={() => switchPrototype('maledata')}
           >
-            Måledata
+            Målinger
           </button>
         </div>
       )}

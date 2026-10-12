@@ -22,7 +22,7 @@ export const PROTOTYPE_META: Record<string, PrototypeMeta> = {
   'pasientens-planer':      { title: 'Pasientens planer',       letters: 'PP', color: '#084350' },
   forside:                  { title: 'Forside',                 letters: 'FS', color: '#2B2C2B' },
   gravid:                   { title: 'Gravid',                  letters: 'GR', color: '#C83521' },
-  maledata:                 { title: 'Måledata',                letters: 'MD', color: '#08667C' },
+  maledata:                 { title: 'Målinger',                letters: 'MD', color: '#08667C' },
 };
 
 // Matches public/favicon.svg's own visual style (rounded square + centred
