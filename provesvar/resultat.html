@@ -544,7 +544,7 @@ a.anchorlink:focus-visible { outline: none; border-color: var(--color-action-bor
    holding a LinkList. Per the sperre/slette spec it's the only entry
    point to Personvernvalg, listed last with the same weight as any
    other item. */
-.pop-menu { position: static; flex-shrink: 0; }
+.pop-menu { position: relative; flex-shrink: 0; }   /* anchor the PopOver to the button, not the (possibly two-line) title row */
 .pop-menu__button {
   display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px;
   padding: 0; border: 0; background: transparent; cursor: pointer; border-radius: 0;
@@ -555,7 +555,7 @@ a.anchorlink:focus-visible { outline: none; border-color: var(--color-action-bor
 .pop-menu__button:focus-visible { outline: 3px solid var(--color-action-border-onlight-focus); outline-offset: -3px; }
 .pop-menu__pop-over {
   position: absolute; right: 0; top: calc(100% + 10px); z-index: 30;
-  width: 20.875rem; max-width: 100%; padding: 0; background: #fff;
+  width: 20.875rem; max-width: calc(100vw - 2rem); padding: 0; background: #fff;
   box-shadow: 0 0 0 1px var(--color-base-border-onlight, #7D7C79); border-radius: 9px;
   filter: drop-shadow(0 4px 16px rgb(0 0 0 / 30%));
 }

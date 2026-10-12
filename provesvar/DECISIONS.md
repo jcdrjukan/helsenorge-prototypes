@@ -197,3 +197,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The `--mobile-h1` token on every page (index, resultat, analyse, personvern) is now Figma's Mobile/H1 (title1), SemiBold 32px / 120% (was 36px / 122%), so every H1 matches: list page, result pages, analysis pages, Personvernvalg, Sperr, Slett, the error page and "Svaret er slettet". The one-off `h1.title1` class from the previous entry is gone. The demo control panel (not a patient page) is unchanged.
 **Alternative considered:** Only Sperr/Slett at 32px.
 **Why:** User asked for all mobile pages to use the same H1 style.
+
+## 2026-10-12 — "Flere valg" menu anchored to its button
+**Decision:** The PopOver now hangs off the ⋯ button (`.pop-menu` is the positioning parent) instead of the whole title row, so it opens just under the button even when the title wraps to two lines (it used to drop below the second line, 2–3rem too low). Its width is fixed at 20.875rem (max 100vw − 2rem) rather than 100% of its parent.
+**Alternative considered:** —
+**Why:** User reported the menu opening too far below the button.
