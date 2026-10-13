@@ -159,4 +159,10 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Keeping "Måledata".
 **Why:** Direct user request.
 
+
+## 2026-10-13 — Behandlingshjelpemidler: "Leveres på døra" delivery option
+**Decision:** The Leveringsmåte dropdown (order step 2) has a new option "Leveres på døra" after "Send i posten" (mode `dor`). Like post it delivers to the user's address: the address form is shown and validated, and the summary, the order card under Aktive bestillinger and the history card label the address "Leveres til" (post keeps "Sendes til"). Shared helpers `tilAdresse` / `adresseEtikett` in `data.ts`. The deprecated static `behandlingshjelpemidler/` prototype is not changed.
+**Alternative considered:** —
+**Why:** Direct user request.
+
 #helsenorge

@@ -43,7 +43,10 @@ export interface Equipment {
   isAnnet?: boolean;
 }
 
-export type DeliveryMode = 'post' | 'hentes' | 'hentes2';
+export type DeliveryMode = 'post' | 'dor' | 'hentes' | 'hentes2';
+/** Modes that deliver to the user's own address (address form, "… til" labels). */
+export const tilAdresse = (mode: DeliveryMode) => mode === 'post' || mode === 'dor';
+export const adresseEtikett = (mode: DeliveryMode) => (mode === 'dor' ? 'Leveres til' : 'Sendes til');
 export type AppView = 'forside' | 'machine' | 'order' | 'history' | 'cannot-order';
 
 export interface DeliveryForm {

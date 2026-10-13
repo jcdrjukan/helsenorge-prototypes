@@ -7,7 +7,7 @@ import OrderWizard from './OrderWizard';
 import HistoryView from './HistoryView';
 import CannotOrderView from './CannotOrderView';
 import type { AppView, DeliveryForm, DeliveryMode, SubmittedOrder } from './data';
-import { EQUIPMENT, HISTORY_ENTRIES, TODAY } from './data';
+import { EQUIPMENT, HISTORY_ENTRIES, TODAY, tilAdresse } from './data';
 
 function initQuantities(): Record<string, number[]> {
   const result: Record<string, number[]> = {};
@@ -93,7 +93,7 @@ export default function Behandlingshjelpemidler() {
     if (currentStep === 2) {
       // Validate delivery
       const errors: Partial<Record<keyof DeliveryForm, string>> = {};
-      if (delivery.mode === 'post') {
+      if (tilAdresse(delivery.mode)) {
         if (!delivery.navn.trim()) errors.navn = 'Navn er påkrevd';
         if (!delivery.gate.trim()) errors.gate = 'Gateadresse er påkrevd';
         if (!delivery.postnr.trim()) errors.postnr = 'Postnummer er påkrevd';
@@ -161,14 +161,14 @@ export default function Behandlingshjelpemidler() {
     setOrderedDates(newOrderedDates);
 
     const addrStr =
-      delivery.mode === 'post'
+      tilAdresse(delivery.mode)
         ? delivery.gate.trim()
         : delivery.mode === 'hentes'
         ? 'St. Olavs sykehus, Medisinsk utstyrssentralen'
         : 'St. Olavs sykehus, Poliklinisk skranke';
 
     const poststedStr =
-      delivery.mode === 'post'
+      tilAdresse(delivery.mode)
         ? `${delivery.postnr} ${delivery.sted}`.trim()
         : undefined;
 

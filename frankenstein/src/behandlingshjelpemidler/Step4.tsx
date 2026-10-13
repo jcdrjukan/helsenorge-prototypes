@@ -5,7 +5,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import { PICKUP_LOCATIONS, type Equipment, type DeliveryForm } from './data';
+import { PICKUP_LOCATIONS, adresseEtikett, tilAdresse, type Equipment, type DeliveryForm } from './data';
 
 interface Step4Props {
   equipment: Equipment[];
@@ -71,9 +71,9 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
           onExpand={isExpanded => toggle('levering', isExpanded)}
         >
           <Duolist boldColumn="first">
-            {delivery.mode === 'post' && (
+            {tilAdresse(delivery.mode) && (
               <DuolistGroup
-                term="Sendes til"
+                term={adresseEtikett(delivery.mode)}
                 description={
                   <span>
                     {delivery.navn && <>{delivery.navn}<br /></>}

@@ -7,7 +7,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import { PICKUP_LOCATIONS, type DeliveryForm } from './data';
+import { PICKUP_LOCATIONS, tilAdresse, type DeliveryForm } from './data';
 
 interface Step2Props {
   delivery: DeliveryForm;
@@ -23,7 +23,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
     <div className="order-step">
       <h2 className="order-step__title">Leveringsdetaljer</h2>
 
-      {delivery.mode === 'post' && (
+      {tilAdresse(delivery.mode) && (
         <div style={{ marginBottom: 'var(--space-s)' }}>
           <FormFieldTag level="all-required" />
         </div>
@@ -37,12 +37,13 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
           onChange={(e: React.ChangeEvent<HTMLSelectElement>) => onChange('mode', e.target.value)}
         >
           <option value="post">Send i posten</option>
+          <option value="dor">Leveres på døra</option>
           <option value="hentes">Hentes på lokasjon1</option>
           <option value="hentes2">Hentes på lokasjon2</option>
         </Select>
       </div>
 
-      {delivery.mode === 'post' && (
+      {tilAdresse(delivery.mode) && (
         <div className="delivery-address-form">
           <Input
             label="Navn"
