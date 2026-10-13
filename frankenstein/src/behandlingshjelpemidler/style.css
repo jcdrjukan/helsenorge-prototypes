@@ -646,6 +646,9 @@
   gap: var(--space-xs);
 }
 
+.delivery-address-form__fixed { display: flex; flex-direction: column; }
+.delivery-address-form__value { margin: 0; font: var(--mobile-body); }
+
 .delivery-address-form .field-tag {
   display: block;
   margin-bottom: var(--space-xs);

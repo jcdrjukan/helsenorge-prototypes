@@ -165,4 +165,10 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** —
 **Why:** Direct user request.
 
+
+## 2026-10-13 — Behandlingshjelpemidler: name fixed to the logged-in user; optional C/O field
+**Decision:** In the address form (Send i posten / Leveres på døra), "Navn" is no longer an input: the logged-in user is the only possible recipient, so it's shown as a DS Label with the name as plain text below (DS Input's `readOnly` has no read-only styling and would still look editable). A new optional "C/O" Input sits between Navn and Gateadresse, labelled with a DS Label + FormFieldTag `optional` ("Valgfritt"). Because not every field is required any more, the form's "Alle feltene må fylles ut" FormFieldTag is removed (DS approach: mark the optional field). If filled in, "c/o …" is shown under the name in the summary and on the order cards. The "Navn er påkrevd" validation is gone.
+**Alternative considered:** A read-only Input for the name; keeping the all-required tag.
+**Why:** User: the recipient can only be the logged-in user; add an optional C/O field.
+
 #helsenorge

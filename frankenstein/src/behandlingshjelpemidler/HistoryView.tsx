@@ -48,7 +48,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
           <Field label="Bestillingsdato" value={order.date} />
           <Field label={tilAdresse(order.delivery) ? adresseEtikett(order.delivery) : 'Hentested'} value={
             tilAdresse(order.delivery)
-              ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.poststed}</>
+              ? <>{order.navn && <>{order.navn}<br /></>}{order.co && <>c/o {order.co}<br /></>}{order.addr}<br />{order.poststed}</>
               : order.addr
           } />
           {order.comment && (

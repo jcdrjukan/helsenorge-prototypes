@@ -52,6 +52,8 @@ export type AppView = 'forside' | 'machine' | 'order' | 'history' | 'cannot-orde
 export interface DeliveryForm {
   mode: DeliveryMode;
   navn: string;
+  /** Optional c/o line; the recipient is always the logged-in user (navn). */
+  co: string;
   gate: string;
   postnr: string;
   sted: string;
@@ -94,6 +96,7 @@ export interface SubmittedOrder {
   addr: string;
   poststed?: string;
   navn: string;
+  co?: string;
   telefon: string;
   comment: string;
   levert?: string;

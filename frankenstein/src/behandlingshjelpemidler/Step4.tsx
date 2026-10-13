@@ -77,6 +77,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
                 description={
                   <span>
                     {delivery.navn && <>{delivery.navn}<br /></>}
+                    {delivery.co.trim() && <>c/o {delivery.co.trim()}<br /></>}
                     {delivery.gate}<br />
                     {`${delivery.postnr} ${delivery.sted}`.trim()}<br />
                     Telefon: {delivery.telefon}

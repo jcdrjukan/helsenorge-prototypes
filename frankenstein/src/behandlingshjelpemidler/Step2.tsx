@@ -1,6 +1,7 @@
 import Select from '@helsenorge/designsystem-react/components/Select';
 import Input from '@helsenorge/designsystem-react/components/Input';
 import FormFieldTag from '@helsenorge/designsystem-react/components/FormFieldTag';
+import Label from '@helsenorge/designsystem-react/components/Label';
 import Panel from '@helsenorge/designsystem-react/components/Panel';
 import { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import Button from '@helsenorge/designsystem-react/components/Button';
@@ -23,12 +24,6 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
     <div className="order-step">
       <h2 className="order-step__title">Leveringsdetaljer</h2>
 
-      {tilAdresse(delivery.mode) && (
-        <div style={{ marginBottom: 'var(--space-s)' }}>
-          <FormFieldTag level="all-required" />
-        </div>
-      )}
-
       <div style={{ marginBottom: 'var(--space-s)' }}>
         <Select
           label="Leveringsmåte"
@@ -45,14 +40,17 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
 
       {tilAdresse(delivery.mode) && (
         <div className="delivery-address-form">
+          {/* The logged-in user is the only possible recipient: name shown, not editable. */}
+          <div className="delivery-address-form__fixed">
+            <Label htmlMarkup="span" labelId="deliveryNavnLabel" labelTexts={[{ text: 'Navn' }]} />
+            <p className="delivery-address-form__value" aria-labelledby="deliveryNavnLabel">{delivery.navn}</p>
+          </div>
+
           <Input
-            label="Navn"
-            inputId="deliveryNavn"
-            value={delivery.navn}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('navn', e.target.value)}
-            error={!!errors.navn}
-            errorText={errors.navn}
-            placeholder="Fornavn Etternavn"
+            label={<Label htmlFor="deliveryCo" labelTexts={[{ text: 'C/O' }]} formFieldTag={<FormFieldTag level="optional" />} />}
+            inputId="deliveryCo"
+            value={delivery.co}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('co', e.target.value)}
           />
 
           <Input
