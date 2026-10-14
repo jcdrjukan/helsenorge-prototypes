@@ -666,6 +666,11 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .spacer--2xs { display: block; width: 100%; height: 8px; }
 .spacer--2xs[hidden] { display: none; }
 .link-list[hidden] { display: none; }   /* .link-list--boxed sets display:flex, which would override [hidden] */
+/* Modal, warning variant (Figma 49:31425): yellow panel, 48px
+   ErrorSignStroke beside the title (10px gap). */
+.gm.gm--warning { background: #FDF8DF; }
+.gm__title-row { display: flex; align-items: center; gap: 10px; }
+.gm__icon { width: 48px; height: 48px; flex-shrink: 0; fill: #000; }
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .personvern__intro p + p { margin-top: var(--space-s); }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
@@ -848,16 +853,6 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         <li>Du ser fortsatt svaret selv.</li>
         </ul>
         <span class="spacer--l"></span>
-        <!-- [AVKLARES] Gjelder sperringen også i akutte situasjoner
-        (akuttilgang)? Svaret endrer denne teksten. -->
-        <div class="np np--warn">
-        <svg class="np__icon" viewBox="0 0 48 48" fill="#916500" aria-hidden="true"><path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/></svg>
-        <div class="np__content">
-        <h4 class="np__label">Vær oppmerksom på</h4>
-        <p class="np__text">Helsepersonell som skal behandle deg, får ikke vite om dette svaret. Det kan føre til at prøver tas på nytt, eller at de mangler informasjon som er viktig for behandlingen din.</p>
-        </div>
-        </div>
-        <span class="spacer--l"></span>
         <p class="body-block">Du kan oppheve sperringen når som helst.</p>
         <span class="spacer--l"></span>
         <div class="btn-row">
@@ -976,6 +971,23 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 
   <div class="sp-xl"></div>
 
+  <!-- Confirmation before blocking (Figma 49:31425: DS Modal, warning
+       variant, ErrorSignStroke icon). [AVKLARES] Gjelder sperringen også i
+       akutte situasjoner (akuttilgang)? Svaret endrer denne teksten. -->
+  <div class="gm-overlay" id="sperrModal" hidden>
+    <div class="gm gm--warning" role="dialog" aria-modal="true" aria-labelledby="sperrModalTittel" aria-describedby="sperrModalTekst" tabindex="-1">
+      <button type="button" class="gm__close" id="sperrModalLukk" aria-label="Lukk"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M25.403 24l10.259-10.259-1.403-1.403L24 22.597l-10.259-10.26-1.403 1.403L22.597 24 12.338 34.26l1.403 1.403L24 25.403l10.259 10.259 1.403-1.403z"/></svg></button>
+      <div class="gm__top">
+        <div class="gm__title-row"><svg class="gm__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24.003 31.578a1.394 1.394 0 100 2.788 1.394 1.394 0 000-2.788zm.098-20.19l14.687 26.735H9.227L24.1 11.388zm.008-2.929L6.816 39.541h34.367L24.109 8.459zm-.106 21.033c.494 0 .893-.4.893-.893v-7.228a.893.893 0 00-1.786 0v7.228c0 .493.4.893.893.893z"/></svg><h2 class="gm__title" id="sperrModalTittel">Du er i ferd med å sperre dette prøvesvaret</h2></div>
+        <p class="gm__ingress" id="sperrModalTekst">Vær oppmerksom på at helsepersonell som skal behandle deg får ikke vite om dette svaret. Det kan føre til at prøver tas på nytt, eller at de mangler informasjon som er viktig for behandlingen din.</p>
+      </div>
+      <div class="gm__buttons">
+        <button type="button" class="btn btn--fill" id="sperrBekreft"><span>Sperr svaret</span></button>
+        <button type="button" class="btn btn--borderless" id="sperrModalAvbryt"><span>Avbryt</span></button>
+      </div>
+    </div>
+  </div>
+
   <!-- ══════════════════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════════════════════ -->
@@ -1077,10 +1089,43 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     document.getElementById('sperrTittel').before(dot);
     document.getElementById('sperrLink').href = `resultat.html?id=${encodeURIComponent(id)}&opphev=1`;
   } else {
+    // "Sperr svaret" opens a warning Modal; its own "Sperr svaret" blocks.
     const btn = document.getElementById('sperrBtn');
-    btn.addEventListener('click', async () => {
-      if (btn.getAttribute('aria-busy') === 'true') return;   // no double submit
-      settOpptatt(btn, true);
+    const overlay = document.getElementById('sperrModal');
+    const dialog = overlay.querySelector('.gm');
+    const screen = document.querySelector('.phone-frame__screen');
+    let scroller = null;
+    const apne = () => {
+      const inner = getComputedStyle(screen).overflowY !== 'visible';
+      scroller = inner ? screen : document.documentElement;
+      overlay.style.top = (inner ? screen.scrollTop : Math.max(0, -screen.getBoundingClientRect().top)) + 'px';
+      overlay.style.height = (inner ? screen.clientHeight : window.innerHeight) + 'px';
+      scroller.style.overflow = 'hidden';
+      overlay.hidden = false;
+      document.getElementById('sperrBekreft').focus();
+    };
+    const lukk = () => {
+      overlay.hidden = true;
+      if (scroller) scroller.style.overflow = '';
+      btn.focus();
+    };
+    btn.addEventListener('click', apne);
+    document.getElementById('sperrModalLukk').addEventListener('click', lukk);
+    document.getElementById('sperrModalAvbryt').addEventListener('click', lukk);
+    overlay.addEventListener('click', e => { if (e.target === overlay) lukk(); });
+    document.addEventListener('keydown', e => {
+      if (overlay.hidden) return;
+      if (e.key === 'Escape') { lukk(); return; }
+      if (e.key !== 'Tab') return;
+      const f = dialog.querySelectorAll('button');
+      const first = f[0], last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+    });
+    const bekreft = document.getElementById('sperrBekreft');
+    bekreft.addEventListener('click', async () => {
+      if (bekreft.getAttribute('aria-busy') === 'true') return;   // no double submit
+      settOpptatt(bekreft, true);
       try { await simulertApi(); } catch { location.href = q('feil') + '&handling=sperr'; return; }
       settSperret(id, iDag());
       loggHendelse(`Du sperret prøvesvaret ${resultatNavn(r)} for helsepersonell.`);

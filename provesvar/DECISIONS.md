@@ -212,3 +212,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** Inside the Sperr/Slett expanders, the headings ("Dette skjer …", "Dette endres ikke") are 18px SemiBold / 1.2 (the expander title's size; was title3 22px), and the bullets, body text and consent label are 16px / 1.5 (was 18px). Notices (16px) and buttons are unchanged. Also fixed two headings that had kept their old levels (one h2, one notice label h3).
 **Alternative considered:** Only headings to 18px; headings to DS title4 (20px).
 **Why:** User asked for smaller "mobile" text in the expanders; everything already used DS mobile sizes, so the user chose the sizes from three options.
+
+## 2026-10-14 — Block warning moves into a confirmation modal
+**Decision:** The yellow "Vær oppmerksom på" NotificationPanel is removed from the Sperr expander. Its message now appears in a confirmation Modal when "Sperr svaret" is clicked (Figma 49:31425: DS Modal, warning variant: #FDF8DF panel, 48px ErrorSignStroke beside the title "Du er i ferd med å sperre dette prøvesvaret" (title3 22/1.36), body "Vær oppmerksom på at helsepersonell som skal behandle deg får ikke vite om dette svaret. …" (18/1.5), buttons "Sperr svaret" + "Avbryt", close ✕). The modal's "Sperr svaret" does the block (busy loader, then the result page); Avbryt, ✕, Esc and a click outside close it and return focus to the expander's button; focus is trapped inside while open. The [AVKLARES akuttilgang] note moves with the text. Delete keeps its inline notices.
+**Alternative considered:** Keeping the inline warning.
+**Why:** User request with the Figma frame.
