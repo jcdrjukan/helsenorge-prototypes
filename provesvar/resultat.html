@@ -828,11 +828,11 @@ a.anchorlink:focus-visible { outline: none; border-color: var(--color-action-bor
 
   <!-- Unblock confirmation (spec §4.7): Modal, medium, normal. -->
   <div class="gm-overlay" id="opphevModal" hidden>
-    <div class="gm" role="dialog" aria-modal="true" aria-labelledby="opphevTittel" aria-describedby="opphevTekst" tabindex="-1">
+    <div class="gm gm--warning" role="dialog" aria-modal="true" aria-labelledby="opphevTittel" aria-describedby="opphevTekst" tabindex="-1">
       <button type="button" class="gm__close" id="opphevLukk" aria-label="Lukk"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M25.403 24l10.259-10.259-1.403-1.403L24 22.597l-10.259-10.26-1.403 1.403L22.597 24 12.338 34.26l1.403 1.403L24 25.403l10.259 10.259 1.403-1.403z"/></svg></button>
       <div class="gm__top">
-        <h2 class="gm__title" id="opphevTittel">Oppheve sperringen?</h2>
-        <p class="gm__ingress" id="opphevTekst">Helsepersonell som behandler deg, kan igjen se dette svaret. Du kan sperre det på nytt senere.</p>
+        <div class="gm__title-row"><svg class="gm__icon" viewBox="0 0 48 48" aria-hidden="true"><path d="M24.003 31.578a1.394 1.394 0 100 2.788 1.394 1.394 0 000-2.788zm.098-20.19l14.687 26.735H9.227L24.1 11.388zm.008-2.929L6.816 39.541h34.367L24.109 8.459zm-.106 21.033c.494 0 .893-.4.893-.893v-7.228a.893.893 0 00-1.786 0v7.228c0 .493.4.893.893.893z"/></svg><h2 class="gm__title" id="opphevTittel">Du er i ferd med å oppheve sperringen</h2></div>
+        <p class="gm__ingress" id="opphevTekst">Dette vil gjøre prøvesvaret synlig igjen for dine behandlere.</p>
       </div>
       <div class="gm__buttons">
         <button type="button" class="btn btn--fill" id="opphevBekreft"><span>Opphev sperring</span></button>

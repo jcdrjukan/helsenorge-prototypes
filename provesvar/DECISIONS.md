@@ -242,3 +242,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** After a successful delete (modal → simulated API), the user goes straight to the overview, where the dismissable success NotificationPanel "{navn} ({dato}) er slettet fra prøvesvarregisteret." shows under the ingress and takes focus; ✕ removes it and moves focus to the page title — the same pattern as the "Svaret er synlig for helsepersonell igjen." message after unblocking. The "Svaret er slettet" receipt page (`&steg=kvittering`) is no longer part of the flow; its code is left in place, unused.
 **Alternative considered:** Receipt page, then the message on the overview.
 **Why:** User wants deletion confirmed the same way as unblocking.
+
+## 2026-10-14 — Unblock modal in the yellow warning variant
+**Decision:** The unblock confirmation on the result page uses the same warning Modal as blocking (#FDF8DF, ErrorSignStroke beside the title). Title "Du er i ferd med å oppheve sperringen" (was "Oppheve sperringen?"); text "Dette vil gjøre prøvesvaret synlig igjen for dine behandlere." (user wrote "snylig"; read as "synlig"). Buttons unchanged ("Opphev sperring" / "Avbryt"). The warning/error modal styles moved from personvern.html into the shared sperring.css.
+**Alternative considered:** The plain white modal.
+**Why:** Direct user request.

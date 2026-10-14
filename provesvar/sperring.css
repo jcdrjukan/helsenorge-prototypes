@@ -95,6 +95,17 @@
 .gm__title { margin: 0; font: 600 22px/1.36 'Source Sans Pro', sans-serif; color: #000; }
 .gm__ingress { margin: 0; font: 400 18px/1.5 'Source Sans Pro', sans-serif; color: #000; padding-right: 40px; }
 .gm__buttons { display: flex; flex-wrap: wrap; align-items: center; gap: 24px; }
+/* Modal, warning variant (Figma 49:31425): yellow panel, 48px
+   ErrorSignStroke beside the title (10px gap). */
+.gm.gm--warning { background: #FDF8DF; }
+.gm__title-row { display: flex; align-items: center; gap: 10px; }
+.gm__icon { width: 48px; height: 48px; flex-shrink: 0; fill: #000; }
+/* Modal, error variant (Figma 49:31563): light red panel, red
+   ErrorSignFill, red title (destructive text), destructive button #A31F0E. */
+.gm.gm--error { background: #FFF2EA; }
+.gm--error .gm__icon { fill: #A31F0E; }
+.gm--error .gm__title { color: #B62E1C; }
+.gm--error .btn--destructive { background: #A31F0E; }
 
 /* Button — fill, destructive (cherry500, hover cherry700). */
 .btn--destructive { background: #C83521; color: #fff; }

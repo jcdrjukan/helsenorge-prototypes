@@ -666,17 +666,6 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .spacer--2xs { display: block; width: 100%; height: 8px; }
 .spacer--2xs[hidden] { display: none; }
 .link-list[hidden] { display: none; }   /* .link-list--boxed sets display:flex, which would override [hidden] */
-/* Modal, warning variant (Figma 49:31425): yellow panel, 48px
-   ErrorSignStroke beside the title (10px gap). */
-.gm.gm--warning { background: #FDF8DF; }
-.gm__title-row { display: flex; align-items: center; gap: 10px; }
-.gm__icon { width: 48px; height: 48px; flex-shrink: 0; fill: #000; }
-/* Modal, error variant (Figma 49:31563): light red panel, red
-   ErrorSignFill, red title (destructive text), destructive button #A31F0E. */
-.gm.gm--error { background: #FFF2EA; }
-.gm--error .gm__icon { fill: #A31F0E; }
-.gm--error .gm__title { color: #B62E1C; }
-.gm--error .btn--destructive { background: #A31F0E; }
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .personvern__intro p + p { margin-top: var(--space-s); }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
