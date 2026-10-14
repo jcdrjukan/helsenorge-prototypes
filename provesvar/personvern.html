@@ -1141,7 +1141,9 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     settSlettet(id, naa());
     settSperret(id, null);   // [AVKLARES 7] a block simply disappears with the result
     loggHendelse(`Du slettet prøvesvaret ${resultatNavn(r)} fra Helsenorge.`);
-    location.replace(q('kvittering'));
+    // Confirmed on the overview with a dismissable success message (as after
+    // unblocking), not on a separate receipt page.
+    location.replace('index.html?slettet=' + encodeURIComponent(id));
   });
 
   const visSteg = (el, tittel) => {

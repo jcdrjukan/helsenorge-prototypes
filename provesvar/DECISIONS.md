@@ -237,3 +237,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The blue info NotificationPanel ("Vil du heller sperre svaret?" with "Sperr svaret i stedet") is removed from the Slett expander, with its script. The Slett expander now holds only the two lists and the buttons; blocking stays one expander up. This drops the spec's "less drastic option first" prompt inside the delete step.
 **Alternative considered:** Keeping it (kept in the previous change).
 **Why:** Direct user request.
+
+## 2026-10-14 — Delete confirmed on the overview, not on a receipt page
+**Decision:** After a successful delete (modal → simulated API), the user goes straight to the overview, where the dismissable success NotificationPanel "{navn} ({dato}) er slettet fra prøvesvarregisteret." shows under the ingress and takes focus; ✕ removes it and moves focus to the page title — the same pattern as the "Svaret er synlig for helsepersonell igjen." message after unblocking. The "Svaret er slettet" receipt page (`&steg=kvittering`) is no longer part of the flow; its code is left in place, unused.
+**Alternative considered:** Receipt page, then the message on the overview.
+**Why:** User wants deletion confirmed the same way as unblocking.
