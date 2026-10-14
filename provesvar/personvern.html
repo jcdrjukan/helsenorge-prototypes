@@ -663,6 +663,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .expander-boxed__content h3.title3 { margin: 0; }
 .spacer--2xs { display: block; width: 100%; height: 8px; }
 .spacer--2xs[hidden] { display: none; }
+.link-list[hidden] { display: none; }   /* .link-list--boxed sets display:flex, which would override [hidden] */
 .personvern__intro, .personvern__more { width: 344px; font: var(--mobile-body); color: var(--color-base-text-onlight); }
 .personvern__intro p + p { margin-top: var(--space-s); }
 /* LinkList rows with a hint line under the title (spec: plain list rows). */
