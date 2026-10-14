@@ -660,7 +660,9 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
 .expander-boxed__content[hidden] { display: none; }
 .expander-boxed__content .title3, .expander-boxed__content .list, .expander-boxed__content .np, .expander-boxed__content .body-block,
 .expander-boxed__content .checkbox-wrapper, .expander-boxed__content .btn-row { width: auto; max-width: 100%; }
-.expander-boxed__content h3.title3 { margin: 0; }
+.expander-boxed__content h3.title3 { margin: 0; font: 600 1.125rem/1.2 'Source Sans Pro', sans-serif; }   /* 18px SemiBold, as the expander title (user choice) */
+.expander-boxed__content .list, .expander-boxed__content .body-block,
+.expander-boxed__content .checkbox-label { font: 400 1rem/1.5 'Source Sans Pro', sans-serif; }   /* body 16px (user choice) */
 .spacer--2xs { display: block; width: 100%; height: 8px; }
 .spacer--2xs[hidden] { display: none; }
 .link-list[hidden] { display: none; }   /* .link-list--boxed sets display:flex, which would override [hidden] */
@@ -875,7 +877,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         <li>Helsepersonell andre steder i landet kan ikke se svaret.</li>
         </ul>
         <span class="spacer--l"></span>
-        <h2 class="title3">Dette endres ikke</h2>
+        <h3 class="title3">Dette endres ikke</h3>
         <span class="spacer--s"></span>
         <ul class="list">
         <li>Legen som bestilte prøven, ser fortsatt svaret.</li>
@@ -887,7 +889,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         <div class="np np--error">
         <svg class="np__icon" viewBox="0 0 48 48" fill="#A31F0E" aria-hidden="true"><path fill-rule="evenodd" d="M24.898 21.447v7.228a.893.893 0 01-1.785 0v-7.228a.892.892 0 111.785 0zm.5 11.601a1.394 1.394 0 11-2.787-.001 1.394 1.394 0 012.787.001zm-18.822 6.71h34.847L24.111 8.242 6.576 39.758z"/></svg>
         <div class="np__content">
-        <h3 class="np__label">Dette kan ikke angres</h3>
+        <h4 class="np__label">Dette kan ikke angres</h4>
         <p class="np__text">Svaret kan ikke hentes tilbake til Helsenorge senere. Helsepersonell som skal behandle deg, får ikke vite om svaret. Det kan føre til at prøver tas på nytt, eller at de mangler viktig informasjon.</p>
         </div>
         </div>
@@ -898,7 +900,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         <div class="np np--info">
         <svg class="np__icon" viewBox="0 0 48 48" fill="#08667C" aria-hidden="true"><path d="M26.367 31.224h-4.7v-.543a8.88 8.88 0 00.38-.037c.124-.015.23-.04.32-.075a.612.612 0 00.334-.255.881.881 0 00.097-.443v-6.324a.868.868 0 00-.12-.458 1.001 1.001 0 00-.297-.315 1.543 1.543 0 00-.405-.171 2.644 2.644 0 00-.495-.105v-.543l3.645-.192.11.11v7.9c0 .174.038.322.112.443a.67.67 0 00.32.271 2.363 2.363 0 00.699.194v.543zm-2.64-14.998a1.556 1.556 0 11-.002 3.111 1.556 1.556 0 01.002-3.11zM24 8.728C15.58 8.728 8.728 15.578 8.728 24c0 8.42 6.852 15.272 15.273 15.272 8.42 0 15.27-6.852 15.27-15.272 0-8.421-6.85-15.272-15.27-15.272z"/></svg>
         <div class="np__content">
-        <h3 class="np__label">Vil du heller sperre svaret?</h3>
+        <h4 class="np__label">Vil du heller sperre svaret?</h4>
         <p class="np__text">Da kan helsepersonell ikke se det, men du ser det selv, og du kan oppheve sperringen når du vil.</p>
         <p class="np__text"><a class="anchorlink" id="hellerSperrLink" href="#">Sperr svaret i stedet</a></p>
         </div>
