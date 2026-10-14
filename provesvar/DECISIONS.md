@@ -232,3 +232,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The "Jeg har lest informasjonen og forstår at svaret slettes for godt fra Helsenorge." checkbox is gone from the Slett expander, and "Slett svaret" is enabled straight away. The confirmation Modal is now the single confirmation step. Supersedes the 2026-10-08 decision to disable "Slett svaret" until consent is ticked.
 **Alternative considered:** Keeping both the checkbox and the modal (double confirmation).
 **Why:** User request, after being asked whether the modal should replace the checkbox.
+
+## 2026-10-14 — "Vil du heller sperre svaret?" removed from Slett
+**Decision:** The blue info NotificationPanel ("Vil du heller sperre svaret?" with "Sperr svaret i stedet") is removed from the Slett expander, with its script. The Slett expander now holds only the two lists and the buttons; blocking stays one expander up. This drops the spec's "less drastic option first" prompt inside the delete step.
+**Alternative considered:** Keeping it (kept in the previous change).
+**Why:** Direct user request.
