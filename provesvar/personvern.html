@@ -899,18 +899,8 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         </div>
         <span class="spacer--l"></span>
         </div>
-        <div id="samtykkeWrapper">
-        <div class="checkbox-wrapper" id="samtykkeCheckbox">
-        <label class="checkbox-label" for="samtykke">
-        <input type="checkbox" class="checkbox-input" id="samtykke">
-        <span class="checkbox__marker" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M22.504 31.198l-9.59-9.966 1.441-1.387 8.149 8.468 14.455-15.016 1.441 1.386z"/></svg></span>
-        <span>Jeg har lest informasjonen og forstår at svaret slettes for godt fra Helsenorge.</span>
-        </label>
-        </div>
-        </div>
-        <span class="spacer--l"></span>
         <div class="btn-row">
-        <button type="button" class="btn btn--destructive" id="slettBtn" disabled><span>Slett svaret</span></button>
+        <button type="button" class="btn btn--destructive" id="slettBtn"><span>Slett svaret</span></button>
         <button type="button" class="btn btn--borderless" data-lukk="slett"><span>Avbryt</span></button>
         </div>
         </div>
@@ -1154,7 +1144,7 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   }
 
   // Slett: "Sperr svaret i stedet" swaps to the Sperr expander (hidden if
-  // already blocked); "Slett svaret" disabled until consent is ticked.
+  // already blocked).
   document.getElementById('hellerSperr').hidden = !!sperretDato(id);
   document.getElementById('hellerSperrLink').href = '#sperrToggle';
   document.getElementById('hellerSperrLink').addEventListener('click', e => {
@@ -1162,19 +1152,12 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     settApen('slett', false);
     settApen('sperr', true, true);
   });
-  const cb = document.getElementById('samtykke');
   const slettBtn = document.getElementById('slettBtn');
-  // Also synced on load, for back/forward cache restores.
-  const synk = () => { slettBtn.disabled = !cb.checked; };
-  cb.addEventListener('change', synk);
-  synk();
-  // "Slett svaret" (enabled once consent is ticked) opens an error Modal;
-  // its own "Slett svaret" deletes.
-  const apneSlett = bekreftModal('slettModal', slettBtn);
-  slettBtn.addEventListener('click', () => { if (cb.checked) apneSlett(); });
+  // "Slett svaret" opens an error Modal; its own "Slett svaret" deletes.
+  slettBtn.addEventListener('click', bekreftModal('slettModal', slettBtn));
   const slettBekreft = document.getElementById('slettBekreft');
   slettBekreft.addEventListener('click', async () => {
-    if (slettBekreft.getAttribute('aria-busy') === 'true' || !cb.checked) return;   // no double submit
+    if (slettBekreft.getAttribute('aria-busy') === 'true') return;   // no double submit
     settOpptatt(slettBekreft, true);
     try { await simulertApi(); } catch { location.href = q('feil') + '&handling=slett'; return; }
     settSlettet(id, naa());

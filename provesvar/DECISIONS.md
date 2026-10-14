@@ -227,3 +227,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The intro now reads "Dersom du ønsker det kan du begrense helsepersonells innsyn i dette prøvesvaret. Du må imidlertid være klar over …" (was "i utvalgte prøvesvar"), followed by a second paragraph: "Dersom du ønsker å begrense helsepersonells innsyn i alle dine prøvesvar kan du gjøre det under Personverninnstillinger." with "Personverninnstillinger" as an AnchorLink (`#` for now). Full stop added at the end of the second paragraph.
 **Alternative considered:** —
 **Why:** User supplied the new text.
+
+## 2026-10-14 — Consent checkbox removed from Slett
+**Decision:** The "Jeg har lest informasjonen og forstår at svaret slettes for godt fra Helsenorge." checkbox is gone from the Slett expander, and "Slett svaret" is enabled straight away. The confirmation Modal is now the single confirmation step. Supersedes the 2026-10-08 decision to disable "Slett svaret" until consent is ticked.
+**Alternative considered:** Keeping both the checkbox and the modal (double confirmation).
+**Why:** User request, after being asked whether the modal should replace the checkbox.
