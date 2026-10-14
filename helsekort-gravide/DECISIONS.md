@@ -218,4 +218,10 @@ A text-position comparison against the pre-change version found nothing else tha
 **Decision:** The primary button in the "Del opplysninger" panel now reads "Kom i gang →" instead of "Fortsett utfylling →".
 **Why:** Direct user request.
 
+
+## 2026-10-14 — Pencil removed from "Beregn termindato"
+**Decision:** The "Beregn termindato" button in the termin ring (no-termindato state) no longer has the small Pencil icon after the text. Padding is now the DS Button's plain value, 0 24px (was the right-icon padding 0 12px 0 16px). It stays primary, one line, centred in the ring. The pencil beside an editable termindato is unchanged.
+**Alternative considered:** Keeping the icon (added 2026-10-07).
+**Why:** Direct user request.
+
 #helsenorge
