@@ -851,8 +851,16 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         <span class="spacer--l"></span>
         <p class="body-block">Du kan oppheve sperringen når som helst.</p>
         <span class="spacer--l"></span>
+        <div class="checkbox-wrapper">
+        <label class="checkbox-label" for="sperrSamtykke">
+        <input type="checkbox" class="checkbox-input" id="sperrSamtykke">
+        <span class="checkbox__marker" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M22.504 31.198l-9.59-9.966 1.441-1.387 8.149 8.468 14.455-15.016 1.441 1.386z"/></svg></span>
+        <span>Jeg har lest informasjonen og forstår at helsepersonell ikke lenger kan se svaret.</span>
+        </label>
+        </div>
+        <span class="spacer--l"></span>
         <div class="btn-row">
-        <button type="button" class="btn btn--fill" id="sperrBtn"><span>Sperr svaret</span></button>
+        <button type="button" class="btn btn--fill" id="sperrBtn" disabled><span>Sperr svaret</span></button>
         <button type="button" class="btn btn--borderless" data-lukk="sperr"><span>Avbryt</span></button>
         </div>
         </div>
@@ -875,8 +883,16 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
         <li>Svaret er fortsatt lagret i journalen der prøven ble bestilt, og hos laboratoriet.</li>
         </ul>
         <span class="spacer--l"></span>
+        <div class="checkbox-wrapper">
+        <label class="checkbox-label" for="slettSamtykke">
+        <input type="checkbox" class="checkbox-input" id="slettSamtykke">
+        <span class="checkbox__marker" aria-hidden="true"><svg viewBox="0 0 48 48"><path d="M22.504 31.198l-9.59-9.966 1.441-1.387 8.149 8.468 14.455-15.016 1.441 1.386z"/></svg></span>
+        <span>Jeg har lest informasjonen og forstår at svaret slettes for godt fra Helsenorge.</span>
+        </label>
+        </div>
+        <span class="spacer--l"></span>
         <div class="btn-row">
-        <button type="button" class="btn btn--destructive" id="slettBtn"><span>Slett svaret</span></button>
+        <button type="button" class="btn btn--destructive" id="slettBtn" disabled><span>Slett svaret</span></button>
         <button type="button" class="btn btn--borderless" data-lukk="slett"><span>Avbryt</span></button>
         </div>
         </div>
@@ -1088,6 +1104,16 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
     };
   }
 
+  // Consent checkbox: the expander's button stays disabled (DS disabled
+  // Button) until it's ticked; also synced on load for back/forward cache.
+  function krevSamtykke(cbId, btn) {
+    const cb = document.getElementById(cbId);
+    const synk = () => { btn.disabled = !cb.checked; };
+    cb.addEventListener('change', synk);
+    synk();
+    return cb;
+  }
+
   // Row 1: "Sperr…" expander — or, if already blocked, the "Opphev
   // sperring" link card, which opens the unblock dialog on the result page.
   if (sperretDato(id)) {
@@ -1107,7 +1133,9 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   } else {
     // "Sperr svaret" opens a warning Modal; its own "Sperr svaret" blocks.
     const btn = document.getElementById('sperrBtn');
-    btn.addEventListener('click', bekreftModal('sperrModal', btn));
+    const sperrCb = krevSamtykke('sperrSamtykke', btn);
+    const apneSperr = bekreftModal('sperrModal', btn);
+    btn.addEventListener('click', () => { if (sperrCb.checked) apneSperr(); });
     const bekreft = document.getElementById('sperrBekreft');
     bekreft.addEventListener('click', async () => {
       if (bekreft.getAttribute('aria-busy') === 'true') return;   // no double submit
@@ -1120,8 +1148,10 @@ dd .dictionary-bubble[hidden], dt .dictionary-bubble[hidden] { display: none; }
   }
 
   const slettBtn = document.getElementById('slettBtn');
+  const slettCb = krevSamtykke('slettSamtykke', slettBtn);
   // "Slett svaret" opens an error Modal; its own "Slett svaret" deletes.
-  slettBtn.addEventListener('click', bekreftModal('slettModal', slettBtn));
+  const apneSlett = bekreftModal('slettModal', slettBtn);
+  slettBtn.addEventListener('click', () => { if (slettCb.checked) apneSlett(); });
   const slettBekreft = document.getElementById('slettBekreft');
   slettBekreft.addEventListener('click', async () => {
     if (slettBekreft.getAttribute('aria-busy') === 'true') return;   // no double submit

@@ -247,3 +247,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The unblock confirmation on the result page uses the same warning Modal as blocking (#FDF8DF, ErrorSignStroke beside the title). Title "Du er i ferd med å oppheve sperringen" (was "Oppheve sperringen?"); text "Dette vil gjøre prøvesvaret synlig igjen for dine behandlere." (user wrote "snylig"; read as "synlig"). Buttons unchanged ("Opphev sperring" / "Avbryt"). The warning/error modal styles moved from personvern.html into the shared sperring.css.
 **Alternative considered:** The plain white modal.
 **Why:** Direct user request.
+
+## 2026-10-14 — Consent checkbox back in Slett, and added to Sperr
+**Decision:** Both expanders end with a consent Checkbox above the buttons, and their main button ("Sperr svaret" / "Slett svaret") is disabled (DS disabled Button) until it's ticked; unticking disables it again. Then the confirmation Modal follows as before. Slett: "Jeg har lest informasjonen og forstår at svaret slettes for godt fra Helsenorge." (as before). Sperr (new, drafted by Claude, pending user wording): "Jeg har lest informasjonen og forstår at helsepersonell ikke lenger kan se svaret." Shared helper `krevSamtykke`. Reverses the earlier removal today.
+**Alternative considered:** Modal only (the state since the removal earlier today).
+**Why:** Direct user request.
