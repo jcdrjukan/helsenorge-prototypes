@@ -222,3 +222,8 @@ Assumed (not in the supplied markup): "Utført av" for results 2–9 (the instit
 **Decision:** The red "Dette kan ikke angres" NotificationPanel is removed from the Slett expander; the blue "Vil du heller sperre svaret?" panel stays. "Slett svaret" (still disabled until the consent box is ticked) now opens a confirmation Modal (Figma 49:31563: DS Modal, error variant: #FFF2EA panel, red 48px ErrorSignFill, red title "Du er i ferd med å permanent slette dette svaret" (#B62E1C, title3), body "Dette kan ikke angres, og svaret kan ikke hentes tilbake til Helsenorge senere. …", destructive "Slett svaret" (#A31F0E) + "Avbryt", close ✕). Only the modal's button deletes. Both confirmation modals now share one helper (`bekreftModal`). The [AVKLARES gjenoppretting] note moves with the text.
 **Alternative considered:** Keeping the inline warning.
 **Why:** User request with the Figma frame ("the same change" as for Sperr).
+
+## 2026-10-14 — Personvernvalg intro: "dette prøvesvaret" + link to Personverninnstillinger
+**Decision:** The intro now reads "Dersom du ønsker det kan du begrense helsepersonells innsyn i dette prøvesvaret. Du må imidlertid være klar over …" (was "i utvalgte prøvesvar"), followed by a second paragraph: "Dersom du ønsker å begrense helsepersonells innsyn i alle dine prøvesvar kan du gjøre det under Personverninnstillinger." with "Personverninnstillinger" as an AnchorLink (`#` for now). Full stop added at the end of the second paragraph.
+**Alternative considered:** —
+**Why:** User supplied the new text.
