@@ -14,7 +14,7 @@ import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import type { Equipment, SubmittedOrder, AppView } from './data';
-import { adresseEtikett, tilAdresse } from './data';
+import { LEVERINGSMATE, tilAdresse } from './data';
 
 interface OrderCardProps {
   order: SubmittedOrder;
@@ -55,7 +55,7 @@ function OrderCard({ order }: OrderCardProps) {
       <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Field label="Bestillingsdato" value={order.date} />
-          <Field label={tilAdresse(order.delivery) ? adresseEtikett(order.delivery) : 'Hentested'} value={
+          <Field label={LEVERINGSMATE[order.delivery]} value={
             tilAdresse(order.delivery)
               ? <>{order.navn && <>{order.navn}<br /></>}{order.co && <>c/o {order.co}<br /></>}{order.addr}<br />{order.poststed}</>
               : order.addr
