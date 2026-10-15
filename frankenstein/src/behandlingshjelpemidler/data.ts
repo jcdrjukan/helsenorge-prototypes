@@ -50,7 +50,7 @@ export const adresseEtikett = (mode: DeliveryMode) => (mode === 'dor' ? 'Leveres
 /** The Leveringsmåte dropdown's option texts — also the label on order
  *  cards (Aktive bestillinger, Bestillingshistorikk). */
 export const LEVERINGSMATE: Record<DeliveryMode, string> = {
-  post: 'Send i posten',
+  post: 'Sendes i posten',
   dor: 'Leveres på døra',
   hentes: 'Hentes på lokasjon1',
   hentes2: 'Hentes på lokasjon2',

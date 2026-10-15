@@ -179,7 +179,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 
 ## 2026-10-15 — Behandlingshjelpemidler: order cards labelled with the chosen Leveringsmåte
-**Decision:** On the order cards under Aktive bestillinger and in Bestillingshistorikk, the address field's label is now the Leveringsmåte option that was chosen — "Send i posten", "Leveres på døra", "Hentes på lokasjon1" or "Hentes på lokasjon2" — instead of "Sendes til" / "Leveres til" / "Hentested". The option texts live in one place (`LEVERINGSMATE` in data.ts), which also renders the dropdown. The step-4 summary keeps "Sendes til" / "Leveres til" / "Hentested".
+**Decision:** On the order cards under Aktive bestillinger and in Bestillingshistorikk, the address field's label is now the Leveringsmåte option that was chosen — "Send i posten" (renamed "Sendes i posten" the same day), "Leveres på døra", "Hentes på lokasjon1" or "Hentes på lokasjon2" — instead of "Sendes til" / "Leveres til" / "Hentested". The option texts live in one place (`LEVERINGSMATE` in data.ts), which also renders the dropdown. The step-4 summary keeps "Sendes til" / "Leveres til" / "Hentested".
 **Alternative considered:** The descriptive labels.
 **Why:** Direct user request.
 
