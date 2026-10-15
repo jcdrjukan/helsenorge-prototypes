@@ -5,7 +5,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import { PICKUP_LOCATIONS, adresseEtikett, tilAdresse, type Equipment, type DeliveryForm } from './data';
+import { PICKUP_LOCATIONS, LEVERINGSMATE, tilAdresse, type Equipment, type DeliveryForm } from './data';
 
 interface Step4Props {
   equipment: Equipment[];
@@ -73,7 +73,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
           <Duolist boldColumn="first">
             {tilAdresse(delivery.mode) && (
               <DuolistGroup
-                term={adresseEtikett(delivery.mode)}
+                term={LEVERINGSMATE[delivery.mode]}
                 description={
                   <span>
                     {delivery.navn && <>{delivery.navn}<br /></>}
@@ -89,7 +89,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
               const loc = PICKUP_LOCATIONS[delivery.mode];
               return (
                 <DuolistGroup
-                  term="Hentested"
+                  term={LEVERINGSMATE[delivery.mode]}
                   description={
                     <span>
                       {loc.name}<br />
