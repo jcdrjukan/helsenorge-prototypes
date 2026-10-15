@@ -27,7 +27,7 @@ import './style.css';
 import {
   Q1_OPTIONS, Q2_OPTIONS,
   computeResults,
-  markVeiviserCompleted, clearVeiviserCompleted,
+  markVeiviserCompleted, clearVeiviserCompleted, hasCompletedVeiviser,
   getAnswers, persistAnswers, clearAnswers,
   type Resource,
 } from './data';
@@ -245,8 +245,14 @@ function viewFromHash(): View {
 
 export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
+  // Saved answers: what the results (and Forside) are computed from. Only
+  // replaced when a quiz run is completed.
   const [q1, setQ1]               = useState<Set<string>>(() => getAnswers().q1);
   const [q2, setQ2]               = useState<Set<string>>(() => getAnswers().q2);
+  // Draft answers for the quiz run in progress. Every (re)start begins
+  // blank; aborting discards the draft, so earlier results are kept.
+  const [d1, setD1]               = useState<Set<string>>(() => new Set());
+  const [d2, setD2]               = useState<Set<string>>(() => new Set());
 
   // Sync view → hash
   useEffect(() => {
@@ -288,7 +294,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
   const results = useMemo(() => computeResults(q1, q2), [q1, q2]);
 
   const toggleQ1 = (label: string) => {
-    setQ1(prev => {
+    setD1(prev => {
       const next = new Set(prev);
       next.has(label) ? next.delete(label) : next.add(label);
       return next;
@@ -296,7 +302,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
   };
 
   const toggleQ2 = (label: string, exclusive?: boolean) => {
-    setQ2(prev => {
+    setD2(prev => {
       const next = new Set(prev);
       if (exclusive) {
         return next.has(label) ? new Set<string>() : new Set([label]);
@@ -309,8 +315,24 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
     });
   };
 
-  const retake = () => {
+  // Start (or restart) the quiz on a blank form.
+  const startQuiz = () => {
+    setD1(new Set());
+    setD2(new Set());
     setView('quiz1');
+  };
+  const retake = startQuiz;
+  // Completing the quiz: the draft becomes the saved answers.
+  const fullfor = () => {
+    setQ1(d1);
+    setQ2(d2);
+    setView('results');
+  };
+  // Aborting: drop the draft; previous results (if any) stay as they were.
+  const avbryt = () => {
+    setD1(new Set());
+    setD2(new Set());
+    setView(hasCompletedVeiviser() ? 'results' : 'front');
   };
 
   const isAuthenticated = true;
@@ -380,7 +402,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
             <p className="ph-preamble">
               Det er vanlig å ha det vanskelig i perioder. Det er en del av å være et menneske. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Prøv veiviseren for å finne det som passer for deg og din situasjon.
             </p>
-            <Button variant="fill" arrow="icon" fluid onClick={() => setView('quiz1')}>
+            <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
               Prøv veiviseren
             </Button>
           </div>
@@ -465,7 +487,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
                 <Checkbox
                   label={opt.label}
                   inputId={`q1-${opt.label}`}
-                  checked={q1.has(opt.label)}
+                  checked={d1.has(opt.label)}
                   onChange={() => toggleQ1(opt.label)}
                 />
               </li>
@@ -473,7 +495,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
           </ul>
           <div className="ph-quiz-nav">
             <Button variant="fill" arrow="icon" onClick={() => setView('quiz2')}>Neste</Button>
-            <Button variant="borderless" onClick={() => setView('front')}>Avbryt</Button>
+            <Button variant="borderless" onClick={avbryt}>Avbryt</Button>
           </div>
         </main>
       )}
@@ -489,7 +511,7 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
                 <Checkbox
                   label={opt.label}
                   inputId={`q2-${opt.label}`}
-                  checked={q2.has(opt.label)}
+                  checked={d2.has(opt.label)}
                   onChange={() => toggleQ2(opt.label, opt.exclusive)}
                 />
               </li>
@@ -500,8 +522,8 @@ export default function PsykiskHelse({ onNavigateHome }: PsykiskHelseProps = {})
               <Icon svgIcon={ChevronLeft} size={38} />
               Forrige
             </Button>
-            <Button variant="fill" arrow="icon" onClick={() => setView('results')}>Neste</Button>
-            <Button variant="borderless" onClick={() => setView('front')}>Avbryt</Button>
+            <Button variant="fill" arrow="icon" onClick={fullfor}>Neste</Button>
+            <Button variant="borderless" onClick={avbryt}>Avbryt</Button>
           </div>
         </main>
       )}

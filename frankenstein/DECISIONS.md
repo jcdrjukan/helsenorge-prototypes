@@ -171,4 +171,10 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** A read-only Input for the name; keeping the all-required tag.
 **Why:** User: the recipient can only be the logged-in user; add an optional C/O field.
 
+
+## 2026-10-15 — Psykisk helse: veiviser restarts blank; aborting keeps earlier results
+**Decision:** The quiz now works on draft answers, separate from the saved answers that the results (and Forside's recommendations) use. "Prøv veiviseren" and "Start veiviseren på nytt" always open a blank form. Completing the quiz (Neste on question 2) replaces the saved answers with the draft. Avbryt discards the draft and goes back to the results if the veiviser has been completed before (otherwise to the front page), with the earlier results unchanged; leaving mid-quiz any other way (back button, breadcrumb, closing) also leaves them unchanged. "Avslutt tjenesten" still clears everything. The draft isn't persisted, so reloading mid-quiz starts that run over.
+**Alternative considered:** Pre-filling the restart with the previous answers (the old behaviour, which also changed the results as soon as anything was ticked).
+**Why:** Direct user request.
+
 #helsenorge
