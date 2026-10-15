@@ -184,4 +184,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Wait for a design before prototyping.
 **Why:** The vault note's own to-do explicitly asked for "a prototype demonstrating a new conceptual divide" — the prototype *is* the design exploration here, not an implementation of a prior design decision.
 
+
+## 2026-10-15 — Psykisk helse demo: quiz restarts blank; aborting keeps earlier results
+**Decision:** Same change as on `innstillinger` (psykisk-helse): the quiz works on draft answers; "Start quiz" and "Ta quiz på nytt" open a blank form; only completing it replaces the saved answers; Avbryt drops the draft and returns to the earlier results (or the front page if never completed). Demo-specific: "Ta quiz på nytt" no longer clears the "completed" flag, so an aborted rerun also keeps the Forside "Psykisk helse" card (it previously disappeared as soon as a rerun started).
+**Alternative considered:** Keeping the flag-clearing on restart (card hidden during any rerun, even an aborted one).
+**Why:** User request; flag change agreed so aborting leaves everything as it was.
+
 #helsenorge
