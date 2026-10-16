@@ -557,25 +557,28 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er vanlig å ha det vanskelig i perioder. Det er en del av å være et menneske. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Ta en kjapp quiz for å se selvhjelpsressurser tilpasset din situasjon.
+              Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon.
             </p>
             <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
-              Start quiz
+              Finn verktøy og informasjon som passer for deg
             </Button>
           </div>
 
           <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />
 
           <div className="ph-front__content">
-            <h2 className="ph-front__section-title">Om quiz</h2>
+            <h2 className="ph-front__section-title">Om tjenesten Psykisk helse</h2>
             <p className="ph-preamble">
-              Denne quiz består av noen enkle spørsmål og finner informasjon og verktøy som er tilpasset din situasjon, for eksempel hvordan du kan
+              Tjenesten hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan:
             </p>
             <ul className="ph-benefit-list">
               <li>sove bedre</li>
               <li>håndtere stress</li>
-              <li>få mer kontroll på følelsene</li>
+              <li>få bedre kontroll over følelsene dine</li>
             </ul>
+            <p className="ph-preamble">
+              Svarene dine sendes ikke til noen og blir ikke lagret.
+            </p>
           </div>
 
           <div className="ph-front__content ph-front__content--contact">

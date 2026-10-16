@@ -190,4 +190,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Keeping the flag-clearing on restart (card hidden during any rerun, even an aborted one).
 **Why:** User request; flag change agreed so aborting leaves everything as it was.
 
+
+## 2026-10-16 — Psykisk helse demo: new front-page texts (demo is now the primary prototype)
+**Decision:** Same texts as on `innstillinger`: preamble "Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. … Svar på noen spørsmål og finn noe som passer til din situasjon."; button "Finn verktøy og informasjon som passer for deg" (was "Start quiz"); section "Om quiz" becomes "Om tjenesten Psykisk helse" with the new intro, the list (sove bedre / håndtere stress / få bedre kontroll over følelsene dine) and "Svarene dine sendes ikke til noen og blir ikke lagret." The demo's LinkList (Veiviser til psykisk helsehjelp / Akutt hjelp) is unchanged. From now on, psykiskhelse-demo is the primary Psykisk helse prototype.
+**Alternative considered:** —
+**Why:** User supplied the texts and asked for them here too.
+
 #helsenorge
