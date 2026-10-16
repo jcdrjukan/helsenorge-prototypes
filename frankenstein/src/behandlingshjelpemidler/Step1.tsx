@@ -153,7 +153,7 @@ export default function Step1({
                     <div className="order-consumable-row__info">
                       <p className="order-consumable-row__name">{c.name}</p>
                       {isActive && (
-                        <StatusDot variant="inprocess" text="aktiv bestilling" />
+                        <StatusDot variant="inprocess" text="Allerede bestilt" />
                       )}
                     </div>
                   </div>

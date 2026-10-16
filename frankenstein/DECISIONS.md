@@ -195,4 +195,18 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** —
 **Why:** User supplied the texts.
 
+
+## 2026-10-16 — Behandlingshjelpemidler: text pass (no abbreviations, clearer labels)
+**Decision:** Per user list:
+- Utstyr pages: "Sist bestilt" → "Sist levert"; no abbreviations: "Modellnr." → "Modellnummer", "Serienr." → "Serienummer".
+- Step 2: "Postnr." → "Postnummer"; "Telefonnummer" → "Telefon".
+- Status tag "aktiv bestilling" → "Allerede bestilt" (step 1, and the utstyr page's tag, which is currently switched off).
+- Oppsummering: title "Bekreft bestilling"; ingress "Du er i ferd med å bestille følgende forbruksmateriell. Sjekk om alt er riktig før du sender bestillingen."; forward button "Send bestilling" with no arrow (was "Send" + arrow).
+- "Annet" → "Forbruksmateriell uten utstyr" (name and title); its page loses the ingress "Følgende forbruksvarer er selvstendige, …".
+- Aktive bestillinger and Bestillingshistorikk: "forbruksvare(r)" → "forbruksmateriell" ("2 forbruksmateriell"; section heading "Forbruksmateriell").
+- Quantities "N stk." → "N stykk" (cards and summary), as part of avoiding abbreviations.
+Unchanged: product names from the catalogue (e.g. "[Frp 10 stk/pk]"), the summary's "Forbruksvarer" section title, the validation text "Telefonnummer er påkrevd".
+**Alternative considered:** —
+**Why:** User's text review.
+
 #helsenorge

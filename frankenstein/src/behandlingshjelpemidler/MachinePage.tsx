@@ -81,12 +81,6 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
         </EyebrowHeader>
       </div>
 
-      {eq.isAnnet && (
-        <p style={{ font: 'var(--mobile-preamble)', margin: '24px 0 0 0' }}>
-          Følgende forbruksvarer er selvstendige, med ingen avhengighet eller tilknytning til annet utstyr.
-        </p>
-      )}
-
       {eq.deaktivert && (
         <NotificationPanel variant="error" className="bhm-deaktivert-panel">
           <p style={{ margin: 0, fontWeight: 400 }}>
@@ -102,7 +96,7 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
           <Duolist boldColumn="first">
             <DuolistGroup term="Type" description={eq.details.type} />
             <DuolistGroup term="Produsent" description={eq.details.produsent} />
-            {eq.modelNo && <DuolistGroup term="Modellnr." description={eq.modelNo} />}
+            {eq.modelNo && <DuolistGroup term="Modellnummer" description={eq.modelNo} />}
           </Duolist>
         </section>
       )}
@@ -115,7 +109,7 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
             <Panel key={unit.serial} variant={PanelVariant.outline} className="bhm-unit-panel">
               <Panel.A>
                 <Duolist boldColumn="first">
-                  <DuolistGroup term="Serienr." description={unit.serial} />
+                  <DuolistGroup term="Serienummer" description={unit.serial} />
                   <DuolistGroup term="Utlevert" description={formatDate(unit.deliveryDate)} />
                   <DuolistGroup term="Eier" description={unit.owner} />
                 </Duolist>
@@ -149,14 +143,14 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
                 <p style={{ margin: 0, font: 'var(--mobile-body)' }}>{c.name}</p>
                 {c.lastOrder && (
                   <p style={{ margin: 0, font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)' }}>
-                    Sist bestilt: {formatDate(c.lastOrder)}
+                    Sist levert: {formatDate(c.lastOrder)}
                   </p>
                 )}
                 {/* Order status ("kan bestilles" / "aktiv bestilling") is temporarily
                     hidden everywhere except the actual order form (Step1), to keep
                     this browsing view uncluttered. Uncomment to bring it back:
                 {getConsumableStatus(c.nextOrderDate, c.lastOrder, c.activeOrder, orderedDates) === 'active'
-                  ? <StatusDot variant="inprocess" text="aktiv bestilling" />
+                  ? <StatusDot variant="inprocess" text="Allerede bestilt" />
                   : <StatusDot variant="active" text="kan bestilles" />
                 }
                 */}

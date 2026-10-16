@@ -26,7 +26,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
     <span>
       <span style={{ display: 'block', font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)' }}>{order.date}</span>
       <span style={{ display: 'block', font: 'var(--mobile-body-strong)' }}>
-        {itemCount} forbruksvare{itemCount !== 1 ? 'r' : ''}
+        {itemCount} forbruksmateriell
       </span>
     </span>
   );
@@ -62,10 +62,10 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
         <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />
 
         <div>
-          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
+          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksmateriell</p>
           <Duolist boldColumn="first">
             {allItems.map((item, i) => (
-              <DuolistGroup key={i} term={`${item.qty} stk.`} description={item.name} />
+              <DuolistGroup key={i} term={`${item.qty} stykk`} description={item.name} />
             ))}
           </Duolist>
         </div>

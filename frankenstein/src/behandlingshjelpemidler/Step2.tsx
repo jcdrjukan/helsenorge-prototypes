@@ -87,7 +87,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
           />
 
           <Input
-            label="Postnr."
+            label="Postnummer"
             inputId="deliveryPostnr"
             value={delivery.postnr}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('postnr', e.target.value)}
@@ -109,7 +109,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
           />
 
           <Input
-            label="Telefonnummer"
+            label="Telefon"
             inputId="deliveryTelefon"
             value={delivery.telefon}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('telefon', e.target.value)}

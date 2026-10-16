@@ -41,9 +41,9 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
 
   return (
     <div className="order-step">
-      <h2 className="order-step__title">Oppsummering</h2>
+      <h2 className="order-step__title">Bekreft bestilling</h2>
       <p style={{ font: 'var(--mobile-body)', color: 'var(--color-base-text-onlight-subdued)', margin: '0 0 var(--space-s) 0' }}>
-        Sjekk at alt stemmer før du sender bestillingen.
+        Du er i ferd med å bestille følgende forbruksmateriell. Sjekk om alt er riktig før du sender bestillingen.
       </p>
 
       <ExpanderList variant="line" color="white">
@@ -59,7 +59,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
           ) : (
             <Duolist boldColumn="first">
               {selectedItems.map((item, i) => (
-                <DuolistGroup key={i} term={`${item.qty} stk.`} description={item.consumableName} />
+                <DuolistGroup key={i} term={`${item.qty} stykk`} description={item.consumableName} />
               ))}
             </Duolist>
           )}
@@ -120,7 +120,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
       </ExpanderList>
 
       <StepButtons
-        forwardButton={<Button onClick={onSubmit} arrow="icon">Send</Button>}
+        forwardButton={<Button onClick={onSubmit}>Send bestilling</Button>}
         backButton={<Button onClick={onBack}><Icon svgIcon={ArrowLeft} />Tilbake</Button>}
         cancelButton={<Button onClick={onAbandonRequest}>Avbryt</Button>}
       />

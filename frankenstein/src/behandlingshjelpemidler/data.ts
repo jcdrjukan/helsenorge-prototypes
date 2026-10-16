@@ -212,8 +212,8 @@ export const EQUIPMENT: Equipment[] = [
   },
   {
     id: 'annet',
-    name: 'Annet',
-    model: 'Annet',
+    name: 'Forbruksmateriell uten utstyr',
+    model: 'Forbruksmateriell uten utstyr',
     subtitle: 'Forbruksmateriell uten tilhørende utstyr',
     isAnnet: true,
     details: { type: '', produsent: '' },

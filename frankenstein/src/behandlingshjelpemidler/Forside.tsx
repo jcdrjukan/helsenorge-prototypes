@@ -31,7 +31,7 @@ function OrderCard({ order }: OrderCardProps) {
   // The device name isn't something we actually have access to for an
   // order — show what was ordered instead.
   const forbruksvareCount = allItems.length;
-  const forbruksvareLabel = `${forbruksvareCount} ${forbruksvareCount === 1 ? 'forbruksvare' : 'forbruksvarer'}`;
+  const forbruksvareLabel = `${forbruksvareCount} forbruksmateriell`;
 
   const titleEl = (
     <span>
@@ -68,10 +68,10 @@ function OrderCard({ order }: OrderCardProps) {
         </div>
         <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />
         <div>
-          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksvarer</p>
+          <p style={{ font: 'var(--mobile-body-strong)', margin: '0 0 0.5rem 0' }}>Forbruksmateriell</p>
           <Duolist boldColumn="first">
             {allItems.map((item, i) => (
-              <DuolistGroup key={i} term={`${item.qty} stk.`} description={item.name} />
+              <DuolistGroup key={i} term={`${item.qty} stykk`} description={item.name} />
             ))}
           </Duolist>
         </div>
