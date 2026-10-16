@@ -8,6 +8,15 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
+import PlusSmall from '@helsenorge/designsystem-react/components/Icons/PlusSmall';
+import { useEffect, useRef, useState } from 'react';
+
+/** C/O field variants to compare (2026-10-16). Pick one with ?co=… in the
+ *  URL (before the #): "legg-til" (default) hides the field behind an
+ *  "Legg til c/o-adresse" button; "synlig" always shows it (previous). */
+type CoVariant = 'legg-til' | 'synlig';
+const CO_VARIANT: CoVariant =
+  new URLSearchParams(window.location.search).get('co') === 'synlig' ? 'synlig' : 'legg-til';
 import { PICKUP_LOCATIONS, LEVERINGSMATE, tilAdresse, type DeliveryForm, type DeliveryMode } from './data';
 
 interface Step2Props {
@@ -20,6 +29,12 @@ interface Step2Props {
 }
 
 export default function Step2({ delivery, errors, onChange, onNext, onBack, onAbandonRequest }: Step2Props) {
+  // "legg-til": hidden until asked for — but kept open if it already has a value.
+  const [visCo, setVisCo] = useState(CO_VARIANT === 'synlig' || delivery.co.trim() !== '');
+  const fokuserCo = useRef(false);
+  useEffect(() => {
+    if (visCo && fokuserCo.current) { fokuserCo.current = false; document.getElementById('deliveryCo')?.focus(); }
+  }, [visCo]);
   return (
     <div className="order-step">
       <h2 className="order-step__title">Leveringsdetaljer</h2>
@@ -45,12 +60,21 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
             <p className="delivery-address-form__value" aria-labelledby="deliveryNavnLabel">{delivery.navn}</p>
           </div>
 
-          <Input
-            label={<Label htmlFor="deliveryCo" labelTexts={[{ text: 'C/O' }]} formFieldTag={<FormFieldTag level="optional" />} />}
-            inputId="deliveryCo"
-            value={delivery.co}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('co', e.target.value)}
-          />
+          {visCo ? (
+            <Input
+              label={<Label htmlFor="deliveryCo" labelTexts={[{ text: 'C/O' }]} formFieldTag={<FormFieldTag level="optional" />} />}
+              inputId="deliveryCo"
+              value={delivery.co}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('co', e.target.value)}
+            />
+          ) : (
+            <div>
+              <Button variant="borderless" onClick={() => { fokuserCo.current = true; setVisCo(true); }}>
+                <Icon svgIcon={PlusSmall} />
+                Legg til c/o-adresse
+              </Button>
+            </div>
+          )}
 
           <Input
             label="Gateadresse"
