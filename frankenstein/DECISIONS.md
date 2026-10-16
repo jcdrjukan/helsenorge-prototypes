@@ -198,7 +198,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ## 2026-10-16 — Behandlingshjelpemidler: text pass (no abbreviations, clearer labels)
 **Decision:** Per user list:
-- Utstyr pages: "Sist bestilt" → "Sist levert"; no abbreviations: "Modellnr." → "Modellnummer", "Serienr." → "Serienummer".
+- Utstyr pages: "Sist bestilt" → "Sist levert" (then "Sist utlevert", the same day, matching Legemiddelliste); no abbreviations: "Modellnr." → "Modellnummer", "Serienr." → "Serienummer".
 - Step 2: "Postnr." → "Postnummer"; "Telefonnummer" → "Telefon".
 - Status tag "aktiv bestilling" → "Allerede bestilt" (step 1, and the utstyr page's tag, which is currently switched off).
 - Oppsummering: title "Bekreft bestilling"; ingress "Du er i ferd med å bestille følgende forbruksmateriell. Sjekk om alt er riktig før du sender bestillingen."; forward button "Send bestilling" with no arrow (was "Send" + arrow).

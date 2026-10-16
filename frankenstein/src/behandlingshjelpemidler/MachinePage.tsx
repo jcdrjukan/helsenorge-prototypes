@@ -143,7 +143,7 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
                 <p style={{ margin: 0, font: 'var(--mobile-body)' }}>{c.name}</p>
                 {c.lastOrder && (
                   <p style={{ margin: 0, font: 'var(--mobile-sublabel-subdued)', color: 'var(--color-base-text-onlight-subdued)' }}>
-                    Sist levert: {formatDate(c.lastOrder)}
+                    Sist utlevert: {formatDate(c.lastOrder)}
                   </p>
                 )}
                 {/* Order status ("kan bestilles" / "aktiv bestilling") is temporarily
