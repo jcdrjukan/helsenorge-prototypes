@@ -205,7 +205,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 - "Annet" → "Forbruksmateriell uten utstyr" (name and title); its page loses the ingress "Følgende forbruksvarer er selvstendige, …".
 - Aktive bestillinger and Bestillingshistorikk: "forbruksvare(r)" → "forbruksmateriell" ("2 forbruksmateriell"; section heading "Forbruksmateriell").
 - Quantities "N stk." → "N stykk" (cards and summary), as part of avoiding abbreviations.
-Unchanged: product names from the catalogue (e.g. "[Frp 10 stk/pk]"), the summary's "Forbruksvarer" section title, the validation text "Telefonnummer er påkrevd".
+Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksvarer" → "Forbruksmateriell", and the subtitle "Forbruksmateriell uten tilhørende utstyr" is removed (the overview list and step 1 now show no second line when there is nothing beyond the title). Unchanged: product names from the catalogue (e.g. "[Frp 10 stk/pk]"), the validation text "Telefonnummer er påkrevd".
 **Alternative considered:** —
 **Why:** User's text review.
 

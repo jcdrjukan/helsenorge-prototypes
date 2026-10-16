@@ -48,7 +48,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
 
       <ExpanderList variant="line" color="white">
         <ExpanderList.Expander
-          title="Forbruksvarer"
+          title="Forbruksmateriell"
           expanded={openIds.has('forbruksvarer')}
           onExpand={isExpanded => toggle('forbruksvarer', isExpanded)}
         >

@@ -110,7 +110,10 @@ export default function Step1({
           const titleEl = (
             <span style={{ flex: 1 }}>
               <span style={{ display: 'block', font: 'var(--mobile-body-strong)' }}>{eq.model}</span>
-              <span style={{ display: 'block', font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)' }}>{eq.subtitle ?? eq.name}</span>
+              {/* Second line only when it adds something (not for "Forbruksmateriell uten utstyr", whose name is the title). */}
+              {(eq.subtitle ?? (eq.name !== eq.model ? eq.name : '')) && (
+                <span style={{ display: 'block', font: 'var(--mobile-label-subdued)', color: 'var(--color-base-text-onlight-subdued)' }}>{eq.subtitle ?? eq.name}</span>
+              )}
             </span>
           );
 

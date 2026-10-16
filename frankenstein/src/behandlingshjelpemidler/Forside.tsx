@@ -163,7 +163,7 @@ export default function Forside({
                 <ElementHeader>
                   {/* Order status badge temporarily hidden — see note above getEquipStatus. */}
                   <ElementHeader.Text firstText={eq.model} firstTextEmphasised />
-                  <ElementHeader.Text firstText={eq.subtitle ?? eq.details.type} subText />
+                  {(eq.subtitle ?? eq.details.type) && <ElementHeader.Text firstText={eq.subtitle ?? eq.details.type} subText />}
                   {eq.units && eq.units.length > 1 && (
                     <ElementHeader.Text firstText={`(${eq.units.length} enheter)`} subText />
                   )}
