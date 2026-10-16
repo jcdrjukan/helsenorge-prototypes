@@ -13,7 +13,7 @@ import { useEffect, useRef, useState } from 'react';
 
 /** C/O field variants to compare (2026-10-16). Pick one with ?co=… in the
  *  URL (before the #): "legg-til" (default) hides the field behind an
- *  "Legg til c/o-adresse" button; "synlig" always shows it (previous). */
+ *  "Legg til c/o eller virksomhet" button; "synlig" always shows it (previous). */
 type CoVariant = 'legg-til' | 'synlig';
 const CO_VARIANT: CoVariant =
   new URLSearchParams(window.location.search).get('co') === 'synlig' ? 'synlig' : 'legg-til';
@@ -71,7 +71,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
             <div>
               <Button variant="borderless" onClick={() => { fokuserCo.current = true; setVisCo(true); }}>
                 <Icon svgIcon={PlusSmall} />
-                Legg til c/o-adresse
+                Legg til c/o eller virksomhet
               </Button>
             </div>
           )}
