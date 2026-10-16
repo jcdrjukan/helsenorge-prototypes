@@ -209,4 +209,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** —
 **Why:** User's text review.
 
+
+## 2026-10-16 — Behandlingshjelpemidler: "Aktive bestillinger" → "Allerede bestilt"
+**Decision:** The overview's section heading "Aktive bestillinger" is now "Allerede bestilt" (same wording as the status tag), and the "Bestilling er mottatt" dialog's text follows: "Du kan se status på bestillingen din under Allerede bestilt."
+**Alternative considered:** —
+**Why:** Direct user request.
+
 #helsenorge

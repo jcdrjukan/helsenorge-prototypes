@@ -141,7 +141,7 @@ export default function Forside({
       {justSubmitted && (
         <Modal
           title="Bestilling er mottatt"
-          description="Du kan se status på bestillingen din under Aktive bestillinger."
+          description="Du kan se status på bestillingen din under Allerede bestilt."
           variant="success"
           onClose={onDismissJustSubmitted}
           onSuccess={onDismissJustSubmitted}
@@ -203,7 +203,7 @@ export default function Forside({
 
       {submittedOrders.length > 0 && (
         <section>
-          <h2 className="section-h2">Aktive bestillinger</h2>
+          <h2 className="section-h2">Allerede bestilt</h2>
           <div className="history-list">
             {[...submittedOrders].reverse().map(order => (
               <OrderCard key={order.id} order={order} />
