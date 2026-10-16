@@ -62,7 +62,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
 
           {visCo ? (
             <Input
-              label={<Label htmlFor="deliveryCo" labelTexts={[{ text: 'C/O' }]} formFieldTag={<FormFieldTag level="optional" />} />}
+              label={<Label htmlFor="deliveryCo" labelTexts={[{ text: 'C/O eller virksomhet' }]} formFieldTag={<FormFieldTag level="optional" />} />}
               inputId="deliveryCo"
               value={delivery.co}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('co', e.target.value)}

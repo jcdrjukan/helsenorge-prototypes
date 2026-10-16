@@ -185,7 +185,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 
 ## 2026-10-16 — Behandlingshjelpemidler: C/O hidden behind "Legg til c/o-adresse" (variant to compare)
-**Decision:** By default the C/O field is hidden; a borderless DS Button with the PlusSmall icon, "Legg til c/o-adresse" (renamed "Legg til c/o eller virksomhet" the same day), sits under Navn. Clicking it shows the field (with its "Valgfritt" tag) in the button's place and moves focus into it. If the field already has a value (e.g. back from Oppsummering), it stays open. C/O variants are switchable for comparison with `?co=…` before the `#`: `legg-til` (default, this) or `synlig` (always visible, previous).
+**Decision:** By default the C/O field is hidden; a borderless DS Button with the PlusSmall icon, "Legg til c/o-adresse" (renamed "Legg til c/o eller virksomhet" the same day), sits under Navn. Clicking it shows the field (label "C/O eller virksomhet", was "C/O"; with its "Valgfritt" tag) in the button's place and moves focus into it. If the field already has a value (e.g. back from Oppsummering), it stays open. C/O variants are switchable for comparison with `?co=…` before the `#`: `legg-til` (default, this) or `synlig` (always visible, previous).
 **Alternative considered:** Always-visible optional field (kept as `?co=synlig`).
 **Why:** User wants to try out a couple of options for the C/O field, starting with hidden-by-default.
 
