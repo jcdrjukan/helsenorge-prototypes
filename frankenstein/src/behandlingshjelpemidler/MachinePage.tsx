@@ -122,7 +122,7 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
       {/* Help expander — Annet gets its own trigger/body, since neither
           can reference "utstyret" or a serial number when there's no
           linked utstyr to point to. */}
-      <HelpExpanderStandalone triggerText={eq.isAnnet ? 'Har du spørsmål om forbruksmateriell?' : 'Har du spørsmål om utstyret eller materiellet?'}>
+      <HelpExpanderStandalone triggerText={eq.isAnnet ? 'Har du spørsmål om forbruksmateriell?' : 'Har du spørsmål om utstyret eller forbruksmateriellet?'}>
         <p style={{ margin: '0 0 8px 0' }}>
           {eq.isAnnet
             ? 'Kontakt behandleren din eller helseforetaket som har bestilt forbruksmateriellet, dersom du har spørsmål.'
