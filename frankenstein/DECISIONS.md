@@ -189,4 +189,10 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Always-visible optional field (kept as `?co=synlig`).
 **Why:** User wants to try out a couple of options for the C/O field, starting with hidden-by-default.
 
+
+## 2026-10-16 — Psykisk helse: new front-page texts
+**Decision:** Front page (main version): preamble "Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon."; button "Finn verktøy og informasjon som passer for deg" (the DS arrow icon stays; was "Prøv veiviseren"); section "Om veiviseren" becomes "Om tjenesten Psykisk helse" with "Tjenesten hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan:", the list (sove bedre / håndtere stress / få bedre kontroll over følelsene dine) and "Svarene dine sendes ikke til noen og blir ikke lagret." User's "valig" and "Om tjeneste" read as "vanlig" and "Om tjenesten". The psykiskhelse-demo copy is not changed.
+**Alternative considered:** —
+**Why:** User supplied the texts.
+
 #helsenorge
