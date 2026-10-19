@@ -227,4 +227,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Keeping the page-specific variant.
 **Why:** Direct user request.
 
+
+## 2026-10-19 — Behandlingshjelpemidler: C/O removed; "Adresselinje 1" + optional "Adresselinje 2"
+**Decision:** In Leveringsdetaljer (Sendes i posten / Leveres på døra) the C/O field is gone entirely — the hidden-by-default "Legg til c/o eller virksomhet" button, the field itself and the `?co=` variant switch. "Gateadresse" is now "Adresselinje 1" (required; error "Adresselinje 1 er påkrevd"), and a new optional "Adresselinje 2" (DS Label + FormFieldTag "Valgfritt") sits beneath it. When filled in, line 2 shows under line 1 in the Oppsummering and on the order cards (Aktive bestillinger, Bestillingshistorikk). Data: `co` replaced by `gate2`.
+**Alternative considered:** The C/O variants of 2026-10-13/16.
+**Why:** Direct user request.
+
 #helsenorge

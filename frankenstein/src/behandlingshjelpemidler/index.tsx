@@ -20,8 +20,8 @@ function initQuantities(): Record<string, number[]> {
 const DEFAULT_DELIVERY: DeliveryForm = {
   mode: 'post',
   navn: 'Tora Hansen',
-  co: '',
   gate: 'Kirkeveien 84B',
+  gate2: '',
   postnr: '7010',
   sted: 'Trondheim',
   telefon: '99 88 77 66',
@@ -95,7 +95,7 @@ export default function Behandlingshjelpemidler() {
       // Validate delivery
       const errors: Partial<Record<keyof DeliveryForm, string>> = {};
       if (tilAdresse(delivery.mode)) {
-        if (!delivery.gate.trim()) errors.gate = 'Gateadresse er påkrevd';
+        if (!delivery.gate.trim()) errors.gate = 'Adresselinje 1 er påkrevd';
         if (!delivery.postnr.trim()) errors.postnr = 'Postnummer er påkrevd';
         if (!delivery.sted.trim()) errors.sted = 'Poststed er påkrevd';
         if (!delivery.telefon.trim()) errors.telefon = 'Telefonnummer er påkrevd';
@@ -180,7 +180,7 @@ export default function Behandlingshjelpemidler() {
       addr: addrStr,
       poststed: poststedStr,
       navn: delivery.navn,
-      co: delivery.co.trim() || undefined,
+      gate2: tilAdresse(delivery.mode) ? (delivery.gate2.trim() || undefined) : undefined,
       telefon: delivery.telefon,
       comment,
     };
