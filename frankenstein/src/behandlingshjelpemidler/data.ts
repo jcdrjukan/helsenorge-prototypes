@@ -47,7 +47,7 @@ export type DeliveryMode = 'post' | 'dor' | 'hentes' | 'hentes2';
 /** Modes that deliver to the user's own address (address form, "… til" labels). */
 export const tilAdresse = (mode: DeliveryMode) => mode === 'post' || mode === 'dor';
 /** The Leveringsmåte dropdown's option texts — also the label on order
- *  cards (Allerede bestilt, Bestillingshistorikk). */
+ *  cards (Aktive bestillinger, Bestillingshistorikk). */
 export const LEVERINGSMATE: Record<DeliveryMode, string> = {
   post: 'Sendes i posten',
   dor: 'Leveres på døra',

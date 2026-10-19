@@ -215,4 +215,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** —
 **Why:** Direct user request.
 
+
+## 2026-10-19 — Behandlingshjelpemidler: heading back to "Aktive bestillinger"
+**Decision:** The overview's section heading is "Aktive bestillinger" again, and the "Bestilling er mottatt" dialog points to it by that name. Reverts the heading part of the 2026-10-16 change; the "Allerede bestilt" status tag in order step 1 stays.
+**Alternative considered:** "Allerede bestilt" as the heading.
+**Why:** Direct user request.
+
 #helsenorge
