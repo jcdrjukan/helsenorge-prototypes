@@ -48,7 +48,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
 
 
           <Input
-            label="Adresselinje 1"
+            label={<Label htmlFor="deliveryGate" labelTexts={[{ text: 'Adresselinje 1' }]} formFieldTag={<FormFieldTag level="required-field" />} />}
             inputId="deliveryGate"
             value={delivery.gate}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('gate', e.target.value)}
@@ -65,7 +65,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
           />
 
           <Input
-            label="Postnummer"
+            label={<Label htmlFor="deliveryPostnr" labelTexts={[{ text: 'Postnummer' }]} formFieldTag={<FormFieldTag level="required-field" />} />}
             inputId="deliveryPostnr"
             value={delivery.postnr}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('postnr', e.target.value)}
@@ -76,7 +76,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
           />
 
           <Input
-            label="Poststed"
+            label={<Label htmlFor="deliverySted" labelTexts={[{ text: 'Poststed' }]} formFieldTag={<FormFieldTag level="required-field" />} />}
             inputId="deliverySted"
             value={delivery.sted}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('sted', e.target.value)}
@@ -87,7 +87,7 @@ export default function Step2({ delivery, errors, onChange, onNext, onBack, onAb
           />
 
           <Input
-            label="Telefon"
+            label={<Label htmlFor="deliveryTelefon" labelTexts={[{ text: 'Telefon' }]} formFieldTag={<FormFieldTag level="required-field" />} />}
             inputId="deliveryTelefon"
             value={delivery.telefon}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('telefon', e.target.value)}

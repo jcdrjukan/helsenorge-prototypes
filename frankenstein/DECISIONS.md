@@ -233,4 +233,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** The C/O variants of 2026-10-13/16.
 **Why:** Direct user request.
 
+
+## 2026-10-19 — Behandlingshjelpemidler: "Må fylles ut" on required address fields
+**Decision:** In Leveringsdetaljer the required fields — Adresselinje 1, Postnummer, Poststed, Telefon — carry the DS FormFieldTag `required-field` ("Må fylles ut") in their Label; Adresselinje 2 keeps `optional` ("Valgfritt"). The Leveringsmåte dropdown (always has a value) is not tagged.
+**Alternative considered:** Marking only the optional field (DS pattern used since the C/O field, 2026-10-13).
+**Why:** Direct user request.
+
 #helsenorge
