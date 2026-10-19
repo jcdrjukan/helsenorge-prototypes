@@ -119,14 +119,11 @@ export default function MachinePage({ eq, orderedDates: _orderedDates, onBack, o
         </section>
       )}
 
-      {/* Help expander — Annet gets its own trigger/body, since neither
-          can reference "utstyret" or a serial number when there's no
-          linked utstyr to point to. */}
-      <HelpExpanderStandalone triggerText={eq.isAnnet ? 'Har du spørsmål om forbruksmateriell?' : 'Har du spørsmål om utstyret eller forbruksmateriellet?'}>
+      {/* Help expander — the same trigger and text on every utstyr page,
+          including "Forbruksmateriell uten utstyr" (user request 2026-10-19). */}
+      <HelpExpanderStandalone triggerText="Har du spørsmål om utstyret eller forbruksmateriellet?">
         <p style={{ margin: '0 0 8px 0' }}>
-          {eq.isAnnet
-            ? 'Kontakt behandleren din eller helseforetaket som har bestilt forbruksmateriellet, dersom du har spørsmål.'
-            : 'Kontakt behandleren din eller helseforetaket som eier utstyret. Du finner serienummeret og informasjon om hvem som eier utstyret i oversikten over.'}
+          Kontakt behandleren din eller helseforetaket som eier utstyret. Du finner serienummeret og informasjon om hvem som eier utstyret i oversikten over.
         </p>
         <p style={{ margin: 0 }}>
           <a href="https://behandlingshjelpemidler.no/enhet/">Se kontaktinformasjonen til behandlingshjelpemiddelenheter i Norge.</a>

@@ -221,4 +221,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** "Allerede bestilt" as the heading.
 **Why:** Direct user request.
 
+
+## 2026-10-19 — Behandlingshjelpemidler: same help expander on "Forbruksmateriell uten utstyr"
+**Decision:** The "Forbruksmateriell uten utstyr" page now uses the same HelpExpanderStandalone as the other utstyr pages: trigger "Har du spørsmål om utstyret eller forbruksmateriellet?" and the text "Kontakt behandleren din eller helseforetaket som eier utstyret. Du finner serienummeret og informasjon om hvem som eier utstyret i oversikten over." plus the behandlingshjelpemiddelenheter link. (Its own variant was "Har du spørsmål om forbruksmateriell?" / "Kontakt behandleren din eller helseforetaket som har bestilt forbruksmateriellet, …".) Note: that page has no serial number or owner overview, so the second sentence doesn't apply there.
+**Alternative considered:** Keeping the page-specific variant.
+**Why:** Direct user request.
+
 #helsenorge
