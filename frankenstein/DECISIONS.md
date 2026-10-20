@@ -269,4 +269,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Each row sized to its own content.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Målinger: card titles 16px SemiBold
+**Decision:** The summary card titles are 16px / 1.5 SemiBold (was 20px). The inline date matches the line height and never splits across lines; on Oksygenmetning, "i dag" drops whole to the next line.
+**Alternative considered:** 20px titles from the Figma design.
+**Why:** Direct user request.
+
 #helsenorge

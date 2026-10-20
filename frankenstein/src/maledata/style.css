@@ -121,7 +121,8 @@
 .md-card__label {
   /* Same style as the measurement used to have (--mobile-h4-title4,
      SemiBold, black) — 2026-10-20, user request; was grey body text. */
-  font: 600 1.25rem/26px 'Source Sans Pro', sans-serif;
+  /* 16px SemiBold since 2026-10-20 (user request); was 20px. */
+  font: 600 1rem/1.5 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
   /* Half-width tiles: long names break at a soft hyphen (Oksygen-metning,
@@ -155,9 +156,10 @@
 }
 .md-card__when {
   /* Date inline after the title (Figma 2026-10-20). */
-  font: 400 1rem/26px 'Source Sans Pro', sans-serif;
+  font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
   color: var(--core-color-neutral-600, #7d7c79);
   hyphens: manual;
+  white-space: nowrap; /* keep "i dag" together when it wraps */
 }
 .md-card__sub {
   font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
