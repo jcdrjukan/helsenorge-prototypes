@@ -666,7 +666,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
         </section>
 
         <section className="md-chart-card">
-          <h2 className="md-section-title">Vis målinger</h2>
+          <h2 className="md-section-title">Målinger over tid</h2>
           <VisualCheckboxCloud className="md-chips">
             {SERIES.map(s => (
               <VisualCheckboxCloud.Checkbox

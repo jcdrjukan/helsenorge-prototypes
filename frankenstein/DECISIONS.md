@@ -275,4 +275,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** 20px titles from the Figma design.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Målinger: "Vis målinger" → "Målinger over tid"
+**Decision:** The heading above the measurement chips and chart now reads "Målinger over tid".
+**Alternative considered:** "Vis målinger".
+**Why:** Direct user request.
+
 #helsenorge
