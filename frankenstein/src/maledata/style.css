@@ -119,27 +119,43 @@
 .md-card__label {
   /* Same style as the measurement used to have (--mobile-h4-title4,
      SemiBold, black) — 2026-10-20, user request; was grey body text. */
-  font: 600 1.25rem/1.3 'Source Sans Pro', sans-serif;
+  font: 600 1.25rem/26px 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
-  /* Half-width tiles: long names (Oksygenmetning) hyphenate instead of overflowing. */
-  hyphens: auto;
+  /* Half-width tiles: long names break at a soft hyphen (Oksygen-metning,
+     as in Figma) instead of overflowing. */
+  hyphens: manual;
   overflow-wrap: anywhere;
 }
 .md-card__value {
-  /* --mobile-h4-title4 — bolder/larger than body so the actual reading
-     stands out as the one thing on the card most worth reading at a
-     glance. */
-  /* Normal weight since 2026-10-20 (user request); same size as the title. */
-  font: 400 1.25rem/1.3 'Source Sans Pro', sans-serif;
+  /* Figma 2026-10-20: large regular-weight reading (36px) under the title;
+     the unit keeps its small grey style. Line height as in Figma. */
+  font: 400 1.25rem/26px 'Source Sans Pro', sans-serif;
   margin: 4px 0 0;
   color: #000;
+}
+.md-card__num {
+  font-size: 2.25rem;
 }
 .md-card__unit {
   /* --mobile-help-text — the smallest size anywhere on this page, used
      only for this secondary unit suffix next to the much larger value. */
   font: 400 1rem/1.5 'Source Sans Pro', sans-serif;
   color: var(--core-color-neutral-700, #62625f);
+}
+.md-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.md-card__when {
+  /* Date inline after the title (Figma 2026-10-20). */
+  font: 400 1rem/26px 'Source Sans Pro', sans-serif;
+  color: var(--core-color-neutral-600, #7d7c79);
+  hyphens: manual;
 }
 .md-card__sub {
   font: 400 1rem/1.5 'Source Sans Pro', sans-serif;

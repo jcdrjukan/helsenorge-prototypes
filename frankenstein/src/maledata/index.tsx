@@ -103,7 +103,6 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
     );
   }
   const { value, offset, outOfRange, stale } = reading;
-  const warn = outOfRange || stale;
   const trend = trendFor(series);
   // Blood pressure shows the full reading (sys/dia) and a two-part trend;
   // "Utenfor" still follows the systolic target band.
@@ -112,14 +111,19 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
   return (
     <button className="md-card" onClick={() => onSelect(series.id)}>
       <span className="md-card__text">
-        <p className="md-card__label">{series.name}</p>
-        <p className="md-card__value">
-          {bp ? formatBp(bp.reading) : formatValue(value, series.decimals)}
-          {series.source !== 'form' && <>{'\u00A0'}<span className="md-card__unit">{series.unit}</span></>}
+        {/* Figma 2026-10-20: date inline after the title (amber when stale);
+            an out-of-range reading is shown by amber value, not "Utenfor". */}
+        <p className="md-card__label">
+          {series.name.replace('Oksygenmetning', 'Oksygen\u00ADmetning')}{' '}
+          <span className={`md-card__when${stale ? ' md-card__sub--warn' : ''}`}>{agoLabel(offset)}</span>
         </p>
-        <p className={`md-card__sub${warn ? ' md-card__sub--warn' : ''}`}>
-          {outOfRange ? 'Utenfor · ' : ''}
-          {agoLabel(offset)}
+        <p className="md-card__value">
+          <span className={`md-card__num${outOfRange ? ' md-card__sub--warn' : ''}`}>
+            {bp ? formatBp(bp.reading) : formatValue(value, series.decimals)}
+          </span>
+          {series.source !== 'form' && <>{'\u00A0'}<span className="md-card__unit">{series.unit}</span></>}
+          {/* Colour alone can't carry "out of range" — keep it for screen readers. */}
+          {outOfRange && <span className="md-sr-only">, utenfor målområdet</span>}
         </p>
         {trendText && <p className="md-card__trend">{trendText}</p>}
       </span>

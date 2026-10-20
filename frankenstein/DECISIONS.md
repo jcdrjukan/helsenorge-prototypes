@@ -251,4 +251,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** One full-width card per row.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Målinger: summary card design from Figma
+**Decision:** Cards follow the Figma frame (node 2078:1066). The date sits inline after the title: 16px regular grey, amber when the reading is stale. The reading is 36px regular, in amber when out of range. The unit stays 16px grey and the trend line stays below. The visible "Utenfor ·" text is gone. Screen readers still get ", utenfor målområdet" (hidden text), so out-of-range isn't conveyed by colour alone. "Oksygenmetning" breaks as "Oksygen-metning", as in Figma.
+**Alternative considered:** Previous layout: title, 20px value, date line with "Utenfor ·", then trend.
+**Why:** Direct user request (Figma design).
+
 #helsenorge
