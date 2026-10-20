@@ -750,14 +750,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </section>
           )}
 
-          {results.veiledningstjenester.length > 0 && (
-            <section className="ph-tool-section ph-sec ph-sec--neutral" aria-labelledby="ph-service-section-title">
-              <div className="ph-sec__band ph-sec__band--icon" aria-hidden="true">
-                <Icon svgIcon={PeopleTalking} size={64} />
-              </div>
-              <h2 className="ph-tool-section__title" id="ph-service-section-title">Noen å snakke med</h2>
-              <ul className="ph-resource-list ph-tool-section__list">
-                {results.veiledningstjenester.map(r => (
+          {results.artikler.length > 0 && (
+            <section className="ph-tool-section ph-sec ph-sec--cherry" aria-labelledby="ph-article-section-title">
+              <SectionVisual blob="/ph-sec-blob-cherry.svg" illu="/ph-sec-illu-artikler.svg" variant="artikler" />
+              <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
+              <ul className="ph-resource-list ph-tool-section__list ph-art-list">
+                {results.artikler.map(r => (
                   <li key={r.id}>
                     <ResourceCard resource={r} />
                   </li>
@@ -766,12 +764,14 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </section>
           )}
 
-          {results.artikler.length > 0 && (
-            <section className="ph-tool-section ph-sec ph-sec--cherry" aria-labelledby="ph-article-section-title">
-              <SectionVisual blob="/ph-sec-blob-cherry.svg" illu="/ph-sec-illu-artikler.svg" variant="artikler" />
-              <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
-              <ul className="ph-resource-list ph-tool-section__list ph-art-list">
-                {results.artikler.map(r => (
+          {results.veiledningstjenester.length > 0 && (
+            <section className="ph-tool-section ph-sec ph-sec--neutral" aria-labelledby="ph-service-section-title">
+              <div className="ph-sec__band ph-sec__band--icon" aria-hidden="true">
+                <Icon svgIcon={PeopleTalking} size={64} />
+              </div>
+              <h2 className="ph-tool-section__title" id="ph-service-section-title">Noen å snakke med</h2>
+              <ul className="ph-resource-list ph-tool-section__list">
+                {results.veiledningstjenester.map(r => (
                   <li key={r.id}>
                     <ResourceCard resource={r} />
                   </li>

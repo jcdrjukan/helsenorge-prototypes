@@ -262,4 +262,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The grey sections with icon + H2 headers (earlier today).
 **Why:** User request with the Figma frame.
 
+
+## 2026-10-20 — Psykisk helse demo: results order Verktøy → Artikler → Noen å snakke med
+**Decision:** Artikler and Noen å snakke med swap places again: the results now show Verktøy, Artikler, Noen å snakke med (as in the Figma sections frame 419:19339). Reverses the order set earlier the same day.
+**Alternative considered:** Noen å snakke med second.
+**Why:** Direct user request.
+
 #helsenorge
