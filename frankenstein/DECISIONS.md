@@ -196,4 +196,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** —
 **Why:** User supplied the texts and asked for them here too.
 
+
+## 2026-10-20 — Psykisk helse demo: new article card layout
+**Decision:** Articles in the results use the Figma layout (Psykisk helse 408:8108, "Artikkelvarianter"): a #DFF9FB card with a 1px #AFDAE3 border (12px/8px padding), a 214px cover photo, the title (title3, 22/1.36), the description (18/1.28), the topic tags, and a borderless "Les artikkel" button with ArrowRight; cards 12px apart inside the grey Artikler section. Replaces the white card with the Publication icon and outline "Gå til artikkel" button. Photos are the Figma frame's placeholders, chosen by topic (people talking → general wellbeing; man in scarf → low mood, anxiety, loneliness; couple walking → stress, sleep, alcohol); the pregnancy photo isn't used. Saved as public/ph-art-*.png.
+**Alternative considered:** The previous white article card.
+**Why:** User request with the Figma frame.
+
 #helsenorge

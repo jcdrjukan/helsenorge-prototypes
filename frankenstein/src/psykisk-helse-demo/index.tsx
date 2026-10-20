@@ -311,6 +311,47 @@ function ServiceCard({ resource }: { resource: Resource }) {
   );
 }
 
+// Article card (Figma Psykisk helse 408:8108, "Artikkelvarianter"):
+// light-blue card with a photo, title3 title, 18px description, topic tags
+// and a borderless "Les artikkel" with ArrowRight. The photos are the
+// placeholders from the Figma frame, picked by topic until real article
+// images are chosen.
+const ARTICLE_IMAGE_BY_TAG: Record<string, string> = {
+  'generell-mestring':   '/ph-art-samtale.png',
+  'nedstemthet':         '/ph-art-ettertanke.png',
+  'angst':               '/ph-art-ettertanke.png',
+  'ensomhet-relasjoner': '/ph-art-ettertanke.png',
+  'stress':              '/ph-art-tur.png',
+  'sove-bedre':          '/ph-art-tur.png',
+  'rus-og-avhengighet':  '/ph-art-tur.png',
+};
+function articleImage(resource: Resource): string {
+  return resource.tags.map(t => ARTICLE_IMAGE_BY_TAG[t]).find(Boolean) ?? '/ph-art-samtale.png';
+}
+
+function ArticleCard({ resource }: { resource: Resource }) {
+  return (
+    <article className="ph-art-card">
+      <div className="ph-art-card__image" aria-hidden="true">
+        <img src={articleImage(resource)} alt="" />
+      </div>
+      <div className="ph-art-card__body">
+        <Title htmlMarkup="h3" appearance="title3" className="ph-art-card__title">
+          {resource.title}
+        </Title>
+        <p className="ph-art-card__desc">{resource.shortDescription}</p>
+        <CategoryTags tags={resource.tags} />
+        <div>
+          <Button variant="borderless" onClick={() => openResource(resource.url)}>
+            {resource.ctaLabel ?? 'Les artikkel'}
+            <Icon svgIcon={ArrowRight} />
+          </Button>
+        </div>
+      </div>
+    </article>
+  );
+}
+
 function ResourceCard({
   resource,
 }: {
@@ -323,34 +364,8 @@ function ResourceCard({
     return <ServiceCard resource={resource} />;
   }
 
-  // Articles sit in the same light-blue container as the tool/service
-  // cards, so they use the same white card shell and icon+title row.
   if (resource.type === 'artikkel') {
-    return (
-      <Panel color="white" className="ph-tool-card ph-article-card">
-        <Panel.A>
-          <div className="ph-tool-card__header">
-            <span className="ph-article-card__icon" aria-hidden="true">
-              <Icon svgIcon={Publication} size={48} />
-            </span>
-            <div className="ph-tool-card__heading">
-              <Title htmlMarkup="h3" appearance="title3" className="ph-tool-card__title">
-                {resource.title}
-              </Title>
-            </div>
-          </div>
-          <div style={{ marginBottom: '0.5rem' }}>
-            <CategoryTags tags={resource.tags} />
-          </div>
-          <p className="ph-resource-card__desc">{resource.shortDescription}</p>
-          <div style={{ marginTop: '1rem' }}>
-            <Button variant="outline" arrow="icon" onClick={() => openResource(resource.url)}>
-              {resource.ctaLabel ?? 'Gå til artikkel'}
-            </Button>
-          </div>
-        </Panel.A>
-      </Panel>
-    );
+    return <ArticleCard resource={resource} />;
   }
 
   return (
@@ -728,7 +743,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 </span>
                 <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
               </div>
-              <ul className="ph-resource-list ph-tool-section__list">
+              <ul className="ph-resource-list ph-tool-section__list ph-art-list">
                 {results.artikler.map(r => (
                   <li key={r.id}>
                     <ResourceCard resource={r} />

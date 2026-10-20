@@ -583,3 +583,22 @@
 
 /* Article cards in the "Artikler" container: same card shell as tools. */
 .ph-article-card__icon { display: flex; width: 48px; height: 48px; flex-shrink: 0; }
+
+/* Article cards (Figma Psykisk helse 408:8108): #DFF9FB card with a
+   1px #AFDAE3 border, 12px/8px padding, 16px between photo and text;
+   214px cover photo; title3 (22/1.36), 18/1.28 description, tags,
+   borderless "Les artikkel" — 12px apart. Cards 12px apart. */
+.ph-art-list { gap: 12px; }
+.ph-art-card {
+  background: #DFF9FB;
+  border: 1px solid #AFDAE3;
+  padding: 12px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.ph-art-card__image { height: 214px; overflow: hidden; }
+.ph-art-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ph-art-card__body { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+.ph-art-card__title { margin: 0; font: 600 1.375rem/1.36 'Source Sans Pro', sans-serif; color: #000; }
+.ph-art-card__desc { margin: 0; font: 400 1.125rem/1.28 'Source Sans Pro', sans-serif; color: #000; }
