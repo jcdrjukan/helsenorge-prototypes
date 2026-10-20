@@ -638,7 +638,7 @@
 .ph-sec__visual--verktoy .ph-sec__illu { width: 139px; height: 118px; }
 .ph-sec__visual--artikler .ph-sec__blob { width: 113px; height: 92px; margin-left: 2px; }
 .ph-sec__visual--artikler .ph-sec__illu { width: 152px; height: 148px; }
-.ph-sec__band--icon { height: 72px; display: flex; align-items: flex-end; justify-content: center; border-bottom: 0; }
+.ph-sec__band--icon { height: calc(72px + 1rem); padding-top: 1rem; display: flex; align-items: flex-end; justify-content: center; border-bottom: 0; }   /* +1rem above the icon (2026-10-20, user request) */
 .ph-sec .ph-tool-section__title {
   background: var(--sec-bg);
   border-left: 1px solid var(--sec-border);

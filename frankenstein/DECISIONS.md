@@ -268,4 +268,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Noen å snakke med second.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: 1rem more above the Noen å snakke med icon
+**Decision:** The neutral section's icon band gets 1rem of extra padding above the PeopleTalking icon (band 88px, icon 24px from the top; was 72px / 8px).
+**Alternative considered:** The Figma 72px band.
+**Why:** Direct user request.
+
 #helsenorge
