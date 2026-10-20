@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, Fragment } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
@@ -155,39 +155,43 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps
             {showAllTjenester && (
               <div className="fs-expanded-tjenester">
                 {TJENESTE_GROUPS.map(group => (
-                  <div key={group.heading} className="fs-tjeneste-group">
-                    <h2 className="fs-section-title">{group.heading}</h2>
-                    <LinkList variant="line" color="white" chevron>
-                      {group.rows.map(row => (
-                        <LinkList.Link key={row.id} href="#" icon={<Icon svgIcon={row.icon} />}>
-                          {row.label}
-                        </LinkList.Link>
-                      ))}
-                    </LinkList>
-                  </div>
+                  <Fragment key={group.heading}>
+                    <div className="fs-tjeneste-group">
+                      <h2 className="fs-section-title">{group.heading}</h2>
+                      <LinkList variant="line" color="white" chevron>
+                        {group.rows.map(row => (
+                          <LinkList.Link key={row.id} href="#" icon={<Icon svgIcon={row.icon} />}>
+                            {row.label}
+                          </LinkList.Link>
+                        ))}
+                      </LinkList>
+                    </div>
+                    {/* Situasjonstjenester sits between Oversikter and Søknad
+                        og refusjon (2026-10-20, user request; was last).
+                        Pure navigation, same plain-row layout as the others. */}
+                    {group.heading === 'Oversikter' && (
+    <div className="fs-tjeneste-group">
+                      <h2 className="fs-section-title">Situasjonstjenester</h2>
+                      <LinkList variant="line" color="white" chevron>
+                        {VALGBARE_TJENESTER.map(t => (
+                          <LinkList.Link
+                            key={t.id}
+                            href="#"
+                            icon={<Icon svgIcon={t.icon} />}
+                            onClick={e => {
+                              e.preventDefault();
+                              if (t.hasPrototype) onGoToTjeneste(t.id);
+                            }}
+                          >
+                            {t.label}
+                          </LinkList.Link>
+                        ))}
+                      </LinkList>
+                    </div>
+                    )}
+                  </Fragment>
                 ))}
 
-                {/* ── Valgbare tjenester (new) — pure navigation, no
-                    activation control; same plain-row layout as every
-                    other group above. ─────────────────────────────── */}
-                <div className="fs-tjeneste-group">
-                  <h2 className="fs-section-title">Situasjonstjenester</h2>
-                  <LinkList variant="line" color="white" chevron>
-                    {VALGBARE_TJENESTER.map(t => (
-                      <LinkList.Link
-                        key={t.id}
-                        href="#"
-                        icon={<Icon svgIcon={t.icon} />}
-                        onClick={e => {
-                          e.preventDefault();
-                          if (t.hasPrototype) onGoToTjeneste(t.id);
-                        }}
-                      >
-                        {t.label}
-                      </LinkList.Link>
-                    ))}
-                  </LinkList>
-                </div>
 
                 <button className="fs-toggle-tjenester" onClick={() => setShowAllTjenester(false)}>
                   <Icon svgIcon={ChevronUp} size={32} color="currentColor" />

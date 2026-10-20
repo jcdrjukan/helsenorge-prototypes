@@ -232,4 +232,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The larger hand-rolled cards with icon circle and description.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Forside demo: Situasjonstjenester between Oversikter and Søknad og refusjon
+**Decision:** Under "Se alle tjenester", the Situasjonstjenester group (Psykisk helse, Gravid, Småbarnsliv) now comes right after Oversikter, before Søknad og refusjon (was the last group). Order: Oppfølging i helsetjenesten, Oversikter, Situasjonstjenester, Søknad og refusjon, Kvalitet og styring.
+**Alternative considered:** Last in the list.
+**Why:** Direct user request.
+
 #helsenorge
