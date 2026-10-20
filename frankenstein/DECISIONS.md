@@ -286,4 +286,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The blue/teal illustration.
 **Why:** User request with the updated Figma section.
 
+
+## 2026-10-20 — Psykisk helse demo: cherry outline on article cards
+**Decision:** Article cards have a cherry outline (#EEC0A5, the Artikler section's border colour) instead of blueberry #AFDAE3.
+**Alternative considered:** Blueberry outline (left over from the Figma card on a blue background).
+**Why:** Direct user request.
+
 #helsenorge
