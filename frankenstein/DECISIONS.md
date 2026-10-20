@@ -202,4 +202,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The previous white article card.
 **Why:** User request with the Figma frame.
 
+
+## 2026-10-20 — Psykisk helse demo: result section headers without the "tab", as H2
+**Decision:** The headers of the three result sections (Selvhjelpsverktøy, Artikler, Noen å snakke med) no longer have their darker "tab" bar (#EAE7E7 with a white line under it); they sit directly on the section's grey (#F5F3F3). The heading text uses the H2 style, DS title2 on mobile (SemiBold 1.625rem / 1.938rem, was 18px). The icon stays, vertically centred with the heading.
+**Alternative considered:** The tab-style header.
+**Why:** Direct user request.
+
 #helsenorge

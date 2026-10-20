@@ -240,11 +240,11 @@
   overflow: hidden;
 }
 .ph-tool-section__header {
+  /* No "tab" background or divider any more (2026-10-20, user request):
+     the header sits directly on the section's grey. */
   display: flex;
-  align-items: flex-start;
-  background: #eae7e7; /* listelements neutral-medium (was blueberry-medium #CAE7ED) */
-  border-bottom: 1px solid #fff;
-  padding: 8px 0 8px 8px;
+  align-items: center;
+  padding: 8px 0 0 8px;
 }
 .ph-tool-section__icon {
   display: flex;
@@ -256,7 +256,8 @@
 .ph-tool-section__title {
   margin: 0;
   padding: 12px 0 12px 8px;
-  font: 600 1.125rem/1.2 'Source Sans Pro', sans-serif;
+  /* H2 = DS title2 on mobile (1.625rem / 1.938rem, SemiBold). */
+  font: 600 1.625rem/1.938rem 'Source Sans Pro', sans-serif;
   color: #000;
 }
 .ph-tool-section__list {
