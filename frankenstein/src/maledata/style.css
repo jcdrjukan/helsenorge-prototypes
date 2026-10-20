@@ -112,16 +112,18 @@
   outline-offset: 2px;
 }
 .md-card__label {
-  /* --mobile-body */
-  font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif;
-  color: var(--core-color-neutral-700, #62625f);
+  /* Same style as the measurement used to have (--mobile-h4-title4,
+     SemiBold, black) — 2026-10-21, user request; was grey body text. */
+  font: 600 1.25rem/1.3 'Source Sans Pro', sans-serif;
+  color: #000;
   margin: 0;
 }
 .md-card__value {
   /* --mobile-h4-title4 — bolder/larger than body so the actual reading
      stands out as the one thing on the card most worth reading at a
      glance. */
-  font: 600 1.25rem/1.3 'Source Sans Pro', sans-serif;
+  /* Normal weight since 2026-10-21 (user request); same size as the title. */
+  font: 400 1.25rem/1.3 'Source Sans Pro', sans-serif;
   margin: 4px 0 0;
   color: #000;
 }

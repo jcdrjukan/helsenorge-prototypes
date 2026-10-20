@@ -239,4 +239,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Marking only the optional field (DS pattern used since the C/O field, 2026-10-13).
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Målinger: card title in title4 SemiBold, measurement in normal weight
+**Decision:** On the summary cards at the top of Målinger, the title (Vekt, Blodtrykk, Puls …) now uses the style the measurement had — 20px / 1.3, SemiBold, black (was 18px regular grey). The measurement (e.g. "81,9 kg") keeps 20px but drops to normal weight (400).
+**Alternative considered:** Previous hierarchy — grey regular title, bold measurement.
+**Why:** Direct user request.
+
 #helsenorge
