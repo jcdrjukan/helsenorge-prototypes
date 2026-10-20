@@ -20,7 +20,6 @@ import ChevronRight from '@helsenorge/designsystem-react/components/Icons/Chevro
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
 import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
-import Publication from '@helsenorge/designsystem-react/components/Icons/Publication';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
 import TravelRoute from '@helsenorge/designsystem-react/components/Icons/TravelRoute';
@@ -28,7 +27,6 @@ import HealthClinic from '@helsenorge/designsystem-react/components/Icons/Health
 import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
 import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
 import StarFill from '@helsenorge/designsystem-react/components/Icons/StarFill';
-import Toolbox from '@helsenorge/designsystem-react/components/Icons/Toolbox';
 import './style.css';
 
 import {
@@ -327,6 +325,19 @@ const ARTICLE_IMAGE_BY_TAG: Record<string, string> = {
 };
 function articleImage(resource: Resource): string {
   return resource.tags.map(t => ARTICLE_IMAGE_BY_TAG[t]).find(Boolean) ?? '/ph-art-samtale.png';
+}
+
+// Section header visual (Figma Psykisk helse 419:19339, "Section"):
+// 200px area, coloured band in the lower 100px, a blob and an illustration
+// centred on top. The artwork comes from the Figma file (not in the DS).
+function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; variant: 'verktoy' | 'artikler' }) {
+  return (
+    <div className={`ph-sec__visual ph-sec__visual--${variant}`} aria-hidden="true">
+      <div className="ph-sec__band" />
+      <img className="ph-sec__blob" src={blob} alt="" />
+      <img className="ph-sec__illu" src={illu} alt="" />
+    </div>
+  );
 }
 
 function ArticleCard({ resource }: { resource: Resource }) {
@@ -726,13 +737,9 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           </div>
 
           {results.verktøy.length > 0 && (
-            <section className="ph-tool-section" aria-labelledby="ph-tool-section-title">
-              <div className="ph-tool-section__header">
-                <span className="ph-tool-section__icon" aria-hidden="true">
-                  <Icon svgIcon={Toolbox} size={38} />
-                </span>
-                <h2 className="ph-tool-section__title" id="ph-tool-section-title">Selvhjelpsverktøy</h2>
-              </div>
+            <section className="ph-tool-section ph-sec ph-sec--blueberry" aria-labelledby="ph-tool-section-title">
+              <SectionVisual blob="/ph-sec-blob-blueberry.svg" illu="/ph-sec-illu-verktoy.svg" variant="verktoy" />
+              <h2 className="ph-tool-section__title" id="ph-tool-section-title">Verktøy</h2>
               <ul className="ph-resource-list ph-tool-section__list">
                 {results.verktøy.map(r => (
                   <li key={r.id}>
@@ -744,13 +751,11 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           )}
 
           {results.veiledningstjenester.length > 0 && (
-            <section className="ph-tool-section" aria-labelledby="ph-service-section-title">
-              <div className="ph-tool-section__header">
-                <span className="ph-tool-section__icon" aria-hidden="true">
-                  <Icon svgIcon={PeopleTalking} size={38} />
-                </span>
-                <h2 className="ph-tool-section__title" id="ph-service-section-title">Noen å snakke med</h2>
+            <section className="ph-tool-section ph-sec ph-sec--neutral" aria-labelledby="ph-service-section-title">
+              <div className="ph-sec__band ph-sec__band--icon" aria-hidden="true">
+                <Icon svgIcon={PeopleTalking} size={64} />
               </div>
+              <h2 className="ph-tool-section__title" id="ph-service-section-title">Noen å snakke med</h2>
               <ul className="ph-resource-list ph-tool-section__list">
                 {results.veiledningstjenester.map(r => (
                   <li key={r.id}>
@@ -762,13 +767,9 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           )}
 
           {results.artikler.length > 0 && (
-            <section className="ph-tool-section" aria-labelledby="ph-article-section-title">
-              <div className="ph-tool-section__header">
-                <span className="ph-tool-section__icon" aria-hidden="true">
-                  <Icon svgIcon={Publication} size={38} />
-                </span>
-                <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
-              </div>
+            <section className="ph-tool-section ph-sec ph-sec--cherry" aria-labelledby="ph-article-section-title">
+              <SectionVisual blob="/ph-sec-blob-cherry.svg" illu="/ph-sec-illu-artikler.svg" variant="artikler" />
+              <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
               <ul className="ph-resource-list ph-tool-section__list ph-art-list">
                 {results.artikler.map(r => (
                   <li key={r.id}>

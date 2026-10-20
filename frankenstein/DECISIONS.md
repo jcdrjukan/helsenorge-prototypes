@@ -256,4 +256,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Deleting the row outright.
 **Why:** User: remove it from the front page but retain it somewhere.
 
+
+## 2026-10-20 — Psykisk helse demo: illustrated, colour-coded result section headers
+**Decision:** Following Figma Psykisk helse 419:19339 ("MH - Sections"), each result section has its own colour and header instead of the grey box with an icon + H2: Verktøy — blueberry (#E4F7F9, border #AFDAE3) with a 200px illustration area (band in the lower 100px, blueberry blob + "aids" illustration centred); Artikler — cherry (#FFF2EA, border #EEC0A5) with a cherry blob + "learning" illustration; Noen å snakke med — neutral (#F5F3F3, border #D6D4D3) with a 72px band and the DS PeopleTalking icon at 64px. Headings are centred title3 (22/1.36) at the top of the coloured area; "Selvhjelpsverktøy" is now "Verktøy" (Figma wording). Cards keep 1rem spacing and side margins; 32px under the last card. The blobs and illustrations aren't in the design system, so they're SVGs from the Figma file (public/ph-sec-*.svg). Section order unchanged (Verktøy, Noen å snakke med, Artikler; Figma shows Artikler second). Not taken from the frame: its page title "Mental helse" and intro texts.
+**Alternative considered:** The grey sections with icon + H2 headers (earlier today).
+**Why:** User request with the Figma frame.
+
 #helsenorge

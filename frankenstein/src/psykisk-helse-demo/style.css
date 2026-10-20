@@ -622,3 +622,35 @@
   border-bottom: 1px solid #D6D4D3;
   padding: 4px 0;
 }
+
+/* Section headers (Figma Psykisk helse 419:19339, 2026-10-20): each result
+   section has its own colour — Verktøy blueberry, Artikler cherry, Noen å
+   snakke med neutral — with an illustrated (or icon) band above a centred
+   title3 heading. Overrides the earlier grey rounded box + tab header. */
+.ph-sec { --sec-bg: #F5F3F3; --sec-border: #D6D4D3; background: none; border-radius: 0; overflow: visible; }
+.ph-sec--blueberry { --sec-bg: #E4F7F9; --sec-border: #AFDAE3; }
+.ph-sec--cherry    { --sec-bg: #FFF2EA; --sec-border: #EEC0A5; }
+.ph-sec__visual { position: relative; height: 200px; display: flex; align-items: flex-end; }
+.ph-sec__visual .ph-sec__band { width: 100%; height: 100px; }
+.ph-sec__band { background: var(--sec-bg); border: 1px solid var(--sec-border); border-bottom: 0; box-sizing: border-box; }
+.ph-sec__blob, .ph-sec__illu { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: block; }
+.ph-sec__visual--verktoy .ph-sec__blob { width: 141px; height: 115px; margin-left: -4px; }
+.ph-sec__visual--verktoy .ph-sec__illu { width: 139px; height: 118px; }
+.ph-sec__visual--artikler .ph-sec__blob { width: 113px; height: 92px; margin-left: 2px; }
+.ph-sec__visual--artikler .ph-sec__illu { width: 152px; height: 148px; }
+.ph-sec__band--icon { height: 72px; display: flex; align-items: flex-end; justify-content: center; border-bottom: 0; }
+.ph-sec .ph-tool-section__title {
+  background: var(--sec-bg);
+  border-left: 1px solid var(--sec-border);
+  border-right: 1px solid var(--sec-border);
+  margin: 0;
+  padding: 0 1rem;
+  text-align: center;
+  font: 600 1.375rem/1.36 'Source Sans Pro', sans-serif;   /* title3, centred (Figma) */
+}
+.ph-sec .ph-tool-section__list {
+  background: var(--sec-bg);
+  border: 1px solid var(--sec-border);
+  border-top: 0;
+  padding: 8px 1rem 2rem;
+}
