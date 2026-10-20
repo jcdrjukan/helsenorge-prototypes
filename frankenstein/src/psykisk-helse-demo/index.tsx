@@ -310,22 +310,18 @@ function ServiceCard({ resource }: { resource: Resource }) {
 }
 
 // Article card (Figma Psykisk helse 408:8108, "Artikkelvarianter"):
-// light-blue card with a photo, title3 title, 18px description, topic tags
-// and a borderless "Les artikkel" with ArrowRight. The photos are the
-// placeholders from the Figma frame, picked by topic until real article
-// images are chosen.
-const ARTICLE_IMAGE_BY_TAG: Record<string, string> = {
-  'generell-mestring':   '/ph-art-samtale.png',
-  'nedstemthet':         '/ph-art-ettertanke.png',
-  'angst':               '/ph-art-ettertanke.png',
-  'ensomhet-relasjoner': '/ph-art-ettertanke.png',
-  'stress':              '/ph-art-tur.png',
-  'sove-bedre':          '/ph-art-tur.png',
-  'rus-og-avhengighet':  '/ph-art-tur.png',
-};
-function articleImage(resource: Resource): string {
-  return resource.tags.map(t => ARTICLE_IMAGE_BY_TAG[t]).find(Boolean) ?? '/ph-art-samtale.png';
-}
+// card with a photo, title3 title, description, topic tags and a
+// borderless "Les artikkel" with ArrowRight. The photos are only examples:
+// the three from the Figma frame plus the two front-page photos, handed out
+// by position in the list so no two articles on the page share one (until
+// there are more than five).
+const ARTICLE_IMAGES = [
+  '/ph-art-samtale.png',
+  '/ph-art-ettertanke.png',
+  '/ph-art-tur.png',
+  '/ph-hero-dark.jpg',
+  '/ph-hero-warm.jpg',
+];
 
 // Section header visual (Figma Psykisk helse 419:19339, "Section"):
 // 200px area, coloured band in the lower 100px, a blob and an illustration
@@ -340,11 +336,11 @@ function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; va
   );
 }
 
-function ArticleCard({ resource }: { resource: Resource }) {
+function ArticleCard({ resource, image }: { resource: Resource; image: string }) {
   return (
     <article className="ph-art-card">
       <div className="ph-art-card__image" aria-hidden="true">
-        <img src={articleImage(resource)} alt="" />
+        <img src={image} alt="" />
       </div>
       <div className="ph-art-card__body">
         <Title htmlMarkup="h3" appearance="title3" className="ph-art-card__title">
@@ -365,8 +361,11 @@ function ArticleCard({ resource }: { resource: Resource }) {
 
 function ResourceCard({
   resource,
+  index = 0,
 }: {
   resource: Resource;
+  /** Position in its list — picks a distinct example photo for articles. */
+  index?: number;
 }) {
   if (resource.type === 'verktøy') {
     return <ToolCard resource={resource} />;
@@ -376,7 +375,7 @@ function ResourceCard({
   }
 
   if (resource.type === 'artikkel') {
-    return <ArticleCard resource={resource} />;
+    return <ArticleCard resource={resource} image={ARTICLE_IMAGES[index % ARTICLE_IMAGES.length]} />;
   }
 
   return (
@@ -755,9 +754,9 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               <SectionVisual blob="/ph-sec-blob-cherry.svg" illu="/ph-sec-illu-artikler.svg" variant="artikler" />
               <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
               <ul className="ph-resource-list ph-tool-section__list ph-art-list">
-                {results.artikler.map(r => (
+                {results.artikler.map((r, i) => (
                   <li key={r.id}>
-                    <ResourceCard resource={r} />
+                    <ResourceCard resource={r} index={i} />
                   </li>
                 ))}
               </ul>

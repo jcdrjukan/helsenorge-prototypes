@@ -274,4 +274,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The Figma 72px band.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: a different example photo per article
+**Decision:** Article photos are now handed out by position in the list instead of by topic, from five example photos (the three from the Figma article frame plus the two Psykisk helse front-page photos, ph-hero-dark/-warm), so no two articles on the results page share a photo unless more than five are shown. With every quiz option ticked (10 articles) each photo appears twice, five cards apart. The pregnancy photo from the Figma frame is still not used.
+**Alternative considered:** Topic-based photos (neighbouring articles often shared one).
+**Why:** User: avoid reusing the same photo for multiple articles; they're only example images.
+
 #helsenorge
