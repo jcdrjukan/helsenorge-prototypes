@@ -214,4 +214,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** VisualCheckboxCloud pills.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: results order Verktøy → Noen å snakke med → Artikler
+**Decision:** On the results page, Artikler moves to the third section and "Noen å snakke med" to the second (was Verktøy, Artikler, Noen å snakke med).
+**Alternative considered:** Articles second.
+**Why:** Direct user request.
+
 #helsenorge

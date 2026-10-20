@@ -735,24 +735,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </section>
           )}
 
-          {results.artikler.length > 0 && (
-            <section className="ph-tool-section" aria-labelledby="ph-article-section-title">
-              <div className="ph-tool-section__header">
-                <span className="ph-tool-section__icon" aria-hidden="true">
-                  <Icon svgIcon={Publication} size={38} />
-                </span>
-                <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
-              </div>
-              <ul className="ph-resource-list ph-tool-section__list ph-art-list">
-                {results.artikler.map(r => (
-                  <li key={r.id}>
-                    <ResourceCard resource={r} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
           {results.veiledningstjenester.length > 0 && (
             <section className="ph-tool-section" aria-labelledby="ph-service-section-title">
               <div className="ph-tool-section__header">
@@ -763,6 +745,24 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               </div>
               <ul className="ph-resource-list ph-tool-section__list">
                 {results.veiledningstjenester.map(r => (
+                  <li key={r.id}>
+                    <ResourceCard resource={r} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {results.artikler.length > 0 && (
+            <section className="ph-tool-section" aria-labelledby="ph-article-section-title">
+              <div className="ph-tool-section__header">
+                <span className="ph-tool-section__icon" aria-hidden="true">
+                  <Icon svgIcon={Publication} size={38} />
+                </span>
+                <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
+              </div>
+              <ul className="ph-resource-list ph-tool-section__list ph-art-list">
+                {results.artikler.map(r => (
                   <li key={r.id}>
                     <ResourceCard resource={r} />
                   </li>
