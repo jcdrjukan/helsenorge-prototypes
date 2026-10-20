@@ -238,4 +238,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Last in the list.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: white article cards
+**Decision:** The article cards are white (were #DFF9FB from the Figma frame), like the tool and service cards; they keep their #AFDAE3 border, and the result sections stay grey (#F5F3F3).
+**Alternative considered:** Light-blue cards (Figma).
+**Why:** User request ("Make the psykisk helse blocks white background"; the article cards were the only non-white blocks).
+
 #helsenorge
