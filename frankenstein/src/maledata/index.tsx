@@ -121,7 +121,8 @@ function LatestCard({ series, onSelect }: LatestCardProps) {
           <span className={`md-card__num${outOfRange ? ' md-card__sub--warn' : ''}`}>
             {bp ? formatBp(bp.reading) : formatValue(value, series.decimals)}
           </span>
-          {series.source !== 'form' && <>{'\u00A0'}<span className="md-card__unit">{series.unit}</span></>}
+          {/* No unit after blood pressure on the card (Figma, 2026-10-20). */}
+          {series.source !== 'form' && !bp && <>{'\u00A0'}<span className="md-card__unit">{series.unit}</span></>}
           {/* Colour alone can't carry "out of range" — keep it for screen readers. */}
           {outOfRange && <span className="md-sr-only">, utenfor målområdet</span>}
         </p>

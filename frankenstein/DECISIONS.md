@@ -257,4 +257,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Previous layout: title, 20px value, date line with "Utenfor ·", then trend.
 **Why:** Direct user request (Figma design).
 
+
+## 2026-10-20 — Målinger: no unit after blood pressure on the card
+**Decision:** The Blodtrykk summary card shows "125/79" without "mmHg"; other cards keep their unit. Chart/table unchanged.
+**Alternative considered:** "125/79 mmHg".
+**Why:** Direct user request (matches Figma).
+
 #helsenorge
