@@ -654,3 +654,5 @@
   border-top: 0;
   padding: 8px 1rem 2rem;
 }
+/* 1rem extra under the "Noen å snakke med" heading (2026-10-20, user request). */
+.ph-sec--neutral .ph-tool-section__title { padding-bottom: 1rem; }
