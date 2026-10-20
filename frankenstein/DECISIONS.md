@@ -244,4 +244,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Light-blue cards (Figma).
 **Why:** User request ("Make the psykisk helse blocks white background"; the article cards were the only non-white blocks).
 
+
+## 2026-10-20 — Psykisk helse demo: article cards use the tool/service card insets and text styles
+**Decision:** Article card padding is now 16px 16px 16px 18px, so content sits where it does in the Selvhjelpsverktøy and Noen å snakke med cards (19px from the left edge incl. border, 17px top/right — DS Panel padding plus its status-marker gutter); was 12px 8px. The description uses the same 18px / 1.5 (27px) as those cards (was 1.28). Titles were already the same (title3, 22/29.92). Border stays #AFDAE3 (tool/service cards: #D6D4D3).
+**Alternative considered:** The Figma card's 12px/8px padding and 1.28 line height.
+**Why:** Direct user request.
+
 #helsenorge

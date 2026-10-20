@@ -593,7 +593,9 @@
 .ph-art-card {
   background: #fff;   /* white, like the tool and service cards (2026-10-20; Figma had #DFF9FB) */
   border: 1px solid #AFDAE3;
-  padding: 12px 8px;
+  /* Same insets as the tool/service cards (DS Panel: 16px, plus its 8px
+     status-marker gutter on the left) — 2026-10-20, user request. */
+  padding: 16px 16px 16px 18px;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -602,7 +604,7 @@
 .ph-art-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ph-art-card__body { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .ph-art-card__title { margin: 0; font: 600 1.375rem/1.36 'Source Sans Pro', sans-serif; color: #000; }
-.ph-art-card__desc { margin: 0; font: 400 1.125rem/1.28 'Source Sans Pro', sans-serif; color: #000; }
+.ph-art-card__desc { margin: 0; font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif; color: #000; }   /* 18/27, as the tool/service card text */
 
 /* Quiz options as standard DS Checkboxes (2026-10-20, replacing the
    VisualCheckboxCloud pills) — same list as the main Psykisk helse copy:
