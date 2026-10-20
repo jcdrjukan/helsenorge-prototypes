@@ -90,6 +90,8 @@
   /* Two tiles per row since 2026-10-20 (user request); was one full-width column. */
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Every row as tall as the tallest, so a lone short tile (CFS) matches. */
+  grid-auto-rows: 1fr;
   gap: 10px;
 }
 

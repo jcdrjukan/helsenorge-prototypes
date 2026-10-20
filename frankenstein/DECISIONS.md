@@ -263,4 +263,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** "125/79 mmHg".
 **Why:** Direct user request (matches Figma).
 
+
+## 2026-10-20 — Målinger: all summary cards the same height
+**Decision:** The card grid uses equal row heights (`grid-auto-rows: 1fr`). The lone CFS tile in the last row now matches the others instead of shrinking to its content.
+**Alternative considered:** Each row sized to its own content.
+**Why:** Direct user request.
+
 #helsenorge
