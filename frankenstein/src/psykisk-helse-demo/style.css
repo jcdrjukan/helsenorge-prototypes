@@ -235,8 +235,7 @@
      per direct request, like the earlier grey Verktøy box. No top/bottom
      rules: they'd clash with the rounded corners. Grey (listelements
      neutral-light) per direct request, was blueberry-light #E4F7F9. */
-  /* Blueberry-light again (2026-10-20, user request; was grey #F5F3F3). */
-  background: #E4F7F9;
+  background: #f5f3f3;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -592,7 +591,7 @@
    borderless "Les artikkel" — 12px apart. Cards 12px apart. */
 .ph-art-list { gap: 12px; }
 .ph-art-card {
-  background: #fff;   /* white on the blueberry section (2026-10-20; Figma had #DFF9FB) */
+  background: #DFF9FB;
   border: 1px solid #AFDAE3;
   padding: 12px 8px;
   display: flex;

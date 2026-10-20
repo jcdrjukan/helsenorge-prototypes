@@ -220,10 +220,4 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Articles second.
 **Why:** Direct user request.
 
-
-## 2026-10-20 — Psykisk helse demo: blueberry result sections, white article cards
-**Decision:** The three result sections (Selvhjelpsverktøy, Noen å snakke med, Artikler) use blueberry-light #E4F7F9 again (was grey #F5F3F3), and the article cards are white (Figma had #DFF9FB), keeping their #AFDAE3 border.
-**Alternative considered:** Grey sections with light-blue article cards.
-**Why:** Direct user request.
-
 #helsenorge
