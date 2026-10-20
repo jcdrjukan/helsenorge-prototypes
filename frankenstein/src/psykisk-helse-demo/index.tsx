@@ -390,6 +390,12 @@ function ResourceCard({
   );
 }
 
+// "Veiviser til psykisk helsehjelp" link on the front page — hidden for now
+// (2026-10-20, user request) but kept, as it will likely come back: set to
+// true to show it again above "Akutt hjelp". The article page itself is still
+// reachable from the Forside ("Veiviser til psykisk helsehjelp →").
+const VIS_VEIVISER_LENKE = false;
+
 const HASH_TO_VIEW: Record<string, View> = {
   '':           'front',
   '#':          'front',
@@ -598,12 +604,14 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
 
           <div className="ph-front__content ph-front__content--contact">
             <LinkList chevron>
-              <LinkList.Link href="#" icon={<Icon svgIcon={TravelRoute} />} onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
-                <ElementHeader>
-                  <ElementHeader.Text firstText="Veiviser til psykisk helsehjelp" firstTextEmphasised />
-                  <ElementHeader.Text firstText="En oversikt over psykisk helse tjenestetilbud i Norge" subText />
-                </ElementHeader>
-              </LinkList.Link>
+              {VIS_VEIVISER_LENKE && (
+                <LinkList.Link href="#" icon={<Icon svgIcon={TravelRoute} />} onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
+                  <ElementHeader>
+                    <ElementHeader.Text firstText="Veiviser til psykisk helsehjelp" firstTextEmphasised />
+                    <ElementHeader.Text firstText="En oversikt over psykisk helse tjenestetilbud i Norge" subText />
+                  </ElementHeader>
+                </LinkList.Link>
+              )}
               <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>
                 <ElementHeader>
                   <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />

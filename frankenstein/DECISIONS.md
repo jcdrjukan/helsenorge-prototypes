@@ -250,4 +250,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The Figma card's 12px/8px padding and 1.28 line height.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: "Veiviser til psykisk helsehjelp" hidden on the front page (kept in code)
+**Decision:** The "Veiviser til psykisk helsehjelp" LinkList row is removed from the Psykisk helse front page; "Akutt hjelp" remains. The row is kept in index.tsx behind `VIS_VEIVISER_LENKE = false` (set to true to bring it back above "Akutt hjelp"), since it will likely be reintroduced. The article page it opened (#artikkel-psykisk-helse) is still reachable from the Forside's "Veiviser til psykisk helsehjelp →" link.
+**Alternative considered:** Deleting the row outright.
+**Why:** User: remove it from the front page but retain it somewhere.
+
 #helsenorge
