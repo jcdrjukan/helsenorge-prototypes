@@ -208,4 +208,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The tab-style header.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: quiz back to standard checkboxes
+**Decision:** Both quiz steps use the standard DS Checkbox again, one option per row in a list with thin #D6D4D3 dividers (the same as the main Psykisk helse copy), instead of the VisualCheckboxCloud pills (2026-09-22). Answers, the q2 exclusive-option logic and the draft/saved behaviour are unchanged. The old pill CSS (.ph-quiz-cloud--stacked) is left in style.css, unused.
+**Alternative considered:** VisualCheckboxCloud pills.
+**Why:** Direct user request.
+
 #helsenorge

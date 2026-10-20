@@ -603,3 +603,20 @@
 .ph-art-card__body { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .ph-art-card__title { margin: 0; font: 600 1.375rem/1.36 'Source Sans Pro', sans-serif; color: #000; }
 .ph-art-card__desc { margin: 0; font: 400 1.125rem/1.28 'Source Sans Pro', sans-serif; color: #000; }
+
+/* Quiz options as standard DS Checkboxes (2026-10-20, replacing the
+   VisualCheckboxCloud pills) — same list as the main Psykisk helse copy:
+   one option per row, thin #D6D4D3 dividers. */
+.ph-checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  border-top: 1px solid #D6D4D3;
+}
+.ph-checkbox-list li {
+  border-bottom: 1px solid #D6D4D3;
+  padding: 4px 0;
+}

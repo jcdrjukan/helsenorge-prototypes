@@ -8,7 +8,7 @@ import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/P
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
-import VisualCheckboxCloud from '@helsenorge/designsystem-react/components/VisualCheckboxCloud';
+import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
 import Duolist, { DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import AnchorLink from '@helsenorge/designsystem-react/components/AnchorLink';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
@@ -656,18 +656,18 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <ProgressBar step={1} />
           <h1 className="ph-quiz-title">Hvordan går det?</h1>
           <p className="ph-quiz-subtitle">Gjelder noen av disse for deg?</p>
-          <VisualCheckboxCloud className="ph-quiz-cloud--stacked">
+          <ul className="ph-checkbox-list" role="list">
             {Q1_OPTIONS.map(opt => (
-              <VisualCheckboxCloud.Checkbox
-                key={opt.label}
-                inputId={`q1-${opt.label}`}
-                checked={d1.has(opt.label)}
-                onChange={() => toggleQ1(opt.label)}
-              >
-                {opt.label}
-              </VisualCheckboxCloud.Checkbox>
+              <li key={opt.label}>
+                <Checkbox
+                  label={opt.label}
+                  inputId={`q1-${opt.label}`}
+                  checked={d1.has(opt.label)}
+                  onChange={() => toggleQ1(opt.label)}
+                />
+              </li>
             ))}
-          </VisualCheckboxCloud>
+          </ul>
           <div className="ph-quiz-nav">
             <Button variant="fill" arrow="icon" onClick={() => setView('quiz2')}>Neste</Button>
             <Button variant="borderless" onClick={avbryt}>Avbryt</Button>
@@ -680,18 +680,18 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={2} />
           <h1 className="ph-quiz-title">Hva ønsker du å fokusere på nå?</h1>
-          <VisualCheckboxCloud className="ph-quiz-cloud--stacked">
+          <ul className="ph-checkbox-list" role="list">
             {Q2_OPTIONS.map(opt => (
-              <VisualCheckboxCloud.Checkbox
-                key={opt.label}
-                inputId={`q2-${opt.label}`}
-                checked={d2.has(opt.label)}
-                onChange={() => toggleQ2(opt.label, opt.exclusive)}
-              >
-                {opt.label}
-              </VisualCheckboxCloud.Checkbox>
+              <li key={opt.label}>
+                <Checkbox
+                  label={opt.label}
+                  inputId={`q2-${opt.label}`}
+                  checked={d2.has(opt.label)}
+                  onChange={() => toggleQ2(opt.label, opt.exclusive)}
+                />
+              </li>
             ))}
-          </VisualCheckboxCloud>
+          </ul>
           <div className="ph-quiz-nav">
             <Button variant="outline" onClick={() => setView('quiz1')}>
               <Icon svgIcon={ChevronLeft} size={38} />
