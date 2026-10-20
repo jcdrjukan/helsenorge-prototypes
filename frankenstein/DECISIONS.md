@@ -226,4 +226,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The 8px side margin chosen earlier so those buttons would fit side by side.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Forside demo: "Støtte til din situasjon" as small Tiles
+**Decision:** The cards under "Støtte til din situasjon" (Gravid; Psykisk helse once the veiviser is completed) are now the same DS Tile, size and grid as the three under "Tjenester" (Figma Psykisk helse 417:4671): white with a teal border, 48px icon, centred 18px title, three columns. The description line ("Følg svangerskapet ditt uke for uke.") and the hand-rolled card styles are no longer used. Gravid's tile does nothing (no prototype on this branch); Psykisk helse opens the tjeneste. "Psykisk helse" wraps to two lines, so that row is a little taller than the Tjenester row.
+**Alternative considered:** The larger hand-rolled cards with icon circle and description.
+**Why:** Direct user request.
+
 #helsenorge

@@ -87,36 +87,25 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps
           <h1 className="fs-h1">Hva ser du etter?</h1>
 
           {/* ── Støtte til din situasjon ──────────────────────────────
-              Hand-rolled placeholder cards after the Figma sketch (node
-              239:3681 in the Psykisk helse file) — icon circle, optional
-              "new content" badge, title/description, optional teaser
-              bullets. Not a real Frankenstein component yet; which
-              design-system pieces these become is still TBD. ─────────── */}
+              Same DS Tile and grid as "Tjenester" below (2026-10-20, user
+              request; Figma Psykisk helse 417:4671): icon + title only.
+              Gravid has no prototype on this branch, so its tile does
+              nothing; Psykisk helse opens the tjeneste. ──────────────── */}
           {situasjonTjenester.length > 0 && (
             <section>
               <h2 className="fs-section-title">Støtte til din situasjon</h2>
-              <div className="fs-situasjon-grid">
+              <div className="fs-tile-grid">
                 {situasjonTjenester.map(t => (
-                  <button
+                  <Tile
                     key={t.id}
-                    type="button"
-                    className="fs-situasjon-card"
-                    onClick={() => {
+                    href="#"
+                    icon={<Icon svgIcon={t.icon} />}
+                    title={<Tile.Title>{t.label}</Tile.Title>}
+                    onClick={e => {
+                      e.preventDefault();
                       if (t.hasPrototype) onGoToTjeneste(t.id);
                     }}
-                  >
-                    {t.badge && <span className="fs-situasjon-card__badge">{t.badge}</span>}
-                    <span className="fs-situasjon-card__icon">
-                      <Icon svgIcon={t.icon} size={32} />
-                    </span>
-                    <span className="fs-situasjon-card__title">{t.label}</span>
-                    <span className="fs-situasjon-card__desc">{t.description}</span>
-                    {t.teaser && (
-                      <ul className="fs-situasjon-card__teaser">
-                        {t.teaser.map((line, i) => <li key={i}>{line}</li>)}
-                      </ul>
-                    )}
-                  </button>
+                  />
                 ))}
               </div>
             </section>
