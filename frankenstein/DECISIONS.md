@@ -280,4 +280,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Topic-based photos (neighbouring articles often shared one).
 **Why:** User: avoid reusing the same photo for multiple articles; they're only example images.
 
+
+## 2026-10-20 — Psykisk helse demo: cherry-toned Artikler illustration
+**Decision:** The Artikler section's "learning" illustration is replaced with the cherry-toned version from Figma 419:18982 (was blue/teal), so it matches the section's cherry colour. Same size and position; band, blob and heading unchanged. (The Figma frame still has a blueberry border on the content area; the prototype keeps the cherry border #EEC0A5.)
+**Alternative considered:** The blue/teal illustration.
+**Why:** User request with the updated Figma section.
+
 #helsenorge
