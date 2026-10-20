@@ -87,8 +87,9 @@
 /* Single column, not a 2-up grid — at real body-text sizes a name like
    "Blodtrykk (over)" doesn't have room to breathe in a half-width tile. */
 .md-cards {
-  display: flex;
-  flex-direction: column;
+  /* Two tiles per row since 2026-10-20 (user request); was one full-width column. */
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 10px;
 }
 
@@ -103,6 +104,10 @@
   color: inherit;
   cursor: pointer;
   font-family: 'Source Sans Pro', sans-serif;
+  /* Buttons centre their content vertically; keep tiles in a row top-aligned. */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 .md-card:hover {
   border-color: var(--core-color-neutral-400, #aaa8a6);
@@ -113,16 +118,19 @@
 }
 .md-card__label {
   /* Same style as the measurement used to have (--mobile-h4-title4,
-     SemiBold, black) — 2026-10-21, user request; was grey body text. */
+     SemiBold, black) — 2026-10-20, user request; was grey body text. */
   font: 600 1.25rem/1.3 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
+  /* Half-width tiles: long names (Oksygenmetning) hyphenate instead of overflowing. */
+  hyphens: auto;
+  overflow-wrap: anywhere;
 }
 .md-card__value {
   /* --mobile-h4-title4 — bolder/larger than body so the actual reading
      stands out as the one thing on the card most worth reading at a
      glance. */
-  /* Normal weight since 2026-10-21 (user request); same size as the title. */
+  /* Normal weight since 2026-10-20 (user request); same size as the title. */
   font: 400 1.25rem/1.3 'Source Sans Pro', sans-serif;
   margin: 4px 0 0;
   color: #000;

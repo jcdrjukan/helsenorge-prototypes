@@ -653,7 +653,7 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
 
         <section>
           <h2 className="md-section-title">Siste målinger</h2>
-          <div className="md-cards">
+          <div className="md-cards" lang="nb">
             {SERIES.map(s => (
               <LatestCard key={s.id} series={s} onSelect={selectFromCard} />
             ))}

@@ -245,4 +245,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Previous hierarchy — grey regular title, bold measurement.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Målinger: summary cards two per row
+**Decision:** The cards at the top of Målinger are half-width tiles in a two-column grid (was one full-width card per row). Tile content is top-aligned so tiles sharing a row line up, and long titles hyphenate (Oksygen-metning) instead of running past the card edge — the card list carries `lang="nb"` for Norwegian hyphenation.
+**Alternative considered:** One full-width card per row.
+**Why:** Direct user request.
+
 #helsenorge
