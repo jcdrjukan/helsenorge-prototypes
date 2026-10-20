@@ -298,4 +298,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** A cherry outline on the article cards.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: "Ta quiz på nytt" → "Endre svarene dine"
+**Decision:** The outline button below the results now reads "Endre svarene dine". Behaviour unchanged: the quiz still starts with empty selections, and if it's aborted the previous results are kept.
+**Alternative considered:** "Ta quiz på nytt".
+**Why:** Direct user request.
+
 #helsenorge

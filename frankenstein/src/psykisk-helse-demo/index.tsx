@@ -782,7 +782,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <div>
             <Button variant="outline" onClick={retake}>
               <Icon svgIcon={ArrowLeft} size={38} />
-              Ta quiz på nytt
+              Endre svarene dine
             </Button>
           </div>
 
