@@ -220,4 +220,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Articles second.
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: 1rem between result cards and as the section side margin
+**Decision:** In all three result sections the cards are 1rem (16px) apart and have 1rem of the section's grey on either side (was 8px sides; articles were 12px apart). Consequence: the two buttons on the "Noen å snakke med" cards ("Åpne chat", "Ring oss") no longer fit on one row and now stack.
+**Alternative considered:** The 8px side margin chosen earlier so those buttons would fit side by side.
+**Why:** Direct user request.
+
 #helsenorge

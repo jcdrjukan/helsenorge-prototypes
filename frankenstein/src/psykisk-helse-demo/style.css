@@ -263,10 +263,10 @@
 .ph-tool-section__list {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-  /* 8px sides (aligned with the header's 8px inset) so the inset section
-     still leaves room for two buttons side by side in the service cards. */
-  padding: 12px 8px 16px;
+  /* 1rem between cards and 1rem of grey either side (2026-10-20, user
+     request; was 8px sides). */
+  gap: 1rem;
+  padding: 12px 1rem 1rem;
 }
 /* Tool card: square corners and a light-grey border, per the design. */
 .ph-tool-card {
@@ -589,7 +589,7 @@
    1px #AFDAE3 border, 12px/8px padding, 16px between photo and text;
    214px cover photo; title3 (22/1.36), 18/1.28 description, tags,
    borderless "Les artikkel" — 12px apart. Cards 12px apart. */
-.ph-art-list { gap: 12px; }
+.ph-art-list { gap: 1rem; }   /* same 1rem as the other sections (Figma had 12px) */
 .ph-art-card {
   background: #DFF9FB;
   border: 1px solid #AFDAE3;
