@@ -292,4 +292,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Blueberry outline (left over from the Figma card on a blue background).
 **Why:** Direct user request.
 
+
+## 2026-10-20 — Psykisk helse demo: neutral outline on all result cards
+**Decision:** All result cards — Verktøy, Artikler and Noen å snakke med — have the neutral #D6D4D3 outline. Only the article cards changed (cherry #EEC0A5 since earlier today); the tool and service cards already had it. Section borders keep their own colours.
+**Alternative considered:** A cherry outline on the article cards.
+**Why:** Direct user request.
+
 #helsenorge

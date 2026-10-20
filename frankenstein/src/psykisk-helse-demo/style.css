@@ -592,7 +592,7 @@
 .ph-art-list { gap: 1rem; }   /* same 1rem as the other sections (Figma had 12px) */
 .ph-art-card {
   background: #fff;   /* white, like the tool and service cards (2026-10-20; Figma had #DFF9FB) */
-  border: 1px solid #EEC0A5;   /* cherry outline, matching the cherry Artikler section (was blueberry #AFDAE3) */
+  border: 1px solid #D6D4D3;   /* neutral outline, same as the tool and service cards (2026-10-20; was cherry, before that blueberry) */
   /* Same insets as the tool/service cards (DS Panel: 16px, plus its 8px
      status-marker gutter on the left) — 2026-10-20, user request. */
   padding: 16px 16px 16px 18px;
