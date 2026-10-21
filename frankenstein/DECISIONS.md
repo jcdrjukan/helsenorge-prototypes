@@ -322,4 +322,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Situasjonstjenester".
 **Why:** Direct user request (applied to all three front pages by choice).
 
+
+## 2026-10-21 — Psykisk helse demo: photos removed from the front page (kept behind a switch)
+**Decision:** The two photos on the Psykisk helse front page are hidden: ph-hero-dark.jpg under the title and ph-hero-warm.jpg above "Om tjenesten". They sit behind `VIS_FORSIDEBILDER = false` in `psykisk-helse-demo/index.tsx`; set it to true to bring them back. The image files and their CSS are untouched. The same two photos are still used as article images on the results page.
+**Alternative considered:** Deleting the photos outright.
+**Why:** Direct user request, keeping them available in case they're reintroduced.
+
 #helsenorge

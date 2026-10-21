@@ -406,6 +406,12 @@ function ResourceCard({
 // reachable from the Forside ("Veiviser til psykisk helsehjelp →").
 const VIS_VEIVISER_LENKE = false;
 
+// The two photos on the Psykisk helse front page (ph-hero-dark.jpg under the
+// title, ph-hero-warm.jpg above "Om tjenesten") — hidden since 2026-10-21
+// (user request) but kept: set to true to bring them back. The image files
+// and their CSS stay in place.
+const VIS_FORSIDEBILDER = false;
+
 const HASH_TO_VIEW: Record<string, View> = {
   '':           'front',
   '#':          'front',
@@ -584,7 +590,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <h1 className="ph-hero-title">Psykisk helse</h1>
           </div>
 
-          <div className="ph-front__hero ph-front__hero--dark" aria-hidden="true" />
+          {VIS_FORSIDEBILDER && <div className="ph-front__hero ph-front__hero--dark" aria-hidden="true" />}
 
           <div className="ph-front__content">
             <p className="ph-preamble">
@@ -595,7 +601,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </Button>
           </div>
 
-          <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />
+          {VIS_FORSIDEBILDER && <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />}
 
           <div className="ph-front__content">
             <h2 className="ph-front__section-title">Om tjenesten Psykisk helse</h2>
