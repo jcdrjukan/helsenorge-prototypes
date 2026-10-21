@@ -334,4 +334,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Previous texts.
 **Why:** Direct user request.
 
+
+## 2026-10-21 — Psykisk helse demo: "Sliter med angst eller fobier" → "Bekymrer meg mye"
+**Decision:** The step 1 option now reads "Bekymrer meg mye". It still carries the `angst` tag, so results are unchanged. This matches step 2's "Bekymringer og uro". The original psykisk-helse prototype keeps the old wording.
+**Alternative considered:** "Sliter med angst eller fobier".
+**Why:** Direct user request.
+
 #helsenorge

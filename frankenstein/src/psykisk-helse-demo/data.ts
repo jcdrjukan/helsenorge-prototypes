@@ -61,7 +61,7 @@ export interface QuizOption {
 
 export const Q1_OPTIONS: QuizOption[] = [
   { label: 'Sover dårlig', tag: 'sove-bedre' },
-  { label: 'Sliter med angst eller fobier', tag: 'angst' },
+  { label: 'Bekymrer meg mye', tag: 'angst' },
   { label: 'Er nedstemt eller trist', tag: 'nedstemthet' },
   { label: 'Er stressa', tag: 'stress' },
 ];
