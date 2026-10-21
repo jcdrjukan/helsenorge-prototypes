@@ -242,6 +242,12 @@ All three now point to the same action: take DHG into use and share information 
 **Alternative considered:** Keeping the sentence above a generic "Se personverninnstillinger" link.
 **Why:** User asked whether the sentence was necessary; it mostly repeated the link. Shorter modal, same meaning, still no promise that the reservation can be changed.
 
+
+## 2026-10-21 — Front page: "Situasjonstjenester" → "Støtte til situasjon"
+**Decision:** The services group under "Se alle tjenester" (Psykisk helse, Gravid, Småbarnsliv) is now headed "Støtte til situasjon" on every front page: the Psykisk helse demo's Forside, the Frankenstein Forside, and the Gravid onboarding (dhg-onboarding) scenario 1, 3 and 4 front pages. Position unchanged; on the Frankenstein Forside it's still last.
+**Alternative considered:** "Situasjonstjenester".
+**Why:** Direct user request (applied to all three front pages by choice).
+
 #helsenorge
 
 ## 2026-10-09 — Working language picker on the Varsler pages
