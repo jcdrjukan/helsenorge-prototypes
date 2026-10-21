@@ -310,4 +310,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Goal-phrased options ("Sove bedre", "Håndtere stress på en bedre måte" …).
 **Why:** Direct user request.
 
+
+## 2026-10-21 — Psykisk helse demo: new results ingress
+**Decision:** The results page ingress now reads "Basert på svarene dine kan disse verktøyene og artiklene være nyttige for deg. Du velger selv hva du vil bruke. Verktøyene og artiklene er kvalitetssikret av Helsenorge." The typo "Verkøyene" in the requested text was corrected. The old last sentence ("Dine resultater lagres fram til du avslutter tjenesten eller tar veiviseren på nytt.") is gone, and the two identical isEmpty branches collapse into one text.
+**Alternative considered:** "…disse ressursene… Du bestemmer selv… Alle ressurser er kvalitetssikret… Dine resultater lagres…".
+**Why:** Direct user request.
+
 #helsenorge

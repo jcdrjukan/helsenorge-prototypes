@@ -729,9 +729,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               Psykisk helse
             </h1>
             <p className="ph-results-intro">
-              {results.isEmpty
-                ? 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge. Dine resultater lagres fram til du avslutter tjenesten eller tar veiviseren på nytt.'
-                : 'Basert på svarene dine kan disse ressursene være nyttige for deg. Du bestemmer selv hva du vil bruke. Alle ressurser er kvalitetssikret av Helsenorge. Dine resultater lagres fram til du avslutter tjenesten eller tar veiviseren på nytt.'}
+              Basert på svarene dine kan disse verktøyene og artiklene være nyttige for deg. Du velger selv hva du vil bruke. Verktøyene og artiklene er kvalitetssikret av Helsenorge.
             </p>
           </div>
 
