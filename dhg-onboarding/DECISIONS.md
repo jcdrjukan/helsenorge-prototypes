@@ -248,3 +248,8 @@ All three now point to the same action: take DHG into use and share information 
 **Decision:** The placeholder Språk/Language button (scenario-1-varsel.html, scenario-4-varsel.html) is replaced by the working language picker from the Prøvesvar prototype: Dropdown toggle (teal globe + chevron) that opens a SingleSelect list (Bokmål, Nynorsk, English); choosing marks the language and announces "Språk endret til …" (page text doesn't change); Esc or a click outside closes it. Shared as `sprakvelger.css` + `sprakvelger.js` in the folder, filling a `data-sprakvelger` container.
 **Alternative considered:** Keeping the inert placeholder.
 **Why:** Direct user request: swap the openable picker in wherever the language selector was only a placeholder.
+
+## 2026-10-21 — Situasjonstjenester moved up on the front page
+**Decision:** In the expanded "Se alle tjenester" list on every front-page scenario (1, 3, 4), Situasjonstjenester (Psykisk helse, Gravid, Småbarnsliv) now sits between Oversikter and Søknad og refusjon; it was last, after Kvalitet og styring. Same order as the Frankenstein forside demo.
+**Alternative considered:** Situasjonstjenester last.
+**Why:** Direct user request.
