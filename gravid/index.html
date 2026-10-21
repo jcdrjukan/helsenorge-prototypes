@@ -1188,6 +1188,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   color: var(--color-action-text-onlight);
   margin-top: var(--space-s);
 }
+.forlop-cta[hidden] { display: none; }
 .forlop-cta__icon { width: 38px; height: 38px; flex-shrink: 0; }
 .forlop-cta__text { font: var(--mobile-label); }
 
@@ -2309,7 +2310,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
         </div>
       </li>
     </ul>
-    <a class="forlop-cta" href="#">
+    <a class="forlop-cta" id="seTimeavtalerLink" href="#">
       <svg class="forlop-cta__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M38.887 16.71H8.6v-6.197h3.862v1.17c0 1.223.994 2.216 2.216 2.216a2.218 2.218 0 002.215-2.215v-1.171h13.582v1.17c0 1.223.994 2.216 2.215 2.216a2.218 2.218 0 002.216-2.215v-1.171h3.982v6.197zM8.6 34.46h30.288V17.974H8.6V34.46zm5.125-26.17a.953.953 0 011.905 0v3.394a.953.953 0 01-1.905 0V8.289zm18.013 0a.953.953 0 011.905 0v3.394a.953.953 0 01-1.905 0V8.289zm3.168.96v-.96a2.218 2.218 0 00-2.216-2.216 2.218 2.218 0 00-2.215 2.215v.96H16.892v-.96a2.218 2.218 0 00-2.215-2.215 2.218 2.218 0 00-2.216 2.215v.96H7.336v26.475h32.815V9.249h-5.246zM27.67 28.292a1.508 1.508 0 100-3.016 1.508 1.508 0 000 3.016z"/></svg>
       <span class="forlop-cta__text">Se timeavtaler</span>
       <svg class="forlop-cta__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="m27.075 9.718-1.443 1.739L35.636 22.77H8.456v2.46h27.18L25.632 36.539l1.443 1.742 12.47-14.28-12.47-14.283Z"/></svg>
@@ -3218,7 +3219,13 @@ setTermindatoState(initialTermindatoState);
 applyRegisteredTermindato();
 wireTermindatoLinks();
 setSfSectionVisibility(initialConnected);
-setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap, !initialConnected);
+// andres=1: she chose "Noen andres svangerskap" — following someone
+// else's pregnancy. The "uten digitalt helsekort" message and "Se
+// timeavtaler" are about her own care, so neither is shown (2026-10-21).
+// URL-only, like dokumenter, and carried along by location.search.
+const isAndresSvangerskap = dashboardParams.get('andres') === '1';
+setBlueberryPanels(initialPanelHelsekort, initialPanelFarskap, !initialConnected && !isAndresSvangerskap);
+document.getElementById('seTimeavtalerLink').hidden = isAndresSvangerskap;
 document.getElementById('utenHelsekortMerBtn').addEventListener('click', function () {
   const open = this.getAttribute('aria-expanded') !== 'true';
   this.setAttribute('aria-expanded', String(open));

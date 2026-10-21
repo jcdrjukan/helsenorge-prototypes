@@ -761,7 +761,9 @@ document.getElementById('activateBtn').href =
 // above). "Noen andres svangerskap" (following someone else's pregnancy)
 // goes straight to Gravid without digitalt helsekort — with the "Del
 // opplysninger" panel explicitly off (panelHelsekort=0): she isn't
-// pregnant herself, so there's nothing of hers to share. (The "Du kan
+// pregnant herself, so there's nothing of hers to share. andres=1 also
+// hides the "Du bruker Gravid uten digitalt helsekort" message and the
+// "Se timeavtaler" link on the dashboard (2026-10-21). (The "Du kan
 // dessverre ikke få et digitalt helsekort" modal moved to scenario 2b,
 // Kjernejournal-reservasjon, 2026-10-06.)
 // Avbryt, ✕, Esc or a click on the grey mask closes it.
@@ -770,7 +772,7 @@ document.getElementById('activateBtn').href =
   const activateBtn = document.getElementById('activateBtn');
   const screen = document.querySelector('.phone-frame__screen');
   document.getElementById('gmSelf').href = activateBtn.href;
-  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0' +
+  document.getElementById('gmOther').href = 'index.html?uke=1&tilknyttet=0&termindato=none&panelHelsekort=0&dokumenter=0&andres=1' +
     (kilde ? '&kilde=' + encodeURIComponent(kilde) : '');
   let current = null;
   let lastFocus = null;

@@ -224,4 +224,10 @@ A text-position comparison against the pre-change version found nothing else tha
 **Alternative considered:** Keeping the icon (added 2026-10-07).
 **Why:** Direct user request.
 
+
+## 2026-10-21 — "Noen andres svangerskap": no "uten digitalt helsekort" message, no "Se timeavtaler"
+**Decision:** Choosing "Noen andres svangerskap" in the "Er du gravid selv?" modal now adds `andres=1` to the Gravid link. With it, the dashboard hides the "Du bruker Gravid uten digitalt helsekort" message and the "Se timeavtaler" link under the forløp. Both are about her own care, and she's following someone else's pregnancy. The flag lives only in the URL (like `dokumenter`) and is carried to the subpages via `location.search`. Every other entry route still shows both.
+**Alternative considered:** Same dashboard as for her own pregnancy without digitalt helsekort.
+**Why:** Direct user request.
+
 #helsenorge
