@@ -171,7 +171,7 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps
                         Pure navigation, same plain-row layout as the others. */}
                     {group.heading === 'Oversikter' && (
     <div className="fs-tjeneste-group">
-                      <h2 className="fs-section-title">Situasjonstjenester</h2>
+                      <h2 className="fs-section-title">Støtte til situasjon</h2>
                       <LinkList variant="line" color="white" chevron>
                         {VALGBARE_TJENESTER.map(t => (
                           <LinkList.Link

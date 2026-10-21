@@ -316,4 +316,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "…disse ressursene… Du bestemmer selv… Alle ressurser er kvalitetssikret… Dine resultater lagres…".
 **Why:** Direct user request.
 
+
+## 2026-10-21 — Front page: "Situasjonstjenester" → "Støtte til situasjon"
+**Decision:** The services group under "Se alle tjenester" (Psykisk helse, Gravid, Småbarnsliv) is now headed "Støtte til situasjon" on every front page: the Psykisk helse demo's Forside, the Frankenstein Forside, and the Gravid onboarding (dhg-onboarding) scenario 1, 3 and 4 front pages. Position unchanged; on the Frankenstein Forside it's still last.
+**Alternative considered:** "Situasjonstjenester".
+**Why:** Direct user request (applied to all three front pages by choice).
+
 #helsenorge
