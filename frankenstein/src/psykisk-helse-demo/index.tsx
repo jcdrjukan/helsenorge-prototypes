@@ -597,7 +597,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon.
             </p>
             <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
-              Finn verktøy og informasjon som passer for deg
+              Finn verktøy og informasjon tilpasset din situasjon
             </Button>
           </div>
 
@@ -756,7 +756,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           {results.artikler.length > 0 && (
             <section className="ph-tool-section ph-sec ph-sec--cherry" aria-labelledby="ph-article-section-title">
               <SectionVisual blob="/ph-sec-blob-cherry.svg" illu="/ph-sec-illu-artikler.svg" variant="artikler" />
-              <h2 className="ph-tool-section__title" id="ph-article-section-title">Artikler</h2>
+              <h2 className="ph-tool-section__title" id="ph-article-section-title">Lesestoff</h2>
               <ul className="ph-resource-list ph-tool-section__list ph-art-list">
                 {results.artikler.map((r, i) => (
                   <li key={r.id}>

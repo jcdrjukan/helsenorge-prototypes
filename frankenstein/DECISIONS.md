@@ -328,4 +328,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Deleting the photos outright.
 **Why:** Direct user request, keeping them available in case they're reintroduced.
 
+
+## 2026-10-21 — Psykisk helse demo: front-page button text; "Artikler" → "Lesestoff"
+**Decision:** The front page's main button now reads "Finn verktøy og informasjon tilpasset din situasjon" (was "…som passer for deg"). The results section "Artikler" is now headed "Lesestoff". The request said "Lesestøff", corrected to the standard spelling "Lesestoff". Section colour and illustration (cherry) are unchanged.
+**Alternative considered:** Previous texts.
+**Why:** Direct user request.
+
 #helsenorge
