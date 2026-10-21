@@ -740,7 +740,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           </div>
 
           {results.verktøy.length > 0 && (
-            <section className="ph-tool-section ph-sec ph-sec--blueberry" aria-labelledby="ph-tool-section-title">
+            <section className="ph-tool-section ph-sec ph-sec--blueberry ph-sec--verktoy" aria-labelledby="ph-tool-section-title">
               <SectionVisual blob="/ph-sec-blob-blueberry.svg" illu="/ph-sec-illu-verktoy.svg" variant="verktoy" />
               <h2 className="ph-tool-section__title" id="ph-tool-section-title">Verktøy</h2>
               <ul className="ph-resource-list ph-tool-section__list">

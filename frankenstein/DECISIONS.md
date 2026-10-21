@@ -340,4 +340,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Sliter med angst eller fobier".
 **Why:** Direct user request.
 
+
+## 2026-10-21 — Psykisk helse demo: 3rem less space above Verktøy
+**Decision:** The Verktøy section on the results page sits 3rem (48px) higher (`.ph-sec--verktoy { margin-top: -3rem }`). This cancels the page's 48px gap after the ingress, so the section's illustration area starts right below the ingress text. The illustration keeps its own top padding. The spacing between the result sections is unchanged.
+**Alternative considered:** 48px gap above every section.
+**Why:** Direct user request.
+
 #helsenorge

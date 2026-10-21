@@ -630,6 +630,9 @@
 .ph-sec { --sec-bg: #F5F3F3; --sec-border: #D6D4D3; background: none; border-radius: 0; overflow: visible; }
 .ph-sec--blueberry { --sec-bg: #E4F7F9; --sec-border: #AFDAE3; }
 .ph-sec--cherry    { --sec-bg: #FFF2EA; --sec-border: #EEC0A5; }
+/* 3rem less space above Verktøy (2026-10-21, user request): cancels the
+   page's 48px gap between the ingress and this section. */
+.ph-sec--verktoy { margin-top: -3rem; }
 .ph-sec__visual { position: relative; height: 200px; display: flex; align-items: flex-end; }
 .ph-sec__visual .ph-sec__band { width: 100%; height: 100px; }
 .ph-sec__band { background: var(--sec-bg); border: 1px solid var(--sec-border); border-bottom: 0; box-sizing: border-box; }
