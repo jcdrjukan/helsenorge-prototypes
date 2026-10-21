@@ -673,7 +673,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={1} />
           <h1 className="ph-quiz-title">Hvordan går det?</h1>
-          <p className="ph-quiz-subtitle">Gjelder noen av disse for deg?</p>
+          <p className="ph-quiz-subtitle">Gjelder noe av dette for deg?</p>
           <ul className="ph-checkbox-list" role="list">
             {Q1_OPTIONS.map(opt => (
               <li key={opt.label}>
@@ -697,7 +697,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
       {view === 'quiz2' && (
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={2} />
-          <h1 className="ph-quiz-title">Hva ønsker du å fokusere på nå?</h1>
+          <h1 className="ph-quiz-title">Hva ønsker du å fokusere på?</h1>
           <ul className="ph-checkbox-list" role="list">
             {Q2_OPTIONS.map(opt => (
               <li key={opt.label}>

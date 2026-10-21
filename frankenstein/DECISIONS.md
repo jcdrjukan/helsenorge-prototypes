@@ -304,4 +304,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Ta quiz på nytt".
 **Why:** Direct user request.
 
+
+## 2026-10-21 — Psykisk helse demo: quiz step 1 and 2 texts
+**Decision:** Step 1's subtitle now reads "Gjelder noe av dette for deg?" (was "Gjelder noen av disse for deg?"). Step 2's heading reads "Hva ønsker du å fokusere på?" (dropped "nå"). Its options are short topic labels: Bekymringer og uro (angst), Humør (nedstemthet), Søvn, Stress, Alkohol, rusmidler og tobakk, Pengespilling, Psykisk helse generelt (generell-mestring). Each keeps the tag of the goal-phrased option it replaces, so results scoring is unchanged. "Føle meg mindre ensom eller styrke relasjonene mine" (ensomhet-relasjoner) isn't in the new list, so it's gone. The user's list was lowercase; labels were given a capital first letter.
+**Alternative considered:** Goal-phrased options ("Sove bedre", "Håndtere stress på en bedre måte" …).
+**Why:** Direct user request.
+
 #helsenorge

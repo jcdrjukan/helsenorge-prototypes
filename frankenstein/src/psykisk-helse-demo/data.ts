@@ -66,15 +66,16 @@ export const Q1_OPTIONS: QuizOption[] = [
   { label: 'Er stressa', tag: 'stress' },
 ];
 
+// Short topic labels since 2026-10-21 (user request); "Føle meg mindre
+// ensom eller styrke relasjonene mine" (ensomhet-relasjoner) was dropped.
 export const Q2_OPTIONS: QuizOption[] = [
-  { label: 'Bli mindre plaget av bekymringer og angst', tag: 'angst' },
-  { label: 'Være mindre trist eller nedstemt', tag: 'nedstemthet' },
-  { label: 'Sove bedre', tag: 'sove-bedre' },
-  { label: 'Håndtere stress på en bedre måte', tag: 'stress' },
-  { label: 'Endre forholdet mitt til alkohol, rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
-  { label: 'Få bedre kontroll på pengespillingen', tag: 'spilleavhengighet' },
-  { label: 'Føle meg mindre ensom eller styrke relasjonene mine', tag: 'ensomhet-relasjoner' },
-  { label: 'Styrke den psykiske helsa mi', tag: 'generell-mestring' },
+  { label: 'Bekymringer og uro', tag: 'angst' },
+  { label: 'Humør', tag: 'nedstemthet' },
+  { label: 'Søvn', tag: 'sove-bedre' },
+  { label: 'Stress', tag: 'stress' },
+  { label: 'Alkohol, rusmidler og tobakk', tag: 'rus-og-avhengighet' },
+  { label: 'Pengespilling', tag: 'spilleavhengighet' },
+  { label: 'Psykisk helse generelt', tag: 'generell-mestring' },
 ];
 
 const FALLBACK_IDS = [
