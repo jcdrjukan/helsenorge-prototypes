@@ -5,7 +5,6 @@ import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Select from '@helsenorge/designsystem-react/components/Select';
 import VisualCheckboxCloud from '@helsenorge/designsystem-react/components/VisualCheckboxCloud/VisualCheckboxCloud';
-import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel/NotificationPanel';
 import EmptyState from '@helsenorge/designsystem-react/components/EmptyState/EmptyState';
 import Expander from '@helsenorge/designsystem-react/components/Expander/Expander';
 // This subpath's own .d.ts only declares the default export (a packaging
@@ -651,10 +650,6 @@ export default function Maledata({ onNavigateHome }: MaledataProps) {
         <p className="md-ingress">
           Her ser du målingene dine over tid, sammen med målområdene som er satt for deg.
         </p>
-
-        <NotificationPanel variant="info" fluid className="md-followup-panel">
-          <p style={{ margin: 0, fontWeight: 400 }}>Din behandler tar kontakt dersom dine målinger krever noe oppfølging</p>
-        </NotificationPanel>
 
         <section>
           <h2 className="md-section-title">Siste målinger</h2>

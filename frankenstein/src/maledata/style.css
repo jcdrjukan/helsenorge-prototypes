@@ -70,10 +70,6 @@
    NOT styled as part of the ingress. It's per-patient configuration
    (municipal home care and its hours in the pilot), not general service
    copy, so it gets an infobox treatment instead. */
-.md-followup-panel {
-  margin-top: 4px;
-}
-
 .md-section-title {
   /* Matches --mobile-h3-title3 (600/1.375rem/136%) — the same numbers
      pasientens-planer, sykdom-kritisk-info and legemiddelliste all

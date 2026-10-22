@@ -287,4 +287,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** "Situasjonstjenester".
 **Why:** Direct user request (applied to all three front pages by choice).
 
+
+## 2026-10-22 — Målinger: "Din behandler tar kontakt…" info message removed
+**Decision:** The info NotificationPanel under the ingress ("Din behandler tar kontakt dersom dine målinger krever noe oppfølging") is gone, along with its `.md-followup-panel` style. "Siste målinger" now follows the ingress directly. The vault note (Måledata.md §8) wants a per-patient "who is following this up" statement above the numbers; the removed text was generic, so for now nothing stands in that spot.
+**Alternative considered:** Keeping the generic message.
+**Why:** Direct user request.
+
 #helsenorge
