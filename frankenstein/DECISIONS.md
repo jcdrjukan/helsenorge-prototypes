@@ -293,4 +293,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Keeping the generic message.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Behandlingshjelpemidler: note under shared forbruksmateriell in the order form
+**Decision:** Forbruksmateriell that fits several utstyr has the same ID, so it's listed under each of them. In "Velg antall forbruksmateriell", once any occurrence of such an item has a quantity above 0, every occurrence that isn't "Allerede bestilt" gets a compact info NotificationPanel under its row (Figma 133:915; basic style, 16/24 regular): "Denne forbruksvaren passer også til {other utstyr's model} og vises derfor der også. Du bestiller {total} stk til sammen." The total is the sum of the quantities across all occurrences. The prototype matches occurrences by name, which stands in for the shared ID. In the demo data that covers both nesekateter (Inogen Rove 6 / EverFlo Q) and Plaster film PodPals (OmniPod 5 PDM / OmniPod DASH PDM). Three or more utstyr would be listed as "A, B og C". Quantities per occurrence are still independent.
+**Alternative considered:** One synced quantity shared by every occurrence.
+**Why:** Direct user request (Figma), to reduce confusion over the same item showing up more than once.
+
 #helsenorge

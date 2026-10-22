@@ -5,6 +5,7 @@ import Icon from '@helsenorge/designsystem-react/components/Icon';
 import TreatmentAids from '@helsenorge/designsystem-react/components/Icons/TreatmentAids';
 import { IconSize } from '@helsenorge/designsystem-react/constants';
 import Button from '@helsenorge/designsystem-react/components/Button';
+import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import type { Equipment } from './data';
 
@@ -72,6 +73,28 @@ export default function Step1({
 
   const [openIds, setOpenIds] = useState<Set<string>>(initOpenIds);
 
+  // Forbruksmateriell that fits several utstyr has the same ID, so it's
+  // listed under each of them. Group the occurrences by name (the prototype's
+  // stand-in for that shared ID) so each row can say where else it's shown
+  // and how many are ordered in total (Figma 133:915, 2026-10-22).
+  const occurrences = new Map<string, { eq: Equipment; idx: number }[]>();
+  for (const eq of activeEquipment) {
+    eq.consumables.forEach((c, idx) => {
+      const list = occurrences.get(c.name) ?? [];
+      list.push({ eq, idx });
+      occurrences.set(c.name, list);
+    });
+  }
+  const sharedNote = (eq: Equipment, name: string): string | null => {
+    const list = occurrences.get(name) ?? [];
+    if (list.length < 2) return null;
+    const total = list.reduce((sum, o) => sum + ((quantities[o.eq.id] ?? [])[o.idx] ?? 0), 0);
+    if (total === 0) return null;
+    const others = list.filter(o => o.eq.id !== eq.id).map(o => o.eq.model);
+    const otherText = others.length > 1 ? `${others.slice(0, -1).join(', ')} og ${others[others.length - 1]}` : others[0];
+    return `Denne forbruksvaren passer også til ${otherText} og vises derfor der også. Du bestiller ${total} stk til sammen.`;
+  };
+
   const totalSelected = Object.values(quantities).reduce(
     (sum, arr) => sum + arr.reduce((a, b) => a + b, 0),
     0
@@ -128,6 +151,7 @@ export default function Step1({
               {eq.consumables.map((c, i) => {
                 const qty = eqQtys[i] ?? 0;
                 const isActive = isInActiveOrder(eq.id, i);
+                const note = isActive ? null : sharedNote(eq, c.name);
 
                 return (
                   <div className="order-consumable-row" key={i}>
@@ -159,6 +183,13 @@ export default function Step1({
                         <StatusDot variant="inprocess" text="Allerede bestilt" />
                       )}
                     </div>
+                    {note && (
+                      <div className="order-consumable-row__shared">
+                        <NotificationPanel variant="info" compactVariant="basic" fluid>
+                          {note}
+                        </NotificationPanel>
+                      </div>
+                    )}
                   </div>
                 );
               })}

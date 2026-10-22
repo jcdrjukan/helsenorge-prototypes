@@ -456,6 +456,7 @@
    ===================================================================== */
 .order-consumable-row {
   display: flex;
+  flex-wrap: wrap; /* lets the shared-item note drop below the row */
   align-items: center;
   gap: var(--space-s);
   padding: var(--space-xs) 0;
@@ -469,6 +470,15 @@
 .order-consumable-row__info {
   flex: 1;
   min-width: 0;
+}
+
+/* "Denne forbruksvaren passer også til …" note under a shared item. */
+.order-consumable-row__shared {
+  flex-basis: 100%;
+}
+/* Figma: regular 16/24 body text (the compact panel bolds it by default). */
+.order-consumable-row__shared * {
+  font-weight: 400 !important;
 }
 
 .order-consumable-row__name {
