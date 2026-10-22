@@ -311,4 +311,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Separate quantities per occurrence summed in the note (earlier the same day).
 **Why:** Direct user request: the total should show in the quantity field.
 
+
+## 2026-10-22 — Behandlingshjelpemidler: shared-item note no longer names the utstyr
+**Decision:** The note under shared forbruksmateriell now reads "Denne forbruksvaren passer til flere av dine utstyr og tallet her viser den samlede bestillingen." It no longer names the other utstyr or repeats the count, since the synced numeral already shows the total. Same conditions as before: shown at every occurrence once the shared quantity is above 0, and not on "Allerede bestilt" rows.
+**Alternative considered:** "Denne forbruksvaren passer også til {modell} og vises derfor der også. Du bestiller {n} stk til sammen."
+**Why:** Direct user request: keep the message non-specific about which machine.
+
 #helsenorge

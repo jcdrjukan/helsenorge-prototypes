@@ -85,15 +85,14 @@ export default function Step1({
       occurrences.set(c.name, list);
     });
   }
-  const sharedNote = (eq: Equipment, name: string): string | null => {
+  // Machine-neutral wording since 2026-10-22 (user request); it no longer
+  // names the other utstyr or the count.
+  const sharedNote = (name: string): string | null => {
     const list = occurrences.get(name) ?? [];
     if (list.length < 2) return null;
-    // One shared quantity, the same at every occurrence.
     const total = Math.max(...list.map(o => (quantities[o.eq.id] ?? [])[o.idx] ?? 0));
     if (total === 0) return null;
-    const others = list.filter(o => o.eq.id !== eq.id).map(o => o.eq.model);
-    const otherText = others.length > 1 ? `${others.slice(0, -1).join(', ')} og ${others[others.length - 1]}` : others[0];
-    return `Denne forbruksvaren passer også til ${otherText} og vises derfor der også. Du bestiller ${total} stk til sammen.`;
+    return 'Denne forbruksvaren passer til flere av dine utstyr og tallet her viser den samlede bestillingen.';
   };
 
   const totalSelected = Object.values(quantities).reduce(
@@ -152,7 +151,7 @@ export default function Step1({
               {eq.consumables.map((c, i) => {
                 const qty = eqQtys[i] ?? 0;
                 const isActive = isInActiveOrder(eq.id, i);
-                const note = isActive ? null : sharedNote(eq, c.name);
+                const note = isActive ? null : sharedNote(c.name);
 
                 return (
                   <div className="order-consumable-row" key={i}>
