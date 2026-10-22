@@ -376,4 +376,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Drammen.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: "Konseptskisse" banner removed from the kommunale tjenester page
+**Decision:** The yellow "Konseptskisse" banner above the header is gone from "Helsetjenester kommunen tilbyr" (#kommunale-tjenester-oslo). The "Veiviser til psykisk helsehjelp" article page still has its banner.
+**Alternative considered:** Keeping the banner.
+**Why:** Direct user request.
+
 #helsenorge

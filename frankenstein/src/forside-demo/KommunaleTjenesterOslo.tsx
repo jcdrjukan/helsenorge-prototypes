@@ -47,10 +47,7 @@ const SEKSJONER = [
 export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjenesterOsloProps) {
   return (
     <div className="fs-shell">
-
-      <div className="illustration-banner">
-        Konseptskisse
-      </div>
+      {/* "Konseptskisse" banner removed 2026-10-22 (user request). */}
 
       <header className="header">
         <div className="top-bar">
