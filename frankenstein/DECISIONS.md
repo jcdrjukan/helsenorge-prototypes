@@ -436,4 +436,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** VisualRadioCloud (single choice per step); stacked Checkboxes.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: quiz chips stacked
+**Decision:** The step 1 and step 2 chips are stacked one per row (cloud as a left-aligned column), not wrapping side by side. Each chip keeps its own width and the DS mobile size.
+**Alternative considered:** Chips wrapping across the row.
+**Why:** Direct user request.
+
 #helsenorge

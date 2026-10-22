@@ -684,6 +684,9 @@
 .ph-chips[class*="visual-checkbox-cloud"],
 .ph-chips [class*="visual-checkbox-cloud"] {
   gap: 2px 12px !important;
+  /* Stacked, one chip per row (2026-10-22, user request). */
+  flex-direction: column !important;
+  align-items: flex-start !important;
 }
 .ph-chips [class*="visual-checkbox_"] {
   padding: .313rem 0 !important;
