@@ -346,4 +346,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** 48px gap above every section.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: "Akutt hjelp" on the front page as a DS Panel
+**Decision:** The front page's "Akutt hjelp" is now a design-system outline Panel (Figma node 432:26314; PanelStatic-Text, Outline, no icon), no longer a LinkList row with the EmergencyCall icon. It has the title "Akutt hjelp" (h2, 22px SemiBold), then "116 123" as an underlined SemiBold tel: link, a blank line, and "Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." (18px/1.5). The hidden Veiviser link (VIS_VEIVISER_LENKE) keeps its own LinkList. The results page's Akutt hjelp row is unchanged. Open question: 116 123 is Mental Helses hjelpetelefon, while legevakt is 116 117; the Figma text pairs "legevakten" with 116 123. Used as given.
+**Alternative considered:** The LinkList row.
+**Why:** Direct user request (Figma).
+
 #helsenorge

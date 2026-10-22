@@ -619,22 +619,25 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           </div>
 
           <div className="ph-front__content ph-front__content--contact">
-            <LinkList chevron>
-              {VIS_VEIVISER_LENKE && (
+            {VIS_VEIVISER_LENKE && (
+              <LinkList chevron>
                 <LinkList.Link href="#" icon={<Icon svgIcon={TravelRoute} />} onClick={e => { e.preventDefault(); onOpenArtikkel?.(); }}>
                   <ElementHeader>
                     <ElementHeader.Text firstText="Veiviser til psykisk helsehjelp" firstTextEmphasised />
                     <ElementHeader.Text firstText="En oversikt over psykisk helse tjenestetilbud i Norge" subText />
                   </ElementHeader>
                 </LinkList.Link>
-              )}
-              <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>
-                <ElementHeader>
-                  <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />
-                  <ElementHeader.Text firstText="Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />
-                </ElementHeader>
-              </LinkList.Link>
-            </LinkList>
+              </LinkList>
+            )}
+            {/* Akutt hjelp as a DS outline Panel (Figma 432:26314, 2026-10-22);
+                was a LinkList row with the EmergencyCall icon. */}
+            <Panel variant={PanelVariant.outline}>
+              <Panel.Title title="Akutt hjelp" titleMarkup="h2" />
+              <Panel.A>
+                <p className="ph-akutt__nr"><a href="tel:116123">116 123</a></p>
+                <p className="ph-akutt__text">Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+              </Panel.A>
+            </Panel>
           </div>
 
           <footer className="ph-footer">
