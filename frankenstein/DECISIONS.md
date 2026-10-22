@@ -424,4 +424,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Tilbake" returning to the previous screen.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: 1rem between the "Dine kontakter" cards
+**Decision:** Fastlege, Kommunal nettlege and Legevakt are 1rem (16px) apart, set directly as the list's gap with no item margins. It was already 16px, but as the DS's 8px flex gap plus an 8px margin. Verified at 390px and 1280px, open and closed.
+**Alternative considered:** Leaving the 8px + 8px combination.
+**Why:** Direct user request.
+
 #helsenorge
