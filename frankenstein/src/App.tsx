@@ -44,6 +44,10 @@ function getInitialPrototype(): Prototype {
   const hash = window.location.hash.slice(1);
   if (hash === 'forside-demo') return 'forside-demo';
   if (hash === 'psykisk-helse-demo') return 'psykisk-helse-demo';
+  // Psykisk helse rewrites the hash to its own view names once it's open
+  // (#forside, #quiz1, …). Without these, copying or reloading that address
+  // landed on the intro cover instead (fixed 2026-10-22).
+  if (['forside', 'quiz1', 'quiz2', 'resultater', 'avslutt'].includes(hash)) return 'psykisk-helse-demo';
   if (hash === 'artikkel-psykisk-helse') return 'artikkel-psykisk-helse';
   if (hash === 'spesialister-oversikt') return 'spesialister-oversikt';
   if (hash === 'kommunale-tjenester-oslo') return 'kommunale-tjenester-oslo';

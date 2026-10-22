@@ -352,4 +352,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The LinkList row.
 **Why:** Direct user request (Figma).
 
+
+## 2026-10-22 — Psykisk helse demo: shareable addresses for the Psykisk helse views
+**Decision:** The app shell now opens Psykisk helse for its own view hashes (#forside, #quiz1, #quiz2, #resultater, #avslutt), not just #psykisk-helse-demo. Psykisk helse rewrites the address to those names once open, and before this fix copying or reloading such an address landed on the "Åpne prototype" cover. The root URL still shows the cover, and #forside-demo is still the Helsenorge forside.
+**Alternative considered:** Only #psykisk-helse-demo as the deep link.
+**Why:** Direct user request (a direct URL to the Psykisk helse front page).
+
 #helsenorge
