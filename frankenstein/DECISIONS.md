@@ -305,4 +305,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Basic style (no border).
 **Why:** Direct user request (updated Figma).
 
+
+## 2026-10-22 — Behandlingshjelpemidler: one shared quantity for shared forbruksmateriell
+**Decision:** A shared item (same ID under several utstyr) now has one quantity. Pressing −/+ under any utstyr sets the same number at every occurrence, so the numeral between "−" and "+" always shows the total ordered, and the note's "Du bestiller N stk til sammen" is that same number (no longer a sum). On "Bekreft bestilling" and in the placed order the item counts once. It's kept on its first occurrence, so it's one line, and the order card counts it once. After ordering, every occurrence shows "Allerede bestilt". Helpers `sharedOccurrences` and `countSharedOnce` live in `data.ts`, and occurrences are still matched by name.
+**Alternative considered:** Separate quantities per occurrence summed in the note (earlier the same day).
+**Why:** Direct user request: the total should show in the quantity field.
+
 #helsenorge

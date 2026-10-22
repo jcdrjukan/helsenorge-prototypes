@@ -76,7 +76,7 @@ export default function Step1({
   // Forbruksmateriell that fits several utstyr has the same ID, so it's
   // listed under each of them. Group the occurrences by name (the prototype's
   // stand-in for that shared ID) so each row can say where else it's shown
-  // and how many are ordered in total (Figma 133:915, 2026-10-22).
+  // and how many are ordered (Figma 133:915, 2026-10-22).
   const occurrences = new Map<string, { eq: Equipment; idx: number }[]>();
   for (const eq of activeEquipment) {
     eq.consumables.forEach((c, idx) => {
@@ -88,7 +88,8 @@ export default function Step1({
   const sharedNote = (eq: Equipment, name: string): string | null => {
     const list = occurrences.get(name) ?? [];
     if (list.length < 2) return null;
-    const total = list.reduce((sum, o) => sum + ((quantities[o.eq.id] ?? [])[o.idx] ?? 0), 0);
+    // One shared quantity, the same at every occurrence.
+    const total = Math.max(...list.map(o => (quantities[o.eq.id] ?? [])[o.idx] ?? 0));
     if (total === 0) return null;
     const others = list.filter(o => o.eq.id !== eq.id).map(o => o.eq.model);
     const otherText = others.length > 1 ? `${others.slice(0, -1).join(', ')} og ${others[others.length - 1]}` : others[0];

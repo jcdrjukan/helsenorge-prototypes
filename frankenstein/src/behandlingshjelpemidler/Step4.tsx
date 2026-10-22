@@ -5,7 +5,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import StepButtons from '@helsenorge/designsystem-react/components/StepButtons/StepButtons';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
-import { PICKUP_LOCATIONS, LEVERINGSMATE, tilAdresse, type Equipment, type DeliveryForm } from './data';
+import { PICKUP_LOCATIONS, LEVERINGSMATE, tilAdresse, countSharedOnce, type Equipment, type DeliveryForm } from './data';
 
 interface Step4Props {
   equipment: Equipment[];
@@ -30,9 +30,10 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
   };
 
   const selectedItems: { consumableName: string; qty: number }[] = [];
+  const counted = countSharedOnce(quantities, equipment);
   for (const eq of equipment) {
     if (eq.deaktivert) continue;
-    const qtys = quantities[eq.id] ?? [];
+    const qtys = counted[eq.id] ?? [];
     eq.consumables.forEach((c, i) => {
       const qty = qtys[i] ?? 0;
       if (qty > 0) selectedItems.push({ consumableName: c.name, qty });

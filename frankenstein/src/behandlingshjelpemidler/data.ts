@@ -300,3 +300,34 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
     saksbehandlerKommentar: '',
   },
 ];
+
+// ── Shared forbruksmateriell ─────────────────────────────────────────────
+// An item that fits several utstyr has one ID, so it's listed under each of
+// them. The prototype matches occurrences by name (stand-in for that ID).
+// Its quantity is one number, shown at every occurrence (2026-10-22).
+export function sharedOccurrences(name: string, equipment: Equipment[] = EQUIPMENT): { eqId: string; idx: number }[] {
+  const out: { eqId: string; idx: number }[] = [];
+  for (const eq of equipment) {
+    if (eq.deaktivert) continue;
+    eq.consumables.forEach((c, idx) => { if (c.name === name) out.push({ eqId: eq.id, idx }); });
+  }
+  return out;
+}
+
+/** Quantities with each shared item counted once — kept on its first
+ *  occurrence, zeroed on the rest — for the summary and the placed order. */
+export function countSharedOnce(quantities: Record<string, number[]>, equipment: Equipment[] = EQUIPMENT): Record<string, number[]> {
+  const seen = new Set<string>();
+  const out: Record<string, number[]> = {};
+  for (const eq of equipment) {
+    const qtys = [...(quantities[eq.id] ?? eq.consumables.map(() => 0))];
+    eq.consumables.forEach((c, i) => {
+      if ((qtys[i] ?? 0) > 0) {
+        if (seen.has(c.name)) qtys[i] = 0;
+        else seen.add(c.name);
+      }
+    });
+    out[eq.id] = qtys;
+  }
+  return out;
+}

@@ -7,7 +7,7 @@ import OrderWizard from './OrderWizard';
 import HistoryView from './HistoryView';
 import CannotOrderView from './CannotOrderView';
 import type { AppView, DeliveryForm, DeliveryMode, SubmittedOrder } from './data';
-import { EQUIPMENT, HISTORY_ENTRIES, TODAY, tilAdresse } from './data';
+import { EQUIPMENT, HISTORY_ENTRIES, TODAY, tilAdresse, sharedOccurrences, countSharedOnce } from './data';
 
 function initQuantities(): Record<string, number[]> {
   const result: Record<string, number[]> = {};
@@ -145,8 +145,10 @@ export default function Behandlingshjelpemidler() {
       year: 'numeric',
     });
 
+    // A shared item is one line in the order, however many utstyr list it.
+    const ordered = countSharedOnce(quantities);
     const equipmentItems = EQUIPMENT.filter(eq => !eq.deaktivert)
-      .map(eq => ({ eq, quantities: quantities[eq.id] ?? eq.consumables.map(() => 0) }))
+      .map(eq => ({ eq, quantities: ordered[eq.id] ?? eq.consumables.map(() => 0) }))
       .filter(({ quantities: qtys }) => qtys.some(q => q > 0));
 
     // Update orderedDates for rate-limiting
@@ -198,11 +200,20 @@ export default function Behandlingshjelpemidler() {
     }
   };
 
+  // Shared forbruksmateriell has one quantity: changing it under one utstyr
+  // sets the same number at every occurrence (2026-10-22).
   const handleChangeQty = (eqId: string, idx: number, delta: number) => {
     setQuantities(prev => {
-      const arr = [...(prev[eqId] ?? EQUIPMENT.find(e => e.id === eqId)!.consumables.map(() => 0))];
-      arr[idx] = Math.max(0, (arr[idx] ?? 0) + delta);
-      return { ...prev, [eqId]: arr };
+      const eq = EQUIPMENT.find(e => e.id === eqId)!;
+      const current = (prev[eqId] ?? [])[idx] ?? 0;
+      const value = Math.max(0, current + delta);
+      const next = { ...prev };
+      for (const o of sharedOccurrences(eq.consumables[idx].name)) {
+        const arr = [...(next[o.eqId] ?? EQUIPMENT.find(e => e.id === o.eqId)!.consumables.map(() => 0))];
+        arr[o.idx] = value;
+        next[o.eqId] = arr;
+      }
+      return next;
     });
   };
 
@@ -213,7 +224,10 @@ export default function Behandlingshjelpemidler() {
   for (const order of submittedOrders) {
     for (const { eq, quantities } of order.equipmentItems) {
       quantities.forEach((qty, i) => {
-        if (qty > 0) activeOrderKeys.add(`${eq.id}:${i}`);
+        if (qty > 0) {
+          // A shared item is "Allerede bestilt" under every utstyr that lists it.
+          for (const o of sharedOccurrences(eq.consumables[i].name)) activeOrderKeys.add(`${o.eqId}:${o.idx}`);
+        }
       });
     }
   }
