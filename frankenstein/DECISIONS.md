@@ -394,4 +394,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** The previous six expanders about psychiatric help.
 **Why:** Direct user request: recreate drawing 5a with Frankenstein components.
 
+
+## 2026-10-22 — Psykisk helse demo: category chips held at mobile size
+**Decision:** The VisualRadioCloud on "Helsetjenester kommunen tilbyr" is pinned to the DS mobile values in `forside-demo/style.css`: 2px/12px gaps, 16px/22px text, pill padding 4px 16px (4px 12px when selected), 44px touch height. Past its own 768px media query the DS switches to 18px text, 48px pills and 24px/16px gaps, which also hit the phone-frame mockup on a wide browser window. Verified identical at 390px and 1280px window width. Same approach as Målinger's VisualCheckboxCloud.
+**Alternative considered:** Letting the DS breakpoint apply.
+**Why:** Direct user request.
+
 #helsenorge

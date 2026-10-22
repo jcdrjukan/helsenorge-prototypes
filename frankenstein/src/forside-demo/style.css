@@ -633,3 +633,25 @@
 .kt-buttons { display: flex; flex-direction: column; gap: 0.75rem; align-items: flex-start; }
 .kt-count { font: 400 1rem/1.4 'Source Sans Pro', sans-serif; color: #333; margin: 0; }
 .kt-sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* VisualRadioCloud switches to its desktop size past a real min-width:768px
+   media query (larger pills, 18px text, wider gaps). The phone-frame mockup
+   stays ~390px however wide the browser is, so pin the mobile values
+   (same fix as Målinger's VisualCheckboxCloud). 2026-10-22. */
+.kt-chips[class*="visual-radio-cloud"],
+.kt-chips [class*="visual-radio-cloud"] {
+  gap: var(--core-space-4xs) var(--core-space-xs) !important;
+}
+.kt-chips [class*="visual-radio_"] {
+  padding: .313rem 0 !important;
+}
+.kt-chips [class*="visual-radio__pill"] {
+  min-height: var(--core-space-l) !important;
+  padding: var(--core-space-3xs) var(--core-space-m) !important;
+  font-size: 1rem !important;
+  line-height: 1.375 !important;
+}
+.kt-chips [class*="visual-radio--checked"] [class*="visual-radio__pill"],
+.kt-chips [class*="visual-radio_"]:has(input:checked) [class*="visual-radio__pill"] {
+  padding: var(--core-space-3xs) var(--core-space-s) !important;
+}
