@@ -430,4 +430,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Leaving the 8px + 8px combination.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: quiz answers as chips (VisualCheckboxCloud)
+**Decision:** Steps 1 and 2 show their options as DS VisualCheckboxCloud chips, not stacked Checkboxes. The request named VisualRadioCloud. After a check, the checkbox variant was chosen to keep both steps multi-select, since radio chips allow only one answer and would change the scoring. Each cloud sits in a `role="group"` labelled by the step heading (step 1 also by its "Gjelder noe av dette for deg?" subtitle). Answers, the exclusive-option logic and the results are unchanged. The chips are pinned to DS mobile size in CSS (`.ph-chips`): 16px/22px text, 32px pills, 2px/12px gaps. Verified identical at 390px and 1280px.
+**Alternative considered:** VisualRadioCloud (single choice per step); stacked Checkboxes.
+**Why:** Direct user request.
+
 #helsenorge

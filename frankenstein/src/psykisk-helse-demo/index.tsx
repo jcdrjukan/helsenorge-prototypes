@@ -9,7 +9,7 @@ import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
-import Checkbox from '@helsenorge/designsystem-react/components/Checkbox';
+import VisualCheckboxCloud from '@helsenorge/designsystem-react/components/VisualCheckboxCloud/VisualCheckboxCloud';
 import Duolist, { DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import AnchorLink from '@helsenorge/designsystem-react/components/AnchorLink';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
@@ -696,20 +696,25 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
       {view === 'quiz1' && (
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={1} />
-          <h1 className="ph-quiz-title">Hvordan går det?</h1>
-          <p className="ph-quiz-subtitle">Gjelder noe av dette for deg?</p>
-          <ul className="ph-checkbox-list" role="list">
-            {Q1_OPTIONS.map(opt => (
-              <li key={opt.label}>
-                <Checkbox
-                  label={opt.label}
+          <h1 className="ph-quiz-title" id="ph-q1-title">Hvordan går det?</h1>
+          <p className="ph-quiz-subtitle" id="ph-q1-sub">Gjelder noe av dette for deg?</p>
+          {/* Chips (DS VisualCheckboxCloud, mobile size) since 2026-10-22;
+              were stacked Checkboxes. Still multi-select. */}
+          <div role="group" aria-labelledby="ph-q1-title ph-q1-sub">
+            <VisualCheckboxCloud className="ph-chips">
+              {Q1_OPTIONS.map(opt => (
+                <VisualCheckboxCloud.Checkbox
+                  key={opt.label}
+                  name="ph-q1"
                   inputId={`q1-${opt.label}`}
                   checked={d1.has(opt.label)}
                   onChange={() => toggleQ1(opt.label)}
-                />
-              </li>
-            ))}
-          </ul>
+                >
+                  {opt.label}
+                </VisualCheckboxCloud.Checkbox>
+              ))}
+            </VisualCheckboxCloud>
+          </div>
           <div className="ph-quiz-nav">
             <Button variant="fill" arrow="icon" onClick={() => setView('quiz2')}>Neste</Button>
             <Button variant="borderless" onClick={avbryt}>Avbryt</Button>
@@ -721,19 +726,22 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
       {view === 'quiz2' && (
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={2} />
-          <h1 className="ph-quiz-title">Hva ønsker du å fokusere på?</h1>
-          <ul className="ph-checkbox-list" role="list">
-            {Q2_OPTIONS.map(opt => (
-              <li key={opt.label}>
-                <Checkbox
-                  label={opt.label}
+          <h1 className="ph-quiz-title" id="ph-q2-title">Hva ønsker du å fokusere på?</h1>
+          <div role="group" aria-labelledby="ph-q2-title">
+            <VisualCheckboxCloud className="ph-chips">
+              {Q2_OPTIONS.map(opt => (
+                <VisualCheckboxCloud.Checkbox
+                  key={opt.label}
+                  name="ph-q2"
                   inputId={`q2-${opt.label}`}
                   checked={d2.has(opt.label)}
                   onChange={() => toggleQ2(opt.label, opt.exclusive)}
-                />
-              </li>
-            ))}
-          </ul>
+                >
+                  {opt.label}
+                </VisualCheckboxCloud.Checkbox>
+              ))}
+            </VisualCheckboxCloud>
+          </div>
           <div className="ph-quiz-nav">
             <Button variant="outline" onClick={() => setView('quiz1')}>
               <Icon svgIcon={ChevronLeft} size={38} />
