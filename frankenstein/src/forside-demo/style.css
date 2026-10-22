@@ -680,3 +680,14 @@
 .kt-body [class*="_button__text_"] {
   padding: 7px 0 !important;
 }
+
+/* List icons at the DS mobile size (38px). The Expander sets the icon size
+   from the browser width (48px past its desktop breakpoint), which also hit
+   the phone-frame mockup on a wide window. 2026-10-22. */
+.kt-tilbud [class*="element-header__icon"] svg,
+.kt-kontakter [class*="element-header__icon"] svg {
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;  /* the DS also sets min-width/height inline */
+  min-height: 38px !important;
+}

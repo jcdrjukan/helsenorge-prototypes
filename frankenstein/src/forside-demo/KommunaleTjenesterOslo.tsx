@@ -189,7 +189,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
           <h2 className="kt-h2" id="kt-kontakter">Dine kontakter</h2>
           <ExpanderList variant="fill" color="blueberry" className="kt-kontakter">
             {KONTAKTER.map(t => (
-              <ExpanderList.Expander key={t.id} title={<Tittel t={t} />} icon={<Icon svgIcon={IKONER[t.icon]} />}>
+              <ExpanderList.Expander key={t.id} title={<Tittel t={t} />} icon={<Icon svgIcon={IKONER[t.icon]} size={38} />}>
                 <Innhold t={t} />
               </ExpanderList.Expander>
             ))}
@@ -217,7 +217,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
           <p className="kt-count" aria-live="polite">{synlige.length} tilbud</p>
           <ExpanderList variant="line" color="white" className="kt-tilbud">
             {synlige.map(t => (
-              <ExpanderList.Expander key={t.id} title={<Tittel t={t} />} icon={<Icon svgIcon={IKONER[t.icon]} />}>
+              <ExpanderList.Expander key={t.id} title={<Tittel t={t} />} icon={<Icon svgIcon={IKONER[t.icon]} size={38} />}>
                 <Innhold t={t} />
               </ExpanderList.Expander>
             ))}

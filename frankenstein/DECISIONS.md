@@ -406,4 +406,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** 18px body text.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: list icons held at mobile size
+**Decision:** The icons in "Andre helsetilbud i kommunen" (and, for consistency, "Dine kontakter") are pinned to the DS mobile 38px. The Expander sets its icon to 48px past its desktop breakpoint, both as an attribute and as an inline min-width/height, which also hit the phone-frame mockup on a wide window. Overridden in CSS (`.kt-tilbud` / `.kt-kontakter` `[class*="element-header__icon"] svg`). Verified 38px at both 390px and 1280px window width.
+**Alternative considered:** Letting the DS breakpoint apply.
+**Why:** Direct user request.
+
 #helsenorge
