@@ -185,7 +185,7 @@ export default function Step1({
                     </div>
                     {note && (
                       <div className="order-consumable-row__shared">
-                        <NotificationPanel variant="info" compactVariant="basic" fluid>
+                        <NotificationPanel variant="info" compactVariant="outline" fluid>
                           {note}
                         </NotificationPanel>
                       </div>

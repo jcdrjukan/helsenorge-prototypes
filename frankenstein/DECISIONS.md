@@ -299,4 +299,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** One synced quantity shared by every occurrence.
 **Why:** Direct user request (Figma), to reduce confusion over the same item showing up more than once.
 
+
+## 2026-10-22 — Behandlingshjelpemidler: shared-item note in the outlined style
+**Decision:** The "Denne forbruksvaren passer også til …" note under shared forbruksmateriell uses the compact NotificationPanel's outline style (2px blueberry border, 4px corners), replacing basic, to match the updated Figma node 133:915. Text and logic are unchanged.
+**Alternative considered:** Basic style (no border).
+**Why:** Direct user request (updated Figma).
+
 #helsenorge
