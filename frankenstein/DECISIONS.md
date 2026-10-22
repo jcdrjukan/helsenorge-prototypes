@@ -317,4 +317,10 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** "Denne forbruksvaren passer også til {modell} og vises derfor der også. Du bestiller {n} stk til sammen."
 **Why:** Direct user request: keep the message non-specific about which machine.
 
+
+## 2026-10-22 — Behandlingshjelpemidler: shared-item note reworded
+**Decision:** The note under shared forbruksmateriell now reads "Denne forbruksvaren passer til flere av hjelpemidlene dine. Tallet viser hvor mange du bestiller til sammen."
+**Alternative considered:** "…passer til flere av dine utstyr og tallet her viser den samlede bestillingen."
+**Why:** Direct user request (better wording).
+
 #helsenorge

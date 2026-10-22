@@ -92,7 +92,7 @@ export default function Step1({
     if (list.length < 2) return null;
     const total = Math.max(...list.map(o => (quantities[o.eq.id] ?? [])[o.idx] ?? 0));
     if (total === 0) return null;
-    return 'Denne forbruksvaren passer til flere av dine utstyr og tallet her viser den samlede bestillingen.';
+    return 'Denne forbruksvaren passer til flere av hjelpemidlene dine. Tallet viser hvor mange du bestiller til sammen.';
   };
 
   const totalSelected = Object.values(quantities).reduce(
