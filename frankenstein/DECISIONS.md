@@ -400,4 +400,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Letting the DS breakpoint apply.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: 16px text inside opened cards
+**Decision:** On "Helsetjenester kommunen tilbyr", all text inside an opened card is 16px/1.5 (was 18px): body, section headings, contact lines, links and the "Dette tilbyr kommunen din" list. This also overrides the DS AnchorLink's 18px default. The card headers themselves are unchanged (title 18px SemiBold, description 16px). The Bestill time / Skriv melding buttons stay at the DS mobile "medium" size (18px, 44px tall), since that is the smallest DS button. They're pinned to it so a wide browser window doesn't grow them to the desktop 20px/50px.
+**Alternative considered:** 18px body text.
+**Why:** Direct user request.
+
 #helsenorge
