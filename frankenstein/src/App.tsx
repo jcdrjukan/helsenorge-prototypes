@@ -28,11 +28,10 @@ import './App.css';
 // (hasPrototype:false in forside-demo/data.ts), so goToTjeneste below only
 // ever fires for 'psykisk-helse'.
 //
-// The Oslo kommune page's breadcrumb has two entry points (the article
-// page and Psykisk helse's results view), so it uses the generic
-// `cameFrom`/`goBack` mechanism to return wherever the user actually came
-// from. Every other screen's breadcrumb — including Psykisk helse's own,
-// which always says/goes to "Forside" — is fixed.
+// Every screen's breadcrumb is fixed: the kommunale tjenester page's reads
+// "Psykisk helse" and goes there (results if the veiviser is done) since
+// 2026-10-22; it used to return to wherever the user came from (`cameFrom`,
+// still recorded by navigateTo). Psykisk helse's own says/goes to "Forside".
 type Prototype =
   | 'intro' | 'forside-demo' | 'artikkel-psykisk-helse' | 'spesialister-oversikt'
   | 'kommunale-tjenester-oslo' | 'psykisk-helse-demo';
@@ -56,7 +55,7 @@ function getInitialPrototype(): Prototype {
 
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
-  const [cameFrom, setCameFrom] = useState<Prototype>('forside-demo');
+  const [, setCameFrom] = useState<Prototype>('forside-demo');
 
   useEffect(() => {
     applyPrototypeMeta(prototype);
@@ -111,7 +110,6 @@ function App() {
   const goToArtikkel = () => navigateTo('artikkel-psykisk-helse');
   const goToSpesialister = () => navigateTo('spesialister-oversikt');
   const goToKommunaleTjenester = () => navigateTo('kommunale-tjenester-oslo');
-  const goBack = () => navigateTo(cameFrom);
 
   return (
     <div className="phone-wrapper">
@@ -131,7 +129,9 @@ function App() {
             <SpesialistOversikt onNavigateBack={goToArtikkel} />
           )}
           {prototype === 'kommunale-tjenester-oslo' && (
-            <KommunaleTjenesterOslo onNavigateBack={goBack} />
+            /* Breadcrumb reads "Psykisk helse" (2026-10-22): always back to
+               Psykisk helse — its results if the veiviser is done. */
+            <KommunaleTjenesterOslo onNavigateBack={() => goToTjeneste('psykisk-helse')} />
           )}
           {prototype === 'psykisk-helse-demo' && (
             <PsykiskHelseDemo onNavigateHome={goHome} onOpenArtikkel={goToArtikkel} onOpenKommunaleTjenester={goToKommunaleTjenester} />

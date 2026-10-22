@@ -166,7 +166,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
       <nav className="breadcrumb" aria-label="Brødsmulesti">
         <button className="breadcrumb__back" onClick={onNavigateBack}>
           <Icon svgIcon={ChevronLeft} size={38} />
-          <span>Tilbake</span>
+          <span>Psykisk helse</span>
         </button>
       </nav>
       <hr className="page-divider" />

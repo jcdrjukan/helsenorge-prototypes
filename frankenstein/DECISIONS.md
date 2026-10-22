@@ -418,4 +418,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Default inline layout (arrow sat high).
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: kommunale tjenester breadcrumb "Tilbake" → "Psykisk helse"
+**Decision:** The breadcrumb on "Helsetjenester kommunen tilbyr" reads "Psykisk helse" and always goes there: to the results if the veiviser is done, else the Psykisk helse front page (`goToTjeneste('psykisk-helse')`). It used to go back to wherever the user came from (`cameFrom`). Opened from a direct link, that meant the Helsenorge forside; from results, the Psykisk helse front page instead of the results. The unused `goBack` is removed; `cameFrom` is still recorded.
+**Alternative considered:** "Tilbake" returning to the previous screen.
+**Why:** Direct user request.
+
 #helsenorge
