@@ -382,4 +382,16 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Keeping the banner.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: kommunale tjenester page rebuilt from drawing 5a
+**Decision:** "Helsetjenester kommunen tilbyr" (#kommunale-tjenester-oslo) now follows drawing 5a in `kommunale-helsetilbud.html`, built with DS components. It replaces the six psychiatric-help expanders.
+- **Title and ingress:** kept as set earlier the same day.
+- **"Dine kontakter":** Fastlege, Kommunal nettlege and Legevakt as a blueberry `fill` ExpanderList, with icon, title and one-line description. Opening one shows what it helps with, contact lines, links and Fastlege's Bestill time / Skriv melding buttons. Below it is a "Se alle dine helsekontakter →" AnchorLink.
+- **"Andre helsetilbud i kommunen":** a VisualRadioCloud with one category at a time (Alle helsetilbud, Barn og familie, Livsstil og aktivitet, Psykisk helse, Rus). Each chip's count is visually hidden for screen readers. Below it is an aria-live "N tilbud" count, then a `line` ExpanderList of the 16 tilbud, each with icon, title, description and DS Tags for its categories. Opened cards show "Hva kan tilbudet hjelpe deg med?", "Dette tilbyr kommunen din" for Psykisk helse, "Slik får du hjelp/tilbud", contact lines, then links (external ones open oslo.kommune.no in a new tab).
+- **Content:** all text from the drawing, in `forside-demo/kommunaleHelsetilbud.ts`. Drawing contact details used Drammen, so e-mail domains and post towns were switched to Oslo. Legevakt's phone is 116 117 (the drawing says 116 177).
+- **Known deviations from the drawing:** icons are the nearest DS icons; DS Tag is outlined and uppercase where the drawing has plain grey labels; the selected chip shows the DS radio dot, not a check mark.
+
+**Alternative considered:** The previous six expanders about psychiatric help.
+**Why:** Direct user request: recreate drawing 5a with Frankenstein components.
+
 #helsenorge
