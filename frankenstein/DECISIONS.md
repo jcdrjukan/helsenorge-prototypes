@@ -358,4 +358,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Only #psykisk-helse-demo as the deep link.
 **Why:** Direct user request (a direct URL to the Psykisk helse front page).
 
+
+## 2026-10-22 — Psykisk helse demo: "Finn informasjon om psykisk helse" promo above Akutt hjelp
+**Decision:** The front page has a DS PromoPanel (blueberry, no illustration; Figma node 432:27541) directly above the Akutt hjelp panel, with 1rem between them. Title: "Finn informasjon om psykisk helse" (h2). Text: "Her finner du informasjon om hva psykisk helse er, hvordan du tar vare på den og hvor du kan få hjelp hvis du eller noen du kjenner har det vanskelig." The design gives no destination yet, so it's a button that does nothing. It isn't an `href="#"` link, because that would rewrite the address to "#" and break reloading.
+**Alternative considered:** Linking it to the hidden "Veiviser til psykisk helsehjelp" article.
+**Why:** Direct user request (Figma).
+
 #helsenorge

@@ -5,6 +5,7 @@ import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
+import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
@@ -629,6 +630,20 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 </LinkList.Link>
               </LinkList>
             )}
+            {/* "Finn informasjon om psykisk helse" — DS PromoPanel, blueberry
+                (Figma 432:27541, 2026-10-22). No destination given yet: the
+                click does nothing for now (a button, so the address doesn't change). */}
+            <div className="ph-front__promo">
+              <PromoPanel
+                title="Finn informasjon om psykisk helse"
+                titleHtmlMarkup="h2"
+                color="blueberry"
+                linkHtmlMarkup="button"
+                linkOnClick={() => {}}
+              >
+                Her finner du informasjon om hva psykisk helse er, hvordan du tar vare på den og hvor du kan få hjelp hvis du eller noen du kjenner har det vanskelig.
+              </PromoPanel>
+            </div>
             {/* Akutt hjelp as a DS outline Panel (Figma 432:26314, 2026-10-22);
                 was a LinkList row with the EmergencyCall icon. */}
             <Panel variant={PanelVariant.outline}>

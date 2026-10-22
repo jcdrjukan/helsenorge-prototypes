@@ -376,6 +376,9 @@
   padding-bottom: 4.5rem;
 }
 
+/* 1rem between the PromoPanel and the Akutt hjelp panel. */
+.ph-front__promo { margin-bottom: 1rem; }
+
 /* Akutt hjelp panel (Figma 432:26314): number as a SemiBold link, a blank
    line, then the text — both 18px/1.5. */
 .ph-akutt__nr, .ph-akutt__text {
