@@ -412,4 +412,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Letting the DS breakpoint apply.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: "Se alle dine helsekontakter →" arrow centred
+**Decision:** The AnchorLink is an inline-flex row (`.kt-arrow-link`, centre-aligned, 4px gap), so the ArrowRight sits on the text's vertical centre and no longer on the baseline. Measured: text and icon centres coincide.
+**Alternative considered:** Default inline layout (arrow sat high).
+**Why:** Direct user request.
+
 #helsenorge

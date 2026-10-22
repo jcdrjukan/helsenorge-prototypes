@@ -691,3 +691,11 @@
   min-width: 38px !important;  /* the DS also sets min-width/height inline */
   min-height: 38px !important;
 }
+
+/* "Se alle dine helsekontakter →": arrow centred on the text line. */
+.kt-arrow-link {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 4px;
+  align-self: flex-start;
+}

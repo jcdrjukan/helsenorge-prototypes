@@ -194,7 +194,7 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
               </ExpanderList.Expander>
             ))}
           </ExpanderList>
-          <AnchorLink href="#" onClick={e => e?.preventDefault()}>
+          <AnchorLink href="#" onClick={e => e?.preventDefault()} className="kt-arrow-link">
             Se alle dine helsekontakter<Icon svgIcon={ArrowRight} size={24} color="#06596C" />
           </AnchorLink>
         </section>
