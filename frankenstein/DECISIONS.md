@@ -364,4 +364,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Linking it to the hidden "Veiviser til psykisk helsehjelp" article.
 **Why:** Direct user request (Figma).
 
+
+## 2026-10-22 — Psykisk helse demo: kommunale tjenester page retitled, ingress added
+**Decision:** The page (route #kommunale-tjenester-oslo) is now titled "Helsetjenester kommunen tilbyr", which is also its browser-tab title. It was "Psykisk helse tjenestetilbud i Oslo kommune". A new ingress below the title (18px/1.5) reads: "For å få en helhetlig oversikt over alle helsetjenester Drammen kommune tilbyr, gå til kommunenes nettsider". "kommunenes nettsider" is an underlined link with an ArrowUpRight icon, opening https://www.drammen.kommune.no/ in a new tab (URL chosen by Claude; none was given). The ingress names Drammen while the route and component are still named Oslo. The expander sections are unchanged.
+**Alternative considered:** Previous Oslo title with no ingress.
+**Why:** Direct user request.
+
 #helsenorge

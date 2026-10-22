@@ -593,3 +593,17 @@
   color: #fff;
   margin: 0;
 }
+
+/* Kommunale tjenester: title + ingress (2026-10-22). */
+.kt-intro { display: flex; flex-direction: column; gap: 0.5rem; }
+.kt-ingress {
+  font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif;
+  color: #000;
+  margin: 0;
+}
+.kt-ingress__link {
+  color: #06596C;
+  text-decoration: underline;
+  white-space: nowrap;
+}
+.kt-ingress__link svg { vertical-align: text-bottom; }

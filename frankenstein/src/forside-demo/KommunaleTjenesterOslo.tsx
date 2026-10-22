@@ -7,6 +7,7 @@ import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
+import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
 import './style.css';
 
 export interface KommunaleTjenesterOsloProps {
@@ -85,7 +86,17 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
       <hr className="page-divider" />
 
       <main className="fs-page">
-        <h1 className="fs-h1">Psykisk helse tjenestetilbud i Oslo kommune</h1>
+        {/* Title + ingress since 2026-10-22 (user request); was "Psykisk helse
+            tjenestetilbud i Oslo kommune" with no ingress. */}
+        <div className="kt-intro">
+          <h1 className="fs-h1">Helsetjenester kommunen tilbyr</h1>
+          <p className="kt-ingress">
+            For å få en helhetlig oversikt over alle helsetjenester Drammen kommune tilbyr, gå til{' '}
+            <a className="kt-ingress__link" href="https://www.drammen.kommune.no/" target="_blank" rel="noopener noreferrer">
+              kommunenes nettsider<Icon svgIcon={ArrowUpRight} size={24} color="#06596C" />
+            </a>
+          </p>
+        </div>
 
         <ExpanderList variant="outline">
           {SEKSJONER.map(s => (
