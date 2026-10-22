@@ -91,8 +91,8 @@ export default function KommunaleTjenesterOslo({ onNavigateBack }: KommunaleTjen
         <div className="kt-intro">
           <h1 className="fs-h1">Helsetjenester kommunen tilbyr</h1>
           <p className="kt-ingress">
-            For å få en helhetlig oversikt over alle helsetjenester Drammen kommune tilbyr, gå til{' '}
-            <a className="kt-ingress__link" href="https://www.drammen.kommune.no/" target="_blank" rel="noopener noreferrer">
+            For å få en helhetlig oversikt over alle helsetjenester Oslo kommune tilbyr, gå til{' '}
+            <a className="kt-ingress__link" href="https://www.oslo.kommune.no/" target="_blank" rel="noopener noreferrer">
               kommunenes nettsider<Icon svgIcon={ArrowUpRight} size={24} color="#06596C" />
             </a>
           </p>

@@ -370,4 +370,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Previous Oslo title with no ingress.
 **Why:** Direct user request.
 
+
+## 2026-10-22 — Psykisk helse demo: kommunale tjenester ingress names Oslo
+**Decision:** The ingress now reads "…alle helsetjenester Oslo kommune tilbyr…", and "kommunenes nettsider" links to https://www.oslo.kommune.no/. Drammen was in the original request; Oslo matches the rest of the page.
+**Alternative considered:** Drammen.
+**Why:** Direct user request.
+
 #helsenorge
