@@ -51,7 +51,7 @@ export interface PsykiskHelseProps {
    *  kontakt" on the front page) is clicked — opens the mock Helsenorge
    *  article page. */
   onOpenArtikkel?: () => void;
-  /** Called when "Finn kommunale tjenester" (first item under the results
+  /** Called when "Se hvilke helsetilbud kommunen tilbyr" (first item under the results
    *  page's footer LinkList) is clicked — opens the Kommunale tjenester
    *  (Oslo) page. */
   onOpenKommunaleTjenester?: () => void;
@@ -820,8 +820,8 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <LinkList chevron>
               <LinkList.Link href="#" icon={<Icon svgIcon={HealthClinic} />} onClick={e => { e.preventDefault(); onOpenKommunaleTjenester?.(); }}>
                 <ElementHeader>
-                  <ElementHeader.Text firstText="Finn kommunale tjenester" firstTextEmphasised />
-                  <ElementHeader.Text firstText="Psykisk helse tjenestetilbud i din kommune" subText />
+                  <ElementHeader.Text firstText="Se hvilke helsetilbud kommunen tilbyr" firstTextEmphasised />
+                  <ElementHeader.Text firstText="Finn tjenester som kan hjelpe deg med din psykiske helse." subText />
                 </ElementHeader>
               </LinkList.Link>
               <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>

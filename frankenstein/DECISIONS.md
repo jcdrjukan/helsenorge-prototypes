@@ -442,4 +442,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Chips wrapping across the row.
 **Why:** Direct user request.
 
+
+## 2026-10-23 — Psykisk helse demo: results link to kommunale tjenester reworded; new page ingress
+**Decision:** On the results page, the LinkList item that opens the kommunale tjenester page now reads "Se hvilke helsetilbud kommunen tilbyr", with the subtext "Finn tjenester som kan hjelpe deg med din psykiske helse." It was "Finn kommunale tjenester" / "Psykisk helse tjenestetilbud i din kommune". On "Helsetjenester kommunen tilbyr" the ingress now reads "Du finner en oversikt over helsetilbud i kommunen din på kommunens nettside ↗". "kommunens nettside" is the external link (oslo.kommune.no, new tab), replacing "For å få en helhetlig oversikt … gå til kommunenes nettsider". The equivalent link on the "Veiviser til psykisk helsehjelp" article page is unchanged.
+**Alternative considered:** Previous texts.
+**Why:** Direct user request.
+
 #helsenorge
