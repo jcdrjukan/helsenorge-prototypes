@@ -448,4 +448,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Previous texts.
 **Why:** Direct user request.
 
+
+## 2026-10-23 — Psykisk helse demo: Avslutt tjenesten text shortened
+**Decision:** The text on the "Avslutt tjenesten" page now reads "Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst ta tjenesten i bruk igjen." It dropped "starte veiviseren på nytt og".
+**Alternative considered:** "…Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen."
+**Why:** Direct user request.
+
 #helsenorge

@@ -849,7 +849,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             Avslutt tjenesten
           </h1>
           <p className="ph-results-intro">
-            Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen.
+            Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst ta tjenesten i bruk igjen.
           </p>
           <div style={{ marginTop: '-1rem' }}>
             <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); setQ1(new Set()); setQ2(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
