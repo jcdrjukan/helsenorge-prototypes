@@ -464,6 +464,7 @@ a:focus-visible, button:focus-visible {
 </style>
 <script src="local-links.js"></script>
 <link rel="stylesheet" href="sprakvelger.css">
+<link rel="stylesheet" href="ordforklaring.css">
 </head>
 <body>
 
@@ -550,7 +551,7 @@ a:focus-visible, button:focus-visible {
       <button type="button" class="el__link" aria-expanded="false" aria-controls="el0">
         <span class="el__header"><h2 class="el__title">Andre prøvesvar</h2><svg class="el__chev-down" viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 17.885l1.793 1.779-10.371 10.451L13.63 19.664l1.793-1.779 8.576 8.644z"/></svg><svg class="el__chev-up" viewBox="0 0 48 48" width="38" height="38" fill="black" aria-hidden="true"><path d="M32.577 30.115l1.793-1.779-10.371-10.451L13.63 28.336l1.793 1.779 8.576-8.644z"/></svg></span>
       </button>
-      <div class="el__content" id="el0"><p class="pm-note">Tatt 14.08.2026 hos Ekeberg legekontor</p><dl class="dl"><dt>Blodtype</dt><dd>A RhD positiv</dd><dt>Irregulære blodtypeantistoffer</dt><dd>Ikke påvist</dd><dt>Hemoglobin (Hb)</dt><dd>12,8 g/dL<span>Referanseområde 11,7–15,3 g/dL</span></dd><dt>Hepatitt B</dt><dd>Negativ</dd><dt>HIV</dt><dd>Negativ</dd><dt>Syfilis</dt><dd>Negativ</dd></dl></div>
+      <div class="el__content" id="el0"><p class="pm-note">Tatt 14.08.2026 hos Ekeberg legekontor</p><dl class="dl"><dt>Blodtype</dt><dd>A RhD positiv</dd><dt>Irregulære blodtypeantistoffer</dt><dd>Ikke påvist</dd><dt><button type="button" class="dictionarytrigger" data-ord="Hemoglobin (Hb)" aria-haspopup="dialog" aria-expanded="false"><span class="sr-only">Åpne ordforklaring </span>Hemoglobin (Hb)</button></dt><dd>12,8 g/dL<span>Referanseområde 11,7–15,3 g/dL</span></dd><dt><button type="button" class="dictionarytrigger" data-ord="Hepatitt B" aria-haspopup="dialog" aria-expanded="false"><span class="sr-only">Åpne ordforklaring </span>Hepatitt B</button></dt><dd>Negativ</dd><dt>HIV</dt><dd>Negativ</dd><dt>Syfilis</dt><dd>Negativ</dd></dl></div>
     </li>
   </ul>
 
@@ -622,5 +623,6 @@ document.querySelectorAll('.el__link').forEach(b => b.addEventListener('click', 
 })();
 </script>
 <script src="sprakvelger.js"></script>
+<script src="ordforklaring.js"></script>
 </body>
 </html>

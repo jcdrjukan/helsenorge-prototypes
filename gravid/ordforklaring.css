@@ -1,0 +1,36 @@
+/* Ordforklaring — DictionaryTrigger + PopOver/HelpBubble, copied from the
+   Prøvesvar prototype (provesvar/resultat.html, sperring.css) so the two
+   prototypes behave the same. Added 2026-10-26. */
+:root {
+  --color-help-border-normal: #5C27A1;
+  --color-help-border-dark: #4C1B8C;
+  --color-help-background-transparent-onlight-hover: #6C36B31A;
+  --color-help-background-transparent-onlight-hover-selected: #6C38B333;
+}
+/* DictionaryTrigger: dotted purple underline, help hover. */
+.dictionarytrigger {
+  all: unset; font: inherit; cursor: help; padding: 0 0.125rem; background-color: transparent;
+  --dot-color: var(--color-help-border-normal);
+  background-image: radial-gradient(circle at 1.5px 1.5px, var(--dot-color) 1.5px, transparent 1.5px);
+  background-repeat: repeat-x; background-size: 8px 3px; background-position: bottom left;
+}
+.dictionarytrigger:hover, .dictionarytrigger[aria-expanded="true"] { background-color: var(--color-help-background-transparent-onlight-hover); --dot-color: var(--color-help-border-dark); }
+.dictionarytrigger[aria-expanded="true"]:hover { background-color: var(--color-help-background-transparent-onlight-hover-selected); }
+.dictionarytrigger:focus-visible { outline: 2px solid #000; background-image: none; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* PopOver: white, 1px edge, 9px radius, drop shadow, arrow at the word. */
+.popover { position: absolute; z-index: 60; width: max-content; max-width: calc(100% - 16px); background: #fff; box-shadow: 0 0 0 1px #7D7C79; border-radius: 9px; filter: drop-shadow(0 4px 16px rgb(0 0 0 / 30%)); padding: 1rem; outline: none; text-align: start; }
+.popover[hidden] { display: none; }
+.popover__arrow { position: absolute; pointer-events: none; width: 16px; height: 14px; }
+.popover--below .popover__arrow { bottom: 100%; transform: rotate(180deg); margin-bottom: -1px; }
+.popover--above .popover__arrow { top: 100%; margin-top: -1px; }
+/* HelpBubble: 18px/28px text, small plum Close in the corner. */
+.helpbubble { position: relative; display: flex; align-items: flex-start; font: 400 1.125rem/1.75rem 'Source Sans Pro', sans-serif; color: #000; }
+.helpbubble__content { padding-right: 2.5rem; overflow-wrap: anywhere; }
+.helpbubble__content p { margin: 0; }
+.helpbubble__close { position: absolute; top: -0.5rem; right: -0.5rem; width: 2.75rem; height: 2.75rem; display: flex; align-items: center; justify-content: center; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.helpbubble__close span { width: 2.375rem; height: 2.375rem; display: flex; }
+.helpbubble__close:hover span { background: #6C36B31A; }
+.helpbubble__close:focus-visible { outline: none; }
+.helpbubble__close:focus-visible span { outline: 3px solid #000; }
+.helpbubble__close svg { width: 38px; height: 38px; fill: #5C27A1; }

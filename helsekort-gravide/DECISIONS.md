@@ -230,4 +230,13 @@ A text-position comparison against the pre-change version found nothing else tha
 **Alternative considered:** Same dashboard as for her own pregnancy without digitalt helsekort.
 **Why:** Direct user request.
 
+
+## 2026-10-26 — Ordforklaring on "Hemoglobin (Hb)" and "Hepatitt B"
+**Decision:** On "Siste prøver og målinger" (prover-og-malinger.html), under "Andre prøvesvar", the terms "Hemoglobin (Hb)" and "Hepatitt B" are DS DictionaryTriggers (dotted purple underline). Clicking one opens a PopOver with a HelpBubble holding the explanation; Esc, ✕ or a click outside closes it and returns focus to the word. The code is copied from the Prøvesvar prototype, so both behave the same, and lives in `gravid/ordforklaring.css` + `gravid/ordforklaring.js` so more terms only need a `data-ord` entry in ORDFORKLARINGER. The explanations are drafts written by Claude and need content/clinical sign-off:
+- Hb: "Proteinet i de røde blodcellene som frakter oksygen rundt i kroppen. I svangerskapet måles Hb for å se om du har blodmangel (anemi)." (first sentence from Prøvesvar's B-Hemoglobin)
+- Hepatitt B: "En virussykdom som kan gi betennelse i leveren. Alle gravide testes, fordi viruset kan smitte til barnet ved fødselen. Barnet kan da beskyttes med vaksine rett etter fødselen."
+
+**Alternative considered:** Plain terms without explanation.
+**Why:** Direct user request: reuse Prøvesvar's ordforklaring function.
+
 #helsenorge
