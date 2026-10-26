@@ -631,15 +631,15 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               </LinkList>
             )}
             {/* "Finn informasjon om psykisk helse" — DS PromoPanel, blueberry
-                (Figma 432:27541, 2026-10-22). No destination given yet: the
-                click does nothing for now (a button, so the address doesn't change). */}
+                (Figma 432:27541). Opens helsenorge.no's "Hva er psykisk
+                helse?" in a new tab (2026-10-26). */}
             <div className="ph-front__promo">
               <PromoPanel
                 title="Finn informasjon om psykisk helse"
                 titleHtmlMarkup="h2"
                 color="blueberry"
-                linkHtmlMarkup="button"
-                linkOnClick={() => {}}
+                href="https://www.helsenorge.no/psykisk-helse/hva-er-psykisk-helse/"
+                target="_blank"
               >
                 Her finner du informasjon om hva psykisk helse er, hvordan du tar vare på den og hvor du kan få hjelp hvis du eller noen du kjenner har det vanskelig.
               </PromoPanel>

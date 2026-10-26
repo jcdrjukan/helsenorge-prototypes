@@ -466,4 +466,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Previous drawing-5a content with Oslo contact details.
 **Why:** Direct user request (Figma).
 
+
+## 2026-10-26 — Psykisk helse demo: "Finn informasjon om psykisk helse" promo now links out
+**Decision:** The front-page PromoPanel opens https://www.helsenorge.no/psykisk-helse/hva-er-psykisk-helse/ in a new tab (PromoPanel `href` + `target="_blank"`), so the prototype stays open behind it. It replaces the do-nothing button.
+**Alternative considered:** Same tab; linking to the prototype's own (hidden) article page.
+**Why:** Direct user request (destination supplied).
+
 #helsenorge
