@@ -32,6 +32,7 @@ import ElderlyPerson from '@helsenorge/designsystem-react/components/Icons/Elder
 import Group from '@helsenorge/designsystem-react/components/Icons/Group';
 import SpeechBubble from '@helsenorge/designsystem-react/components/Icons/SpeechBubble';
 import LightBulb from '@helsenorge/designsystem-react/components/Icons/LightBulb';
+import Shield from '@helsenorge/designsystem-react/components/Icons/Shield';
 import Calendar from '@helsenorge/designsystem-react/components/Icons/Calendar';
 import Envelope from '@helsenorge/designsystem-react/components/Icons/Envelope';
 import { useState } from 'react';
@@ -52,7 +53,7 @@ const IKONER: Record<IkonNavn, SvgIcon> = {
   rus: BeerAndPills, friskliv: PersonWithBrain, svangerskap: Pregnant, barn: Baby,
   skole: ChildPlaying, ungdom: Teenagers, vaksine: Vaccine, hjem: Home, rehab: Recovery,
   fysio: ArmFlexing, korttid: Hospital, demens: ElderlyPerson, barnekoord: Group,
-  logoped: SpeechBubble, mestring: LightBulb,
+  logoped: SpeechBubble, mestring: LightBulb, smittevern: Shield,
 };
 
 const KOMMUNE_URL = 'https://www.oslo.kommune.no/';

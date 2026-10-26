@@ -454,4 +454,16 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "…Du kan når som helst starte veiviseren på nytt og ta tjenesten i bruk igjen."
 **Why:** Direct user request.
 
+
+## 2026-10-26 — Psykisk helse demo: kommunale tjenester cards updated from Figma; Smittevern added
+**Decision:** Nine tilbud cards follow Figma nodes 438:34904–34912: Svangerskap, Frisklivssentral, Psykisk helse, Helsestasjon for barn, Skolehelsetjenesten, Rus, Helsestasjon for ungdom, Vaksiner og smittevern, and a new Smittevern.
+- **Heading:** the first heading reads "Hva kan dette tilbudet hjelpe deg med?". This is applied to every tilbud card for consistency, not just the nine.
+- **No municipal specifics:** the Figma cards have none. Psykisk helse's "Dette tilbyr kommunen din" list and contact lines are gone, as are the phone/e-mail/address/opening-hours lines on Frisklivssentral, the two Helsestasjon cards and Vaksiner. The extra external links ("Meld deg på via kommunens skjema", "Meld deg på aktiviteter", "Bestill vaksinetime") are gone too. Each card keeps one "Les mer om …" link.
+- **New "Smittevern" card:** placed after Vaksiner og smittevern. It has description "Forebygging og kontroll av smittsomme sykdommer.", the Figma texts, "Les mer om smittevern på Helsenorge", the DS Shield icon and no category tags (shown under "Alle helsetilbud" only, now 17).
+- **Typos not carried over:** "smittsome" → "smittsomme", "avhenighet" → "avhengighet".
+- **Unchanged:** the other cards (Hjemme, Habilitering, Fysio, Korttid, Demens, Barnekoordinator, Logoped, Læring og mestring) and "Dine kontakter".
+
+**Alternative considered:** Previous drawing-5a content with Oslo contact details.
+**Why:** Direct user request (Figma).
+
 #helsenorge

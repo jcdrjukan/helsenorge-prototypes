@@ -1,5 +1,7 @@
 // Content for "Helsetjenester kommunen tilbyr" (#kommunale-tjenester-oslo),
-// taken from drawing 5a in kommunale-helsetilbud.html (2026-10-22). Contact
+// taken from drawing 5a in kommunale-helsetilbud.html (2026-10-22); nine
+// cards updated from Figma 438:34904–34912 on 2026-10-26 (no contact
+// details, one "Les mer" link each, new Smittevern card). Contact
 // details there were for Drammen; e-mail domains and post towns are switched
 // to Oslo to match the page. Names, phone numbers and street names are
 // placeholders.
@@ -20,7 +22,7 @@ export const KATEGORI_LABEL: Record<Kategori, string> = Object.fromEntries(
 export type IkonNavn =
   | 'person' | 'video' | 'legevakt' | 'psykisk' | 'rus' | 'friskliv' | 'svangerskap'
   | 'barn' | 'skole' | 'ungdom' | 'vaksine' | 'hjem' | 'rehab' | 'fysio'
-  | 'korttid' | 'demens' | 'barnekoord' | 'logoped' | 'mestring';
+  | 'korttid' | 'demens' | 'barnekoord' | 'logoped' | 'mestring' | 'smittevern';
 
 export interface Seksjon { heading: string; text: string[] }
 export interface Kontaktlinje { label: string; value: string; href?: string }
@@ -96,18 +98,10 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'psykisk',
     tags: ['psykisk-helse'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Kommunen har ulike tilbud til deg som sliter psykisk. Du kan blant annet få hjelp for søvnproblemer, angst og depresjon. Pårørende kan også få hjelp.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Kommunen har ulike tilbud til deg som sliter psykisk. Du kan blant annet få hjelp for søvnproblemer, angst og depresjon. Pårørende kan også få hjelp.'] },
       { heading: 'Slik får du hjelp', text: ['Kontakt kommunens psykiske helsetjeneste for å få informasjon om hva slags hjelp som finnes. Fastlegen kan også hjelpe deg med å finne riktig tilbud.'] },
     ],
-    underTilbud: [
-      { title: 'Rask psykisk helsehjelp', text: 'Gratis korttidshjelp uten henvisning ved lett til moderat angst og depresjon. Fra 16 år.' },
-      { title: 'Psykologtjeneste', text: 'Samtaler og veiledning med kommunepsykolog for barn, unge og voksne.' },
-    ],
-    contact: [
-      { label: 'Telefon', value: '32 04 50 00', href: 'tel:32045000' },
-      { label: 'E-post', value: 'psykiskhelse@oslo.kommune.no', href: 'mailto:psykiskhelse@oslo.kommune.no' },
-    ],
-    links: [{ text: 'Meld deg på via kommunens skjema', external: true }, { text: 'Les mer om psykisk helsehjelp' }],
+    links: [{ text: 'Les mer om psykisk helsehjelp' }],
   },
   {
     id: 'rus',
@@ -116,7 +110,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'rus',
     tags: ['rus'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'Kommunen kan hjelpe deg som har problemer med alkohol eller andre rusmidler. Du kan få støtte til å redusere eller slutte med rusmidler, mestre hverdagen eller håndtere utfordringer knyttet til rus.',
         'Du kan for eksempel få tilbud om samtaler, rådgivning, praktisk oppfølging og støtte til å komme i behandling. Pårørende kan også få råd og veiledning.',
       ] },
@@ -134,7 +128,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'friskliv',
     tags: ['livsstil', 'psykisk-helse'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'Frisklivssentralen kan hjelpe deg med å mestre hverdagen og ta vare på helsa di. Du kan for eksempel få hjelp til å få et bedre kosthold, bli mer fysisk aktiv, slutte med snus og røyk, bli sterkere psykisk, eller få bedre søvn.',
         'Mange frisklivssentraler har også tilbud for barn, unge og deres familier.',
       ] },
@@ -143,11 +137,7 @@ export const HELSETILBUD: Helsetilbud[] = [
         'Ta kontakt med kommunen din for å finne ut om det finnes en frisklivssentral der du bor. Du kan også få henvisning fra fastlegen din, annet helsepersonell eller Nav.',
       ] },
     ],
-    contact: [
-      { label: 'Telefon', value: '32 04 60 70', href: 'tel:32046070' },
-      { label: 'E-post', value: 'frisklivs@oslo.kommune.no', href: 'mailto:frisklivs@oslo.kommune.no' },
-    ],
-    links: [{ text: 'Meld deg på aktiviteter', external: true }, { text: 'Les mer om Frisklivssentral' }],
+    links: [{ text: 'Les mer om Frisklivssentral' }],
   },
   {
     id: 'svangerskap',
@@ -156,7 +146,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'svangerskap',
     tags: ['barn-familie'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'Du får tilbud om jevnlige svangerskapskontroller hos jordmor gjennom hele graviditeten. Jordmor gir råd, undersøker deg og fosteret og følger deg gjennom svangerskapet og tiden etter fødselen.',
         'Jordmor hjelper deg med spørsmål om graviditeten, barnets utvikling, fødsel, amming og hvordan du har det fysisk og psykisk.',
       ] },
@@ -174,7 +164,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'barn',
     tags: ['barn-familie', 'livsstil'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'Helsestasjonen tilbyr gratis oppfølging av barn fra fødsel til skolestart. Her får barnet helsekontroller og vaksiner, og du som forelder kan få råd og veiledning.',
         'Du kan få hjelp med spørsmål om blant annet barnets vekst og utvikling, mat, søvn, språk, trivsel og om foreldrerollen.',
       ] },
@@ -183,10 +173,6 @@ export const HELSETILBUD: Helsetilbud[] = [
         'Kontakt helsestasjonen direkte hvis du har spørsmål eller trenger hjelp mellom de faste timene. Mange helsestasjoner har åpne dager hvor du ikke trenger å ringe for å avtale time først.',
         'Gå til «Helsekontakter» på barnets profil for å se om du kan kontakte helsestasjonen gjennom Helsenorge.',
       ] },
-    ],
-    contact: [
-      { label: 'Telefon', value: '32 04 70 00', href: 'tel:32047000' },
-      { label: 'Adresse', value: 'Bragernes torg 4, 0150 Oslo' },
     ],
     links: [{ text: 'Les mer om helsestasjon for barn' }],
   },
@@ -197,7 +183,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'skole',
     tags: ['barn-familie', 'psykisk-helse'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'I skolehelsetjenesten kan du snakke med helsesykepleier og noen ganger også skolelege, fysioterapeut og psykolog.',
         'Du kan snakke med helsesykepleier om blant annet kropp og pubertet, psykisk helse, stress, vennskap, mobbing, familie eller andre ting som er vanskelige.',
         'Skolehelsetjenesten tilbyr også enkelte helseundersøkelser og vaksiner.',
@@ -217,7 +203,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'ungdom',
     tags: ['barn-familie', 'psykisk-helse', 'rus'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'Helsestasjon for ungdom er et gratis helsetilbud der du kan snakke med helsepersonell om kropp, psykisk helse, seksualitet, prevensjon og andre spørsmål du har om helse og livet ditt.',
         'Du kan blant annet få hjelp med prevensjon, teste deg for seksuelt overførbare infeksjoner eller snakke om stress, vanskelige følelser og forhold til andre.',
         'De som jobber der, har taushetsplikt. Tilbudet er for ungdom, vanligvis fra 12 til 20 år, men noen kommuner har en høyere aldersgrense.',
@@ -226,10 +212,6 @@ export const HELSETILBUD: Helsetilbud[] = [
         'Du kan vanligvis møte opp uten å bestille time. Noen steder kan du også avtale time på forhånd.',
         'Sjekk åpningstidene til helsestasjonen i kommunen din før du kommer. Du trenger ikke henvisning.',
       ] },
-    ],
-    contact: [
-      { label: 'Åpent', value: 'Tirsdag og torsdag 14–18' },
-      { label: 'Adresse', value: 'Tollbugata 1, 0152 Oslo' },
     ],
     links: [{ text: 'Les mer om helsestasjon for ungdom' }],
   },
@@ -240,7 +222,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'vaksine',
     tags: ['livsstil', 'barn-familie'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
         'Kommunen tilbyr vaksiner gjennom offentlige vaksinasjonsprogrammer. Dette kan blant annet være vaksiner mot influensa, korona og pneumokokksykdom for aktuelle grupper.',
         'Du kan også få informasjon om anbefalte vaksiner og hvilke vaksiner du kan ha behov for ut fra alder, helse og andre risikofaktorer.',
         'Du kan få råd om smittsomme sykdommer og hvordan du kan forebygge smitte. Hvis du har vært utsatt for smitte, for eksempel tuberkulose, kan du også få oppfølging.',
@@ -251,8 +233,24 @@ export const HELSETILBUD: Helsetilbud[] = [
         'Barn får vaksiner i barnevaksinasjonsprogrammet på helsestasjonen.',
       ] },
     ],
-    contact: [{ label: 'Telefon', value: '32 04 72 00', href: 'tel:32047200' }],
-    links: [{ text: 'Bestill vaksinetime', external: true }, { text: 'Les mer om vaksiner på Helsenorge' }],
+    links: [{ text: 'Les mer om vaksiner på Helsenorge' }],
+  },
+  {
+    id: 'smittevern',
+    title: 'Smittevern',
+    desc: 'Forebygging og kontroll av smittsomme sykdommer.',
+    icon: 'smittevern',
+    sections: [
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: [
+        'Kommunens smitteverntjeneste arbeider med å forebygge og begrense spredning av smittsomme sykdommer.',
+        'Du kan blant annet få råd om smitte og smitteforebygging, og informasjon om aktuelle undersøkelser. Tjenesten kan også følge opp personer som har vært utsatt for smitte, for eksempel gjennom tuberkulosekontroll eller smittesporing.',
+      ] },
+      { heading: 'Slik får du tilbud', text: [
+        'Kontakt kommunens smitteverntjeneste for informasjon om hvilke undersøkelser og tjenester som tilbys, og hvordan du får time.',
+        'Noen undersøkelser gjennomføres etter innkalling fra kommunen. Har du symptomer på sykdom og trenger medisinsk hjelp, bør du vanligvis kontakte fastlegen.',
+      ] },
+    ],
+    links: [{ text: 'Les mer om smittevern på Helsenorge' }],
   },
   {
     id: 'hjemme',
@@ -260,7 +258,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     desc: 'Sykepleie og praktisk hjelp der du bor.',
     icon: 'hjem',
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Hjemmesykepleie, praktisk bistand og opplæring for deg som trenger hjelp for å kunne bo hjemme.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Hjemmesykepleie, praktisk bistand og opplæring for deg som trenger hjelp for å kunne bo hjemme.'] },
       { heading: 'Slik får du tilbud', text: ['Du må søke kommunen. Du får et vedtak som beskriver hjelpen du får.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -271,7 +269,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     desc: 'For å gjenopprette funksjon etter sykdom eller skade.',
     icon: 'rehab',
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Trening og oppfølging i hjemmet eller på institusjon, slik at du kan klare mest mulig selv.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Trening og oppfølging i hjemmet eller på institusjon, slik at du kan klare mest mulig selv.'] },
       { heading: 'Slik får du tilbud', text: ['Du får tilbudet etter søknad, ofte via lege eller sykehus.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -283,7 +281,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'fysio',
     tags: ['livsstil'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Kommunale fysioterapeuter tilbyr behandling og trening, både på institutt og i hjemmet.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Kommunale fysioterapeuter tilbyr behandling og trening, både på institutt og i hjemmet.'] },
       { heading: 'Slik får du tilbud', text: ['Du kan ta kontakt selv. Noen tilbud krever henvisning.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -294,7 +292,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     desc: 'Midlertidig opphold på sykehjem.',
     icon: 'korttid',
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Et tidsbegrenset opphold for behandling, rehabilitering eller avlastning for pårørende.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Et tidsbegrenset opphold for behandling, rehabilitering eller avlastning for pårørende.'] },
       { heading: 'Slik får du tilbud', text: ['Du må søke kommunen.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -305,7 +303,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     desc: 'For personer med demens og deres pårørende.',
     icon: 'demens',
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Demenskoordinator hjelper med utredning, informasjon og oppfølging, og er kontaktperson for pårørende.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Demenskoordinator hjelper med utredning, informasjon og oppfølging, og er kontaktperson for pårørende.'] },
       { heading: 'Slik får du tilbud', text: ['Du kan ta kontakt selv, eller via fastlegen.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -317,7 +315,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'barnekoord',
     tags: ['barn-familie'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Barnekoordinator hjelper familien med å samordne tjenester og er en fast kontaktperson.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Barnekoordinator hjelper familien med å samordne tjenester og er en fast kontaktperson.'] },
       { heading: 'Slik får du tilbud', text: ['Helsepersonell setter deg i kontakt med barnekoordinator. Du kan også søke selv.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -329,7 +327,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'logoped',
     tags: ['barn-familie'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Logoped gir utredning og behandling til barn og voksne med språk-, tale-, stemme- eller svelgevansker.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Logoped gir utredning og behandling til barn og voksne med språk-, tale-, stemme- eller svelgevansker.'] },
       { heading: 'Slik får du tilbud', text: ['Du trenger henvisning fra lege eller PP-tjenesten.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
@@ -341,7 +339,7 @@ export const HELSETILBUD: Helsetilbud[] = [
     icon: 'mestring',
     tags: ['psykisk-helse'],
     sections: [
-      { heading: 'Hva kan tilbudet hjelpe deg med?', text: ['Kurs og samtalegrupper som gir kunnskap og verktøy til å mestre hverdagen med langvarig sykdom.'] },
+      { heading: 'Hva kan dette tilbudet hjelpe deg med?', text: ['Kurs og samtalegrupper som gir kunnskap og verktøy til å mestre hverdagen med langvarig sykdom.'] },
       { heading: 'Slik får du tilbud', text: ['Du kan melde deg på selv.'] },
     ],
     links: [KOMMUNENS_NETTSIDE],
