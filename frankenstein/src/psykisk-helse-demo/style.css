@@ -621,6 +621,12 @@
 .ph-art-card__image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .ph-art-card__body { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
 .ph-art-card__title { margin: 0; font: 600 1.375rem/1.36 'Source Sans Pro', sans-serif; color: #000; }
+/* Title as link (2026-10-26): black text, blueberry arrow after the last
+   word; underline on hover, visible focus ring. */
+.ph-art-card__link { color: inherit; text-decoration: none; }
+.ph-art-card__link:hover { text-decoration: underline; }
+.ph-art-card__link:focus-visible { outline: 3px solid #000; outline-offset: 2px; }
+.ph-art-card__arrow { vertical-align: middle; margin-left: 2px; flex-shrink: 0; }
 .ph-art-card__desc { margin: 0; font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif; color: #000; }   /* 18/27, as the tool/service card text */
 
 /* Quiz options as standard DS Checkboxes (2026-10-20, replacing the

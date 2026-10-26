@@ -312,7 +312,7 @@ function ServiceCard({ resource }: { resource: Resource }) {
 
 // Article card (Figma Psykisk helse 408:8108, "Artikkelvarianter"):
 // card with a photo, title3 title, description, topic tags and a
-// borderless "Les artikkel" with ArrowRight. The photos are only examples:
+// linked title with ArrowRight (was a borderless "Les artikkel" until 2026-10-26). The photos are only examples:
 // the three from the Figma frame plus the two front-page photos, handed out
 // by position in the list so no two articles on the page share one (until
 // there are more than five).
@@ -344,17 +344,20 @@ function ArticleCard({ resource, image }: { resource: Resource; image: string })
         <img src={image} alt="" />
       </div>
       <div className="ph-art-card__body">
+        {/* The title is the link (with an arrow) since 2026-10-26; the
+            borderless "Les artikkel" button at the bottom is gone. */}
         <Title htmlMarkup="h3" appearance="title3" className="ph-art-card__title">
-          {resource.title}
+          <a
+            className="ph-art-card__link"
+            href={resource.url}
+            onClick={e => { e.preventDefault(); openResource(resource.url); }}
+          >
+            {resource.title}
+            <Icon svgIcon={ArrowRight} size={38} color="#06596C" className="ph-art-card__arrow" />
+          </a>
         </Title>
         <p className="ph-art-card__desc">{resource.shortDescription}</p>
         <CategoryTags tags={resource.tags} />
-        <div>
-          <Button variant="borderless" onClick={() => openResource(resource.url)}>
-            {resource.ctaLabel ?? 'Les artikkel'}
-            <Icon svgIcon={ArrowRight} />
-          </Button>
-        </div>
       </div>
     </article>
   );

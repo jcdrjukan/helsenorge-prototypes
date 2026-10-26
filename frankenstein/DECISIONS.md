@@ -472,4 +472,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Same tab; linking to the prototype's own (hidden) article page.
 **Why:** Direct user request (destination supplied).
 
+
+## 2026-10-26 — Psykisk helse demo: article title is the link
+**Decision:** In Lesestoff, each article card's title is now the link: black SemiBold text with a blueberry ArrowRight after the last word, underlined on hover, visible focus ring. It opens the article the same way as before (`openResource`). The borderless "Les artikkel" button at the bottom of the card is removed.
+**Alternative considered:** "Les artikkel →" button below the tags.
+**Why:** Direct user request.
+
 #helsenorge
