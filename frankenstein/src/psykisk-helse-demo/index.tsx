@@ -323,6 +323,21 @@ const ARTICLE_IMAGES = [
   '/ph-hero-warm.jpg',
 ];
 
+// Chosen photo per article (2026-10-27): put the file in
+// frankenstein/public/ named ph-art-<resource id>.jpg and add a line here.
+// Articles without an entry keep the positional example photo above.
+const ARTICLE_IMAGE_BY_ID: Record<string, string> = {
+  // 'artikkel-deprimert-eller-trist': '/ph-art-artikkel-deprimert-eller-trist.jpg',
+  // 'artikkel-langvarig-stress': '/ph-art-artikkel-langvarig-stress.jpg',
+  // 'artikkel-stress-pa-jobb': '/ph-art-artikkel-stress-pa-jobb.jpg',
+  // 'artikkel-utbrenthet': '/ph-art-artikkel-utbrenthet.jpg',
+  // 'artikkel-rad-for-bedre-sovn': '/ph-art-artikkel-rad-for-bedre-sovn.jpg',
+  // 'artikkel-angst': '/ph-art-artikkel-angst.jpg',
+  // 'artikkel-drikker-du-for-mye': '/ph-art-artikkel-drikker-du-for-mye.jpg',
+  // 'artikkel-rad-for-god-psykisk-helse': '/ph-art-artikkel-rad-for-god-psykisk-helse.jpg',
+  // 'artikkel-abc-for-god-psykisk-helse': '/ph-art-artikkel-abc-for-god-psykisk-helse.jpg',
+};
+
 // Section header visual (Figma Psykisk helse 419:19339, "Section"):
 // 200px area, coloured band in the lower 100px, a blob and an illustration
 // centred on top. The artwork comes from the Figma file (not in the DS).
@@ -392,7 +407,7 @@ function ResourceCard({
   }
 
   if (resource.type === 'artikkel') {
-    return <ArticleCard resource={resource} image={ARTICLE_IMAGES[index % ARTICLE_IMAGES.length]} />;
+    return <ArticleCard resource={resource} image={ARTICLE_IMAGE_BY_ID[resource.id] ?? ARTICLE_IMAGES[index % ARTICLE_IMAGES.length]} />;
   }
 
   return (

@@ -484,4 +484,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Keeping the LinkList row on results.
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: article photos to be chosen per article
+**Decision:** The user isn't happy with the example photos handed out by position on the article cards. Checked helsenorge.no: none of the nine articles has its own photo (the share image is Helsenorge's generic default; only ABC for god psykisk helse has an illustration), so there's nothing article-specific to reuse. The user chose to keep the photo slot and supply an approved photo per article. Prepared `ARTICLE_IMAGE_BY_ID` in `psykisk-helse-demo/index.tsx`: an entry per article ID (file `public/ph-art-<id>.jpg`) overrides the positional fallback; with no entries yet, nothing visible changes.
+**Alternative considered:** Topic icon from the DS on a soft cherry panel; no image at all.
+**Why:** Direct user request; option chosen by the user.
+
 #helsenorge
