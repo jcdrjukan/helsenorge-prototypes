@@ -368,7 +368,7 @@ function AkuttHjelp() {
             <span>116 123</span>
           </a>
         </p>
-        <p className="ph-akutt__text">Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+        <p className="ph-akutt__text">Ring hjelpetelefon på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
       </Panel.A>
     </Panel>
   );

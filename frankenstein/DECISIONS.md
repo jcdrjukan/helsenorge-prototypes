@@ -502,4 +502,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Plain new tab (`target="_blank"`).
 **Why:** Direct user request: consistent with the other links.
 
+
+## 2026-10-27 — Psykisk helse demo: Akutt hjelp text no longer says "legevakten"
+**Decision:** The shared Akutt hjelp panel (front page and results) now reads "Ring hjelpetelefon på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." This resolves the open question: the text paired "legevakten" with 116 123, which is Mental Helse's hjelpetelefon (legevakten is 116 117).
+**Alternative considered:** "Ring legevakten på 116 123 …" (from Figma 432:26314).
+**Why:** Direct user request.
+
 #helsenorge
