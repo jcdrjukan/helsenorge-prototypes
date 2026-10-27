@@ -376,6 +376,9 @@
   padding-bottom: 4.5rem;
 }
 
+/* Main CTA: 1rem more above it than the content gap (2026-10-27). */
+.ph-front__cta { margin-top: 1rem; }
+
 /* 1rem between the PromoPanel and the Akutt hjelp panel. */
 .ph-front__promo { margin-bottom: 1rem; }
 /* "Mer om tjenesten" section between the promo and Akutt hjelp

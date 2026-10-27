@@ -543,4 +543,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Number only inside the body text (not tappable).
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: 1rem more space above the front-page CTA
+**Decision:** The "Finn verktøy og informasjon tilpasset din situasjon" button sits 32px below the intro text (was 16px): `.ph-front__cta { margin-top: 1rem }` on a wrapper, on top of the content's 1rem gap. The button is still full width.
+**Alternative considered:** 16px gap.
+**Why:** Direct user request.
+
 #helsenorge

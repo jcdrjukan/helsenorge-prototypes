@@ -647,9 +647,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <p className="ph-preamble">
               Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon.
             </p>
-            <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
-              Finn verktøy og informasjon tilpasset din situasjon
-            </Button>
+            {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble. */}
+            <div className="ph-front__cta">
+              <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
+                Finn verktøy og informasjon tilpasset din situasjon
+              </Button>
+            </div>
           </div>
 
           {VIS_FORSIDEBILDER && <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />}
