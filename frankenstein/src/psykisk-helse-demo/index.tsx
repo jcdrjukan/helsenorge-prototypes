@@ -404,7 +404,7 @@ function ArticleCard({ resource, image }: { resource: Resource; image: string })
           </a>
         </Title>
         <p className="ph-art-card__desc">{resource.shortDescription}</p>
-        <CategoryTags tags={resource.tags} />
+        {/* Theme tags removed from article cards (2026-10-27, user request). */}
       </div>
     </article>
   );

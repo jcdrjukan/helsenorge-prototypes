@@ -549,4 +549,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** 16px gap.
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: no theme tags on Lesestoff cards
+**Decision:** The article cards in Lesestoff no longer show their theme tags (e.g. "NEDSTEMTHET"). Each card is now photo, linked title with arrow, and description. Tags elsewhere (tool and service cards) are unchanged.
+**Alternative considered:** Keeping the tags under the description.
+**Why:** Direct user request.
+
 #helsenorge
