@@ -366,18 +366,17 @@ function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; va
 // "Akutt hjelp" as a DS outline Panel (Figma 432:26314, 2026-10-22).
 // Shared by the front page and (since 2026-10-27) the results page.
 function AkuttHjelp() {
+  // Updated to Figma 432:26314 (2026-10-27): DS outline Panel "with icon" —
+  // EmergencyCall (48px) beside the title, body text indented under it.
   return (
     <Panel variant={PanelVariant.outline}>
-      <Panel.Title title="Mental Helse hjelpetelefon" titleMarkup="h2" />
+      <Panel.Title
+        title="Trenger du noen å snakke med?"
+        titleMarkup="h2"
+        icon={<Icon svgIcon={EmergencyCall} size={48} />}
+      />
       <Panel.A>
-        <p className="ph-akutt__nr">
-          <a href="tel:116123">
-            {/* Phone icon before the number (2026-10-27). */}
-            <Icon svgIcon={EmergencyCall} size={38} color="#06596C" />
-            <span>116 123</span>
-          </a>
-        </p>
-        <p className="ph-akutt__text">Ring hjelpetelefon på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+        <p className="ph-akutt__text">Ring Mental Helses hjelpetelefon på 116 123 hvis du trenger noen å snakke med. Åpent hele døgnet.</p>
       </Panel.A>
     </Panel>
   );

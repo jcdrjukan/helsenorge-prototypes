@@ -531,4 +531,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Keeping the always-visible "Om tjenesten" section.
 **Why:** Direct user request (content supplied).
 
+
+## 2026-10-27 — Psykisk helse demo: hjelpetelefon panel updated to Figma ("Trenger du noen å snakke med?")
+**Decision:** The shared panel (front page and results) follows the updated Figma node 432:26314: a DS outline Panel "with icon". It has the EmergencyCall icon (48px) beside the title "Trenger du noen å snakke med?" (h2), and the body text indented under the title: "Ring Mental Helses hjelpetelefon på 116 123 hvis du trenger noen å snakke med. Åpent hele døgnet." The separate "116 123" tel: link line with its phone icon is gone, as in Figma. Figma's double space in the title isn't carried over, and "Mental helses" is written "Mental Helses" (the organisation's own spelling).
+**Alternative considered:** Title "Mental Helse hjelpetelefon" with a separate tappable number.
+**Why:** Direct user request (Figma).
+
 #helsenorge
