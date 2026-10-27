@@ -239,4 +239,10 @@ A text-position comparison against the pre-change version found nothing else tha
 **Alternative considered:** Plain terms without explanation.
 **Why:** Direct user request: reuse Prøvesvar's ordforklaring function.
 
+
+## 2026-10-27 — "Bruk tjenesten Gravid og digitalt helsekort" CTA without the light-blue box
+**Decision:** On the Gravid front page (gravid-tjeneste.html) and its scenario-2b variant (aktiver-helsekort-ikke-tilgjengelig.html), the CTA no longer sits in a light-blue panel: `.panel-blueberry` has no background and no padding. The button is now full content width (344px), like Psykisk helse's front-page CTA. The button itself already matched it: DS fill, 8px radius, 18px SemiBold, ArrowRight. Vertical spacing around it is unchanged.
+**Alternative considered:** CTA inside a blueberry-50 panel.
+**Why:** Direct user request: same styling as the Psykisk helse CTA.
+
 #helsenorge
