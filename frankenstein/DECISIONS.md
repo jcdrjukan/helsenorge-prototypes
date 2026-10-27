@@ -490,4 +490,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Topic icon from the DS on a soft cherry panel; no image at all.
 **Why:** Direct user request; option chosen by the user.
 
+
+## 2026-10-27 — Psykisk helse demo: phone icon before "116 123" in Akutt hjelp
+**Decision:** In the shared Akutt hjelp panel (front page and results), the "116 123" tel: link starts with the DS EmergencyCall icon (handset with a plus, 38px, blueberry #06596C). Icon and number sit on one centred line inside the link, so the whole thing is one tap target with the accessible name "116 123". The icon's built-in left spacing is offset so the handset lines up with the panel title.
+**Alternative considered:** Number without icon; DS MobilePhone icon.
+**Why:** Direct user request.
+
 #helsenorge

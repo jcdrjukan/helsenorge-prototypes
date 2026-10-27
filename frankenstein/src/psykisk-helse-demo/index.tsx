@@ -20,6 +20,7 @@ import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
+import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
 import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
@@ -358,7 +359,13 @@ function AkuttHjelp() {
     <Panel variant={PanelVariant.outline}>
       <Panel.Title title="Akutt hjelp" titleMarkup="h2" />
       <Panel.A>
-        <p className="ph-akutt__nr"><a href="tel:116123">116 123</a></p>
+        <p className="ph-akutt__nr">
+          <a href="tel:116123">
+            {/* Phone icon before the number (2026-10-27). */}
+            <Icon svgIcon={EmergencyCall} size={38} color="#06596C" />
+            <span>116 123</span>
+          </a>
+        </p>
         <p className="ph-akutt__text">Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
       </Panel.A>
     </Panel>

@@ -391,6 +391,11 @@
   font-weight: 600;
   color: #06596C;
   text-decoration: underline;
+  /* Icon + number on one line, icon centred on the text (2026-10-27). */
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: -6px;   /* the 38px icon has ~6px built-in space; keeps it in line with the title */
 }
 
 .ph-front__hero {
