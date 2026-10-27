@@ -496,4 +496,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Number without icon; DS MobilePhone icon.
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: promo link opens in the phone-sized window
+**Decision:** "Finn informasjon om psykisk helse" now opens helsenorge.no's "Hva er psykisk helse?" through `openResource`, the same 390×844 popup window all other resource links use; before, it opened in a plain new tab. Done with the PromoPanel's `linkComponent` (an `<a href>` whose click is handled), so the panel looks and announces the same: a link named "Finn informasjon om psykisk helse".
+**Alternative considered:** Plain new tab (`target="_blank"`).
+**Why:** Direct user request: consistent with the other links.
+
 #helsenorge

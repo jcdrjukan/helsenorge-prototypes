@@ -95,6 +95,8 @@ function CategoryTags({ tags }: { tags: string[] }) {
   );
 }
 
+const HVA_ER_PSYKISK_HELSE = 'https://www.helsenorge.no/psykisk-helse/hva-er-psykisk-helse/';
+
 function openResource(url: string) {
   window.open(
     url,
@@ -670,14 +672,19 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             )}
             {/* "Finn informasjon om psykisk helse" — DS PromoPanel, blueberry
                 (Figma 432:27541). Opens helsenorge.no's "Hva er psykisk
-                helse?" in a new tab (2026-10-26). */}
+                helse?" in the same phone-sized window as the other resource links
+                (openResource), since 2026-10-27; was a plain new tab. */}
             <div className="ph-front__promo">
               <PromoPanel
                 title="Finn informasjon om psykisk helse"
                 titleHtmlMarkup="h2"
                 color="blueberry"
-                href="https://www.helsenorge.no/psykisk-helse/hva-er-psykisk-helse/"
-                target="_blank"
+                linkComponent={
+                  <a
+                    href={HVA_ER_PSYKISK_HELSE}
+                    onClick={e => { e.preventDefault(); openResource(HVA_ER_PSYKISK_HELSE); }}
+                  />
+                }
               >
                 Her finner du informasjon om hva psykisk helse er, hvordan du tar vare på den og hvor du kan få hjelp hvis du eller noen du kjenner har det vanskelig.
               </PromoPanel>
