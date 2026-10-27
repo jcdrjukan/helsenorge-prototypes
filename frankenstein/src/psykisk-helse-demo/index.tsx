@@ -6,6 +6,7 @@ import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel';
+import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import ElementHeader from '@helsenorge/designsystem-react/components/ElementHeader';
@@ -96,6 +97,7 @@ function CategoryTags({ tags }: { tags: string[] }) {
 }
 
 const HVA_ER_PSYKISK_HELSE = 'https://www.helsenorge.no/psykisk-helse/hva-er-psykisk-helse/';
+const INNSTILLINGER = 'https://www.helsenorge.no/innstillinger/';
 
 function openResource(url: string) {
   window.open(
@@ -651,20 +653,8 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
 
           {VIS_FORSIDEBILDER && <div className="ph-front__hero ph-front__hero--warm" aria-hidden="true" />}
 
-          <div className="ph-front__content">
-            <h2 className="ph-front__section-title">Om tjenesten Psykisk helse</h2>
-            <p className="ph-preamble">
-              Tjenesten hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan:
-            </p>
-            <ul className="ph-benefit-list">
-              <li>sove bedre</li>
-              <li>håndtere stress</li>
-              <li>få bedre kontroll over følelsene dine</li>
-            </ul>
-            <p className="ph-preamble">
-              Svarene dine sendes ikke til noen og blir ikke lagret.
-            </p>
-          </div>
+          {/* The "Om tjenesten Psykisk helse" text section that stood here
+              moved into the "Mer om tjenesten" expanders below (2026-10-27). */}
 
           <div className="ph-front__content ph-front__content--contact">
             {VIS_VEIVISER_LENKE && (
@@ -696,6 +686,40 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 Her finner du informasjon om hva psykisk helse er, hvordan du tar vare på den og hvor du kan få hjelp hvis du eller noen du kjenner har det vanskelig.
               </PromoPanel>
             </div>
+            {/* "Mer om tjenesten" (2026-10-27): DS ExpanderList, line variant,
+                neutral, h3 titles — same structure as the section on other
+                Helsenorge tjenester (title3 heading + expanders). Replaces
+                the "Om tjenesten Psykisk helse" text section further up. */}
+            <section className="ph-front__more" aria-labelledby="ph-mer-om-tjenesten">
+              <h2 className="ph-front__more-title" id="ph-mer-om-tjenesten">Mer om tjenesten</h2>
+              <ExpanderList variant="line" color="neutral">
+                <ExpanderList.Expander title="Om tjenesten Psykisk helse" titleHtmlMarkup="h3">
+                  <div className="ph-front__more-body">
+                    <p>Tjenesten hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan:</p>
+                    <ul>
+                      <li>sove bedre</li>
+                      <li>håndtere stress</li>
+                      <li>få bedre kontroll over følelsene dine</li>
+                    </ul>
+                    <p>Svarene dine sendes ikke til noen og blir ikke lagret for andre enn deg.</p>
+                  </div>
+                </ExpanderList.Expander>
+                <ExpanderList.Expander title="Samtykke til å bruke tjenesten" titleHtmlMarkup="h3">
+                  <div className="ph-front__more-body">
+                    <p>
+                      Du kan bruke tjenesten med samtykkenivå basis eller høyere. Gå til{' '}
+                      <AnchorLink
+                        href={INNSTILLINGER}
+                        onClick={e => { e?.preventDefault(); openResource(INNSTILLINGER); }}
+                      >
+                        Innstillinger
+                      </AnchorLink>{' '}
+                      for å endre samtykkenivået ditt.
+                    </p>
+                  </div>
+                </ExpanderList.Expander>
+              </ExpanderList>
+            </section>
             <AkuttHjelp />
           </div>
 

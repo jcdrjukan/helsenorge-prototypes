@@ -520,4 +520,15 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Keeping the indicator.
 **Why:** Direct user request: not in the current release.
 
+
+## 2026-10-27 — Psykisk helse demo: "Mer om tjenesten" expanders on the front page (replaces "Om tjenesten")
+**Decision:** A new section sits between the "Finn informasjon om psykisk helse" PromoPanel and the Mental Helse hjelpetelefon panel. It has an h2 "Mer om tjenesten" (title3 style) over a DS ExpanderList (line, neutral) with two h3 expanders, modelled on the source markup the user supplied from another Helsenorge tjeneste.
+- **"Om tjenesten Psykisk helse":** "Tjenesten hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan:", then a bullet list (sove bedre / håndtere stress / få bedre kontroll over følelsene dine), then "Svarene dine sendes ikke til noen og blir ikke lagret for andre enn deg."
+- **"Samtykke til å bruke tjenesten":** "Du kan bruke tjenesten med samtykkenivå basis eller høyere. Gå til Innstillinger for å endre samtykkenivået ditt." "Innstillinger" is a DS AnchorLink to https://www.helsenorge.no/innstillinger/, opened in the phone-sized window like the other links.
+- **Removed:** the visible "Om tjenesten Psykisk helse" text section further up the page (h2, preamble, list, privacy line), whose content now lives in the first expander. The privacy line changed from "…blir ikke lagret." to "…blir ikke lagret for andre enn deg."
+- **Styling:** body text 18px/1.5, disc bullets.
+
+**Alternative considered:** Keeping the always-visible "Om tjenesten" section.
+**Why:** Direct user request (content supplied).
+
 #helsenorge
