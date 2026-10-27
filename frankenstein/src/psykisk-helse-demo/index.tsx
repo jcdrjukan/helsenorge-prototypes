@@ -359,7 +359,7 @@ function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; va
 function AkuttHjelp() {
   return (
     <Panel variant={PanelVariant.outline}>
-      <Panel.Title title="Akutt hjelp" titleMarkup="h2" />
+      <Panel.Title title="Mental Helse hjelpetelefon" titleMarkup="h2" />
       <Panel.A>
         <p className="ph-akutt__nr">
           <a href="tel:116123">

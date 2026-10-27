@@ -508,4 +508,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Ring legevakten på 116 123 …" (from Figma 432:26314).
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: Akutt hjelp panel retitled "Mental Helse hjelpetelefon"
+**Decision:** The shared panel's title (front page and results) is now "Mental Helse hjelpetelefon", with the organisation name capitalised as Mental Helse writes it (the request said "Mental helse"). Text, number and icon are unchanged. The component is still called `AkuttHjelp` in code.
+**Alternative considered:** "Akutt hjelp".
+**Why:** Direct user request.
+
 #helsenorge
