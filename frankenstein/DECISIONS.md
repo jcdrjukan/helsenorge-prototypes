@@ -561,4 +561,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Photo on every card (positional examples, or per-article photos still to be supplied).
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: Lesestoff arrow at the card's right edge
+**Decision:** On the article cards the ArrowRight sits at the right edge of the card, vertically centred on the title, not right after the last word. The title link is a full-width flex row (title text left, arrow right, 0.5rem gap). Hover underlines only the title text. The whole row is still one link.
+**Alternative considered:** Arrow directly after the title text.
+**Why:** Direct user request.
+
 #helsenorge

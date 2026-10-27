@@ -406,7 +406,7 @@ function ArticleCard({ resource, image }: { resource: Resource; image: string })
             href={resource.url}
             onClick={e => { e.preventDefault(); openResource(resource.url); }}
           >
-            {resource.title}
+            <span className="ph-art-card__link-text">{resource.title}</span>
             <Icon svgIcon={ArrowRight} size={38} color="#06596C" className="ph-art-card__arrow" />
           </a>
         </Title>
