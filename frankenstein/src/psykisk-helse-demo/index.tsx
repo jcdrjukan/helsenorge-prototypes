@@ -376,6 +376,8 @@ function AkuttHjelp() {
         icon={<Icon svgIcon={EmergencyCall} size={48} />}
       />
       <Panel.A>
+        {/* Tappable number under the title (2026-10-27, user request). */}
+        <p className="ph-akutt__nr"><a href="tel:116123">116 123</a></p>
         <p className="ph-akutt__text">Ring Mental Helses hjelpetelefon på 116 123 hvis du trenger noen å snakke med. Åpent hele døgnet.</p>
       </Panel.A>
     </Panel>

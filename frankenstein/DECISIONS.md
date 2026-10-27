@@ -537,4 +537,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Title "Mental Helse hjelpetelefon" with a separate tappable number.
 **Why:** Direct user request (Figma).
 
+
+## 2026-10-27 — Psykisk helse demo: tappable "116 123" back under the hjelpetelefon title
+**Decision:** The hjelpetelefon panel has a "116 123" tel: link (SemiBold, underlined, blueberry #06596C) directly under the title "Trenger du noen å snakke med?", lined up with the title and above the body text, 0.5rem gap. No phone icon on the link, since the title already carries EmergencyCall. The user had left it out of the Figma frame by mistake.
+**Alternative considered:** Number only inside the body text (not tappable).
+**Why:** Direct user request.
+
 #helsenorge
