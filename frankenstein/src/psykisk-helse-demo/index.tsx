@@ -25,7 +25,6 @@ import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/Peopl
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
 import TravelRoute from '@helsenorge/designsystem-react/components/Icons/TravelRoute';
 import HealthClinic from '@helsenorge/designsystem-react/components/Icons/HealthClinic';
-import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
 import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
 import StarFill from '@helsenorge/designsystem-react/components/Icons/StarFill';
 import './style.css';
@@ -334,6 +333,20 @@ function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; va
       <img className="ph-sec__blob" src={blob} alt="" />
       <img className="ph-sec__illu" src={illu} alt="" />
     </div>
+  );
+}
+
+// "Akutt hjelp" as a DS outline Panel (Figma 432:26314, 2026-10-22).
+// Shared by the front page and (since 2026-10-27) the results page.
+function AkuttHjelp() {
+  return (
+    <Panel variant={PanelVariant.outline}>
+      <Panel.Title title="Akutt hjelp" titleMarkup="h2" />
+      <Panel.A>
+        <p className="ph-akutt__nr"><a href="tel:116123">116 123</a></p>
+        <p className="ph-akutt__text">Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
+      </Panel.A>
+    </Panel>
   );
 }
 
@@ -647,15 +660,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 Her finner du informasjon om hva psykisk helse er, hvordan du tar vare på den og hvor du kan få hjelp hvis du eller noen du kjenner har det vanskelig.
               </PromoPanel>
             </div>
-            {/* Akutt hjelp as a DS outline Panel (Figma 432:26314, 2026-10-22);
-                was a LinkList row with the EmergencyCall icon. */}
-            <Panel variant={PanelVariant.outline}>
-              <Panel.Title title="Akutt hjelp" titleMarkup="h2" />
-              <Panel.A>
-                <p className="ph-akutt__nr"><a href="tel:116123">116 123</a></p>
-                <p className="ph-akutt__text">Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet.</p>
-              </Panel.A>
-            </Panel>
+            <AkuttHjelp />
           </div>
 
           <footer className="ph-footer">
@@ -827,14 +832,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                   <ElementHeader.Text firstText="Finn tjenester som kan hjelpe deg med din psykiske helse." subText />
                 </ElementHeader>
               </LinkList.Link>
-              <LinkList.Link href="tel:116123" icon={<Icon svgIcon={EmergencyCall} />}>
-                <ElementHeader>
-                  <ElementHeader.Text firstText="Akutt hjelp" firstTextEmphasised />
-                  <ElementHeader.Text firstText="Ring 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." subText />
-                </ElementHeader>
-              </LinkList.Link>
             </LinkList>
           </section>
+
+          {/* Same Akutt hjelp panel as the front page (2026-10-27); was a
+              LinkList row with the EmergencyCall icon. */}
+          <AkuttHjelp />
 
           <div>
             <Button variant="borderless" onClick={() => setView('avslutt')}>

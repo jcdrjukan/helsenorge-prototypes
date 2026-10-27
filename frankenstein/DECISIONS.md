@@ -478,4 +478,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Les artikkel →" button below the tags.
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: results page uses the front page's Akutt hjelp panel
+**Decision:** On the results page, the "Akutt hjelp" LinkList row (EmergencyCall icon, "Ring 116 123 …") is replaced by the same DS outline Panel as the front page: title "Akutt hjelp", the "116 123" tel: link, and "Ring legevakten på 116 123 ved akutt behov for psykisk helsehjelp. Åpent hele døgnet." It sits below the "Se hvilke helsetilbud kommunen tilbyr" link and above "Avslutt tjenesten". Both pages now render one shared `AkuttHjelp` component, so the text can't drift apart. The open question about "legevakten" + 116 123 now applies to both pages.
+**Alternative considered:** Keeping the LinkList row on results.
+**Why:** Direct user request.
+
 #helsenorge
