@@ -514,4 +514,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** "Akutt hjelp".
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: "Åpen – Døgnåpen" indicator switched off
+**Decision:** The live open/closed line at the top of the two "Noen å snakke med" service cards (Mental Helse, Kirkens SOS) is hidden behind `VIS_APNINGSSTATUS = false` in `psykisk-helse-demo/index.tsx`. It won't be in the current release but is planned later; set it to true to bring it back. The "Åpningstider" list under "Se detaljer" is unchanged.
+**Alternative considered:** Keeping the indicator.
+**Why:** Direct user request: not in the current release.
+
 #helsenorge

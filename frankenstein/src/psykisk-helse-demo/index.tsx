@@ -235,6 +235,11 @@ function ToolCard({ resource }: { resource: Resource }) {
 // favorite star. The open/closed line is computed live from the opening
 // hours — the design frames show different example states for the same
 // service, so it's a status, not fixed copy.
+// The live "Åpen/Stengt – …" line at the top of the card isn't in the
+// current release (2026-10-27, user request) — set to true to bring it back.
+// The opening hours under "Se detaljer" are unaffected.
+const VIS_APNINGSSTATUS = false;
+
 function formatHours(h: OpeningHours) {
   if (h === 'døgnåpen') return 'Døgnåpen';
   if (h === 'stengt') return 'Stengt';
@@ -263,12 +268,14 @@ function ServiceCard({ resource }: { resource: Resource }) {
             </Title>
           </div>
         </div>
-        <p className="ph-service-card__status">
-          <span className={status.open ? 'ph-service-card__status--open' : 'ph-service-card__status--closed'}>
-            {status.open ? 'Åpen' : 'Stengt'}
-          </span>
-          {status.detail && <> - {status.detail}</>}
-        </p>
+        {VIS_APNINGSSTATUS && (
+          <p className="ph-service-card__status">
+            <span className={status.open ? 'ph-service-card__status--open' : 'ph-service-card__status--closed'}>
+              {status.open ? 'Åpen' : 'Stengt'}
+            </span>
+            {status.detail && <> - {status.detail}</>}
+          </p>
+        )}
         <p className="ph-resource-card__desc">{resource.shortDescription}</p>
         <div className="ph-service-card__buttons">
           <Button variant="fill" onClick={() => openResource(service.chatUrl)}>
