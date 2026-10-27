@@ -555,4 +555,10 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Keeping the tags under the description.
 **Why:** Direct user request.
 
+
+## 2026-10-27 — Psykisk helse demo: Lesestoff cards without photos (kept behind a switch)
+**Decision:** The article cards in Lesestoff no longer show a photo; each is now linked title with arrow and description. The photos are switched off, not deleted (`VIS_ARTIKKELBILDER = false` in `psykisk-helse-demo/index.tsx`): set it to true to bring them back. The positional example photos and the per-article map (`ARTICLE_IMAGE_BY_ID`) are untouched, so chosen photos can still be added later. The user previewed both versions; they may switch back.
+**Alternative considered:** Photo on every card (positional examples, or per-article photos still to be supplied).
+**Why:** Direct user request.
+
 #helsenorge

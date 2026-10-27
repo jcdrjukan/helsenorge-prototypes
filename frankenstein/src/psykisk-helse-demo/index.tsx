@@ -335,6 +335,11 @@ const ARTICLE_IMAGES = [
   '/ph-hero-warm.jpg',
 ];
 
+// Photos on the Lesestoff article cards are switched off (2026-10-27, user
+// request) — set to true to bring them back. ARTICLE_IMAGES and
+// ARTICLE_IMAGE_BY_ID stay as they are for when they return.
+const VIS_ARTIKKELBILDER = false;
+
 // Chosen photo per article (2026-10-27): put the file in
 // frankenstein/public/ named ph-art-<resource id>.jpg and add a line here.
 // Articles without an entry keep the positional example photo above.
@@ -387,9 +392,11 @@ function AkuttHjelp() {
 function ArticleCard({ resource, image }: { resource: Resource; image: string }) {
   return (
     <article className="ph-art-card">
-      <div className="ph-art-card__image" aria-hidden="true">
-        <img src={image} alt="" />
-      </div>
+      {VIS_ARTIKKELBILDER && (
+        <div className="ph-art-card__image" aria-hidden="true">
+          <img src={image} alt="" />
+        </div>
+      )}
       <div className="ph-art-card__body">
         {/* The title is the link (with an arrow) since 2026-10-26; the
             borderless "Les artikkel" button at the bottom is gone. */}
