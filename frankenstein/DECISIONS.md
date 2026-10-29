@@ -567,4 +567,9 @@ This reverses the full-bleed choice from earlier the same day.
 **Alternative considered:** Arrow directly after the title text.
 **Why:** Direct user request.
 
+## 2026-10-29 — Psykisk helse demo: ingresses use the design system preamble style
+**Decision:** The demo's ingresses now use the Helsenorge design system's preamble typography (`fonts.preamble`, mobile): 400 1.25rem/1.625rem (20px/26px). Applies to the Psykisk helse front-page preamble (`.ph-preamble`), the results and Avslutt tjenesten intros (`.ph-results-intro`), and the Kommunale tjenester ingress (`.kt-ingress`). They were 18px/1.5.
+**Alternative considered:** Keep the hand-set 18px/1.5.
+**Why:** Direct user request ("Use the frankenstein ingress styling for the ingress").
+
 #helsenorge

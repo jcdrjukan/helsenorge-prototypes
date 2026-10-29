@@ -40,7 +40,8 @@
 }
 
 .ph-preamble {
-  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  /* Design system preamble (fonts.preamble, mobile), 2026-10-29. */
+  font: 400 1.25rem/1.625rem 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }
@@ -173,7 +174,8 @@
 
 /* ── Results ─────────────────────────────────────────────────────── */
 .ph-results-intro {
-  font: 400 1.125rem/150% 'Source Sans Pro', sans-serif;
+  /* Design system preamble (fonts.preamble, mobile), 2026-10-29. */
+  font: 400 1.25rem/1.625rem 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }

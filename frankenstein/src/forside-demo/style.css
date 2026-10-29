@@ -597,7 +597,8 @@
 /* Kommunale tjenester: title + ingress (2026-10-22). */
 .kt-intro { display: flex; flex-direction: column; gap: 0.5rem; }
 .kt-ingress {
-  font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif;
+  /* Design system preamble (fonts.preamble, mobile), 2026-10-29. */
+  font: 400 1.25rem/1.625rem 'Source Sans Pro', sans-serif;
   color: #000;
   margin: 0;
 }
