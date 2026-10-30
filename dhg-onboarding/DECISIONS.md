@@ -264,3 +264,8 @@ All three now point to the same action: take DHG into use and share information 
 **Decision:** `gravid/kartlegging.html` ("Kartlegging før første svangerskapskontroll") is now in Bokmål throughout. That covers the intro, section headings, questions, answer options, country names (e.g. Noreg → Norge, -øyane → -øyene), the help texts, the character counter ("tegn"), the urine sample text, the buttons ("Gå videre"), the "Skjemaet er lagret" message, and the "Sendt" modal text (also corrected to "ditt digitale helsekort").
 **Alternative considered:** Keeping the original Nynorsk form text.
 **Why:** Direct user request, so the form matches the rest of the prototype's Bokmål.
+
+## 2026-10-30 — Gravid: "Tilbud om tidlig ultralyd" panel up to uke 14
+**Decision:** The Gravid page shows a panel under the "Del opplysninger" (Kartlegging) panel: the EarlyUltrasound illustration (Figma DHG 8884:3430), "Tilbud om tidlig ultralyd i uke 11 til 14" and a short body text. It shows from week 1 up to and including uke 14, and depends only on the week, not on the Kartlegging panel or the helsekort connection. It is a design-system HighlightPanel in blueberry, keeping that component's 1px blueberry border and square corners. It has no link (the Figma's "Les mer om fosterdiagnostikk" was dropped).
+**Alternative considered:** Showing it only alongside the Kartlegging panel; keeping the "Les mer" link.
+**Why:** Direct user request (Figma DHG 8883:3343): week only, no link, follow the design system.
