@@ -259,3 +259,8 @@ All three now point to the same action: take DHG into use and share information 
 **Decision:** In the expanded "Se alle tjenester" list on every front-page scenario (1, 3, 4), Situasjonstjenester (Psykisk helse, Gravid, Småbarnsliv) now sits between Oversikter and Søknad og refusjon; it was last, after Kvalitet og styring. Same order as the Frankenstein forside demo.
 **Alternative considered:** Situasjonstjenester last.
 **Why:** Direct user request.
+
+## 2026-10-30 — Kartlegging form translated from Nynorsk to Bokmål
+**Decision:** `gravid/kartlegging.html` ("Kartlegging før første svangerskapskontroll") is now in Bokmål throughout. That covers the intro, section headings, questions, answer options, country names (e.g. Noreg → Norge, -øyane → -øyene), the help texts, the character counter ("tegn"), the urine sample text, the buttons ("Gå videre"), the "Skjemaet er lagret" message, and the "Sendt" modal text (also corrected to "ditt digitale helsekort").
+**Alternative considered:** Keeping the original Nynorsk form text.
+**Why:** Direct user request, so the form matches the rest of the prototype's Bokmål.
