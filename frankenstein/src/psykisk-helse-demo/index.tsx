@@ -936,16 +936,15 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <section className="ph-svar" aria-labelledby="ph-svar-title">
             <h2 className="ph-svar__title" id="ph-svar-title">Svarene dine</h2>
             <p className="ph-svar__text">
-              Svarene dine er lagret i profilen din, og bare du kan se dem. Du kan endre svarene for å få nye anbefalinger, eller slette dem og avslutte tjenesten.
+              Svarene dine er lagret i profilen din, og bare du kan se dem. Du kan endre svarene for å få nye anbefalinger. Når du avslutter tjenesten, slettes svarene og anbefalingene dine.
             </p>
             <div className="ph-svar__actions">
               <Button variant="outline" onClick={retake}>
                 <Icon svgIcon={ArrowLeft} size={38} />
                 Endre svarene dine
               </Button>
-              <Button variant="outline" concept="destructive" onClick={() => setView('avslutt')}>
-                <Icon svgIcon={TrashCan} size={38} />
-                Slett svarene og avslutt
+              <Button variant="outline" concept="destructive" arrow="icon" onClick={() => setView('avslutt')}>
+                Avslutt tjenesten
               </Button>
             </div>
           </section>
@@ -970,7 +969,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
       {/* ── Avslutt tjenesten ──────────────────────────────────── */}
       {view === 'avslutt' && (
         <main className="ph-page ph-avslutt">
-          <h1 className="ph-avslutt__title">Slett svarene og avslutt tjenesten</h1>
+          <h1 className="ph-avslutt__title">Avslutt tjenesten</h1>
           <section aria-labelledby="ph-slettes">
             <h2 className="ph-avslutt__h2" id="ph-slettes">Dette blir slettet</h2>
             <ul className="ph-personvern-list">
