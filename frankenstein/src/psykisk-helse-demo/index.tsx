@@ -6,7 +6,6 @@ import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel';
-import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
@@ -696,21 +695,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <p className="ph-preamble">
               Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon.
             </p>
-            {/* What happens to the answers, before the user starts (user test
-                2026-11). Above the CTA so it's read before starting. */}
-            <HighlightPanel
-              className="ph-front__personvern"
-              title="Dette skjer med svarene dine"
-              titleHtmlMarkup="h2"
-              color="neutral"
-              variant="compact"
-            >
-              <ul className="ph-personvern-list">
-                <li>Svarene lagres i profilen din, så du kan komme tilbake til anbefalingene.</li>
-                <li>Bare du kan se dem. De deles ikke med fastlegen din eller andre.</li>
-                <li>Du kan slette dem når du vil.</li>
-              </ul>
-            </HighlightPanel>
             {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble. */}
             <div className="ph-front__cta">
               <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
