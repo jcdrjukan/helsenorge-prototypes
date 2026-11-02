@@ -4,7 +4,14 @@ import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import { Duolist, DuolistGroup } from '@helsenorge/designsystem-react/components/Duolist';
 import type { SubmittedOrder } from './data';
-import { LEVERINGSMATE, tilAdresse } from './data';
+import { LEVERINGSMATE, PICKUP_LOCATIONS, tilAdresse, type DeliveryMode } from './data';
+
+// Pickup orders: the hentested's address under its name (2026-11-02).
+function hentested(mode: DeliveryMode) {
+  if (mode !== 'hentes' && mode !== 'hentes2') return null;
+  const loc = PICKUP_LOCATIONS[mode];
+  return <>{loc.gate}<br />{loc.postnr} {loc.sted}</>;
+}
 
 interface HistoryCardProps {
   order: SubmittedOrder;
@@ -49,7 +56,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
           <Field label={LEVERINGSMATE[order.delivery]} value={
             tilAdresse(order.delivery)
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.gate2 && <>{order.gate2}<br /></>}{order.poststed}</>
-              : order.addr
+              : <>{order.addr}<br />{hentested(order.delivery)}</>
           } />
           {order.comment && (
             <>
