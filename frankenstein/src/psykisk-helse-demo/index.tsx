@@ -725,7 +725,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 (openResource), since 2026-10-27; was a plain new tab. */}
             <div className="ph-front__promo">
               <PromoPanel
-                title="Finn informasjon om psykisk helse"
+                title="Psykisk helse lesestoff på Helsenorge"
                 titleHtmlMarkup="h2"
                 color="blueberry"
                 linkComponent={
