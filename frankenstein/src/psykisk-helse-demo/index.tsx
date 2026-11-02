@@ -879,7 +879,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               Psykisk helse
             </h1>
             <p className="ph-results-intro">
-              Basert på svarene dine kan disse verktøyene og artiklene være nyttige for deg. Du velger selv hva du vil bruke. Verktøyene og artiklene er kvalitetssikret av Helsenorge.
+              Basert på svarene dine kan disse artiklene og verktøyene være nyttige for deg. Du velger selv hva du vil bruke. Artiklene og verktøyene er kvalitetssikret av Helsenorge.
             </p>
           </div>
 
