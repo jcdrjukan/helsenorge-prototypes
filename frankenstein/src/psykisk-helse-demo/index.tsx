@@ -883,20 +883,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </p>
           </div>
 
-          {results.verktøy.length > 0 && (
-            <section className="ph-tool-section ph-sec ph-sec--blueberry ph-sec--verktoy" aria-labelledby="ph-tool-section-title">
-              <SectionVisual blob="/ph-sec-blob-blueberry.svg" illu="/ph-sec-illu-verktoy.svg" variant="verktoy" />
-              <h2 className="ph-tool-section__title" id="ph-tool-section-title">Verktøy</h2>
-              <ul className="ph-resource-list ph-tool-section__list">
-                {results.verktøy.map(r => (
-                  <li key={r.id}>
-                    <ResourceCard resource={r} />
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
-
           {results.artikler.length > 0 && (
             <section className="ph-tool-section ph-sec ph-sec--cherry" aria-labelledby="ph-article-section-title">
               <SectionVisual blob="/ph-sec-blob-cherry.svg" illu="/ph-sec-illu-artikler.svg" variant="artikler" />
@@ -905,6 +891,20 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 {results.artikler.map((r, i) => (
                   <li key={r.id}>
                     <ResourceCard resource={r} index={i} />
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+
+          {results.verktøy.length > 0 && (
+            <section className="ph-tool-section ph-sec ph-sec--blueberry ph-sec--verktoy" aria-labelledby="ph-tool-section-title">
+              <SectionVisual blob="/ph-sec-blob-blueberry.svg" illu="/ph-sec-illu-verktoy.svg" variant="verktoy" />
+              <h2 className="ph-tool-section__title" id="ph-tool-section-title">Verktøy</h2>
+              <ul className="ph-resource-list ph-tool-section__list">
+                {results.verktøy.map(r => (
+                  <li key={r.id}>
+                    <ResourceCard resource={r} />
                   </li>
                 ))}
               </ul>
