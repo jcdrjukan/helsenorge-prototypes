@@ -985,7 +985,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               <li>andre opplysninger om deg på Helsenorge</li>
             </ul>
           </section>
-          <p className="ph-results-intro">Du kan ta tjenesten i bruk igjen når du vil.</p>
+          <p className="ph-results-intro">Du kan når som helst ta tjenesten i bruk igjen.</p>
           <div className="ph-avslutt__actions">
             <Button variant="fill" concept="destructive" onClick={slettOgAvslutt}>
               <Icon svgIcon={TrashCan} size={38} />
