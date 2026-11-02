@@ -971,14 +971,13 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <ul className="ph-personvern-list">
               <li>svarene dine på spørsmålene</li>
               <li>anbefalingene du har fått: verktøy, lesestoff og noen å snakke med</li>
-              <li>Psykisk helse under «Støtte til din situasjon» på forsiden din</li>
+              <li>Psykisk helse snarvei på Helsenorge forsiden</li>
             </ul>
           </section>
           <section aria-labelledby="ph-ikke-slettes">
             <h2 className="ph-avslutt__h2" id="ph-ikke-slettes">Dette blir ikke slettet</h2>
             <ul className="ph-personvern-list">
               <li>det du har lagret eller skrevet i apper og nettsider du har åpnet fra anbefalingene. Det må du slette der.</li>
-              <li>andre opplysninger om deg på Helsenorge</li>
             </ul>
           </section>
           <p className="ph-results-intro">Du kan når som helst ta tjenesten i bruk igjen.</p>
