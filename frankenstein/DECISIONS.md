@@ -4,6 +4,24 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-02 — Psykisk helse ideas: Avslutt findability, deletion confirmation, privacy info up front (psykiskhelse-ideas branch, local only)
+**Decision:**
+- **Avslutt:** on the results page, "Avslutt tjenesten" is no longer a borderless button at the very bottom, below Akutt hjelp. It is now an outline destructive button, "Slett svarene og avslutt", in a new "Svarene dine" section (h2) straight after the results, next to "Endre svarene dine". The label says what happens.
+- **Avslutt page:** it lists what is deleted and what isn't. External apps aren't affected, and neither is other Helsenorge data. It ends with "Slett og avslutt" (fill destructive) and Avbryt.
+- **Confirmation:** after deleting, the user lands on the Psykisk helse front page, not on Forside. A dismissable, focused success NotificationPanel ("Tjenesten er avsluttet") is shown there. This follows the no-Toast convention. On close, focus moves to the h1.
+- **Privacy info:** a compact neutral HighlightPanel, "Dette skjer med svarene dine", sits above the start button. It says that answers are stored in the profile, only the user can see them, they aren't shared with the fastlege or others, and they can be deleted at any time. The first, larger version with a Lock icon pushed the button below the first screen, so it was cut down.
+
+**Why:** User test (2026-11, 9 participants):
+- 4 of 9 didn't find "Avslutt".
+- Those who did were unsure whether anything had been deleted, and what, because there was no confirmation.
+- Users needed to know before starting what is kept and shared.
+
+The earlier test (2026-06) had a participant who assumed the service was anonymous, which points the same way.
+
+**Unverified:** the privacy statements build on the existing "sendes ikke til noen og blir ikke lagret for andre enn deg" and on the vault note that status is stored against the user's profile. They need checking with privacy/legal before going anywhere real.
+
+---
+
 ## 2026-10-02 — Psykisk helse demo: real App Store icons for the app verktøy (psykiskhelse-demo branch)
 **Decision:** The six app tools that still had coloured placeholder shapes (NettOpp, Opp, Slutta, Spillfri, Tankevirus, UngSpotlight) now show their actual App Store icons. These were fetched once through Apple's public iTunes lookup API (`itunes.apple.com/lookup?id=…`, using the id in each tool's `appStoreUrl`), downloaded at 256px to `public/ph-tool-<id>.png`, and shown at 48px with 8px rounded corners like Grubl.
 - Grubl keeps its Figma image.

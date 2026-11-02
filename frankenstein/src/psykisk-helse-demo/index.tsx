@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect, useMemo, useRef } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
@@ -6,6 +6,8 @@ import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel';
+import HighlightPanel from '@helsenorge/designsystem-react/components/HighlightPanel';
+import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
@@ -18,7 +20,6 @@ import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
-import ChevronRight from '@helsenorge/designsystem-react/components/Icons/ChevronRight';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
 import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
@@ -502,6 +503,11 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   // blank; aborting discards the draft, so earlier results are kept.
   const [d1, setD1]               = useState<Set<string>>(() => new Set());
   const [d2, setD2]               = useState<Set<string>>(() => new Set());
+  // Confirmation after "Slett og avslutt" — shown inline on the front page
+  // (no Toast), focused so screen readers announce it.
+  const [avsluttet, setAvsluttet] = useState(false);
+  const avsluttetRef              = useRef<HTMLDivElement>(null);
+  const frontTitleRef             = useRef<HTMLHeadingElement>(null);
 
   // Sync view → hash
   useEffect(() => {
@@ -540,6 +546,26 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
     window.scrollTo(0, 0);
   }, [view]);
 
+  useEffect(() => {
+    if (avsluttet && view === 'front') avsluttetRef.current?.focus();
+  }, [avsluttet, view]);
+
+  // Delete answers + results and land on the service front page with a
+  // confirmation of what was deleted (user test 2026-11: participants were
+  // unsure if and what had been deleted when sent straight to Forside).
+  const slettOgAvslutt = () => {
+    clearVeiviserCompleted();
+    clearAnswers();
+    setQ1(new Set());
+    setQ2(new Set());
+    setAvsluttet(true);
+    setView('front');
+  };
+  const lukkAvsluttet = () => {
+    setAvsluttet(false);
+    frontTitleRef.current?.focus();
+  };
+
   const results = useMemo(() => computeResults(q1, q2), [q1, q2]);
 
   const toggleQ1 = (label: string) => {
@@ -568,6 +594,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   // clears the "completed" flag: an aborted rerun keeps both the earlier
   // results and the Forside "Psykisk helse" card (2026-10-15).
   const startQuiz = () => {
+    setAvsluttet(false);
     setD1(new Set());
     setD2(new Set());
     setView('quiz1');
@@ -645,7 +672,22 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         <main className="ph-front">
 
           <div className="ph-front__content">
-            <h1 className="ph-hero-title">Psykisk helse</h1>
+            {avsluttet && (
+              <div ref={avsluttetRef} tabIndex={-1} className="ph-avsluttet">
+                <NotificationPanel
+                  variant="success"
+                  role="status"
+                  label="Tjenesten er avsluttet"
+                  labelHtmlMarkup="h2"
+                  dismissable
+                  ariaLabelCloseBtn="Lukk melding"
+                  onClick={lukkAvsluttet}
+                >
+                  Svarene og anbefalingene dine er slettet. Du kan ta tjenesten i bruk igjen når du vil.
+                </NotificationPanel>
+              </div>
+            )}
+            <h1 className="ph-hero-title" ref={frontTitleRef} tabIndex={-1}>Psykisk helse</h1>
           </div>
 
           {VIS_FORSIDEBILDER && <div className="ph-front__hero ph-front__hero--dark" aria-hidden="true" />}
@@ -654,6 +696,21 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <p className="ph-preamble">
               Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon.
             </p>
+            {/* What happens to the answers, before the user starts (user test
+                2026-11). Above the CTA so it's read before starting. */}
+            <HighlightPanel
+              className="ph-front__personvern"
+              title="Dette skjer med svarene dine"
+              titleHtmlMarkup="h2"
+              color="neutral"
+              variant="compact"
+            >
+              <ul className="ph-personvern-list">
+                <li>Svarene lagres i profilen din, så du kan komme tilbake til anbefalingene.</li>
+                <li>Bare du kan se dem. De deles ikke med fastlegen din eller andre.</li>
+                <li>Du kan slette dem når du vil.</li>
+              </ul>
+            </HighlightPanel>
             {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble. */}
             <div className="ph-front__cta">
               <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
@@ -888,12 +945,26 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </section>
           )}
 
-          <div>
-            <Button variant="outline" onClick={retake}>
-              <Icon svgIcon={ArrowLeft} size={38} />
-              Endre svarene dine
-            </Button>
-          </div>
+          {/* "Svarene dine" (user test 2026-11): change and delete grouped
+              under a heading straight after the results. "Avslutt tjenesten"
+              used to be a borderless button at the very bottom, below Akutt
+              hjelp — 4 of 9 participants didn't find it. */}
+          <section className="ph-svar" aria-labelledby="ph-svar-title">
+            <h2 className="ph-svar__title" id="ph-svar-title">Svarene dine</h2>
+            <p className="ph-svar__text">
+              Svarene dine er lagret i profilen din, og bare du kan se dem. Du kan endre svarene for å få nye anbefalinger, eller slette dem og avslutte tjenesten.
+            </p>
+            <div className="ph-svar__actions">
+              <Button variant="outline" onClick={retake}>
+                <Icon svgIcon={ArrowLeft} size={38} />
+                Endre svarene dine
+              </Button>
+              <Button variant="outline" concept="destructive" onClick={() => setView('avslutt')}>
+                <Icon svgIcon={TrashCan} size={38} />
+                Slett svarene og avslutt
+              </Button>
+            </div>
+          </section>
 
           <section>
             <LinkList chevron>
@@ -909,30 +980,35 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           {/* Same Akutt hjelp panel as the front page (2026-10-27); was a
               LinkList row with the EmergencyCall icon. */}
           <AkuttHjelp />
-
-          <div>
-            <Button variant="borderless" onClick={() => setView('avslutt')}>
-              Avslutt tjenesten
-              <Icon svgIcon={ChevronRight} size={38} />
-            </Button>
-          </div>
         </main>
       )}
 
       {/* ── Avslutt tjenesten ──────────────────────────────────── */}
       {view === 'avslutt' && (
-        <main className="ph-page">
-          <h1 style={{ font: '600 2rem/120% "Source Sans Pro", sans-serif', margin: '0 0 -1rem' }}>
-            Avslutt tjenesten
-          </h1>
-          <p className="ph-results-intro">
-            Når du avslutter tjenesten Psykisk helse, slettes dine resultater og alt nullstilles. Du kan når som helst ta tjenesten i bruk igjen.
-          </p>
-          <div style={{ marginTop: '-1rem' }}>
-            <Button variant="outline" concept="destructive" onClick={() => { clearVeiviserCompleted(); clearAnswers(); setQ1(new Set()); setQ2(new Set()); onNavigateHome ? onNavigateHome() : setView('front'); }}>
-              <Icon svgIcon={TrashCan} size={24} />
-              Avslutt tjenesten
+        <main className="ph-page ph-avslutt">
+          <h1 className="ph-avslutt__title">Slett svarene og avslutt tjenesten</h1>
+          <section aria-labelledby="ph-slettes">
+            <h2 className="ph-avslutt__h2" id="ph-slettes">Dette blir slettet</h2>
+            <ul className="ph-personvern-list">
+              <li>svarene dine på spørsmålene</li>
+              <li>anbefalingene du har fått: verktøy, lesestoff og noen å snakke med</li>
+              <li>Psykisk helse under «Støtte til din situasjon» på forsiden din</li>
+            </ul>
+          </section>
+          <section aria-labelledby="ph-ikke-slettes">
+            <h2 className="ph-avslutt__h2" id="ph-ikke-slettes">Dette blir ikke slettet</h2>
+            <ul className="ph-personvern-list">
+              <li>det du har lagret eller skrevet i apper og nettsider du har åpnet fra anbefalingene. Det må du slette der.</li>
+              <li>andre opplysninger om deg på Helsenorge</li>
+            </ul>
+          </section>
+          <p className="ph-results-intro">Du kan ta tjenesten i bruk igjen når du vil.</p>
+          <div className="ph-avslutt__actions">
+            <Button variant="fill" concept="destructive" onClick={slettOgAvslutt}>
+              <Icon svgIcon={TrashCan} size={38} />
+              Slett og avslutt
             </Button>
+            <Button variant="borderless" onClick={() => setView('results')}>Avbryt</Button>
           </div>
         </main>
       )}
