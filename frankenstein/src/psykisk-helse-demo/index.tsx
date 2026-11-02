@@ -682,7 +682,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                   ariaLabelCloseBtn="Lukk melding"
                   onClick={lukkAvsluttet}
                 >
-                  Svarene og anbefalingene dine er slettet. Du kan ta tjenesten i bruk igjen når du vil.
+                  Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen.
                 </NotificationPanel>
               </div>
             )}
