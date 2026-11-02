@@ -4,6 +4,15 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-02 — Psykisk helse ideas: quiz back to stacked checkboxes; no Akutt hjelp panel on results (psykiskhelse-ideas branch, local only)
+**Decision:**
+- **Quiz steps 1 and 2:** stacked DS Checkboxes again, inside the same labelled `role="group"`, replacing the VisualCheckboxCloud chips used since 2026-10-22. The chip size-pinning CSS was removed.
+- **Results page:** the "Trenger du noen å snakke med?" panel at the bottom was removed. It stays on the front page.
+
+**Why:** Both were direct user requests after the 2026-11 user test. The panel is redundant on results because Mental Helse (and Kirkens SOS) are always listed under "Noen å snakke med".
+
+---
+
 ## 2026-11-02 — Psykisk helse ideas: Avslutt findability, deletion confirmation, privacy info up front (psykiskhelse-ideas branch, local only)
 **Decision:**
 - **Avslutt:** on the results page, "Avslutt tjenesten" is no longer a borderless button at the very bottom, below Akutt hjelp. It is now an outline destructive button, "Avslutt tjenesten →", in a new "Svarene dine" section (h2) straight after the results, next to "Endre svarene dine". The section text says that ending the service deletes the answers and recommendations. The button was briefly "Slett svarene og avslutt" with a trash can. The user preferred the established name with a right arrow, since it leads to a page rather than deleting directly, and wanted the text to carry the deletion message.
