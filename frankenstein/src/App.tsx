@@ -56,6 +56,9 @@ function getInitialPrototype(): Prototype {
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
   const [, setCameFrom] = useState<Prototype>('forside-demo');
+  // "Tjenesten er avsluttet" modal over the Forside after Psykisk helse's
+  // "Slett og avslutt" (ideas branch, 2026-11-03).
+  const [visAvsluttetModal, setVisAvsluttetModal] = useState(false);
 
   useEffect(() => {
     applyPrototypeMeta(prototype);
@@ -97,6 +100,10 @@ function App() {
   };
 
   const goHome = () => navigateTo('forside-demo');
+  const avsluttPsykiskHelse = () => {
+    setVisAvsluttetModal(true);
+    goHome();
+  };
 
   // Intro screen's "Åpne prototype" button — a fresh visitor should never
   // see leftover state from someone else's earlier run through the quiz
@@ -116,7 +123,14 @@ function App() {
       <div className="phone-frame">
         <div className="phone-frame__screen">
           {prototype === 'intro' && <IntroPage onOpenPrototype={openPrototypeFromIntro} />}
-          {prototype === 'forside-demo' && <ForsideDemo onGoToTjeneste={goToTjeneste} onOpenArtikkel={goToArtikkel} />}
+          {prototype === 'forside-demo' && (
+            <ForsideDemo
+              onGoToTjeneste={goToTjeneste}
+              onOpenArtikkel={goToArtikkel}
+              visAvsluttetModal={visAvsluttetModal}
+              onLukkAvsluttetModal={() => setVisAvsluttetModal(false)}
+            />
+          )}
           {prototype === 'artikkel-psykisk-helse' && (
             <ArtikkelPsykiskHelse
               onNavigateHome={goHome}
@@ -134,7 +148,7 @@ function App() {
             <KommunaleTjenesterOslo onNavigateBack={() => goToTjeneste('psykisk-helse')} />
           )}
           {prototype === 'psykisk-helse-demo' && (
-            <PsykiskHelseDemo onNavigateHome={goHome} onOpenArtikkel={goToArtikkel} onOpenKommunaleTjenester={goToKommunaleTjenester} />
+            <PsykiskHelseDemo onNavigateHome={goHome} onOpenArtikkel={goToArtikkel} onOpenKommunaleTjenester={goToKommunaleTjenester} onAvsluttet={avsluttPsykiskHelse} />
           )}
         </div>
         <div className="phone-frame__home" />

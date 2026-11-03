@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-03 — Psykisk helse ideas: deletion confirmation as a modal over the Helsenorge forside (psykiskhelse-ideas branch, local only)
+**Decision:** After "Slett og avslutt", the user goes to the Helsenorge forside. The confirmation is a DS success Modal (medium) there, with the same title and text as the inline message: "Tjenesten er avsluttet" and "Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen." It closes with OK, the close button, Escape or a click outside. Focus then goes to the page heading, since the button that opened it is gone. The Psykisk helse card under "Støtte til din situasjon" disappears because the veiviser has been cleared.
+
+**Why:** User request, to try an alternative to the inline confirmation on the Psykisk helse front page. The inline version is kept: it's used whenever the service runs without the forside (no `onAvsluttet` prop).
+
+---
+
 ## 2026-11-03 — Psykisk helse ideas: no Ring legevakten panel on results; Ensomhet option removed again (psykiskhelse-ideas branch, local only)
 **Decision:**
 - **Results page:** the "Ring legevakten" panel added at the bottom earlier today was removed. It stays on the front page.

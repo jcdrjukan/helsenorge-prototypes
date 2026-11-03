@@ -43,6 +43,11 @@ import {
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
 
 export interface PsykiskHelseProps {
+  /** Called after "Slett og avslutt" has deleted the data (ideas branch,
+   *  2026-11-03): the app takes the user to the Helsenorge forside and shows
+   *  the confirmation there as a modal. When omitted, the user lands on the
+   *  service front page with the inline confirmation instead. */
+  onAvsluttet?: () => void;
   /** Called when the user clicks the "Forside" breadcrumb — navigates back
    *  to the Forside hub. When omitted (e.g. running on this prototype's own
    *  dedicated single-prototype domain, with no Forside to go back to), the
@@ -519,7 +524,7 @@ function viewFromHash(): View {
   return HASH_TO_VIEW[window.location.hash] ?? 'front';
 }
 
-export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKommunaleTjenester }: PsykiskHelseProps = {}) {
+export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKommunaleTjenester, onAvsluttet }: PsykiskHelseProps = {}) {
   const [view, setView]           = useState<View>(() => viewFromHash());
   // Saved answers: what the results (and Forside) are computed from. Only
   // replaced when a quiz run is completed.
@@ -584,6 +589,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
     clearAnswers();
     setQ1(new Set());
     setQ2(new Set());
+    if (onAvsluttet) { onAvsluttet(); return; }
     setAvsluttet(true);
     setView('front');
   };
