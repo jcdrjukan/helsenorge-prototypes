@@ -223,7 +223,7 @@ function ToolCard({ resource }: { resource: Resource }) {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
           {details && details.om.length > 0 && (
             <div className="ph-tool-card__om">
-              <p className="ph-tool-card__section-title">Om verktøyet</p>
+              <h4 className="ph-tool-card__section-title">Om verktøyet</h4>
               {details.om.map((b, i) => typeof b === 'string'
                 ? <p key={i} className="ph-tool-card__section-body">{b}</p>
                 : <ul key={i} className="ph-tool-card__liste">{b.liste.map(li => <li key={li}>{li}</li>)}</ul>
@@ -232,7 +232,7 @@ function ToolCard({ resource }: { resource: Resource }) {
           )}
           {details && (
             <div>
-              <p className="ph-tool-card__section-title ph-tool-card__fakta-title">Fakta</p>
+              <h4 className="ph-tool-card__section-title ph-tool-card__fakta-title">Fakta</h4>
               <Duolist variant="line" boldColumn="first">
                 {details.fakta.map(([k, v]) => <DuolistGroup key={k} term={k} description={v} />)}
               </Duolist>
