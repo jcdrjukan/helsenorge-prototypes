@@ -23,7 +23,7 @@ interface Step2Props {
 export default function Step2({ delivery, errors, onChange, onNext, onBack, onAbandonRequest }: Step2Props) {
   return (
     <div className="order-step">
-      <h2 className="order-step__title">Leveringsdetaljer</h2>
+      <h2 className="order-step__title">Levering</h2>
 
       <div style={{ marginBottom: 'var(--space-s)' }}>
         <Select
