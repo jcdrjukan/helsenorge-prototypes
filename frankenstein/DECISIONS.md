@@ -23,6 +23,8 @@ Content lives in `resources.json` as `details: { om, fakta }`.
 - The Pris row says nothing about in-app purchases, which Apple's lookup doesn't report.
 - Language codes from the App Store were unreliable, so Språk only appears where Helsenorge states it.
 
+**Follow-up (user request):** no text in Se detaljer may be larger than 18px. The DS Duolist rendered the Fakta terms and values at 20px, so inside tool cards they are set to 18px/24px.
+
 ---
 
 ## 2026-11-02 — Psykisk helse ideas: quiz back to stacked checkboxes; no Akutt hjelp panel on results (psykiskhelse-ideas branch, local only)
