@@ -997,7 +997,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <section aria-labelledby="ph-slettes">
             <h2 className="ph-avslutt__h2" id="ph-slettes">Dette blir slettet</h2>
             <ul className="ph-personvern-list">
-              <li>svarene dine på spørsmålene</li>
               <li>anbefalingene du har fått: verktøy, lesestoff og noen å snakke med</li>
               <li>Psykisk helse snarvei på Helsenorge forsiden</li>
             </ul>
