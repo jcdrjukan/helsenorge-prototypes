@@ -21,7 +21,7 @@ import ChevronDown from '@helsenorge/designsystem-react/components/Icons/Chevron
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
 import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
-import EmergencyCall from '@helsenorge/designsystem-react/components/Icons/EmergencyCall';
+import Receptionist from '@helsenorge/designsystem-react/components/Icons/Receptionist';
 import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
@@ -372,18 +372,20 @@ function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; va
 // Front page only; was also on the results page 2026-10-27 – 2026-11-02.
 function AkuttHjelp() {
   // Updated to Figma 432:26314 (2026-10-27): DS outline Panel "with icon" —
-  // EmergencyCall (48px) beside the title, body text indented under it.
+  // Icon (48px) beside the title, body text indented under it. Legevakt
+  // instead of Mental Helse's hjelpetelefon since 2026-11-03 (ideas branch).
   return (
     <Panel variant={PanelVariant.outline}>
       <Panel.Title
-        title="Trenger du noen å snakke med?"
+        title="Ring legevakten"
         titleMarkup="h2"
-        icon={<Icon svgIcon={EmergencyCall} size={48} />}
+        icon={<Icon svgIcon={Receptionist} size={48} />}
       />
       <Panel.A>
         {/* Tappable number under the title (2026-10-27, user request). */}
-        <p className="ph-akutt__nr"><a href="tel:116123">116 123</a></p>
-        <p className="ph-akutt__text">Ring Mental Helses hjelpetelefon på 116 123 hvis du trenger noen å snakke med. Åpent hele døgnet.</p>
+        <p className="ph-akutt__nr"><a href="tel:116117">116 117</a></p>
+        <p className="ph-akutt__text">Ring legevakten på 116 117 hvis situasjonen ikke er kritisk, men heller ikke kan vente til du får kontakt med fastlegen i åpningstiden. Legevakten er døgnåpen.</p>
+        <p className="ph-akutt__text">Legevakten kan henvise videre til psykiatrisk legevakt, psykiatrisk akutteam eller døgnbehandling.</p>
       </Panel.A>
     </Panel>
   );

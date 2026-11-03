@@ -401,6 +401,7 @@
   color: #000;
 }
 .ph-akutt__nr { margin-bottom: 0.5rem; }
+.ph-akutt__text + .ph-akutt__text { margin-top: 1rem; }
 .ph-akutt__nr a {
   font-weight: 600;
   color: #06596C;
