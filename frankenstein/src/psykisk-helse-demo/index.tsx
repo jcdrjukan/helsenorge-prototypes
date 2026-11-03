@@ -980,7 +980,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               <li>det du har lagret eller skrevet i apper og nettsider du har åpnet fra anbefalingene. Det må du slette der.</li>
             </ul>
           </section>
-          <p className="ph-results-intro">Du kan når som helst ta tjenesten i bruk igjen.</p>
+          <p className="ph-svar__text">Du kan når som helst ta tjenesten i bruk igjen.</p>
           <div className="ph-avslutt__actions">
             <Button variant="fill" concept="destructive" onClick={slettOgAvslutt}>
               <Icon svgIcon={TrashCan} size={38} />
