@@ -81,13 +81,12 @@ export const Q1_OPTIONS: QuizOption[] = [
 
 // Short topic labels since 2026-10-21 (user request); "Føle meg mindre
 // ensom eller styrke relasjonene mine" (ensomhet-relasjoner) was dropped,
-// then brought back as "Ensomhet" on the ideas branch (2026-11-02).
+// briefly brought back as "Ensomhet" on the ideas branch (2026-11-02 – 2026-11-03).
 export const Q2_OPTIONS: QuizOption[] = [
   { label: 'Bekymringer og uro', tag: 'angst' },
   { label: 'Humør', tag: 'nedstemthet' },
   { label: 'Søvn', tag: 'sove-bedre' },
   { label: 'Stress', tag: 'stress' },
-  { label: 'Ensomhet', tag: 'ensomhet-relasjoner' },
   { label: 'Alkohol, rusmidler og tobakk', tag: 'rus-og-avhengighet' },
   { label: 'Pengespilling', tag: 'spilleavhengighet' },
   { label: 'Psykisk helse generelt', tag: 'generell-mestring' },

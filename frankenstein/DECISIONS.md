@@ -4,6 +4,15 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-03 — Psykisk helse ideas: no Ring legevakten panel on results; Ensomhet option removed again (psykiskhelse-ideas branch, local only)
+**Decision:**
+- **Results page:** the "Ring legevakten" panel added at the bottom earlier today was removed. It stays on the front page.
+- **Quiz step 2:** the "Ensomhet" option (added 2026-11-02) was removed. Saved answers are stored by label, so an old "Ensomhet" answer is ignored.
+
+**Why:** Direct user request.
+
+---
+
 ## 2026-11-03 — Psykisk helse ideas: verktøy "Se detaljer" filled from the tools' Helsenorge pages (psykiskhelse-ideas branch, local only)
 **Decision:** The expanded section of all 12 verktøy cards now has three parts, followed by the existing "Vis mer om verktøyet" link. Before, it only repeated the description above it.
 - **Om verktøyet:** the "Om verktøyet" text from the tool's own page in Helsenorge's verktøy catalogue (tjenester.helsenorge.no/verktoy/…), copied verbatim. It's left out for Selvhjelpsvideo mot kortvarige søvnvansker, where that text is identical to the card description.
