@@ -317,6 +317,7 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel, visAvsluttetMo
           description="Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen."
           variant="success"
           size="medium"
+          noCloseButton
           onSuccess={lukkAvsluttetModal}
           onClose={lukkAvsluttetModal}
         />
