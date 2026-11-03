@@ -170,6 +170,7 @@ function ToolPlaceholderIcon({ seed }: { seed: string }) {
 function ToolCard({ resource }: { resource: Resource }) {
   const [favorited, setFavorited] = useState(false);
   const image = toolImage(resource);
+  const details = resource.details;
 
   return (
     <Panel color="white" className="ph-tool-card">
@@ -214,11 +215,34 @@ function ToolCard({ resource }: { resource: Resource }) {
           )}
         </div>
       </Panel.A>
+      {/* "Se detaljer" (2026-11-03): the tool's own Helsenorge text plus
+          facts for deciding whether to download/start it. User test 2026-11:
+          participants found too little to decide on, and the expander only
+          repeated the description above. */}
       <Panel.ExpandedContent>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+          {details && details.om.length > 0 && (
+            <div className="ph-tool-card__om">
+              <p className="ph-tool-card__section-title">Om verktøyet</p>
+              {details.om.map((b, i) => typeof b === 'string'
+                ? <p key={i} className="ph-tool-card__section-body">{b}</p>
+                : <ul key={i} className="ph-tool-card__liste">{b.liste.map(li => <li key={li}>{li}</li>)}</ul>
+              )}
+            </div>
+          )}
+          {details && (
+            <div>
+              <p className="ph-tool-card__section-title ph-tool-card__fakta-title">Fakta</p>
+              <Duolist variant="line" boldColumn="first">
+                {details.fakta.map(([k, v]) => <DuolistGroup key={k} term={k} description={v} />)}
+              </Duolist>
+            </div>
+          )}
           <div>
-            <p className="ph-tool-card__section-title">Beskrivelse</p>
-            <p className="ph-tool-card__section-body">{resource.shortDescription}</p>
+            <p className="ph-tool-card__section-title">Personvern</p>
+            <p className="ph-tool-card__section-body">
+              {resource.isApp ? 'Appen' : 'Verktøyet'} ligger utenfor Helsenorge og har egne bruksvilkår som du bør sette deg inn i.
+            </p>
           </div>
           <div style={{ alignSelf: 'flex-start' }}>
             <Button variant="borderless" onClick={() => openResource(resource.url)}>

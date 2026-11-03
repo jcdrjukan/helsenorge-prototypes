@@ -34,6 +34,19 @@ export interface Resource {
   appStoreUrl?: string;
   /** "Noen å snakke med" services only (Figma 402:7929–402:8145). */
   service?: ServiceDetails;
+  /** Verktøy only: content for "Se detaljer" (2026-11-03). `om` is the
+   *  "Om verktøyet" text from the tool's Helsenorge page, verbatim;
+   *  `fakta` is that page's Informasjon list in readable form, plus the
+   *  App Store price for apps. */
+  details?: ToolDetails;
+}
+
+/** A paragraph, or a bulleted list. */
+export type DetailBlock = string | { liste: string[] };
+
+export interface ToolDetails {
+  om: DetailBlock[];
+  fakta: [string, string][];
 }
 
 /** One day's opening hours: open all day, closed, or a list of

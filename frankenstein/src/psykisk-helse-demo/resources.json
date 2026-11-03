@@ -10,7 +10,46 @@
       "angst",
       "stress"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "«Grubl» er en helt ny populærvitenskapelig helseapp laget for deg som ønsker å gruble mindre. Å bruke «Grubl» er enkelt og trygt:",
+        {
+          "liste": [
+            "Du starter med en kort sjekk av helse og humør (den vil bli nyttig når opplegget er over).",
+            "Du ser en programserie om hvordan stressystemet settes i gang av grubling, og lærer hva oppmerksomheten har å si for hvordan vi har det.",
+            "Du får tilgang til ulike eksperimenter og små øvelser som gir deg bedre kontroll over grubling og bekymring i 12 dager.",
+            "Du svarer en gang til på spørsmål om helse og humør. Har du fått det bedre?"
+          ]
+        }
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom og voksne"
+        ],
+        [
+          "Innhold",
+          "Video og oppgaver"
+        ],
+        [
+          "Antatt varighet",
+          "45 min"
+        ],
+        [
+          "Språk",
+          "Bokmål"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Brorson og Sande AS"
+        ]
+      ]
+    }
   },
   {
     "id": "nettopp",
@@ -22,7 +61,36 @@
     "tags": [
       "ensomhet-relasjoner"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "Appen NettOpp har som mål å gi barn og unge kunnskap om hvordan man kan håndtere negative hendelser på nett. Appen gir informasjon om følelser som er vanlig å oppleve dersom du opplever noe vondt på nett. I tillegg finner du konkrete øvelser og teknikker som viser deg hvordan du kan håndtere stress og ubehagelige følelser.",
+        "Appen er utviklet med brukermedvirkning, der ungdom og fagpersoner har bidratt til å sikre relevant og tilpasset innhold.",
+        "NettOpp er for barn og unge i alderen 11 til 16 år. Appen kan også være en nyttig ressurs for undervisning i skolen og for andre aktører og tjenester som jobber med unge og psykisk helse."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Barn og unge, 11 til 16 år"
+        ],
+        [
+          "Innhold",
+          "Informasjon, video, anbefalinger og råd"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Henriette Kyrrestad og Sabine Kaiser ved RKBU Nord, UiT Norges arktiske universitet"
+        ],
+        [
+          "Utviklet av",
+          "Regionalt kunnskapssenter for barn og unge (RKBU Nord) ved UiT Norges arktiske universitet"
+        ]
+      ]
+    }
   },
   {
     "id": "opp",
@@ -34,7 +102,36 @@
     "tags": [
       "generell-mestring"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "Appen Opp gir informasjon om psykisk helse, tanker og følelser. I tillegg gir Opp råd om hvor og hvordan du kan be om hjelp, og viser konkrete avspennings- og pusteøvelser for å håndtere følelser og stress. Opp kan også hjelpe deg med å skape god søvnhygiene, lære å identifisere destruktive tanker og erstatte disse med alternative tanker, og ivareta gode sosiale relasjoner.",
+        "Opp er for unge i alderen 13 til 25 år. Appen kan også være en nyttig ressurs for undervisning i skolen og for andre aktører og tjenester som jobber med unge og psykisk helse.",
+        "Opp ble utviklet med støtte fra Stiftelsen DAM gjennom Rådet for psykisk helse. Appen er utviklet med brukermedvirkning, der ungdom og fagpersoner har bidratt til å sikre relevant og tilpasset innhold."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Unge, 13 til 25 år"
+        ],
+        [
+          "Innhold",
+          "Informasjon, anbefalinger og råd"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Henriette Kyrrestad og Sabine Kaiser ved RKBU Nord, UiT Norges arktiske universitet"
+        ],
+        [
+          "Utviklet av",
+          "Regionalt kunnskapssenter for barn og unge (RKBU Nord) ved UiT Norges arktiske universitet"
+        ]
+      ]
+    }
   },
   {
     "id": "selvhjelpsvideo-kortvarige-sovnvansker",
@@ -44,7 +141,28 @@
     "url": "https://tjenester.helsenorge.no/verktoy/8b9bc3fb-67ff-4d34-8274-2a75125bc7e2",
     "tags": [
       "sove-bedre"
-    ]
+    ],
+    "details": {
+      "om": [],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Informasjon og video"
+        ],
+        [
+          "Antatt varighet",
+          "8 min"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Magnus Nordmo i samarbeid med Mental Helse og eMeistring"
+        ]
+      ]
+    }
   },
   {
     "id": "selvhjelpsvideoer-depresjon",
@@ -54,7 +172,44 @@
     "url": "https://tjenester.helsenorge.no/verktoy/66494994-e94a-40e8-a1f6-376bd08cfad3",
     "tags": [
       "nedstemthet"
-    ]
+    ],
+    "details": {
+      "om": [
+        "Videoene er:",
+        {
+          "liste": [
+            "Introduksjon",
+            "Bli kvitt depresjon med atferdsaktivering",
+            "Registrering",
+            "Planlegge og gjennomføre atferdsaktivering",
+            "Strategier mot grubling",
+            "Verdier",
+            "Strategier mot unngåelse",
+            "Vanlige vansker og spørsmål",
+            "Hvordan forhindre tilbakefall",
+            "Samfunn og individ"
+          ]
+        }
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Informasjon og video"
+        ],
+        [
+          "Antatt varighet",
+          "1 time"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Magnus Nordmo i samarbeid med Mental Helse og eMeistring"
+        ]
+      ]
+    }
   },
   {
     "id": "selvhjelpsvideoer-langvarige-sovnvansker",
@@ -64,7 +219,43 @@
     "url": "https://tjenester.helsenorge.no/verktoy/8bec4e20-ee2a-4419-a16b-917eba51ff2f",
     "tags": [
       "sove-bedre"
-    ]
+    ],
+    "details": {
+      "om": [
+        "Programmet består av 9 moduler:",
+        {
+          "liste": [
+            "Introduksjon",
+            "Søvndagbok",
+            "Søvnrestriksjon",
+            "Stimulikontroll",
+            "Grubling",
+            "Automatiske tanker",
+            "Søvnhygiene",
+            "Vanlige vansker",
+            "Samfunn og individ"
+          ]
+        }
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Informasjon og video"
+        ],
+        [
+          "Antatt varighet",
+          "1 time"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Magnus Nordmo i samarbeid med Mental Helse og eMeistring"
+        ]
+      ]
+    }
   },
   {
     "id": "selvhjelpsvideoer-panikkangst",
@@ -74,7 +265,42 @@
     "url": "https://tjenester.helsenorge.no/verktoy/d586a599-2ae8-4fa3-bb6a-0f726b23f06d",
     "tags": [
       "angst"
-    ]
+    ],
+    "details": {
+      "om": [
+        "Programmet består av 7 videoer:",
+        {
+          "liste": [
+            "Introduksjon",
+            "Eksponering",
+            "Katastrofetanker",
+            "Strategier",
+            "Flyskrekk",
+            "Helseangst",
+            "Spesifikke fobier"
+          ]
+        },
+        "Du trenger ikke se alle videoene, men det anbefales at man ser de fire første før man ser på videoene om spesifikke vansker: flyskrekk, helseangst eller spesifikke fobier."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Informasjon og video"
+        ],
+        [
+          "Antatt varighet",
+          "1 time"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Magnus Nordmo i samarbeid med Mental Helse og eMeistring"
+        ]
+      ]
+    }
   },
   {
     "id": "selvhjelpsvideoer-sosial-angst",
@@ -85,7 +311,45 @@
     "tags": [
       "angst",
       "ensomhet-relasjoner"
-    ]
+    ],
+    "details": {
+      "om": [
+        "Programmet består av 10 videoer og arbeidsark.",
+        "Videoene har følgende tema:",
+        {
+          "liste": [
+            "Introduksjon",
+            "Kognitiv atferdsterapi",
+            "En kognitiv modell",
+            "Bli kvitt angsten med eksponering",
+            "Strategier for eksponering",
+            "Arbeidsark",
+            "Hvordan mestre plagsom rødming",
+            "Hvordan bli kvitt presentasjonsangsten",
+            "Oppsummering og vanlige vansker",
+            "Individ og samfunn"
+          ]
+        }
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Informasjon og video"
+        ],
+        [
+          "Antatt varighet",
+          "1 time"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Magnus Nordmo i samarbeid med Mental Helse og eMeistring"
+        ]
+      ]
+    }
   },
   {
     "id": "slutta-app",
@@ -97,7 +361,35 @@
     "tags": [
       "rus-og-avhengighet"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "Har du tenkt å slutte med snus, vape (e-sigaretter) eller røyk? Slutta-appen er klar til å hjelpe deg på veien.",
+        "Med Slutta-appen får du daglige motivasjonsmeldinger som kan hjelpe deg. Den gir også råd og tips, og en oversikt over tiden siden du slutta."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Oppgaver"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Helsedirektoratet"
+        ],
+        [
+          "Dataansvarlig",
+          "Helsedirektoratet"
+        ]
+      ]
+    }
   },
   {
     "id": "spillfri",
@@ -109,7 +401,42 @@
     "tags": [
       "spilleavhengighet"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "Spillfri er et selvhjelpsverktøy som kan hjelpe deg å forebygge eller mestre pengespillproblemer. Verktøyet består av åtte ulike moduler som hjelper deg å lykkes med endring av spilleatferd gjennom kunnskap, bevisstgjøring og øvelser. Modulene består av korte tekster og filmer, oppgaver og muligheter for å ta notater. I løpet av modulene blir du også presentert for en som har jobbet seg gjennom spilleavhengighet og lærer av hans erfaringer gjennom lydfiler."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Voksne"
+        ],
+        [
+          "Innhold",
+          "Informasjon, anbefalinger og råd, oppgaver"
+        ],
+        [
+          "Språk",
+          "Bokmål"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Helse Bergen HF"
+        ],
+        [
+          "Dataansvarlig",
+          "Youwell AS"
+        ],
+        [
+          "Utviklet av",
+          "Youwell AS og Helse Bergen HF"
+        ]
+      ]
+    }
   },
   {
     "id": "tankevirus",
@@ -122,7 +449,40 @@
       "angst",
       "stress"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "Tankevirus er en populærvitenskapelig video-app som inviterer deg til å se på hverdagen din på en ny måte.",
+        "Du starter med å se en artig og prisbelønnet programserie om «det psykologiske immunforsvaret», «tankevirus» og «psykologiske vitaminer». Når programserien er sett, åpner appen en ny liten film hver morgen i tre uker. Hver film er kort - bare et minutt eller to - og inneholder en liten oppgave eller et tips som du skal ta med deg inn i nettopp den dagen. Slik får du hjelp til å avsløre tankevirus i hverdagen din, og øvelse i å bruke psykologiske vitaminer i møte med infiserte tanker.",
+        "Appen tester også ditt psykologiske immunforsvar før og etter opplegget slik at du kan se med egne øyne om de psykologiske vitaminene har hjulpet eller ikke."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, voksne og eldre"
+        ],
+        [
+          "Innhold",
+          "Video, oppgaver, egenregistreringer og måleverktøy"
+        ],
+        [
+          "Antatt varighet",
+          "1 time 15 min"
+        ],
+        [
+          "Språk",
+          "Bokmål"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Faglig ansvarlig",
+          "Brorson og Sande"
+        ]
+      ]
+    }
   },
   {
     "id": "ungspotlight",
@@ -135,7 +495,39 @@
       "angst",
       "ensomhet-relasjoner"
     ],
-    "isApp": true
+    "isApp": true,
+    "details": {
+      "om": [
+        "UngSpotlight er et selvhjelpsverktøy for ungdommer mellom 13-18 år som er redde for å snakke foran klassen hvor dette påvirker aktiviteten i timene. Treningsprogrammet varer i seks uker, og det er anbefalt å jobbe med programmet minst tre ganger i uken.",
+        "Frykt for å snakke foran andre er en veldig vanlig frykt som er særlig plagsomt i skolealder der det er vanskelig å unngå å snakke foran andre. Dersom man opplever mye ubehag ved presentasjoner eller høytlesing i klassen kan det føles som om det aldri kan bli bedre. I dette programmet vil du lære deg teknikker for å mestre dette."
+      ],
+      "fakta": [
+        [
+          "Passer for",
+          "Ungdom, 13 til 18 år"
+        ],
+        [
+          "Innhold",
+          "Informasjon, video, oppgaver og egenregistreringer"
+        ],
+        [
+          "Språk",
+          "Bokmål"
+        ],
+        [
+          "Pris",
+          "Gratis å laste ned"
+        ],
+        [
+          "Dataansvarlig",
+          "Youwell AS"
+        ],
+        [
+          "Utviklet av",
+          "Youwell AS og Helse Bergen HF"
+        ]
+      ]
+    }
   },
   {
     "id": "artikkel-deprimert-eller-trist",

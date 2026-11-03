@@ -715,3 +715,9 @@
 /* Avslutt page: 2rem between blocks instead of .ph-page's 3rem, which read
    as too spacious for one short page (2026-11-03). */
 .ph-page.ph-avslutt { gap: 2rem; }
+
+/* Verktøy "Se detaljer" (2026-11-03). */
+.ph-tool-card__om { display: flex; flex-direction: column; gap: 0.75rem; }
+.ph-tool-card__liste { margin: 0; padding-left: 1.5rem; list-style: disc; font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif; color: #000; }
+.ph-tool-card__liste li + li { margin-top: 0.25rem; }
+.ph-tool-card .ph-tool-card__fakta-title { margin-bottom: 12px; }

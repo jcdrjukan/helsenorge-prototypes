@@ -4,6 +4,27 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-03 — Psykisk helse ideas: verktøy "Se detaljer" filled from the tools' Helsenorge pages (psykiskhelse-ideas branch, local only)
+**Decision:** The expanded section of all 12 verktøy cards now has three parts, followed by the existing "Vis mer om verktøyet" link. Before, it only repeated the description above it.
+- **Om verktøyet:** the "Om verktøyet" text from the tool's own page in Helsenorge's verktøy catalogue (tjenester.helsenorge.no/verktoy/…), copied verbatim. It's left out for Selvhjelpsvideo mot kortvarige søvnvansker, where that text is identical to the card description.
+- **Fakta:** a Duolist built from the same page's "Informasjon" list, with values made readable ("UNGDOM, VOKSNE" becomes "Ungdom og voksne"). The rows are Passer for (with age ranges where the Om text gives them), Innhold, Antatt varighet, Språk, Faglig ansvarlig, Dataansvarlig and Utviklet av. For apps, a Pris row says "Gratis å laste ned", from Apple's lookup API on 2026-11-03.
+- **Personvern:** one line based on Helsenorge's own notice for external tools: "Appen/Verktøyet ligger utenfor Helsenorge og har egne bruksvilkår som du bør sette deg inn i."
+
+Content lives in `resources.json` as `details: { om, fakta }`.
+
+**Why:** In the user test (2026-11), participants said the verktøy, especially the apps, gave too little to decide whether to download or install them, and "Se detaljer" only repeated the text above it. Reusing Helsenorge's own quality-assured catalogue text avoids writing new claims about third-party tools.
+
+**Alternatives considered:**
+- App Store descriptions: rejected, because they are marketing copy, partly in English, and not quality-assured.
+- Writing new summaries: rejected, because they would need review.
+
+**Caveats:**
+- The texts are a copy taken on 2026-11-03 and won't follow later catalogue edits.
+- The Pris row says nothing about in-app purchases, which Apple's lookup doesn't report.
+- Language codes from the App Store were unreliable, so Språk only appears where Helsenorge states it.
+
+---
+
 ## 2026-11-02 — Psykisk helse ideas: quiz back to stacked checkboxes; no Akutt hjelp panel on results (psykiskhelse-ideas branch, local only)
 **Decision:**
 - **Quiz steps 1 and 2:** stacked DS Checkboxes again, inside the same labelled `role="group"`, replacing the VisualCheckboxCloud chips used since 2026-10-22. The chip size-pinning CSS was removed.
