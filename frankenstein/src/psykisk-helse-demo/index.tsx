@@ -369,7 +369,7 @@ function SectionVisual({ blob, illu, variant }: { blob: string; illu: string; va
 }
 
 // "Akutt hjelp" as a DS outline Panel (Figma 432:26314, 2026-10-22).
-// Front page only; was also on the results page 2026-10-27 – 2026-11-02.
+// Shared by the front page and the results page.
 function AkuttHjelp() {
   // Updated to Figma 432:26314 (2026-10-27): DS outline Panel "with icon" —
   // Icon (48px) beside the title, body text indented under it. Legevakt
@@ -959,8 +959,10 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               </LinkList.Link>
             </LinkList>
           </section>
-          {/* The Akutt hjelp panel that stood here was removed (2026-11-02):
+          {/* Same "Ring legevakten" panel as the front page (2026-11-03).
+              The earlier Mental Helse version was removed 2026-11-02 since
               Mental Helse is always listed under "Noen å snakke med". */}
+          <AkuttHjelp />
         </main>
       )}
 
