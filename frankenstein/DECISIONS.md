@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: "Om tjenesten Psykisk helse" expander says where answers are stored (psykiskhelse-ideas branch, local only)
+**Decision:** The expander's last paragraph, "Svarene dine sendes ikke til noen og blir ikke lagret for andre enn deg.", now reads: "Svarene dine lagres i profilen din, slik at du kan se forslagene igjen senere. Bare du kan se dem. De deles ikke med fastlegen din eller annet helsepersonell, og de legges ikke i journalen din. Du kan endre eller slette svarene når som helst."
+
+**Why:** User request, with the user's wording.
+
+---
+
 ## 2026-11-03 — Psykisk helse ideas: deletion confirmation as a modal over the Helsenorge forside (psykiskhelse-ideas branch, local only)
 **Decision:** After "Slett og avslutt", the user goes to the Helsenorge forside. The confirmation is a DS success Modal (medium) there, with the same title and text as the inline message: "Tjenesten er avsluttet" and "Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen." It closes with OK, Escape or a click outside. There is no ✕ close button: OK is enough (user request). Focus then goes to the page heading, since the button that opened it is gone. The Psykisk helse card under "Støtte til din situasjon" disappears because the veiviser has been cleared.
 
@@ -639,6 +646,3 @@ This reverses the full-bleed choice from earlier the same day.
 **Why:** Direct user request ("Use the frankenstein ingress styling for the ingress").
 
 #helsenorge
-
-### 2026-11-05 — "Om tjenesten Psykisk helse" expander: storage and sharing spelled out
-The last paragraph ("Svarene dine sendes ikke til noen og blir ikke lagret for andre enn deg.") now reads: "Svarene dine lagres i profilen din, slik at du kan se forslagene igjen senere. Bare du kan se dem. De deles ikke med fastlegen din eller annet helsepersonell, og de legges ikke i journalen din. Du kan endre eller slette svarene når som helst." User's wording.
