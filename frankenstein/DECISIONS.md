@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: "Hvem kan se svarene dine?" expander in Mer om tjenesten (psykiskhelse-ideas branch, local only)
+**Decision:** "Mer om tjenesten" on the front page has a new second expander (h3), "Hvem kan se svarene dine?", between "Om tjenesten Psykisk helse" and "Samtykke til å bruke tjenesten". It says only the user sees the answers and the list made from them, and that helsepersonell can't see either. Under the subheading "Når du bruker verktøy utenfor Helsenorge" (h4, bold body size), it says tools from other providers can store data, and that the provider is responsible for it. The text is the user's.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: "Thinking" illustration on the "Hva er psykisk helse?" PromoPanel, above the text on mobile (psykiskhelse-ideas branch, local only)
 **Decision:** The front-page PromoPanel shows the DS illustration "Thinking" (blueberry, matching the panel). Below 564px panel width (the DS sm breakpoint) it sits above the title and text instead of to their left, at 110px. The arrow stays to the right of the text.
 - **Illustration:** PromoPanel's `illustration` prop is typed as Doctor or HealthcarePersonnel only. It loads by name through LazyIllustration, though, and that list includes Thinking, so the name is passed with a type cast.

@@ -793,6 +793,15 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                     <p>Svarene dine lagres i profilen din, slik at du kan se forslagene igjen senere. Bare du kan se dem. De deles ikke med fastlegen din eller annet helsepersonell, og de legges ikke i journalen din. Du kan endre eller slette svarene når som helst.</p>
                   </div>
                 </ExpanderList.Expander>
+                {/* Second expander (ideas branch, 2026-11-05). */}
+                <ExpanderList.Expander title="Hvem kan se svarene dine?" titleHtmlMarkup="h3">
+                  <div className="ph-front__more-body">
+                    <p>Bare du kan se svarene dine og listen som lages til deg. Svarene brukes automatisk til å finne fram til artikler og verktøy som kan passe for deg. Helsepersonell kan ikke se noen av svarene dine eller resultatene i listen.</p>
+                    <h4 className="ph-front__more-subtitle">Når du bruker verktøy utenfor Helsenorge</h4>
+                    <p>Noen av verktøyene du får anbefalt, er laget og levert av andre enn Helsenorge. Slike verktøy kan lagre opplysninger om deg når du bruker dem.</p>
+                    <p>Når du går videre til et slikt verktøy, er det leverandøren av verktøyet som har ansvar for hvordan opplysningene dine behandles.</p>
+                  </div>
+                </ExpanderList.Expander>
                 <ExpanderList.Expander title="Samtykke til å bruke tjenesten" titleHtmlMarkup="h3">
                   <div className="ph-front__more-body">
                     <p>
