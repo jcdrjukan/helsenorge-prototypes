@@ -5,7 +5,7 @@ import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
-import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel';
+import PromoPanel, { type PromoPanelProps } from '@helsenorge/designsystem-react/components/PromoPanel';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
@@ -755,11 +755,16 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 (Figma 432:27541). Opens helsenorge.no's "Hva er psykisk
                 helse?" in the same phone-sized window as the other resource links
                 (openResource), since 2026-10-27; was a plain new tab. */}
+            {/* "Thinking" illustration (ideas branch, 2026-11-05). PromoPanel's
+                type lists only Doctor and HealthcarePersonnel, but it loads
+                the illustration by name through LazyIllustration, which
+                knows Thinking. On phones it sits above the text (style.css). */}
             <div className="ph-front__promo">
               <PromoPanel
                 title="Hva er psykisk helse?"
                 titleHtmlMarkup="h2"
                 color="blueberry"
+                illustration={'Thinking' as PromoPanelProps['illustration']}
                 linkComponent={
                   <a
                     href={HVA_ER_PSYKISK_HELSE}

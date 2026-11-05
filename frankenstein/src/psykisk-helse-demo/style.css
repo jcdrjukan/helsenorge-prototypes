@@ -382,7 +382,34 @@
 .ph-front__cta { margin-top: 1rem; }
 
 /* 1rem between the PromoPanel and the Akutt hjelp panel. */
-.ph-front__promo { margin-bottom: 1rem; }
+.ph-front__promo { margin-bottom: 1rem; container-type: inline-size; }
+
+/* "Thinking" illustration above the text at mobile widths (2026-11-05).
+   The DS PromoPanel puts it to the left from 360px up and hides it below.
+   A container query on the panel's own width (below the DS sm breakpoint,
+   564px) rather than a media query, because the phone frame sits in a wide
+   desktop viewport. The arrow stays to the right of the text. */
+@container (max-width: 563.98px) {
+  .ph-front__promo > [class*="_promopanel_"] {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding-left: 1rem;
+  }
+  .ph-front__promo [class*="_promopanel__illustration_"] {
+    display: block;
+    grid-column: 1 / -1;
+    margin-top: 1.5rem;
+    /* The DS sizes it from the browser viewport (156px from md, set as
+       inline min-width/min-height), so in the desktop phone frame it came
+       out larger than on a real phone. Pinned to the phone size. */
+    width: 110px;
+    height: 110px;
+    min-width: 110px !important;
+    min-height: 110px !important;
+  }
+  .ph-front__promo [class*="_promopanel__content_"] { padding-top: 0.5rem; }
+}
 /* "Mer om tjenesten" section between the promo and Akutt hjelp
    (2026-10-27): title3 heading over a line ExpanderList. */
 .ph-front__more { margin: 1rem 0 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
