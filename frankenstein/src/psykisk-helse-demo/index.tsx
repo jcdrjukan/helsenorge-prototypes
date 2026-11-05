@@ -8,6 +8,7 @@ import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/P
 import PromoPanel, { type PromoPanelProps } from '@helsenorge/designsystem-react/components/PromoPanel';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
 import HelpPanel from '@helsenorge/designsystem-react/components/HelpPanel';
+import FormFieldTag from '@helsenorge/designsystem-react/components/FormFieldTag';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
@@ -873,9 +874,11 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             Svarene dine sendes ikke til noen, og det er kun du som kan se dem. Du kan endre eller slette de når du vil.
           </HelpPanel>
           <p className="ph-quiz-subtitle" id="ph-q1-sub">Gjelder noe av dette for deg?</p>
+          {/* DS FormFieldTag "Valgfritt" (ideas branch, 2026-11-05). */}
+          <FormFieldTag id="ph-q1-tag" level="optional" />
           {/* Stacked DS Checkboxes again (ideas branch, 2026-11-02); were
               VisualCheckboxCloud chips 2026-10-22 – 2026-11-02. */}
-          <div role="group" aria-labelledby="ph-q1-title ph-q1-sub">
+          <div role="group" aria-labelledby="ph-q1-title ph-q1-sub ph-q1-tag">
             <ul className="ph-checkbox-list" role="list">
               {Q1_OPTIONS.map(opt => (
                 <li key={opt.label}>
@@ -901,7 +904,8 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={2} />
           <h1 className="ph-quiz-title" id="ph-q2-title">Hva ønsker du å fokusere på?</h1>
-          <div role="group" aria-labelledby="ph-q2-title">
+          <FormFieldTag id="ph-q2-tag" level="optional" />
+          <div role="group" aria-labelledby="ph-q2-title ph-q2-tag">
             <ul className="ph-checkbox-list" role="list">
               {Q2_OPTIONS.map(opt => (
                 <li key={opt.label}>

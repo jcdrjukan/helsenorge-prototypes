@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: "Valgfritt" tag on quiz steps 1 and 2 (psykiskhelse-ideas branch, local only)
+**Decision:** The DS FormFieldTag (level "optional", which reads "Valgfritt") sits under "Gjelder noe av dette for deg?" on step 1, and under the heading "Hva ønsker du å fokusere på?" on step 2. It's 4px below the question, not the page's 1rem gap, as under a DS form label. Each checkbox group's aria-labelledby includes the tag, so screen readers announce "Valgfritt" with the question.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: front-page expander texts revised (psykiskhelse-ideas branch, local only)
 **Decision:** The user revised the texts in "Mer om tjenesten":
 - **"Om tjenesten Psykisk helse":** now opens "Tjenesten Psykisk helse hjelper deg…", and the list intro has no colon. After the list, a paragraph says the user gets a list of selvhjelpsverktøy and lesestoff, tailored to their answers. An h4, "Finn igjen listen din", follows, then a paragraph saying the list is at the top of "din side" under Psykisk helse and can be removed with "Slett svarene" at the bottom of the page. The earlier paragraph about storage and privacy ("Svarene dine lagres i profilen din…") is gone; that's now covered by the second expander.

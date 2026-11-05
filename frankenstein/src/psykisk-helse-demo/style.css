@@ -760,3 +760,8 @@
    waving-hand icon and no violet border (the DS HelpPanel has both). */
 .ph-q1-help { border: none !important; padding: 0.75rem 1rem !important; }
 .ph-q1-help [class*="_highlightpanel__icon_"] { display: none; }
+
+/* "Valgfritt" FormFieldTag on quiz steps 1 and 2 (2026-11-05): tucked 4px
+   under the question it belongs to, as under a DS form label, instead of
+   the page's 1rem gap. */
+.ph-page--quiz > [class*="_form-field-tag_"] { margin-top: -0.75rem; align-self: flex-start; }
