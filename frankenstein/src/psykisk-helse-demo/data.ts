@@ -73,10 +73,10 @@ export interface QuizOption {
 }
 
 export const Q1_OPTIONS: QuizOption[] = [
-  { label: 'Sover dårlig', tag: 'sove-bedre' },
-  { label: 'Bekymrer meg mye', tag: 'angst' },
-  { label: 'Er nedstemt eller trist', tag: 'nedstemthet' },
-  { label: 'Er stressa', tag: 'stress' },
+  { label: 'Jeg sover dårlig', tag: 'sove-bedre' },
+  { label: 'Jeg bekymrer meg mye', tag: 'angst' },
+  { label: 'Jeg er nedstemt eller trist', tag: 'nedstemthet' },
+  { label: 'Jeg er stressa', tag: 'stress' },
 ];
 
 // Short topic labels since 2026-10-21 (user request); "Føle meg mindre

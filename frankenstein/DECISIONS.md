@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse demo: step 1 options in first person
+**Decision:** The step 1 ("Hvordan går det?") checkboxes now read "Jeg sover dårlig", "Jeg bekymrer meg mye", "Jeg er nedstemt eller trist" and "Jeg er stressa". They were "Sover dårlig", "Bekymrer meg mye", "Er nedstemt eller trist" and "Er stressa". Results are matched on each option's tag, not its label, so the recommendations are unchanged.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: "Valgfritt" tag on quiz steps 1 and 2 (psykiskhelse-ideas branch, local only)
 **Decision:** The DS FormFieldTag (level "optional", which reads "Valgfritt") sits under "Gjelder noe av dette for deg?" on step 1, and under the heading "Hva ønsker du å fokusere på?" on step 2. It's 4px below the question, not the page's 1rem gap, as under a DS form label. Each checkbox group's aria-labelledby includes the tag, so screen readers announce "Valgfritt" with the question.
 
