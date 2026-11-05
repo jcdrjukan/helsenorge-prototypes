@@ -384,32 +384,33 @@
 /* 1rem between the PromoPanel and the Akutt hjelp panel. */
 .ph-front__promo { margin-bottom: 1rem; container-type: inline-size; }
 
-/* "Thinking" illustration above the text at mobile widths (2026-11-05).
-   The DS PromoPanel puts it to the left from 360px up and hides it below.
-   A container query on the panel's own width (below the DS sm breakpoint,
-   564px) rather than a media query, because the phone frame sits in a wide
-   desktop viewport. The arrow stays to the right of the text. */
+/* "Thinking" illustration above the text at mobile widths (2026-11-05),
+   centred, 220px. The DS PromoPanel puts it to the left from 360px up and
+   hides it below. A container query on the panel's own width (below the DS
+   sm breakpoint, 564px) rather than a media query, because the phone frame
+   sits in a wide desktop viewport. The DS sizes the illustration from the
+   browser viewport (inline min-width/min-height), so the size is pinned
+   here to look the same in the desktop frame and on a phone. */
 @container (max-width: 563.98px) {
   .ph-front__promo > [class*="_promopanel_"] {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: center;
-    padding-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0 1rem;
   }
   .ph-front__promo [class*="_promopanel__illustration_"] {
     display: block;
-    grid-column: 1 / -1;
+    align-self: center;
     margin-top: 1.5rem;
-    /* The DS sizes it from the browser viewport (156px from md, set as
-       inline min-width/min-height), so in the desktop phone frame it came
-       out larger than on a real phone. Pinned to 156px (the DS md size) on all widths. */
-    width: 156px;
-    height: 156px;
-    min-width: 156px !important;
-    min-height: 156px !important;
+    width: 220px;
+    height: 220px;
+    min-width: 220px !important;
+    min-height: 220px !important;
   }
   .ph-front__promo [class*="_promopanel__content_"] { padding-top: 0.5rem; }
 }
+/* No arrow on this panel (2026-11-05); the whole panel stays clickable. */
+.ph-front__promo [class*="_promopanel__icon_"] { display: none; }
 /* "Mer om tjenesten" section between the promo and Akutt hjelp
    (2026-10-27): title3 heading over a line ExpanderList. */
 .ph-front__more { margin: 1rem 0 2rem; display: flex; flex-direction: column; gap: 0.5rem; }
