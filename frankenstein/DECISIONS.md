@@ -12,10 +12,10 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 ---
 
 ## 2026-11-05 — Psykisk helse ideas: "Thinking" illustration on the "Hva er psykisk helse?" PromoPanel, above the text on mobile (psykiskhelse-ideas branch, local only)
-**Decision:** The front-page PromoPanel shows the DS illustration "Thinking" (blueberry, matching the panel). Below 564px panel width (the DS sm breakpoint) it sits above the title and text instead of to their left, at 110px. The arrow stays to the right of the text.
+**Decision:** The front-page PromoPanel shows the DS illustration "Thinking" (blueberry, matching the panel). Below 564px panel width (the DS sm breakpoint) it sits above the title and text instead of to their left, at 156px (110px at first, made larger the same day at the user's request; 156px is the size the DS itself uses from md). The arrow stays to the right of the text.
 - **Illustration:** PromoPanel's `illustration` prop is typed as Doctor or HealthcarePersonnel only. It loads by name through LazyIllustration, though, and that list includes Thinking, so the name is passed with a type cast.
 - **Layout:** stacking uses a container query on the panel's own width, not a media query, so it also applies in the desktop phone frame. The DS hides the illustration below 360px; this layout shows it there too.
-- **Size:** the DS sizes the illustration from the browser viewport (156px from md, as inline min-width and min-height). It's pinned to 110px so the desktop frame matches a phone.
+- **Size:** the DS sizes the illustration from the browser viewport (156px from md, as inline min-width and min-height). It's pinned to one size so the desktop frame matches a phone.
 
 **Why:** User request ("Add the illustration "Thinking" to the "Hva er psykisk helse?" promo panel. Add mobile widths, the illustration should go above the texts.").
 

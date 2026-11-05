@@ -402,11 +402,11 @@
     margin-top: 1.5rem;
     /* The DS sizes it from the browser viewport (156px from md, set as
        inline min-width/min-height), so in the desktop phone frame it came
-       out larger than on a real phone. Pinned to the phone size. */
-    width: 110px;
-    height: 110px;
-    min-width: 110px !important;
-    min-height: 110px !important;
+       out larger than on a real phone. Pinned to 156px (the DS md size) on all widths. */
+    width: 156px;
+    height: 156px;
+    min-width: 156px !important;
+    min-height: 156px !important;
   }
   .ph-front__promo [class*="_promopanel__content_"] { padding-top: 0.5rem; }
 }
