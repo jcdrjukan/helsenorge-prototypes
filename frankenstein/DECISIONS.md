@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: Avslutt page renamed "Slett svarene dine", button "Slett svarene" (psykiskhelse-ideas branch, local only)
+**Decision:** The page that opens from "Slett svarene" on the results page now has the h1 "Slett svarene dine", not "Avslutt tjenesten". Its red button reads "Slett svarene" (with the trash can icon), not "Slett og avslutt". The rest of the page is unchanged. So is the modal on the forside afterwards ("Tjenesten er avsluttet").
+
+**Why:** User request, following the results-page button rename, so the page matches the button that opens it.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: shorter "Svarene dine" text, buttons "Endre svarene" and "Slett svarene" (psykiskhelse-ideas branch, local only)
 **Decision:** On the results page, the "Svarene dine" text now reads "Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem." The two buttons are "Endre svarene" (outline) and "Slett svarene" (red outline), with no arrow icons. They used to read "← Endre svarene dine" and "Avslutt tjenesten →". "Slett svarene" still opens the Avslutt tjenesten page.
 

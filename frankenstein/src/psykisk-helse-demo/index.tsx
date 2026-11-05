@@ -42,7 +42,7 @@ import {
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
 
 export interface PsykiskHelseProps {
-  /** Called after "Slett og avslutt" has deleted the data (ideas branch,
+  /** Called after "Slett svarene" has deleted the data (ideas branch,
    *  2026-11-03): the app takes the user to the Helsenorge forside and shows
    *  the confirmation there as a modal. When omitted, the user lands on the
    *  service front page with the inline confirmation instead. */
@@ -533,7 +533,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   // blank; aborting discards the draft, so earlier results are kept.
   const [d1, setD1]               = useState<Set<string>>(() => new Set());
   const [d2, setD2]               = useState<Set<string>>(() => new Set());
-  // Confirmation after "Slett og avslutt" — shown inline on the front page
+  // Confirmation after "Slett svarene" — shown inline on the front page
   // (no Toast), focused so screen readers announce it.
   const [avsluttet, setAvsluttet] = useState(false);
   const avsluttetRef              = useRef<HTMLDivElement>(null);
@@ -994,10 +994,10 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         </main>
       )}
 
-      {/* ── Avslutt tjenesten ──────────────────────────────────── */}
+      {/* ── Slett svarene dine (was "Avslutt tjenesten") ──────── */}
       {view === 'avslutt' && (
         <main className="ph-page ph-avslutt">
-          <h1 className="ph-avslutt__title">Avslutt tjenesten</h1>
+          <h1 className="ph-avslutt__title">Slett svarene dine</h1>
           <section aria-labelledby="ph-slettes">
             <h2 className="ph-avslutt__h2" id="ph-slettes">Dette blir slettet</h2>
             <ul className="ph-personvern-list">
@@ -1015,7 +1015,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <div className="ph-avslutt__actions">
             <Button variant="fill" concept="destructive" onClick={slettOgAvslutt}>
               <Icon svgIcon={TrashCan} size={38} />
-              Slett og avslutt
+              Slett svarene
             </Button>
             <Button variant="borderless" onClick={() => setView('results')}>Avbryt</Button>
           </div>
