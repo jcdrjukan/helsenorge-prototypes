@@ -19,7 +19,6 @@ import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
 import ChevronDown from '@helsenorge/designsystem-react/components/Icons/ChevronDown';
 import ChevronLeft from '@helsenorge/designsystem-react/components/Icons/ChevronLeft';
-import ArrowLeft from '@helsenorge/designsystem-react/components/Icons/ArrowLeft';
 import ArrowUpRight from '@helsenorge/designsystem-react/components/Icons/ArrowUpRight';
 import Receptionist from '@helsenorge/designsystem-react/components/Icons/Receptionist';
 import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
@@ -971,16 +970,11 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <section className="ph-svar" aria-labelledby="ph-svar-title">
             <h2 className="ph-svar__title" id="ph-svar-title">Svarene dine</h2>
             <p className="ph-svar__text">
-              Svarene dine er lagret i profilen din, og bare du kan se dem. Du kan endre svarene for å få nye anbefalinger. Når du avslutter tjenesten, slettes svarene og anbefalingene dine.
+              Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem.
             </p>
             <div className="ph-svar__actions">
-              <Button variant="outline" onClick={retake}>
-                <Icon svgIcon={ArrowLeft} size={38} />
-                Endre svarene dine
-              </Button>
-              <Button variant="outline" concept="destructive" arrow="icon" onClick={() => setView('avslutt')}>
-                Avslutt tjenesten
-              </Button>
+              <Button variant="outline" onClick={retake}>Endre svarene</Button>
+              <Button variant="outline" concept="destructive" onClick={() => setView('avslutt')}>Slett svarene</Button>
             </div>
           </section>
 

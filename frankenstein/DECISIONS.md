@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: shorter "Svarene dine" text, buttons "Endre svarene" and "Slett svarene" (psykiskhelse-ideas branch, local only)
+**Decision:** On the results page, the "Svarene dine" text now reads "Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem." The two buttons are "Endre svarene" (outline) and "Slett svarene" (red outline), with no arrow icons. They used to read "← Endre svarene dine" and "Avslutt tjenesten →". "Slett svarene" still opens the Avslutt tjenesten page.
+
+**Why:** User request, with the user's wording.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: info message about privacy on quiz step 1 (psykiskhelse-ideas branch, local only)
 **Decision:** Step 1 ("Hvordan går det?") has a DS info NotificationPanel between the checkboxes and the Neste/Avbryt buttons. Label (h2): "Bare du kan se svarene dine". Text: "De deles ikke med fastlegen din eller andre i helsetjenesten, og de blir ikke en del av journalen din. Du kan slette dem når du vil." It sits after the question, so the heading and the question stay together and the checkboxes follow straight after them.
 
