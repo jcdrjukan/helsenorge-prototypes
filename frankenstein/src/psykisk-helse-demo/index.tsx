@@ -867,6 +867,10 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               ))}
             </ul>
           </div>
+          {/* Privacy reassurance while answering (ideas branch, 2026-11-05). */}
+          <NotificationPanel variant="info" label="Bare du kan se svarene dine" labelHtmlMarkup="h2">
+            De deles ikke med fastlegen din eller andre i helsetjenesten, og de blir ikke en del av journalen din. Du kan slette dem når du vil.
+          </NotificationPanel>
           <div className="ph-quiz-nav">
             <Button variant="fill" arrow="icon" onClick={() => setView('quiz2')}>Neste</Button>
             <Button variant="borderless" onClick={avbryt}>Avbryt</Button>
