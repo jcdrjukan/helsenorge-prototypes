@@ -7,6 +7,7 @@ import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import PromoPanel, { type PromoPanelProps } from '@helsenorge/designsystem-react/components/PromoPanel';
 import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
+import HelpPanel from '@helsenorge/designsystem-react/components/HelpPanel';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
 import Tag from '@helsenorge/designsystem-react/components/Tag';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
@@ -863,6 +864,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         <main className="ph-page ph-page--quiz">
           <ProgressBar step={1} />
           <h1 className="ph-quiz-title" id="ph-q1-title">Hvordan går det?</h1>
+          {/* Privacy note in the DS HelpPanel (help-system violet), right under
+              the heading (ideas branch, 2026-11-05). Replaces the info
+              NotificationPanel above the buttons. */}
+          <HelpPanel variant="compact">
+            Svarene dine sendes ikke til noen, og det er kun du som kan se dem. Du kan endre eller slette de når du vil.
+          </HelpPanel>
           <p className="ph-quiz-subtitle" id="ph-q1-sub">Gjelder noe av dette for deg?</p>
           {/* Stacked DS Checkboxes again (ideas branch, 2026-11-02); were
               VisualCheckboxCloud chips 2026-10-22 – 2026-11-02. */}
@@ -880,10 +887,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               ))}
             </ul>
           </div>
-          {/* Privacy reassurance while answering (ideas branch, 2026-11-05). */}
-          <NotificationPanel variant="info" label="Bare du kan se svarene dine" labelHtmlMarkup="h2">
-            De deles ikke med fastlegen din eller andre i helsetjenesten, og de blir ikke en del av journalen din. Du kan slette dem når du vil.
-          </NotificationPanel>
           <div className="ph-quiz-nav">
             <Button variant="fill" arrow="icon" onClick={() => setView('quiz2')}>Neste</Button>
             <Button variant="borderless" onClick={avbryt}>Avbryt</Button>
