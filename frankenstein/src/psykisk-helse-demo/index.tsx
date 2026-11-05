@@ -867,7 +867,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           {/* Privacy note in the DS HelpPanel (help-system violet), right under
               the heading (ideas branch, 2026-11-05). Replaces the info
               NotificationPanel above the buttons. */}
-          <HelpPanel variant="compact">
+          <HelpPanel variant="compact" className="ph-q1-help">
             Svarene dine sendes ikke til noen, og det er kun du som kan se dem. Du kan endre eller slette de når du vil.
           </HelpPanel>
           <p className="ph-quiz-subtitle" id="ph-q1-sub">Gjelder noe av dette for deg?</p>

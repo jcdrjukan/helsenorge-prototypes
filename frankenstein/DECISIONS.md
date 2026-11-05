@@ -5,7 +5,7 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 ---
 
 ## 2026-11-05 — Psykisk helse ideas: step 1 privacy note in a violet HelpPanel under the heading (psykiskhelse-ideas branch, local only)
-**Decision:** On step 1, a DS HelpPanel (compact, the help-system violet, with its built-in waving-hand icon and violet border) sits right under "Hvordan går det?". It says: "Svarene dine sendes ikke til noen, og det er kun du som kan se dem. Du kan endre eller slette de når du vil." It replaces the info NotificationPanel ("Bare du kan se svarene dine") that sat between the checkboxes and the buttons earlier the same day.
+**Decision:** On step 1, a DS HelpPanel (compact, in the help-system violet) sits right under "Hvordan går det?". It says: "Svarene dine sendes ikke til noen, og det er kun du som kan se dem. Du kan endre eller slette de når du vil." At the user's request, its built-in waving-hand icon and violet border are hidden (`.ph-q1-help`), so it's just the violet field. It replaces the info NotificationPanel ("Bare du kan se svarene dine") that sat between the checkboxes and the buttons earlier the same day.
 
 **Why:** User request, with the user's wording and the colour of the help-system elements.
 

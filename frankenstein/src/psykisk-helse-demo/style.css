@@ -755,3 +755,8 @@
 /* "Se detaljer" text tops out at 18px: the DS Duolist's 20px terms/descriptions are brought down to match the body text. */
 .ph-tool-card [class*="_duolist__dt_"],
 .ph-tool-card [class*="_duolist__dd_"] { font-size: 1.125rem; line-height: 1.5rem; }
+
+/* Step 1 privacy note (2026-11-05): just the help-system violet field, no
+   waving-hand icon and no violet border (the DS HelpPanel has both). */
+.ph-q1-help { border: none !important; padding: 0.75rem 1rem !important; }
+.ph-q1-help [class*="_highlightpanel__icon_"] { display: none; }
