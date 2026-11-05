@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: front-page ingress says only the user sees the answers (psykiskhelse-ideas branch, local only)
+**Decision:** The front-page ingress ends with a new sentence: "Bare du kan se svarene og anbefalingene du får." The rest of the ingress is unchanged.
+
+**Why:** User request, with the user's wording.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: confirmation reads "Svarene dine er slettet"; modal fixed at phone widths (psykiskhelse-ideas branch, local only)
 **Decision:** The confirmation after "Slett svarene" now has the title "Svarene dine er slettet" and the text "Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil." Before, it said "Tjenesten er avsluttet" and "Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen." This applies to the forside modal and to the inline fallback.
 

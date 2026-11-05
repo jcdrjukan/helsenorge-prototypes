@@ -725,7 +725,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon.
+              Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon. Bare du kan se svarene og anbefalingene du får.
             </p>
             {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble. */}
             <div className="ph-front__cta">
