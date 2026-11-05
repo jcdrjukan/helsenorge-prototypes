@@ -708,13 +708,13 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                 <NotificationPanel
                   variant="success"
                   role="status"
-                  label="Tjenesten er avsluttet"
+                  label="Svarene dine er slettet"
                   labelHtmlMarkup="h2"
                   dismissable
                   ariaLabelCloseBtn="Lukk melding"
                   onClick={lukkAvsluttet}
                 >
-                  Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen.
+                  Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil.
                 </NotificationPanel>
               </div>
             )}

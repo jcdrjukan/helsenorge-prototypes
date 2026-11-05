@@ -4,6 +4,15 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: confirmation reads "Svarene dine er slettet"; modal fixed at phone widths (psykiskhelse-ideas branch, local only)
+**Decision:** The confirmation after "Slett svarene" now has the title "Svarene dine er slettet" and the text "Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil." Before, it said "Tjenesten er avsluttet" and "Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen." This applies to the forside modal and to the inline fallback.
+
+Also fixed in `App.css`: at viewports up to 480px, `.phone-frame__screen` no longer has `contain: layout`. At those widths the frame grows with the page, so the containment made the Modal overlay as tall as the whole page (about 2600px on the forside). The card ended up centred around y≈1150, and a phone user saw only the dimmed overlay. Desktop, inside the phone frame, is unchanged. The main `psykiskhelse-demo` branch and the other prototypes that use the same `App.css` have the same bug at phone widths.
+
+**Why:** User request for the wording, following the move from "avslutt tjenesten" to "slett svarene". The bug turned up while checking the modal at 390×844.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: Avslutt page renamed "Slett svarene dine", button "Slett svarene" (psykiskhelse-ideas branch, local only)
 **Decision:** The page that opens from "Slett svarene" on the results page now has the h1 "Slett svarene dine", not "Avslutt tjenesten". Its red button reads "Slett svarene" (with the trash can icon), not "Slett og avslutt". The rest of the page is unchanged. So is the modal on the forside afterwards ("Tjenesten er avsluttet").
 

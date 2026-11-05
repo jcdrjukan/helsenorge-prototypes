@@ -98,6 +98,11 @@
     border-radius: 0;
     overflow: visible;
     overflow-y: visible;
+    /* Here the frame grows with the page instead of scrolling, so
+       contain:layout would make fixed UI (the Modal overlay) as tall as the
+       whole page and centre the card far below the fold. The frame is the
+       viewport at this width anyway, so let fixed elements use the viewport. */
+    contain: none;
   }
   .phone-frame__home { display: none; }
 }

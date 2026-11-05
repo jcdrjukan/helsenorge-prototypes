@@ -56,7 +56,7 @@ function getInitialPrototype(): Prototype {
 function App() {
   const [prototype, setPrototype] = useState<Prototype>(getInitialPrototype);
   const [, setCameFrom] = useState<Prototype>('forside-demo');
-  // "Tjenesten er avsluttet" modal over the Forside after Psykisk helse's
+  // "Svarene dine er slettet" modal over the Forside after Psykisk helse's
   // "Slett og avslutt" (ideas branch, 2026-11-03).
   const [visAvsluttetModal, setVisAvsluttetModal] = useState(false);
 

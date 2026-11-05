@@ -28,7 +28,7 @@ export interface ForsideProps {
   onGoToTjeneste: (id: ValgbarTjenesteId) => void;
   /** Opens the "Veiviser til psykisk helsehjelp" article page. */
   onOpenArtikkel: () => void;
-  /** Shows the "Tjenesten er avsluttet" modal (Psykisk helse "Slett og
+  /** Shows the "Svarene dine er slettet" modal (Psykisk helse "Slett og
    *  avslutt", ideas branch 2026-11-03). The Psykisk helse card under "Støtte
    *  til din situasjon" is already gone, since the veiviser was cleared. */
   visAvsluttetModal?: boolean;
@@ -313,8 +313,8 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel, visAvsluttetMo
 
       {visAvsluttetModal && (
         <Modal
-          title="Tjenesten er avsluttet"
-          description="Svarene og anbefalingene dine er slettet. Du kan når som helst ta tjenesten i bruk igjen."
+          title="Svarene dine er slettet"
+          description="Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil."
           variant="success"
           size="medium"
           noCloseButton
