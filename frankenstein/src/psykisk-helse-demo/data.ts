@@ -87,7 +87,7 @@ export const Q2_OPTIONS: QuizOption[] = [
   { label: 'Humør', tag: 'nedstemthet' },
   { label: 'Søvn', tag: 'sove-bedre' },
   { label: 'Stress', tag: 'stress' },
-  { label: 'Alkohol, rusmidler og tobakk', tag: 'rus-og-avhengighet' },
+  { label: 'Alkohol, andre rusmidler eller tobakk', tag: 'rus-og-avhengighet' },
   { label: 'Pengespilling', tag: 'spilleavhengighet' },
   { label: 'Psykisk helse generelt', tag: 'generell-mestring' },
 ];

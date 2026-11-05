@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse demo: step 2 option "Alkohol, andre rusmidler eller tobakk"
+**Decision:** The step 2 option "Alkohol, rusmidler og tobakk" now reads "Alkohol, andre rusmidler eller tobakk". The tag (rus-og-avhengighet) and the recommendations are unchanged.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-05 — Psykisk helse demo: step 1 options in first person
 **Decision:** The step 1 ("Hvordan går det?") checkboxes now read "Jeg sover dårlig", "Jeg bekymrer meg mye", "Jeg er nedstemt eller trist" and "Jeg er stressa". They were "Sover dårlig", "Bekymrer meg mye", "Er nedstemt eller trist" and "Er stressa". Results are matched on each option's tag, not its label, so the recommendations are unchanged.
 
