@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: "Slett svarene dine" list wording (psykiskhelse-ideas branch, local only)
+**Decision:** "Dette blir slettet" now lists "Svarene du har gitt på spørsmålene" and "Snarvei til anbefalingene på forsiden". They were "svarene dine på spørsmålene" and "Psykisk helse snarvei på Helsenorge forsiden". "Dette blir ikke slettet" now says "Opplysninger du har oppgitt eller gitt tillatelse til å bruke i eksterne verktøy. Disse må slettes i verktøyet." It was "det du har lagret eller skrevet i apper og nettsider du har åpnet fra anbefalingene. Det må du slette der."
+
+**Why:** User request, with the user's wording.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: step 1 privacy note in a violet HelpPanel under the heading (psykiskhelse-ideas branch, local only)
 **Decision:** On step 1, a DS HelpPanel (compact, in the help-system violet) sits right under "Hvordan går det?". It says: "Svarene dine sendes ikke til noen, og det er kun du som kan se dem. Du kan endre eller slette de når du vil." At the user's request, its built-in waving-hand icon and violet border are hidden (`.ph-q1-help`), so it's just the violet field. It replaces the info NotificationPanel ("Bare du kan se svarene dine") that sat between the checkboxes and the buttons earlier the same day.
 
