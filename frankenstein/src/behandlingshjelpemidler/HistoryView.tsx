@@ -58,6 +58,8 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.gate2 && <>{order.gate2}<br /></>}{order.poststed}</>
               : <>{order.addr}<br />{hentested(order.delivery)}</>
           } />
+          {/* Same as the aktive bestillinger card (2026-11-05). */}
+          <Field label="Telefon" value={order.telefon} />
           {order.comment && (
             <>
               <Field label="Kommentar til bestilling" value={order.comment} />

@@ -323,4 +323,9 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** "…passer til flere av dine utstyr og tallet her viser den samlede bestillingen."
 **Why:** Direct user request (better wording).
 
+## 2026-11-05 — Behandlingshjelpemidler: historical orders show Telefon, like aktive bestillinger
+**Decision:** Each card in Bestillingshistorikk now has a "Telefon" field under the delivery address or hentested, as the aktive bestillinger card does. The seeded history orders carry "987 65 432" (it was "98765432", and empty on the one pickup order), so all four show a number.
+**Alternative considered:** Showing it only on postal orders.
+**Why:** Direct user request ("Historical orders should also have a telephone number displayed, as with aktive bestillinger"). The aktive card shows it for every delivery method, so history does too.
+
 #helsenorge
