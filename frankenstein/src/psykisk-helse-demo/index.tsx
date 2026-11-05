@@ -785,22 +785,24 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               <ExpanderList variant="line" color="neutral">
                 <ExpanderList.Expander title="Om tjenesten Psykisk helse" titleHtmlMarkup="h3">
                   <div className="ph-front__more-body">
-                    <p>Tjenesten hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan:</p>
+                    <p>Tjenesten Psykisk helse hjelper deg med å finne relevante verktøy og informasjon tilpasset deg og hvordan du har det. Du kan for eksempel få råd om hvordan du kan</p>
                     <ul>
                       <li>sove bedre</li>
                       <li>håndtere stress</li>
                       <li>få bedre kontroll over følelsene dine</li>
                     </ul>
-                    <p>Svarene dine lagres i profilen din, slik at du kan se forslagene igjen senere. Bare du kan se dem. De deles ikke med fastlegen din eller annet helsepersonell, og de legges ikke i journalen din. Du kan endre eller slette svarene når som helst.</p>
+                    <p>Når du har svart på noen enkle spørsmål, får du en liste med selvhjelpsverktøy og lesestoff som kan være relevante for deg. Anbefalingene er tilpasset ut fra svarene dine.</p>
+                    <h4 className="ph-front__more-subtitle">Finn igjen listen din</h4>
+                    <p>Når du er logget inn, finner du listen med anbefalinger øverst på din side under Psykisk helse. Hvis du ikke lenger vil ha listen, kan du velge Slett svarene nederst på siden.</p>
                   </div>
                 </ExpanderList.Expander>
                 {/* Second expander (ideas branch, 2026-11-05). */}
                 <ExpanderList.Expander title="Hvem kan se svarene dine?" titleHtmlMarkup="h3">
                   <div className="ph-front__more-body">
-                    <p>Bare du kan se svarene dine og listen som lages til deg. Svarene brukes automatisk til å finne fram til artikler og verktøy som kan passe for deg. Helsepersonell kan ikke se noen av svarene dine eller resultatene i listen.</p>
+                    <p>Bare du kan se svarene dine og anbefalingene du får. Svarene brukes automatisk til å finne fram til artikler og verktøy som kan passe for deg. Helsepersonell kan ikke se noen av svarene dine eller resultatene i listen med anbefalinger.</p>
                     <h4 className="ph-front__more-subtitle">Når du bruker verktøy utenfor Helsenorge</h4>
                     <p>Noen av verktøyene du får anbefalt, er laget og levert av andre enn Helsenorge. Slike verktøy kan lagre opplysninger om deg når du bruker dem.</p>
-                    <p>Når du går videre til et slikt verktøy, er det leverandøren av verktøyet som har ansvar for hvordan opplysningene dine behandles.</p>
+                    <p>Når du går videre til et verktøy, er det leverandøren av verktøyet som har ansvar for hvordan opplysningene dine behandles.</p>
                   </div>
                 </ExpanderList.Expander>
                 <ExpanderList.Expander title="Samtykke til å bruke tjenesten" titleHtmlMarkup="h3">

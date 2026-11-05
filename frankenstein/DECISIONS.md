@@ -4,6 +4,16 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-05 — Psykisk helse ideas: front-page expander texts revised (psykiskhelse-ideas branch, local only)
+**Decision:** The user revised the texts in "Mer om tjenesten":
+- **"Om tjenesten Psykisk helse":** now opens "Tjenesten Psykisk helse hjelper deg…", and the list intro has no colon. After the list, a paragraph says the user gets a list of selvhjelpsverktøy and lesestoff, tailored to their answers. An h4, "Finn igjen listen din", follows, then a paragraph saying the list is at the top of "din side" under Psykisk helse and can be removed with "Slett svarene" at the bottom of the page. The earlier paragraph about storage and privacy ("Svarene dine lagres i profilen din…") is gone; that's now covered by the second expander.
+- **"Hvem kan se svarene dine?":** "listen som lages til deg" becomes "anbefalingene du får", and "resultatene i listen" becomes "resultatene i listen med anbefalinger". "et slikt verktøy" becomes "et verktøy".
+- **"Samtykke til å bruke tjenesten":** unchanged. The requested text matched what was already there.
+
+**Why:** User request, with the user's wording.
+
+---
+
 ## 2026-11-05 — Psykisk helse ideas: "Slett svarene dine" list wording (psykiskhelse-ideas branch, local only)
 **Decision:** "Dette blir slettet" now lists "Svarene du har gitt på spørsmålene" and "Snarvei til anbefalingene på forsiden". They were "svarene dine på spørsmålene" and "Psykisk helse snarvei på Helsenorge forsiden". "Dette blir ikke slettet" now says "Opplysninger du har oppgitt eller gitt tillatelse til å bruke i eksterne verktøy. Disse må slettes i verktøyet." It was "det du har lagret eller skrevet i apper og nettsider du har åpnet fra anbefalingene. Det må du slette der."
 
