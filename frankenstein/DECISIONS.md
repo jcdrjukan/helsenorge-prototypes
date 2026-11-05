@@ -639,3 +639,6 @@ This reverses the full-bleed choice from earlier the same day.
 **Why:** Direct user request ("Use the frankenstein ingress styling for the ingress").
 
 #helsenorge
+
+### 2026-11-05 — "Om tjenesten Psykisk helse" expander: storage and sharing spelled out
+The last paragraph ("Svarene dine sendes ikke til noen og blir ikke lagret for andre enn deg.") now reads: "Svarene dine lagres i profilen din, slik at du kan se forslagene igjen senere. Bare du kan se dem. De deles ikke med fastlegen din eller annet helsepersonell, og de legges ikke i journalen din. Du kan endre eller slette svarene når som helst." User's wording.

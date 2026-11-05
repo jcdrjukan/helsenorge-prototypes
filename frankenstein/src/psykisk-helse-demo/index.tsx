@@ -786,7 +786,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                       <li>håndtere stress</li>
                       <li>få bedre kontroll over følelsene dine</li>
                     </ul>
-                    <p>Svarene dine sendes ikke til noen og blir ikke lagret for andre enn deg.</p>
+                    <p>Svarene dine lagres i profilen din, slik at du kan se forslagene igjen senere. Bare du kan se dem. De deles ikke med fastlegen din eller annet helsepersonell, og de legges ikke i journalen din. Du kan endre eller slette svarene når som helst.</p>
                   </div>
                 </ExpanderList.Expander>
                 <ExpanderList.Expander title="Samtykke til å bruke tjenesten" titleHtmlMarkup="h3">
