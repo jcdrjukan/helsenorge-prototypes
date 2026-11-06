@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-06 — Psykisk helse demo: "Ring legevakten" panel back on the results page
+**Decision:** The front page's "Ring legevakten" panel (AkuttHjelp) is again at the bottom of the results page, below "Se hvilke helsetilbud kommunen tilbyr". It was removed from the results page on 2026-11-03. It's the same component, so it looks the same as on the front page.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-06 — Psykisk helse demo: "Svarene dine er slettet" modal over the Slett svarene dine page
 **Decision:** Pressing "Slett svarene" on the Slett svarene dine page deletes the answers and opens the "Svarene dine er slettet" modal right there, on top of that page. Its title, text and OK-only close are unchanged. Closing it takes the user to the Helsenorge forside, as before, but there's no longer a modal on the forside. The modal on the forside and the unused inline fallback on the Psykisk helse front page (NotificationPanel) are removed.
 
