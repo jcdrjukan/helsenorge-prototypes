@@ -26,6 +26,7 @@ import Receptionist from '@helsenorge/designsystem-react/components/Icons/Recept
 import ArrowRight from '@helsenorge/designsystem-react/components/Icons/ArrowRight';
 import PeopleTalking from '@helsenorge/designsystem-react/components/Icons/PeopleTalking';
 import TrashCan from '@helsenorge/designsystem-react/components/Icons/TrashCan';
+import Pencil from '@helsenorge/designsystem-react/components/Icons/Pencil';
 import TravelRoute from '@helsenorge/designsystem-react/components/Icons/TravelRoute';
 import HealthClinic from '@helsenorge/designsystem-react/components/Icons/HealthClinic';
 import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
@@ -996,8 +997,14 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem.
             </p>
             <div className="ph-svar__actions">
-              <Button variant="outline" onClick={retake}>Endre svarene</Button>
-              <Button variant="outline" concept="destructive" onClick={() => setView('avslutt')}>Slett svarene</Button>
+              <Button variant="outline" onClick={retake}>
+                <Icon svgIcon={Pencil} size={38} />
+                Endre svarene
+              </Button>
+              <Button variant="outline" concept="destructive" onClick={() => setView('avslutt')}>
+                <Icon svgIcon={TrashCan} size={38} />
+                Slett svarene
+              </Button>
             </div>
           </section>
 
