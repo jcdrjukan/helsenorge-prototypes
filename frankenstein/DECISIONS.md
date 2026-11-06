@@ -4,6 +4,20 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-06 — Psykisk helse demo: "Svarene dine er slettet" modal over the Slett svarene dine page
+**Decision:** Pressing "Slett svarene" on the Slett svarene dine page deletes the answers and opens the "Svarene dine er slettet" modal right there, on top of that page. Its title, text and OK-only close are unchanged. Closing it takes the user to the Helsenorge forside, as before, but there's no longer a modal on the forside. The modal on the forside and the unused inline fallback on the Psykisk helse front page (NotificationPanel) are removed.
+
+**Why:** User request.
+
+---
+
+## 2026-11-06 — Psykisk helse demo: icons on "Endre svarene" and "Slett svarene"
+**Decision:** On the results page, the "Endre svarene" button now has the DS Pencil icon and "Slett svarene" has the TrashCan icon, both to the left of the text. They're the same size (38) as the TrashCan on the Slett svarene dine page's red button.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-05 — Psykisk helse demo: step 2 option "Alkohol, andre rusmidler eller tobakk"
 **Decision:** The step 2 option "Alkohol, rusmidler og tobakk" now reads "Alkohol, andre rusmidler eller tobakk". The tag (rus-og-avhengighet) and the recommendations are unchanged.
 

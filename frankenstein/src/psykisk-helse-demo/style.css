@@ -733,7 +733,6 @@
 
 
 /* ── Personvern + Avslutt (user test 2026-11) ─────────────────── */
-.ph-avsluttet { margin-bottom: 1.5rem; outline: none; }
 .ph-hero-title:focus { outline: none; }
 .ph-personvern-list { margin: 0; padding-left: 1.5rem; list-style: disc; font: 400 1.125rem/1.5 'Source Sans Pro', sans-serif; color: #000; }
 .ph-personvern-list li + li { margin-top: 0.25rem; }

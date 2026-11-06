@@ -1,11 +1,10 @@
-import { useState, useRef, Fragment } from 'react';
+import { useState, Fragment } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
 import LinkList from '@helsenorge/designsystem-react/components/LinkList';
 import Tile from '@helsenorge/designsystem-react/components/Tile/Tile';
 import PromoPanel from '@helsenorge/designsystem-react/components/PromoPanel/PromoPanel';
-import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import Menu from '@helsenorge/designsystem-react/components/Icons/Menu';
 import Bell from '@helsenorge/designsystem-react/components/Icons/Bell';
 import Logout from '@helsenorge/designsystem-react/components/Icons/Logout';
@@ -28,22 +27,10 @@ export interface ForsideProps {
   onGoToTjeneste: (id: ValgbarTjenesteId) => void;
   /** Opens the "Veiviser til psykisk helsehjelp" article page. */
   onOpenArtikkel: () => void;
-  /** Shows the "Svarene dine er slettet" modal (Psykisk helse "Slett og
-   *  avslutt", ideas branch 2026-11-03). The Psykisk helse card under "Støtte
-   *  til din situasjon" is already gone, since the veiviser was cleared. */
-  visAvsluttetModal?: boolean;
-  onLukkAvsluttetModal?: () => void;
 }
 
-export default function Forside({ onGoToTjeneste, onOpenArtikkel, visAvsluttetModal, onLukkAvsluttetModal }: ForsideProps) {
+export default function Forside({ onGoToTjeneste, onOpenArtikkel }: ForsideProps) {
   const [showAllTjenester, setShowAllTjenester] = useState(false);
-  const titleRef = useRef<HTMLHeadingElement>(null);
-  // The button that opened the modal is gone (it was on the Avslutt page),
-  // so focus goes to the page heading when the modal closes.
-  const lukkAvsluttetModal = () => {
-    onLukkAvsluttetModal?.();
-    titleRef.current?.focus();
-  };
 
   // Snarveier reduced to just Pasientjournal and Resepter — per user
   // request, everything else (sykdom/helsekontakter/vaksiner, and the
@@ -97,7 +84,7 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel, visAvsluttetMo
 
       <main className="fs-page">
         <div className="fs-hero">
-          <h1 className="fs-h1" ref={titleRef} tabIndex={-1}>Hva ser du etter?</h1>
+          <h1 className="fs-h1">Hva ser du etter?</h1>
 
           {/* ── Støtte til din situasjon ──────────────────────────────
               Same DS Tile and grid as "Tjenester" below (2026-10-20, user
@@ -311,17 +298,6 @@ export default function Forside({ onGoToTjeneste, onOpenArtikkel, visAvsluttetMo
         <p className="fs-footer__brand">Drives av Norsk helsenett SF</p>
       </footer>
 
-      {visAvsluttetModal && (
-        <Modal
-          title="Svarene dine er slettet"
-          description="Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil."
-          variant="success"
-          size="medium"
-          noCloseButton
-          onSuccess={lukkAvsluttetModal}
-          onClose={lukkAvsluttetModal}
-        />
-      )}
     </div>
   );
 }

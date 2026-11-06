@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo, useRef } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Logo from '@helsenorge/designsystem-react/components/Logo';
 import Icon from '@helsenorge/designsystem-react/components/Icon';
 import Avatar from '@helsenorge/designsystem-react/components/Avatar';
@@ -6,7 +6,7 @@ import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import PromoPanel, { type PromoPanelProps } from '@helsenorge/designsystem-react/components/PromoPanel';
-import NotificationPanel from '@helsenorge/designsystem-react/components/NotificationPanel';
+import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import HelpPanel from '@helsenorge/designsystem-react/components/HelpPanel';
 import FormFieldTag from '@helsenorge/designsystem-react/components/FormFieldTag';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
@@ -45,10 +45,10 @@ import {
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
 
 export interface PsykiskHelseProps {
-  /** Called after "Slett svarene" has deleted the data (ideas branch,
-   *  2026-11-03): the app takes the user to the Helsenorge forside and shows
-   *  the confirmation there as a modal. When omitted, the user lands on the
-   *  service front page with the inline confirmation instead. */
+  /** Called when the "Svarene dine er slettet" modal (shown over the Slett
+   *  svarene dine page, 2026-11-06) is closed: the app takes the user to the
+   *  Helsenorge forside. When omitted, the user lands on the service front
+   *  page instead. */
   onAvsluttet?: () => void;
   /** Called when the user clicks the "Forside" breadcrumb — navigates back
    *  to the Forside hub. When omitted (e.g. running on this prototype's own
@@ -536,11 +536,9 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   // blank; aborting discards the draft, so earlier results are kept.
   const [d1, setD1]               = useState<Set<string>>(() => new Set());
   const [d2, setD2]               = useState<Set<string>>(() => new Set());
-  // Confirmation after "Slett svarene" — shown inline on the front page
-  // (no Toast), focused so screen readers announce it.
-  const [avsluttet, setAvsluttet] = useState(false);
-  const avsluttetRef              = useRef<HTMLDivElement>(null);
-  const frontTitleRef             = useRef<HTMLHeadingElement>(null);
+  // Confirmation after "Slett svarene" — a modal over the Slett svarene
+  // dine page (2026-11-06; was over the Forside).
+  const [visSlettetModal, setVisSlettetModal] = useState(false);
 
   // Sync view → hash
   useEffect(() => {
@@ -579,25 +577,20 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
     window.scrollTo(0, 0);
   }, [view]);
 
-  useEffect(() => {
-    if (avsluttet && view === 'front') avsluttetRef.current?.focus();
-  }, [avsluttet, view]);
-
-  // Delete answers + results and land on the service front page with a
-  // confirmation of what was deleted (user test 2026-11: participants were
-  // unsure if and what had been deleted when sent straight to Forside).
+  // Delete answers + results and confirm it right away, over the page the
+  // user is on (user test 2026-11: participants were unsure if and what had
+  // been deleted when sent straight to Forside).
   const slettOgAvslutt = () => {
     clearVeiviserCompleted();
     clearAnswers();
     setQ1(new Set());
     setQ2(new Set());
-    if (onAvsluttet) { onAvsluttet(); return; }
-    setAvsluttet(true);
-    setView('front');
+    setVisSlettetModal(true);
   };
-  const lukkAvsluttet = () => {
-    setAvsluttet(false);
-    frontTitleRef.current?.focus();
+  const lukkSlettetModal = () => {
+    setVisSlettetModal(false);
+    if (onAvsluttet) { onAvsluttet(); return; }
+    setView('front');
   };
 
   const results = useMemo(() => computeResults(q1, q2), [q1, q2]);
@@ -628,7 +621,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   // clears the "completed" flag: an aborted rerun keeps both the earlier
   // results and the Forside "Psykisk helse" card (2026-10-15).
   const startQuiz = () => {
-    setAvsluttet(false);
     setD1(new Set());
     setD2(new Set());
     setView('quiz1');
@@ -706,22 +698,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         <main className="ph-front">
 
           <div className="ph-front__content">
-            {avsluttet && (
-              <div ref={avsluttetRef} tabIndex={-1} className="ph-avsluttet">
-                <NotificationPanel
-                  variant="success"
-                  role="status"
-                  label="Svarene dine er slettet"
-                  labelHtmlMarkup="h2"
-                  dismissable
-                  ariaLabelCloseBtn="Lukk melding"
-                  onClick={lukkAvsluttet}
-                >
-                  Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil.
-                </NotificationPanel>
-              </div>
-            )}
-            <h1 className="ph-hero-title" ref={frontTitleRef} tabIndex={-1}>Psykisk helse</h1>
+            <h1 className="ph-hero-title">Psykisk helse</h1>
           </div>
 
           {VIS_FORSIDEBILDER && <div className="ph-front__hero ph-front__hero--dark" aria-hidden="true" />}
@@ -1049,6 +1026,17 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </Button>
             <Button variant="borderless" onClick={() => setView('results')}>Avbryt</Button>
           </div>
+          {visSlettetModal && (
+            <Modal
+              title="Svarene dine er slettet"
+              description="Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil."
+              variant="success"
+              size="medium"
+              noCloseButton
+              onSuccess={lukkSlettetModal}
+              onClose={lukkSlettetModal}
+            />
+          )}
         </main>
       )}
     </div>
