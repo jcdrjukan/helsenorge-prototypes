@@ -5,9 +5,9 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 ---
 
 ## 2026-11-06 — Psykisk helse demo: results intro on quality, privacy and security
-**Decision:** In the results page's intro, the last sentence now reads "Alle resursser tilfredstiller krav til helsefaglig kvalitet, personvern og sikkerhet." It was "Artiklene og verktøyene er kvalitetssikret av offentlige helseaktører, som Helsedirektoratet, sykehusene og Folkehelseinstituttet."
+**Decision:** In the results page's intro, the last sentence now reads "Alle ressurser tilfredsstiller krav til helsefaglig kvalitet, personvern og sikkerhet." It was "Artiklene og verktøyene er kvalitetssikret av offentlige helseaktører, som Helsedirektoratet, sykehusene og Folkehelseinstituttet."
 
-**Why:** User request (wording verbatim).
+**Why:** User request. The user's wording, with "ressurser" and "tilfredsstiller" spelled correctly (also at their request).
 
 ---
 

@@ -906,7 +906,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               Psykisk helse
             </h1>
             <p className="ph-results-intro">
-              Basert på svarene dine kan disse artiklene og verktøyene være nyttige for deg. Du velger selv hva du vil bruke. Alle resursser tilfredstiller krav til helsefaglig kvalitet, personvern og sikkerhet.
+              Basert på svarene dine kan disse artiklene og verktøyene være nyttige for deg. Du velger selv hva du vil bruke. Alle ressurser tilfredsstiller krav til helsefaglig kvalitet, personvern og sikkerhet.
             </p>
           </div>
 
