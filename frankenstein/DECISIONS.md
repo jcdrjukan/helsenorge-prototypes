@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-06 — Psykisk helse demo: new "Dette blir ikke slettet" text
+**Decision:** On the Slett svarene dine page, "Dette blir ikke slettet" now says "Verktøyene og app'ene du har tatt i bruk finnes fortsatt." It was "Opplysninger du har oppgitt eller gitt tillatelse til å bruke i eksterne verktøy. Disse må slettes i verktøyet."
+
+**Why:** User request (wording verbatim).
+
+---
+
 ## 2026-11-06 — Psykisk helse demo: no confirmation after "Slett svarene"
 **Decision:** The "Svarene dine er slettet" modal is removed. Pressing "Slett svarene" on the Slett svarene dine page deletes the answers and takes the user straight to the Helsenorge forside. This replaces the earlier entry today that moved the modal onto the Slett svarene dine page.
 

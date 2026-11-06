@@ -1005,7 +1005,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
           <section aria-labelledby="ph-ikke-slettes">
             <h2 className="ph-avslutt__h2" id="ph-ikke-slettes">Dette blir ikke slettet</h2>
             <ul className="ph-personvern-list">
-              <li>Opplysninger du har oppgitt eller gitt tillatelse til å bruke i eksterne verktøy. Disse må slettes i verktøyet.</li>
+              <li>Verktøyene og app'ene du har tatt i bruk finnes fortsatt.</li>
             </ul>
           </section>
           <p className="ph-svar__text">Du kan når som helst ta tjenesten i bruk igjen.</p>
