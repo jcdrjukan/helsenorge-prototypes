@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-06 — Psykisk helse demo: results intro on quality, privacy and security
+**Decision:** In the results page's intro, the last sentence now reads "Alle resursser tilfredstiller krav til helsefaglig kvalitet, personvern og sikkerhet." It was "Artiklene og verktøyene er kvalitetssikret av offentlige helseaktører, som Helsedirektoratet, sykehusene og Folkehelseinstituttet."
+
+**Why:** User request (wording verbatim).
+
+---
+
 ## 2026-11-06 — Psykisk helse demo: new "Dette blir ikke slettet" text
 **Decision:** On the Slett svarene dine page, "Dette blir ikke slettet" now says "Verktøyene og app'ene du har tatt i bruk finnes fortsatt." It was "Opplysninger du har oppgitt eller gitt tillatelse til å bruke i eksterne verktøy. Disse må slettes i verktøyet."
 
