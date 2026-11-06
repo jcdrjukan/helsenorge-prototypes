@@ -6,7 +6,6 @@ import Title from '@helsenorge/designsystem-react/components/Title';
 import Button from '@helsenorge/designsystem-react/components/Button';
 import Panel, { PanelVariant } from '@helsenorge/designsystem-react/components/Panel';
 import PromoPanel, { type PromoPanelProps } from '@helsenorge/designsystem-react/components/PromoPanel';
-import Modal from '@helsenorge/designsystem-react/components/Modal/Modal';
 import HelpPanel from '@helsenorge/designsystem-react/components/HelpPanel';
 import FormFieldTag from '@helsenorge/designsystem-react/components/FormFieldTag';
 import ExpanderList from '@helsenorge/designsystem-react/components/ExpanderList';
@@ -45,10 +44,9 @@ import {
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
 
 export interface PsykiskHelseProps {
-  /** Called when the "Svarene dine er slettet" modal (shown over the Slett
-   *  svarene dine page, 2026-11-06) is closed: the app takes the user to the
-   *  Helsenorge forside. When omitted, the user lands on the service front
-   *  page instead. */
+  /** Called after "Slett svarene" has deleted the data: the app takes the
+   *  user to the Helsenorge forside (no confirmation since 2026-11-06). When
+   *  omitted, the user lands on the service front page instead. */
   onAvsluttet?: () => void;
   /** Called when the user clicks the "Forside" breadcrumb — navigates back
    *  to the Forside hub. When omitted (e.g. running on this prototype's own
@@ -536,9 +534,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
   // blank; aborting discards the draft, so earlier results are kept.
   const [d1, setD1]               = useState<Set<string>>(() => new Set());
   const [d2, setD2]               = useState<Set<string>>(() => new Set());
-  // Confirmation after "Slett svarene" — a modal over the Slett svarene
-  // dine page (2026-11-06; was over the Forside).
-  const [visSlettetModal, setVisSlettetModal] = useState(false);
 
   // Sync view → hash
   useEffect(() => {
@@ -577,18 +572,13 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
     window.scrollTo(0, 0);
   }, [view]);
 
-  // Delete answers + results and confirm it right away, over the page the
-  // user is on (user test 2026-11: participants were unsure if and what had
-  // been deleted when sent straight to Forside).
+  // Delete answers + results and leave the service. The "Svarene dine er
+  // slettet" confirmation modal was removed 2026-11-06 (user request).
   const slettOgAvslutt = () => {
     clearVeiviserCompleted();
     clearAnswers();
     setQ1(new Set());
     setQ2(new Set());
-    setVisSlettetModal(true);
-  };
-  const lukkSlettetModal = () => {
-    setVisSlettetModal(false);
     if (onAvsluttet) { onAvsluttet(); return; }
     setView('front');
   };
@@ -1026,17 +1016,6 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </Button>
             <Button variant="borderless" onClick={() => setView('results')}>Avbryt</Button>
           </div>
-          {visSlettetModal && (
-            <Modal
-              title="Svarene dine er slettet"
-              description="Snarveien til Psykisk helse på forsiden er også fjernet. Du kan bruke tjenesten igjen når du vil."
-              variant="success"
-              size="medium"
-              noCloseButton
-              onSuccess={lukkSlettetModal}
-              onClose={lukkSlettetModal}
-            />
-          )}
         </main>
       )}
     </div>
