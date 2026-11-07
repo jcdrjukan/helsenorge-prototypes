@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-07 — Psykisk helse demo: no "Svarene dine" heading or text on results
+**Decision:** On the results page, the h2 "Svarene dine" and the text "Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem." are removed. The "Endre svarene" and "Slett svarene" buttons stay where they were, straight after the results.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-07 — Psykisk helse demo: "Anbefalingene dine" under "Dette blir slettet"
 **Decision:** On the Slett svarene dine page, the second item under "Dette blir slettet" now reads "Anbefalingene dine". It was "Snarvei til anbefalingene på forsiden". The first item ("Svarene du har gitt på spørsmålene") is unchanged.
 

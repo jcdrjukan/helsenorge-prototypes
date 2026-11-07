@@ -954,15 +954,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </section>
           )}
 
-          {/* "Svarene dine" (user test 2026-11): change and delete grouped
-              under a heading straight after the results. "Avslutt tjenesten"
-              used to be a borderless button at the very bottom, below Akutt
-              hjelp — 4 of 9 participants didn't find it. */}
-          <section className="ph-svar" aria-labelledby="ph-svar-title">
-            <h2 className="ph-svar__title" id="ph-svar-title">Svarene dine</h2>
-            <p className="ph-svar__text">
-              Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem.
-            </p>
+          {/* Change and delete straight after the results (user test
+              2026-11). "Avslutt tjenesten" used to be a borderless button at
+              the very bottom, below Akutt hjelp — 4 of 9 participants didn't
+              find it. The "Svarene dine" heading and its text were removed
+              2026-11-07. */}
+          <section className="ph-svar">
             <div className="ph-svar__actions">
               <Button variant="outline" onClick={retake}>
                 <Icon svgIcon={Pencil} size={38} />
