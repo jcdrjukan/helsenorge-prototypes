@@ -999,7 +999,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <h2 className="ph-avslutt__h2" id="ph-slettes">Dette blir slettet</h2>
             <ul className="ph-personvern-list">
               <li>Svarene du har gitt på spørsmålene</li>
-              <li>Snarvei til anbefalingene på forsiden</li>
+              <li>Anbefalingene dine</li>
             </ul>
           </section>
           <section aria-labelledby="ph-ikke-slettes">

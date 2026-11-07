@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-07 — Psykisk helse demo: "Anbefalingene dine" under "Dette blir slettet"
+**Decision:** On the Slett svarene dine page, the second item under "Dette blir slettet" now reads "Anbefalingene dine". It was "Snarvei til anbefalingene på forsiden". The first item ("Svarene du har gitt på spørsmålene") is unchanged.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-06 — Psykisk helse demo: results intro on quality, privacy and security
 **Decision:** In the results page's intro, the last sentence now reads "Alle ressurser tilfredsstiller krav til helsefaglig kvalitet, personvern og sikkerhet." It was "Artiklene og verktøyene er kvalitetssikret av offentlige helseaktører, som Helsedirektoratet, sykehusene og Folkehelseinstituttet."
 
