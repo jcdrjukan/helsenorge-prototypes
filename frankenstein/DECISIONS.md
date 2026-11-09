@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-09 — Psykisk helse demo: Språk/Language picker, copied from Gravid
+**Decision:** The Psykisk helse front page, results page and Slett svarene dine page now have the Språk/Language picker from the Gravid prototype (https://helsenorge-gravid.netlify.app/), placed right-aligned just under the breadcrumb line, as on Gravid. It's a React port (`Sprakvelger.tsx`) of `gravid/sprakvelger.js`, with `gravid/sprakvelger.css` copied as-is. It has the same options (Bokmål, Nynorsk, English) and the same behaviour: choosing marks the language without changing the page text, announces "Språk endret til …" to screen readers, and Esc or a click outside closes it. Spacing follows Gravid: 1rem from the divider to the picker, and 2rem from the picker to the page title (it was 3rem from the divider). The quiz steps have no breadcrumb, so they have no picker either.
+
+**Why:** User request ("copy the one in use at helsenorge-gravid").
+
+---
+
 ## 2026-11-07 — Psykisk helse demo: no "Svarene dine" heading or text on results
 **Decision:** On the results page, the h2 "Svarene dine" and the text "Svarene dine er lagret slik at du kan komme tilbake til forslagene. Bare du kan se dem." are removed. The "Endre svarene" and "Slett svarene" buttons stay where they were, straight after the results.
 

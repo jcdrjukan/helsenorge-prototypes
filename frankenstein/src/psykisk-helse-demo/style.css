@@ -763,3 +763,10 @@
    under the question it belongs to, as under a DS form label, instead of
    the page's 1rem gap. */
 .ph-page--quiz > [class*="_form-field-tag_"] { margin-top: -0.75rem; align-self: flex-start; }
+
+/* Språk/Language under the breadcrumb, as on Gravid (2026-11-09): 1rem
+   below the divider, right-aligned; the title then sits 2rem below it
+   (was 3rem below the divider). */
+.ph-sprakvelger { display: flex; justify-content: flex-end; padding: 1rem 1rem 0; }
+.ph-sprakvelger + .ph-page,
+.ph-sprakvelger + .ph-front .ph-front__content:first-child { padding-top: 2rem; }

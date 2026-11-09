@@ -31,6 +31,7 @@ import HealthClinic from '@helsenorge/designsystem-react/components/Icons/Health
 import StarStroke from '@helsenorge/designsystem-react/components/Icons/StarStroke';
 import StarFill from '@helsenorge/designsystem-react/components/Icons/StarFill';
 import './style.css';
+import Sprakvelger from './Sprakvelger';
 
 import {
   Q1_OPTIONS, Q2_OPTIONS,
@@ -680,6 +681,10 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             </button>
           </nav>
           <hr className="page-divider" />
+          {/* Språk/Language, copied from Gravid (2026-11-09). */}
+          <div className="ph-sprakvelger">
+            <Sprakvelger />
+          </div>
         </>
       )}
 
