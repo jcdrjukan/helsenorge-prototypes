@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-10 — Psykisk helse demo: Verktøy before Lesestoff on the results page
+**Decision:** The results page now lists the "Verktøy" section first and "Lesestoff" second (it was Lesestoff, then Verktøy). "Noen å snakke med" and everything below it are unchanged.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-10 — Psykisk helse demo: new "Ring legevakten" panel text
 **Decision:** The "Ring legevakten" panel (front page and results page) now has two paragraphs under the tappable 116 117: "Ring legevakten 116 117 når det haster eller hvis fastlegen ikke er tilgjengelig." and "Ved akutt og livstruende situasjon, ring 113." They replace "Ring legevakten på 116 117 hvis situasjonen ikke er kritisk, men heller ikke kan vente til du får kontakt med fastlegen i åpningstiden. Legevakten er døgnåpen." and "Legevakten kan henvise videre til psykiatrisk legevakt, psykiatrisk akutteam eller døgnbehandling." The title, icon and number link are unchanged.
 
