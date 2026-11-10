@@ -700,12 +700,12 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
 
           <div className="ph-front__content">
             <p className="ph-preamble">
-              Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. På Helsenorge finner du informasjon og verktøy som kan være til hjelp. Svar på noen spørsmål og finn noe som passer til din situasjon. Bare du kan se svarene og anbefalingene du får.
+              Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. Svar på noen spørsmål og få en egen liste med lesestoff og verktøy som passer din situasjon. Bare du kan se svarene dine og anbefalingene du får.
             </p>
             {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble. */}
             <div className="ph-front__cta">
               <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
-                Finn verktøy og informasjon tilpasset din situasjon
+                Logg inn og få verktøy og informasjon tilpasset din situasjon
               </Button>
             </div>
           </div>
@@ -767,15 +767,15 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
                     </ul>
                     <p>Når du har svart på noen enkle spørsmål, får du en liste med selvhjelpsverktøy og lesestoff som kan være relevante for deg. Anbefalingene er tilpasset ut fra svarene dine.</p>
                     <h4 className="ph-front__more-subtitle">Finn igjen listen din</h4>
-                    <p>Når du er logget inn, finner du listen med anbefalinger øverst på din side under Psykisk helse. Hvis du ikke lenger vil ha listen, kan du velge Slett svarene nederst på siden.</p>
+                    <p>Når du har svart på spørsmålene og aktivert tjenesten, får du tilgang til listen fra forsiden på Helsenorge, sammen med de andre tjenestene dine. Når du avslutter tjenesten, slettes listen og snarveien din fra Helsenorge. Du kan når som helst ta i bruk tjenesten igjen.</p>
                   </div>
                 </ExpanderList.Expander>
                 {/* Second expander (ideas branch, 2026-11-05). */}
                 <ExpanderList.Expander title="Hvem kan se svarene dine?" titleHtmlMarkup="h3">
                   <div className="ph-front__more-body">
-                    <p>Bare du kan se svarene dine og anbefalingene du får. Svarene brukes automatisk til å finne fram til artikler og verktøy som kan passe for deg. Helsepersonell kan ikke se noen av svarene dine eller resultatene i listen med anbefalinger.</p>
+                    <p>Bare du kan se svarene dine og anbefalingene du får. Svarene brukes til å automatisk finne fram til artikler og verktøy som kan passe for deg. Helsepersonell kan ikke se noen av svarene dine eller resultatene i listen med anbefalinger.</p>
                     <h4 className="ph-front__more-subtitle">Når du bruker verktøy utenfor Helsenorge</h4>
-                    <p>Noen av verktøyene du får anbefalt, er laget og levert av andre enn Helsenorge. Slike verktøy kan lagre opplysninger om deg når du bruker dem.</p>
+                    <p>Noen av verktøyene du får anbefalt, er laget og levert av andre enn Helsenorge.</p>
                     <p>Når du går videre til et verktøy, er det leverandøren av verktøyet som har ansvar for hvordan opplysningene dine behandles.</p>
                   </div>
                 </ExpanderList.Expander>

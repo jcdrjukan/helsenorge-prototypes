@@ -4,6 +4,19 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-10 — Psykisk helse demo: landing page texts revised
+**Decision:** The user revised the landing page texts (wording verbatim):
+- **Ingress:** "Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. Svar på noen spørsmål og få en egen liste med lesestoff og verktøy som passer din situasjon. Bare du kan se svarene dine og anbefalingene du får." The sentence "På Helsenorge finner du informasjon og verktøy som kan være til hjelp." is gone.
+- **Button:** "Logg inn og få verktøy og informasjon tilpasset din situasjon" (was "Finn verktøy og informasjon tilpasset din situasjon"). It still starts the quiz directly; there's no login step.
+- **"Om tjenesten Psykisk helse", "Finn igjen listen din":** "Når du har svart på spørsmålene og aktivert tjenesten, får du tilgang til listen fra forsiden på Helsenorge, sammen med de andre tjenestene dine. Når du avslutter tjenesten, slettes listen og snarveien din fra Helsenorge. Du kan når som helst ta i bruk tjenesten igjen." It was about finding the list at the top of "din side" and removing it with "Slett svarene".
+- **"Hvem kan se svarene dine?":** "Svarene brukes til å automatisk finne fram…" (was "Svarene brukes automatisk til å finne fram…"), and "Slike verktøy kan lagre opplysninger om deg når du bruker dem." is removed.
+
+The title ("Psykisk helse") and the rest of both expanders are unchanged.
+
+**Why:** User request.
+
+---
+
 ## 2026-11-09 — Psykisk helse demo: Språk/Language picker, copied from Gravid
 **Decision:** The Psykisk helse front page, results page and Slett svarene dine page now have the Språk/Language picker from the Gravid prototype (https://helsenorge-gravid.netlify.app/), placed right-aligned just under the breadcrumb line, as on Gravid. It's a React port (`Sprakvelger.tsx`) of `gravid/sprakvelger.js`, with `gravid/sprakvelger.css` copied as-is. It has the same options (Bokmål, Nynorsk, English) and the same behaviour: choosing marks the language without changing the page text, announces "Språk endret til …" to screen readers, and Esc or a click outside closes it. Spacing follows Gravid: 1rem from the divider to the picker, and 2rem from the picker to the page title (it was 3rem from the divider). The quiz steps have no breadcrumb, so they have no picker either.
 
