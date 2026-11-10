@@ -702,10 +702,13 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
             <p className="ph-preamble">
               Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. Svar på noen spørsmål og få en egen liste med lesestoff og verktøy som passer din situasjon. Bare du kan se svarene dine og anbefalingene du får.
             </p>
-            {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble. */}
+            {/* Extra 1rem above the CTA (2026-10-27): 32px from the preamble.
+                "Logg inn og …" only when logged out (2026-11-10). */}
             <div className="ph-front__cta">
               <Button variant="fill" arrow="icon" fluid onClick={startQuiz}>
-                Logg inn og få verktøy og informasjon tilpasset din situasjon
+                {isAuthenticated
+                  ? 'Få verktøy og informasjon tilpasset din situasjon'
+                  : 'Logg inn og få verktøy og informasjon tilpasset din situasjon'}
               </Button>
             </div>
           </div>
