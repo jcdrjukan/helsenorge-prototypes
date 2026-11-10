@@ -271,5 +271,5 @@ All three now point to the same action: take DHG into use and share information 
 **Why:** Direct user request (Figma DHG 8883:3343): week only, no link, follow the design system.
 
 ## 2026-11-10 — Gravid: Edit icon instead of Pencil beside the editable termindato
-**Decision:** In the editable (unconfirmed) termindato state on the Gravid page, the icon after the date is now the design system's Edit icon (pencil in a box) instead of the Pencil icon. Size (16px) and colour (#08667C) are unchanged. That was the only Pencil icon in the Gravid prototype (`gravid/`, `dhg-onboarding/`).
-**Why:** Direct user request.
+**Decision:** In the editable (unconfirmed) termindato state on the Gravid page, the icon after the date is now the design system's Edit icon (pencil in a box) instead of the Pencil icon. Its colour (#08667C) is unchanged. It's now 24px, the smallest design-system icon size (XXSmall); it was 16px. That was the only Pencil icon in the Gravid prototype (`gravid/`, `dhg-onboarding/`). The wider date+icon row sits a little closer to the week bubble: the icon's box touches it by up to ~9px in uke 15–16 (was ~5px), and the bubble covers the date's first digit by ~9px in uke 25 (was ~5px). Uke 24 is unchanged.
+**Why:** Direct user request (Edit icon, then "the next size up").
