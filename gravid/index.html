@@ -639,10 +639,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 /* Unconfirmed termindato: still the mother's own estimate, editable —
-   the whole block is the click target; a small pencil in #08667C
+   the whole block is the click target; a small edit icon (DS Edit;
+   DS Pencil until 2026-11-10) in #08667C
    (blueberry-700, the Helsenorge "green" used for clickable elements)
    sits right after the date as the edit affordance (per direct request,
-   2026-10-07; was centred beneath the date). The date+pencil row is
+   2026-10-07; was centred beneath the date). The date+icon row is
    wider than the confirmed state's date, so to keep clear of the week
    bubble the date is 18px (confirmed: 20px) and the whole centre group
    is lifted 4px in this state. Measured over uke 1-42: 5 weeks still
@@ -2093,14 +2094,14 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
           <div class="due-date__value" id="dueDateValue">28.11.2026</div>
         </div>
         <!-- Unconfirmed state: termindato is the mother's own estimate,
-             still editable — date + pencil rendered in #08667C (the
+             still editable — date + edit icon rendered in #08667C (the
              clickable green) as the clickable affordance. Hidden by
              default. -->
         <div class="due-date-editable" id="dueDateEditable" role="link" tabindex="0" aria-label="Endre termindato" hidden>
           <span class="due-date-editable__title">Termindato</span>
           <span class="due-date-editable__row">
             <span class="due-date-editable__value" id="dueDateValueEditable">28.11.2026</span>
-            <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M38.485 15.54l-.757.757-6.035-6.034.757-.758a4.275 4.275 0 016.035 0 4.274 4.274 0 010 6.035zm-3.083 3.083l-6.034-6.035 1.618-1.618 6.035 6.034-1.619 1.62zM19.927 34.098l-2.66-2.66L32.14 16.773l2.555 2.556-14.768 14.768zm-6.683 3.13l-2.47-2.472 2.416-5.558 5.604 5.604-5.55 2.425zm-4.373 1.908l1.475-3.394 1.914 1.914-3.389 1.48zm19.79-25.84l2.772 2.771L16.56 30.73l-2.667-2.667 14.768-14.768zm10.743-4.71a5.575 5.575 0 00-7.873 0L12.514 27.603a.655.655 0 00-.136.201l-5.359 12.33a.65.65 0 00.857.855l12.312-5.377a.63.63 0 00.199-.136L39.404 16.46a5.574 5.574 0 000-7.873z"/></svg>
+            <svg class="due-date-editable__icon" viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M23.747 10.244a.75.75 0 0 1 0 1.5h-8.579a5.418 5.418 0 0 0-5.418 5.418V30.8a5.418 5.418 0 0 0 5.418 5.418h13.638a5.418 5.418 0 0 0 5.418-5.418v-8.58a.75.75 0 0 1 1.5 0v8.58a6.918 6.918 0 0 1-6.918 6.918H15.168A6.918 6.918 0 0 1 8.25 30.8V17.162a6.918 6.918 0 0 1 6.918-6.918h8.58Z"/><path fill-rule="evenodd" clip-rule="evenodd" d="M32.083 7.579a4.5 4.5 0 0 1 6.315-.008l.163.168a4.503 4.503 0 0 1-.14 6.241h-.001L26.019 26.333a.752.752 0 0 1-.317.187L18.1 28.765a.75.75 0 0 1-.962-.72v-.006c0-.072.01-.144.031-.213l2.242-7.566.033-.09a.75.75 0 0 1 .159-.23l12.48-12.36.001-.001ZM18.995 26.935l5.223-1.54-3.677-3.677-1.546 5.217Zm1.955-6.222 4.284 4.284 10.13-10.09-4.255-4.255-10.159 10.06ZM37.348 8.64a3 3 0 0 0-4.211.005L31.82 9.95l4.252 4.252 1.29-1.284a3.002 3.002 0 0 0-.013-4.275h-.001Z"/></svg>
           </span>
         </div>
         <!-- "None" state: no termindato established at all yet — shown
@@ -3030,7 +3031,7 @@ function deleteNote(id) {
 //              "Bekreftet termindato" (static, black).
 // 'editable':  a termindato exists but is still an estimate (the
 //              mother's own, or a provider's tentative one before an
-//              ultrasound) — shows "Termindato" with the date + pencil
+//              ultrasound) — shows "Termindato" with the date + edit icon
 //              as a clickable (#08667C, green) affordance to change it.
 // 'none':      no termindato established yet at all — shows a
 //              "Beregn termindato" button instead of any date.
@@ -3224,7 +3225,7 @@ function applyRegisteredTermindato() {
   if (dayEl) dayEl.textContent = 'dag ' + (elapsed % 7);
 }
 
-// "Beregn termindato" and the editable date (pencil) open the
+// "Beregn termindato" and the editable date (edit icon) open the
 // calculator / manual-entry pages, carrying this page's URL state along
 // so saving or cancelling lands back in the same scenario.
 function wireTermindatoLinks() {

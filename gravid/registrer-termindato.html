@@ -721,7 +721,7 @@ dateInput.addEventListener('input', clearError);
 function today() { const t = new Date(); t.setHours(0, 0, 0, 0); return t; }
 
 // Pre-fill with the currently registered termindato when editing it
-// (pencil on the Gravid page passes termindatoDato through).
+// (edit icon on the Gravid page passes termindatoDato through).
 const current = params.get('termindatoDato');
 if (current && /^\d{4}-\d{2}-\d{2}$/.test(current)) {
   const [y, m, d] = current.split('-');
