@@ -415,8 +415,9 @@ function AkuttHjelp() {
       <Panel.A>
         {/* Tappable number under the title (2026-10-27, user request). */}
         <p className="ph-akutt__nr"><a href="tel:116117">116 117</a></p>
-        <p className="ph-akutt__text">Ring legevakten på 116 117 hvis situasjonen ikke er kritisk, men heller ikke kan vente til du får kontakt med fastlegen i åpningstiden. Legevakten er døgnåpen.</p>
-        <p className="ph-akutt__text">Legevakten kan henvise videre til psykiatrisk legevakt, psykiatrisk akutteam eller døgnbehandling.</p>
+        {/* Body text revised 2026-11-10 (user request). */}
+        <p className="ph-akutt__text">Ring legevakten 116 117 når det haster eller hvis fastlegen ikke er tilgjengelig.</p>
+        <p className="ph-akutt__text">Ved akutt og livstruende situasjon, ring 113.</p>
       </Panel.A>
     </Panel>
   );

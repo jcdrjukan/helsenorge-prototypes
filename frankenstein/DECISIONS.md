@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-10 — Psykisk helse demo: new "Ring legevakten" panel text
+**Decision:** The "Ring legevakten" panel (front page and results page) now has two paragraphs under the tappable 116 117: "Ring legevakten 116 117 når det haster eller hvis fastlegen ikke er tilgjengelig." and "Ved akutt og livstruende situasjon, ring 113." They replace "Ring legevakten på 116 117 hvis situasjonen ikke er kritisk, men heller ikke kan vente til du får kontakt med fastlegen i åpningstiden. Legevakten er døgnåpen." and "Legevakten kan henvise videre til psykiatrisk legevakt, psykiatrisk akutteam eller døgnbehandling." The title, icon and number link are unchanged.
+
+**Why:** User request (wording verbatim).
+
+---
+
 ## 2026-11-10 — Psykisk helse demo: "Slett svarene" becomes "Avslutt tjenesten" again
 **Decision:** On the results page, the red outline button reads "Avslutt tjenesten" (was "Slett svarene"). The page it opens has the title "Avslutt tjenesten Psykisk helse" (was "Slett svarene dine"). "Dette blir slettet" lists "Svarene du har gitt på spørsmålene", "Anbefalingene dine" and "Snarveien til tjenesten fra forsiden". "Dette blir ikke slettet" lists "Artiklene og verktøyene" (was "Verktøyene og app'ene du har tatt i bruk finnes fortsatt."). "Du kan når som helst ta tjenesten i bruk igjen." is unchanged. The red button reads "Avslutt tjenesten" (was "Slett svarene"). Both buttons keep the TrashCan icon. The route is still `#avslutt`.
 
