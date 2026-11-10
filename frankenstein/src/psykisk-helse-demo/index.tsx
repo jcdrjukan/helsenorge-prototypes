@@ -45,7 +45,7 @@ import {
 type View = 'front' | 'quiz1' | 'quiz2' | 'results' | 'avslutt';
 
 export interface PsykiskHelseProps {
-  /** Called after "Slett svarene" has deleted the data: the app takes the
+  /** Called after "Avslutt tjenesten" has deleted the data: the app takes the
    *  user to the Helsenorge forside (no confirmation since 2026-11-06). When
    *  omitted, the user lands on the service front page instead. */
   onAvsluttet?: () => void;
@@ -975,7 +975,7 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
               </Button>
               <Button variant="outline" concept="destructive" onClick={() => setView('avslutt')}>
                 <Icon svgIcon={TrashCan} size={38} />
-                Slett svarene
+                Avslutt tjenesten
               </Button>
             </div>
           </section>
@@ -996,28 +996,29 @@ export default function PsykiskHelse({ onNavigateHome, onOpenArtikkel, onOpenKom
         </main>
       )}
 
-      {/* ── Slett svarene dine (was "Avslutt tjenesten") ──────── */}
+      {/* ── Avslutt tjenesten (was "Slett svarene dine" 2026-11-05 – 11-10) */}
       {view === 'avslutt' && (
         <main className="ph-page ph-avslutt">
-          <h1 className="ph-avslutt__title">Slett svarene dine</h1>
+          <h1 className="ph-avslutt__title">Avslutt tjenesten Psykisk helse</h1>
           <section aria-labelledby="ph-slettes">
             <h2 className="ph-avslutt__h2" id="ph-slettes">Dette blir slettet</h2>
             <ul className="ph-personvern-list">
               <li>Svarene du har gitt på spørsmålene</li>
               <li>Anbefalingene dine</li>
+              <li>Snarveien til tjenesten fra forsiden</li>
             </ul>
           </section>
           <section aria-labelledby="ph-ikke-slettes">
             <h2 className="ph-avslutt__h2" id="ph-ikke-slettes">Dette blir ikke slettet</h2>
             <ul className="ph-personvern-list">
-              <li>Verktøyene og app'ene du har tatt i bruk finnes fortsatt.</li>
+              <li>Artiklene og verktøyene</li>
             </ul>
           </section>
           <p className="ph-svar__text">Du kan når som helst ta tjenesten i bruk igjen.</p>
           <div className="ph-avslutt__actions">
             <Button variant="fill" concept="destructive" onClick={slettOgAvslutt}>
               <Icon svgIcon={TrashCan} size={38} />
-              Slett svarene
+              Avslutt tjenesten
             </Button>
             <Button variant="borderless" onClick={() => setView('results')}>Avbryt</Button>
           </div>

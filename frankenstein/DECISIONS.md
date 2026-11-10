@@ -4,6 +4,13 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 
 ---
 
+## 2026-11-10 — Psykisk helse demo: "Slett svarene" becomes "Avslutt tjenesten" again
+**Decision:** On the results page, the red outline button reads "Avslutt tjenesten" (was "Slett svarene"). The page it opens has the title "Avslutt tjenesten Psykisk helse" (was "Slett svarene dine"). "Dette blir slettet" lists "Svarene du har gitt på spørsmålene", "Anbefalingene dine" and "Snarveien til tjenesten fra forsiden". "Dette blir ikke slettet" lists "Artiklene og verktøyene" (was "Verktøyene og app'ene du har tatt i bruk finnes fortsatt."). "Du kan når som helst ta tjenesten i bruk igjen." is unchanged. The red button reads "Avslutt tjenesten" (was "Slett svarene"). Both buttons keep the TrashCan icon. The route is still `#avslutt`.
+
+**Why:** User request (wording verbatim). It matches the new landing page text "Når du avslutter tjenesten, slettes listen og snarveien din…".
+
+---
+
 ## 2026-11-10 — Psykisk helse demo: landing page texts revised
 **Decision:** The user revised the landing page texts (wording verbatim):
 - **Ingress:** "Det er vanlig å ha det vanskelig i perioder. Det kan være en naturlig reaksjon på det som skjer i livet. Svar på noen spørsmål og få en egen liste med lesestoff og verktøy som passer din situasjon. Bare du kan se svarene dine og anbefalingene du får." The sentence "På Helsenorge finner du informasjon og verktøy som kan være til hjelp." is gone.
