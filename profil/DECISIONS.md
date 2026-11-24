@@ -9,6 +9,11 @@ Started 2026-07-14. Records real decisions as they're made — what was chosen, 
 **Alternative considered:** Keeping "Velg språk" and the previous order.
 **Why:** Velg språk was described as "no longer relevant". No rationale was stated for the new entry, its title, or the new order.
 
+## 2026-11-24 — Kommentar field under each Tilgjengelighet og kommunikasjon checkbox
+**Decision:** Checking any option in Tilgjengelighet og kommunikasjon (except "Trenger tolk") reveals a "Kommentar" text field beneath it, the same way "Trenger tolk" reveals its language picker. Unchecking hides and clears the field. A saved comment shows on its own line under the option in the summary list. "Trenger tolk" is unchanged.
+**Alternative considered:** None stated.
+**Why:** No rationale was stated.
+
 <!-- Template for new entries:
 
 ## YYYY-MM-DD — Short decision title

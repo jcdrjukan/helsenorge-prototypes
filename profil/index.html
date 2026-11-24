@@ -340,6 +340,15 @@
   color: #000;
 }
 
+/* ── Kommentar field under each checkbox (except Trenger tolk) ─── */
+.tilg-kommentar { margin: 8px 0 4px 32px; }
+.tilg-kommentar textarea {
+  display: block; width: 100%; box-sizing: border-box; resize: vertical;
+  border: 1px solid var(--neutral-300); background: #fff; padding: 8px;
+  font: 400 16px/1.5 'Source Sans Pro', sans-serif; color: #000;
+}
+.tilg-summary-comment { display: block; color: var(--neutral-600); }
+
 /* ── Tolk language selector ───────────────────────────────────── */
 .tolk-widget { margin: 8px 0 4px 32px; }
 .tolk-label  { font: 600 16px/1.4 'Source Sans Pro', sans-serif; color: #000; display: block; margin-bottom: 4px; }
@@ -1291,6 +1300,28 @@ function tilgInit() {
   searchEl.addEventListener('input', () => { tolkQuery = searchEl.value; tolkRenderList(); });
   searchEl.addEventListener('keydown', e => { if (e.key === 'Escape') { tolkCloseDropdown(); searchEl.blur(); } });
   fieldEl.addEventListener('click', () => searchEl.focus());
+
+  // Kommentar field beneath every checkbox except Trenger tolk (which has its own widget)
+  document.querySelectorAll('.tilg-cb:not(#tilg_tolk)').forEach(cb => {
+    const wrap = document.createElement('div');
+    wrap.className = 'tilg-kommentar';
+    wrap.id = cb.id + '_kommentarWidget';
+    wrap.style.display = 'none';
+    wrap.innerHTML = `<label class="tolk-label" for="${cb.id}_kommentar">Kommentar</label>
+      <textarea id="${cb.id}_kommentar" rows="2"></textarea>`;
+    cb.closest('label').after(wrap);
+    cb.addEventListener('change', () => {
+      wrap.style.display = cb.checked ? 'block' : 'none';
+      if (!cb.checked) wrap.querySelector('textarea').value = '';
+    });
+  });
+}
+
+function tilgKommentarReset() {
+  document.querySelectorAll('.tilg-kommentar').forEach(w => {
+    w.style.display = 'none';
+    w.querySelector('textarea').value = '';
+  });
 }
 
 function tilgStartRegistration() {
@@ -1319,7 +1350,8 @@ function tilgSave() {
       const langs = [...tolkSelected].map(c => LANGUAGES.find(l => l.code === c)?.name).filter(Boolean);
       selected.push(langs.length ? `Trenger tolk (${langs.join(', ')})` : 'Trenger tolk');
     } else {
-      selected.push(cb.dataset.label);
+      const comment = document.getElementById(cb.id + '_kommentar').value.trim();
+      selected.push(comment ? { label: cb.dataset.label, comment } : cb.dataset.label);
     }
   });
   if (selected.length === 0) { tilgSlett(); return; }
@@ -1331,7 +1363,15 @@ function tilgSave() {
   ul.className = 'tilg-summary-list';
   selected.forEach(label => {
     const li = document.createElement('li');
-    li.textContent = label;
+    if (typeof label === 'string') {
+      li.textContent = label;
+    } else {
+      li.textContent = label.label;
+      const c = document.createElement('span');
+      c.className = 'tilg-summary-comment';
+      c.textContent = label.comment;
+      li.appendChild(c);
+    }
     ul.appendChild(li);
   });
   summary.appendChild(ul);
@@ -1358,6 +1398,7 @@ function tilgCancel() {
 
 function tilgSlett() {
   document.querySelectorAll('.tilg-cb').forEach(cb => { cb.checked = false; });
+  tilgKommentarReset();
   tolkSelected.clear(); tolkQuery = '';
   document.getElementById('tolkSearch').value = '';
   tolkRenderChips();
