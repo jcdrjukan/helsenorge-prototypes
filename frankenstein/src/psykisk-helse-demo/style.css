@@ -730,6 +730,9 @@
 }
 /* 1rem extra under the "Noen å snakke med" heading (2026-10-20, user request). */
 .ph-sec--neutral .ph-tool-section__title { padding-bottom: 1rem; }
+/* Same 1rem under the "Verktøy" and "Lesestoff" headings (2026-11-24, user request). */
+.ph-sec--blueberry .ph-tool-section__title,
+.ph-sec--cherry .ph-tool-section__title { padding-bottom: 1rem; }
 
 
 /* ── Personvern + Avslutt (user test 2026-11) ─────────────────── */
