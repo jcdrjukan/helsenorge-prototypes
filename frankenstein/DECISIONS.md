@@ -332,4 +332,8 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Decision:** Above the line, the Bestillingshistorikk card for 15.01.2026 now shows only "Bestillingsdato 15.01.2026" and "Status Utlevert". The order's delivery and Telefon fields are no longer shown. The other history cards are unchanged. A per-order `kunDatoOgStatus` flag turns this on, because submitted orders also have a `status` and appear in the history list.
 **Why:** Direct user request.
 
+## 2026-11-27 — Behandlingshjelpemidler: Bekreft bestilling shows Telefon as its own row under Levering
+**Decision:** On Bekreft bestilling, an order sent by post or delivered to the door now shows the address and "Telefon" as two separate rows. Before, "Telefon: …" was the last line of the address. Aktive bestillinger and Bestillingshistorikk already do it this way. Pickup orders still show the hentested's phone number inside the hentested block, because that is the location's number, not the user's.
+**Why:** Direct user request.
+
 #helsenorge

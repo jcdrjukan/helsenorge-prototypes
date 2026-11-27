@@ -72,6 +72,7 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
           onExpand={isExpanded => toggle('levering', isExpanded)}
         >
           <Duolist boldColumn="first">
+            {/* Telefon is its own row, as on Aktive bestillinger and Bestillingshistorikk (2026-11-27). */}
             {tilAdresse(delivery.mode) && (
               <DuolistGroup
                 term={LEVERINGSMATE[delivery.mode]}
@@ -80,11 +81,13 @@ export default function Step4({ equipment, quantities, delivery, comment, onSubm
                     {delivery.navn && <>{delivery.navn}<br /></>}
                     {delivery.gate}<br />
                     {delivery.gate2.trim() && <>{delivery.gate2.trim()}<br /></>}
-                    {`${delivery.postnr} ${delivery.sted}`.trim()}<br />
-                    Telefon: {delivery.telefon}
+                    {`${delivery.postnr} ${delivery.sted}`.trim()}
                   </span>
                 }
               />
+            )}
+            {tilAdresse(delivery.mode) && (
+              <DuolistGroup term="Telefon" description={delivery.telefon} />
             )}
             {(delivery.mode === 'hentes' || delivery.mode === 'hentes2') && (() => {
               const loc = PICKUP_LOCATIONS[delivery.mode];
