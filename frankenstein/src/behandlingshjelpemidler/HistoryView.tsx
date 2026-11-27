@@ -53,6 +53,9 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
       <ExpanderList.Expander title={titleEl} expanded={open} onExpand={setOpen}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <Field label="Bestillingsdato" value={order.date} />
+          {order.kunDatoOgStatus ? (
+            <Field label="Status" value={order.status} />
+          ) : (<>
           <Field label={LEVERINGSMATE[order.delivery]} value={
             tilAdresse(order.delivery)
               ? <>{order.navn && <>{order.navn}<br /></>}{order.addr}<br />{order.gate2 && <>{order.gate2}<br /></>}{order.poststed}</>
@@ -66,6 +69,7 @@ function HistoryCard({ order, initialOpen = false }: HistoryCardProps) {
               <Field label="Tilbakemelding fra saksbehandler" value={order.saksbehandlerKommentar} />
             </>
           )}
+          </>)}
         </div>
 
         <hr style={{ border: 'none', borderTop: '1px solid var(--neutral-200)', margin: '1rem 0' }} />

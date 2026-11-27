@@ -328,4 +328,8 @@ Follow-up the same day (user "yes and yes"): the Oppsummering section "Forbruksv
 **Alternative considered:** Showing it only on postal orders.
 **Why:** Direct user request ("Historical orders should also have a telephone number displayed, as with aktive bestillinger"). The aktive card shows it for every delivery method, so history does too.
 
+## 2026-11-27 — Behandlingshjelpemidler: 15.01.2026 history order shows only Bestillingsdato and Status above the line
+**Decision:** Above the line, the Bestillingshistorikk card for 15.01.2026 now shows only "Bestillingsdato 15.01.2026" and "Status Utlevert". The order's delivery and Telefon fields are no longer shown. The other history cards are unchanged. A per-order `kunDatoOgStatus` flag turns this on, because submitted orders also have a `status` and appear in the history list.
+**Why:** Direct user request.
+
 #helsenorge

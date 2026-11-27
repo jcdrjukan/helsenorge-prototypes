@@ -109,6 +109,8 @@ export interface SubmittedOrder {
   levert?: string;
   saksbehandlerKommentar?: string;
   status?: string;
+  // History card shows only Bestillingsdato + Status above the line (2026-11-27).
+  kunDatoOgStatus?: boolean;
 }
 
 // The date the demo's one seeded "aktiv bestilling" (AirSense 11 AutoSet)
@@ -298,6 +300,8 @@ export const HISTORY_ENTRIES: SubmittedOrder[] = [
     comment: '',
     levert: '18.01.2026',
     saksbehandlerKommentar: '',
+    status: 'Utlevert',
+    kunDatoOgStatus: true,
   },
 ];
 
